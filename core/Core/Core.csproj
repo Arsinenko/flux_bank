@@ -8,6 +8,10 @@
 
     <ItemGroup>
         <PackageReference Include="Grpc.AspNetCore" Version="2.64.0" />
+        <PackageReference Include="Grpc.Tools" Version="2.76.0">
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+          <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.0">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -15,11 +19,26 @@
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.0" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Interfaces\" />
-      <Folder Include="Protos\" />
-      <Folder Include="Repositories\" />
-      <Folder Include="Services\" />
-    </ItemGroup>
+        <ItemGroup>
 
-</Project>
+            <Folder Include="Interfaces\" />
+
+            <Folder Include="Protos\" />
+
+            <Folder Include="Repositories\" />
+
+            
+
+        </ItemGroup>
+
+    
+
+        <ItemGroup>
+
+            <Protobuf Include="Protos\*.proto" GrpcServices="Server" />
+
+        </ItemGroup>
+
+    
+
+    </Project>

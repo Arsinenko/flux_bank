@@ -7,9 +7,9 @@ public partial class Account
 {
     public int AccountId { get; set; }
 
-    public int? CustomerId { get; set; }
+    public required int CustomerId { get; set; }
 
-    public int? TypeId { get; set; }
+    public required int TypeId { get; set; }
 
     public string Iban { get; set; } = null!;
 
@@ -17,7 +17,7 @@ public partial class Account
 
     public DateTime? CreatedAt { get; set; }
 
-    public bool? IsActive { get; set; }
+    public bool IsActive { get; set; }
 
     public virtual ICollection<Card> Cards { get; set; } = new List<Card>();
 

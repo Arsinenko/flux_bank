@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package Core.Protos;
+
+option csharp_namespace = "Core";
+
+import "google/protobuf/empty.proto";
+import "Protos/customer.proto";
+import "Protos/custom_types.proto";
+
+service DepositService {
+  rpc GetAll (google.protobuf.Empty) returns (GetAllDepositsResponse);
+  rpc GetById (GetDepositByIdRequest) returns (DepositModel);
+  rpc Add (AddDepositRequest) returns (DepositModel);
+  rpc Update (UpdateDepositRequest) returns (google.protobuf.Empty);
+  rpc Delete (DeleteDepositRequest) returns (google.protobuf.Empty);
+}
+
+message DepositModel {
+  int32 deposit_id = 1;
+  optional int32 customer_id = 2;
+  optional string amount = 3;
+  optional string interest_rate = 4;
+  optional DateOnly start_date = 5;
+  optional DateOnly end_date = 6;
+  optional string status = 7;
+}
+
+message GetAllDepositsResponse {
+  repeated DepositModel deposits = 1;
+}
+
+message GetDepositByIdRequest {
+  int32 deposit_id = 1;
+}
+
+message AddDepositRequest {
+  optional int32 customer_id = 1;
+  optional string amount = 2;
+  optional string interest_rate = 3;
+  optional DateOnly start_date = 4;
+  optional DateOnly end_date = 5;
+  optional string status = 6;
+}
+
+message UpdateDepositRequest {
+  int32 deposit_id = 1;
+  optional int32 customer_id = 2;
+  optional string amount = 3;
+  optional string interest_rate = 4;
+  optional DateOnly start_date = 5;
+  optional DateOnly end_date = 6;
+  optional string status = 7;
+}
+
+message DeleteDepositRequest {
+  int32 deposit_id = 1;
+}
