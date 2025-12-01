@@ -5,13 +5,13 @@ namespace Core.Models;
 
 public partial class UserCredential
 {
-    public int CustomerId { get; set; }
+    public required int CustomerId { get; set; }
 
-    public string Username { get; set; } = null!;
+    public required string Username { get; set; }
 
-    public string PasswordHash { get; set; } = null!;
+    public required string PasswordHash { get; set; }
 
-    public DateTime? UpdatedAt { get; set; }
+    public required DateTime UpdatedAt { get; set; }
 
-    public virtual Customer Customer { get; set; } = null!;
+    public required Customer Customer { get; set; }
 }

@@ -7,13 +7,13 @@ public partial class Notification
 {
     public int NotificationId { get; set; }
 
-    public int? CustomerId { get; set; }
+    public required int CustomerId { get; set; }
 
-    public string? Message { get; set; }
+    public required string Message { get; set; }
 
-    public DateTime? CreatedAt { get; set; }
+    public required DateTime CreatedAt { get; set; }
 
-    public bool? IsRead { get; set; }
+    public required bool IsRead { get; set; }
 
-    public virtual Customer? Customer { get; set; }
+    public required Customer Customer { get; set; }
 }

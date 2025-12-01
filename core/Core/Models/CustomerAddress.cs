@@ -7,17 +7,17 @@ public partial class CustomerAddress
 {
     public int AddressId { get; set; }
 
-    public int? CustomerId { get; set; }
+    public required int CustomerId { get; set; }
 
-    public string? Country { get; set; }
+    public required string Country { get; set; }
 
-    public string? City { get; set; }
+    public required string City { get; set; }
 
-    public string? Street { get; set; }
+    public required string Street { get; set; }
 
-    public string? ZipCode { get; set; }
+    public required string ZipCode { get; set; }
 
-    public bool? IsPrimary { get; set; }
+    public required bool IsPrimary { get; set; }
 
-    public virtual Customer? Customer { get; set; }
+    public required Customer Customer { get; set; }
 }

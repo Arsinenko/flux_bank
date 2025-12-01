@@ -7,13 +7,13 @@ public partial class PaymentTemplate
 {
     public int TemplateId { get; set; }
 
-    public int? CustomerId { get; set; }
+    public required int CustomerId { get; set; }
 
-    public string? Name { get; set; }
+    public required string Name { get; set; }
 
-    public string? TargetIban { get; set; }
+    public required string TargetIban { get; set; }
 
     public decimal? DefaultAmount { get; set; }
 
-    public virtual Customer? Customer { get; set; }
+    public required Customer Customer { get; set; }
 }

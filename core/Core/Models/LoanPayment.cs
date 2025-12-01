@@ -7,13 +7,13 @@ public partial class LoanPayment
 {
     public int PaymentId { get; set; }
 
-    public int? LoanId { get; set; }
+    public required int LoanId { get; set; }
 
-    public decimal? Amount { get; set; }
+    public required decimal Amount { get; set; }
 
-    public DateOnly? PaymentDate { get; set; }
+    public required DateOnly PaymentDate { get; set; }
 
-    public bool? IsPaid { get; set; }
+    public required bool IsPaid { get; set; }
 
-    public virtual Loan? Loan { get; set; }
+    public required Loan Loan { get; set; }
 }

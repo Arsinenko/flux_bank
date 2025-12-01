@@ -13,11 +13,11 @@ public partial class Customer
 
     public string Email { get; set; } = null!;
 
-    public string? Phone { get; set; }
+    public required string Phone { get; set; }
 
-    public DateOnly? BirthDate { get; set; }
+    public required DateOnly BirthDate { get; set; }
 
-    public DateTime? CreatedAt { get; set; }
+    public required DateTime CreatedAt { get; set; }
 
     public virtual ICollection<Account> Accounts { get; set; } = new List<Account>();
 

@@ -7,15 +7,15 @@ public partial class Card
 {
     public int CardId { get; set; }
 
-    public int? AccountId { get; set; }
+    public required int AccountId { get; set; }
 
-    public string CardNumber { get; set; } = null!;
+    public required string CardNumber { get; set; }
 
-    public string Cvv { get; set; } = null!;
+    public required string Cvv { get; set; }
 
-    public DateOnly ExpiryDate { get; set; }
+    public DateOnly? ExpiryDate { get; set; }
 
-    public string? Status { get; set; }
+    public required string Status { get; set; }
 
-    public virtual Account? Account { get; set; }
+    public required Account Account { get; set; }
 }

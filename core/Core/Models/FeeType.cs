@@ -7,7 +7,7 @@ public partial class FeeType
 {
     public int FeeId { get; set; }
 
-    public string? Name { get; set; }
+    public required string Name { get; set; }
 
     public string? Description { get; set; }
 

@@ -9,9 +9,9 @@ public partial class Atm
 
     public int? BranchId { get; set; }
 
-    public string? Location { get; set; }
+    public required string Location { get; set; }
 
-    public string? Status { get; set; }
+    public required string Status { get; set; }
 
     public virtual Branch? Branch { get; set; }
 }

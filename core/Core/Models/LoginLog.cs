@@ -7,13 +7,13 @@ public partial class LoginLog
 {
     public int LogId { get; set; }
 
-    public int? CustomerId { get; set; }
+    public required int CustomerId { get; set; }
 
-    public DateTime? LoginTime { get; set; }
+    public required DateTime LoginTime { get; set; }
 
-    public string? IpAddress { get; set; }
+    public required string IpAddress { get; set; }
 
-    public string? DeviceInfo { get; set; }
+    public required string DeviceInfo { get; set; }
 
-    public virtual Customer? Customer { get; set; }
+    public required Customer Customer { get; set; }
 }

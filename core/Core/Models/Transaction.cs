@@ -7,21 +7,21 @@ public partial class Transaction
 {
     public int TransactionId { get; set; }
 
-    public int? SourceAccount { get; set; }
+    public required int SourceAccount { get; set; }
 
-    public int? TargetAccount { get; set; }
+    public required int TargetAccount { get; set; }
 
-    public decimal Amount { get; set; }
+    public required decimal Amount { get; set; }
 
-    public string Currency { get; set; } = null!;
+    public required string Currency { get; set; }
 
-    public DateTime? CreatedAt { get; set; }
+    public required DateTime CreatedAt { get; set; }
 
-    public string? Status { get; set; }
+    public required string Status { get; set; }
 
-    public virtual Account? SourceAccountNavigation { get; set; }
+    public required Account SourceAccountNavigation { get; set; }
 
-    public virtual Account? TargetAccountNavigation { get; set; }
+    public required Account TargetAccountNavigation { get; set; }
 
     public virtual ICollection<TransactionFee> TransactionFees { get; set; } = new List<TransactionFee>();
 
