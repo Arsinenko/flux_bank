@@ -19,5 +19,5 @@ public partial class CustomerAddress
 
     public required bool IsPrimary { get; set; }
 
-    public required Customer Customer { get; set; }
+    public Customer Customer { get; set; } = default!;
 }
