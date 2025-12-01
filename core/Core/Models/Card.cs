@@ -17,5 +17,5 @@ public partial class Card
 
     public required string Status { get; set; }
 
-    public required Account Account { get; set; }
+    public Account? Account { get; set; }
 }
