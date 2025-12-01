@@ -73,4 +73,22 @@ public class CardService(ICardRepository repository) : Core.CardService.CardServ
 
         return new Empty();
     }
+
+    public override async Task<CardModel> GetById(GetCardByIdRequest request, ServerCallContext context)
+    {
+        var card = await repository.GetByIdAsync(request.CardId);
+        if (card == null)
+        {
+            throw new RpcException(new Status(StatusCode.NotFound, "Card not found"));
+        }
+
+        return new CardModel
+        {
+            CardId = card.CardId,
+            AccountId = card.AccountId,
+            CardNumber = card.CardNumber,
+            Cvv = card.Cvv,
+            Status = card.Status
+        };
+    }
 }
