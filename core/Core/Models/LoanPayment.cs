@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using DateOnly = global::System.DateOnly;
 
 namespace Core.Models;
 
@@ -11,7 +12,7 @@ public partial class LoanPayment
 
     public required decimal Amount { get; set; }
 
-    public required DateOnly PaymentDate { get; set; }
+    public required System.DateOnly PaymentDate { get; set; }
 
     public required bool IsPaid { get; set; }
 

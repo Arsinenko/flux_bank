@@ -1,4 +1,5 @@
-﻿using Core.Interfaces;
+﻿using AutoMapper;
+using Core.Interfaces;
 using Core.Models;
 using Google.Protobuf.Collections;
 using Google.Protobuf.WellKnownTypes;
@@ -6,38 +7,22 @@ using Grpc.Core;
 
 namespace Core.Services;
 
-public class AccountTypeService(IAccountTypeRepository accountTypeRepository) : Core.AccountTypeService.AccountTypeServiceBase
+public class AccountTypeService(IAccountTypeRepository accountTypeRepository, IMapper mapper) : Core.AccountTypeService.AccountTypeServiceBase
 {
     public override async Task<AccountTypeModel> Add(AddAccountTypeRequest request, ServerCallContext context)
     {
-        var accountType = new AccountType
-        {
-            Name = request.Name,
-            Description = request.Description
-        };
-        await accountTypeRepository.AddAsync(accountType);
-        return new AccountTypeModel()
-        {
-            TypeId = accountType.TypeId,
-            Name = accountType.Name,
-            Description = accountType.Description
-        };
+       var accountType = mapper.Map<AccountType>(request);
+       await accountTypeRepository.AddAsync(accountType);
+       return mapper.Map<AccountTypeModel>(accountType);
     }
 
     public override async Task<GetAllAccountTypesResponse> GetAll(Empty request, ServerCallContext context)
     {
         var accountTypes = await accountTypeRepository.GetAllAsync();
-        var accountTypesRep = new RepeatedField<AccountTypeModel>();
-        foreach (var accountType in accountTypes)
+        return new GetAllAccountTypesResponse
         {
-            accountTypesRep.Add(new AccountTypeModel
-            {
-                TypeId = accountType.TypeId,
-                Name = accountType.Name,
-                Description = accountType.Description
-            });
-        }
-        return new GetAllAccountTypesResponse { AccountTypes = { accountTypesRep } };
+            AccountTypes = { mapper.Map<IEnumerable<AccountTypeModel>>(accountTypes) }
+        };  
     }
     
     public override async Task<AccountTypeModel> GetById(GetAccountTypeByIdRequest request, ServerCallContext context)
@@ -47,12 +32,7 @@ public class AccountTypeService(IAccountTypeRepository accountTypeRepository) : 
         {
             throw new RpcException(new Status(StatusCode.NotFound, "Account type not found"));
         }
-        return new AccountTypeModel
-        {
-            TypeId = accountType.TypeId,
-            Name = accountType.Name,
-            Description = accountType.Description
-        };
+        return mapper.Map<AccountTypeModel>(accountType);
     }
 
     public override async Task<Empty> Update(UpdateAccountTypeRequest request, ServerCallContext context)
@@ -62,8 +42,7 @@ public class AccountTypeService(IAccountTypeRepository accountTypeRepository) : 
         {
             throw new RpcException(new Status(StatusCode.NotFound, "Account type not found"));
         }
-        accountType.Name = request.Name;
-        accountType.Description = request.Description;
+        mapper.Map(request, accountType);
         await accountTypeRepository.UpdateAsync(accountType);
         return new Empty();
     }

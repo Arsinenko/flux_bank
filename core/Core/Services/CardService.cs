@@ -1,3 +1,4 @@
+using AutoMapper;
 using Core.Interfaces;
 using Core.Models;
 using Google.Protobuf.WellKnownTypes;
@@ -5,45 +6,22 @@ using Grpc.Core;
 
 namespace Core.Services;
 
-public class CardService(ICardRepository repository) : Core.CardService.CardServiceBase
+public class CardService(ICardRepository repository, IMapper mapper) : Core.CardService.CardServiceBase
 {
     public override async Task<CardModel> Add(AddCardRequest request, ServerCallContext context)
     {
-        var card = new Card
-        {
-            AccountId = request.AccountId,
-            CardNumber = request.CardNumber,
-            Cvv = request.Cvv,
-            Status = request.Status
-        };        
-        await repository.AddAsync(card);
-        return new CardModel
-        {
-            CardId = card.CardId,
-            AccountId = card.AccountId,
-            CardNumber = card.CardNumber,
-            Cvv = card.Cvv,
-            Status = card.Status
-        };
-
+       var card = mapper.Map<Card>(request);
+       await repository.AddAsync(card);
+       return mapper.Map<CardModel>(card);
     }
 
     public override async Task<GetAllCardsResponse> GetAll(Empty request, ServerCallContext context)
     {
         var cards = await repository.GetAllAsync();
-        var response = new GetAllCardsResponse();
-        foreach (var card in cards)
+        return new GetAllCardsResponse
         {
-            response.Cards.Add(new CardModel
-            {
-                CardId = card.CardId,
-                AccountId = card.AccountId,
-                CardNumber = card.CardNumber,
-                Cvv = card.Cvv,
-                Status = card.Status
-            });
-        }
-        return response;
+            Cards = { mapper.Map<IEnumerable<CardModel>>(cards) }
+        };
     }
 
     public override async Task<Empty> Delete(DeleteCardRequest request, ServerCallContext context)
@@ -65,9 +43,7 @@ public class CardService(ICardRepository repository) : Core.CardService.CardServ
             throw new RpcException(new Status(StatusCode.NotFound, "Card not found"));
         }
 
-        card.CardNumber = request.CardNumber;
-        card.Cvv = request.Cvv;
-        card.Status = request.Status;
+        mapper.Map(request, card);
 
         await repository.UpdateAsync(card);
 
@@ -82,13 +58,7 @@ public class CardService(ICardRepository repository) : Core.CardService.CardServ
             throw new RpcException(new Status(StatusCode.NotFound, "Card not found"));
         }
 
-        return new CardModel
-        {
-            CardId = card.CardId,
-            AccountId = card.AccountId,
-            CardNumber = card.CardNumber,
-            Cvv = card.Cvv,
-            Status = card.Status
-        };
+        return mapper.Map<CardModel>(card);
     }
 }
+     

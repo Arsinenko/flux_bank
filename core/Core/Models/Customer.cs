@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using DateOnly = global::System.DateOnly;
 
 namespace Core.Models;
 
@@ -15,7 +16,7 @@ public partial class Customer
 
     public required string Phone { get; set; }
 
-    public required DateOnly BirthDate { get; set; }
+    public required System.DateOnly BirthDate { get; set; }
 
     public required DateTime CreatedAt { get; set; }
 

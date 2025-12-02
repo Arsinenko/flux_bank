@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using DateOnly = global::System.DateOnly;
 
 namespace Core.Models;
 
@@ -13,9 +14,9 @@ public partial class Deposit
 
     public required decimal InterestRate { get; set; }
 
-    public required DateOnly StartDate { get; set; }
+    public required System.DateOnly StartDate { get; set; }
 
-    public DateOnly? EndDate { get; set; }
+    public System.DateOnly? EndDate { get; set; }
 
     public required string Status { get; set; }
 

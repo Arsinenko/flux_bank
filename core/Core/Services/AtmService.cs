@@ -1,4 +1,5 @@
-﻿using Core.Interfaces;
+﻿using AutoMapper;
+using Core.Interfaces;
 using Core.Models;
 using Google.Protobuf.Collections;
 using Google.Protobuf.WellKnownTypes;
@@ -6,41 +7,22 @@ using Grpc.Core;
 
 namespace Core.Services;
 
-public class AtmService(IAtmRepository atmRepository) : Core.AtmService.AtmServiceBase
+public class AtmService(IAtmRepository atmRepository, IMapper mapper) : Core.AtmService.AtmServiceBase
 {
     public override async Task<AtmModel> Add(AddAtmRequest request, ServerCallContext context)
     {
-        var atm = new Atm()
-        {
-            Location = request.Location,
-            Status = request.Status,
-            BranchId = request.BranchId
-        };
+        var atm = mapper.Map<Atm>(request);
         await atmRepository.AddAsync(atm);
-        return new AtmModel
-        {
-            AtmId = atm.AtmId,
-            Location = atm.Location,
-            Status = atm.Status,
-            BranchId = atm.BranchId.Value
-        };
+        return mapper.Map<AtmModel>(atm);
     }
 
     public override async Task<GetAllAtmsResponse> GetAll(Empty request, ServerCallContext context)
     {
         var atms = await atmRepository.GetAllAsync();
-        var atmsRep = new RepeatedField<AtmModel>();
-        foreach (var atm in atms)
+        return new GetAllAtmsResponse
         {
-            atmsRep.Add(new AtmModel
-            {
-                AtmId = atm.AtmId,
-                Location = atm.Location,
-                Status = atm.Status,
-                BranchId = atm.BranchId.Value
-            });
-        }
-        return new GetAllAtmsResponse { Atms = { atmsRep } };
+            Atms = { mapper.Map<IEnumerable<AtmModel>>(atms) }
+        };
     }
 
     public override async Task<Empty> Update(UpdateAtmRequest request, ServerCallContext context)
@@ -50,11 +32,9 @@ public class AtmService(IAtmRepository atmRepository) : Core.AtmService.AtmServi
         {
             throw new RpcException(new Status(StatusCode.NotFound, "ATM not found"));
         }
-        atm.Location = request.Location;
-        atm.Status = request.Status;
-        atm.BranchId = request.BranchId;
+        mapper.Map(request, atm);
         await atmRepository.UpdateAsync(atm);
-        return new Empty();        
+        return new Empty();
     }
 
     public override async Task<Empty> Delete(DeleteAtmRequest request, ServerCallContext context)
@@ -75,12 +55,6 @@ public class AtmService(IAtmRepository atmRepository) : Core.AtmService.AtmServi
         {
             throw new RpcException(new Status(StatusCode.NotFound, "ATM not found"));
         }
-        return new AtmModel
-        {
-            AtmId = atm.AtmId,
-            Location = atm.Location,
-            Status = atm.Status,
-            BranchId = atm.BranchId.Value
-        };
+        return mapper.Map<AtmModel>(atm);
     }
 }

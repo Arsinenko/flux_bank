@@ -1,3 +1,4 @@
+using AutoMapper;
 using Core.Interfaces;
 using Core.Models;
 using Google.Protobuf.Collections;
@@ -6,42 +7,22 @@ using Grpc.Core;
 
 namespace Core.Services;
 
-public class BranchService(IBranchRepository branchRepository) : Core.BranchService.BranchServiceBase
+public class BranchService(IBranchRepository branchRepository, IMapper mapper) : Core.BranchService.BranchServiceBase
 {
     public override async Task<BranchModel> Add(AddBranchRequest request, ServerCallContext context)
     {
-        var branch = new Branch()
-        {
-            Name = request.Name,
-            Address = request.Address,
-            City = request.City,
-            Phone = request.Phone
-        };
+        var branch = mapper.Map<Branch>(request);
         await branchRepository.AddAsync(branch);
-        return new BranchModel
-        {
-            BranchId = branch.BranchId,
-            Name = branch.Name,
-            Address = branch.Address
-        };
+        return mapper.Map<BranchModel>(branch); 
     }
 
     public override async Task<GetAllBranchesResponse> GetAll(Empty request, ServerCallContext context)
     {
         var branches = await branchRepository.GetAllAsync();
-        var branchesRep = new RepeatedField<BranchModel>();
-        foreach (var branch in branches)
+        return new GetAllBranchesResponse()
         {
-            branchesRep.Add(new BranchModel
-            {
-                BranchId = branch.BranchId,
-                Name = branch.Name,
-                Address = branch.Address,
-                City = branch.City,
-                Phone = branch.Phone
-            });
-        }
-        return new GetAllBranchesResponse { Branches = { branchesRep } };
+            Branches = { mapper.Map<IEnumerable<BranchModel>>(branches) }
+        };
     }
     public override async Task<BranchModel> GetById(GetBranchByIdRequest request, ServerCallContext context)
     {
@@ -50,14 +31,7 @@ public class BranchService(IBranchRepository branchRepository) : Core.BranchServ
         {
             throw new RpcException(new Status(StatusCode.NotFound, "Branch not found"));
         }
-        return new BranchModel
-        {
-            BranchId = branch.BranchId,
-            Name = branch.Name,
-            Address = branch.Address,
-            City = branch.City,
-            Phone = branch.Phone
-        };
+        return mapper.Map<BranchModel>(branch);
     }
 
     public override async Task<Empty> Update(UpdateBranchRequest request, ServerCallContext context)
@@ -67,10 +41,7 @@ public class BranchService(IBranchRepository branchRepository) : Core.BranchServ
         {
             throw new RpcException(new Status(StatusCode.NotFound, "Branch not found"));
         }
-        branch.Name = request.Name;
-        branch.Address = request.Address;
-        branch.City = request.City;
-        branch.Phone = request.Phone;
+        mapper.Map(request, branch);
         await branchRepository.UpdateAsync(branch);
         return new Empty();
     }

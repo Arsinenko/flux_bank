@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using DateOnly = global::System.DateOnly;
 
 namespace Core.Models;
 
@@ -13,7 +14,7 @@ public partial class Card
 
     public required string Cvv { get; set; }
 
-    public DateOnly? ExpiryDate { get; set; }
+    public System.DateOnly? ExpiryDate { get; set; }
 
     public required string Status { get; set; }
 
