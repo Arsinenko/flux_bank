@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package protos;
+
+option go_package = "orch-go/gen/protos;protos";
+
+import "google/protobuf/empty.proto";
+
+service TransactionCategoryService {
+  rpc GetAll (google.protobuf.Empty) returns (GetAllTransactionCategoriesResponse);
+  rpc GetById (GetTransactionCategoryByIdRequest) returns (TransactionCategoryModel);
+  rpc Add (AddTransactionCategoryRequest) returns (TransactionCategoryModel);
+  rpc Update (UpdateTransactionCategoryRequest) returns (google.protobuf.Empty);
+  rpc Delete (DeleteTransactionCategoryRequest) returns (google.protobuf.Empty);
+}
+
+message TransactionCategoryModel {
+  int32 category_id = 1;
+  string name = 2;
+}
+
+message GetAllTransactionCategoriesResponse {
+  repeated TransactionCategoryModel transaction_categories = 1;
+}
+
+message GetTransactionCategoryByIdRequest {
+  int32 category_id = 1;
+}
+
+message AddTransactionCategoryRequest {
+  string name = 1;
+}
+
+message UpdateTransactionCategoryRequest {
+  int32 category_id = 1;
+  string name = 2;
+}
+
+message DeleteTransactionCategoryRequest {
+  int32 category_id = 1;
+}

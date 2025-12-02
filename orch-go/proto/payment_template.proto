@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package protos;
+
+option go_package = "orch-go/gen/protos;protos";
+
+import "google/protobuf/empty.proto";
+
+service PaymentTemplateService {
+  rpc GetAll (google.protobuf.Empty) returns (GetAllPaymentTemplatesResponse);
+  rpc GetById (GetPaymentTemplateByIdRequest) returns (PaymentTemplateModel);
+  rpc Add (AddPaymentTemplateRequest) returns (PaymentTemplateModel);
+  rpc Update (UpdatePaymentTemplateRequest) returns (google.protobuf.Empty);
+  rpc Delete (DeletePaymentTemplateRequest) returns (google.protobuf.Empty);
+}
+
+message PaymentTemplateModel {
+  int32 template_id = 1;
+  optional int32 customer_id = 2;
+  optional string name = 3;
+  optional string target_iban = 4;
+  optional string default_amount = 5;
+}
+
+message GetAllPaymentTemplatesResponse {
+  repeated PaymentTemplateModel payment_templates = 1;
+}
+
+message GetPaymentTemplateByIdRequest {
+  int32 template_id = 1;
+}
+
+message AddPaymentTemplateRequest {
+  optional int32 customer_id = 1;
+  optional string name = 2;
+  optional string target_iban = 3;
+  optional string default_amount = 4;
+}
+
+message UpdatePaymentTemplateRequest {
+  int32 template_id = 1;
+  optional int32 customer_id = 2;
+  optional string name = 3;
+  optional string target_iban = 4;
+  optional string default_amount = 5;
+}
+
+message DeletePaymentTemplateRequest {
+  int32 template_id = 1;
+}

@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package protos;
+
+option go_package = "orch-go/gen/protos;protos";
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+
+service LoginLogService {
+  rpc GetAll (google.protobuf.Empty) returns (GetAllLoginLogsResponse);
+  rpc GetById (GetLoginLogByIdRequest) returns (LoginLogModel);
+  rpc Add (AddLoginLogRequest) returns (LoginLogModel);
+  rpc Update (UpdateLoginLogRequest) returns (google.protobuf.Empty);
+  rpc Delete (DeleteLoginLogRequest) returns (google.protobuf.Empty);
+}
+
+message LoginLogModel {
+  int32 log_id = 1;
+  optional int32 customer_id = 2;
+  optional google.protobuf.Timestamp login_time = 3;
+  optional string ip_address = 4;
+  optional string device_info = 5;
+}
+
+message GetAllLoginLogsResponse {
+  repeated LoginLogModel login_logs = 1;
+}
+
+message GetLoginLogByIdRequest {
+  int32 log_id = 1;
+}
+
+message AddLoginLogRequest {
+  optional int32 customer_id = 1;
+  optional google.protobuf.Timestamp login_time = 2;
+  optional string ip_address = 3;
+  optional string device_info = 4;
+}
+
+message UpdateLoginLogRequest {
+  int32 log_id = 1;
+  optional int32 customer_id = 2;
+  optional google.protobuf.Timestamp login_time = 3;
+  optional string ip_address = 4;
+  optional string device_info = 5;
+}
+
+message DeleteLoginLogRequest {
+  int32 log_id = 1;
+}

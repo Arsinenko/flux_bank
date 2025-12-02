@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package protos;
+
+option go_package = "orch-go/gen/protos;protos";
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+
+service ExchangeRateService {
+  rpc GetAll (google.protobuf.Empty) returns (GetAllExchangeRatesResponse);
+  rpc GetById (GetExchangeRateByIdRequest) returns (ExchangeRateModel);
+  rpc Add (AddExchangeRateRequest) returns (ExchangeRateModel);
+  rpc Update (UpdateExchangeRateRequest) returns (google.protobuf.Empty);
+  rpc Delete (DeleteExchangeRateRequest) returns (google.protobuf.Empty);
+}
+
+message ExchangeRateModel {
+  int32 rate_id = 1;
+  optional string base_currency = 2;
+  optional string target_currency = 3;
+  optional string rate = 4;
+  optional google.protobuf.Timestamp updated_at = 5;
+}
+
+message GetAllExchangeRatesResponse {
+  repeated ExchangeRateModel exchange_rates = 1;
+}
+
+message GetExchangeRateByIdRequest {
+  int32 rate_id = 1;
+}
+
+message AddExchangeRateRequest {
+  optional string base_currency = 1;
+  optional string target_currency = 2;
+  optional string rate = 3;
+}
+
+message UpdateExchangeRateRequest {
+  int32 rate_id = 1;
+  optional string base_currency = 2;
+  optional string target_currency = 3;
+  optional string rate = 4;
+}
+
+message DeleteExchangeRateRequest {
+  int32 rate_id = 1;
+}

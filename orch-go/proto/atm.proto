@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package protos;
+
+option go_package = "orch-go/gen/protos;protos";
+
+import "google/protobuf/empty.proto";
+
+service AtmService {
+  rpc GetAll (google.protobuf.Empty) returns (GetAllAtmsResponse);
+  rpc GetById (GetAtmByIdRequest) returns (AtmModel);
+  rpc Add (AddAtmRequest) returns (AtmModel);
+  rpc Update (UpdateAtmRequest) returns (google.protobuf.Empty);
+  rpc Delete (DeleteAtmRequest) returns (google.protobuf.Empty);
+}
+
+message AtmModel {
+  int32 atm_id = 1;
+  optional int32 branch_id = 2;
+  optional string location = 3;
+  optional string status = 4;
+}
+
+message GetAllAtmsResponse {
+  repeated AtmModel atms = 1;
+}
+
+message GetAtmByIdRequest {
+  int32 atm_id = 1;
+}
+
+message AddAtmRequest {
+  optional int32 branch_id = 1;
+  optional string location = 2;
+  optional string status = 3;
+}
+
+message UpdateAtmRequest {
+  int32 atm_id = 1;
+  optional int32 branch_id = 2;
+  optional string location = 3;
+  optional string status = 4;
+}
+
+message DeleteAtmRequest {
+  int32 atm_id = 1;
+}

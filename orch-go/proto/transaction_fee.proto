@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package protos;
+
+option go_package = "orch-go/gen/protos;protos";
+
+import "google/protobuf/empty.proto";
+
+service TransactionFeeService {
+  rpc GetAll (google.protobuf.Empty) returns (GetAllTransactionFeesResponse);
+  rpc GetById (GetTransactionFeeByIdRequest) returns (TransactionFeeModel);
+  rpc Add (AddTransactionFeeRequest) returns (TransactionFeeModel);
+  rpc Update (UpdateTransactionFeeRequest) returns (google.protobuf.Empty);
+  rpc Delete (DeleteTransactionFeeRequest) returns (google.protobuf.Empty);
+}
+
+message TransactionFeeModel {
+  int32 id = 1;
+  optional int32 transaction_id = 2;
+  optional int32 fee_id = 3;
+  optional string amount = 4;
+}
+
+message GetAllTransactionFeesResponse {
+  repeated TransactionFeeModel transaction_fees = 1;
+}
+
+message GetTransactionFeeByIdRequest {
+  int32 id = 1;
+}
+
+message AddTransactionFeeRequest {
+  optional int32 transaction_id = 1;
+  optional int32 fee_id = 2;
+  optional string amount = 3;
+}
+
+message UpdateTransactionFeeRequest {
+  int32 id = 1;
+  optional int32 transaction_id = 2;
+  optional int32 fee_id = 3;
+  optional string amount = 4;
+}
+
+message DeleteTransactionFeeRequest {
+  int32 id = 1;
+}

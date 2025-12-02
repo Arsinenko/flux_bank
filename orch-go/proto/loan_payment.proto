@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package protos;
+
+option go_package = "orch-go/gen/protos;protos";
+
+import "google/protobuf/empty.proto";
+import "custom_types.proto";
+
+service LoanPaymentService {
+  rpc GetAll (google.protobuf.Empty) returns (GetAllLoanPaymentsResponse);
+  rpc GetById (GetLoanPaymentByIdRequest) returns (LoanPaymentModel);
+  rpc Add (AddLoanPaymentRequest) returns (LoanPaymentModel);
+  rpc Update (UpdateLoanPaymentRequest) returns (google.protobuf.Empty);
+  rpc Delete (DeleteLoanPaymentRequest) returns (google.protobuf.Empty);
+}
+
+message LoanPaymentModel {
+  int32 payment_id = 1;
+  optional int32 loan_id = 2;
+  optional string amount = 3;
+  optional DateOnly payment_date = 4;
+  optional bool is_paid = 5;
+}
+
+message GetAllLoanPaymentsResponse {
+  repeated LoanPaymentModel loan_payments = 1;
+}
+
+message GetLoanPaymentByIdRequest {
+  int32 payment_id = 1;
+}
+
+message AddLoanPaymentRequest {
+  optional int32 loan_id = 1;
+  optional string amount = 2;
+  optional DateOnly payment_date = 3;
+  optional bool is_paid = 4;
+}
+
+message UpdateLoanPaymentRequest {
+  int32 payment_id = 1;
+  optional int32 loan_id = 2;
+  optional string amount = 3;
+  optional DateOnly payment_date = 4;
+  optional bool is_paid = 5;
+}
+
+message DeleteLoanPaymentRequest {
+  int32 payment_id = 1;
+}

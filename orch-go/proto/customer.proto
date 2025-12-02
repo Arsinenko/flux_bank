@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package protos;
+
+option go_package = "orch-go/gen/protos;protos";
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+import "custom_types.proto";
+
+service CustomerService {
+  rpc GetAll (google.protobuf.Empty) returns (GetAllCustomersResponse);
+  rpc GetById (GetCustomerByIdRequest) returns (CustomerModel);
+  rpc Add (AddCustomerRequest) returns (CustomerModel);
+  rpc Update (UpdateCustomerRequest) returns (google.protobuf.Empty);
+  rpc Delete (DeleteCustomerRequest) returns (google.protobuf.Empty);
+}
+
+message CustomerModel {
+  int32 customer_id = 1;
+  string first_name = 2;
+  string last_name = 3;
+  string email = 4;
+  optional string phone = 5;
+  optional DateOnly birth_date = 6;
+  optional google.protobuf.Timestamp created_at = 7;
+}
+
+message GetAllCustomersResponse {
+  repeated CustomerModel customers = 1;
+}
+
+message GetCustomerByIdRequest {
+  int32 customer_id = 1;
+}
+
+message AddCustomerRequest {
+  string first_name = 1;
+  string last_name = 2;
+  string email = 3;
+  optional string phone = 4;
+  optional DateOnly birth_date = 5;
+}
+
+message UpdateCustomerRequest {
+  int32 customer_id = 1;
+  string first_name = 2;
+  string last_name = 3;
+  string email = 4;
+  optional string phone = 5;
+  optional DateOnly birth_date = 6;
+}
+
+message DeleteCustomerRequest {
+  int32 customer_id = 1;
+}

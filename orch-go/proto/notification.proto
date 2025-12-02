@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package protos;
+
+option go_package = "orch-go/gen/protos;protos";
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+
+service NotificationService {
+  rpc GetAll (google.protobuf.Empty) returns (GetAllNotificationsResponse);
+  rpc GetById (GetNotificationByIdRequest) returns (NotificationModel);
+  rpc Add (AddNotificationRequest) returns (NotificationModel);
+  rpc Update (UpdateNotificationRequest) returns (google.protobuf.Empty);
+  rpc Delete (DeleteNotificationRequest) returns (google.protobuf.Empty);
+}
+
+message NotificationModel {
+  int32 notification_id = 1;
+  optional int32 customer_id = 2;
+  optional string message = 3;
+  optional google.protobuf.Timestamp created_at = 4;
+  optional bool is_read = 5;
+}
+
+message GetAllNotificationsResponse {
+  repeated NotificationModel notifications = 1;
+}
+
+message GetNotificationByIdRequest {
+  int32 notification_id = 1;
+}
+
+message AddNotificationRequest {
+  optional int32 customer_id = 1;
+  optional string message = 2;
+  optional bool is_read = 3;
+}
+
+message UpdateNotificationRequest {
+  int32 notification_id = 1;
+  optional int32 customer_id = 2;
+  optional string message = 3;
+  optional bool is_read = 4;
+}
+
+message DeleteNotificationRequest {
+  int32 notification_id = 1;
+}

@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+package protos;
+
+option go_package = "orch-go/gen/protos;protos";
+
+import "google/protobuf/empty.proto";
+import "custom_types.proto";
+import "google/protobuf/timestamp.proto";
+
+service CardService {
+  rpc GetAll (google.protobuf.Empty) returns (GetAllCardsResponse);
+  rpc GetById (GetCardByIdRequest) returns (CardModel);
+  rpc Add (AddCardRequest) returns (CardModel);
+  rpc Update (UpdateCardRequest) returns (google.protobuf.Empty);
+  rpc Delete (DeleteCardRequest) returns (google.protobuf.Empty);
+}
+
+message CardModel {
+  int32 card_id = 1;
+  optional int32 account_id = 2;
+  string card_number = 3;
+  string cvv = 4;
+  optional google.protobuf.Timestamp expiry_date = 5;
+  optional string status = 6;
+}
+
+message GetAllCardsResponse {
+  repeated CardModel cards = 1;
+}
+
+message GetCardByIdRequest {
+  int32 card_id = 1;
+}
+
+message AddCardRequest {
+  optional int32 account_id = 1;
+  string card_number = 2;
+  string cvv = 3;
+  DateOnly expiry_date = 4;
+  optional string status = 5;
+}
+
+message UpdateCardRequest {
+  int32 card_id = 1;
+  optional int32 account_id = 2;
+  string card_number = 3;
+  string cvv = 4;
+  DateOnly expiry_date = 5;
+  optional string status = 6;
+}
+
+message DeleteCardRequest {
+  int32 card_id = 1;
+}
