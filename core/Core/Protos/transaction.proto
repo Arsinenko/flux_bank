@@ -14,6 +14,9 @@ service TransactionService {
   rpc Add (AddTransactionRequest) returns (TransactionModel);
   rpc Update (UpdateTransactionRequest) returns (google.protobuf.Empty);
   rpc Delete (DeleteTransactionRequest) returns (google.protobuf.Empty);
+  rpc AddBulk (AddTransactionBulkRequest) returns (google.protobuf.Empty);
+  rpc UpdateBulk (UpdateTransactionBulkRequest) returns (google.protobuf.Empty);
+  rpc DeleteBulk (DeleteTransactionBulkRequest) returns (google.protobuf.Empty);
 }
 
 message TransactionModel {
@@ -53,4 +56,16 @@ message UpdateTransactionRequest {
 
 message DeleteTransactionRequest {
   int32 transaction_id = 1;
+}
+
+message AddTransactionBulkRequest {
+  repeated AddTransactionRequest transactions = 1;
+}
+
+message UpdateTransactionBulkRequest {
+  repeated UpdateTransactionRequest transactions = 1;
+}
+
+message DeleteTransactionBulkRequest {
+  repeated DeleteTransactionRequest transactions = 1;
 }

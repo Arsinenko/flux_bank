@@ -12,6 +12,10 @@ service FeeTypeService {
   rpc Add (AddFeeTypeRequest) returns (FeeTypeModel);
   rpc Update (UpdateFeeTypeRequest) returns (google.protobuf.Empty);
   rpc Delete (DeleteFeeTypeRequest) returns (google.protobuf.Empty);
+
+  rpc AddBulk (AddFeeTypeBulkRequest) returns (google.protobuf.Empty);
+  rpc UpdateBulk (UpdateFeeTypeBulkRequest) returns (google.protobuf.Empty);
+  rpc DeleteBulk (DeleteFeeTypeBulkRequest) returns (google.protobuf.Empty);
 }
 
 message FeeTypeModel {
@@ -41,4 +45,16 @@ message UpdateFeeTypeRequest {
 
 message DeleteFeeTypeRequest {
   int32 fee_id = 1;
+}
+
+message AddFeeTypeBulkRequest {
+  repeated AddFeeTypeRequest fee_types = 1;
+}
+
+message UpdateFeeTypeBulkRequest {
+  repeated UpdateFeeTypeRequest fee_types = 1;
+}
+
+message DeleteFeeTypeBulkRequest {
+  repeated DeleteFeeTypeRequest fee_types = 1;
 }

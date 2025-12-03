@@ -15,6 +15,9 @@ service CardService {
   rpc Add (AddCardRequest) returns (CardModel);
   rpc Update (UpdateCardRequest) returns (google.protobuf.Empty);
   rpc Delete (DeleteCardRequest) returns (google.protobuf.Empty);
+  rpc AddBulk (AddCardBulkRequest) returns (google.protobuf.Empty);
+  rpc UpdateBulk (UpdateCardBulkRequest) returns (google.protobuf.Empty); 
+  rpc DeleteBulk (DeleteCardBulkRequest) returns (google.protobuf.Empty);
 }
 
 message CardModel {
@@ -53,4 +56,16 @@ message UpdateCardRequest {
 
 message DeleteCardRequest {
   int32 card_id = 1;
+}
+
+message AddCardBulkRequest {
+  repeated AddCardRequest cards = 1;
+}
+
+message UpdateCardBulkRequest {
+  repeated UpdateCardRequest cards = 1;
+}
+
+message DeleteCardBulkRequest {
+  repeated DeleteCardRequest cards = 1;
 }

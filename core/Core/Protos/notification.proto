@@ -14,6 +14,9 @@ service NotificationService {
   rpc Add (AddNotificationRequest) returns (NotificationModel);
   rpc Update (UpdateNotificationRequest) returns (google.protobuf.Empty);
   rpc Delete (DeleteNotificationRequest) returns (google.protobuf.Empty);
+  rpc AddBulk (AddNotificationBulkRequest) returns (google.protobuf.Empty);
+  rpc UpdateBulk (UpdateNotificationBulkRequest) returns (google.protobuf.Empty);
+  rpc DeleteBulk (DeleteNotificationBulkRequest) returns (google.protobuf.Empty);
 }
 
 message NotificationModel {
@@ -47,4 +50,16 @@ message UpdateNotificationRequest {
 
 message DeleteNotificationRequest {
   int32 notification_id = 1;
+}
+
+message AddNotificationBulkRequest {
+  repeated AddNotificationRequest notifications = 1;
+}
+
+message UpdateNotificationBulkRequest {
+  repeated UpdateNotificationRequest notifications = 1;
+}
+
+message DeleteNotificationBulkRequest {
+  repeated DeleteNotificationRequest notifications = 1;
 }

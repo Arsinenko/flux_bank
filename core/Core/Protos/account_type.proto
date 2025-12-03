@@ -12,6 +12,9 @@ service AccountTypeService {
   rpc Add (AddAccountTypeRequest) returns (AccountTypeModel);
   rpc Update (UpdateAccountTypeRequest) returns (google.protobuf.Empty);
   rpc Delete (DeleteAccountTypeRequest) returns (google.protobuf.Empty);
+  rpc AddBulk (AddAccountTypeBulkRequest) returns (google.protobuf.Empty);
+  rpc UpdateBulk (UpdateAccountTypeBulkRequest) returns (google.protobuf.Empty);
+  rpc DeleteBulk (DeleteAccountTypeBulkRequest) returns (google.protobuf.Empty);
 }
 
 message AccountTypeModel {
@@ -41,4 +44,16 @@ message UpdateAccountTypeRequest {
 
 message DeleteAccountTypeRequest {
   int32 type_id = 1;
+}
+
+message AddAccountTypeBulkRequest {
+  repeated AddAccountTypeRequest account_types = 1;
+}
+
+message UpdateAccountTypeBulkRequest {
+  repeated UpdateAccountTypeRequest account_types = 1;
+}
+
+message DeleteAccountTypeBulkRequest {
+  repeated DeleteAccountTypeRequest account_types = 1;
 }

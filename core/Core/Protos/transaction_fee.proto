@@ -47,3 +47,15 @@ message UpdateTransactionFeeRequest {
 message DeleteTransactionFeeRequest {
   int32 id = 1;
 }
+
+message AddTransactionFeeBulkRequest {
+  repeated AddTransactionFeeRequest transaction_fees = 1;
+}
+
+message UpdateTransactionFeeBulkRequest {
+  repeated UpdateTransactionFeeRequest transaction_fees = 1;
+}
+
+message DeleteTransactionFeeBulkRequest {
+  repeated DeleteTransactionFeeRequest transaction_fees = 1;
+}

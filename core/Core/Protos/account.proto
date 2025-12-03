@@ -15,6 +15,8 @@ service AccountService {
   rpc Add (AddAccountRequest) returns (AccountModel);
   rpc Update (UpdateAccountRequest) returns (google.protobuf.Empty);
   rpc Delete (DeleteAccountRequest) returns (google.protobuf.Empty);
+  rpc UpdateBulk (UpdateAccountBulkRequest) returns (google.protobuf.Empty);
+  rpc DeleteBulk (DeleteAccountBulkRequest) returns (google.protobuf.Empty);
 }
 
 message AccountModel {
@@ -54,4 +56,12 @@ message UpdateAccountRequest {
 
 message DeleteAccountRequest {
   int32 account_id = 1;
+}
+
+message UpdateAccountBulkRequest {
+  repeated UpdateAccountRequest accounts = 1;
+}
+
+message DeleteAccountBulkRequest {
+  repeated DeleteAccountRequest accounts = 1;
 }
