@@ -57,4 +57,41 @@ public class AccountTypeService(IAccountTypeRepository accountTypeRepository, IM
         await accountTypeRepository.DeleteAsync(request.TypeId);
         return new Empty();
     }
+
+    public override async Task<Empty> DeleteBulk(DeleteAccountTypeBulkRequest request, ServerCallContext context)
+    {
+        var ids = request.AccountTypes.Select(a => a.TypeId);
+        if (!ids.Any())
+        {
+            throw new RpcException(new Status(StatusCode.NotFound, "No account types to delete"));
+        }
+        var accountTypes = await accountTypeRepository.GetByIdsAsync(ids);
+        await accountTypeRepository.DeleteRangeAsync(accountTypes);
+        return new Empty();
+    }
+
+    public override async Task<Empty> UpdateBulk(UpdateAccountTypeBulkRequest request, ServerCallContext context)
+    {
+        var accountTypes = request.AccountTypes.Select(a => mapper.Map<AccountType>(a));
+        if (!accountTypes.Any())
+        {
+            throw new RpcException(new Status(StatusCode.NotFound, "No account types to update"));
+        }
+        await accountTypeRepository.UpdateRangeAsync(accountTypes);
+        return new Empty();
+    }
+
+    public override async Task<Empty> AddBulk(AddAccountTypeBulkRequest request, ServerCallContext context)
+    {
+        var accountTypes = request.AccountTypes.Select(a => mapper.Map<AccountType>(a));
+        try
+        {
+            await accountTypeRepository.AddRangeAsync(accountTypes);
+            return new Empty();
+        }
+        catch (Exception e)
+        {
+            throw new RpcException(new Status(StatusCode.Internal, e.Message));
+        }
+    }
 }
