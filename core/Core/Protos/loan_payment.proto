@@ -4,12 +4,12 @@ package Core.Protos;
 
 option csharp_namespace = "Core";
 
-import "google/protobuf/empty.proto";
 import "Protos/loan.proto";
 import "Protos/custom_types.proto";
+import "google/protobuf/empty.proto";
 
 service LoanPaymentService {
-  rpc GetAll (google.protobuf.Empty) returns (GetAllLoanPaymentsResponse);
+  rpc GetAll (GetAllRequest) returns (GetAllLoanPaymentsResponse);
   rpc GetById (GetLoanPaymentByIdRequest) returns (LoanPaymentModel);
   rpc Add (AddLoanPaymentRequest) returns (LoanPaymentModel);
   rpc Update (UpdateLoanPaymentRequest) returns (google.protobuf.Empty);

@@ -4,8 +4,9 @@ namespace Core.Interfaces;
 
 public interface IGenericRepository<TEntity, TId> where TEntity : class
 {
-    public Task<IEnumerable<TEntity>> GetAllAsync();
+    public Task<IEnumerable<TEntity>> GetAllAsync(int? pageN, int? pageSize);
     public Task<TEntity?> GetByIdAsync(TId id);
+    public Task<IEnumerable<TEntity?>> GetByIdsAsync(IEnumerable<TId> ids);
     public Task AddAsync(TEntity entity);
     public Task UpdateAsync(TEntity entity);
     public Task DeleteAsync(TId id);

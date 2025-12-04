@@ -4,12 +4,12 @@ package Core.Protos;
 
 option csharp_namespace = "Core";
 
-import "google/protobuf/empty.proto";
 import "google/protobuf/timestamp.proto";
 import "Protos/custom_types.proto";
+import "google/protobuf/empty.proto";
 
 service CustomerService {
-  rpc GetAll (google.protobuf.Empty) returns (GetAllCustomersResponse);
+  rpc GetAll (GetAllRequest) returns (GetAllCustomersResponse);
   rpc GetById (GetCustomerByIdRequest) returns (CustomerModel);
   rpc Add (AddCustomerRequest) returns (CustomerModel);
   rpc Update (UpdateCustomerRequest) returns (google.protobuf.Empty);

@@ -4,11 +4,12 @@ package Core.Protos;
 
 option csharp_namespace = "Core";
 
+import "Protos/custom_types.proto";
 import "google/protobuf/empty.proto";
 import "google/protobuf/timestamp.proto";
 
 service ExchangeRateService {
-  rpc GetAll (google.protobuf.Empty) returns (GetAllExchangeRatesResponse);
+  rpc GetAll (GetAllRequest) returns (GetAllExchangeRatesResponse);
   rpc GetById (GetExchangeRateByIdRequest) returns (ExchangeRateModel);
   rpc Add (AddExchangeRateRequest) returns (ExchangeRateModel);
   rpc Update (UpdateExchangeRateRequest) returns (google.protobuf.Empty);

@@ -4,10 +4,11 @@ package Core.Protos;
 
 option csharp_namespace = "Core";
 
+import "Protos/custom_types.proto";
 import "google/protobuf/empty.proto";
 
 service AccountTypeService {
-  rpc GetAll (google.protobuf.Empty) returns (GetAllAccountTypesResponse);
+  rpc GetAll (GetAllRequest) returns (GetAllAccountTypesResponse);
   rpc GetById (GetAccountTypeByIdRequest) returns (AccountTypeModel);
   rpc Add (AddAccountTypeRequest) returns (AccountTypeModel);
   rpc Update (UpdateAccountTypeRequest) returns (google.protobuf.Empty);

@@ -9,9 +9,9 @@ namespace Core.Services;
 public class TransactionService(ITransactionRepository transactionRepository, IMapper mapper)
     : Core.TransactionService.TransactionServiceBase
 {
-    public override async Task<GetAllTransactionsResponse> GetAll(Empty request, ServerCallContext context)
+    public override async Task<GetAllTransactionsResponse>GetAll( GetAllRequest request, ServerCallContext context)
     {
-        var transactions = await transactionRepository.GetAllAsync();
+        var transactions = await transactionRepository.GetAllAsync(request.PageN, request.PageSize);
 
         return new GetAllTransactionsResponse
         {

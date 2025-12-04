@@ -15,13 +15,9 @@ public class CardService(ICardRepository repository, IMapper mapper) : Core.Card
        return mapper.Map<CardModel>(card);
     }
 
-    public override async Task<GetAllCardsResponse> GetAll(Empty request, ServerCallContext context)
+    public override Task<GetAllCardsResponse> GetAll(GetAllRequest request, ServerCallContext context)
     {
-        var cards = await repository.GetAllAsync();
-        return new GetAllCardsResponse
-        {
-            Cards = { mapper.Map<IEnumerable<CardModel>>(cards) }
-        };
+        return base.GetAll(request, context);
     }
 
     public override async Task<Empty> Delete(DeleteCardRequest request, ServerCallContext context)

@@ -4,13 +4,13 @@ package Core.Protos;
 
 option csharp_namespace = "Core";
 
-import "google/protobuf/empty.proto";
-import "Protos/account.proto";
 import "Protos/custom_types.proto";
+import "Protos/account.proto";
 import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
 
 service CardService {
-  rpc GetAll (google.protobuf.Empty) returns (GetAllCardsResponse);
+  rpc GetAll (GetAllRequest) returns (GetAllCardsResponse);
   rpc GetById (GetCardByIdRequest) returns (CardModel);
   rpc Add (AddCardRequest) returns (CardModel);
   rpc Update (UpdateCardRequest) returns (google.protobuf.Empty);

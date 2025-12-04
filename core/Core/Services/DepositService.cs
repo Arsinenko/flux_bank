@@ -9,9 +9,9 @@ namespace Core.Services;
 public class DepositService(IDepositRepository depositRepository, IMapper mapper)
     : Core.DepositService.DepositServiceBase
 {
-    public override async Task<GetAllDepositsResponse> GetAll(Empty request, ServerCallContext context)
+    public override async Task<GetAllDepositsResponse>GetAll( GetAllRequest request, ServerCallContext context)
     {
-        var deposits = await depositRepository.GetAllAsync();
+        var deposits = await depositRepository.GetAllAsync(request.PageN, request.PageSize);
 
         return new GetAllDepositsResponse
         {

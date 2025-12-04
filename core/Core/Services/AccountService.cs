@@ -9,9 +9,9 @@ namespace Core.Services;
 public class AccountService(IAccountRepository accountRepository, IMapper mapper)
     : Core.AccountService.AccountServiceBase
 {
-    public override async Task<GetAllAccountsResponse> GetAll(Empty request, ServerCallContext context)
+    public override async Task<GetAllAccountsResponse> GetAll( GetAllRequest request, ServerCallContext context)
     {
-        var accounts = await accountRepository.GetAllAsync();
+        var accounts = await accountRepository.GetAllAsync(request.PageN, request.PageSize);
 
         return new GetAllAccountsResponse
         {

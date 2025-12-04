@@ -1,10 +1,13 @@
 using System.Linq.Expressions;
 using Core.Context;
+using Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace Core.Repositories;
 
-public class GenericRepository<TEntity, TId> where TEntity : class
+public class GenericRepository<TEntity, TId> 
+    : IGenericRepository<TEntity, TId>
+    where TEntity : class
 {
     protected readonly MyDbContext _context;
     protected readonly DbSet<TEntity> _dbSet;
@@ -15,15 +18,31 @@ public class GenericRepository<TEntity, TId> where TEntity : class
         _dbSet = context.Set<TEntity>();
     }
 
-    public virtual async Task<IEnumerable<TEntity>> GetAllAsync()
+    public virtual async Task<IEnumerable<TEntity>> GetAllAsync(int? pageN, int? pageSize)
     {
-        return await _dbSet.ToListAsync();
+        IQueryable<TEntity> query = _dbSet;
+        
+        if (pageN.HasValue && pageSize.HasValue)
+        {
+            if (pageN <= 0 || pageSize <= 0) throw new ArgumentException("pageN and pageSize must be greater than 0");
+            var keyName = GetEntityKey();
+            query = query.OrderBy(e => EF.Property<TId>(e, keyName)).Skip((pageN.Value - 1) * pageSize.Value).Take(pageSize.Value);
+        }
+        
+        return await query.ToListAsync();
     }
 
     public virtual async Task<TEntity?> GetByIdAsync(TId id)
     {
         return await _dbSet.FindAsync(id);
     }
+
+    public async Task<IEnumerable<TEntity?>> GetByIdsAsync(IEnumerable<TId> ids)
+    {
+        var keyName = GetEntityKey();
+        return await _dbSet.Where(e => ids.Contains(EF.Property<TId>(e, keyName))).ToListAsync();
+    }
+
 
     public virtual async Task AddAsync(TEntity entity)
     {
@@ -69,5 +88,12 @@ public class GenericRepository<TEntity, TId> where TEntity : class
     {
         _dbSet.RemoveRange(entities);
         await _context.SaveChangesAsync();
+    }
+
+    public string GetEntityKey()
+    {
+        var entityType = _context.Model.FindEntityType(typeof(TEntity));
+        var keyName = entityType.FindPrimaryKey().Properties.First().Name;
+        return keyName;
     }
 }

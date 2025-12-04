@@ -9,9 +9,9 @@ namespace Core.Services;
 public class LoanService(ILoanRepository loanRepository, IMapper mapper)
     : Core.LoanService.LoanServiceBase
 {
-    public override async Task<GetAllLoansResponse> GetAll(Empty request, ServerCallContext context)
+    public override async Task<GetAllLoansResponse>GetAll( GetAllRequest request, ServerCallContext context)
     {
-        var loans = await loanRepository.GetAllAsync();
+        var loans = await loanRepository.GetAllAsync(request.PageN, request.PageSize);
 
         return new GetAllLoansResponse
         {

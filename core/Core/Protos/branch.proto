@@ -4,10 +4,11 @@ package Core.Protos;
 
 option csharp_namespace = "Core";
 
+import "Protos/custom_types.proto";
 import "google/protobuf/empty.proto";
 
 service BranchService {
-  rpc GetAll (google.protobuf.Empty) returns (GetAllBranchesResponse);
+  rpc GetAll (GetAllRequest) returns (GetAllBranchesResponse);
   rpc GetById (GetBranchByIdRequest) returns (BranchModel);
   rpc Add (AddBranchRequest) returns (BranchModel);
   rpc Update (UpdateBranchRequest) returns (google.protobuf.Empty);

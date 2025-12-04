@@ -9,9 +9,9 @@ namespace Core.Services;
 public class FeeTypeService(IFeeTypeRepository feeTypeRepository, IMapper mapper)
     : Core.FeeTypeService.FeeTypeServiceBase
 {
-    public override async Task<GetAllFeeTypesResponse> GetAll(Empty request, ServerCallContext context)
+    public override async Task<GetAllFeeTypesResponse>GetAll( GetAllRequest request, ServerCallContext context)
     {
-        var feeTypes = await feeTypeRepository.GetAllAsync();
+        var feeTypes = await feeTypeRepository.GetAllAsync(request.PageN, request.PageSize);
 
         return new GetAllFeeTypesResponse
         {

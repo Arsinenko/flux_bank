@@ -16,9 +16,9 @@ public class AccountTypeService(IAccountTypeRepository accountTypeRepository, IM
        return mapper.Map<AccountTypeModel>(accountType);
     }
 
-    public override async Task<GetAllAccountTypesResponse> GetAll(Empty request, ServerCallContext context)
+    public override async Task<GetAllAccountTypesResponse>GetAll( GetAllRequest request, ServerCallContext context)
     {
-        var accountTypes = await accountTypeRepository.GetAllAsync();
+        var accountTypes = await accountTypeRepository.GetAllAsync(request.PageN, request.PageSize);
         return new GetAllAccountTypesResponse
         {
             AccountTypes = { mapper.Map<IEnumerable<AccountTypeModel>>(accountTypes) }

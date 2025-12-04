@@ -26,9 +26,9 @@ public class CustomerService(ICustomerRepository repository, IMapper mapper) : C
         return new Empty();
     }
 
-    public override async Task<GetAllCustomersResponse> GetAll(Empty request, ServerCallContext context)
+    public override async Task<GetAllCustomersResponse>GetAll( GetAllRequest request, ServerCallContext context)
     {
-        var result = await repository.GetAllAsync();
+        var result = await repository.GetAllAsync(request.PageN, request.PageSize);
         return new GetAllCustomersResponse()
         {
             Customers = { mapper.Map<IEnumerable<CustomerModel>>(result) }

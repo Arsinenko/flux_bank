@@ -4,11 +4,12 @@ package Core.Protos;
 
 option csharp_namespace = "Core";
 
-import "google/protobuf/empty.proto";
+import "Protos/custom_types.proto";
 import "Protos/customer.proto";
+import "google/protobuf/empty.proto";
 
 service PaymentTemplateService {
-  rpc GetAll (google.protobuf.Empty) returns (GetAllPaymentTemplatesResponse);
+  rpc GetAll (GetAllRequest) returns (GetAllPaymentTemplatesResponse);
   rpc GetById (GetPaymentTemplateByIdRequest) returns (PaymentTemplateModel);
   rpc Add (AddPaymentTemplateRequest) returns (PaymentTemplateModel);
   rpc Update (UpdatePaymentTemplateRequest) returns (google.protobuf.Empty);

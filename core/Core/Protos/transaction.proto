@@ -7,9 +7,10 @@ option csharp_namespace = "Core";
 import "google/protobuf/empty.proto";
 import "google/protobuf/timestamp.proto";
 import "Protos/account.proto";
+import "Protos/custom_types.proto";
 
 service TransactionService {
-  rpc GetAll (google.protobuf.Empty) returns (GetAllTransactionsResponse);
+  rpc GetAll (GetAllRequest) returns (GetAllTransactionsResponse);
   rpc GetById (GetTransactionByIdRequest) returns (TransactionModel);
   rpc Add (AddTransactionRequest) returns (TransactionModel);
   rpc Update (UpdateTransactionRequest) returns (google.protobuf.Empty);

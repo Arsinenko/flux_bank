@@ -4,10 +4,11 @@ package Core.Protos;
 
 option csharp_namespace = "Core";
 
+import "Protos/custom_types.proto";
 import "google/protobuf/empty.proto";
 
 service TransactionCategoryService {
-  rpc GetAll (google.protobuf.Empty) returns (GetAllTransactionCategoriesResponse);
+  rpc GetAll (GetAllRequest) returns (GetAllTransactionCategoriesResponse);
   rpc GetById (GetTransactionCategoryByIdRequest) returns (TransactionCategoryModel);
   rpc Add (AddTransactionCategoryRequest) returns (TransactionCategoryModel);
   rpc Update (UpdateTransactionCategoryRequest) returns (google.protobuf.Empty);

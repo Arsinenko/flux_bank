@@ -4,10 +4,11 @@ package Core.Protos;
 
 option csharp_namespace = "Core";
 
+import "Protos/custom_types.proto";
 import "google/protobuf/empty.proto";
 
 service FeeTypeService {
-  rpc GetAll (google.protobuf.Empty) returns (GetAllFeeTypesResponse);
+  rpc GetAll (GetAllRequest) returns (GetAllFeeTypesResponse);
   rpc GetById (GetFeeTypeByIdRequest) returns (FeeTypeModel);
   rpc Add (AddFeeTypeRequest) returns (FeeTypeModel);
   rpc Update (UpdateFeeTypeRequest) returns (google.protobuf.Empty);

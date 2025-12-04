@@ -27,9 +27,9 @@ public class CustomerAddressService(ICustomerAddressRepository repository, IMapp
         return new Empty();
     }
 
-    public override async Task<GetAllCustomerAddressesResponse> GetAll(Empty request, ServerCallContext context)
+    public override async Task<GetAllCustomerAddressesResponse>GetAll( GetAllRequest request, ServerCallContext context)
     {
-        var result = await repository.GetAllAsync();
+        var result = await repository.GetAllAsync(request.PageN, request.PageSize);
         var addresses = new RepeatedField<CustomerAddressModel>();
         return new GetAllCustomerAddressesResponse()
         {

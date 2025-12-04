@@ -4,12 +4,13 @@ package Core.Protos;
 
 option csharp_namespace = "Core";
 
+import "Protos/custom_types.proto";
 import "google/protobuf/empty.proto";
 import "google/protobuf/timestamp.proto";
 import "Protos/customer.proto";
 
 service NotificationService {
-  rpc GetAll (google.protobuf.Empty) returns (GetAllNotificationsResponse);
+  rpc GetAll (GetAllRequest) returns (GetAllNotificationsResponse);
   rpc GetById (GetNotificationByIdRequest) returns (NotificationModel);
   rpc Add (AddNotificationRequest) returns (NotificationModel);
   rpc Update (UpdateNotificationRequest) returns (google.protobuf.Empty);

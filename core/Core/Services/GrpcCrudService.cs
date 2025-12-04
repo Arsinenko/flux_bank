@@ -35,7 +35,7 @@ public abstract class GrpcCrudService<TEntity, TModel, TCreateRequest, TUpdateRe
 
     protected async Task<IEnumerable<TModel>> GetAllAsync()
     {
-        var entities = await Repository.GetAllAsync();
+        var entities = await Repository.GetAllAsync(null, null);
         return Mapper.Map<IEnumerable<TModel>>(entities);
     }
 

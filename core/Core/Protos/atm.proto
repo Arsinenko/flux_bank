@@ -4,11 +4,12 @@ package Core.Protos;
 
 option csharp_namespace = "Core";
 
+import "Protos/custom_types.proto";
 import "google/protobuf/empty.proto";
 import "Protos/branch.proto";
 
 service AtmService {
-  rpc GetAll (google.protobuf.Empty) returns (GetAllAtmsResponse);
+  rpc GetAll (GetAllRequest) returns (GetAllAtmsResponse);
   rpc GetById (GetAtmByIdRequest) returns (AtmModel);
   rpc Add (AddAtmRequest) returns (AtmModel);
   rpc Update (UpdateAtmRequest) returns (google.protobuf.Empty);
