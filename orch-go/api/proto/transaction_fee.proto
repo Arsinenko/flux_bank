@@ -5,13 +5,17 @@ package protos;
 option go_package = "orch-go/gen/protos;protos";
 
 import "google/protobuf/empty.proto";
+import "custom_types.proto";
 
 service TransactionFeeService {
-  rpc GetAll (google.protobuf.Empty) returns (GetAllTransactionFeesResponse);
+  rpc GetAll (GetAllRequest) returns (GetAllTransactionFeesResponse);
   rpc GetById (GetTransactionFeeByIdRequest) returns (TransactionFeeModel);
   rpc Add (AddTransactionFeeRequest) returns (TransactionFeeModel);
   rpc Update (UpdateTransactionFeeRequest) returns (google.protobuf.Empty);
   rpc Delete (DeleteTransactionFeeRequest) returns (google.protobuf.Empty);
+  rpc AddBulk (AddTransactionFeeBulkRequest) returns (google.protobuf.Empty);
+  rpc UpdateBulk (UpdateTransactionFeeBulkRequest) returns (google.protobuf.Empty);
+  rpc DeleteBulk (DeleteTransactionFeeBulkRequest) returns (google.protobuf.Empty);
 }
 
 message TransactionFeeModel {
@@ -45,3 +49,16 @@ message UpdateTransactionFeeRequest {
 message DeleteTransactionFeeRequest {
   int32 id = 1;
 }
+
+message AddTransactionFeeBulkRequest {
+  repeated AddTransactionFeeRequest transaction_fees = 1;
+}
+
+message UpdateTransactionFeeBulkRequest {
+  repeated UpdateTransactionFeeRequest transaction_fees = 1;
+}
+
+message DeleteTransactionFeeBulkRequest {
+  repeated DeleteTransactionFeeRequest transaction_fees = 1;
+}
+

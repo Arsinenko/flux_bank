@@ -4,6 +4,11 @@ package protos;
 
 option go_package = "orch-go/gen/protos;protos";
 
+message GetAllRequest {
+    int32 pageN = 1;
+    int32 pageSize = 2;
+}
+
 message DateOnly {
     int32 year = 1;
     int32 month = 2;

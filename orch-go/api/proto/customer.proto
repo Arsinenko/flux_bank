@@ -9,11 +9,13 @@ import "google/protobuf/timestamp.proto";
 import "custom_types.proto";
 
 service CustomerService {
-  rpc GetAll (google.protobuf.Empty) returns (GetAllCustomersResponse);
+  rpc GetAll (GetAllRequest) returns (GetAllCustomersResponse);
   rpc GetById (GetCustomerByIdRequest) returns (CustomerModel);
   rpc Add (AddCustomerRequest) returns (CustomerModel);
   rpc Update (UpdateCustomerRequest) returns (google.protobuf.Empty);
   rpc Delete (DeleteCustomerRequest) returns (google.protobuf.Empty);
+  rpc UpdateBulk (UpdateCustomerBulkRequest) returns (google.protobuf.Empty);
+  rpc DeleteBulk (DeleteCustomerBulkRequest) returns (google.protobuf.Empty);
 }
 
 message CustomerModel {
@@ -53,4 +55,12 @@ message UpdateCustomerRequest {
 
 message DeleteCustomerRequest {
   int32 customer_id = 1;
+}
+
+message UpdateCustomerBulkRequest {
+  repeated UpdateCustomerRequest customers = 1;
+}
+
+message DeleteCustomerBulkRequest {
+  repeated DeleteCustomerRequest customers = 1;
 }

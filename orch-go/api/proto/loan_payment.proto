@@ -8,11 +8,12 @@ import "google/protobuf/empty.proto";
 import "custom_types.proto";
 
 service LoanPaymentService {
-  rpc GetAll (google.protobuf.Empty) returns (GetAllLoanPaymentsResponse);
+  rpc GetAll (GetAllRequest) returns (GetAllLoanPaymentsResponse);
   rpc GetById (GetLoanPaymentByIdRequest) returns (LoanPaymentModel);
   rpc Add (AddLoanPaymentRequest) returns (LoanPaymentModel);
   rpc Update (UpdateLoanPaymentRequest) returns (google.protobuf.Empty);
   rpc Delete (DeleteLoanPaymentRequest) returns (google.protobuf.Empty);
+  rpc DeleteBulk (DeleteLoanPaymentBulkRequest) returns (google.protobuf.Empty);
 }
 
 message LoanPaymentModel {
@@ -48,4 +49,8 @@ message UpdateLoanPaymentRequest {
 
 message DeleteLoanPaymentRequest {
   int32 payment_id = 1;
+}
+
+message DeleteLoanPaymentBulkRequest {
+  repeated DeleteLoanPaymentRequest payments = 1;
 }

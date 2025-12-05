@@ -7,11 +7,14 @@ option go_package = "orch-go/gen/protos;protos";
 import "google/protobuf/empty.proto";
 
 service TransactionCategoryService {
-  rpc GetAll (google.protobuf.Empty) returns (GetAllTransactionCategoriesResponse);
+  rpc GetAll (GetAllRequest) returns (GetAllTransactionCategoriesResponse);
   rpc GetById (GetTransactionCategoryByIdRequest) returns (TransactionCategoryModel);
   rpc Add (AddTransactionCategoryRequest) returns (TransactionCategoryModel);
   rpc Update (UpdateTransactionCategoryRequest) returns (google.protobuf.Empty);
   rpc Delete (DeleteTransactionCategoryRequest) returns (google.protobuf.Empty);
+  rpc AddBulk (AddTransactionCategoryBulkRequest) returns (google.protobuf.Empty);
+  rpc UpdateBulk (UpdateTransactionCategoryBulkRequest) returns (google.protobuf.Empty);
+  rpc DeleteBulk (DeleteTransactionCategoryBulkRequest) returns (google.protobuf.Empty);
 }
 
 message TransactionCategoryModel {
@@ -39,3 +42,16 @@ message UpdateTransactionCategoryRequest {
 message DeleteTransactionCategoryRequest {
   int32 category_id = 1;
 }
+
+message AddTransactionCategoryBulkRequest {
+  repeated AddTransactionCategoryRequest transaction_categories = 1;
+}
+
+message UpdateTransactionCategoryBulkRequest {
+  repeated UpdateTransactionCategoryRequest transaction_categories = 1;
+}
+
+message DeleteTransactionCategoryBulkRequest {
+  repeated DeleteTransactionCategoryRequest transaction_categories = 1;
+}
+

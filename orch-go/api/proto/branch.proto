@@ -5,13 +5,17 @@ package protos;
 option go_package = "orch-go/gen/protos;protos";
 
 import "google/protobuf/empty.proto";
+import "custom_types.proto";
 
 service BranchService {
-  rpc GetAll (google.protobuf.Empty) returns (GetAllBranchesResponse);
+  rpc GetAll (GetAllRequest) returns (GetAllBranchesResponse);
   rpc GetById (GetBranchByIdRequest) returns (BranchModel);
   rpc Add (AddBranchRequest) returns (BranchModel);
   rpc Update (UpdateBranchRequest) returns (google.protobuf.Empty);
   rpc Delete (DeleteBranchRequest) returns (google.protobuf.Empty);
+  rpc AddBulk (AddBranchBulkRequest) returns (google.protobuf.Empty);
+  rpc UpdateBulk (UpdateBranchBulkRequest) returns (google.protobuf.Empty);
+  rpc DeleteBulk (DeleteBranchBulkRequest) returns (google.protobuf.Empty);
 }
 
 message BranchModel {
@@ -47,4 +51,16 @@ message UpdateBranchRequest {
 
 message DeleteBranchRequest {
   int32 branch_id = 1;
+}
+
+message AddBranchBulkRequest {
+  repeated AddBranchRequest branches = 1;
+}
+
+message UpdateBranchBulkRequest {
+  repeated UpdateBranchRequest branches = 1;
+}
+
+message DeleteBranchBulkRequest {
+  repeated DeleteBranchRequest branches = 1;
 }

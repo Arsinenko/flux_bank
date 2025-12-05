@@ -5,13 +5,17 @@ package protos;
 option go_package = "orch-go/gen/protos;protos";
 
 import "google/protobuf/empty.proto";
+import "custom_types.proto";
 
 service AccountTypeService {
-  rpc GetAll (google.protobuf.Empty) returns (GetAllAccountTypesResponse);
+  rpc GetAll (GetAllRequest) returns (GetAllAccountTypesResponse);
   rpc GetById (GetAccountTypeByIdRequest) returns (AccountTypeModel);
   rpc Add (AddAccountTypeRequest) returns (AccountTypeModel);
   rpc Update (UpdateAccountTypeRequest) returns (google.protobuf.Empty);
   rpc Delete (DeleteAccountTypeRequest) returns (google.protobuf.Empty);
+  rpc AddBulk (AddAccountTypeBulkRequest) returns (google.protobuf.Empty);
+  rpc UpdateBulk (UpdateAccountTypeBulkRequest) returns (google.protobuf.Empty);
+  rpc DeleteBulk (DeleteAccountTypeBulkRequest) returns (google.protobuf.Empty);
 }
 
 message AccountTypeModel {
@@ -41,4 +45,16 @@ message UpdateAccountTypeRequest {
 
 message DeleteAccountTypeRequest {
   int32 type_id = 1;
+}
+
+message AddAccountTypeBulkRequest {
+  repeated AddAccountTypeRequest account_types = 1;
+}
+
+message UpdateAccountTypeBulkRequest {
+  repeated UpdateAccountTypeRequest account_types = 1;
+}
+
+message DeleteAccountTypeBulkRequest {
+  repeated DeleteAccountTypeRequest account_types = 1;
 }

@@ -5,9 +5,10 @@ package protos;
 option go_package = "orch-go/gen/protos;protos";
 
 import "google/protobuf/empty.proto";
+import "custom_types.proto";
 
 service CustomerAddressService {
-  rpc GetAll (google.protobuf.Empty) returns (GetAllCustomerAddressesResponse);
+  rpc GetAll (GetAllRequest) returns (GetAllCustomerAddressesResponse);
   rpc GetById (GetCustomerAddressByIdRequest) returns (CustomerAddressModel);
   rpc Add (AddCustomerAddressRequest) returns (CustomerAddressModel);
   rpc Update (UpdateCustomerAddressRequest) returns (google.protobuf.Empty);
