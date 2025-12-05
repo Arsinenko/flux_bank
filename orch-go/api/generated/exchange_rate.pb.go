@@ -359,11 +359,143 @@ func (x *DeleteExchangeRateRequest) GetRateId() int32 {
 	return 0
 }
 
+type AddExchangeRateBulkRequest struct {
+	state         protoimpl.MessageState    `protogen:"open.v1"`
+	ExchangeRates []*AddExchangeRateRequest `protobuf:"bytes,1,rep,name=exchange_rates,json=exchangeRates,proto3" json:"exchange_rates,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AddExchangeRateBulkRequest) Reset() {
+	*x = AddExchangeRateBulkRequest{}
+	mi := &file_exchange_rate_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AddExchangeRateBulkRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AddExchangeRateBulkRequest) ProtoMessage() {}
+
+func (x *AddExchangeRateBulkRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_exchange_rate_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AddExchangeRateBulkRequest.ProtoReflect.Descriptor instead.
+func (*AddExchangeRateBulkRequest) Descriptor() ([]byte, []int) {
+	return file_exchange_rate_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *AddExchangeRateBulkRequest) GetExchangeRates() []*AddExchangeRateRequest {
+	if x != nil {
+		return x.ExchangeRates
+	}
+	return nil
+}
+
+type UpdateExchangeRateBulkRequest struct {
+	state         protoimpl.MessageState       `protogen:"open.v1"`
+	ExchangeRates []*UpdateExchangeRateRequest `protobuf:"bytes,1,rep,name=exchange_rates,json=exchangeRates,proto3" json:"exchange_rates,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateExchangeRateBulkRequest) Reset() {
+	*x = UpdateExchangeRateBulkRequest{}
+	mi := &file_exchange_rate_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateExchangeRateBulkRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateExchangeRateBulkRequest) ProtoMessage() {}
+
+func (x *UpdateExchangeRateBulkRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_exchange_rate_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateExchangeRateBulkRequest.ProtoReflect.Descriptor instead.
+func (*UpdateExchangeRateBulkRequest) Descriptor() ([]byte, []int) {
+	return file_exchange_rate_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *UpdateExchangeRateBulkRequest) GetExchangeRates() []*UpdateExchangeRateRequest {
+	if x != nil {
+		return x.ExchangeRates
+	}
+	return nil
+}
+
+type DeleteExchangeRateBulkRequest struct {
+	state         protoimpl.MessageState       `protogen:"open.v1"`
+	ExchangeRates []*DeleteExchangeRateRequest `protobuf:"bytes,1,rep,name=exchange_rates,json=exchangeRates,proto3" json:"exchange_rates,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DeleteExchangeRateBulkRequest) Reset() {
+	*x = DeleteExchangeRateBulkRequest{}
+	mi := &file_exchange_rate_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteExchangeRateBulkRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteExchangeRateBulkRequest) ProtoMessage() {}
+
+func (x *DeleteExchangeRateBulkRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_exchange_rate_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteExchangeRateBulkRequest.ProtoReflect.Descriptor instead.
+func (*DeleteExchangeRateBulkRequest) Descriptor() ([]byte, []int) {
+	return file_exchange_rate_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *DeleteExchangeRateBulkRequest) GetExchangeRates() []*DeleteExchangeRateRequest {
+	if x != nil {
+		return x.ExchangeRates
+	}
+	return nil
+}
+
 var File_exchange_rate_proto protoreflect.FileDescriptor
 
 const file_exchange_rate_proto_rawDesc = "" +
 	"\n" +
-	"\x13exchange_rate.proto\x12\x06protos\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\x9b\x02\n" +
+	"\x13exchange_rate.proto\x12\x06protos\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x12custom_types.proto\"\x9b\x02\n" +
 	"\x11ExchangeRateModel\x12\x17\n" +
 	"\arate_id\x18\x01 \x01(\x05R\x06rateId\x12(\n" +
 	"\rbase_currency\x18\x02 \x01(\tH\x00R\fbaseCurrency\x88\x01\x01\x12,\n" +
@@ -395,13 +527,24 @@ const file_exchange_rate_proto_rawDesc = "" +
 	"\x10_target_currencyB\a\n" +
 	"\x05_rate\"4\n" +
 	"\x19DeleteExchangeRateRequest\x12\x17\n" +
-	"\arate_id\x18\x01 \x01(\x05R\x06rateId2\xf2\x02\n" +
-	"\x13ExchangeRateService\x12E\n" +
-	"\x06GetAll\x12\x16.google.protobuf.Empty\x1a#.protos.GetAllExchangeRatesResponse\x12H\n" +
+	"\arate_id\x18\x01 \x01(\x05R\x06rateId\"c\n" +
+	"\x1aAddExchangeRateBulkRequest\x12E\n" +
+	"\x0eexchange_rates\x18\x01 \x03(\v2\x1e.protos.AddExchangeRateRequestR\rexchangeRates\"i\n" +
+	"\x1dUpdateExchangeRateBulkRequest\x12H\n" +
+	"\x0eexchange_rates\x18\x01 \x03(\v2!.protos.UpdateExchangeRateRequestR\rexchangeRates\"i\n" +
+	"\x1dDeleteExchangeRateBulkRequest\x12H\n" +
+	"\x0eexchange_rates\x18\x01 \x03(\v2!.protos.DeleteExchangeRateRequestR\rexchangeRates2\xd2\x04\n" +
+	"\x13ExchangeRateService\x12D\n" +
+	"\x06GetAll\x12\x15.protos.GetAllRequest\x1a#.protos.GetAllExchangeRatesResponse\x12H\n" +
 	"\aGetById\x12\".protos.GetExchangeRateByIdRequest\x1a\x19.protos.ExchangeRateModel\x12@\n" +
 	"\x03Add\x12\x1e.protos.AddExchangeRateRequest\x1a\x19.protos.ExchangeRateModel\x12C\n" +
 	"\x06Update\x12!.protos.UpdateExchangeRateRequest\x1a\x16.google.protobuf.Empty\x12C\n" +
-	"\x06Delete\x12!.protos.DeleteExchangeRateRequest\x1a\x16.google.protobuf.EmptyB\x1bZ\x19orch-go/gen/protos;protosb\x06proto3"
+	"\x06Delete\x12!.protos.DeleteExchangeRateRequest\x1a\x16.google.protobuf.Empty\x12E\n" +
+	"\aAddBulk\x12\".protos.AddExchangeRateBulkRequest\x1a\x16.google.protobuf.Empty\x12K\n" +
+	"\n" +
+	"UpdateBulk\x12%.protos.UpdateExchangeRateBulkRequest\x1a\x16.google.protobuf.Empty\x12K\n" +
+	"\n" +
+	"DeleteBulk\x12%.protos.DeleteExchangeRateBulkRequest\x1a\x16.google.protobuf.EmptyB\x1bZ\x19orch-go/gen/protos;protosb\x06proto3"
 
 var (
 	file_exchange_rate_proto_rawDescOnce sync.Once
@@ -415,35 +558,48 @@ func file_exchange_rate_proto_rawDescGZIP() []byte {
 	return file_exchange_rate_proto_rawDescData
 }
 
-var file_exchange_rate_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+var file_exchange_rate_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
 var file_exchange_rate_proto_goTypes = []any{
-	(*ExchangeRateModel)(nil),           // 0: protos.ExchangeRateModel
-	(*GetAllExchangeRatesResponse)(nil), // 1: protos.GetAllExchangeRatesResponse
-	(*GetExchangeRateByIdRequest)(nil),  // 2: protos.GetExchangeRateByIdRequest
-	(*AddExchangeRateRequest)(nil),      // 3: protos.AddExchangeRateRequest
-	(*UpdateExchangeRateRequest)(nil),   // 4: protos.UpdateExchangeRateRequest
-	(*DeleteExchangeRateRequest)(nil),   // 5: protos.DeleteExchangeRateRequest
-	(*timestamppb.Timestamp)(nil),       // 6: google.protobuf.Timestamp
-	(*emptypb.Empty)(nil),               // 7: google.protobuf.Empty
+	(*ExchangeRateModel)(nil),             // 0: protos.ExchangeRateModel
+	(*GetAllExchangeRatesResponse)(nil),   // 1: protos.GetAllExchangeRatesResponse
+	(*GetExchangeRateByIdRequest)(nil),    // 2: protos.GetExchangeRateByIdRequest
+	(*AddExchangeRateRequest)(nil),        // 3: protos.AddExchangeRateRequest
+	(*UpdateExchangeRateRequest)(nil),     // 4: protos.UpdateExchangeRateRequest
+	(*DeleteExchangeRateRequest)(nil),     // 5: protos.DeleteExchangeRateRequest
+	(*AddExchangeRateBulkRequest)(nil),    // 6: protos.AddExchangeRateBulkRequest
+	(*UpdateExchangeRateBulkRequest)(nil), // 7: protos.UpdateExchangeRateBulkRequest
+	(*DeleteExchangeRateBulkRequest)(nil), // 8: protos.DeleteExchangeRateBulkRequest
+	(*timestamppb.Timestamp)(nil),         // 9: google.protobuf.Timestamp
+	(*GetAllRequest)(nil),                 // 10: protos.GetAllRequest
+	(*emptypb.Empty)(nil),                 // 11: google.protobuf.Empty
 }
 var file_exchange_rate_proto_depIdxs = []int32{
-	6, // 0: protos.ExchangeRateModel.updated_at:type_name -> google.protobuf.Timestamp
-	0, // 1: protos.GetAllExchangeRatesResponse.exchange_rates:type_name -> protos.ExchangeRateModel
-	7, // 2: protos.ExchangeRateService.GetAll:input_type -> google.protobuf.Empty
-	2, // 3: protos.ExchangeRateService.GetById:input_type -> protos.GetExchangeRateByIdRequest
-	3, // 4: protos.ExchangeRateService.Add:input_type -> protos.AddExchangeRateRequest
-	4, // 5: protos.ExchangeRateService.Update:input_type -> protos.UpdateExchangeRateRequest
-	5, // 6: protos.ExchangeRateService.Delete:input_type -> protos.DeleteExchangeRateRequest
-	1, // 7: protos.ExchangeRateService.GetAll:output_type -> protos.GetAllExchangeRatesResponse
-	0, // 8: protos.ExchangeRateService.GetById:output_type -> protos.ExchangeRateModel
-	0, // 9: protos.ExchangeRateService.Add:output_type -> protos.ExchangeRateModel
-	7, // 10: protos.ExchangeRateService.Update:output_type -> google.protobuf.Empty
-	7, // 11: protos.ExchangeRateService.Delete:output_type -> google.protobuf.Empty
-	7, // [7:12] is the sub-list for method output_type
-	2, // [2:7] is the sub-list for method input_type
-	2, // [2:2] is the sub-list for extension type_name
-	2, // [2:2] is the sub-list for extension extendee
-	0, // [0:2] is the sub-list for field type_name
+	9,  // 0: protos.ExchangeRateModel.updated_at:type_name -> google.protobuf.Timestamp
+	0,  // 1: protos.GetAllExchangeRatesResponse.exchange_rates:type_name -> protos.ExchangeRateModel
+	3,  // 2: protos.AddExchangeRateBulkRequest.exchange_rates:type_name -> protos.AddExchangeRateRequest
+	4,  // 3: protos.UpdateExchangeRateBulkRequest.exchange_rates:type_name -> protos.UpdateExchangeRateRequest
+	5,  // 4: protos.DeleteExchangeRateBulkRequest.exchange_rates:type_name -> protos.DeleteExchangeRateRequest
+	10, // 5: protos.ExchangeRateService.GetAll:input_type -> protos.GetAllRequest
+	2,  // 6: protos.ExchangeRateService.GetById:input_type -> protos.GetExchangeRateByIdRequest
+	3,  // 7: protos.ExchangeRateService.Add:input_type -> protos.AddExchangeRateRequest
+	4,  // 8: protos.ExchangeRateService.Update:input_type -> protos.UpdateExchangeRateRequest
+	5,  // 9: protos.ExchangeRateService.Delete:input_type -> protos.DeleteExchangeRateRequest
+	6,  // 10: protos.ExchangeRateService.AddBulk:input_type -> protos.AddExchangeRateBulkRequest
+	7,  // 11: protos.ExchangeRateService.UpdateBulk:input_type -> protos.UpdateExchangeRateBulkRequest
+	8,  // 12: protos.ExchangeRateService.DeleteBulk:input_type -> protos.DeleteExchangeRateBulkRequest
+	1,  // 13: protos.ExchangeRateService.GetAll:output_type -> protos.GetAllExchangeRatesResponse
+	0,  // 14: protos.ExchangeRateService.GetById:output_type -> protos.ExchangeRateModel
+	0,  // 15: protos.ExchangeRateService.Add:output_type -> protos.ExchangeRateModel
+	11, // 16: protos.ExchangeRateService.Update:output_type -> google.protobuf.Empty
+	11, // 17: protos.ExchangeRateService.Delete:output_type -> google.protobuf.Empty
+	11, // 18: protos.ExchangeRateService.AddBulk:output_type -> google.protobuf.Empty
+	11, // 19: protos.ExchangeRateService.UpdateBulk:output_type -> google.protobuf.Empty
+	11, // 20: protos.ExchangeRateService.DeleteBulk:output_type -> google.protobuf.Empty
+	13, // [13:21] is the sub-list for method output_type
+	5,  // [5:13] is the sub-list for method input_type
+	5,  // [5:5] is the sub-list for extension type_name
+	5,  // [5:5] is the sub-list for extension extendee
+	0,  // [0:5] is the sub-list for field type_name
 }
 
 func init() { file_exchange_rate_proto_init() }
@@ -451,6 +607,7 @@ func file_exchange_rate_proto_init() {
 	if File_exchange_rate_proto != nil {
 		return
 	}
+	file_custom_types_proto_init()
 	file_exchange_rate_proto_msgTypes[0].OneofWrappers = []any{}
 	file_exchange_rate_proto_msgTypes[3].OneofWrappers = []any{}
 	file_exchange_rate_proto_msgTypes[4].OneofWrappers = []any{}
@@ -460,7 +617,7 @@ func file_exchange_rate_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_exchange_rate_proto_rawDesc), len(file_exchange_rate_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   6,
+			NumMessages:   9,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

@@ -350,11 +350,143 @@ func (x *DeleteTransactionFeeRequest) GetId() int32 {
 	return 0
 }
 
+type AddTransactionFeeBulkRequest struct {
+	state           protoimpl.MessageState      `protogen:"open.v1"`
+	TransactionFees []*AddTransactionFeeRequest `protobuf:"bytes,1,rep,name=transaction_fees,json=transactionFees,proto3" json:"transaction_fees,omitempty"`
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
+}
+
+func (x *AddTransactionFeeBulkRequest) Reset() {
+	*x = AddTransactionFeeBulkRequest{}
+	mi := &file_transaction_fee_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AddTransactionFeeBulkRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AddTransactionFeeBulkRequest) ProtoMessage() {}
+
+func (x *AddTransactionFeeBulkRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_transaction_fee_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AddTransactionFeeBulkRequest.ProtoReflect.Descriptor instead.
+func (*AddTransactionFeeBulkRequest) Descriptor() ([]byte, []int) {
+	return file_transaction_fee_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *AddTransactionFeeBulkRequest) GetTransactionFees() []*AddTransactionFeeRequest {
+	if x != nil {
+		return x.TransactionFees
+	}
+	return nil
+}
+
+type UpdateTransactionFeeBulkRequest struct {
+	state           protoimpl.MessageState         `protogen:"open.v1"`
+	TransactionFees []*UpdateTransactionFeeRequest `protobuf:"bytes,1,rep,name=transaction_fees,json=transactionFees,proto3" json:"transaction_fees,omitempty"`
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
+}
+
+func (x *UpdateTransactionFeeBulkRequest) Reset() {
+	*x = UpdateTransactionFeeBulkRequest{}
+	mi := &file_transaction_fee_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateTransactionFeeBulkRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateTransactionFeeBulkRequest) ProtoMessage() {}
+
+func (x *UpdateTransactionFeeBulkRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_transaction_fee_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateTransactionFeeBulkRequest.ProtoReflect.Descriptor instead.
+func (*UpdateTransactionFeeBulkRequest) Descriptor() ([]byte, []int) {
+	return file_transaction_fee_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *UpdateTransactionFeeBulkRequest) GetTransactionFees() []*UpdateTransactionFeeRequest {
+	if x != nil {
+		return x.TransactionFees
+	}
+	return nil
+}
+
+type DeleteTransactionFeeBulkRequest struct {
+	state           protoimpl.MessageState         `protogen:"open.v1"`
+	TransactionFees []*DeleteTransactionFeeRequest `protobuf:"bytes,1,rep,name=transaction_fees,json=transactionFees,proto3" json:"transaction_fees,omitempty"`
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
+}
+
+func (x *DeleteTransactionFeeBulkRequest) Reset() {
+	*x = DeleteTransactionFeeBulkRequest{}
+	mi := &file_transaction_fee_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteTransactionFeeBulkRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteTransactionFeeBulkRequest) ProtoMessage() {}
+
+func (x *DeleteTransactionFeeBulkRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_transaction_fee_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteTransactionFeeBulkRequest.ProtoReflect.Descriptor instead.
+func (*DeleteTransactionFeeBulkRequest) Descriptor() ([]byte, []int) {
+	return file_transaction_fee_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *DeleteTransactionFeeBulkRequest) GetTransactionFees() []*DeleteTransactionFeeRequest {
+	if x != nil {
+		return x.TransactionFees
+	}
+	return nil
+}
+
 var File_transaction_fee_proto protoreflect.FileDescriptor
 
 const file_transaction_fee_proto_rawDesc = "" +
 	"\n" +
-	"\x15transaction_fee.proto\x12\x06protos\x1a\x1bgoogle/protobuf/empty.proto\"\xb3\x01\n" +
+	"\x15transaction_fee.proto\x12\x06protos\x1a\x1bgoogle/protobuf/empty.proto\x1a\x12custom_types.proto\"\xb3\x01\n" +
 	"\x13TransactionFeeModel\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x05R\x02id\x12*\n" +
 	"\x0etransaction_id\x18\x02 \x01(\x05H\x00R\rtransactionId\x88\x01\x01\x12\x1a\n" +
@@ -383,13 +515,24 @@ const file_transaction_fee_proto_rawDesc = "" +
 	"\a_fee_idB\t\n" +
 	"\a_amount\"-\n" +
 	"\x1bDeleteTransactionFeeRequest\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\x05R\x02id2\x82\x03\n" +
-	"\x15TransactionFeeService\x12G\n" +
-	"\x06GetAll\x12\x16.google.protobuf.Empty\x1a%.protos.GetAllTransactionFeesResponse\x12L\n" +
+	"\x02id\x18\x01 \x01(\x05R\x02id\"k\n" +
+	"\x1cAddTransactionFeeBulkRequest\x12K\n" +
+	"\x10transaction_fees\x18\x01 \x03(\v2 .protos.AddTransactionFeeRequestR\x0ftransactionFees\"q\n" +
+	"\x1fUpdateTransactionFeeBulkRequest\x12N\n" +
+	"\x10transaction_fees\x18\x01 \x03(\v2#.protos.UpdateTransactionFeeRequestR\x0ftransactionFees\"q\n" +
+	"\x1fDeleteTransactionFeeBulkRequest\x12N\n" +
+	"\x10transaction_fees\x18\x01 \x03(\v2#.protos.DeleteTransactionFeeRequestR\x0ftransactionFees2\xe8\x04\n" +
+	"\x15TransactionFeeService\x12F\n" +
+	"\x06GetAll\x12\x15.protos.GetAllRequest\x1a%.protos.GetAllTransactionFeesResponse\x12L\n" +
 	"\aGetById\x12$.protos.GetTransactionFeeByIdRequest\x1a\x1b.protos.TransactionFeeModel\x12D\n" +
 	"\x03Add\x12 .protos.AddTransactionFeeRequest\x1a\x1b.protos.TransactionFeeModel\x12E\n" +
 	"\x06Update\x12#.protos.UpdateTransactionFeeRequest\x1a\x16.google.protobuf.Empty\x12E\n" +
-	"\x06Delete\x12#.protos.DeleteTransactionFeeRequest\x1a\x16.google.protobuf.EmptyB\x1bZ\x19orch-go/gen/protos;protosb\x06proto3"
+	"\x06Delete\x12#.protos.DeleteTransactionFeeRequest\x1a\x16.google.protobuf.Empty\x12G\n" +
+	"\aAddBulk\x12$.protos.AddTransactionFeeBulkRequest\x1a\x16.google.protobuf.Empty\x12M\n" +
+	"\n" +
+	"UpdateBulk\x12'.protos.UpdateTransactionFeeBulkRequest\x1a\x16.google.protobuf.Empty\x12M\n" +
+	"\n" +
+	"DeleteBulk\x12'.protos.DeleteTransactionFeeBulkRequest\x1a\x16.google.protobuf.EmptyB\x1bZ\x19orch-go/gen/protos;protosb\x06proto3"
 
 var (
 	file_transaction_fee_proto_rawDescOnce sync.Once
@@ -403,33 +546,46 @@ func file_transaction_fee_proto_rawDescGZIP() []byte {
 	return file_transaction_fee_proto_rawDescData
 }
 
-var file_transaction_fee_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+var file_transaction_fee_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
 var file_transaction_fee_proto_goTypes = []any{
-	(*TransactionFeeModel)(nil),           // 0: protos.TransactionFeeModel
-	(*GetAllTransactionFeesResponse)(nil), // 1: protos.GetAllTransactionFeesResponse
-	(*GetTransactionFeeByIdRequest)(nil),  // 2: protos.GetTransactionFeeByIdRequest
-	(*AddTransactionFeeRequest)(nil),      // 3: protos.AddTransactionFeeRequest
-	(*UpdateTransactionFeeRequest)(nil),   // 4: protos.UpdateTransactionFeeRequest
-	(*DeleteTransactionFeeRequest)(nil),   // 5: protos.DeleteTransactionFeeRequest
-	(*emptypb.Empty)(nil),                 // 6: google.protobuf.Empty
+	(*TransactionFeeModel)(nil),             // 0: protos.TransactionFeeModel
+	(*GetAllTransactionFeesResponse)(nil),   // 1: protos.GetAllTransactionFeesResponse
+	(*GetTransactionFeeByIdRequest)(nil),    // 2: protos.GetTransactionFeeByIdRequest
+	(*AddTransactionFeeRequest)(nil),        // 3: protos.AddTransactionFeeRequest
+	(*UpdateTransactionFeeRequest)(nil),     // 4: protos.UpdateTransactionFeeRequest
+	(*DeleteTransactionFeeRequest)(nil),     // 5: protos.DeleteTransactionFeeRequest
+	(*AddTransactionFeeBulkRequest)(nil),    // 6: protos.AddTransactionFeeBulkRequest
+	(*UpdateTransactionFeeBulkRequest)(nil), // 7: protos.UpdateTransactionFeeBulkRequest
+	(*DeleteTransactionFeeBulkRequest)(nil), // 8: protos.DeleteTransactionFeeBulkRequest
+	(*GetAllRequest)(nil),                   // 9: protos.GetAllRequest
+	(*emptypb.Empty)(nil),                   // 10: google.protobuf.Empty
 }
 var file_transaction_fee_proto_depIdxs = []int32{
-	0, // 0: protos.GetAllTransactionFeesResponse.transaction_fees:type_name -> protos.TransactionFeeModel
-	6, // 1: protos.TransactionFeeService.GetAll:input_type -> google.protobuf.Empty
-	2, // 2: protos.TransactionFeeService.GetById:input_type -> protos.GetTransactionFeeByIdRequest
-	3, // 3: protos.TransactionFeeService.Add:input_type -> protos.AddTransactionFeeRequest
-	4, // 4: protos.TransactionFeeService.Update:input_type -> protos.UpdateTransactionFeeRequest
-	5, // 5: protos.TransactionFeeService.Delete:input_type -> protos.DeleteTransactionFeeRequest
-	1, // 6: protos.TransactionFeeService.GetAll:output_type -> protos.GetAllTransactionFeesResponse
-	0, // 7: protos.TransactionFeeService.GetById:output_type -> protos.TransactionFeeModel
-	0, // 8: protos.TransactionFeeService.Add:output_type -> protos.TransactionFeeModel
-	6, // 9: protos.TransactionFeeService.Update:output_type -> google.protobuf.Empty
-	6, // 10: protos.TransactionFeeService.Delete:output_type -> google.protobuf.Empty
-	6, // [6:11] is the sub-list for method output_type
-	1, // [1:6] is the sub-list for method input_type
-	1, // [1:1] is the sub-list for extension type_name
-	1, // [1:1] is the sub-list for extension extendee
-	0, // [0:1] is the sub-list for field type_name
+	0,  // 0: protos.GetAllTransactionFeesResponse.transaction_fees:type_name -> protos.TransactionFeeModel
+	3,  // 1: protos.AddTransactionFeeBulkRequest.transaction_fees:type_name -> protos.AddTransactionFeeRequest
+	4,  // 2: protos.UpdateTransactionFeeBulkRequest.transaction_fees:type_name -> protos.UpdateTransactionFeeRequest
+	5,  // 3: protos.DeleteTransactionFeeBulkRequest.transaction_fees:type_name -> protos.DeleteTransactionFeeRequest
+	9,  // 4: protos.TransactionFeeService.GetAll:input_type -> protos.GetAllRequest
+	2,  // 5: protos.TransactionFeeService.GetById:input_type -> protos.GetTransactionFeeByIdRequest
+	3,  // 6: protos.TransactionFeeService.Add:input_type -> protos.AddTransactionFeeRequest
+	4,  // 7: protos.TransactionFeeService.Update:input_type -> protos.UpdateTransactionFeeRequest
+	5,  // 8: protos.TransactionFeeService.Delete:input_type -> protos.DeleteTransactionFeeRequest
+	6,  // 9: protos.TransactionFeeService.AddBulk:input_type -> protos.AddTransactionFeeBulkRequest
+	7,  // 10: protos.TransactionFeeService.UpdateBulk:input_type -> protos.UpdateTransactionFeeBulkRequest
+	8,  // 11: protos.TransactionFeeService.DeleteBulk:input_type -> protos.DeleteTransactionFeeBulkRequest
+	1,  // 12: protos.TransactionFeeService.GetAll:output_type -> protos.GetAllTransactionFeesResponse
+	0,  // 13: protos.TransactionFeeService.GetById:output_type -> protos.TransactionFeeModel
+	0,  // 14: protos.TransactionFeeService.Add:output_type -> protos.TransactionFeeModel
+	10, // 15: protos.TransactionFeeService.Update:output_type -> google.protobuf.Empty
+	10, // 16: protos.TransactionFeeService.Delete:output_type -> google.protobuf.Empty
+	10, // 17: protos.TransactionFeeService.AddBulk:output_type -> google.protobuf.Empty
+	10, // 18: protos.TransactionFeeService.UpdateBulk:output_type -> google.protobuf.Empty
+	10, // 19: protos.TransactionFeeService.DeleteBulk:output_type -> google.protobuf.Empty
+	12, // [12:20] is the sub-list for method output_type
+	4,  // [4:12] is the sub-list for method input_type
+	4,  // [4:4] is the sub-list for extension type_name
+	4,  // [4:4] is the sub-list for extension extendee
+	0,  // [0:4] is the sub-list for field type_name
 }
 
 func init() { file_transaction_fee_proto_init() }
@@ -437,6 +593,7 @@ func file_transaction_fee_proto_init() {
 	if File_transaction_fee_proto != nil {
 		return
 	}
+	file_custom_types_proto_init()
 	file_transaction_fee_proto_msgTypes[0].OneofWrappers = []any{}
 	file_transaction_fee_proto_msgTypes[3].OneofWrappers = []any{}
 	file_transaction_fee_proto_msgTypes[4].OneofWrappers = []any{}
@@ -446,7 +603,7 @@ func file_transaction_fee_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_transaction_fee_proto_rawDesc), len(file_transaction_fee_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   6,
+			NumMessages:   9,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

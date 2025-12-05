@@ -326,11 +326,143 @@ func (x *DeleteAccountTypeRequest) GetTypeId() int32 {
 	return 0
 }
 
+type AddAccountTypeBulkRequest struct {
+	state         protoimpl.MessageState   `protogen:"open.v1"`
+	AccountTypes  []*AddAccountTypeRequest `protobuf:"bytes,1,rep,name=account_types,json=accountTypes,proto3" json:"account_types,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AddAccountTypeBulkRequest) Reset() {
+	*x = AddAccountTypeBulkRequest{}
+	mi := &file_account_type_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AddAccountTypeBulkRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AddAccountTypeBulkRequest) ProtoMessage() {}
+
+func (x *AddAccountTypeBulkRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_account_type_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AddAccountTypeBulkRequest.ProtoReflect.Descriptor instead.
+func (*AddAccountTypeBulkRequest) Descriptor() ([]byte, []int) {
+	return file_account_type_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *AddAccountTypeBulkRequest) GetAccountTypes() []*AddAccountTypeRequest {
+	if x != nil {
+		return x.AccountTypes
+	}
+	return nil
+}
+
+type UpdateAccountTypeBulkRequest struct {
+	state         protoimpl.MessageState      `protogen:"open.v1"`
+	AccountTypes  []*UpdateAccountTypeRequest `protobuf:"bytes,1,rep,name=account_types,json=accountTypes,proto3" json:"account_types,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateAccountTypeBulkRequest) Reset() {
+	*x = UpdateAccountTypeBulkRequest{}
+	mi := &file_account_type_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateAccountTypeBulkRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateAccountTypeBulkRequest) ProtoMessage() {}
+
+func (x *UpdateAccountTypeBulkRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_account_type_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateAccountTypeBulkRequest.ProtoReflect.Descriptor instead.
+func (*UpdateAccountTypeBulkRequest) Descriptor() ([]byte, []int) {
+	return file_account_type_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *UpdateAccountTypeBulkRequest) GetAccountTypes() []*UpdateAccountTypeRequest {
+	if x != nil {
+		return x.AccountTypes
+	}
+	return nil
+}
+
+type DeleteAccountTypeBulkRequest struct {
+	state         protoimpl.MessageState      `protogen:"open.v1"`
+	AccountTypes  []*DeleteAccountTypeRequest `protobuf:"bytes,1,rep,name=account_types,json=accountTypes,proto3" json:"account_types,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DeleteAccountTypeBulkRequest) Reset() {
+	*x = DeleteAccountTypeBulkRequest{}
+	mi := &file_account_type_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteAccountTypeBulkRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteAccountTypeBulkRequest) ProtoMessage() {}
+
+func (x *DeleteAccountTypeBulkRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_account_type_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteAccountTypeBulkRequest.ProtoReflect.Descriptor instead.
+func (*DeleteAccountTypeBulkRequest) Descriptor() ([]byte, []int) {
+	return file_account_type_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *DeleteAccountTypeBulkRequest) GetAccountTypes() []*DeleteAccountTypeRequest {
+	if x != nil {
+		return x.AccountTypes
+	}
+	return nil
+}
+
 var File_account_type_proto protoreflect.FileDescriptor
 
 const file_account_type_proto_rawDesc = "" +
 	"\n" +
-	"\x12account_type.proto\x12\x06protos\x1a\x1bgoogle/protobuf/empty.proto\"v\n" +
+	"\x12account_type.proto\x12\x06protos\x1a\x1bgoogle/protobuf/empty.proto\x1a\x12custom_types.proto\"v\n" +
 	"\x10AccountTypeModel\x12\x17\n" +
 	"\atype_id\x18\x01 \x01(\x05R\x06typeId\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12%\n" +
@@ -350,13 +482,24 @@ const file_account_type_proto_rawDesc = "" +
 	"\vdescription\x18\x03 \x01(\tH\x00R\vdescription\x88\x01\x01B\x0e\n" +
 	"\f_description\"3\n" +
 	"\x18DeleteAccountTypeRequest\x12\x17\n" +
-	"\atype_id\x18\x01 \x01(\x05R\x06typeId2\xea\x02\n" +
-	"\x12AccountTypeService\x12D\n" +
-	"\x06GetAll\x12\x16.google.protobuf.Empty\x1a\".protos.GetAllAccountTypesResponse\x12F\n" +
+	"\atype_id\x18\x01 \x01(\x05R\x06typeId\"_\n" +
+	"\x19AddAccountTypeBulkRequest\x12B\n" +
+	"\raccount_types\x18\x01 \x03(\v2\x1d.protos.AddAccountTypeRequestR\faccountTypes\"e\n" +
+	"\x1cUpdateAccountTypeBulkRequest\x12E\n" +
+	"\raccount_types\x18\x01 \x03(\v2 .protos.UpdateAccountTypeRequestR\faccountTypes\"e\n" +
+	"\x1cDeleteAccountTypeBulkRequest\x12E\n" +
+	"\raccount_types\x18\x01 \x03(\v2 .protos.DeleteAccountTypeRequestR\faccountTypes2\xc7\x04\n" +
+	"\x12AccountTypeService\x12C\n" +
+	"\x06GetAll\x12\x15.protos.GetAllRequest\x1a\".protos.GetAllAccountTypesResponse\x12F\n" +
 	"\aGetById\x12!.protos.GetAccountTypeByIdRequest\x1a\x18.protos.AccountTypeModel\x12>\n" +
 	"\x03Add\x12\x1d.protos.AddAccountTypeRequest\x1a\x18.protos.AccountTypeModel\x12B\n" +
 	"\x06Update\x12 .protos.UpdateAccountTypeRequest\x1a\x16.google.protobuf.Empty\x12B\n" +
-	"\x06Delete\x12 .protos.DeleteAccountTypeRequest\x1a\x16.google.protobuf.EmptyB\x1bZ\x19orch-go/gen/protos;protosb\x06proto3"
+	"\x06Delete\x12 .protos.DeleteAccountTypeRequest\x1a\x16.google.protobuf.Empty\x12D\n" +
+	"\aAddBulk\x12!.protos.AddAccountTypeBulkRequest\x1a\x16.google.protobuf.Empty\x12J\n" +
+	"\n" +
+	"UpdateBulk\x12$.protos.UpdateAccountTypeBulkRequest\x1a\x16.google.protobuf.Empty\x12J\n" +
+	"\n" +
+	"DeleteBulk\x12$.protos.DeleteAccountTypeBulkRequest\x1a\x16.google.protobuf.EmptyB\x1bZ\x19orch-go/gen/protos;protosb\x06proto3"
 
 var (
 	file_account_type_proto_rawDescOnce sync.Once
@@ -370,33 +513,46 @@ func file_account_type_proto_rawDescGZIP() []byte {
 	return file_account_type_proto_rawDescData
 }
 
-var file_account_type_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+var file_account_type_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
 var file_account_type_proto_goTypes = []any{
-	(*AccountTypeModel)(nil),           // 0: protos.AccountTypeModel
-	(*GetAllAccountTypesResponse)(nil), // 1: protos.GetAllAccountTypesResponse
-	(*GetAccountTypeByIdRequest)(nil),  // 2: protos.GetAccountTypeByIdRequest
-	(*AddAccountTypeRequest)(nil),      // 3: protos.AddAccountTypeRequest
-	(*UpdateAccountTypeRequest)(nil),   // 4: protos.UpdateAccountTypeRequest
-	(*DeleteAccountTypeRequest)(nil),   // 5: protos.DeleteAccountTypeRequest
-	(*emptypb.Empty)(nil),              // 6: google.protobuf.Empty
+	(*AccountTypeModel)(nil),             // 0: protos.AccountTypeModel
+	(*GetAllAccountTypesResponse)(nil),   // 1: protos.GetAllAccountTypesResponse
+	(*GetAccountTypeByIdRequest)(nil),    // 2: protos.GetAccountTypeByIdRequest
+	(*AddAccountTypeRequest)(nil),        // 3: protos.AddAccountTypeRequest
+	(*UpdateAccountTypeRequest)(nil),     // 4: protos.UpdateAccountTypeRequest
+	(*DeleteAccountTypeRequest)(nil),     // 5: protos.DeleteAccountTypeRequest
+	(*AddAccountTypeBulkRequest)(nil),    // 6: protos.AddAccountTypeBulkRequest
+	(*UpdateAccountTypeBulkRequest)(nil), // 7: protos.UpdateAccountTypeBulkRequest
+	(*DeleteAccountTypeBulkRequest)(nil), // 8: protos.DeleteAccountTypeBulkRequest
+	(*GetAllRequest)(nil),                // 9: protos.GetAllRequest
+	(*emptypb.Empty)(nil),                // 10: google.protobuf.Empty
 }
 var file_account_type_proto_depIdxs = []int32{
-	0, // 0: protos.GetAllAccountTypesResponse.account_types:type_name -> protos.AccountTypeModel
-	6, // 1: protos.AccountTypeService.GetAll:input_type -> google.protobuf.Empty
-	2, // 2: protos.AccountTypeService.GetById:input_type -> protos.GetAccountTypeByIdRequest
-	3, // 3: protos.AccountTypeService.Add:input_type -> protos.AddAccountTypeRequest
-	4, // 4: protos.AccountTypeService.Update:input_type -> protos.UpdateAccountTypeRequest
-	5, // 5: protos.AccountTypeService.Delete:input_type -> protos.DeleteAccountTypeRequest
-	1, // 6: protos.AccountTypeService.GetAll:output_type -> protos.GetAllAccountTypesResponse
-	0, // 7: protos.AccountTypeService.GetById:output_type -> protos.AccountTypeModel
-	0, // 8: protos.AccountTypeService.Add:output_type -> protos.AccountTypeModel
-	6, // 9: protos.AccountTypeService.Update:output_type -> google.protobuf.Empty
-	6, // 10: protos.AccountTypeService.Delete:output_type -> google.protobuf.Empty
-	6, // [6:11] is the sub-list for method output_type
-	1, // [1:6] is the sub-list for method input_type
-	1, // [1:1] is the sub-list for extension type_name
-	1, // [1:1] is the sub-list for extension extendee
-	0, // [0:1] is the sub-list for field type_name
+	0,  // 0: protos.GetAllAccountTypesResponse.account_types:type_name -> protos.AccountTypeModel
+	3,  // 1: protos.AddAccountTypeBulkRequest.account_types:type_name -> protos.AddAccountTypeRequest
+	4,  // 2: protos.UpdateAccountTypeBulkRequest.account_types:type_name -> protos.UpdateAccountTypeRequest
+	5,  // 3: protos.DeleteAccountTypeBulkRequest.account_types:type_name -> protos.DeleteAccountTypeRequest
+	9,  // 4: protos.AccountTypeService.GetAll:input_type -> protos.GetAllRequest
+	2,  // 5: protos.AccountTypeService.GetById:input_type -> protos.GetAccountTypeByIdRequest
+	3,  // 6: protos.AccountTypeService.Add:input_type -> protos.AddAccountTypeRequest
+	4,  // 7: protos.AccountTypeService.Update:input_type -> protos.UpdateAccountTypeRequest
+	5,  // 8: protos.AccountTypeService.Delete:input_type -> protos.DeleteAccountTypeRequest
+	6,  // 9: protos.AccountTypeService.AddBulk:input_type -> protos.AddAccountTypeBulkRequest
+	7,  // 10: protos.AccountTypeService.UpdateBulk:input_type -> protos.UpdateAccountTypeBulkRequest
+	8,  // 11: protos.AccountTypeService.DeleteBulk:input_type -> protos.DeleteAccountTypeBulkRequest
+	1,  // 12: protos.AccountTypeService.GetAll:output_type -> protos.GetAllAccountTypesResponse
+	0,  // 13: protos.AccountTypeService.GetById:output_type -> protos.AccountTypeModel
+	0,  // 14: protos.AccountTypeService.Add:output_type -> protos.AccountTypeModel
+	10, // 15: protos.AccountTypeService.Update:output_type -> google.protobuf.Empty
+	10, // 16: protos.AccountTypeService.Delete:output_type -> google.protobuf.Empty
+	10, // 17: protos.AccountTypeService.AddBulk:output_type -> google.protobuf.Empty
+	10, // 18: protos.AccountTypeService.UpdateBulk:output_type -> google.protobuf.Empty
+	10, // 19: protos.AccountTypeService.DeleteBulk:output_type -> google.protobuf.Empty
+	12, // [12:20] is the sub-list for method output_type
+	4,  // [4:12] is the sub-list for method input_type
+	4,  // [4:4] is the sub-list for extension type_name
+	4,  // [4:4] is the sub-list for extension extendee
+	0,  // [0:4] is the sub-list for field type_name
 }
 
 func init() { file_account_type_proto_init() }
@@ -404,6 +560,7 @@ func file_account_type_proto_init() {
 	if File_account_type_proto != nil {
 		return
 	}
+	file_custom_types_proto_init()
 	file_account_type_proto_msgTypes[0].OneofWrappers = []any{}
 	file_account_type_proto_msgTypes[3].OneofWrappers = []any{}
 	file_account_type_proto_msgTypes[4].OneofWrappers = []any{}
@@ -413,7 +570,7 @@ func file_account_type_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_account_type_proto_rawDesc), len(file_account_type_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   6,
+			NumMessages:   9,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

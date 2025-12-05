@@ -20,22 +20,28 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	PaymentTemplateService_GetAll_FullMethodName  = "/protos.PaymentTemplateService/GetAll"
-	PaymentTemplateService_GetById_FullMethodName = "/protos.PaymentTemplateService/GetById"
-	PaymentTemplateService_Add_FullMethodName     = "/protos.PaymentTemplateService/Add"
-	PaymentTemplateService_Update_FullMethodName  = "/protos.PaymentTemplateService/Update"
-	PaymentTemplateService_Delete_FullMethodName  = "/protos.PaymentTemplateService/Delete"
+	PaymentTemplateService_GetAll_FullMethodName     = "/protos.PaymentTemplateService/GetAll"
+	PaymentTemplateService_GetById_FullMethodName    = "/protos.PaymentTemplateService/GetById"
+	PaymentTemplateService_Add_FullMethodName        = "/protos.PaymentTemplateService/Add"
+	PaymentTemplateService_Update_FullMethodName     = "/protos.PaymentTemplateService/Update"
+	PaymentTemplateService_Delete_FullMethodName     = "/protos.PaymentTemplateService/Delete"
+	PaymentTemplateService_AddBulk_FullMethodName    = "/protos.PaymentTemplateService/AddBulk"
+	PaymentTemplateService_UpdateBulk_FullMethodName = "/protos.PaymentTemplateService/UpdateBulk"
+	PaymentTemplateService_DeleteBulk_FullMethodName = "/protos.PaymentTemplateService/DeleteBulk"
 )
 
 // PaymentTemplateServiceClient is the client API for PaymentTemplateService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type PaymentTemplateServiceClient interface {
-	GetAll(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*GetAllPaymentTemplatesResponse, error)
+	GetAll(ctx context.Context, in *GetAllRequest, opts ...grpc.CallOption) (*GetAllPaymentTemplatesResponse, error)
 	GetById(ctx context.Context, in *GetPaymentTemplateByIdRequest, opts ...grpc.CallOption) (*PaymentTemplateModel, error)
 	Add(ctx context.Context, in *AddPaymentTemplateRequest, opts ...grpc.CallOption) (*PaymentTemplateModel, error)
 	Update(ctx context.Context, in *UpdatePaymentTemplateRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	Delete(ctx context.Context, in *DeletePaymentTemplateRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	AddBulk(ctx context.Context, in *AddPaymentTemplateBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	UpdateBulk(ctx context.Context, in *UpdatePaymentTemplateBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	DeleteBulk(ctx context.Context, in *DeletePaymentTemplateBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
 type paymentTemplateServiceClient struct {
@@ -46,7 +52,7 @@ func NewPaymentTemplateServiceClient(cc grpc.ClientConnInterface) PaymentTemplat
 	return &paymentTemplateServiceClient{cc}
 }
 
-func (c *paymentTemplateServiceClient) GetAll(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*GetAllPaymentTemplatesResponse, error) {
+func (c *paymentTemplateServiceClient) GetAll(ctx context.Context, in *GetAllRequest, opts ...grpc.CallOption) (*GetAllPaymentTemplatesResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(GetAllPaymentTemplatesResponse)
 	err := c.cc.Invoke(ctx, PaymentTemplateService_GetAll_FullMethodName, in, out, cOpts...)
@@ -96,15 +102,48 @@ func (c *paymentTemplateServiceClient) Delete(ctx context.Context, in *DeletePay
 	return out, nil
 }
 
+func (c *paymentTemplateServiceClient) AddBulk(ctx context.Context, in *AddPaymentTemplateBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, PaymentTemplateService_AddBulk_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *paymentTemplateServiceClient) UpdateBulk(ctx context.Context, in *UpdatePaymentTemplateBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, PaymentTemplateService_UpdateBulk_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *paymentTemplateServiceClient) DeleteBulk(ctx context.Context, in *DeletePaymentTemplateBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, PaymentTemplateService_DeleteBulk_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // PaymentTemplateServiceServer is the server API for PaymentTemplateService service.
 // All implementations must embed UnimplementedPaymentTemplateServiceServer
 // for forward compatibility.
 type PaymentTemplateServiceServer interface {
-	GetAll(context.Context, *emptypb.Empty) (*GetAllPaymentTemplatesResponse, error)
+	GetAll(context.Context, *GetAllRequest) (*GetAllPaymentTemplatesResponse, error)
 	GetById(context.Context, *GetPaymentTemplateByIdRequest) (*PaymentTemplateModel, error)
 	Add(context.Context, *AddPaymentTemplateRequest) (*PaymentTemplateModel, error)
 	Update(context.Context, *UpdatePaymentTemplateRequest) (*emptypb.Empty, error)
 	Delete(context.Context, *DeletePaymentTemplateRequest) (*emptypb.Empty, error)
+	AddBulk(context.Context, *AddPaymentTemplateBulkRequest) (*emptypb.Empty, error)
+	UpdateBulk(context.Context, *UpdatePaymentTemplateBulkRequest) (*emptypb.Empty, error)
+	DeleteBulk(context.Context, *DeletePaymentTemplateBulkRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedPaymentTemplateServiceServer()
 }
 
@@ -115,7 +154,7 @@ type PaymentTemplateServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedPaymentTemplateServiceServer struct{}
 
-func (UnimplementedPaymentTemplateServiceServer) GetAll(context.Context, *emptypb.Empty) (*GetAllPaymentTemplatesResponse, error) {
+func (UnimplementedPaymentTemplateServiceServer) GetAll(context.Context, *GetAllRequest) (*GetAllPaymentTemplatesResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetAll not implemented")
 }
 func (UnimplementedPaymentTemplateServiceServer) GetById(context.Context, *GetPaymentTemplateByIdRequest) (*PaymentTemplateModel, error) {
@@ -129,6 +168,15 @@ func (UnimplementedPaymentTemplateServiceServer) Update(context.Context, *Update
 }
 func (UnimplementedPaymentTemplateServiceServer) Delete(context.Context, *DeletePaymentTemplateRequest) (*emptypb.Empty, error) {
 	return nil, status.Error(codes.Unimplemented, "method Delete not implemented")
+}
+func (UnimplementedPaymentTemplateServiceServer) AddBulk(context.Context, *AddPaymentTemplateBulkRequest) (*emptypb.Empty, error) {
+	return nil, status.Error(codes.Unimplemented, "method AddBulk not implemented")
+}
+func (UnimplementedPaymentTemplateServiceServer) UpdateBulk(context.Context, *UpdatePaymentTemplateBulkRequest) (*emptypb.Empty, error) {
+	return nil, status.Error(codes.Unimplemented, "method UpdateBulk not implemented")
+}
+func (UnimplementedPaymentTemplateServiceServer) DeleteBulk(context.Context, *DeletePaymentTemplateBulkRequest) (*emptypb.Empty, error) {
+	return nil, status.Error(codes.Unimplemented, "method DeleteBulk not implemented")
 }
 func (UnimplementedPaymentTemplateServiceServer) mustEmbedUnimplementedPaymentTemplateServiceServer() {
 }
@@ -153,7 +201,7 @@ func RegisterPaymentTemplateServiceServer(s grpc.ServiceRegistrar, srv PaymentTe
 }
 
 func _PaymentTemplateService_GetAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(emptypb.Empty)
+	in := new(GetAllRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -165,7 +213,7 @@ func _PaymentTemplateService_GetAll_Handler(srv interface{}, ctx context.Context
 		FullMethod: PaymentTemplateService_GetAll_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PaymentTemplateServiceServer).GetAll(ctx, req.(*emptypb.Empty))
+		return srv.(PaymentTemplateServiceServer).GetAll(ctx, req.(*GetAllRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -242,6 +290,60 @@ func _PaymentTemplateService_Delete_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _PaymentTemplateService_AddBulk_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddPaymentTemplateBulkRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PaymentTemplateServiceServer).AddBulk(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PaymentTemplateService_AddBulk_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PaymentTemplateServiceServer).AddBulk(ctx, req.(*AddPaymentTemplateBulkRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _PaymentTemplateService_UpdateBulk_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdatePaymentTemplateBulkRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PaymentTemplateServiceServer).UpdateBulk(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PaymentTemplateService_UpdateBulk_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PaymentTemplateServiceServer).UpdateBulk(ctx, req.(*UpdatePaymentTemplateBulkRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _PaymentTemplateService_DeleteBulk_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeletePaymentTemplateBulkRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PaymentTemplateServiceServer).DeleteBulk(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PaymentTemplateService_DeleteBulk_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PaymentTemplateServiceServer).DeleteBulk(ctx, req.(*DeletePaymentTemplateBulkRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // PaymentTemplateService_ServiceDesc is the grpc.ServiceDesc for PaymentTemplateService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -268,6 +370,18 @@ var PaymentTemplateService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Delete",
 			Handler:    _PaymentTemplateService_Delete_Handler,
+		},
+		{
+			MethodName: "AddBulk",
+			Handler:    _PaymentTemplateService_AddBulk_Handler,
+		},
+		{
+			MethodName: "UpdateBulk",
+			Handler:    _PaymentTemplateService_UpdateBulk_Handler,
+		},
+		{
+			MethodName: "DeleteBulk",
+			Handler:    _PaymentTemplateService_DeleteBulk_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

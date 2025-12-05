@@ -374,11 +374,143 @@ func (x *DeleteBranchRequest) GetBranchId() int32 {
 	return 0
 }
 
+type AddBranchBulkRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Branches      []*AddBranchRequest    `protobuf:"bytes,1,rep,name=branches,proto3" json:"branches,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AddBranchBulkRequest) Reset() {
+	*x = AddBranchBulkRequest{}
+	mi := &file_branch_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AddBranchBulkRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AddBranchBulkRequest) ProtoMessage() {}
+
+func (x *AddBranchBulkRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_branch_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AddBranchBulkRequest.ProtoReflect.Descriptor instead.
+func (*AddBranchBulkRequest) Descriptor() ([]byte, []int) {
+	return file_branch_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *AddBranchBulkRequest) GetBranches() []*AddBranchRequest {
+	if x != nil {
+		return x.Branches
+	}
+	return nil
+}
+
+type UpdateBranchBulkRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Branches      []*UpdateBranchRequest `protobuf:"bytes,1,rep,name=branches,proto3" json:"branches,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateBranchBulkRequest) Reset() {
+	*x = UpdateBranchBulkRequest{}
+	mi := &file_branch_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateBranchBulkRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateBranchBulkRequest) ProtoMessage() {}
+
+func (x *UpdateBranchBulkRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_branch_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateBranchBulkRequest.ProtoReflect.Descriptor instead.
+func (*UpdateBranchBulkRequest) Descriptor() ([]byte, []int) {
+	return file_branch_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *UpdateBranchBulkRequest) GetBranches() []*UpdateBranchRequest {
+	if x != nil {
+		return x.Branches
+	}
+	return nil
+}
+
+type DeleteBranchBulkRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Branches      []*DeleteBranchRequest `protobuf:"bytes,1,rep,name=branches,proto3" json:"branches,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DeleteBranchBulkRequest) Reset() {
+	*x = DeleteBranchBulkRequest{}
+	mi := &file_branch_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteBranchBulkRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteBranchBulkRequest) ProtoMessage() {}
+
+func (x *DeleteBranchBulkRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_branch_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteBranchBulkRequest.ProtoReflect.Descriptor instead.
+func (*DeleteBranchBulkRequest) Descriptor() ([]byte, []int) {
+	return file_branch_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *DeleteBranchBulkRequest) GetBranches() []*DeleteBranchRequest {
+	if x != nil {
+		return x.Branches
+	}
+	return nil
+}
+
 var File_branch_proto protoreflect.FileDescriptor
 
 const file_branch_proto_rawDesc = "" +
 	"\n" +
-	"\fbranch.proto\x12\x06protos\x1a\x1bgoogle/protobuf/empty.proto\"\xbe\x01\n" +
+	"\fbranch.proto\x12\x06protos\x1a\x1bgoogle/protobuf/empty.proto\x1a\x12custom_types.proto\"\xbe\x01\n" +
 	"\vBranchModel\x12\x1b\n" +
 	"\tbranch_id\x18\x01 \x01(\x05R\bbranchId\x12\x17\n" +
 	"\x04name\x18\x02 \x01(\tH\x00R\x04name\x88\x01\x01\x12\x17\n" +
@@ -416,13 +548,24 @@ const file_branch_proto_rawDesc = "" +
 	"\b_addressB\b\n" +
 	"\x06_phone\"2\n" +
 	"\x13DeleteBranchRequest\x12\x1b\n" +
-	"\tbranch_id\x18\x01 \x01(\x05R\bbranchId2\xc3\x02\n" +
-	"\rBranchService\x12@\n" +
-	"\x06GetAll\x12\x16.google.protobuf.Empty\x1a\x1e.protos.GetAllBranchesResponse\x12<\n" +
+	"\tbranch_id\x18\x01 \x01(\x05R\bbranchId\"L\n" +
+	"\x14AddBranchBulkRequest\x124\n" +
+	"\bbranches\x18\x01 \x03(\v2\x18.protos.AddBranchRequestR\bbranches\"R\n" +
+	"\x17UpdateBranchBulkRequest\x127\n" +
+	"\bbranches\x18\x01 \x03(\v2\x1b.protos.UpdateBranchRequestR\bbranches\"R\n" +
+	"\x17DeleteBranchBulkRequest\x127\n" +
+	"\bbranches\x18\x01 \x03(\v2\x1b.protos.DeleteBranchRequestR\bbranches2\x91\x04\n" +
+	"\rBranchService\x12?\n" +
+	"\x06GetAll\x12\x15.protos.GetAllRequest\x1a\x1e.protos.GetAllBranchesResponse\x12<\n" +
 	"\aGetById\x12\x1c.protos.GetBranchByIdRequest\x1a\x13.protos.BranchModel\x124\n" +
 	"\x03Add\x12\x18.protos.AddBranchRequest\x1a\x13.protos.BranchModel\x12=\n" +
 	"\x06Update\x12\x1b.protos.UpdateBranchRequest\x1a\x16.google.protobuf.Empty\x12=\n" +
-	"\x06Delete\x12\x1b.protos.DeleteBranchRequest\x1a\x16.google.protobuf.EmptyB\x1bZ\x19orch-go/gen/protos;protosb\x06proto3"
+	"\x06Delete\x12\x1b.protos.DeleteBranchRequest\x1a\x16.google.protobuf.Empty\x12?\n" +
+	"\aAddBulk\x12\x1c.protos.AddBranchBulkRequest\x1a\x16.google.protobuf.Empty\x12E\n" +
+	"\n" +
+	"UpdateBulk\x12\x1f.protos.UpdateBranchBulkRequest\x1a\x16.google.protobuf.Empty\x12E\n" +
+	"\n" +
+	"DeleteBulk\x12\x1f.protos.DeleteBranchBulkRequest\x1a\x16.google.protobuf.EmptyB\x1bZ\x19orch-go/gen/protos;protosb\x06proto3"
 
 var (
 	file_branch_proto_rawDescOnce sync.Once
@@ -436,33 +579,46 @@ func file_branch_proto_rawDescGZIP() []byte {
 	return file_branch_proto_rawDescData
 }
 
-var file_branch_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+var file_branch_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
 var file_branch_proto_goTypes = []any{
-	(*BranchModel)(nil),            // 0: protos.BranchModel
-	(*GetAllBranchesResponse)(nil), // 1: protos.GetAllBranchesResponse
-	(*GetBranchByIdRequest)(nil),   // 2: protos.GetBranchByIdRequest
-	(*AddBranchRequest)(nil),       // 3: protos.AddBranchRequest
-	(*UpdateBranchRequest)(nil),    // 4: protos.UpdateBranchRequest
-	(*DeleteBranchRequest)(nil),    // 5: protos.DeleteBranchRequest
-	(*emptypb.Empty)(nil),          // 6: google.protobuf.Empty
+	(*BranchModel)(nil),             // 0: protos.BranchModel
+	(*GetAllBranchesResponse)(nil),  // 1: protos.GetAllBranchesResponse
+	(*GetBranchByIdRequest)(nil),    // 2: protos.GetBranchByIdRequest
+	(*AddBranchRequest)(nil),        // 3: protos.AddBranchRequest
+	(*UpdateBranchRequest)(nil),     // 4: protos.UpdateBranchRequest
+	(*DeleteBranchRequest)(nil),     // 5: protos.DeleteBranchRequest
+	(*AddBranchBulkRequest)(nil),    // 6: protos.AddBranchBulkRequest
+	(*UpdateBranchBulkRequest)(nil), // 7: protos.UpdateBranchBulkRequest
+	(*DeleteBranchBulkRequest)(nil), // 8: protos.DeleteBranchBulkRequest
+	(*GetAllRequest)(nil),           // 9: protos.GetAllRequest
+	(*emptypb.Empty)(nil),           // 10: google.protobuf.Empty
 }
 var file_branch_proto_depIdxs = []int32{
-	0, // 0: protos.GetAllBranchesResponse.branches:type_name -> protos.BranchModel
-	6, // 1: protos.BranchService.GetAll:input_type -> google.protobuf.Empty
-	2, // 2: protos.BranchService.GetById:input_type -> protos.GetBranchByIdRequest
-	3, // 3: protos.BranchService.Add:input_type -> protos.AddBranchRequest
-	4, // 4: protos.BranchService.Update:input_type -> protos.UpdateBranchRequest
-	5, // 5: protos.BranchService.Delete:input_type -> protos.DeleteBranchRequest
-	1, // 6: protos.BranchService.GetAll:output_type -> protos.GetAllBranchesResponse
-	0, // 7: protos.BranchService.GetById:output_type -> protos.BranchModel
-	0, // 8: protos.BranchService.Add:output_type -> protos.BranchModel
-	6, // 9: protos.BranchService.Update:output_type -> google.protobuf.Empty
-	6, // 10: protos.BranchService.Delete:output_type -> google.protobuf.Empty
-	6, // [6:11] is the sub-list for method output_type
-	1, // [1:6] is the sub-list for method input_type
-	1, // [1:1] is the sub-list for extension type_name
-	1, // [1:1] is the sub-list for extension extendee
-	0, // [0:1] is the sub-list for field type_name
+	0,  // 0: protos.GetAllBranchesResponse.branches:type_name -> protos.BranchModel
+	3,  // 1: protos.AddBranchBulkRequest.branches:type_name -> protos.AddBranchRequest
+	4,  // 2: protos.UpdateBranchBulkRequest.branches:type_name -> protos.UpdateBranchRequest
+	5,  // 3: protos.DeleteBranchBulkRequest.branches:type_name -> protos.DeleteBranchRequest
+	9,  // 4: protos.BranchService.GetAll:input_type -> protos.GetAllRequest
+	2,  // 5: protos.BranchService.GetById:input_type -> protos.GetBranchByIdRequest
+	3,  // 6: protos.BranchService.Add:input_type -> protos.AddBranchRequest
+	4,  // 7: protos.BranchService.Update:input_type -> protos.UpdateBranchRequest
+	5,  // 8: protos.BranchService.Delete:input_type -> protos.DeleteBranchRequest
+	6,  // 9: protos.BranchService.AddBulk:input_type -> protos.AddBranchBulkRequest
+	7,  // 10: protos.BranchService.UpdateBulk:input_type -> protos.UpdateBranchBulkRequest
+	8,  // 11: protos.BranchService.DeleteBulk:input_type -> protos.DeleteBranchBulkRequest
+	1,  // 12: protos.BranchService.GetAll:output_type -> protos.GetAllBranchesResponse
+	0,  // 13: protos.BranchService.GetById:output_type -> protos.BranchModel
+	0,  // 14: protos.BranchService.Add:output_type -> protos.BranchModel
+	10, // 15: protos.BranchService.Update:output_type -> google.protobuf.Empty
+	10, // 16: protos.BranchService.Delete:output_type -> google.protobuf.Empty
+	10, // 17: protos.BranchService.AddBulk:output_type -> google.protobuf.Empty
+	10, // 18: protos.BranchService.UpdateBulk:output_type -> google.protobuf.Empty
+	10, // 19: protos.BranchService.DeleteBulk:output_type -> google.protobuf.Empty
+	12, // [12:20] is the sub-list for method output_type
+	4,  // [4:12] is the sub-list for method input_type
+	4,  // [4:4] is the sub-list for extension type_name
+	4,  // [4:4] is the sub-list for extension extendee
+	0,  // [0:4] is the sub-list for field type_name
 }
 
 func init() { file_branch_proto_init() }
@@ -470,6 +626,7 @@ func file_branch_proto_init() {
 	if File_branch_proto != nil {
 		return
 	}
+	file_custom_types_proto_init()
 	file_branch_proto_msgTypes[0].OneofWrappers = []any{}
 	file_branch_proto_msgTypes[3].OneofWrappers = []any{}
 	file_branch_proto_msgTypes[4].OneofWrappers = []any{}
@@ -479,7 +636,7 @@ func file_branch_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_branch_proto_rawDesc), len(file_branch_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   6,
+			NumMessages:   9,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

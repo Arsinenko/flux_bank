@@ -20,22 +20,28 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	DepositService_GetAll_FullMethodName  = "/protos.DepositService/GetAll"
-	DepositService_GetById_FullMethodName = "/protos.DepositService/GetById"
-	DepositService_Add_FullMethodName     = "/protos.DepositService/Add"
-	DepositService_Update_FullMethodName  = "/protos.DepositService/Update"
-	DepositService_Delete_FullMethodName  = "/protos.DepositService/Delete"
+	DepositService_GetAll_FullMethodName     = "/protos.DepositService/GetAll"
+	DepositService_GetById_FullMethodName    = "/protos.DepositService/GetById"
+	DepositService_Add_FullMethodName        = "/protos.DepositService/Add"
+	DepositService_Update_FullMethodName     = "/protos.DepositService/Update"
+	DepositService_Delete_FullMethodName     = "/protos.DepositService/Delete"
+	DepositService_AddBulk_FullMethodName    = "/protos.DepositService/AddBulk"
+	DepositService_UpdateBulk_FullMethodName = "/protos.DepositService/UpdateBulk"
+	DepositService_DeleteBulk_FullMethodName = "/protos.DepositService/DeleteBulk"
 )
 
 // DepositServiceClient is the client API for DepositService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type DepositServiceClient interface {
-	GetAll(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*GetAllDepositsResponse, error)
+	GetAll(ctx context.Context, in *GetAllRequest, opts ...grpc.CallOption) (*GetAllDepositsResponse, error)
 	GetById(ctx context.Context, in *GetDepositByIdRequest, opts ...grpc.CallOption) (*DepositModel, error)
 	Add(ctx context.Context, in *AddDepositRequest, opts ...grpc.CallOption) (*DepositModel, error)
 	Update(ctx context.Context, in *UpdateDepositRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	Delete(ctx context.Context, in *DeleteDepositRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	AddBulk(ctx context.Context, in *AddDepositBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	UpdateBulk(ctx context.Context, in *UpdateDepositBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	DeleteBulk(ctx context.Context, in *DeleteDepositBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
 type depositServiceClient struct {
@@ -46,7 +52,7 @@ func NewDepositServiceClient(cc grpc.ClientConnInterface) DepositServiceClient {
 	return &depositServiceClient{cc}
 }
 
-func (c *depositServiceClient) GetAll(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*GetAllDepositsResponse, error) {
+func (c *depositServiceClient) GetAll(ctx context.Context, in *GetAllRequest, opts ...grpc.CallOption) (*GetAllDepositsResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(GetAllDepositsResponse)
 	err := c.cc.Invoke(ctx, DepositService_GetAll_FullMethodName, in, out, cOpts...)
@@ -96,15 +102,48 @@ func (c *depositServiceClient) Delete(ctx context.Context, in *DeleteDepositRequ
 	return out, nil
 }
 
+func (c *depositServiceClient) AddBulk(ctx context.Context, in *AddDepositBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, DepositService_AddBulk_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *depositServiceClient) UpdateBulk(ctx context.Context, in *UpdateDepositBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, DepositService_UpdateBulk_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *depositServiceClient) DeleteBulk(ctx context.Context, in *DeleteDepositBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, DepositService_DeleteBulk_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // DepositServiceServer is the server API for DepositService service.
 // All implementations must embed UnimplementedDepositServiceServer
 // for forward compatibility.
 type DepositServiceServer interface {
-	GetAll(context.Context, *emptypb.Empty) (*GetAllDepositsResponse, error)
+	GetAll(context.Context, *GetAllRequest) (*GetAllDepositsResponse, error)
 	GetById(context.Context, *GetDepositByIdRequest) (*DepositModel, error)
 	Add(context.Context, *AddDepositRequest) (*DepositModel, error)
 	Update(context.Context, *UpdateDepositRequest) (*emptypb.Empty, error)
 	Delete(context.Context, *DeleteDepositRequest) (*emptypb.Empty, error)
+	AddBulk(context.Context, *AddDepositBulkRequest) (*emptypb.Empty, error)
+	UpdateBulk(context.Context, *UpdateDepositBulkRequest) (*emptypb.Empty, error)
+	DeleteBulk(context.Context, *DeleteDepositBulkRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedDepositServiceServer()
 }
 
@@ -115,7 +154,7 @@ type DepositServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedDepositServiceServer struct{}
 
-func (UnimplementedDepositServiceServer) GetAll(context.Context, *emptypb.Empty) (*GetAllDepositsResponse, error) {
+func (UnimplementedDepositServiceServer) GetAll(context.Context, *GetAllRequest) (*GetAllDepositsResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetAll not implemented")
 }
 func (UnimplementedDepositServiceServer) GetById(context.Context, *GetDepositByIdRequest) (*DepositModel, error) {
@@ -129,6 +168,15 @@ func (UnimplementedDepositServiceServer) Update(context.Context, *UpdateDepositR
 }
 func (UnimplementedDepositServiceServer) Delete(context.Context, *DeleteDepositRequest) (*emptypb.Empty, error) {
 	return nil, status.Error(codes.Unimplemented, "method Delete not implemented")
+}
+func (UnimplementedDepositServiceServer) AddBulk(context.Context, *AddDepositBulkRequest) (*emptypb.Empty, error) {
+	return nil, status.Error(codes.Unimplemented, "method AddBulk not implemented")
+}
+func (UnimplementedDepositServiceServer) UpdateBulk(context.Context, *UpdateDepositBulkRequest) (*emptypb.Empty, error) {
+	return nil, status.Error(codes.Unimplemented, "method UpdateBulk not implemented")
+}
+func (UnimplementedDepositServiceServer) DeleteBulk(context.Context, *DeleteDepositBulkRequest) (*emptypb.Empty, error) {
+	return nil, status.Error(codes.Unimplemented, "method DeleteBulk not implemented")
 }
 func (UnimplementedDepositServiceServer) mustEmbedUnimplementedDepositServiceServer() {}
 func (UnimplementedDepositServiceServer) testEmbeddedByValue()                        {}
@@ -152,7 +200,7 @@ func RegisterDepositServiceServer(s grpc.ServiceRegistrar, srv DepositServiceSer
 }
 
 func _DepositService_GetAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(emptypb.Empty)
+	in := new(GetAllRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -164,7 +212,7 @@ func _DepositService_GetAll_Handler(srv interface{}, ctx context.Context, dec fu
 		FullMethod: DepositService_GetAll_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DepositServiceServer).GetAll(ctx, req.(*emptypb.Empty))
+		return srv.(DepositServiceServer).GetAll(ctx, req.(*GetAllRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -241,6 +289,60 @@ func _DepositService_Delete_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DepositService_AddBulk_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddDepositBulkRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DepositServiceServer).AddBulk(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DepositService_AddBulk_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DepositServiceServer).AddBulk(ctx, req.(*AddDepositBulkRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DepositService_UpdateBulk_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateDepositBulkRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DepositServiceServer).UpdateBulk(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DepositService_UpdateBulk_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DepositServiceServer).UpdateBulk(ctx, req.(*UpdateDepositBulkRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DepositService_DeleteBulk_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteDepositBulkRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DepositServiceServer).DeleteBulk(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DepositService_DeleteBulk_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DepositServiceServer).DeleteBulk(ctx, req.(*DeleteDepositBulkRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // DepositService_ServiceDesc is the grpc.ServiceDesc for DepositService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -267,6 +369,18 @@ var DepositService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Delete",
 			Handler:    _DepositService_Delete_Handler,
+		},
+		{
+			MethodName: "AddBulk",
+			Handler:    _DepositService_AddBulk_Handler,
+		},
+		{
+			MethodName: "UpdateBulk",
+			Handler:    _DepositService_UpdateBulk_Handler,
+		},
+		{
+			MethodName: "DeleteBulk",
+			Handler:    _DepositService_DeleteBulk_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

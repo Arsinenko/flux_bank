@@ -20,22 +20,28 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	FeeTypeService_GetAll_FullMethodName  = "/protos.FeeTypeService/GetAll"
-	FeeTypeService_GetById_FullMethodName = "/protos.FeeTypeService/GetById"
-	FeeTypeService_Add_FullMethodName     = "/protos.FeeTypeService/Add"
-	FeeTypeService_Update_FullMethodName  = "/protos.FeeTypeService/Update"
-	FeeTypeService_Delete_FullMethodName  = "/protos.FeeTypeService/Delete"
+	FeeTypeService_GetAll_FullMethodName     = "/protos.FeeTypeService/GetAll"
+	FeeTypeService_GetById_FullMethodName    = "/protos.FeeTypeService/GetById"
+	FeeTypeService_Add_FullMethodName        = "/protos.FeeTypeService/Add"
+	FeeTypeService_Update_FullMethodName     = "/protos.FeeTypeService/Update"
+	FeeTypeService_Delete_FullMethodName     = "/protos.FeeTypeService/Delete"
+	FeeTypeService_AddBulk_FullMethodName    = "/protos.FeeTypeService/AddBulk"
+	FeeTypeService_UpdateBulk_FullMethodName = "/protos.FeeTypeService/UpdateBulk"
+	FeeTypeService_DeleteBulk_FullMethodName = "/protos.FeeTypeService/DeleteBulk"
 )
 
 // FeeTypeServiceClient is the client API for FeeTypeService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type FeeTypeServiceClient interface {
-	GetAll(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*GetAllFeeTypesResponse, error)
+	GetAll(ctx context.Context, in *GetAllRequest, opts ...grpc.CallOption) (*GetAllFeeTypesResponse, error)
 	GetById(ctx context.Context, in *GetFeeTypeByIdRequest, opts ...grpc.CallOption) (*FeeTypeModel, error)
 	Add(ctx context.Context, in *AddFeeTypeRequest, opts ...grpc.CallOption) (*FeeTypeModel, error)
 	Update(ctx context.Context, in *UpdateFeeTypeRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	Delete(ctx context.Context, in *DeleteFeeTypeRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	AddBulk(ctx context.Context, in *AddFeeTypeBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	UpdateBulk(ctx context.Context, in *UpdateFeeTypeBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	DeleteBulk(ctx context.Context, in *DeleteFeeTypeBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
 type feeTypeServiceClient struct {
@@ -46,7 +52,7 @@ func NewFeeTypeServiceClient(cc grpc.ClientConnInterface) FeeTypeServiceClient {
 	return &feeTypeServiceClient{cc}
 }
 
-func (c *feeTypeServiceClient) GetAll(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*GetAllFeeTypesResponse, error) {
+func (c *feeTypeServiceClient) GetAll(ctx context.Context, in *GetAllRequest, opts ...grpc.CallOption) (*GetAllFeeTypesResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(GetAllFeeTypesResponse)
 	err := c.cc.Invoke(ctx, FeeTypeService_GetAll_FullMethodName, in, out, cOpts...)
@@ -96,15 +102,48 @@ func (c *feeTypeServiceClient) Delete(ctx context.Context, in *DeleteFeeTypeRequ
 	return out, nil
 }
 
+func (c *feeTypeServiceClient) AddBulk(ctx context.Context, in *AddFeeTypeBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, FeeTypeService_AddBulk_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *feeTypeServiceClient) UpdateBulk(ctx context.Context, in *UpdateFeeTypeBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, FeeTypeService_UpdateBulk_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *feeTypeServiceClient) DeleteBulk(ctx context.Context, in *DeleteFeeTypeBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, FeeTypeService_DeleteBulk_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // FeeTypeServiceServer is the server API for FeeTypeService service.
 // All implementations must embed UnimplementedFeeTypeServiceServer
 // for forward compatibility.
 type FeeTypeServiceServer interface {
-	GetAll(context.Context, *emptypb.Empty) (*GetAllFeeTypesResponse, error)
+	GetAll(context.Context, *GetAllRequest) (*GetAllFeeTypesResponse, error)
 	GetById(context.Context, *GetFeeTypeByIdRequest) (*FeeTypeModel, error)
 	Add(context.Context, *AddFeeTypeRequest) (*FeeTypeModel, error)
 	Update(context.Context, *UpdateFeeTypeRequest) (*emptypb.Empty, error)
 	Delete(context.Context, *DeleteFeeTypeRequest) (*emptypb.Empty, error)
+	AddBulk(context.Context, *AddFeeTypeBulkRequest) (*emptypb.Empty, error)
+	UpdateBulk(context.Context, *UpdateFeeTypeBulkRequest) (*emptypb.Empty, error)
+	DeleteBulk(context.Context, *DeleteFeeTypeBulkRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedFeeTypeServiceServer()
 }
 
@@ -115,7 +154,7 @@ type FeeTypeServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedFeeTypeServiceServer struct{}
 
-func (UnimplementedFeeTypeServiceServer) GetAll(context.Context, *emptypb.Empty) (*GetAllFeeTypesResponse, error) {
+func (UnimplementedFeeTypeServiceServer) GetAll(context.Context, *GetAllRequest) (*GetAllFeeTypesResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetAll not implemented")
 }
 func (UnimplementedFeeTypeServiceServer) GetById(context.Context, *GetFeeTypeByIdRequest) (*FeeTypeModel, error) {
@@ -129,6 +168,15 @@ func (UnimplementedFeeTypeServiceServer) Update(context.Context, *UpdateFeeTypeR
 }
 func (UnimplementedFeeTypeServiceServer) Delete(context.Context, *DeleteFeeTypeRequest) (*emptypb.Empty, error) {
 	return nil, status.Error(codes.Unimplemented, "method Delete not implemented")
+}
+func (UnimplementedFeeTypeServiceServer) AddBulk(context.Context, *AddFeeTypeBulkRequest) (*emptypb.Empty, error) {
+	return nil, status.Error(codes.Unimplemented, "method AddBulk not implemented")
+}
+func (UnimplementedFeeTypeServiceServer) UpdateBulk(context.Context, *UpdateFeeTypeBulkRequest) (*emptypb.Empty, error) {
+	return nil, status.Error(codes.Unimplemented, "method UpdateBulk not implemented")
+}
+func (UnimplementedFeeTypeServiceServer) DeleteBulk(context.Context, *DeleteFeeTypeBulkRequest) (*emptypb.Empty, error) {
+	return nil, status.Error(codes.Unimplemented, "method DeleteBulk not implemented")
 }
 func (UnimplementedFeeTypeServiceServer) mustEmbedUnimplementedFeeTypeServiceServer() {}
 func (UnimplementedFeeTypeServiceServer) testEmbeddedByValue()                        {}
@@ -152,7 +200,7 @@ func RegisterFeeTypeServiceServer(s grpc.ServiceRegistrar, srv FeeTypeServiceSer
 }
 
 func _FeeTypeService_GetAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(emptypb.Empty)
+	in := new(GetAllRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -164,7 +212,7 @@ func _FeeTypeService_GetAll_Handler(srv interface{}, ctx context.Context, dec fu
 		FullMethod: FeeTypeService_GetAll_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(FeeTypeServiceServer).GetAll(ctx, req.(*emptypb.Empty))
+		return srv.(FeeTypeServiceServer).GetAll(ctx, req.(*GetAllRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -241,6 +289,60 @@ func _FeeTypeService_Delete_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 
+func _FeeTypeService_AddBulk_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddFeeTypeBulkRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FeeTypeServiceServer).AddBulk(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: FeeTypeService_AddBulk_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FeeTypeServiceServer).AddBulk(ctx, req.(*AddFeeTypeBulkRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _FeeTypeService_UpdateBulk_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateFeeTypeBulkRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FeeTypeServiceServer).UpdateBulk(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: FeeTypeService_UpdateBulk_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FeeTypeServiceServer).UpdateBulk(ctx, req.(*UpdateFeeTypeBulkRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _FeeTypeService_DeleteBulk_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteFeeTypeBulkRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FeeTypeServiceServer).DeleteBulk(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: FeeTypeService_DeleteBulk_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FeeTypeServiceServer).DeleteBulk(ctx, req.(*DeleteFeeTypeBulkRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // FeeTypeService_ServiceDesc is the grpc.ServiceDesc for FeeTypeService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -267,6 +369,18 @@ var FeeTypeService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Delete",
 			Handler:    _FeeTypeService_Delete_Handler,
+		},
+		{
+			MethodName: "AddBulk",
+			Handler:    _FeeTypeService_AddBulk_Handler,
+		},
+		{
+			MethodName: "UpdateBulk",
+			Handler:    _FeeTypeService_UpdateBulk_Handler,
+		},
+		{
+			MethodName: "DeleteBulk",
+			Handler:    _FeeTypeService_DeleteBulk_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

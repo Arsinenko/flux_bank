@@ -20,22 +20,28 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	TransactionCategoryService_GetAll_FullMethodName  = "/protos.TransactionCategoryService/GetAll"
-	TransactionCategoryService_GetById_FullMethodName = "/protos.TransactionCategoryService/GetById"
-	TransactionCategoryService_Add_FullMethodName     = "/protos.TransactionCategoryService/Add"
-	TransactionCategoryService_Update_FullMethodName  = "/protos.TransactionCategoryService/Update"
-	TransactionCategoryService_Delete_FullMethodName  = "/protos.TransactionCategoryService/Delete"
+	TransactionCategoryService_GetAll_FullMethodName     = "/protos.TransactionCategoryService/GetAll"
+	TransactionCategoryService_GetById_FullMethodName    = "/protos.TransactionCategoryService/GetById"
+	TransactionCategoryService_Add_FullMethodName        = "/protos.TransactionCategoryService/Add"
+	TransactionCategoryService_Update_FullMethodName     = "/protos.TransactionCategoryService/Update"
+	TransactionCategoryService_Delete_FullMethodName     = "/protos.TransactionCategoryService/Delete"
+	TransactionCategoryService_AddBulk_FullMethodName    = "/protos.TransactionCategoryService/AddBulk"
+	TransactionCategoryService_UpdateBulk_FullMethodName = "/protos.TransactionCategoryService/UpdateBulk"
+	TransactionCategoryService_DeleteBulk_FullMethodName = "/protos.TransactionCategoryService/DeleteBulk"
 )
 
 // TransactionCategoryServiceClient is the client API for TransactionCategoryService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type TransactionCategoryServiceClient interface {
-	GetAll(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*GetAllTransactionCategoriesResponse, error)
+	GetAll(ctx context.Context, in *GetAllRequest, opts ...grpc.CallOption) (*GetAllTransactionCategoriesResponse, error)
 	GetById(ctx context.Context, in *GetTransactionCategoryByIdRequest, opts ...grpc.CallOption) (*TransactionCategoryModel, error)
 	Add(ctx context.Context, in *AddTransactionCategoryRequest, opts ...grpc.CallOption) (*TransactionCategoryModel, error)
 	Update(ctx context.Context, in *UpdateTransactionCategoryRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	Delete(ctx context.Context, in *DeleteTransactionCategoryRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	AddBulk(ctx context.Context, in *AddTransactionCategoryBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	UpdateBulk(ctx context.Context, in *UpdateTransactionCategoryBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	DeleteBulk(ctx context.Context, in *DeleteTransactionCategoryBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
 type transactionCategoryServiceClient struct {
@@ -46,7 +52,7 @@ func NewTransactionCategoryServiceClient(cc grpc.ClientConnInterface) Transactio
 	return &transactionCategoryServiceClient{cc}
 }
 
-func (c *transactionCategoryServiceClient) GetAll(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*GetAllTransactionCategoriesResponse, error) {
+func (c *transactionCategoryServiceClient) GetAll(ctx context.Context, in *GetAllRequest, opts ...grpc.CallOption) (*GetAllTransactionCategoriesResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(GetAllTransactionCategoriesResponse)
 	err := c.cc.Invoke(ctx, TransactionCategoryService_GetAll_FullMethodName, in, out, cOpts...)
@@ -96,15 +102,48 @@ func (c *transactionCategoryServiceClient) Delete(ctx context.Context, in *Delet
 	return out, nil
 }
 
+func (c *transactionCategoryServiceClient) AddBulk(ctx context.Context, in *AddTransactionCategoryBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, TransactionCategoryService_AddBulk_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *transactionCategoryServiceClient) UpdateBulk(ctx context.Context, in *UpdateTransactionCategoryBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, TransactionCategoryService_UpdateBulk_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *transactionCategoryServiceClient) DeleteBulk(ctx context.Context, in *DeleteTransactionCategoryBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, TransactionCategoryService_DeleteBulk_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TransactionCategoryServiceServer is the server API for TransactionCategoryService service.
 // All implementations must embed UnimplementedTransactionCategoryServiceServer
 // for forward compatibility.
 type TransactionCategoryServiceServer interface {
-	GetAll(context.Context, *emptypb.Empty) (*GetAllTransactionCategoriesResponse, error)
+	GetAll(context.Context, *GetAllRequest) (*GetAllTransactionCategoriesResponse, error)
 	GetById(context.Context, *GetTransactionCategoryByIdRequest) (*TransactionCategoryModel, error)
 	Add(context.Context, *AddTransactionCategoryRequest) (*TransactionCategoryModel, error)
 	Update(context.Context, *UpdateTransactionCategoryRequest) (*emptypb.Empty, error)
 	Delete(context.Context, *DeleteTransactionCategoryRequest) (*emptypb.Empty, error)
+	AddBulk(context.Context, *AddTransactionCategoryBulkRequest) (*emptypb.Empty, error)
+	UpdateBulk(context.Context, *UpdateTransactionCategoryBulkRequest) (*emptypb.Empty, error)
+	DeleteBulk(context.Context, *DeleteTransactionCategoryBulkRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedTransactionCategoryServiceServer()
 }
 
@@ -115,7 +154,7 @@ type TransactionCategoryServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedTransactionCategoryServiceServer struct{}
 
-func (UnimplementedTransactionCategoryServiceServer) GetAll(context.Context, *emptypb.Empty) (*GetAllTransactionCategoriesResponse, error) {
+func (UnimplementedTransactionCategoryServiceServer) GetAll(context.Context, *GetAllRequest) (*GetAllTransactionCategoriesResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetAll not implemented")
 }
 func (UnimplementedTransactionCategoryServiceServer) GetById(context.Context, *GetTransactionCategoryByIdRequest) (*TransactionCategoryModel, error) {
@@ -129,6 +168,15 @@ func (UnimplementedTransactionCategoryServiceServer) Update(context.Context, *Up
 }
 func (UnimplementedTransactionCategoryServiceServer) Delete(context.Context, *DeleteTransactionCategoryRequest) (*emptypb.Empty, error) {
 	return nil, status.Error(codes.Unimplemented, "method Delete not implemented")
+}
+func (UnimplementedTransactionCategoryServiceServer) AddBulk(context.Context, *AddTransactionCategoryBulkRequest) (*emptypb.Empty, error) {
+	return nil, status.Error(codes.Unimplemented, "method AddBulk not implemented")
+}
+func (UnimplementedTransactionCategoryServiceServer) UpdateBulk(context.Context, *UpdateTransactionCategoryBulkRequest) (*emptypb.Empty, error) {
+	return nil, status.Error(codes.Unimplemented, "method UpdateBulk not implemented")
+}
+func (UnimplementedTransactionCategoryServiceServer) DeleteBulk(context.Context, *DeleteTransactionCategoryBulkRequest) (*emptypb.Empty, error) {
+	return nil, status.Error(codes.Unimplemented, "method DeleteBulk not implemented")
 }
 func (UnimplementedTransactionCategoryServiceServer) mustEmbedUnimplementedTransactionCategoryServiceServer() {
 }
@@ -153,7 +201,7 @@ func RegisterTransactionCategoryServiceServer(s grpc.ServiceRegistrar, srv Trans
 }
 
 func _TransactionCategoryService_GetAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(emptypb.Empty)
+	in := new(GetAllRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -165,7 +213,7 @@ func _TransactionCategoryService_GetAll_Handler(srv interface{}, ctx context.Con
 		FullMethod: TransactionCategoryService_GetAll_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TransactionCategoryServiceServer).GetAll(ctx, req.(*emptypb.Empty))
+		return srv.(TransactionCategoryServiceServer).GetAll(ctx, req.(*GetAllRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -242,6 +290,60 @@ func _TransactionCategoryService_Delete_Handler(srv interface{}, ctx context.Con
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TransactionCategoryService_AddBulk_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddTransactionCategoryBulkRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionCategoryServiceServer).AddBulk(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TransactionCategoryService_AddBulk_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionCategoryServiceServer).AddBulk(ctx, req.(*AddTransactionCategoryBulkRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TransactionCategoryService_UpdateBulk_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateTransactionCategoryBulkRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionCategoryServiceServer).UpdateBulk(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TransactionCategoryService_UpdateBulk_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionCategoryServiceServer).UpdateBulk(ctx, req.(*UpdateTransactionCategoryBulkRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TransactionCategoryService_DeleteBulk_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteTransactionCategoryBulkRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionCategoryServiceServer).DeleteBulk(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TransactionCategoryService_DeleteBulk_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionCategoryServiceServer).DeleteBulk(ctx, req.(*DeleteTransactionCategoryBulkRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // TransactionCategoryService_ServiceDesc is the grpc.ServiceDesc for TransactionCategoryService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -268,6 +370,18 @@ var TransactionCategoryService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Delete",
 			Handler:    _TransactionCategoryService_Delete_Handler,
+		},
+		{
+			MethodName: "AddBulk",
+			Handler:    _TransactionCategoryService_AddBulk_Handler,
+		},
+		{
+			MethodName: "UpdateBulk",
+			Handler:    _TransactionCategoryService_UpdateBulk_Handler,
+		},
+		{
+			MethodName: "DeleteBulk",
+			Handler:    _TransactionCategoryService_DeleteBulk_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

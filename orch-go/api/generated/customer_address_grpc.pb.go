@@ -31,7 +31,7 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type CustomerAddressServiceClient interface {
-	GetAll(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*GetAllCustomerAddressesResponse, error)
+	GetAll(ctx context.Context, in *GetAllRequest, opts ...grpc.CallOption) (*GetAllCustomerAddressesResponse, error)
 	GetById(ctx context.Context, in *GetCustomerAddressByIdRequest, opts ...grpc.CallOption) (*CustomerAddressModel, error)
 	Add(ctx context.Context, in *AddCustomerAddressRequest, opts ...grpc.CallOption) (*CustomerAddressModel, error)
 	Update(ctx context.Context, in *UpdateCustomerAddressRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
@@ -46,7 +46,7 @@ func NewCustomerAddressServiceClient(cc grpc.ClientConnInterface) CustomerAddres
 	return &customerAddressServiceClient{cc}
 }
 
-func (c *customerAddressServiceClient) GetAll(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*GetAllCustomerAddressesResponse, error) {
+func (c *customerAddressServiceClient) GetAll(ctx context.Context, in *GetAllRequest, opts ...grpc.CallOption) (*GetAllCustomerAddressesResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(GetAllCustomerAddressesResponse)
 	err := c.cc.Invoke(ctx, CustomerAddressService_GetAll_FullMethodName, in, out, cOpts...)
@@ -100,7 +100,7 @@ func (c *customerAddressServiceClient) Delete(ctx context.Context, in *DeleteCus
 // All implementations must embed UnimplementedCustomerAddressServiceServer
 // for forward compatibility.
 type CustomerAddressServiceServer interface {
-	GetAll(context.Context, *emptypb.Empty) (*GetAllCustomerAddressesResponse, error)
+	GetAll(context.Context, *GetAllRequest) (*GetAllCustomerAddressesResponse, error)
 	GetById(context.Context, *GetCustomerAddressByIdRequest) (*CustomerAddressModel, error)
 	Add(context.Context, *AddCustomerAddressRequest) (*CustomerAddressModel, error)
 	Update(context.Context, *UpdateCustomerAddressRequest) (*emptypb.Empty, error)
@@ -115,7 +115,7 @@ type CustomerAddressServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedCustomerAddressServiceServer struct{}
 
-func (UnimplementedCustomerAddressServiceServer) GetAll(context.Context, *emptypb.Empty) (*GetAllCustomerAddressesResponse, error) {
+func (UnimplementedCustomerAddressServiceServer) GetAll(context.Context, *GetAllRequest) (*GetAllCustomerAddressesResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetAll not implemented")
 }
 func (UnimplementedCustomerAddressServiceServer) GetById(context.Context, *GetCustomerAddressByIdRequest) (*CustomerAddressModel, error) {
@@ -153,7 +153,7 @@ func RegisterCustomerAddressServiceServer(s grpc.ServiceRegistrar, srv CustomerA
 }
 
 func _CustomerAddressService_GetAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(emptypb.Empty)
+	in := new(GetAllRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -165,7 +165,7 @@ func _CustomerAddressService_GetAll_Handler(srv interface{}, ctx context.Context
 		FullMethod: CustomerAddressService_GetAll_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CustomerAddressServiceServer).GetAll(ctx, req.(*emptypb.Empty))
+		return srv.(CustomerAddressServiceServer).GetAll(ctx, req.(*GetAllRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }

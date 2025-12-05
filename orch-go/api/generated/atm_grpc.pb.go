@@ -20,22 +20,28 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	AtmService_GetAll_FullMethodName  = "/protos.AtmService/GetAll"
-	AtmService_GetById_FullMethodName = "/protos.AtmService/GetById"
-	AtmService_Add_FullMethodName     = "/protos.AtmService/Add"
-	AtmService_Update_FullMethodName  = "/protos.AtmService/Update"
-	AtmService_Delete_FullMethodName  = "/protos.AtmService/Delete"
+	AtmService_GetAll_FullMethodName     = "/protos.AtmService/GetAll"
+	AtmService_GetById_FullMethodName    = "/protos.AtmService/GetById"
+	AtmService_Add_FullMethodName        = "/protos.AtmService/Add"
+	AtmService_Update_FullMethodName     = "/protos.AtmService/Update"
+	AtmService_Delete_FullMethodName     = "/protos.AtmService/Delete"
+	AtmService_AddBulk_FullMethodName    = "/protos.AtmService/AddBulk"
+	AtmService_UpdateBulk_FullMethodName = "/protos.AtmService/UpdateBulk"
+	AtmService_DeleteBulk_FullMethodName = "/protos.AtmService/DeleteBulk"
 )
 
 // AtmServiceClient is the client API for AtmService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type AtmServiceClient interface {
-	GetAll(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*GetAllAtmsResponse, error)
+	GetAll(ctx context.Context, in *GetAllRequest, opts ...grpc.CallOption) (*GetAllAtmsResponse, error)
 	GetById(ctx context.Context, in *GetAtmByIdRequest, opts ...grpc.CallOption) (*AtmModel, error)
 	Add(ctx context.Context, in *AddAtmRequest, opts ...grpc.CallOption) (*AtmModel, error)
 	Update(ctx context.Context, in *UpdateAtmRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	Delete(ctx context.Context, in *DeleteAtmRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	AddBulk(ctx context.Context, in *AddAtmBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	UpdateBulk(ctx context.Context, in *UpdateAtmBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	DeleteBulk(ctx context.Context, in *DeleteAtmBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
 type atmServiceClient struct {
@@ -46,7 +52,7 @@ func NewAtmServiceClient(cc grpc.ClientConnInterface) AtmServiceClient {
 	return &atmServiceClient{cc}
 }
 
-func (c *atmServiceClient) GetAll(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*GetAllAtmsResponse, error) {
+func (c *atmServiceClient) GetAll(ctx context.Context, in *GetAllRequest, opts ...grpc.CallOption) (*GetAllAtmsResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(GetAllAtmsResponse)
 	err := c.cc.Invoke(ctx, AtmService_GetAll_FullMethodName, in, out, cOpts...)
@@ -96,15 +102,48 @@ func (c *atmServiceClient) Delete(ctx context.Context, in *DeleteAtmRequest, opt
 	return out, nil
 }
 
+func (c *atmServiceClient) AddBulk(ctx context.Context, in *AddAtmBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, AtmService_AddBulk_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *atmServiceClient) UpdateBulk(ctx context.Context, in *UpdateAtmBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, AtmService_UpdateBulk_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *atmServiceClient) DeleteBulk(ctx context.Context, in *DeleteAtmBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, AtmService_DeleteBulk_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AtmServiceServer is the server API for AtmService service.
 // All implementations must embed UnimplementedAtmServiceServer
 // for forward compatibility.
 type AtmServiceServer interface {
-	GetAll(context.Context, *emptypb.Empty) (*GetAllAtmsResponse, error)
+	GetAll(context.Context, *GetAllRequest) (*GetAllAtmsResponse, error)
 	GetById(context.Context, *GetAtmByIdRequest) (*AtmModel, error)
 	Add(context.Context, *AddAtmRequest) (*AtmModel, error)
 	Update(context.Context, *UpdateAtmRequest) (*emptypb.Empty, error)
 	Delete(context.Context, *DeleteAtmRequest) (*emptypb.Empty, error)
+	AddBulk(context.Context, *AddAtmBulkRequest) (*emptypb.Empty, error)
+	UpdateBulk(context.Context, *UpdateAtmBulkRequest) (*emptypb.Empty, error)
+	DeleteBulk(context.Context, *DeleteAtmBulkRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedAtmServiceServer()
 }
 
@@ -115,7 +154,7 @@ type AtmServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedAtmServiceServer struct{}
 
-func (UnimplementedAtmServiceServer) GetAll(context.Context, *emptypb.Empty) (*GetAllAtmsResponse, error) {
+func (UnimplementedAtmServiceServer) GetAll(context.Context, *GetAllRequest) (*GetAllAtmsResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetAll not implemented")
 }
 func (UnimplementedAtmServiceServer) GetById(context.Context, *GetAtmByIdRequest) (*AtmModel, error) {
@@ -129,6 +168,15 @@ func (UnimplementedAtmServiceServer) Update(context.Context, *UpdateAtmRequest) 
 }
 func (UnimplementedAtmServiceServer) Delete(context.Context, *DeleteAtmRequest) (*emptypb.Empty, error) {
 	return nil, status.Error(codes.Unimplemented, "method Delete not implemented")
+}
+func (UnimplementedAtmServiceServer) AddBulk(context.Context, *AddAtmBulkRequest) (*emptypb.Empty, error) {
+	return nil, status.Error(codes.Unimplemented, "method AddBulk not implemented")
+}
+func (UnimplementedAtmServiceServer) UpdateBulk(context.Context, *UpdateAtmBulkRequest) (*emptypb.Empty, error) {
+	return nil, status.Error(codes.Unimplemented, "method UpdateBulk not implemented")
+}
+func (UnimplementedAtmServiceServer) DeleteBulk(context.Context, *DeleteAtmBulkRequest) (*emptypb.Empty, error) {
+	return nil, status.Error(codes.Unimplemented, "method DeleteBulk not implemented")
 }
 func (UnimplementedAtmServiceServer) mustEmbedUnimplementedAtmServiceServer() {}
 func (UnimplementedAtmServiceServer) testEmbeddedByValue()                    {}
@@ -152,7 +200,7 @@ func RegisterAtmServiceServer(s grpc.ServiceRegistrar, srv AtmServiceServer) {
 }
 
 func _AtmService_GetAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(emptypb.Empty)
+	in := new(GetAllRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -164,7 +212,7 @@ func _AtmService_GetAll_Handler(srv interface{}, ctx context.Context, dec func(i
 		FullMethod: AtmService_GetAll_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AtmServiceServer).GetAll(ctx, req.(*emptypb.Empty))
+		return srv.(AtmServiceServer).GetAll(ctx, req.(*GetAllRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -241,6 +289,60 @@ func _AtmService_Delete_Handler(srv interface{}, ctx context.Context, dec func(i
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AtmService_AddBulk_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddAtmBulkRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AtmServiceServer).AddBulk(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AtmService_AddBulk_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AtmServiceServer).AddBulk(ctx, req.(*AddAtmBulkRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AtmService_UpdateBulk_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateAtmBulkRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AtmServiceServer).UpdateBulk(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AtmService_UpdateBulk_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AtmServiceServer).UpdateBulk(ctx, req.(*UpdateAtmBulkRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AtmService_DeleteBulk_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteAtmBulkRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AtmServiceServer).DeleteBulk(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AtmService_DeleteBulk_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AtmServiceServer).DeleteBulk(ctx, req.(*DeleteAtmBulkRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // AtmService_ServiceDesc is the grpc.ServiceDesc for AtmService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -267,6 +369,18 @@ var AtmService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Delete",
 			Handler:    _AtmService_Delete_Handler,
+		},
+		{
+			MethodName: "AddBulk",
+			Handler:    _AtmService_AddBulk_Handler,
+		},
+		{
+			MethodName: "UpdateBulk",
+			Handler:    _AtmService_UpdateBulk_Handler,
+		},
+		{
+			MethodName: "DeleteBulk",
+			Handler:    _AtmService_DeleteBulk_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -20,22 +20,28 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	TransactionFeeService_GetAll_FullMethodName  = "/protos.TransactionFeeService/GetAll"
-	TransactionFeeService_GetById_FullMethodName = "/protos.TransactionFeeService/GetById"
-	TransactionFeeService_Add_FullMethodName     = "/protos.TransactionFeeService/Add"
-	TransactionFeeService_Update_FullMethodName  = "/protos.TransactionFeeService/Update"
-	TransactionFeeService_Delete_FullMethodName  = "/protos.TransactionFeeService/Delete"
+	TransactionFeeService_GetAll_FullMethodName     = "/protos.TransactionFeeService/GetAll"
+	TransactionFeeService_GetById_FullMethodName    = "/protos.TransactionFeeService/GetById"
+	TransactionFeeService_Add_FullMethodName        = "/protos.TransactionFeeService/Add"
+	TransactionFeeService_Update_FullMethodName     = "/protos.TransactionFeeService/Update"
+	TransactionFeeService_Delete_FullMethodName     = "/protos.TransactionFeeService/Delete"
+	TransactionFeeService_AddBulk_FullMethodName    = "/protos.TransactionFeeService/AddBulk"
+	TransactionFeeService_UpdateBulk_FullMethodName = "/protos.TransactionFeeService/UpdateBulk"
+	TransactionFeeService_DeleteBulk_FullMethodName = "/protos.TransactionFeeService/DeleteBulk"
 )
 
 // TransactionFeeServiceClient is the client API for TransactionFeeService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type TransactionFeeServiceClient interface {
-	GetAll(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*GetAllTransactionFeesResponse, error)
+	GetAll(ctx context.Context, in *GetAllRequest, opts ...grpc.CallOption) (*GetAllTransactionFeesResponse, error)
 	GetById(ctx context.Context, in *GetTransactionFeeByIdRequest, opts ...grpc.CallOption) (*TransactionFeeModel, error)
 	Add(ctx context.Context, in *AddTransactionFeeRequest, opts ...grpc.CallOption) (*TransactionFeeModel, error)
 	Update(ctx context.Context, in *UpdateTransactionFeeRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	Delete(ctx context.Context, in *DeleteTransactionFeeRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	AddBulk(ctx context.Context, in *AddTransactionFeeBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	UpdateBulk(ctx context.Context, in *UpdateTransactionFeeBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	DeleteBulk(ctx context.Context, in *DeleteTransactionFeeBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
 type transactionFeeServiceClient struct {
@@ -46,7 +52,7 @@ func NewTransactionFeeServiceClient(cc grpc.ClientConnInterface) TransactionFeeS
 	return &transactionFeeServiceClient{cc}
 }
 
-func (c *transactionFeeServiceClient) GetAll(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*GetAllTransactionFeesResponse, error) {
+func (c *transactionFeeServiceClient) GetAll(ctx context.Context, in *GetAllRequest, opts ...grpc.CallOption) (*GetAllTransactionFeesResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(GetAllTransactionFeesResponse)
 	err := c.cc.Invoke(ctx, TransactionFeeService_GetAll_FullMethodName, in, out, cOpts...)
@@ -96,15 +102,48 @@ func (c *transactionFeeServiceClient) Delete(ctx context.Context, in *DeleteTran
 	return out, nil
 }
 
+func (c *transactionFeeServiceClient) AddBulk(ctx context.Context, in *AddTransactionFeeBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, TransactionFeeService_AddBulk_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *transactionFeeServiceClient) UpdateBulk(ctx context.Context, in *UpdateTransactionFeeBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, TransactionFeeService_UpdateBulk_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *transactionFeeServiceClient) DeleteBulk(ctx context.Context, in *DeleteTransactionFeeBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, TransactionFeeService_DeleteBulk_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TransactionFeeServiceServer is the server API for TransactionFeeService service.
 // All implementations must embed UnimplementedTransactionFeeServiceServer
 // for forward compatibility.
 type TransactionFeeServiceServer interface {
-	GetAll(context.Context, *emptypb.Empty) (*GetAllTransactionFeesResponse, error)
+	GetAll(context.Context, *GetAllRequest) (*GetAllTransactionFeesResponse, error)
 	GetById(context.Context, *GetTransactionFeeByIdRequest) (*TransactionFeeModel, error)
 	Add(context.Context, *AddTransactionFeeRequest) (*TransactionFeeModel, error)
 	Update(context.Context, *UpdateTransactionFeeRequest) (*emptypb.Empty, error)
 	Delete(context.Context, *DeleteTransactionFeeRequest) (*emptypb.Empty, error)
+	AddBulk(context.Context, *AddTransactionFeeBulkRequest) (*emptypb.Empty, error)
+	UpdateBulk(context.Context, *UpdateTransactionFeeBulkRequest) (*emptypb.Empty, error)
+	DeleteBulk(context.Context, *DeleteTransactionFeeBulkRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedTransactionFeeServiceServer()
 }
 
@@ -115,7 +154,7 @@ type TransactionFeeServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedTransactionFeeServiceServer struct{}
 
-func (UnimplementedTransactionFeeServiceServer) GetAll(context.Context, *emptypb.Empty) (*GetAllTransactionFeesResponse, error) {
+func (UnimplementedTransactionFeeServiceServer) GetAll(context.Context, *GetAllRequest) (*GetAllTransactionFeesResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetAll not implemented")
 }
 func (UnimplementedTransactionFeeServiceServer) GetById(context.Context, *GetTransactionFeeByIdRequest) (*TransactionFeeModel, error) {
@@ -129,6 +168,15 @@ func (UnimplementedTransactionFeeServiceServer) Update(context.Context, *UpdateT
 }
 func (UnimplementedTransactionFeeServiceServer) Delete(context.Context, *DeleteTransactionFeeRequest) (*emptypb.Empty, error) {
 	return nil, status.Error(codes.Unimplemented, "method Delete not implemented")
+}
+func (UnimplementedTransactionFeeServiceServer) AddBulk(context.Context, *AddTransactionFeeBulkRequest) (*emptypb.Empty, error) {
+	return nil, status.Error(codes.Unimplemented, "method AddBulk not implemented")
+}
+func (UnimplementedTransactionFeeServiceServer) UpdateBulk(context.Context, *UpdateTransactionFeeBulkRequest) (*emptypb.Empty, error) {
+	return nil, status.Error(codes.Unimplemented, "method UpdateBulk not implemented")
+}
+func (UnimplementedTransactionFeeServiceServer) DeleteBulk(context.Context, *DeleteTransactionFeeBulkRequest) (*emptypb.Empty, error) {
+	return nil, status.Error(codes.Unimplemented, "method DeleteBulk not implemented")
 }
 func (UnimplementedTransactionFeeServiceServer) mustEmbedUnimplementedTransactionFeeServiceServer() {}
 func (UnimplementedTransactionFeeServiceServer) testEmbeddedByValue()                               {}
@@ -152,7 +200,7 @@ func RegisterTransactionFeeServiceServer(s grpc.ServiceRegistrar, srv Transactio
 }
 
 func _TransactionFeeService_GetAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(emptypb.Empty)
+	in := new(GetAllRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -164,7 +212,7 @@ func _TransactionFeeService_GetAll_Handler(srv interface{}, ctx context.Context,
 		FullMethod: TransactionFeeService_GetAll_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TransactionFeeServiceServer).GetAll(ctx, req.(*emptypb.Empty))
+		return srv.(TransactionFeeServiceServer).GetAll(ctx, req.(*GetAllRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -241,6 +289,60 @@ func _TransactionFeeService_Delete_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TransactionFeeService_AddBulk_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddTransactionFeeBulkRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionFeeServiceServer).AddBulk(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TransactionFeeService_AddBulk_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionFeeServiceServer).AddBulk(ctx, req.(*AddTransactionFeeBulkRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TransactionFeeService_UpdateBulk_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateTransactionFeeBulkRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionFeeServiceServer).UpdateBulk(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TransactionFeeService_UpdateBulk_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionFeeServiceServer).UpdateBulk(ctx, req.(*UpdateTransactionFeeBulkRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TransactionFeeService_DeleteBulk_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteTransactionFeeBulkRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionFeeServiceServer).DeleteBulk(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TransactionFeeService_DeleteBulk_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionFeeServiceServer).DeleteBulk(ctx, req.(*DeleteTransactionFeeBulkRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // TransactionFeeService_ServiceDesc is the grpc.ServiceDesc for TransactionFeeService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -267,6 +369,18 @@ var TransactionFeeService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Delete",
 			Handler:    _TransactionFeeService_Delete_Handler,
+		},
+		{
+			MethodName: "AddBulk",
+			Handler:    _TransactionFeeService_AddBulk_Handler,
+		},
+		{
+			MethodName: "UpdateBulk",
+			Handler:    _TransactionFeeService_UpdateBulk_Handler,
+		},
+		{
+			MethodName: "DeleteBulk",
+			Handler:    _TransactionFeeService_DeleteBulk_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

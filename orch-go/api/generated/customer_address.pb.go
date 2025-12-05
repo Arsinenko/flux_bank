@@ -426,7 +426,7 @@ var File_customer_address_proto protoreflect.FileDescriptor
 
 const file_customer_address_proto_rawDesc = "" +
 	"\n" +
-	"\x16customer_address.proto\x12\x06protos\x1a\x1bgoogle/protobuf/empty.proto\"\xc0\x02\n" +
+	"\x16customer_address.proto\x12\x06protos\x1a\x1bgoogle/protobuf/empty.proto\x1a\x12custom_types.proto\"\xc0\x02\n" +
 	"\x14CustomerAddressModel\x12\x1d\n" +
 	"\n" +
 	"address_id\x18\x01 \x01(\x05R\taddressId\x12$\n" +
@@ -486,9 +486,9 @@ const file_customer_address_proto_rawDesc = "" +
 	"\v_is_primary\"=\n" +
 	"\x1cDeleteCustomerAddressRequest\x12\x1d\n" +
 	"\n" +
-	"address_id\x18\x01 \x01(\x05R\taddressId2\x8b\x03\n" +
-	"\x16CustomerAddressService\x12I\n" +
-	"\x06GetAll\x12\x16.google.protobuf.Empty\x1a'.protos.GetAllCustomerAddressesResponse\x12N\n" +
+	"address_id\x18\x01 \x01(\x05R\taddressId2\x8a\x03\n" +
+	"\x16CustomerAddressService\x12H\n" +
+	"\x06GetAll\x12\x15.protos.GetAllRequest\x1a'.protos.GetAllCustomerAddressesResponse\x12N\n" +
 	"\aGetById\x12%.protos.GetCustomerAddressByIdRequest\x1a\x1c.protos.CustomerAddressModel\x12F\n" +
 	"\x03Add\x12!.protos.AddCustomerAddressRequest\x1a\x1c.protos.CustomerAddressModel\x12F\n" +
 	"\x06Update\x12$.protos.UpdateCustomerAddressRequest\x1a\x16.google.protobuf.Empty\x12F\n" +
@@ -514,11 +514,12 @@ var file_customer_address_proto_goTypes = []any{
 	(*AddCustomerAddressRequest)(nil),       // 3: protos.AddCustomerAddressRequest
 	(*UpdateCustomerAddressRequest)(nil),    // 4: protos.UpdateCustomerAddressRequest
 	(*DeleteCustomerAddressRequest)(nil),    // 5: protos.DeleteCustomerAddressRequest
-	(*emptypb.Empty)(nil),                   // 6: google.protobuf.Empty
+	(*GetAllRequest)(nil),                   // 6: protos.GetAllRequest
+	(*emptypb.Empty)(nil),                   // 7: google.protobuf.Empty
 }
 var file_customer_address_proto_depIdxs = []int32{
 	0, // 0: protos.GetAllCustomerAddressesResponse.customer_addresses:type_name -> protos.CustomerAddressModel
-	6, // 1: protos.CustomerAddressService.GetAll:input_type -> google.protobuf.Empty
+	6, // 1: protos.CustomerAddressService.GetAll:input_type -> protos.GetAllRequest
 	2, // 2: protos.CustomerAddressService.GetById:input_type -> protos.GetCustomerAddressByIdRequest
 	3, // 3: protos.CustomerAddressService.Add:input_type -> protos.AddCustomerAddressRequest
 	4, // 4: protos.CustomerAddressService.Update:input_type -> protos.UpdateCustomerAddressRequest
@@ -526,8 +527,8 @@ var file_customer_address_proto_depIdxs = []int32{
 	1, // 6: protos.CustomerAddressService.GetAll:output_type -> protos.GetAllCustomerAddressesResponse
 	0, // 7: protos.CustomerAddressService.GetById:output_type -> protos.CustomerAddressModel
 	0, // 8: protos.CustomerAddressService.Add:output_type -> protos.CustomerAddressModel
-	6, // 9: protos.CustomerAddressService.Update:output_type -> google.protobuf.Empty
-	6, // 10: protos.CustomerAddressService.Delete:output_type -> google.protobuf.Empty
+	7, // 9: protos.CustomerAddressService.Update:output_type -> google.protobuf.Empty
+	7, // 10: protos.CustomerAddressService.Delete:output_type -> google.protobuf.Empty
 	6, // [6:11] is the sub-list for method output_type
 	1, // [1:6] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name
@@ -540,6 +541,7 @@ func file_customer_address_proto_init() {
 	if File_customer_address_proto != nil {
 		return
 	}
+	file_custom_types_proto_init()
 	file_customer_address_proto_msgTypes[0].OneofWrappers = []any{}
 	file_customer_address_proto_msgTypes[3].OneofWrappers = []any{}
 	file_customer_address_proto_msgTypes[4].OneofWrappers = []any{}

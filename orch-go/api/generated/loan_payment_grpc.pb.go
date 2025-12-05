@@ -20,22 +20,24 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	LoanPaymentService_GetAll_FullMethodName  = "/protos.LoanPaymentService/GetAll"
-	LoanPaymentService_GetById_FullMethodName = "/protos.LoanPaymentService/GetById"
-	LoanPaymentService_Add_FullMethodName     = "/protos.LoanPaymentService/Add"
-	LoanPaymentService_Update_FullMethodName  = "/protos.LoanPaymentService/Update"
-	LoanPaymentService_Delete_FullMethodName  = "/protos.LoanPaymentService/Delete"
+	LoanPaymentService_GetAll_FullMethodName     = "/protos.LoanPaymentService/GetAll"
+	LoanPaymentService_GetById_FullMethodName    = "/protos.LoanPaymentService/GetById"
+	LoanPaymentService_Add_FullMethodName        = "/protos.LoanPaymentService/Add"
+	LoanPaymentService_Update_FullMethodName     = "/protos.LoanPaymentService/Update"
+	LoanPaymentService_Delete_FullMethodName     = "/protos.LoanPaymentService/Delete"
+	LoanPaymentService_DeleteBulk_FullMethodName = "/protos.LoanPaymentService/DeleteBulk"
 )
 
 // LoanPaymentServiceClient is the client API for LoanPaymentService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type LoanPaymentServiceClient interface {
-	GetAll(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*GetAllLoanPaymentsResponse, error)
+	GetAll(ctx context.Context, in *GetAllRequest, opts ...grpc.CallOption) (*GetAllLoanPaymentsResponse, error)
 	GetById(ctx context.Context, in *GetLoanPaymentByIdRequest, opts ...grpc.CallOption) (*LoanPaymentModel, error)
 	Add(ctx context.Context, in *AddLoanPaymentRequest, opts ...grpc.CallOption) (*LoanPaymentModel, error)
 	Update(ctx context.Context, in *UpdateLoanPaymentRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	Delete(ctx context.Context, in *DeleteLoanPaymentRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	DeleteBulk(ctx context.Context, in *DeleteLoanPaymentBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
 type loanPaymentServiceClient struct {
@@ -46,7 +48,7 @@ func NewLoanPaymentServiceClient(cc grpc.ClientConnInterface) LoanPaymentService
 	return &loanPaymentServiceClient{cc}
 }
 
-func (c *loanPaymentServiceClient) GetAll(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*GetAllLoanPaymentsResponse, error) {
+func (c *loanPaymentServiceClient) GetAll(ctx context.Context, in *GetAllRequest, opts ...grpc.CallOption) (*GetAllLoanPaymentsResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(GetAllLoanPaymentsResponse)
 	err := c.cc.Invoke(ctx, LoanPaymentService_GetAll_FullMethodName, in, out, cOpts...)
@@ -96,15 +98,26 @@ func (c *loanPaymentServiceClient) Delete(ctx context.Context, in *DeleteLoanPay
 	return out, nil
 }
 
+func (c *loanPaymentServiceClient) DeleteBulk(ctx context.Context, in *DeleteLoanPaymentBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, LoanPaymentService_DeleteBulk_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // LoanPaymentServiceServer is the server API for LoanPaymentService service.
 // All implementations must embed UnimplementedLoanPaymentServiceServer
 // for forward compatibility.
 type LoanPaymentServiceServer interface {
-	GetAll(context.Context, *emptypb.Empty) (*GetAllLoanPaymentsResponse, error)
+	GetAll(context.Context, *GetAllRequest) (*GetAllLoanPaymentsResponse, error)
 	GetById(context.Context, *GetLoanPaymentByIdRequest) (*LoanPaymentModel, error)
 	Add(context.Context, *AddLoanPaymentRequest) (*LoanPaymentModel, error)
 	Update(context.Context, *UpdateLoanPaymentRequest) (*emptypb.Empty, error)
 	Delete(context.Context, *DeleteLoanPaymentRequest) (*emptypb.Empty, error)
+	DeleteBulk(context.Context, *DeleteLoanPaymentBulkRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedLoanPaymentServiceServer()
 }
 
@@ -115,7 +128,7 @@ type LoanPaymentServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedLoanPaymentServiceServer struct{}
 
-func (UnimplementedLoanPaymentServiceServer) GetAll(context.Context, *emptypb.Empty) (*GetAllLoanPaymentsResponse, error) {
+func (UnimplementedLoanPaymentServiceServer) GetAll(context.Context, *GetAllRequest) (*GetAllLoanPaymentsResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetAll not implemented")
 }
 func (UnimplementedLoanPaymentServiceServer) GetById(context.Context, *GetLoanPaymentByIdRequest) (*LoanPaymentModel, error) {
@@ -129,6 +142,9 @@ func (UnimplementedLoanPaymentServiceServer) Update(context.Context, *UpdateLoan
 }
 func (UnimplementedLoanPaymentServiceServer) Delete(context.Context, *DeleteLoanPaymentRequest) (*emptypb.Empty, error) {
 	return nil, status.Error(codes.Unimplemented, "method Delete not implemented")
+}
+func (UnimplementedLoanPaymentServiceServer) DeleteBulk(context.Context, *DeleteLoanPaymentBulkRequest) (*emptypb.Empty, error) {
+	return nil, status.Error(codes.Unimplemented, "method DeleteBulk not implemented")
 }
 func (UnimplementedLoanPaymentServiceServer) mustEmbedUnimplementedLoanPaymentServiceServer() {}
 func (UnimplementedLoanPaymentServiceServer) testEmbeddedByValue()                            {}
@@ -152,7 +168,7 @@ func RegisterLoanPaymentServiceServer(s grpc.ServiceRegistrar, srv LoanPaymentSe
 }
 
 func _LoanPaymentService_GetAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(emptypb.Empty)
+	in := new(GetAllRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -164,7 +180,7 @@ func _LoanPaymentService_GetAll_Handler(srv interface{}, ctx context.Context, de
 		FullMethod: LoanPaymentService_GetAll_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(LoanPaymentServiceServer).GetAll(ctx, req.(*emptypb.Empty))
+		return srv.(LoanPaymentServiceServer).GetAll(ctx, req.(*GetAllRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -241,6 +257,24 @@ func _LoanPaymentService_Delete_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
+func _LoanPaymentService_DeleteBulk_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteLoanPaymentBulkRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LoanPaymentServiceServer).DeleteBulk(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: LoanPaymentService_DeleteBulk_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LoanPaymentServiceServer).DeleteBulk(ctx, req.(*DeleteLoanPaymentBulkRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // LoanPaymentService_ServiceDesc is the grpc.ServiceDesc for LoanPaymentService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -267,6 +301,10 @@ var LoanPaymentService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Delete",
 			Handler:    _LoanPaymentService_Delete_Handler,
+		},
+		{
+			MethodName: "DeleteBulk",
+			Handler:    _LoanPaymentService_DeleteBulk_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

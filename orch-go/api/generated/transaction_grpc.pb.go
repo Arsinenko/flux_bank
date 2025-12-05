@@ -20,22 +20,28 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	TransactionService_GetAll_FullMethodName  = "/protos.TransactionService/GetAll"
-	TransactionService_GetById_FullMethodName = "/protos.TransactionService/GetById"
-	TransactionService_Add_FullMethodName     = "/protos.TransactionService/Add"
-	TransactionService_Update_FullMethodName  = "/protos.TransactionService/Update"
-	TransactionService_Delete_FullMethodName  = "/protos.TransactionService/Delete"
+	TransactionService_GetAll_FullMethodName     = "/protos.TransactionService/GetAll"
+	TransactionService_GetById_FullMethodName    = "/protos.TransactionService/GetById"
+	TransactionService_Add_FullMethodName        = "/protos.TransactionService/Add"
+	TransactionService_Update_FullMethodName     = "/protos.TransactionService/Update"
+	TransactionService_Delete_FullMethodName     = "/protos.TransactionService/Delete"
+	TransactionService_AddBulk_FullMethodName    = "/protos.TransactionService/AddBulk"
+	TransactionService_UpdateBulk_FullMethodName = "/protos.TransactionService/UpdateBulk"
+	TransactionService_DeleteBulk_FullMethodName = "/protos.TransactionService/DeleteBulk"
 )
 
 // TransactionServiceClient is the client API for TransactionService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type TransactionServiceClient interface {
-	GetAll(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*GetAllTransactionsResponse, error)
+	GetAll(ctx context.Context, in *GetAllRequest, opts ...grpc.CallOption) (*GetAllTransactionsResponse, error)
 	GetById(ctx context.Context, in *GetTransactionByIdRequest, opts ...grpc.CallOption) (*TransactionModel, error)
 	Add(ctx context.Context, in *AddTransactionRequest, opts ...grpc.CallOption) (*TransactionModel, error)
 	Update(ctx context.Context, in *UpdateTransactionRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	Delete(ctx context.Context, in *DeleteTransactionRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	AddBulk(ctx context.Context, in *AddTransactionBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	UpdateBulk(ctx context.Context, in *UpdateTransactionBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	DeleteBulk(ctx context.Context, in *DeleteTransactionBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
 type transactionServiceClient struct {
@@ -46,7 +52,7 @@ func NewTransactionServiceClient(cc grpc.ClientConnInterface) TransactionService
 	return &transactionServiceClient{cc}
 }
 
-func (c *transactionServiceClient) GetAll(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*GetAllTransactionsResponse, error) {
+func (c *transactionServiceClient) GetAll(ctx context.Context, in *GetAllRequest, opts ...grpc.CallOption) (*GetAllTransactionsResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(GetAllTransactionsResponse)
 	err := c.cc.Invoke(ctx, TransactionService_GetAll_FullMethodName, in, out, cOpts...)
@@ -96,15 +102,48 @@ func (c *transactionServiceClient) Delete(ctx context.Context, in *DeleteTransac
 	return out, nil
 }
 
+func (c *transactionServiceClient) AddBulk(ctx context.Context, in *AddTransactionBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, TransactionService_AddBulk_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *transactionServiceClient) UpdateBulk(ctx context.Context, in *UpdateTransactionBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, TransactionService_UpdateBulk_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *transactionServiceClient) DeleteBulk(ctx context.Context, in *DeleteTransactionBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, TransactionService_DeleteBulk_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TransactionServiceServer is the server API for TransactionService service.
 // All implementations must embed UnimplementedTransactionServiceServer
 // for forward compatibility.
 type TransactionServiceServer interface {
-	GetAll(context.Context, *emptypb.Empty) (*GetAllTransactionsResponse, error)
+	GetAll(context.Context, *GetAllRequest) (*GetAllTransactionsResponse, error)
 	GetById(context.Context, *GetTransactionByIdRequest) (*TransactionModel, error)
 	Add(context.Context, *AddTransactionRequest) (*TransactionModel, error)
 	Update(context.Context, *UpdateTransactionRequest) (*emptypb.Empty, error)
 	Delete(context.Context, *DeleteTransactionRequest) (*emptypb.Empty, error)
+	AddBulk(context.Context, *AddTransactionBulkRequest) (*emptypb.Empty, error)
+	UpdateBulk(context.Context, *UpdateTransactionBulkRequest) (*emptypb.Empty, error)
+	DeleteBulk(context.Context, *DeleteTransactionBulkRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedTransactionServiceServer()
 }
 
@@ -115,7 +154,7 @@ type TransactionServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedTransactionServiceServer struct{}
 
-func (UnimplementedTransactionServiceServer) GetAll(context.Context, *emptypb.Empty) (*GetAllTransactionsResponse, error) {
+func (UnimplementedTransactionServiceServer) GetAll(context.Context, *GetAllRequest) (*GetAllTransactionsResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetAll not implemented")
 }
 func (UnimplementedTransactionServiceServer) GetById(context.Context, *GetTransactionByIdRequest) (*TransactionModel, error) {
@@ -129,6 +168,15 @@ func (UnimplementedTransactionServiceServer) Update(context.Context, *UpdateTran
 }
 func (UnimplementedTransactionServiceServer) Delete(context.Context, *DeleteTransactionRequest) (*emptypb.Empty, error) {
 	return nil, status.Error(codes.Unimplemented, "method Delete not implemented")
+}
+func (UnimplementedTransactionServiceServer) AddBulk(context.Context, *AddTransactionBulkRequest) (*emptypb.Empty, error) {
+	return nil, status.Error(codes.Unimplemented, "method AddBulk not implemented")
+}
+func (UnimplementedTransactionServiceServer) UpdateBulk(context.Context, *UpdateTransactionBulkRequest) (*emptypb.Empty, error) {
+	return nil, status.Error(codes.Unimplemented, "method UpdateBulk not implemented")
+}
+func (UnimplementedTransactionServiceServer) DeleteBulk(context.Context, *DeleteTransactionBulkRequest) (*emptypb.Empty, error) {
+	return nil, status.Error(codes.Unimplemented, "method DeleteBulk not implemented")
 }
 func (UnimplementedTransactionServiceServer) mustEmbedUnimplementedTransactionServiceServer() {}
 func (UnimplementedTransactionServiceServer) testEmbeddedByValue()                            {}
@@ -152,7 +200,7 @@ func RegisterTransactionServiceServer(s grpc.ServiceRegistrar, srv TransactionSe
 }
 
 func _TransactionService_GetAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(emptypb.Empty)
+	in := new(GetAllRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -164,7 +212,7 @@ func _TransactionService_GetAll_Handler(srv interface{}, ctx context.Context, de
 		FullMethod: TransactionService_GetAll_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TransactionServiceServer).GetAll(ctx, req.(*emptypb.Empty))
+		return srv.(TransactionServiceServer).GetAll(ctx, req.(*GetAllRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -241,6 +289,60 @@ func _TransactionService_Delete_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TransactionService_AddBulk_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddTransactionBulkRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionServiceServer).AddBulk(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TransactionService_AddBulk_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionServiceServer).AddBulk(ctx, req.(*AddTransactionBulkRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TransactionService_UpdateBulk_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateTransactionBulkRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionServiceServer).UpdateBulk(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TransactionService_UpdateBulk_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionServiceServer).UpdateBulk(ctx, req.(*UpdateTransactionBulkRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TransactionService_DeleteBulk_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteTransactionBulkRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionServiceServer).DeleteBulk(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TransactionService_DeleteBulk_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionServiceServer).DeleteBulk(ctx, req.(*DeleteTransactionBulkRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // TransactionService_ServiceDesc is the grpc.ServiceDesc for TransactionService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -267,6 +369,18 @@ var TransactionService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Delete",
 			Handler:    _TransactionService_Delete_Handler,
+		},
+		{
+			MethodName: "AddBulk",
+			Handler:    _TransactionService_AddBulk_Handler,
+		},
+		{
+			MethodName: "UpdateBulk",
+			Handler:    _TransactionService_UpdateBulk_Handler,
+		},
+		{
+			MethodName: "DeleteBulk",
+			Handler:    _TransactionService_DeleteBulk_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

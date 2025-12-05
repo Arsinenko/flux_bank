@@ -20,22 +20,28 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	ExchangeRateService_GetAll_FullMethodName  = "/protos.ExchangeRateService/GetAll"
-	ExchangeRateService_GetById_FullMethodName = "/protos.ExchangeRateService/GetById"
-	ExchangeRateService_Add_FullMethodName     = "/protos.ExchangeRateService/Add"
-	ExchangeRateService_Update_FullMethodName  = "/protos.ExchangeRateService/Update"
-	ExchangeRateService_Delete_FullMethodName  = "/protos.ExchangeRateService/Delete"
+	ExchangeRateService_GetAll_FullMethodName     = "/protos.ExchangeRateService/GetAll"
+	ExchangeRateService_GetById_FullMethodName    = "/protos.ExchangeRateService/GetById"
+	ExchangeRateService_Add_FullMethodName        = "/protos.ExchangeRateService/Add"
+	ExchangeRateService_Update_FullMethodName     = "/protos.ExchangeRateService/Update"
+	ExchangeRateService_Delete_FullMethodName     = "/protos.ExchangeRateService/Delete"
+	ExchangeRateService_AddBulk_FullMethodName    = "/protos.ExchangeRateService/AddBulk"
+	ExchangeRateService_UpdateBulk_FullMethodName = "/protos.ExchangeRateService/UpdateBulk"
+	ExchangeRateService_DeleteBulk_FullMethodName = "/protos.ExchangeRateService/DeleteBulk"
 )
 
 // ExchangeRateServiceClient is the client API for ExchangeRateService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ExchangeRateServiceClient interface {
-	GetAll(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*GetAllExchangeRatesResponse, error)
+	GetAll(ctx context.Context, in *GetAllRequest, opts ...grpc.CallOption) (*GetAllExchangeRatesResponse, error)
 	GetById(ctx context.Context, in *GetExchangeRateByIdRequest, opts ...grpc.CallOption) (*ExchangeRateModel, error)
 	Add(ctx context.Context, in *AddExchangeRateRequest, opts ...grpc.CallOption) (*ExchangeRateModel, error)
 	Update(ctx context.Context, in *UpdateExchangeRateRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	Delete(ctx context.Context, in *DeleteExchangeRateRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	AddBulk(ctx context.Context, in *AddExchangeRateBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	UpdateBulk(ctx context.Context, in *UpdateExchangeRateBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	DeleteBulk(ctx context.Context, in *DeleteExchangeRateBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
 type exchangeRateServiceClient struct {
@@ -46,7 +52,7 @@ func NewExchangeRateServiceClient(cc grpc.ClientConnInterface) ExchangeRateServi
 	return &exchangeRateServiceClient{cc}
 }
 
-func (c *exchangeRateServiceClient) GetAll(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*GetAllExchangeRatesResponse, error) {
+func (c *exchangeRateServiceClient) GetAll(ctx context.Context, in *GetAllRequest, opts ...grpc.CallOption) (*GetAllExchangeRatesResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(GetAllExchangeRatesResponse)
 	err := c.cc.Invoke(ctx, ExchangeRateService_GetAll_FullMethodName, in, out, cOpts...)
@@ -96,15 +102,48 @@ func (c *exchangeRateServiceClient) Delete(ctx context.Context, in *DeleteExchan
 	return out, nil
 }
 
+func (c *exchangeRateServiceClient) AddBulk(ctx context.Context, in *AddExchangeRateBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, ExchangeRateService_AddBulk_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *exchangeRateServiceClient) UpdateBulk(ctx context.Context, in *UpdateExchangeRateBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, ExchangeRateService_UpdateBulk_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *exchangeRateServiceClient) DeleteBulk(ctx context.Context, in *DeleteExchangeRateBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, ExchangeRateService_DeleteBulk_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ExchangeRateServiceServer is the server API for ExchangeRateService service.
 // All implementations must embed UnimplementedExchangeRateServiceServer
 // for forward compatibility.
 type ExchangeRateServiceServer interface {
-	GetAll(context.Context, *emptypb.Empty) (*GetAllExchangeRatesResponse, error)
+	GetAll(context.Context, *GetAllRequest) (*GetAllExchangeRatesResponse, error)
 	GetById(context.Context, *GetExchangeRateByIdRequest) (*ExchangeRateModel, error)
 	Add(context.Context, *AddExchangeRateRequest) (*ExchangeRateModel, error)
 	Update(context.Context, *UpdateExchangeRateRequest) (*emptypb.Empty, error)
 	Delete(context.Context, *DeleteExchangeRateRequest) (*emptypb.Empty, error)
+	AddBulk(context.Context, *AddExchangeRateBulkRequest) (*emptypb.Empty, error)
+	UpdateBulk(context.Context, *UpdateExchangeRateBulkRequest) (*emptypb.Empty, error)
+	DeleteBulk(context.Context, *DeleteExchangeRateBulkRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedExchangeRateServiceServer()
 }
 
@@ -115,7 +154,7 @@ type ExchangeRateServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedExchangeRateServiceServer struct{}
 
-func (UnimplementedExchangeRateServiceServer) GetAll(context.Context, *emptypb.Empty) (*GetAllExchangeRatesResponse, error) {
+func (UnimplementedExchangeRateServiceServer) GetAll(context.Context, *GetAllRequest) (*GetAllExchangeRatesResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetAll not implemented")
 }
 func (UnimplementedExchangeRateServiceServer) GetById(context.Context, *GetExchangeRateByIdRequest) (*ExchangeRateModel, error) {
@@ -129,6 +168,15 @@ func (UnimplementedExchangeRateServiceServer) Update(context.Context, *UpdateExc
 }
 func (UnimplementedExchangeRateServiceServer) Delete(context.Context, *DeleteExchangeRateRequest) (*emptypb.Empty, error) {
 	return nil, status.Error(codes.Unimplemented, "method Delete not implemented")
+}
+func (UnimplementedExchangeRateServiceServer) AddBulk(context.Context, *AddExchangeRateBulkRequest) (*emptypb.Empty, error) {
+	return nil, status.Error(codes.Unimplemented, "method AddBulk not implemented")
+}
+func (UnimplementedExchangeRateServiceServer) UpdateBulk(context.Context, *UpdateExchangeRateBulkRequest) (*emptypb.Empty, error) {
+	return nil, status.Error(codes.Unimplemented, "method UpdateBulk not implemented")
+}
+func (UnimplementedExchangeRateServiceServer) DeleteBulk(context.Context, *DeleteExchangeRateBulkRequest) (*emptypb.Empty, error) {
+	return nil, status.Error(codes.Unimplemented, "method DeleteBulk not implemented")
 }
 func (UnimplementedExchangeRateServiceServer) mustEmbedUnimplementedExchangeRateServiceServer() {}
 func (UnimplementedExchangeRateServiceServer) testEmbeddedByValue()                             {}
@@ -152,7 +200,7 @@ func RegisterExchangeRateServiceServer(s grpc.ServiceRegistrar, srv ExchangeRate
 }
 
 func _ExchangeRateService_GetAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(emptypb.Empty)
+	in := new(GetAllRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -164,7 +212,7 @@ func _ExchangeRateService_GetAll_Handler(srv interface{}, ctx context.Context, d
 		FullMethod: ExchangeRateService_GetAll_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ExchangeRateServiceServer).GetAll(ctx, req.(*emptypb.Empty))
+		return srv.(ExchangeRateServiceServer).GetAll(ctx, req.(*GetAllRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -241,6 +289,60 @@ func _ExchangeRateService_Delete_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ExchangeRateService_AddBulk_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddExchangeRateBulkRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ExchangeRateServiceServer).AddBulk(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ExchangeRateService_AddBulk_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ExchangeRateServiceServer).AddBulk(ctx, req.(*AddExchangeRateBulkRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ExchangeRateService_UpdateBulk_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateExchangeRateBulkRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ExchangeRateServiceServer).UpdateBulk(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ExchangeRateService_UpdateBulk_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ExchangeRateServiceServer).UpdateBulk(ctx, req.(*UpdateExchangeRateBulkRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ExchangeRateService_DeleteBulk_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteExchangeRateBulkRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ExchangeRateServiceServer).DeleteBulk(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ExchangeRateService_DeleteBulk_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ExchangeRateServiceServer).DeleteBulk(ctx, req.(*DeleteExchangeRateBulkRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ExchangeRateService_ServiceDesc is the grpc.ServiceDesc for ExchangeRateService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -267,6 +369,18 @@ var ExchangeRateService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Delete",
 			Handler:    _ExchangeRateService_Delete_Handler,
+		},
+		{
+			MethodName: "AddBulk",
+			Handler:    _ExchangeRateService_AddBulk_Handler,
+		},
+		{
+			MethodName: "UpdateBulk",
+			Handler:    _ExchangeRateService_UpdateBulk_Handler,
+		},
+		{
+			MethodName: "DeleteBulk",
+			Handler:    _ExchangeRateService_DeleteBulk_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

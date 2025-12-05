@@ -20,22 +20,26 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	CustomerService_GetAll_FullMethodName  = "/protos.CustomerService/GetAll"
-	CustomerService_GetById_FullMethodName = "/protos.CustomerService/GetById"
-	CustomerService_Add_FullMethodName     = "/protos.CustomerService/Add"
-	CustomerService_Update_FullMethodName  = "/protos.CustomerService/Update"
-	CustomerService_Delete_FullMethodName  = "/protos.CustomerService/Delete"
+	CustomerService_GetAll_FullMethodName     = "/protos.CustomerService/GetAll"
+	CustomerService_GetById_FullMethodName    = "/protos.CustomerService/GetById"
+	CustomerService_Add_FullMethodName        = "/protos.CustomerService/Add"
+	CustomerService_Update_FullMethodName     = "/protos.CustomerService/Update"
+	CustomerService_Delete_FullMethodName     = "/protos.CustomerService/Delete"
+	CustomerService_UpdateBulk_FullMethodName = "/protos.CustomerService/UpdateBulk"
+	CustomerService_DeleteBulk_FullMethodName = "/protos.CustomerService/DeleteBulk"
 )
 
 // CustomerServiceClient is the client API for CustomerService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type CustomerServiceClient interface {
-	GetAll(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*GetAllCustomersResponse, error)
+	GetAll(ctx context.Context, in *GetAllRequest, opts ...grpc.CallOption) (*GetAllCustomersResponse, error)
 	GetById(ctx context.Context, in *GetCustomerByIdRequest, opts ...grpc.CallOption) (*CustomerModel, error)
 	Add(ctx context.Context, in *AddCustomerRequest, opts ...grpc.CallOption) (*CustomerModel, error)
 	Update(ctx context.Context, in *UpdateCustomerRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	Delete(ctx context.Context, in *DeleteCustomerRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	UpdateBulk(ctx context.Context, in *UpdateCustomerBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	DeleteBulk(ctx context.Context, in *DeleteCustomerBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
 type customerServiceClient struct {
@@ -46,7 +50,7 @@ func NewCustomerServiceClient(cc grpc.ClientConnInterface) CustomerServiceClient
 	return &customerServiceClient{cc}
 }
 
-func (c *customerServiceClient) GetAll(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*GetAllCustomersResponse, error) {
+func (c *customerServiceClient) GetAll(ctx context.Context, in *GetAllRequest, opts ...grpc.CallOption) (*GetAllCustomersResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(GetAllCustomersResponse)
 	err := c.cc.Invoke(ctx, CustomerService_GetAll_FullMethodName, in, out, cOpts...)
@@ -96,15 +100,37 @@ func (c *customerServiceClient) Delete(ctx context.Context, in *DeleteCustomerRe
 	return out, nil
 }
 
+func (c *customerServiceClient) UpdateBulk(ctx context.Context, in *UpdateCustomerBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, CustomerService_UpdateBulk_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *customerServiceClient) DeleteBulk(ctx context.Context, in *DeleteCustomerBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, CustomerService_DeleteBulk_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CustomerServiceServer is the server API for CustomerService service.
 // All implementations must embed UnimplementedCustomerServiceServer
 // for forward compatibility.
 type CustomerServiceServer interface {
-	GetAll(context.Context, *emptypb.Empty) (*GetAllCustomersResponse, error)
+	GetAll(context.Context, *GetAllRequest) (*GetAllCustomersResponse, error)
 	GetById(context.Context, *GetCustomerByIdRequest) (*CustomerModel, error)
 	Add(context.Context, *AddCustomerRequest) (*CustomerModel, error)
 	Update(context.Context, *UpdateCustomerRequest) (*emptypb.Empty, error)
 	Delete(context.Context, *DeleteCustomerRequest) (*emptypb.Empty, error)
+	UpdateBulk(context.Context, *UpdateCustomerBulkRequest) (*emptypb.Empty, error)
+	DeleteBulk(context.Context, *DeleteCustomerBulkRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedCustomerServiceServer()
 }
 
@@ -115,7 +141,7 @@ type CustomerServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedCustomerServiceServer struct{}
 
-func (UnimplementedCustomerServiceServer) GetAll(context.Context, *emptypb.Empty) (*GetAllCustomersResponse, error) {
+func (UnimplementedCustomerServiceServer) GetAll(context.Context, *GetAllRequest) (*GetAllCustomersResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetAll not implemented")
 }
 func (UnimplementedCustomerServiceServer) GetById(context.Context, *GetCustomerByIdRequest) (*CustomerModel, error) {
@@ -129,6 +155,12 @@ func (UnimplementedCustomerServiceServer) Update(context.Context, *UpdateCustome
 }
 func (UnimplementedCustomerServiceServer) Delete(context.Context, *DeleteCustomerRequest) (*emptypb.Empty, error) {
 	return nil, status.Error(codes.Unimplemented, "method Delete not implemented")
+}
+func (UnimplementedCustomerServiceServer) UpdateBulk(context.Context, *UpdateCustomerBulkRequest) (*emptypb.Empty, error) {
+	return nil, status.Error(codes.Unimplemented, "method UpdateBulk not implemented")
+}
+func (UnimplementedCustomerServiceServer) DeleteBulk(context.Context, *DeleteCustomerBulkRequest) (*emptypb.Empty, error) {
+	return nil, status.Error(codes.Unimplemented, "method DeleteBulk not implemented")
 }
 func (UnimplementedCustomerServiceServer) mustEmbedUnimplementedCustomerServiceServer() {}
 func (UnimplementedCustomerServiceServer) testEmbeddedByValue()                         {}
@@ -152,7 +184,7 @@ func RegisterCustomerServiceServer(s grpc.ServiceRegistrar, srv CustomerServiceS
 }
 
 func _CustomerService_GetAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(emptypb.Empty)
+	in := new(GetAllRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -164,7 +196,7 @@ func _CustomerService_GetAll_Handler(srv interface{}, ctx context.Context, dec f
 		FullMethod: CustomerService_GetAll_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CustomerServiceServer).GetAll(ctx, req.(*emptypb.Empty))
+		return srv.(CustomerServiceServer).GetAll(ctx, req.(*GetAllRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -241,6 +273,42 @@ func _CustomerService_Delete_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _CustomerService_UpdateBulk_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateCustomerBulkRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CustomerServiceServer).UpdateBulk(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CustomerService_UpdateBulk_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CustomerServiceServer).UpdateBulk(ctx, req.(*UpdateCustomerBulkRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CustomerService_DeleteBulk_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteCustomerBulkRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CustomerServiceServer).DeleteBulk(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CustomerService_DeleteBulk_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CustomerServiceServer).DeleteBulk(ctx, req.(*DeleteCustomerBulkRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // CustomerService_ServiceDesc is the grpc.ServiceDesc for CustomerService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -267,6 +335,14 @@ var CustomerService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Delete",
 			Handler:    _CustomerService_Delete_Handler,
+		},
+		{
+			MethodName: "UpdateBulk",
+			Handler:    _CustomerService_UpdateBulk_Handler,
+		},
+		{
+			MethodName: "DeleteBulk",
+			Handler:    _CustomerService_DeleteBulk_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

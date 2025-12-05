@@ -20,22 +20,28 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	NotificationService_GetAll_FullMethodName  = "/protos.NotificationService/GetAll"
-	NotificationService_GetById_FullMethodName = "/protos.NotificationService/GetById"
-	NotificationService_Add_FullMethodName     = "/protos.NotificationService/Add"
-	NotificationService_Update_FullMethodName  = "/protos.NotificationService/Update"
-	NotificationService_Delete_FullMethodName  = "/protos.NotificationService/Delete"
+	NotificationService_GetAll_FullMethodName     = "/protos.NotificationService/GetAll"
+	NotificationService_GetById_FullMethodName    = "/protos.NotificationService/GetById"
+	NotificationService_Add_FullMethodName        = "/protos.NotificationService/Add"
+	NotificationService_Update_FullMethodName     = "/protos.NotificationService/Update"
+	NotificationService_Delete_FullMethodName     = "/protos.NotificationService/Delete"
+	NotificationService_AddBulk_FullMethodName    = "/protos.NotificationService/AddBulk"
+	NotificationService_UpdateBulk_FullMethodName = "/protos.NotificationService/UpdateBulk"
+	NotificationService_DeleteBulk_FullMethodName = "/protos.NotificationService/DeleteBulk"
 )
 
 // NotificationServiceClient is the client API for NotificationService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type NotificationServiceClient interface {
-	GetAll(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*GetAllNotificationsResponse, error)
+	GetAll(ctx context.Context, in *GetAllRequest, opts ...grpc.CallOption) (*GetAllNotificationsResponse, error)
 	GetById(ctx context.Context, in *GetNotificationByIdRequest, opts ...grpc.CallOption) (*NotificationModel, error)
 	Add(ctx context.Context, in *AddNotificationRequest, opts ...grpc.CallOption) (*NotificationModel, error)
 	Update(ctx context.Context, in *UpdateNotificationRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	Delete(ctx context.Context, in *DeleteNotificationRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	AddBulk(ctx context.Context, in *AddNotificationBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	UpdateBulk(ctx context.Context, in *UpdateNotificationBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	DeleteBulk(ctx context.Context, in *DeleteNotificationBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
 type notificationServiceClient struct {
@@ -46,7 +52,7 @@ func NewNotificationServiceClient(cc grpc.ClientConnInterface) NotificationServi
 	return &notificationServiceClient{cc}
 }
 
-func (c *notificationServiceClient) GetAll(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*GetAllNotificationsResponse, error) {
+func (c *notificationServiceClient) GetAll(ctx context.Context, in *GetAllRequest, opts ...grpc.CallOption) (*GetAllNotificationsResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(GetAllNotificationsResponse)
 	err := c.cc.Invoke(ctx, NotificationService_GetAll_FullMethodName, in, out, cOpts...)
@@ -96,15 +102,48 @@ func (c *notificationServiceClient) Delete(ctx context.Context, in *DeleteNotifi
 	return out, nil
 }
 
+func (c *notificationServiceClient) AddBulk(ctx context.Context, in *AddNotificationBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, NotificationService_AddBulk_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *notificationServiceClient) UpdateBulk(ctx context.Context, in *UpdateNotificationBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, NotificationService_UpdateBulk_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *notificationServiceClient) DeleteBulk(ctx context.Context, in *DeleteNotificationBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, NotificationService_DeleteBulk_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // NotificationServiceServer is the server API for NotificationService service.
 // All implementations must embed UnimplementedNotificationServiceServer
 // for forward compatibility.
 type NotificationServiceServer interface {
-	GetAll(context.Context, *emptypb.Empty) (*GetAllNotificationsResponse, error)
+	GetAll(context.Context, *GetAllRequest) (*GetAllNotificationsResponse, error)
 	GetById(context.Context, *GetNotificationByIdRequest) (*NotificationModel, error)
 	Add(context.Context, *AddNotificationRequest) (*NotificationModel, error)
 	Update(context.Context, *UpdateNotificationRequest) (*emptypb.Empty, error)
 	Delete(context.Context, *DeleteNotificationRequest) (*emptypb.Empty, error)
+	AddBulk(context.Context, *AddNotificationBulkRequest) (*emptypb.Empty, error)
+	UpdateBulk(context.Context, *UpdateNotificationBulkRequest) (*emptypb.Empty, error)
+	DeleteBulk(context.Context, *DeleteNotificationBulkRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedNotificationServiceServer()
 }
 
@@ -115,7 +154,7 @@ type NotificationServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedNotificationServiceServer struct{}
 
-func (UnimplementedNotificationServiceServer) GetAll(context.Context, *emptypb.Empty) (*GetAllNotificationsResponse, error) {
+func (UnimplementedNotificationServiceServer) GetAll(context.Context, *GetAllRequest) (*GetAllNotificationsResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetAll not implemented")
 }
 func (UnimplementedNotificationServiceServer) GetById(context.Context, *GetNotificationByIdRequest) (*NotificationModel, error) {
@@ -129,6 +168,15 @@ func (UnimplementedNotificationServiceServer) Update(context.Context, *UpdateNot
 }
 func (UnimplementedNotificationServiceServer) Delete(context.Context, *DeleteNotificationRequest) (*emptypb.Empty, error) {
 	return nil, status.Error(codes.Unimplemented, "method Delete not implemented")
+}
+func (UnimplementedNotificationServiceServer) AddBulk(context.Context, *AddNotificationBulkRequest) (*emptypb.Empty, error) {
+	return nil, status.Error(codes.Unimplemented, "method AddBulk not implemented")
+}
+func (UnimplementedNotificationServiceServer) UpdateBulk(context.Context, *UpdateNotificationBulkRequest) (*emptypb.Empty, error) {
+	return nil, status.Error(codes.Unimplemented, "method UpdateBulk not implemented")
+}
+func (UnimplementedNotificationServiceServer) DeleteBulk(context.Context, *DeleteNotificationBulkRequest) (*emptypb.Empty, error) {
+	return nil, status.Error(codes.Unimplemented, "method DeleteBulk not implemented")
 }
 func (UnimplementedNotificationServiceServer) mustEmbedUnimplementedNotificationServiceServer() {}
 func (UnimplementedNotificationServiceServer) testEmbeddedByValue()                             {}
@@ -152,7 +200,7 @@ func RegisterNotificationServiceServer(s grpc.ServiceRegistrar, srv Notification
 }
 
 func _NotificationService_GetAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(emptypb.Empty)
+	in := new(GetAllRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -164,7 +212,7 @@ func _NotificationService_GetAll_Handler(srv interface{}, ctx context.Context, d
 		FullMethod: NotificationService_GetAll_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(NotificationServiceServer).GetAll(ctx, req.(*emptypb.Empty))
+		return srv.(NotificationServiceServer).GetAll(ctx, req.(*GetAllRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -241,6 +289,60 @@ func _NotificationService_Delete_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
+func _NotificationService_AddBulk_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddNotificationBulkRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(NotificationServiceServer).AddBulk(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: NotificationService_AddBulk_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(NotificationServiceServer).AddBulk(ctx, req.(*AddNotificationBulkRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _NotificationService_UpdateBulk_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateNotificationBulkRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(NotificationServiceServer).UpdateBulk(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: NotificationService_UpdateBulk_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(NotificationServiceServer).UpdateBulk(ctx, req.(*UpdateNotificationBulkRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _NotificationService_DeleteBulk_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteNotificationBulkRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(NotificationServiceServer).DeleteBulk(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: NotificationService_DeleteBulk_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(NotificationServiceServer).DeleteBulk(ctx, req.(*DeleteNotificationBulkRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // NotificationService_ServiceDesc is the grpc.ServiceDesc for NotificationService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -267,6 +369,18 @@ var NotificationService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Delete",
 			Handler:    _NotificationService_Delete_Handler,
+		},
+		{
+			MethodName: "AddBulk",
+			Handler:    _NotificationService_AddBulk_Handler,
+		},
+		{
+			MethodName: "UpdateBulk",
+			Handler:    _NotificationService_UpdateBulk_Handler,
+		},
+		{
+			MethodName: "DeleteBulk",
+			Handler:    _NotificationService_DeleteBulk_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

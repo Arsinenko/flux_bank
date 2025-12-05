@@ -302,11 +302,143 @@ func (x *DeleteTransactionCategoryRequest) GetCategoryId() int32 {
 	return 0
 }
 
+type AddTransactionCategoryBulkRequest struct {
+	state                 protoimpl.MessageState           `protogen:"open.v1"`
+	TransactionCategories []*AddTransactionCategoryRequest `protobuf:"bytes,1,rep,name=transaction_categories,json=transactionCategories,proto3" json:"transaction_categories,omitempty"`
+	unknownFields         protoimpl.UnknownFields
+	sizeCache             protoimpl.SizeCache
+}
+
+func (x *AddTransactionCategoryBulkRequest) Reset() {
+	*x = AddTransactionCategoryBulkRequest{}
+	mi := &file_transaction_category_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AddTransactionCategoryBulkRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AddTransactionCategoryBulkRequest) ProtoMessage() {}
+
+func (x *AddTransactionCategoryBulkRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_transaction_category_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AddTransactionCategoryBulkRequest.ProtoReflect.Descriptor instead.
+func (*AddTransactionCategoryBulkRequest) Descriptor() ([]byte, []int) {
+	return file_transaction_category_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *AddTransactionCategoryBulkRequest) GetTransactionCategories() []*AddTransactionCategoryRequest {
+	if x != nil {
+		return x.TransactionCategories
+	}
+	return nil
+}
+
+type UpdateTransactionCategoryBulkRequest struct {
+	state                 protoimpl.MessageState              `protogen:"open.v1"`
+	TransactionCategories []*UpdateTransactionCategoryRequest `protobuf:"bytes,1,rep,name=transaction_categories,json=transactionCategories,proto3" json:"transaction_categories,omitempty"`
+	unknownFields         protoimpl.UnknownFields
+	sizeCache             protoimpl.SizeCache
+}
+
+func (x *UpdateTransactionCategoryBulkRequest) Reset() {
+	*x = UpdateTransactionCategoryBulkRequest{}
+	mi := &file_transaction_category_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateTransactionCategoryBulkRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateTransactionCategoryBulkRequest) ProtoMessage() {}
+
+func (x *UpdateTransactionCategoryBulkRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_transaction_category_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateTransactionCategoryBulkRequest.ProtoReflect.Descriptor instead.
+func (*UpdateTransactionCategoryBulkRequest) Descriptor() ([]byte, []int) {
+	return file_transaction_category_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *UpdateTransactionCategoryBulkRequest) GetTransactionCategories() []*UpdateTransactionCategoryRequest {
+	if x != nil {
+		return x.TransactionCategories
+	}
+	return nil
+}
+
+type DeleteTransactionCategoryBulkRequest struct {
+	state                 protoimpl.MessageState              `protogen:"open.v1"`
+	TransactionCategories []*DeleteTransactionCategoryRequest `protobuf:"bytes,1,rep,name=transaction_categories,json=transactionCategories,proto3" json:"transaction_categories,omitempty"`
+	unknownFields         protoimpl.UnknownFields
+	sizeCache             protoimpl.SizeCache
+}
+
+func (x *DeleteTransactionCategoryBulkRequest) Reset() {
+	*x = DeleteTransactionCategoryBulkRequest{}
+	mi := &file_transaction_category_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteTransactionCategoryBulkRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteTransactionCategoryBulkRequest) ProtoMessage() {}
+
+func (x *DeleteTransactionCategoryBulkRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_transaction_category_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteTransactionCategoryBulkRequest.ProtoReflect.Descriptor instead.
+func (*DeleteTransactionCategoryBulkRequest) Descriptor() ([]byte, []int) {
+	return file_transaction_category_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *DeleteTransactionCategoryBulkRequest) GetTransactionCategories() []*DeleteTransactionCategoryRequest {
+	if x != nil {
+		return x.TransactionCategories
+	}
+	return nil
+}
+
 var File_transaction_category_proto protoreflect.FileDescriptor
 
 const file_transaction_category_proto_rawDesc = "" +
 	"\n" +
-	"\x1atransaction_category.proto\x12\x06protos\x1a\x1bgoogle/protobuf/empty.proto\"O\n" +
+	"\x1atransaction_category.proto\x12\x06protos\x1a\x1bgoogle/protobuf/empty.proto\x1a\x12custom_types.proto\"O\n" +
 	"\x18TransactionCategoryModel\x12\x1f\n" +
 	"\vcategory_id\x18\x01 \x01(\x05R\n" +
 	"categoryId\x12\x12\n" +
@@ -324,13 +456,24 @@ const file_transaction_category_proto_rawDesc = "" +
 	"\x04name\x18\x02 \x01(\tR\x04name\"C\n" +
 	" DeleteTransactionCategoryRequest\x12\x1f\n" +
 	"\vcategory_id\x18\x01 \x01(\x05R\n" +
-	"categoryId2\xab\x03\n" +
-	"\x1aTransactionCategoryService\x12M\n" +
-	"\x06GetAll\x12\x16.google.protobuf.Empty\x1a+.protos.GetAllTransactionCategoriesResponse\x12V\n" +
+	"categoryId\"\x81\x01\n" +
+	"!AddTransactionCategoryBulkRequest\x12\\\n" +
+	"\x16transaction_categories\x18\x01 \x03(\v2%.protos.AddTransactionCategoryRequestR\x15transactionCategories\"\x87\x01\n" +
+	"$UpdateTransactionCategoryBulkRequest\x12_\n" +
+	"\x16transaction_categories\x18\x01 \x03(\v2(.protos.UpdateTransactionCategoryRequestR\x15transactionCategories\"\x87\x01\n" +
+	"$DeleteTransactionCategoryBulkRequest\x12_\n" +
+	"\x16transaction_categories\x18\x01 \x03(\v2(.protos.DeleteTransactionCategoryRequestR\x15transactionCategories2\xa0\x05\n" +
+	"\x1aTransactionCategoryService\x12L\n" +
+	"\x06GetAll\x12\x15.protos.GetAllRequest\x1a+.protos.GetAllTransactionCategoriesResponse\x12V\n" +
 	"\aGetById\x12).protos.GetTransactionCategoryByIdRequest\x1a .protos.TransactionCategoryModel\x12N\n" +
 	"\x03Add\x12%.protos.AddTransactionCategoryRequest\x1a .protos.TransactionCategoryModel\x12J\n" +
 	"\x06Update\x12(.protos.UpdateTransactionCategoryRequest\x1a\x16.google.protobuf.Empty\x12J\n" +
-	"\x06Delete\x12(.protos.DeleteTransactionCategoryRequest\x1a\x16.google.protobuf.EmptyB\x1bZ\x19orch-go/gen/protos;protosb\x06proto3"
+	"\x06Delete\x12(.protos.DeleteTransactionCategoryRequest\x1a\x16.google.protobuf.Empty\x12L\n" +
+	"\aAddBulk\x12).protos.AddTransactionCategoryBulkRequest\x1a\x16.google.protobuf.Empty\x12R\n" +
+	"\n" +
+	"UpdateBulk\x12,.protos.UpdateTransactionCategoryBulkRequest\x1a\x16.google.protobuf.Empty\x12R\n" +
+	"\n" +
+	"DeleteBulk\x12,.protos.DeleteTransactionCategoryBulkRequest\x1a\x16.google.protobuf.EmptyB\x1bZ\x19orch-go/gen/protos;protosb\x06proto3"
 
 var (
 	file_transaction_category_proto_rawDescOnce sync.Once
@@ -344,33 +487,46 @@ func file_transaction_category_proto_rawDescGZIP() []byte {
 	return file_transaction_category_proto_rawDescData
 }
 
-var file_transaction_category_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+var file_transaction_category_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
 var file_transaction_category_proto_goTypes = []any{
-	(*TransactionCategoryModel)(nil),            // 0: protos.TransactionCategoryModel
-	(*GetAllTransactionCategoriesResponse)(nil), // 1: protos.GetAllTransactionCategoriesResponse
-	(*GetTransactionCategoryByIdRequest)(nil),   // 2: protos.GetTransactionCategoryByIdRequest
-	(*AddTransactionCategoryRequest)(nil),       // 3: protos.AddTransactionCategoryRequest
-	(*UpdateTransactionCategoryRequest)(nil),    // 4: protos.UpdateTransactionCategoryRequest
-	(*DeleteTransactionCategoryRequest)(nil),    // 5: protos.DeleteTransactionCategoryRequest
-	(*emptypb.Empty)(nil),                       // 6: google.protobuf.Empty
+	(*TransactionCategoryModel)(nil),             // 0: protos.TransactionCategoryModel
+	(*GetAllTransactionCategoriesResponse)(nil),  // 1: protos.GetAllTransactionCategoriesResponse
+	(*GetTransactionCategoryByIdRequest)(nil),    // 2: protos.GetTransactionCategoryByIdRequest
+	(*AddTransactionCategoryRequest)(nil),        // 3: protos.AddTransactionCategoryRequest
+	(*UpdateTransactionCategoryRequest)(nil),     // 4: protos.UpdateTransactionCategoryRequest
+	(*DeleteTransactionCategoryRequest)(nil),     // 5: protos.DeleteTransactionCategoryRequest
+	(*AddTransactionCategoryBulkRequest)(nil),    // 6: protos.AddTransactionCategoryBulkRequest
+	(*UpdateTransactionCategoryBulkRequest)(nil), // 7: protos.UpdateTransactionCategoryBulkRequest
+	(*DeleteTransactionCategoryBulkRequest)(nil), // 8: protos.DeleteTransactionCategoryBulkRequest
+	(*GetAllRequest)(nil),                        // 9: protos.GetAllRequest
+	(*emptypb.Empty)(nil),                        // 10: google.protobuf.Empty
 }
 var file_transaction_category_proto_depIdxs = []int32{
-	0, // 0: protos.GetAllTransactionCategoriesResponse.transaction_categories:type_name -> protos.TransactionCategoryModel
-	6, // 1: protos.TransactionCategoryService.GetAll:input_type -> google.protobuf.Empty
-	2, // 2: protos.TransactionCategoryService.GetById:input_type -> protos.GetTransactionCategoryByIdRequest
-	3, // 3: protos.TransactionCategoryService.Add:input_type -> protos.AddTransactionCategoryRequest
-	4, // 4: protos.TransactionCategoryService.Update:input_type -> protos.UpdateTransactionCategoryRequest
-	5, // 5: protos.TransactionCategoryService.Delete:input_type -> protos.DeleteTransactionCategoryRequest
-	1, // 6: protos.TransactionCategoryService.GetAll:output_type -> protos.GetAllTransactionCategoriesResponse
-	0, // 7: protos.TransactionCategoryService.GetById:output_type -> protos.TransactionCategoryModel
-	0, // 8: protos.TransactionCategoryService.Add:output_type -> protos.TransactionCategoryModel
-	6, // 9: protos.TransactionCategoryService.Update:output_type -> google.protobuf.Empty
-	6, // 10: protos.TransactionCategoryService.Delete:output_type -> google.protobuf.Empty
-	6, // [6:11] is the sub-list for method output_type
-	1, // [1:6] is the sub-list for method input_type
-	1, // [1:1] is the sub-list for extension type_name
-	1, // [1:1] is the sub-list for extension extendee
-	0, // [0:1] is the sub-list for field type_name
+	0,  // 0: protos.GetAllTransactionCategoriesResponse.transaction_categories:type_name -> protos.TransactionCategoryModel
+	3,  // 1: protos.AddTransactionCategoryBulkRequest.transaction_categories:type_name -> protos.AddTransactionCategoryRequest
+	4,  // 2: protos.UpdateTransactionCategoryBulkRequest.transaction_categories:type_name -> protos.UpdateTransactionCategoryRequest
+	5,  // 3: protos.DeleteTransactionCategoryBulkRequest.transaction_categories:type_name -> protos.DeleteTransactionCategoryRequest
+	9,  // 4: protos.TransactionCategoryService.GetAll:input_type -> protos.GetAllRequest
+	2,  // 5: protos.TransactionCategoryService.GetById:input_type -> protos.GetTransactionCategoryByIdRequest
+	3,  // 6: protos.TransactionCategoryService.Add:input_type -> protos.AddTransactionCategoryRequest
+	4,  // 7: protos.TransactionCategoryService.Update:input_type -> protos.UpdateTransactionCategoryRequest
+	5,  // 8: protos.TransactionCategoryService.Delete:input_type -> protos.DeleteTransactionCategoryRequest
+	6,  // 9: protos.TransactionCategoryService.AddBulk:input_type -> protos.AddTransactionCategoryBulkRequest
+	7,  // 10: protos.TransactionCategoryService.UpdateBulk:input_type -> protos.UpdateTransactionCategoryBulkRequest
+	8,  // 11: protos.TransactionCategoryService.DeleteBulk:input_type -> protos.DeleteTransactionCategoryBulkRequest
+	1,  // 12: protos.TransactionCategoryService.GetAll:output_type -> protos.GetAllTransactionCategoriesResponse
+	0,  // 13: protos.TransactionCategoryService.GetById:output_type -> protos.TransactionCategoryModel
+	0,  // 14: protos.TransactionCategoryService.Add:output_type -> protos.TransactionCategoryModel
+	10, // 15: protos.TransactionCategoryService.Update:output_type -> google.protobuf.Empty
+	10, // 16: protos.TransactionCategoryService.Delete:output_type -> google.protobuf.Empty
+	10, // 17: protos.TransactionCategoryService.AddBulk:output_type -> google.protobuf.Empty
+	10, // 18: protos.TransactionCategoryService.UpdateBulk:output_type -> google.protobuf.Empty
+	10, // 19: protos.TransactionCategoryService.DeleteBulk:output_type -> google.protobuf.Empty
+	12, // [12:20] is the sub-list for method output_type
+	4,  // [4:12] is the sub-list for method input_type
+	4,  // [4:4] is the sub-list for extension type_name
+	4,  // [4:4] is the sub-list for extension extendee
+	0,  // [0:4] is the sub-list for field type_name
 }
 
 func init() { file_transaction_category_proto_init() }
@@ -378,13 +534,14 @@ func file_transaction_category_proto_init() {
 	if File_transaction_category_proto != nil {
 		return
 	}
+	file_custom_types_proto_init()
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_transaction_category_proto_rawDesc), len(file_transaction_category_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   6,
+			NumMessages:   9,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

@@ -326,11 +326,143 @@ func (x *DeleteFeeTypeRequest) GetFeeId() int32 {
 	return 0
 }
 
+type AddFeeTypeBulkRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	FeeTypes      []*AddFeeTypeRequest   `protobuf:"bytes,1,rep,name=fee_types,json=feeTypes,proto3" json:"fee_types,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AddFeeTypeBulkRequest) Reset() {
+	*x = AddFeeTypeBulkRequest{}
+	mi := &file_fee_type_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AddFeeTypeBulkRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AddFeeTypeBulkRequest) ProtoMessage() {}
+
+func (x *AddFeeTypeBulkRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_fee_type_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AddFeeTypeBulkRequest.ProtoReflect.Descriptor instead.
+func (*AddFeeTypeBulkRequest) Descriptor() ([]byte, []int) {
+	return file_fee_type_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *AddFeeTypeBulkRequest) GetFeeTypes() []*AddFeeTypeRequest {
+	if x != nil {
+		return x.FeeTypes
+	}
+	return nil
+}
+
+type UpdateFeeTypeBulkRequest struct {
+	state         protoimpl.MessageState  `protogen:"open.v1"`
+	FeeTypes      []*UpdateFeeTypeRequest `protobuf:"bytes,1,rep,name=fee_types,json=feeTypes,proto3" json:"fee_types,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateFeeTypeBulkRequest) Reset() {
+	*x = UpdateFeeTypeBulkRequest{}
+	mi := &file_fee_type_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateFeeTypeBulkRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateFeeTypeBulkRequest) ProtoMessage() {}
+
+func (x *UpdateFeeTypeBulkRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_fee_type_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateFeeTypeBulkRequest.ProtoReflect.Descriptor instead.
+func (*UpdateFeeTypeBulkRequest) Descriptor() ([]byte, []int) {
+	return file_fee_type_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *UpdateFeeTypeBulkRequest) GetFeeTypes() []*UpdateFeeTypeRequest {
+	if x != nil {
+		return x.FeeTypes
+	}
+	return nil
+}
+
+type DeleteFeeTypeBulkRequest struct {
+	state         protoimpl.MessageState  `protogen:"open.v1"`
+	FeeTypes      []*DeleteFeeTypeRequest `protobuf:"bytes,1,rep,name=fee_types,json=feeTypes,proto3" json:"fee_types,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DeleteFeeTypeBulkRequest) Reset() {
+	*x = DeleteFeeTypeBulkRequest{}
+	mi := &file_fee_type_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteFeeTypeBulkRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteFeeTypeBulkRequest) ProtoMessage() {}
+
+func (x *DeleteFeeTypeBulkRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_fee_type_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteFeeTypeBulkRequest.ProtoReflect.Descriptor instead.
+func (*DeleteFeeTypeBulkRequest) Descriptor() ([]byte, []int) {
+	return file_fee_type_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *DeleteFeeTypeBulkRequest) GetFeeTypes() []*DeleteFeeTypeRequest {
+	if x != nil {
+		return x.FeeTypes
+	}
+	return nil
+}
+
 var File_fee_type_proto protoreflect.FileDescriptor
 
 const file_fee_type_proto_rawDesc = "" +
 	"\n" +
-	"\x0efee_type.proto\x12\x06protos\x1a\x1bgoogle/protobuf/empty.proto\"~\n" +
+	"\x0efee_type.proto\x12\x06protos\x1a\x1bgoogle/protobuf/empty.proto\x1a\x12custom_types.proto\"~\n" +
 	"\fFeeTypeModel\x12\x15\n" +
 	"\x06fee_id\x18\x01 \x01(\x05R\x05feeId\x12\x17\n" +
 	"\x04name\x18\x02 \x01(\tH\x00R\x04name\x88\x01\x01\x12%\n" +
@@ -353,13 +485,24 @@ const file_fee_type_proto_rawDesc = "" +
 	"\x05_nameB\x0e\n" +
 	"\f_description\"-\n" +
 	"\x14DeleteFeeTypeRequest\x12\x15\n" +
-	"\x06fee_id\x18\x01 \x01(\x05R\x05feeId2\xca\x02\n" +
-	"\x0eFeeTypeService\x12@\n" +
-	"\x06GetAll\x12\x16.google.protobuf.Empty\x1a\x1e.protos.GetAllFeeTypesResponse\x12>\n" +
+	"\x06fee_id\x18\x01 \x01(\x05R\x05feeId\"O\n" +
+	"\x15AddFeeTypeBulkRequest\x126\n" +
+	"\tfee_types\x18\x01 \x03(\v2\x19.protos.AddFeeTypeRequestR\bfeeTypes\"U\n" +
+	"\x18UpdateFeeTypeBulkRequest\x129\n" +
+	"\tfee_types\x18\x01 \x03(\v2\x1c.protos.UpdateFeeTypeRequestR\bfeeTypes\"U\n" +
+	"\x18DeleteFeeTypeBulkRequest\x129\n" +
+	"\tfee_types\x18\x01 \x03(\v2\x1c.protos.DeleteFeeTypeRequestR\bfeeTypes2\x9b\x04\n" +
+	"\x0eFeeTypeService\x12?\n" +
+	"\x06GetAll\x12\x15.protos.GetAllRequest\x1a\x1e.protos.GetAllFeeTypesResponse\x12>\n" +
 	"\aGetById\x12\x1d.protos.GetFeeTypeByIdRequest\x1a\x14.protos.FeeTypeModel\x126\n" +
 	"\x03Add\x12\x19.protos.AddFeeTypeRequest\x1a\x14.protos.FeeTypeModel\x12>\n" +
 	"\x06Update\x12\x1c.protos.UpdateFeeTypeRequest\x1a\x16.google.protobuf.Empty\x12>\n" +
-	"\x06Delete\x12\x1c.protos.DeleteFeeTypeRequest\x1a\x16.google.protobuf.EmptyB\x1bZ\x19orch-go/gen/protos;protosb\x06proto3"
+	"\x06Delete\x12\x1c.protos.DeleteFeeTypeRequest\x1a\x16.google.protobuf.Empty\x12@\n" +
+	"\aAddBulk\x12\x1d.protos.AddFeeTypeBulkRequest\x1a\x16.google.protobuf.Empty\x12F\n" +
+	"\n" +
+	"UpdateBulk\x12 .protos.UpdateFeeTypeBulkRequest\x1a\x16.google.protobuf.Empty\x12F\n" +
+	"\n" +
+	"DeleteBulk\x12 .protos.DeleteFeeTypeBulkRequest\x1a\x16.google.protobuf.EmptyB\x1bZ\x19orch-go/gen/protos;protosb\x06proto3"
 
 var (
 	file_fee_type_proto_rawDescOnce sync.Once
@@ -373,33 +516,46 @@ func file_fee_type_proto_rawDescGZIP() []byte {
 	return file_fee_type_proto_rawDescData
 }
 
-var file_fee_type_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+var file_fee_type_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
 var file_fee_type_proto_goTypes = []any{
-	(*FeeTypeModel)(nil),           // 0: protos.FeeTypeModel
-	(*GetAllFeeTypesResponse)(nil), // 1: protos.GetAllFeeTypesResponse
-	(*GetFeeTypeByIdRequest)(nil),  // 2: protos.GetFeeTypeByIdRequest
-	(*AddFeeTypeRequest)(nil),      // 3: protos.AddFeeTypeRequest
-	(*UpdateFeeTypeRequest)(nil),   // 4: protos.UpdateFeeTypeRequest
-	(*DeleteFeeTypeRequest)(nil),   // 5: protos.DeleteFeeTypeRequest
-	(*emptypb.Empty)(nil),          // 6: google.protobuf.Empty
+	(*FeeTypeModel)(nil),             // 0: protos.FeeTypeModel
+	(*GetAllFeeTypesResponse)(nil),   // 1: protos.GetAllFeeTypesResponse
+	(*GetFeeTypeByIdRequest)(nil),    // 2: protos.GetFeeTypeByIdRequest
+	(*AddFeeTypeRequest)(nil),        // 3: protos.AddFeeTypeRequest
+	(*UpdateFeeTypeRequest)(nil),     // 4: protos.UpdateFeeTypeRequest
+	(*DeleteFeeTypeRequest)(nil),     // 5: protos.DeleteFeeTypeRequest
+	(*AddFeeTypeBulkRequest)(nil),    // 6: protos.AddFeeTypeBulkRequest
+	(*UpdateFeeTypeBulkRequest)(nil), // 7: protos.UpdateFeeTypeBulkRequest
+	(*DeleteFeeTypeBulkRequest)(nil), // 8: protos.DeleteFeeTypeBulkRequest
+	(*GetAllRequest)(nil),            // 9: protos.GetAllRequest
+	(*emptypb.Empty)(nil),            // 10: google.protobuf.Empty
 }
 var file_fee_type_proto_depIdxs = []int32{
-	0, // 0: protos.GetAllFeeTypesResponse.fee_types:type_name -> protos.FeeTypeModel
-	6, // 1: protos.FeeTypeService.GetAll:input_type -> google.protobuf.Empty
-	2, // 2: protos.FeeTypeService.GetById:input_type -> protos.GetFeeTypeByIdRequest
-	3, // 3: protos.FeeTypeService.Add:input_type -> protos.AddFeeTypeRequest
-	4, // 4: protos.FeeTypeService.Update:input_type -> protos.UpdateFeeTypeRequest
-	5, // 5: protos.FeeTypeService.Delete:input_type -> protos.DeleteFeeTypeRequest
-	1, // 6: protos.FeeTypeService.GetAll:output_type -> protos.GetAllFeeTypesResponse
-	0, // 7: protos.FeeTypeService.GetById:output_type -> protos.FeeTypeModel
-	0, // 8: protos.FeeTypeService.Add:output_type -> protos.FeeTypeModel
-	6, // 9: protos.FeeTypeService.Update:output_type -> google.protobuf.Empty
-	6, // 10: protos.FeeTypeService.Delete:output_type -> google.protobuf.Empty
-	6, // [6:11] is the sub-list for method output_type
-	1, // [1:6] is the sub-list for method input_type
-	1, // [1:1] is the sub-list for extension type_name
-	1, // [1:1] is the sub-list for extension extendee
-	0, // [0:1] is the sub-list for field type_name
+	0,  // 0: protos.GetAllFeeTypesResponse.fee_types:type_name -> protos.FeeTypeModel
+	3,  // 1: protos.AddFeeTypeBulkRequest.fee_types:type_name -> protos.AddFeeTypeRequest
+	4,  // 2: protos.UpdateFeeTypeBulkRequest.fee_types:type_name -> protos.UpdateFeeTypeRequest
+	5,  // 3: protos.DeleteFeeTypeBulkRequest.fee_types:type_name -> protos.DeleteFeeTypeRequest
+	9,  // 4: protos.FeeTypeService.GetAll:input_type -> protos.GetAllRequest
+	2,  // 5: protos.FeeTypeService.GetById:input_type -> protos.GetFeeTypeByIdRequest
+	3,  // 6: protos.FeeTypeService.Add:input_type -> protos.AddFeeTypeRequest
+	4,  // 7: protos.FeeTypeService.Update:input_type -> protos.UpdateFeeTypeRequest
+	5,  // 8: protos.FeeTypeService.Delete:input_type -> protos.DeleteFeeTypeRequest
+	6,  // 9: protos.FeeTypeService.AddBulk:input_type -> protos.AddFeeTypeBulkRequest
+	7,  // 10: protos.FeeTypeService.UpdateBulk:input_type -> protos.UpdateFeeTypeBulkRequest
+	8,  // 11: protos.FeeTypeService.DeleteBulk:input_type -> protos.DeleteFeeTypeBulkRequest
+	1,  // 12: protos.FeeTypeService.GetAll:output_type -> protos.GetAllFeeTypesResponse
+	0,  // 13: protos.FeeTypeService.GetById:output_type -> protos.FeeTypeModel
+	0,  // 14: protos.FeeTypeService.Add:output_type -> protos.FeeTypeModel
+	10, // 15: protos.FeeTypeService.Update:output_type -> google.protobuf.Empty
+	10, // 16: protos.FeeTypeService.Delete:output_type -> google.protobuf.Empty
+	10, // 17: protos.FeeTypeService.AddBulk:output_type -> google.protobuf.Empty
+	10, // 18: protos.FeeTypeService.UpdateBulk:output_type -> google.protobuf.Empty
+	10, // 19: protos.FeeTypeService.DeleteBulk:output_type -> google.protobuf.Empty
+	12, // [12:20] is the sub-list for method output_type
+	4,  // [4:12] is the sub-list for method input_type
+	4,  // [4:4] is the sub-list for extension type_name
+	4,  // [4:4] is the sub-list for extension extendee
+	0,  // [0:4] is the sub-list for field type_name
 }
 
 func init() { file_fee_type_proto_init() }
@@ -407,6 +563,7 @@ func file_fee_type_proto_init() {
 	if File_fee_type_proto != nil {
 		return
 	}
+	file_custom_types_proto_init()
 	file_fee_type_proto_msgTypes[0].OneofWrappers = []any{}
 	file_fee_type_proto_msgTypes[3].OneofWrappers = []any{}
 	file_fee_type_proto_msgTypes[4].OneofWrappers = []any{}
@@ -416,7 +573,7 @@ func file_fee_type_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_fee_type_proto_rawDesc), len(file_fee_type_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   6,
+			NumMessages:   9,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

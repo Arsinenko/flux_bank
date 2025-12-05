@@ -21,6 +21,58 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+type GetAllRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	PageN         int32                  `protobuf:"varint,1,opt,name=pageN,proto3" json:"pageN,omitempty"`
+	PageSize      int32                  `protobuf:"varint,2,opt,name=pageSize,proto3" json:"pageSize,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetAllRequest) Reset() {
+	*x = GetAllRequest{}
+	mi := &file_custom_types_proto_msgTypes[0]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetAllRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetAllRequest) ProtoMessage() {}
+
+func (x *GetAllRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_custom_types_proto_msgTypes[0]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetAllRequest.ProtoReflect.Descriptor instead.
+func (*GetAllRequest) Descriptor() ([]byte, []int) {
+	return file_custom_types_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *GetAllRequest) GetPageN() int32 {
+	if x != nil {
+		return x.PageN
+	}
+	return 0
+}
+
+func (x *GetAllRequest) GetPageSize() int32 {
+	if x != nil {
+		return x.PageSize
+	}
+	return 0
+}
+
 type DateOnly struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Year          int32                  `protobuf:"varint,1,opt,name=year,proto3" json:"year,omitempty"`
@@ -32,7 +84,7 @@ type DateOnly struct {
 
 func (x *DateOnly) Reset() {
 	*x = DateOnly{}
-	mi := &file_custom_types_proto_msgTypes[0]
+	mi := &file_custom_types_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -44,7 +96,7 @@ func (x *DateOnly) String() string {
 func (*DateOnly) ProtoMessage() {}
 
 func (x *DateOnly) ProtoReflect() protoreflect.Message {
-	mi := &file_custom_types_proto_msgTypes[0]
+	mi := &file_custom_types_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -57,7 +109,7 @@ func (x *DateOnly) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DateOnly.ProtoReflect.Descriptor instead.
 func (*DateOnly) Descriptor() ([]byte, []int) {
-	return file_custom_types_proto_rawDescGZIP(), []int{0}
+	return file_custom_types_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *DateOnly) GetYear() int32 {
@@ -85,7 +137,10 @@ var File_custom_types_proto protoreflect.FileDescriptor
 
 const file_custom_types_proto_rawDesc = "" +
 	"\n" +
-	"\x12custom_types.proto\x12\x06protos\"F\n" +
+	"\x12custom_types.proto\x12\x06protos\"A\n" +
+	"\rGetAllRequest\x12\x14\n" +
+	"\x05pageN\x18\x01 \x01(\x05R\x05pageN\x12\x1a\n" +
+	"\bpageSize\x18\x02 \x01(\x05R\bpageSize\"F\n" +
 	"\bDateOnly\x12\x12\n" +
 	"\x04year\x18\x01 \x01(\x05R\x04year\x12\x14\n" +
 	"\x05month\x18\x02 \x01(\x05R\x05month\x12\x10\n" +
@@ -103,9 +158,10 @@ func file_custom_types_proto_rawDescGZIP() []byte {
 	return file_custom_types_proto_rawDescData
 }
 
-var file_custom_types_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
+var file_custom_types_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_custom_types_proto_goTypes = []any{
-	(*DateOnly)(nil), // 0: protos.DateOnly
+	(*GetAllRequest)(nil), // 0: protos.GetAllRequest
+	(*DateOnly)(nil),      // 1: protos.DateOnly
 }
 var file_custom_types_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type
@@ -126,7 +182,7 @@ func file_custom_types_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_custom_types_proto_rawDesc), len(file_custom_types_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   1,
+			NumMessages:   2,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

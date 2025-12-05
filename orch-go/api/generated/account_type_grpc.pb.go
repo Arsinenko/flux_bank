@@ -20,22 +20,28 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	AccountTypeService_GetAll_FullMethodName  = "/protos.AccountTypeService/GetAll"
-	AccountTypeService_GetById_FullMethodName = "/protos.AccountTypeService/GetById"
-	AccountTypeService_Add_FullMethodName     = "/protos.AccountTypeService/Add"
-	AccountTypeService_Update_FullMethodName  = "/protos.AccountTypeService/Update"
-	AccountTypeService_Delete_FullMethodName  = "/protos.AccountTypeService/Delete"
+	AccountTypeService_GetAll_FullMethodName     = "/protos.AccountTypeService/GetAll"
+	AccountTypeService_GetById_FullMethodName    = "/protos.AccountTypeService/GetById"
+	AccountTypeService_Add_FullMethodName        = "/protos.AccountTypeService/Add"
+	AccountTypeService_Update_FullMethodName     = "/protos.AccountTypeService/Update"
+	AccountTypeService_Delete_FullMethodName     = "/protos.AccountTypeService/Delete"
+	AccountTypeService_AddBulk_FullMethodName    = "/protos.AccountTypeService/AddBulk"
+	AccountTypeService_UpdateBulk_FullMethodName = "/protos.AccountTypeService/UpdateBulk"
+	AccountTypeService_DeleteBulk_FullMethodName = "/protos.AccountTypeService/DeleteBulk"
 )
 
 // AccountTypeServiceClient is the client API for AccountTypeService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type AccountTypeServiceClient interface {
-	GetAll(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*GetAllAccountTypesResponse, error)
+	GetAll(ctx context.Context, in *GetAllRequest, opts ...grpc.CallOption) (*GetAllAccountTypesResponse, error)
 	GetById(ctx context.Context, in *GetAccountTypeByIdRequest, opts ...grpc.CallOption) (*AccountTypeModel, error)
 	Add(ctx context.Context, in *AddAccountTypeRequest, opts ...grpc.CallOption) (*AccountTypeModel, error)
 	Update(ctx context.Context, in *UpdateAccountTypeRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	Delete(ctx context.Context, in *DeleteAccountTypeRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	AddBulk(ctx context.Context, in *AddAccountTypeBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	UpdateBulk(ctx context.Context, in *UpdateAccountTypeBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	DeleteBulk(ctx context.Context, in *DeleteAccountTypeBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
 type accountTypeServiceClient struct {
@@ -46,7 +52,7 @@ func NewAccountTypeServiceClient(cc grpc.ClientConnInterface) AccountTypeService
 	return &accountTypeServiceClient{cc}
 }
 
-func (c *accountTypeServiceClient) GetAll(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*GetAllAccountTypesResponse, error) {
+func (c *accountTypeServiceClient) GetAll(ctx context.Context, in *GetAllRequest, opts ...grpc.CallOption) (*GetAllAccountTypesResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(GetAllAccountTypesResponse)
 	err := c.cc.Invoke(ctx, AccountTypeService_GetAll_FullMethodName, in, out, cOpts...)
@@ -96,15 +102,48 @@ func (c *accountTypeServiceClient) Delete(ctx context.Context, in *DeleteAccount
 	return out, nil
 }
 
+func (c *accountTypeServiceClient) AddBulk(ctx context.Context, in *AddAccountTypeBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, AccountTypeService_AddBulk_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *accountTypeServiceClient) UpdateBulk(ctx context.Context, in *UpdateAccountTypeBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, AccountTypeService_UpdateBulk_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *accountTypeServiceClient) DeleteBulk(ctx context.Context, in *DeleteAccountTypeBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, AccountTypeService_DeleteBulk_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AccountTypeServiceServer is the server API for AccountTypeService service.
 // All implementations must embed UnimplementedAccountTypeServiceServer
 // for forward compatibility.
 type AccountTypeServiceServer interface {
-	GetAll(context.Context, *emptypb.Empty) (*GetAllAccountTypesResponse, error)
+	GetAll(context.Context, *GetAllRequest) (*GetAllAccountTypesResponse, error)
 	GetById(context.Context, *GetAccountTypeByIdRequest) (*AccountTypeModel, error)
 	Add(context.Context, *AddAccountTypeRequest) (*AccountTypeModel, error)
 	Update(context.Context, *UpdateAccountTypeRequest) (*emptypb.Empty, error)
 	Delete(context.Context, *DeleteAccountTypeRequest) (*emptypb.Empty, error)
+	AddBulk(context.Context, *AddAccountTypeBulkRequest) (*emptypb.Empty, error)
+	UpdateBulk(context.Context, *UpdateAccountTypeBulkRequest) (*emptypb.Empty, error)
+	DeleteBulk(context.Context, *DeleteAccountTypeBulkRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedAccountTypeServiceServer()
 }
 
@@ -115,7 +154,7 @@ type AccountTypeServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedAccountTypeServiceServer struct{}
 
-func (UnimplementedAccountTypeServiceServer) GetAll(context.Context, *emptypb.Empty) (*GetAllAccountTypesResponse, error) {
+func (UnimplementedAccountTypeServiceServer) GetAll(context.Context, *GetAllRequest) (*GetAllAccountTypesResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetAll not implemented")
 }
 func (UnimplementedAccountTypeServiceServer) GetById(context.Context, *GetAccountTypeByIdRequest) (*AccountTypeModel, error) {
@@ -129,6 +168,15 @@ func (UnimplementedAccountTypeServiceServer) Update(context.Context, *UpdateAcco
 }
 func (UnimplementedAccountTypeServiceServer) Delete(context.Context, *DeleteAccountTypeRequest) (*emptypb.Empty, error) {
 	return nil, status.Error(codes.Unimplemented, "method Delete not implemented")
+}
+func (UnimplementedAccountTypeServiceServer) AddBulk(context.Context, *AddAccountTypeBulkRequest) (*emptypb.Empty, error) {
+	return nil, status.Error(codes.Unimplemented, "method AddBulk not implemented")
+}
+func (UnimplementedAccountTypeServiceServer) UpdateBulk(context.Context, *UpdateAccountTypeBulkRequest) (*emptypb.Empty, error) {
+	return nil, status.Error(codes.Unimplemented, "method UpdateBulk not implemented")
+}
+func (UnimplementedAccountTypeServiceServer) DeleteBulk(context.Context, *DeleteAccountTypeBulkRequest) (*emptypb.Empty, error) {
+	return nil, status.Error(codes.Unimplemented, "method DeleteBulk not implemented")
 }
 func (UnimplementedAccountTypeServiceServer) mustEmbedUnimplementedAccountTypeServiceServer() {}
 func (UnimplementedAccountTypeServiceServer) testEmbeddedByValue()                            {}
@@ -152,7 +200,7 @@ func RegisterAccountTypeServiceServer(s grpc.ServiceRegistrar, srv AccountTypeSe
 }
 
 func _AccountTypeService_GetAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(emptypb.Empty)
+	in := new(GetAllRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -164,7 +212,7 @@ func _AccountTypeService_GetAll_Handler(srv interface{}, ctx context.Context, de
 		FullMethod: AccountTypeService_GetAll_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AccountTypeServiceServer).GetAll(ctx, req.(*emptypb.Empty))
+		return srv.(AccountTypeServiceServer).GetAll(ctx, req.(*GetAllRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -241,6 +289,60 @@ func _AccountTypeService_Delete_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AccountTypeService_AddBulk_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddAccountTypeBulkRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountTypeServiceServer).AddBulk(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AccountTypeService_AddBulk_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountTypeServiceServer).AddBulk(ctx, req.(*AddAccountTypeBulkRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AccountTypeService_UpdateBulk_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateAccountTypeBulkRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountTypeServiceServer).UpdateBulk(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AccountTypeService_UpdateBulk_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountTypeServiceServer).UpdateBulk(ctx, req.(*UpdateAccountTypeBulkRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AccountTypeService_DeleteBulk_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteAccountTypeBulkRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountTypeServiceServer).DeleteBulk(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AccountTypeService_DeleteBulk_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountTypeServiceServer).DeleteBulk(ctx, req.(*DeleteAccountTypeBulkRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // AccountTypeService_ServiceDesc is the grpc.ServiceDesc for AccountTypeService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -267,6 +369,18 @@ var AccountTypeService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Delete",
 			Handler:    _AccountTypeService_Delete_Handler,
+		},
+		{
+			MethodName: "AddBulk",
+			Handler:    _AccountTypeService_AddBulk_Handler,
+		},
+		{
+			MethodName: "UpdateBulk",
+			Handler:    _AccountTypeService_UpdateBulk_Handler,
+		},
+		{
+			MethodName: "DeleteBulk",
+			Handler:    _AccountTypeService_DeleteBulk_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

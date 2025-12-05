@@ -422,6 +422,50 @@ func (x *DeleteLoanRequest) GetLoanId() int32 {
 	return 0
 }
 
+type DeleteLoanBulkRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Loans         []*DeleteLoanRequest   `protobuf:"bytes,1,rep,name=loans,proto3" json:"loans,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DeleteLoanBulkRequest) Reset() {
+	*x = DeleteLoanBulkRequest{}
+	mi := &file_loan_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteLoanBulkRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteLoanBulkRequest) ProtoMessage() {}
+
+func (x *DeleteLoanBulkRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_loan_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteLoanBulkRequest.ProtoReflect.Descriptor instead.
+func (*DeleteLoanBulkRequest) Descriptor() ([]byte, []int) {
+	return file_loan_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *DeleteLoanBulkRequest) GetLoans() []*DeleteLoanRequest {
+	if x != nil {
+		return x.Loans
+	}
+	return nil
+}
+
 var File_loan_proto protoreflect.FileDescriptor
 
 const file_loan_proto_rawDesc = "" +
@@ -483,13 +527,17 @@ const file_loan_proto_rawDesc = "" +
 	"\t_end_dateB\t\n" +
 	"\a_status\",\n" +
 	"\x11DeleteLoanRequest\x12\x17\n" +
-	"\aloan_id\x18\x01 \x01(\x05R\x06loanId2\xb2\x02\n" +
-	"\vLoanService\x12=\n" +
-	"\x06GetAll\x12\x16.google.protobuf.Empty\x1a\x1b.protos.GetAllLoansResponse\x128\n" +
+	"\aloan_id\x18\x01 \x01(\x05R\x06loanId\"H\n" +
+	"\x15DeleteLoanBulkRequest\x12/\n" +
+	"\x05loans\x18\x01 \x03(\v2\x19.protos.DeleteLoanRequestR\x05loans2\xf6\x02\n" +
+	"\vLoanService\x12<\n" +
+	"\x06GetAll\x12\x15.protos.GetAllRequest\x1a\x1b.protos.GetAllLoansResponse\x128\n" +
 	"\aGetById\x12\x1a.protos.GetLoanByIdRequest\x1a\x11.protos.LoanModel\x120\n" +
 	"\x03Add\x12\x16.protos.AddLoanRequest\x1a\x11.protos.LoanModel\x12;\n" +
 	"\x06Update\x12\x19.protos.UpdateLoanRequest\x1a\x16.google.protobuf.Empty\x12;\n" +
-	"\x06Delete\x12\x19.protos.DeleteLoanRequest\x1a\x16.google.protobuf.EmptyB\x1bZ\x19orch-go/gen/protos;protosb\x06proto3"
+	"\x06Delete\x12\x19.protos.DeleteLoanRequest\x1a\x16.google.protobuf.Empty\x12C\n" +
+	"\n" +
+	"DeleteBulk\x12\x1d.protos.DeleteLoanBulkRequest\x1a\x16.google.protobuf.EmptyB\x1bZ\x19orch-go/gen/protos;protosb\x06proto3"
 
 var (
 	file_loan_proto_rawDescOnce sync.Once
@@ -503,40 +551,45 @@ func file_loan_proto_rawDescGZIP() []byte {
 	return file_loan_proto_rawDescData
 }
 
-var file_loan_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+var file_loan_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
 var file_loan_proto_goTypes = []any{
-	(*LoanModel)(nil),           // 0: protos.LoanModel
-	(*GetAllLoansResponse)(nil), // 1: protos.GetAllLoansResponse
-	(*GetLoanByIdRequest)(nil),  // 2: protos.GetLoanByIdRequest
-	(*AddLoanRequest)(nil),      // 3: protos.AddLoanRequest
-	(*UpdateLoanRequest)(nil),   // 4: protos.UpdateLoanRequest
-	(*DeleteLoanRequest)(nil),   // 5: protos.DeleteLoanRequest
-	(*DateOnly)(nil),            // 6: protos.DateOnly
-	(*emptypb.Empty)(nil),       // 7: google.protobuf.Empty
+	(*LoanModel)(nil),             // 0: protos.LoanModel
+	(*GetAllLoansResponse)(nil),   // 1: protos.GetAllLoansResponse
+	(*GetLoanByIdRequest)(nil),    // 2: protos.GetLoanByIdRequest
+	(*AddLoanRequest)(nil),        // 3: protos.AddLoanRequest
+	(*UpdateLoanRequest)(nil),     // 4: protos.UpdateLoanRequest
+	(*DeleteLoanRequest)(nil),     // 5: protos.DeleteLoanRequest
+	(*DeleteLoanBulkRequest)(nil), // 6: protos.DeleteLoanBulkRequest
+	(*DateOnly)(nil),              // 7: protos.DateOnly
+	(*GetAllRequest)(nil),         // 8: protos.GetAllRequest
+	(*emptypb.Empty)(nil),         // 9: google.protobuf.Empty
 }
 var file_loan_proto_depIdxs = []int32{
-	6,  // 0: protos.LoanModel.start_date:type_name -> protos.DateOnly
-	6,  // 1: protos.LoanModel.end_date:type_name -> protos.DateOnly
+	7,  // 0: protos.LoanModel.start_date:type_name -> protos.DateOnly
+	7,  // 1: protos.LoanModel.end_date:type_name -> protos.DateOnly
 	0,  // 2: protos.GetAllLoansResponse.loans:type_name -> protos.LoanModel
-	6,  // 3: protos.AddLoanRequest.start_date:type_name -> protos.DateOnly
-	6,  // 4: protos.AddLoanRequest.end_date:type_name -> protos.DateOnly
-	6,  // 5: protos.UpdateLoanRequest.start_date:type_name -> protos.DateOnly
-	6,  // 6: protos.UpdateLoanRequest.end_date:type_name -> protos.DateOnly
-	7,  // 7: protos.LoanService.GetAll:input_type -> google.protobuf.Empty
-	2,  // 8: protos.LoanService.GetById:input_type -> protos.GetLoanByIdRequest
-	3,  // 9: protos.LoanService.Add:input_type -> protos.AddLoanRequest
-	4,  // 10: protos.LoanService.Update:input_type -> protos.UpdateLoanRequest
-	5,  // 11: protos.LoanService.Delete:input_type -> protos.DeleteLoanRequest
-	1,  // 12: protos.LoanService.GetAll:output_type -> protos.GetAllLoansResponse
-	0,  // 13: protos.LoanService.GetById:output_type -> protos.LoanModel
-	0,  // 14: protos.LoanService.Add:output_type -> protos.LoanModel
-	7,  // 15: protos.LoanService.Update:output_type -> google.protobuf.Empty
-	7,  // 16: protos.LoanService.Delete:output_type -> google.protobuf.Empty
-	12, // [12:17] is the sub-list for method output_type
-	7,  // [7:12] is the sub-list for method input_type
-	7,  // [7:7] is the sub-list for extension type_name
-	7,  // [7:7] is the sub-list for extension extendee
-	0,  // [0:7] is the sub-list for field type_name
+	7,  // 3: protos.AddLoanRequest.start_date:type_name -> protos.DateOnly
+	7,  // 4: protos.AddLoanRequest.end_date:type_name -> protos.DateOnly
+	7,  // 5: protos.UpdateLoanRequest.start_date:type_name -> protos.DateOnly
+	7,  // 6: protos.UpdateLoanRequest.end_date:type_name -> protos.DateOnly
+	5,  // 7: protos.DeleteLoanBulkRequest.loans:type_name -> protos.DeleteLoanRequest
+	8,  // 8: protos.LoanService.GetAll:input_type -> protos.GetAllRequest
+	2,  // 9: protos.LoanService.GetById:input_type -> protos.GetLoanByIdRequest
+	3,  // 10: protos.LoanService.Add:input_type -> protos.AddLoanRequest
+	4,  // 11: protos.LoanService.Update:input_type -> protos.UpdateLoanRequest
+	5,  // 12: protos.LoanService.Delete:input_type -> protos.DeleteLoanRequest
+	6,  // 13: protos.LoanService.DeleteBulk:input_type -> protos.DeleteLoanBulkRequest
+	1,  // 14: protos.LoanService.GetAll:output_type -> protos.GetAllLoansResponse
+	0,  // 15: protos.LoanService.GetById:output_type -> protos.LoanModel
+	0,  // 16: protos.LoanService.Add:output_type -> protos.LoanModel
+	9,  // 17: protos.LoanService.Update:output_type -> google.protobuf.Empty
+	9,  // 18: protos.LoanService.Delete:output_type -> google.protobuf.Empty
+	9,  // 19: protos.LoanService.DeleteBulk:output_type -> google.protobuf.Empty
+	14, // [14:20] is the sub-list for method output_type
+	8,  // [8:14] is the sub-list for method input_type
+	8,  // [8:8] is the sub-list for extension type_name
+	8,  // [8:8] is the sub-list for extension extendee
+	0,  // [0:8] is the sub-list for field type_name
 }
 
 func init() { file_loan_proto_init() }
@@ -554,7 +607,7 @@ func file_loan_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_loan_proto_rawDesc), len(file_loan_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   6,
+			NumMessages:   7,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
