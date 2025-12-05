@@ -57,4 +57,41 @@ public class TransactionService(ITransactionRepository transactionRepository, IM
         await transactionRepository.DeleteAsync(request.TransactionId);
         return new Empty();
     }
+
+    public override async Task<Empty> DeleteBulk(DeleteTransactionBulkRequest request, ServerCallContext context)
+    {
+        var ids = request.Transactions.Select(t => t.TransactionId).ToList();
+        if (ids.Count == 0)
+        {
+            throw new RpcException(new Status(StatusCode.NotFound, "No transactions to delete"));
+        }
+        var transactions = await transactionRepository.GetByIdsAsync(ids);
+        await transactionRepository.DeleteRangeAsync(transactions);
+        return new Empty();
+    }
+
+    public override async Task<Empty> UpdateBulk(UpdateTransactionBulkRequest request, ServerCallContext context)
+    {
+        var transactions = request.Transactions.Select(mapper.Map<Transaction>).ToList();
+        if (!transactions.Any())
+        {
+            throw new RpcException(new Status(StatusCode.NotFound, "No transactions to update"));
+        }
+        await transactionRepository.UpdateRangeAsync(transactions);
+        return new Empty();
+    }
+
+    public override async Task<Empty> AddBulk(AddTransactionBulkRequest request, ServerCallContext context)
+    {
+        var transactions = request.Transactions.Select(mapper.Map<Transaction>).ToList();
+        try
+        {
+            await transactionRepository.AddRangeAsync(transactions);
+            return new Empty();
+        }
+        catch (Exception e)
+        {
+            throw new RpcException(new Status(StatusCode.Internal, e.Message));
+        }
+    }
 }

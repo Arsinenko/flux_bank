@@ -57,4 +57,17 @@ public class LoanService(ILoanRepository loanRepository, IMapper mapper)
         await loanRepository.DeleteAsync(request.LoanId);
         return new Empty();
     }
+
+    public override async Task<Empty> DeleteBulk(DeleteLoanBulkRequest request, ServerCallContext context)
+    {
+        var ids = request.Loans.Select(l => l.LoanId).ToList();
+        if (ids.Count == 0)
+        {
+            throw new RpcException(new Status(StatusCode.NotFound, "No loans to delete"));
+        }
+        
+        var loans = await loanRepository.GetByIdsAsync(ids);
+        await loanRepository.DeleteRangeAsync(loans);
+        return new Empty();
+    }
 }

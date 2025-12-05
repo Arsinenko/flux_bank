@@ -57,4 +57,16 @@ public class LoanPaymentService(ILoanPaymentRepository loanPaymentRepository, IM
         await loanPaymentRepository.DeleteAsync(request.PaymentId);
         return new Empty();
     }
+
+    public override async Task<Empty> DeleteBulk(DeleteLoanPaymentBulkRequest request, ServerCallContext context)
+    {
+        var ids = request.Payments.Select(p => p.PaymentId).ToList();
+        if (ids.Count == 0)
+        {
+            throw new RpcException(new Status(StatusCode.NotFound, "No payments to delete"));
+        }
+        var loanPayments = await loanPaymentRepository.GetByIdsAsync(ids);
+        await loanPaymentRepository.DeleteRangeAsync(loanPayments);
+        return new Empty();
+    }
 }

@@ -15,9 +15,13 @@ public class CardService(ICardRepository repository, IMapper mapper) : Core.Card
        return mapper.Map<CardModel>(card);
     }
 
-    public override Task<GetAllCardsResponse> GetAll(GetAllRequest request, ServerCallContext context)
+    public override async Task<GetAllCardsResponse> GetAll(GetAllRequest request, ServerCallContext context)
     {
-        return base.GetAll(request, context);
+        var cards = await repository.GetAllAsync(request.PageN, request.PageSize);
+        return new GetAllCardsResponse
+        {
+            Cards = { mapper.Map<IEnumerable<CardModel>>(cards) }
+        };
     }
 
     public override async Task<Empty> Delete(DeleteCardRequest request, ServerCallContext context)
@@ -55,6 +59,43 @@ public class CardService(ICardRepository repository, IMapper mapper) : Core.Card
         }
 
         return mapper.Map<CardModel>(card);
+    }
+
+    public override async Task<Empty> DeleteBulk(DeleteCardBulkRequest request, ServerCallContext context)
+    {
+        var ids = request.Cards.Select(c => c.CardId).ToList();
+        if (ids.Count == 0)
+        {
+            throw new RpcException(new Status(StatusCode.NotFound, "No cards to delete"));
+        }
+        var cards = await repository.GetByIdsAsync(ids);
+        await repository.DeleteRangeAsync(cards);
+        return new Empty();
+    }
+
+    public override async Task<Empty> UpdateBulk(UpdateCardBulkRequest request, ServerCallContext context)
+    {
+        var cards = request.Cards.Select(mapper.Map<Card>).ToList();
+        if (!cards.Any())
+        {
+            throw new RpcException(new Status(StatusCode.NotFound, "No cards to update"));
+        }
+        await repository.UpdateRangeAsync(cards);
+        return new Empty();
+    }
+
+    public override async Task<Empty> AddBulk(AddCardBulkRequest request, ServerCallContext context)
+    {
+        var cards = request.Cards.Select(mapper.Map<Card>).ToList();
+        try
+        {
+            await repository.AddRangeAsync(cards);
+            return new Empty();
+        }
+        catch (Exception e)
+        {
+            throw new RpcException(new Status(StatusCode.Internal, e.Message));
+        }
     }
 }
      

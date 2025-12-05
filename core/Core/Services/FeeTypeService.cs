@@ -57,4 +57,41 @@ public class FeeTypeService(IFeeTypeRepository feeTypeRepository, IMapper mapper
         await feeTypeRepository.DeleteAsync(request.FeeId);
         return new Empty();
     }
+    
+    public override async Task<Empty> DeleteBulk(DeleteFeeTypeBulkRequest request, ServerCallContext context)
+    {
+        var ids = request.FeeTypes.Select(f => f.FeeId).ToList();
+        if (ids.Count == 0)
+        {
+            throw new RpcException(new Status(StatusCode.NotFound, "No fee types to delete"));
+        }
+        var feeTypes = await feeTypeRepository.GetByIdsAsync(ids);
+        await feeTypeRepository.DeleteRangeAsync(feeTypes);
+        return new Empty();
+    }
+
+    public override async Task<Empty> UpdateBulk(UpdateFeeTypeBulkRequest request, ServerCallContext context)
+    {
+        var feeTypes = request.FeeTypes.Select(mapper.Map<FeeType>).ToList();
+        if (!feeTypes.Any())
+        {
+            throw new RpcException(new Status(StatusCode.NotFound, "No fee types to update"));
+        }
+        await feeTypeRepository.UpdateRangeAsync(feeTypes);
+        return new Empty();
+    }
+
+    public override async Task<Empty> AddBulk(AddFeeTypeBulkRequest request, ServerCallContext context)
+    {
+        var feeTypes = request.FeeTypes.Select(mapper.Map<FeeType>).ToList();
+        try
+        {
+            await feeTypeRepository.AddRangeAsync(feeTypes);
+            return new Empty();
+        }
+        catch (Exception e)
+        {
+            throw new RpcException(new Status(StatusCode.Internal, e.Message));
+        }
+    }
 }

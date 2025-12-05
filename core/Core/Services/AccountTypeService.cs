@@ -60,8 +60,8 @@ public class AccountTypeService(IAccountTypeRepository accountTypeRepository, IM
 
     public override async Task<Empty> DeleteBulk(DeleteAccountTypeBulkRequest request, ServerCallContext context)
     {
-        var ids = request.AccountTypes.Select(a => a.TypeId);
-        if (!ids.Any())
+        var ids = request.AccountTypes.Select(a => a.TypeId).ToList();
+        if (ids.Count == 0)
         {
             throw new RpcException(new Status(StatusCode.NotFound, "No account types to delete"));
         }
@@ -72,7 +72,7 @@ public class AccountTypeService(IAccountTypeRepository accountTypeRepository, IM
 
     public override async Task<Empty> UpdateBulk(UpdateAccountTypeBulkRequest request, ServerCallContext context)
     {
-        var accountTypes = request.AccountTypes.Select(a => mapper.Map<AccountType>(a));
+        var accountTypes = request.AccountTypes.Select(mapper.Map<AccountType>).ToList();
         if (!accountTypes.Any())
         {
             throw new RpcException(new Status(StatusCode.NotFound, "No account types to update"));

@@ -50,4 +50,28 @@ public class CustomerService(ICustomerRepository repository, IMapper mapper) : C
         await repository.UpdateAsync(customer);
         return new Empty();
     }
+
+    public override async Task<Empty> DeleteBulk(DeleteCustomerBulkRequest request, ServerCallContext context)
+    {
+        var ids = request.Customers.Select(c => c.CustomerId).ToList();
+        if (ids.Count == 0)
+        {
+            new RpcException(new Status(StatusCode.NotFound, "No customers to delete"));
+        }
+        var customers = await repository.GetByIdsAsync(ids);
+        await repository.DeleteRangeAsync(customers);
+        return new Empty();
+    }
+
+    public override async Task<Empty> UpdateBulk(UpdateCustomerBulkRequest request, ServerCallContext context)
+    {
+        var customers = request.Customers.Select(mapper.Map<Customer>).ToList();
+        if (!customers.Any())
+        {
+            throw new RpcException(new Status(StatusCode.NotFound, "No customers to update"));
+        }
+
+        await repository.UpdateRangeAsync(customers);
+        return new Empty();
+    }
 }

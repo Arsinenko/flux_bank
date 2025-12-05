@@ -57,4 +57,41 @@ public class AtmService(IAtmRepository atmRepository, IMapper mapper) : Core.Atm
         }
         return mapper.Map<AtmModel>(atm);
     }
+
+    public override async Task<Empty> AddBulk(AddAtmBulkRequest request, ServerCallContext context)
+    {
+        try
+        {
+            var atm = request.Atms.Select(mapper.Map<Atm>).ToList();
+            await atmRepository.AddRangeAsync(atm);
+            return new Empty();
+        }
+        catch (Exception ex)
+        {
+            throw new RpcException(new Status());
+        }
+    }
+
+    public override async Task<Empty> DeleteBulk(DeleteAtmBulkRequest request, ServerCallContext context)
+    {
+        var ids = request.Atms.Select(a => a.AtmId).ToList();
+        if (ids.Count == 0)
+        {
+            throw new RpcException(new Status(StatusCode.NotFound, "No ATMs to delete"));
+        }
+        var atms = await atmRepository.GetByIdsAsync(ids);
+        await atmRepository.DeleteRangeAsync(atms);
+        return new Empty();
+    }
+
+    public override async Task<Empty> UpdateBulk(UpdateAtmBulkRequest request, ServerCallContext context)
+    {
+        var atms = request.Atms.Select(mapper.Map<Atm>).ToList();
+        if (!atms.Any())
+        {
+            throw new RpcException(new Status(StatusCode.NotFound, "No ATMs to update"));
+        }
+        await atmRepository.UpdateRangeAsync(atms);
+        return new Empty(); 
+    }
 }

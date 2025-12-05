@@ -57,4 +57,41 @@ public class ExchangeRateService(IExchangeRateRepository exchangeRateRepository,
         await exchangeRateRepository.DeleteAsync(request.RateId);
         return new Empty();
     }
+
+    public override async Task<Empty> DeleteBulk(DeleteExchangeRateBulkRequest request, ServerCallContext context)
+    {
+        var ids = request.ExchangeRates.Select(e => e.RateId).ToList();
+        if (ids.Count == 0)
+        {
+            throw new RpcException(new Status(StatusCode.NotFound, "No exchange to delete!"));
+        }
+        var exchangeRates = await exchangeRateRepository.GetByIdsAsync(ids);
+        await exchangeRateRepository.DeleteRangeAsync(exchangeRates);
+        return new Empty();
+    }
+
+    public override async Task<Empty> UpdateBulk(UpdateExchangeRateBulkRequest request, ServerCallContext context)
+    {
+        var exchangeRates = request.ExchangeRates.Select(mapper.Map<ExchangeRate>).ToList();
+        if (!exchangeRates.Any())
+        {
+            throw new RpcException(new Status(StatusCode.NotFound, "No exchange to update!"));
+        }
+        await exchangeRateRepository.UpdateRangeAsync(exchangeRates);
+        return new Empty();
+    }
+
+    public override async Task<Empty> AddBulk(AddExchangeRateBulkRequest request, ServerCallContext context)
+    {
+        var exchangeRates = request.ExchangeRates.Select(mapper.Map<ExchangeRate>).ToList();
+        try
+        {
+            await exchangeRateRepository.AddRangeAsync(exchangeRates);
+            return new Empty();
+        }
+        catch (Exception e)
+        {
+            throw new RpcException(new Status(StatusCode.Internal, e.Message));
+        }
+    }
 }
