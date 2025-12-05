@@ -3,6 +3,7 @@ using Core.Interfaces;
 using Core.Models;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
+using System.Linq;
 
 namespace Core.Services;
 
@@ -66,7 +67,7 @@ public class TransactionService(ITransactionRepository transactionRepository, IM
             throw new RpcException(new Status(StatusCode.NotFound, "No transactions to delete"));
         }
         var transactions = await transactionRepository.GetByIdsAsync(ids);
-        await transactionRepository.DeleteRangeAsync(transactions);
+        await transactionRepository.DeleteRangeAsync(transactions.Where(t => t is not null)!);
         return new Empty();
     }
 
