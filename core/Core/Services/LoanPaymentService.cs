@@ -66,7 +66,12 @@ public class LoanPaymentService(ILoanPaymentRepository loanPaymentRepository, IM
             throw new RpcException(new Status(StatusCode.NotFound, "No payments to delete"));
         }
         var loanPayments = await loanPaymentRepository.GetByIdsAsync(ids);
-        await loanPaymentRepository.DeleteRangeAsync(loanPayments);
+        var foundLoanPayments = loanPayments.Where(lp => lp != null).ToList();
+        if (foundLoanPayments.Count != ids.Count)
+        {
+            throw new RpcException(new Status(StatusCode.NotFound, "Some loan payments not found"));
+        }
+        await loanPaymentRepository.DeleteRangeAsync(foundLoanPayments!);
         return new Empty();
     }
 }

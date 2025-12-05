@@ -64,7 +64,12 @@ public class BranchService(IBranchRepository branchRepository, IMapper mapper) :
             throw new RpcException(new Status(StatusCode.NotFound, "No branches to delete"));
         }
         var branches = await branchRepository.GetByIdsAsync(ids);
-        await branchRepository.DeleteRangeAsync(branches);
+        var foundBranches = branches.Where(b => b != null).ToList();
+        if (foundBranches.Count != ids.Count)
+        {
+            throw new RpcException(new Status(StatusCode.NotFound, "Some branches not found"));
+        }
+        await branchRepository.DeleteRangeAsync(foundBranches!);
         return new Empty();
     }
 

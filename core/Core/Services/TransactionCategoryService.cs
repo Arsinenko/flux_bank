@@ -66,7 +66,12 @@ public class TransactionCategoryService(ITransactionCategoryRepository transacti
             throw new RpcException(new Status(StatusCode.NotFound, "No transaction categories to delete"));
         }
         var transactionCategories = await transactionCategoryRepository.GetByIdsAsync(ids);
-        await transactionCategoryRepository.DeleteRangeAsync(transactionCategories);
+        var foundTransactionCategories = transactionCategories.Where(tc => tc != null).ToList();
+        if (foundTransactionCategories.Count != ids.Count)
+        {
+            throw new RpcException(new Status(StatusCode.NotFound, "Some transaction categories not found"));
+        }
+        await transactionCategoryRepository.DeleteRangeAsync(foundTransactionCategories!);
         return new Empty();
     }
     

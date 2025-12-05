@@ -66,7 +66,12 @@ public class DepositService(IDepositRepository depositRepository, IMapper mapper
             throw new RpcException(new Status(StatusCode.NotFound, "No deposits to delete"));
         }
         var deposits = await depositRepository.GetByIdsAsync(ids);
-        await depositRepository.DeleteRangeAsync(deposits);
+        var foundDeposits = deposits.Where(d => d != null).ToList();
+        if (foundDeposits.Count != ids.Count)
+        {
+            throw new RpcException(new Status(StatusCode.NotFound, "Some deposits not found"));
+        }
+        await depositRepository.DeleteRangeAsync(foundDeposits!);
         return new Empty();
     }
 

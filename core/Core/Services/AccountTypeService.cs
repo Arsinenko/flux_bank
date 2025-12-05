@@ -66,7 +66,12 @@ public class AccountTypeService(IAccountTypeRepository accountTypeRepository, IM
             throw new RpcException(new Status(StatusCode.NotFound, "No account types to delete"));
         }
         var accountTypes = await accountTypeRepository.GetByIdsAsync(ids);
-        await accountTypeRepository.DeleteRangeAsync(accountTypes);
+        var foundAccountTypes = accountTypes.Where(at => at != null).ToList();
+        if (foundAccountTypes.Count != ids.Count)
+        {
+            throw new RpcException(new Status(StatusCode.NotFound, "Some account types not found"));
+        }
+        await accountTypeRepository.DeleteRangeAsync(foundAccountTypes!);
         return new Empty();
     }
 

@@ -69,7 +69,12 @@ public class CardService(ICardRepository repository, IMapper mapper) : Core.Card
             throw new RpcException(new Status(StatusCode.NotFound, "No cards to delete"));
         }
         var cards = await repository.GetByIdsAsync(ids);
-        await repository.DeleteRangeAsync(cards);
+        var foundCards = cards.Where(c => c != null).ToList();
+        if (foundCards.Count != ids.Count)
+        {
+            throw new RpcException(new Status(StatusCode.NotFound, "Some cards not found"));
+        }
+        await repository.DeleteRangeAsync(foundCards!);
         return new Empty();
     }
 

@@ -60,24 +60,26 @@ public class AccountService(IAccountRepository accountRepository, IMapper mapper
 
     public override async Task<Empty> DeleteBulk(DeleteAccountBulkRequest request, ServerCallContext context)
     {
-        var ids = request.Accounts.Select(a => a.AccountId);
-        if (!ids.Any())
+        var ids = request.Accounts.Select(a => a.AccountId).ToList();
+        if (ids.Count == 0)
         {
             throw new RpcException(new Status(StatusCode.NotFound, "No accounts to delete"));
         }
         var accounts = await accountRepository.GetByIdsAsync(ids);
-        if (accounts.Count() != ids.Count())
+        var foundAccounts = accounts.Where(a => a != null).ToList();
+
+        if (foundAccounts.Count != ids.Count)
         {
             throw new RpcException(new Status(StatusCode.NotFound, "Some accounts not found"));
         }
-        await accountRepository.DeleteRangeAsync(accounts);
+        await accountRepository.DeleteRangeAsync(foundAccounts!);
         return new Empty();
     }
 
     public override async Task<Empty> UpdateBulk(UpdateAccountBulkRequest request, ServerCallContext context)
     {
-        var accounts = request.Accounts.Select(a => mapper.Map<Account>(a));
-        if (!accounts.Any())
+        var accounts = request.Accounts.Select(a => mapper.Map<Account>(a)).ToList();
+        if (accounts.Count == 0)
         {
             throw new RpcException(new Status(StatusCode.NotFound, "No accounts to update"));
         }

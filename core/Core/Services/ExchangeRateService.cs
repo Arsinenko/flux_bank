@@ -66,7 +66,12 @@ public class ExchangeRateService(IExchangeRateRepository exchangeRateRepository,
             throw new RpcException(new Status(StatusCode.NotFound, "No exchange to delete!"));
         }
         var exchangeRates = await exchangeRateRepository.GetByIdsAsync(ids);
-        await exchangeRateRepository.DeleteRangeAsync(exchangeRates);
+        var foundExchangeRates = exchangeRates.Where(er => er != null).ToList();
+        if (foundExchangeRates.Count != ids.Count)
+        {
+            throw new RpcException(new Status(StatusCode.NotFound, "Some exchange rates not found"));
+        }
+        await exchangeRateRepository.DeleteRangeAsync(foundExchangeRates!);
         return new Empty();
     }
 

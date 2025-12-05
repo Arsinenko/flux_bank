@@ -66,7 +66,12 @@ public class FeeTypeService(IFeeTypeRepository feeTypeRepository, IMapper mapper
             throw new RpcException(new Status(StatusCode.NotFound, "No fee types to delete"));
         }
         var feeTypes = await feeTypeRepository.GetByIdsAsync(ids);
-        await feeTypeRepository.DeleteRangeAsync(feeTypes);
+        var foundFeeTypes = feeTypes.Where(ft => ft != null).ToList();
+        if (foundFeeTypes.Count != ids.Count)
+        {
+            throw new RpcException(new Status(StatusCode.NotFound, "Some fee types not found"));
+        }
+        await feeTypeRepository.DeleteRangeAsync(foundFeeTypes!);
         return new Empty();
     }
 

@@ -67,7 +67,12 @@ public class LoanService(ILoanRepository loanRepository, IMapper mapper)
         }
         
         var loans = await loanRepository.GetByIdsAsync(ids);
-        await loanRepository.DeleteRangeAsync(loans);
+        var foundLoans = loans.Where(l => l != null).ToList();
+        if (foundLoans.Count != ids.Count)
+        {
+            throw new RpcException(new Status(StatusCode.NotFound, "Some loans not found"));
+        }
+        await loanRepository.DeleteRangeAsync(foundLoans!);
         return new Empty();
     }
 }

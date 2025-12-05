@@ -56,10 +56,15 @@ public class CustomerService(ICustomerRepository repository, IMapper mapper) : C
         var ids = request.Customers.Select(c => c.CustomerId).ToList();
         if (ids.Count == 0)
         {
-            new RpcException(new Status(StatusCode.NotFound, "No customers to delete"));
+            throw new RpcException(new Status(StatusCode.NotFound, "No customers to delete"));
         }
         var customers = await repository.GetByIdsAsync(ids);
-        await repository.DeleteRangeAsync(customers);
+        var foundCustomers = customers.Where(c => c != null).ToList();
+        if (foundCustomers.Count != ids.Count)
+        {
+            throw new RpcException(new Status(StatusCode.NotFound, "Some customers not found"));
+        }
+        await repository.DeleteRangeAsync(foundCustomers!);
         return new Empty();
     }
 

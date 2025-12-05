@@ -66,7 +66,12 @@ public class NotificationService(INotificationRepository notificationRepository,
             throw new RpcException(new Status(StatusCode.NotFound, "No notifications to delete"));
         }
         var notifications = await notificationRepository.GetByIdsAsync(ids);
-        await notificationRepository.DeleteRangeAsync(notifications);
+        var foundNotifications = notifications.Where(n => n != null).ToList();
+        if (foundNotifications.Count != ids.Count)
+        {
+            throw new RpcException(new Status(StatusCode.NotFound, "Some notifications not found"));
+        }
+        await notificationRepository.DeleteRangeAsync(foundNotifications!);
         return new Empty();
     }
 

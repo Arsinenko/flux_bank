@@ -66,9 +66,9 @@ public class AtmService(IAtmRepository atmRepository, IMapper mapper) : Core.Atm
             await atmRepository.AddRangeAsync(atm);
             return new Empty();
         }
-        catch (Exception ex)
+        catch (Exception e)
         {
-            throw new RpcException(new Status());
+            throw new RpcException(new Status(StatusCode.Internal, e.Message));
         }
     }
 
@@ -80,7 +80,12 @@ public class AtmService(IAtmRepository atmRepository, IMapper mapper) : Core.Atm
             throw new RpcException(new Status(StatusCode.NotFound, "No ATMs to delete"));
         }
         var atms = await atmRepository.GetByIdsAsync(ids);
-        await atmRepository.DeleteRangeAsync(atms);
+        var foundAtms = atms.Where(a => a != null).ToList();
+        if (foundAtms.Count != ids.Count)
+        {
+            throw new RpcException(new Status(StatusCode.NotFound, "Some ATMs not found"));
+        }
+        await atmRepository.DeleteRangeAsync(foundAtms!);
         return new Empty();
     }
 

@@ -9,18 +9,18 @@ public class GenericRepository<TEntity, TId>
     : IGenericRepository<TEntity, TId>
     where TEntity : class
 {
-    protected readonly MyDbContext _context;
-    protected readonly DbSet<TEntity> _dbSet;
+    protected readonly MyDbContext Context;
+    protected readonly DbSet<TEntity> DbSet;
 
     public GenericRepository(MyDbContext context)
     {
-        _context = context;
-        _dbSet = context.Set<TEntity>();
+        Context = context;
+        DbSet = context.Set<TEntity>();
     }
 
     public virtual async Task<IEnumerable<TEntity>> GetAllAsync(int? pageN, int? pageSize)
     {
-        IQueryable<TEntity> query = _dbSet;
+        IQueryable<TEntity> query = DbSet;
         
         if (pageN.HasValue && pageSize.HasValue)
         {
@@ -34,27 +34,27 @@ public class GenericRepository<TEntity, TId>
 
     public virtual async Task<TEntity?> GetByIdAsync(TId id)
     {
-        return await _dbSet.FindAsync(id);
+        return await DbSet.FindAsync(id);
     }
 
     public async Task<IEnumerable<TEntity?>> GetByIdsAsync(IEnumerable<TId> ids)
     {
         var keyName = GetEntityKey();
-        return await _dbSet.Where(e => ids.Contains(EF.Property<TId>(e, keyName))).ToListAsync();
+        return await DbSet.Where(e => ids.Contains(EF.Property<TId>(e, keyName))).ToListAsync();
     }
 
 
     public virtual async Task AddAsync(TEntity entity)
     {
-        await _dbSet.AddAsync(entity);
-        await _context.SaveChangesAsync();
+        await DbSet.AddAsync(entity);
+        await Context.SaveChangesAsync();
     }
 
     public virtual async Task UpdateAsync(TEntity entity)
     {
-        _dbSet.Attach(entity);
-        _context.Entry(entity).State = EntityState.Modified;
-        await _context.SaveChangesAsync();
+        DbSet.Attach(entity);
+        Context.Entry(entity).State = EntityState.Modified;
+        await Context.SaveChangesAsync();
     }
 
     public virtual async Task DeleteAsync(TId id)
@@ -62,38 +62,47 @@ public class GenericRepository<TEntity, TId>
         var entity = await GetByIdAsync(id);
         if (entity != null)
         {
-            _dbSet.Remove(entity);
-            await _context.SaveChangesAsync();
+            DbSet.Remove(entity);
+            await Context.SaveChangesAsync();
         }
     }
 
     public virtual async Task<IEnumerable<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate)
     {
-        return await _dbSet.Where(predicate).ToListAsync();
+        return await DbSet.Where(predicate).ToListAsync();
     }
+
+
 
     public virtual async Task AddRangeAsync(IEnumerable<TEntity> entities)
     {
-        await _dbSet.AddRangeAsync(entities);
-        await _context.SaveChangesAsync();
+        await DbSet.AddRangeAsync(entities);
+        await Context.SaveChangesAsync();
     }
 
     public virtual async Task UpdateRangeAsync(IEnumerable<TEntity> entities)
     {
-        _dbSet.UpdateRange(entities);
-        await _context.SaveChangesAsync();
+        DbSet.UpdateRange(entities);
+        await Context.SaveChangesAsync();
     }
 
     public virtual async Task DeleteRangeAsync(IEnumerable<TEntity> entities)
     {
-        _dbSet.RemoveRange(entities);
-        await _context.SaveChangesAsync();
+        DbSet.RemoveRange(entities);
+        await Context.SaveChangesAsync();
     }
 
     public string GetEntityKey()
     {
-        var entityType = _context.Model.FindEntityType(typeof(TEntity));
-        var keyName = entityType.FindPrimaryKey().Properties.First().Name;
+        var entityType = Context.Model.FindEntityType(typeof(TEntity));
+        if (entityType == null)
+            throw new InvalidOperationException($"Entity type '{typeof(TEntity).Name}' not found in the model.");
+    
+        var primaryKey = entityType.FindPrimaryKey();
+        if (primaryKey == null)
+            throw new InvalidOperationException($"Primary key not found for entity type '{typeof(TEntity).Name}'.");
+
+        var keyName = primaryKey.Properties.First().Name;
         return keyName;
     }
 }
