@@ -1,4 +1,4 @@
-﻿package customer_repo
+package customer_repo
 
 import (
 	pb "orch-go/api/generated"
@@ -33,7 +33,7 @@ func ToDomain(p *pb.CustomerModel) *customer.Customer {
 		CreatedAt: &createdAt,
 	}
 }
-func toDateOnly(t *time.Time) *pb.DateOnly {
+func ToDateOnly(t *time.Time) *pb.DateOnly {
 	if t == nil {
 		return nil
 	}
@@ -54,7 +54,7 @@ func ToProto(c *customer.Customer) *pb.CustomerModel {
 		LastName:   c.LastName,
 		Email:      c.Email,
 		Phone:      c.Phone,
-		BirthDate:  toDateOnly(c.BirthDate),
+		BirthDate:  ToDateOnly(c.BirthDate),
 		CreatedAt:  timestamppb.New(*c.CreatedAt),
 	}
 

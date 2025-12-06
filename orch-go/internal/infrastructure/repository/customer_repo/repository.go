@@ -1,4 +1,4 @@
-﻿package customer_repo
+package customer_repo
 
 import (
 	"context"
@@ -55,7 +55,7 @@ func (r Repository) Create(ctx context.Context, customer *customer.Customer) (*c
 		LastName:  customer.LastName,
 		Email:     customer.Email,
 		Phone:     customer.Phone,
-		BirthDate: toDateOnly(customer.BirthDate),
+		BirthDate: ToDateOnly(customer.BirthDate),
 	}
 	resp, err := r.client.Add(ctx, req)
 	if err != nil {
@@ -76,7 +76,7 @@ func (r Repository) Update(ctx context.Context, customer *customer.Customer) err
 		LastName:   customer.LastName,
 		Email:      customer.Email,
 		Phone:      customer.Phone,
-		BirthDate:  toDateOnly(customer.BirthDate),
+		BirthDate:  ToDateOnly(customer.BirthDate),
 	}
 
 	_, err := r.client.Update(ctx, req)
@@ -103,7 +103,7 @@ func (r Repository) UpdateBulk(ctx context.Context, customers []*customer.Custom
 			LastName:   c.LastName,
 			Email:      c.Email,
 			Phone:      c.Phone,
-			BirthDate:  toDateOnly(c.BirthDate),
+			BirthDate:  ToDateOnly(c.BirthDate),
 		},
 		)
 	}
