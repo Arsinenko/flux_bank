@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-func ToDomain(p *pb.AccountModel) *account.Account {
+func AccountToDomain(p *pb.AccountModel) *account.Account {
 	if p == nil {
 		return nil
 	}
@@ -22,6 +22,17 @@ func ToDomain(p *pb.AccountModel) *account.Account {
 		Balance:    *p.Balance,
 		CreatedAt:  createdAt,
 		IsActive:   *p.IsActive,
+	}
+}
+
+func AccountTypeToDomain(p *pb.AccountTypeModel) *account.AccountType {
+	if p == nil {
+		return nil
+	}
+	return &account.AccountType{
+		Id:          p.TypeId,
+		Name:        p.Name,
+		Description: p.Description,
 	}
 }
 

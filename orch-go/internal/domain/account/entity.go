@@ -11,3 +11,9 @@ type Account struct {
 	CreatedAt  time.Time
 	IsActive   bool
 }
+
+type AccountType struct {
+	Id          int32
+	Name        string
+	Description *string
+}
