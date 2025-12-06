@@ -6,7 +6,7 @@ option go_package = "orch-go/gen/protos;protos";
 
 import "google/protobuf/empty.proto";
 import "google/protobuf/timestamp.proto";
-
+//TODO
 service LoginLogService {
   rpc GetAll (google.protobuf.Empty) returns (GetAllLoginLogsResponse);
   rpc GetById (GetLoginLogByIdRequest) returns (LoginLogModel);
