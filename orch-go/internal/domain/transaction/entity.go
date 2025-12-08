@@ -23,3 +23,8 @@ type TransactionFee struct {
 	FeeID         *int32
 	Amount        *string
 }
+
+type GetByDateRange struct {
+	From, To        time.Time
+	PageN, PageSize int32
+}

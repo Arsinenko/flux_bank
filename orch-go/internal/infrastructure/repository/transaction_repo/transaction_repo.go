@@ -5,10 +5,29 @@ import (
 	"fmt"
 	pb "orch-go/api/generated"
 	"orch-go/internal/domain/transaction"
+
+	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
 type TransactionRepository struct {
 	client pb.TransactionServiceClient
+}
+
+func (r TransactionRepository) GetByDateRange(ctx context.Context, request transaction.GetByDateRange) ([]*transaction.Transaction, error) {
+	resp, err := r.client.GetByDateRange(ctx, &pb.GetByDateRangeRequest{
+		From:     timestamppb.New(request.From),
+		To:       timestamppb.New(request.To),
+		PageN:    &request.PageN,
+		PageSize: &request.PageSize,
+	})
+	if err != nil {
+		return nil, fmt.Errorf("transaction_repo.GetByDateRange: %w", err)
+	}
+	result := make([]*transaction.Transaction, 0, len(resp.Transactions))
+	for _, t := range resp.Transactions {
+		result = append(result, ToTransactionDomain(t))
+	}
+	return result, nil
 }
 
 func NewTransactionRepository(client pb.TransactionServiceClient) TransactionRepository {

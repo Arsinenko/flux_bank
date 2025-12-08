@@ -17,3 +17,8 @@ type AccountType struct {
 	Name        string
 	Description *string
 }
+
+type GetByDateRange struct {
+	From, To        time.Time
+	PageN, PageSize int32
+}

@@ -5,10 +5,30 @@ import (
 	"fmt"
 	pb "orch-go/api/generated"
 	"orch-go/internal/domain/account"
+
+	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
 type Repository struct {
 	client pb.AccountServiceClient
+}
+
+func (r Repository) GetByDateRange(ctx context.Context, request account.GetByDateRange) ([]*account.Account, error) {
+	resp, err := r.client.GetByDateRange(ctx, &pb.GetByDateRangeRequest{
+		From:     timestamppb.New(request.From),
+		To:       timestamppb.New(request.To),
+		PageN:    &request.PageN,
+		PageSize: &request.PageSize,
+	})
+	if err != nil {
+		return nil, fmt.Errorf("account_repo.GetByDateRange: %w", err)
+	}
+
+	result := make([]*account.Account, 0, len(resp.Accounts))
+	for _, a := range resp.Accounts {
+		result = append(result, AccountToDomain(a))
+	}
+	return result, nil
 }
 
 func NewRepository(client pb.AccountServiceClient) Repository {
