@@ -11,6 +11,8 @@ import "custom_types.proto";
 service CustomerService {
   rpc GetAll (GetAllRequest) returns (GetAllCustomersResponse);
   rpc GetById (GetCustomerByIdRequest) returns (CustomerModel);
+  rpc GetBySubstring (GetBySubstring) returns (GetAllCustomersResponse);
+  rpc GetByDateRange (GetByDateRangeRequest) returns (GetAllCustomersResponse);
   rpc Add (AddCustomerRequest) returns (CustomerModel);
   rpc Update (UpdateCustomerRequest) returns (google.protobuf.Empty);
   rpc Delete (DeleteCustomerRequest) returns (google.protobuf.Empty);
@@ -27,6 +29,16 @@ message CustomerModel {
   optional DateOnly birth_date = 6;
   optional google.protobuf.Timestamp created_at = 7;
 }
+
+message GetBySubstring{
+  string sub_str = 1;
+  optional int32 page_n = 2;
+  optional int32 page_size = 3;
+  string order = 4;
+  optional bool desc = 5;
+}
+
+
 
 message GetAllCustomersResponse {
   repeated CustomerModel customers = 1;

@@ -43,6 +43,23 @@ public class GenericRepository<TEntity, TId>
         return await DbSet.Where(e => ids.Contains(EF.Property<TId>(e, keyName))).ToListAsync();
     }
 
+    public async Task<IEnumerable<TEntity?>> GetByDateRange(DateTime from, DateTime to, int? pageN, int? pageSize)
+    {
+        if (typeof(TEntity).GetProperty("CreatedAt") == null)
+        {
+            throw new InvalidOperationException($"Entity type '{typeof(TEntity).Name}' does not have a 'CreatedAt' property.");
+        }
+
+        IQueryable<TEntity> query = DbSet.Where(e => EF.Property<DateTime>(e, "CreatedAt") >= from && EF.Property<DateTime>(e, "CreatedAt") <= to);
+        if (pageN.HasValue && pageSize.HasValue)
+        {
+            if (pageN <= 0 || pageSize <= 0) throw new ArgumentException("pageN and pageSize must be greater than 0");
+            var keyName = GetEntityKey();
+            query = query.OrderBy(e => EF.Property<TId>(e, keyName)).Skip((pageN.Value - 1) * pageSize.Value).Take(pageSize.Value);
+        }
+        return await query.ToListAsync();
+    }
+
 
     public virtual async Task AddAsync(TEntity entity)
     {

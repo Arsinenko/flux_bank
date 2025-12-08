@@ -42,6 +42,25 @@ public class CustomerService(ICustomerRepository repository, IMapper mapper) : C
         return mapper.Map<CustomerModel>(customer);
     }
 
+    public override async Task<GetAllCustomersResponse> GetBySubstring(GetBySubstringRequest request, ServerCallContext context)
+    {
+        var customers = await repository.GetBySubstring(request.SubStr, request.PageN, request.PageSize, request.Order,
+            request.Desc);
+        return new GetAllCustomersResponse()
+        {
+            Customers = { mapper.Map<IEnumerable<CustomerModel>>(customers) }
+        };
+    }
+
+    public override async Task<GetAllCustomersResponse> GetByDateRange(GetByDateRangeRequest request, ServerCallContext context)
+    {
+        var customers = await repository.GetByDateRange(request.From.ToDateTime(), request.To.ToDateTime(), request.PageN, request.PageSize);
+        return new GetAllCustomersResponse()
+        {
+            Customers = { mapper.Map<IEnumerable<CustomerModel>>(customers) }
+        };
+    }
+
     public override async Task<Empty> Update(UpdateCustomerRequest request, ServerCallContext context)
     {
         var customer = await repository.GetByIdAsync(request.CustomerId);
