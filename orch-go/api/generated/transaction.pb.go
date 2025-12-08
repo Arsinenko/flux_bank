@@ -587,10 +587,11 @@ const file_transaction_proto_rawDesc = "" +
 	"\x1cUpdateTransactionBulkRequest\x12D\n" +
 	"\ftransactions\x18\x01 \x03(\v2 .protos.UpdateTransactionRequestR\ftransactions\"d\n" +
 	"\x1cDeleteTransactionBulkRequest\x12D\n" +
-	"\ftransactions\x18\x01 \x03(\v2 .protos.DeleteTransactionRequestR\ftransactions2\xc7\x04\n" +
+	"\ftransactions\x18\x01 \x03(\v2 .protos.DeleteTransactionRequestR\ftransactions2\x9c\x05\n" +
 	"\x12TransactionService\x12C\n" +
 	"\x06GetAll\x12\x15.protos.GetAllRequest\x1a\".protos.GetAllTransactionsResponse\x12F\n" +
-	"\aGetById\x12!.protos.GetTransactionByIdRequest\x1a\x18.protos.TransactionModel\x12>\n" +
+	"\aGetById\x12!.protos.GetTransactionByIdRequest\x1a\x18.protos.TransactionModel\x12S\n" +
+	"\x0eGetByDateRange\x12\x1d.protos.GetByDateRangeRequest\x1a\".protos.GetAllTransactionsResponse\x12>\n" +
 	"\x03Add\x12\x1d.protos.AddTransactionRequest\x1a\x18.protos.TransactionModel\x12B\n" +
 	"\x06Update\x12 .protos.UpdateTransactionRequest\x1a\x16.google.protobuf.Empty\x12B\n" +
 	"\x06Delete\x12 .protos.DeleteTransactionRequest\x1a\x16.google.protobuf.Empty\x12D\n" +
@@ -625,7 +626,8 @@ var file_transaction_proto_goTypes = []any{
 	(*DeleteTransactionBulkRequest)(nil), // 8: protos.DeleteTransactionBulkRequest
 	(*timestamppb.Timestamp)(nil),        // 9: google.protobuf.Timestamp
 	(*GetAllRequest)(nil),                // 10: protos.GetAllRequest
-	(*emptypb.Empty)(nil),                // 11: google.protobuf.Empty
+	(*GetByDateRangeRequest)(nil),        // 11: protos.GetByDateRangeRequest
+	(*emptypb.Empty)(nil),                // 12: google.protobuf.Empty
 }
 var file_transaction_proto_depIdxs = []int32{
 	9,  // 0: protos.TransactionModel.created_at:type_name -> google.protobuf.Timestamp
@@ -635,22 +637,24 @@ var file_transaction_proto_depIdxs = []int32{
 	5,  // 4: protos.DeleteTransactionBulkRequest.transactions:type_name -> protos.DeleteTransactionRequest
 	10, // 5: protos.TransactionService.GetAll:input_type -> protos.GetAllRequest
 	2,  // 6: protos.TransactionService.GetById:input_type -> protos.GetTransactionByIdRequest
-	3,  // 7: protos.TransactionService.Add:input_type -> protos.AddTransactionRequest
-	4,  // 8: protos.TransactionService.Update:input_type -> protos.UpdateTransactionRequest
-	5,  // 9: protos.TransactionService.Delete:input_type -> protos.DeleteTransactionRequest
-	6,  // 10: protos.TransactionService.AddBulk:input_type -> protos.AddTransactionBulkRequest
-	7,  // 11: protos.TransactionService.UpdateBulk:input_type -> protos.UpdateTransactionBulkRequest
-	8,  // 12: protos.TransactionService.DeleteBulk:input_type -> protos.DeleteTransactionBulkRequest
-	1,  // 13: protos.TransactionService.GetAll:output_type -> protos.GetAllTransactionsResponse
-	0,  // 14: protos.TransactionService.GetById:output_type -> protos.TransactionModel
-	0,  // 15: protos.TransactionService.Add:output_type -> protos.TransactionModel
-	11, // 16: protos.TransactionService.Update:output_type -> google.protobuf.Empty
-	11, // 17: protos.TransactionService.Delete:output_type -> google.protobuf.Empty
-	11, // 18: protos.TransactionService.AddBulk:output_type -> google.protobuf.Empty
-	11, // 19: protos.TransactionService.UpdateBulk:output_type -> google.protobuf.Empty
-	11, // 20: protos.TransactionService.DeleteBulk:output_type -> google.protobuf.Empty
-	13, // [13:21] is the sub-list for method output_type
-	5,  // [5:13] is the sub-list for method input_type
+	11, // 7: protos.TransactionService.GetByDateRange:input_type -> protos.GetByDateRangeRequest
+	3,  // 8: protos.TransactionService.Add:input_type -> protos.AddTransactionRequest
+	4,  // 9: protos.TransactionService.Update:input_type -> protos.UpdateTransactionRequest
+	5,  // 10: protos.TransactionService.Delete:input_type -> protos.DeleteTransactionRequest
+	6,  // 11: protos.TransactionService.AddBulk:input_type -> protos.AddTransactionBulkRequest
+	7,  // 12: protos.TransactionService.UpdateBulk:input_type -> protos.UpdateTransactionBulkRequest
+	8,  // 13: protos.TransactionService.DeleteBulk:input_type -> protos.DeleteTransactionBulkRequest
+	1,  // 14: protos.TransactionService.GetAll:output_type -> protos.GetAllTransactionsResponse
+	0,  // 15: protos.TransactionService.GetById:output_type -> protos.TransactionModel
+	1,  // 16: protos.TransactionService.GetByDateRange:output_type -> protos.GetAllTransactionsResponse
+	0,  // 17: protos.TransactionService.Add:output_type -> protos.TransactionModel
+	12, // 18: protos.TransactionService.Update:output_type -> google.protobuf.Empty
+	12, // 19: protos.TransactionService.Delete:output_type -> google.protobuf.Empty
+	12, // 20: protos.TransactionService.AddBulk:output_type -> google.protobuf.Empty
+	12, // 21: protos.TransactionService.UpdateBulk:output_type -> google.protobuf.Empty
+	12, // 22: protos.TransactionService.DeleteBulk:output_type -> google.protobuf.Empty
+	14, // [14:23] is the sub-list for method output_type
+	5,  // [5:14] is the sub-list for method input_type
 	5,  // [5:5] is the sub-list for extension type_name
 	5,  // [5:5] is the sub-list for extension extendee
 	0,  // [0:5] is the sub-list for field type_name

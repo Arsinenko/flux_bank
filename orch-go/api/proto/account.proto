@@ -11,6 +11,7 @@ import "custom_types.proto";
 service AccountService {
   rpc GetAll (GetAllRequest) returns (GetAllAccountsResponse);
   rpc GetById (GetAccountByIdRequest) returns (AccountModel);
+  rpc GetByDateRange (GetByDateRangeRequest) returns (GetAllAccountsResponse);
   rpc Add (AddAccountRequest) returns (AccountModel);
   rpc Update (UpdateAccountRequest) returns (google.protobuf.Empty);
   rpc Delete (DeleteAccountRequest) returns (google.protobuf.Empty);

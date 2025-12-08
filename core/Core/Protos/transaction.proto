@@ -12,6 +12,7 @@ import "Protos/custom_types.proto";
 service TransactionService {
   rpc GetAll (GetAllRequest) returns (GetAllTransactionsResponse);
   rpc GetById (GetTransactionByIdRequest) returns (TransactionModel);
+  rpc GetByDateRange (GetByDateRangeRequest) returns (GetAllTransactionsResponse);
   rpc Add (AddTransactionRequest) returns (TransactionModel);
   rpc Update (UpdateTransactionRequest) returns (google.protobuf.Empty);
   rpc Delete (DeleteTransactionRequest) returns (google.protobuf.Empty);

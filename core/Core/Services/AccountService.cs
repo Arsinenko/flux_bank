@@ -69,4 +69,24 @@ public class AccountService(IAccountRepository accountRepository, IMapper mapper
         await accountRepository.DeleteRangeAsync(accounts!);
         return new Empty();
     }
+
+    public override async Task<GetAllAccountsResponse> GetByDateRange(GetByDateRangeRequest request, ServerCallContext context)
+    {
+        var accounts = await accountRepository.GetByDateRange(request.From.ToDateTime(), request.To.ToDateTime(), request.PageN, request.PageSize);
+        return new GetAllAccountsResponse()
+        {
+            Accounts = { mapper.Map<IEnumerable<AccountModel>>(accounts) }
+        };
+    }
+
+    public override async Task<Empty> UpdateBulk(UpdateAccountBulkRequest request, ServerCallContext context)
+    {
+        var accounts = request.Accounts.Select(mapper.Map<Account>).ToList();
+        if (!accounts.Any())
+        {
+            throw new RpcException(new Status(StatusCode.NotFound, "No accounts to update"));
+        }
+        await accountRepository.UpdateRangeAsync(accounts);
+        return new Empty();
+    }
 }

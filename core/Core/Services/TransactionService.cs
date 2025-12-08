@@ -95,4 +95,13 @@ public class TransactionService(ITransactionRepository transactionRepository, IM
             throw new RpcException(new Status(StatusCode.Internal, e.Message));
         }
     }
+
+    public override async Task<GetAllTransactionsResponse> GetByDateRange(GetByDateRangeRequest request, ServerCallContext context)
+    {
+        var transactions = await transactionRepository.GetByDateRange(request.From.ToDateTime(), request.To.ToDateTime(), request.PageN, request.PageSize);
+        return new GetAllTransactionsResponse()
+        {
+            Transactions = { mapper.Map<IEnumerable<TransactionModel>>(transactions) }
+        };
+    }
 }
