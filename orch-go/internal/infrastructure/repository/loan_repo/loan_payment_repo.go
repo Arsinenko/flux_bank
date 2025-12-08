@@ -11,6 +11,20 @@ type LoanPaymentRepository struct {
 	client pb.LoanPaymentServiceClient
 }
 
+func (r LoanPaymentRepository) GetByLoan(ctx context.Context, loanId int32) ([]*loan.LoanPayment, error) {
+	resp, err := r.client.GetByLoan(ctx, &pb.GetLoanPaymentsByLoanRequest{
+		LoanId: loanId,
+	})
+	if err != nil {
+		return nil, fmt.Errorf("loan_payment_repo.GetByLoan: %w", err)
+	}
+	results := make([]*loan.LoanPayment, 0, len(resp.LoanPayments))
+	for _, lp := range resp.LoanPayments {
+		results = append(results, ToLoanPaymentDomain(lp))
+	}
+	return results, nil
+}
+
 func NewLoanPaymentRepository(client pb.LoanPaymentServiceClient) LoanPaymentRepository {
 	return LoanPaymentRepository{
 		client: client,

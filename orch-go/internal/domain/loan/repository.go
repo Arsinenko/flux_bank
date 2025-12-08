@@ -15,6 +15,7 @@ type LoanRepository interface {
 type LoanPaymentRepository interface {
 	GetAll(ctx context.Context) ([]*LoanPayment, error)
 	GetById(ctx context.Context, id int32) (*LoanPayment, error)
+	GetByLoan(ctx context.Context, loanId int32) ([]*LoanPayment, error)
 	Add(ctx context.Context, loanPayment *LoanPayment) (*LoanPayment, error)
 	Update(ctx context.Context, loanPayment *LoanPayment) error
 	Delete(ctx context.Context, id int32) error

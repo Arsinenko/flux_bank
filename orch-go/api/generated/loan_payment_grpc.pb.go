@@ -22,6 +22,7 @@ const _ = grpc.SupportPackageIsVersion9
 const (
 	LoanPaymentService_GetAll_FullMethodName     = "/protos.LoanPaymentService/GetAll"
 	LoanPaymentService_GetById_FullMethodName    = "/protos.LoanPaymentService/GetById"
+	LoanPaymentService_GetByLoan_FullMethodName  = "/protos.LoanPaymentService/GetByLoan"
 	LoanPaymentService_Add_FullMethodName        = "/protos.LoanPaymentService/Add"
 	LoanPaymentService_Update_FullMethodName     = "/protos.LoanPaymentService/Update"
 	LoanPaymentService_Delete_FullMethodName     = "/protos.LoanPaymentService/Delete"
@@ -34,6 +35,7 @@ const (
 type LoanPaymentServiceClient interface {
 	GetAll(ctx context.Context, in *GetAllRequest, opts ...grpc.CallOption) (*GetAllLoanPaymentsResponse, error)
 	GetById(ctx context.Context, in *GetLoanPaymentByIdRequest, opts ...grpc.CallOption) (*LoanPaymentModel, error)
+	GetByLoan(ctx context.Context, in *GetLoanPaymentsByLoanRequest, opts ...grpc.CallOption) (*GetAllLoanPaymentsResponse, error)
 	Add(ctx context.Context, in *AddLoanPaymentRequest, opts ...grpc.CallOption) (*LoanPaymentModel, error)
 	Update(ctx context.Context, in *UpdateLoanPaymentRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	Delete(ctx context.Context, in *DeleteLoanPaymentRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
@@ -62,6 +64,16 @@ func (c *loanPaymentServiceClient) GetById(ctx context.Context, in *GetLoanPayme
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(LoanPaymentModel)
 	err := c.cc.Invoke(ctx, LoanPaymentService_GetById_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *loanPaymentServiceClient) GetByLoan(ctx context.Context, in *GetLoanPaymentsByLoanRequest, opts ...grpc.CallOption) (*GetAllLoanPaymentsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetAllLoanPaymentsResponse)
+	err := c.cc.Invoke(ctx, LoanPaymentService_GetByLoan_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -114,6 +126,7 @@ func (c *loanPaymentServiceClient) DeleteBulk(ctx context.Context, in *DeleteLoa
 type LoanPaymentServiceServer interface {
 	GetAll(context.Context, *GetAllRequest) (*GetAllLoanPaymentsResponse, error)
 	GetById(context.Context, *GetLoanPaymentByIdRequest) (*LoanPaymentModel, error)
+	GetByLoan(context.Context, *GetLoanPaymentsByLoanRequest) (*GetAllLoanPaymentsResponse, error)
 	Add(context.Context, *AddLoanPaymentRequest) (*LoanPaymentModel, error)
 	Update(context.Context, *UpdateLoanPaymentRequest) (*emptypb.Empty, error)
 	Delete(context.Context, *DeleteLoanPaymentRequest) (*emptypb.Empty, error)
@@ -133,6 +146,9 @@ func (UnimplementedLoanPaymentServiceServer) GetAll(context.Context, *GetAllRequ
 }
 func (UnimplementedLoanPaymentServiceServer) GetById(context.Context, *GetLoanPaymentByIdRequest) (*LoanPaymentModel, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetById not implemented")
+}
+func (UnimplementedLoanPaymentServiceServer) GetByLoan(context.Context, *GetLoanPaymentsByLoanRequest) (*GetAllLoanPaymentsResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetByLoan not implemented")
 }
 func (UnimplementedLoanPaymentServiceServer) Add(context.Context, *AddLoanPaymentRequest) (*LoanPaymentModel, error) {
 	return nil, status.Error(codes.Unimplemented, "method Add not implemented")
@@ -199,6 +215,24 @@ func _LoanPaymentService_GetById_Handler(srv interface{}, ctx context.Context, d
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(LoanPaymentServiceServer).GetById(ctx, req.(*GetLoanPaymentByIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _LoanPaymentService_GetByLoan_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetLoanPaymentsByLoanRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LoanPaymentServiceServer).GetByLoan(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: LoanPaymentService_GetByLoan_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LoanPaymentServiceServer).GetByLoan(ctx, req.(*GetLoanPaymentsByLoanRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -289,6 +323,10 @@ var LoanPaymentService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetById",
 			Handler:    _LoanPaymentService_GetById_Handler,
+		},
+		{
+			MethodName: "GetByLoan",
+			Handler:    _LoanPaymentService_GetByLoan_Handler,
 		},
 		{
 			MethodName: "Add",
