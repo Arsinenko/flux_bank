@@ -11,6 +11,20 @@ type Repository struct {
 	client pb.ExchangeRateServiceClient
 }
 
+func (r Repository) GetByBaseCurrency(ctx context.Context, baseCurrency string) ([]*exchange_rate.ExchangeRate, error) {
+	resp, err := r.client.GetByBaseCurrency(ctx, &pb.GetExchangeRateByBaseCurrencyRequest{
+		BaseCurrency: baseCurrency,
+	})
+	if err != nil {
+		return nil, fmt.Errorf("exchange_rate_repo.GetByBaseCurrency: %w", err)
+	}
+	result := make([]*exchange_rate.ExchangeRate, 0, len(resp.ExchangeRates))
+	for _, er := range resp.ExchangeRates {
+		result = append(result, ToDomain(er))
+	}
+	return result, nil
+}
+
 func NewRepository(client pb.ExchangeRateServiceClient) Repository {
 	return Repository{
 		client: client,

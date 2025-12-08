@@ -99,4 +99,13 @@ public class ExchangeRateService(IExchangeRateRepository exchangeRateRepository,
             throw new RpcException(new Status(StatusCode.Internal, e.Message));
         }
     }
+
+    public override async Task<GetAllExchangeRatesResponse> GetByBaseCurrency(GetExchangeRateByBaseCurrencyRequest request, ServerCallContext context)
+    {
+        var rates = await exchangeRateRepository.FindAsync(e => e.BaseCurrency == request.BaseCurrency);
+        return new GetAllExchangeRatesResponse()
+        {
+            ExchangeRates = { mapper.Map<ExchangeRateModel>(rates) }
+        };
+    }
 }

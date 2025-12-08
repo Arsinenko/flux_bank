@@ -5,6 +5,7 @@ import "context"
 type Repository interface {
 	GetAll(ctx context.Context) ([]*ExchangeRate, error)
 	GetById(ctx context.Context, id int32) (*ExchangeRate, error)
+	GetByBaseCurrency(ctx context.Context, baseCurrency string) ([]*ExchangeRate, error)
 	Add(ctx context.Context, exchangeRate *ExchangeRate) (*ExchangeRate, error)
 	Update(ctx context.Context, exchangeRate *ExchangeRate) error
 	Delete(ctx context.Context, id int32) error
