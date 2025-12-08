@@ -5,6 +5,9 @@ import "context"
 type Repository interface {
 	GetAll(ctx context.Context) ([]*Atm, error)
 	GetById(ctx context.Context, id int32) (*Atm, error)
+	GetByStatus(ctx context.Context, status string) ([]*Atm, error)
+	GetByLocationSubStr(ctx context.Context, subStr string) ([]*Atm, error)
+	GetByBranch(ctx context.Context, branchId int32) ([]*Atm, error)
 	Add(ctx context.Context, atm *Atm) (*Atm, error)
 	Update(ctx context.Context, atm *Atm) error
 	Delete(ctx context.Context, id int32) error

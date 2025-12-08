@@ -16,15 +16,10 @@ func ToDomain(p *pb.AtmModel) *atm.Atm {
 		Status:   p.Status,
 	}
 }
-
-func FromDomain(a *atm.Atm) *pb.AtmModel {
-	if a == nil {
-		return nil
+func ToAtmsDomain(resp *pb.GetAllAtmsResponse) []*atm.Atm {
+	result := make([]*atm.Atm, 0, len(resp.Atms))
+	for _, a := range resp.Atms {
+		result = append(result, ToDomain(a))
 	}
-	return &pb.AtmModel{
-		AtmId:    a.AtmID,
-		BranchId: a.BranchID,
-		Location: a.Location,
-		Status:   a.Status,
-	}
+	return result
 }

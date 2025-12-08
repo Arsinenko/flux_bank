@@ -99,4 +99,31 @@ public class AtmService(IAtmRepository atmRepository, IMapper mapper) : Core.Atm
         await atmRepository.UpdateRangeAsync(atms);
         return new Empty(); 
     }
+
+    public override async Task<GetAllAtmsResponse> GetByBranch(GetAtmsByBranchRequest request, ServerCallContext context)
+    {
+        var atms = await atmRepository.FindAsync(a => a.BranchId == request.BranchId);
+        return new GetAllAtmsResponse()
+        {
+            Atms = { mapper.Map<IEnumerable<AtmModel>>(atms) }
+        };
+    }
+
+    public override async Task<GetAllAtmsResponse> GetByLocationSubStr(GetAtmsByLocationSubStrRequest request, ServerCallContext context)
+    {
+        var atms = await atmRepository.FindAsync(a => a.Location.Contains(request.SubStr));
+        return new GetAllAtmsResponse()
+        {
+            Atms = { mapper.Map<IEnumerable<AtmModel>>(atms) }
+        };
+    }
+
+    public override async Task<GetAllAtmsResponse> GetByStatus(GetAtmsByStatusRequest request, ServerCallContext context)
+    {
+        var atms = await atmRepository.FindAsync(a => a.Status == request.Status);
+        return new GetAllAtmsResponse()
+        {
+            Atms = { mapper.Map<IEnumerable<AtmModel>>(atms) }
+        };
+    }
 }

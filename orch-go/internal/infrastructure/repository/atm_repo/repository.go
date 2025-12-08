@@ -11,6 +11,35 @@ type Repository struct {
 	client pb.AtmServiceClient
 }
 
+func (r Repository) GetByStatus(ctx context.Context, status string) ([]*atm.Atm, error) {
+	resp, err := r.client.GetByStatus(ctx, &pb.GetAtmsByStatusRequest{Status: status})
+	if err != nil {
+		return nil, fmt.Errorf("atm_repo.GetByStatus: %w", err)
+	}
+	result := ToAtmsDomain(resp)
+	return result, nil
+
+}
+
+func (r Repository) GetByLocationSubStr(ctx context.Context, subStr string) ([]*atm.Atm, error) {
+	resp, err := r.client.GetByLocationSubStr(ctx, &pb.GetAtmsByLocationSubStrRequest{SubStr: subStr})
+	if err != nil {
+		return nil, fmt.Errorf("atm_repo.GetByLocationSubStr: %w", err)
+	}
+	result := ToAtmsDomain(resp)
+	return result, nil
+
+}
+
+func (r Repository) GetByBranch(ctx context.Context, branchId int32) ([]*atm.Atm, error) {
+	resp, err := r.client.GetByBranch(ctx, &pb.GetAtmsByBranchRequest{BranchId: branchId})
+	if err != nil {
+		return nil, fmt.Errorf("atm_repo.GetByBranch: %w", err)
+	}
+	result := ToAtmsDomain(resp)
+	return result, nil
+}
+
 func NewRepository(client pb.AtmServiceClient) Repository {
 	return Repository{
 		client: client,
@@ -22,10 +51,7 @@ func (r Repository) GetAll(ctx context.Context) ([]*atm.Atm, error) {
 	if err != nil {
 		return nil, fmt.Errorf("atm_repo.GetAll: %w", err)
 	}
-	result := make([]*atm.Atm, 0, len(resp.Atms))
-	for _, a := range resp.Atms {
-		result = append(result, ToDomain(a))
-	}
+	result := ToAtmsDomain(resp)
 	return result, nil
 }
 

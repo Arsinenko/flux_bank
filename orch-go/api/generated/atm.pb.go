@@ -90,6 +90,138 @@ func (x *AtmModel) GetStatus() string {
 	return ""
 }
 
+type GetAtmsByStatusRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Status        string                 `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetAtmsByStatusRequest) Reset() {
+	*x = GetAtmsByStatusRequest{}
+	mi := &file_atm_proto_msgTypes[1]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetAtmsByStatusRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetAtmsByStatusRequest) ProtoMessage() {}
+
+func (x *GetAtmsByStatusRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_atm_proto_msgTypes[1]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetAtmsByStatusRequest.ProtoReflect.Descriptor instead.
+func (*GetAtmsByStatusRequest) Descriptor() ([]byte, []int) {
+	return file_atm_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *GetAtmsByStatusRequest) GetStatus() string {
+	if x != nil {
+		return x.Status
+	}
+	return ""
+}
+
+type GetAtmsByLocationSubStrRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	SubStr        string                 `protobuf:"bytes,1,opt,name=sub_str,json=subStr,proto3" json:"sub_str,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetAtmsByLocationSubStrRequest) Reset() {
+	*x = GetAtmsByLocationSubStrRequest{}
+	mi := &file_atm_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetAtmsByLocationSubStrRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetAtmsByLocationSubStrRequest) ProtoMessage() {}
+
+func (x *GetAtmsByLocationSubStrRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_atm_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetAtmsByLocationSubStrRequest.ProtoReflect.Descriptor instead.
+func (*GetAtmsByLocationSubStrRequest) Descriptor() ([]byte, []int) {
+	return file_atm_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *GetAtmsByLocationSubStrRequest) GetSubStr() string {
+	if x != nil {
+		return x.SubStr
+	}
+	return ""
+}
+
+type GetAtmsByBranchRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	BranchId      int32                  `protobuf:"varint,1,opt,name=branch_id,json=branchId,proto3" json:"branch_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetAtmsByBranchRequest) Reset() {
+	*x = GetAtmsByBranchRequest{}
+	mi := &file_atm_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetAtmsByBranchRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetAtmsByBranchRequest) ProtoMessage() {}
+
+func (x *GetAtmsByBranchRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_atm_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetAtmsByBranchRequest.ProtoReflect.Descriptor instead.
+func (*GetAtmsByBranchRequest) Descriptor() ([]byte, []int) {
+	return file_atm_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *GetAtmsByBranchRequest) GetBranchId() int32 {
+	if x != nil {
+		return x.BranchId
+	}
+	return 0
+}
+
 type GetAllAtmsResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Atms          []*AtmModel            `protobuf:"bytes,1,rep,name=atms,proto3" json:"atms,omitempty"`
@@ -99,7 +231,7 @@ type GetAllAtmsResponse struct {
 
 func (x *GetAllAtmsResponse) Reset() {
 	*x = GetAllAtmsResponse{}
-	mi := &file_atm_proto_msgTypes[1]
+	mi := &file_atm_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -111,7 +243,7 @@ func (x *GetAllAtmsResponse) String() string {
 func (*GetAllAtmsResponse) ProtoMessage() {}
 
 func (x *GetAllAtmsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_atm_proto_msgTypes[1]
+	mi := &file_atm_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -124,7 +256,7 @@ func (x *GetAllAtmsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetAllAtmsResponse.ProtoReflect.Descriptor instead.
 func (*GetAllAtmsResponse) Descriptor() ([]byte, []int) {
-	return file_atm_proto_rawDescGZIP(), []int{1}
+	return file_atm_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *GetAllAtmsResponse) GetAtms() []*AtmModel {
@@ -143,7 +275,7 @@ type GetAtmByIdRequest struct {
 
 func (x *GetAtmByIdRequest) Reset() {
 	*x = GetAtmByIdRequest{}
-	mi := &file_atm_proto_msgTypes[2]
+	mi := &file_atm_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -155,7 +287,7 @@ func (x *GetAtmByIdRequest) String() string {
 func (*GetAtmByIdRequest) ProtoMessage() {}
 
 func (x *GetAtmByIdRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_atm_proto_msgTypes[2]
+	mi := &file_atm_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -168,7 +300,7 @@ func (x *GetAtmByIdRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetAtmByIdRequest.ProtoReflect.Descriptor instead.
 func (*GetAtmByIdRequest) Descriptor() ([]byte, []int) {
-	return file_atm_proto_rawDescGZIP(), []int{2}
+	return file_atm_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *GetAtmByIdRequest) GetAtmId() int32 {
@@ -189,7 +321,7 @@ type AddAtmRequest struct {
 
 func (x *AddAtmRequest) Reset() {
 	*x = AddAtmRequest{}
-	mi := &file_atm_proto_msgTypes[3]
+	mi := &file_atm_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -201,7 +333,7 @@ func (x *AddAtmRequest) String() string {
 func (*AddAtmRequest) ProtoMessage() {}
 
 func (x *AddAtmRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_atm_proto_msgTypes[3]
+	mi := &file_atm_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -214,7 +346,7 @@ func (x *AddAtmRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AddAtmRequest.ProtoReflect.Descriptor instead.
 func (*AddAtmRequest) Descriptor() ([]byte, []int) {
-	return file_atm_proto_rawDescGZIP(), []int{3}
+	return file_atm_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *AddAtmRequest) GetBranchId() int32 {
@@ -250,7 +382,7 @@ type UpdateAtmRequest struct {
 
 func (x *UpdateAtmRequest) Reset() {
 	*x = UpdateAtmRequest{}
-	mi := &file_atm_proto_msgTypes[4]
+	mi := &file_atm_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -262,7 +394,7 @@ func (x *UpdateAtmRequest) String() string {
 func (*UpdateAtmRequest) ProtoMessage() {}
 
 func (x *UpdateAtmRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_atm_proto_msgTypes[4]
+	mi := &file_atm_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -275,7 +407,7 @@ func (x *UpdateAtmRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateAtmRequest.ProtoReflect.Descriptor instead.
 func (*UpdateAtmRequest) Descriptor() ([]byte, []int) {
-	return file_atm_proto_rawDescGZIP(), []int{4}
+	return file_atm_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *UpdateAtmRequest) GetAtmId() int32 {
@@ -315,7 +447,7 @@ type DeleteAtmRequest struct {
 
 func (x *DeleteAtmRequest) Reset() {
 	*x = DeleteAtmRequest{}
-	mi := &file_atm_proto_msgTypes[5]
+	mi := &file_atm_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -327,7 +459,7 @@ func (x *DeleteAtmRequest) String() string {
 func (*DeleteAtmRequest) ProtoMessage() {}
 
 func (x *DeleteAtmRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_atm_proto_msgTypes[5]
+	mi := &file_atm_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -340,7 +472,7 @@ func (x *DeleteAtmRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteAtmRequest.ProtoReflect.Descriptor instead.
 func (*DeleteAtmRequest) Descriptor() ([]byte, []int) {
-	return file_atm_proto_rawDescGZIP(), []int{5}
+	return file_atm_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *DeleteAtmRequest) GetAtmId() int32 {
@@ -359,7 +491,7 @@ type AddAtmBulkRequest struct {
 
 func (x *AddAtmBulkRequest) Reset() {
 	*x = AddAtmBulkRequest{}
-	mi := &file_atm_proto_msgTypes[6]
+	mi := &file_atm_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -371,7 +503,7 @@ func (x *AddAtmBulkRequest) String() string {
 func (*AddAtmBulkRequest) ProtoMessage() {}
 
 func (x *AddAtmBulkRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_atm_proto_msgTypes[6]
+	mi := &file_atm_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -384,7 +516,7 @@ func (x *AddAtmBulkRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AddAtmBulkRequest.ProtoReflect.Descriptor instead.
 func (*AddAtmBulkRequest) Descriptor() ([]byte, []int) {
-	return file_atm_proto_rawDescGZIP(), []int{6}
+	return file_atm_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *AddAtmBulkRequest) GetAtms() []*AddAtmRequest {
@@ -403,7 +535,7 @@ type UpdateAtmBulkRequest struct {
 
 func (x *UpdateAtmBulkRequest) Reset() {
 	*x = UpdateAtmBulkRequest{}
-	mi := &file_atm_proto_msgTypes[7]
+	mi := &file_atm_proto_msgTypes[10]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -415,7 +547,7 @@ func (x *UpdateAtmBulkRequest) String() string {
 func (*UpdateAtmBulkRequest) ProtoMessage() {}
 
 func (x *UpdateAtmBulkRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_atm_proto_msgTypes[7]
+	mi := &file_atm_proto_msgTypes[10]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -428,7 +560,7 @@ func (x *UpdateAtmBulkRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateAtmBulkRequest.ProtoReflect.Descriptor instead.
 func (*UpdateAtmBulkRequest) Descriptor() ([]byte, []int) {
-	return file_atm_proto_rawDescGZIP(), []int{7}
+	return file_atm_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *UpdateAtmBulkRequest) GetAtms() []*UpdateAtmRequest {
@@ -447,7 +579,7 @@ type DeleteAtmBulkRequest struct {
 
 func (x *DeleteAtmBulkRequest) Reset() {
 	*x = DeleteAtmBulkRequest{}
-	mi := &file_atm_proto_msgTypes[8]
+	mi := &file_atm_proto_msgTypes[11]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -459,7 +591,7 @@ func (x *DeleteAtmBulkRequest) String() string {
 func (*DeleteAtmBulkRequest) ProtoMessage() {}
 
 func (x *DeleteAtmBulkRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_atm_proto_msgTypes[8]
+	mi := &file_atm_proto_msgTypes[11]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -472,7 +604,7 @@ func (x *DeleteAtmBulkRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteAtmBulkRequest.ProtoReflect.Descriptor instead.
 func (*DeleteAtmBulkRequest) Descriptor() ([]byte, []int) {
-	return file_atm_proto_rawDescGZIP(), []int{8}
+	return file_atm_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *DeleteAtmBulkRequest) GetAtms() []*DeleteAtmRequest {
@@ -495,7 +627,13 @@ const file_atm_proto_rawDesc = "" +
 	"\n" +
 	"_branch_idB\v\n" +
 	"\t_locationB\t\n" +
-	"\a_status\":\n" +
+	"\a_status\"0\n" +
+	"\x16GetAtmsByStatusRequest\x12\x16\n" +
+	"\x06status\x18\x01 \x01(\tR\x06status\"9\n" +
+	"\x1eGetAtmsByLocationSubStrRequest\x12\x17\n" +
+	"\asub_str\x18\x01 \x01(\tR\x06subStr\"5\n" +
+	"\x16GetAtmsByBranchRequest\x12\x1b\n" +
+	"\tbranch_id\x18\x01 \x01(\x05R\bbranchId\":\n" +
 	"\x12GetAllAtmsResponse\x12$\n" +
 	"\x04atms\x18\x01 \x03(\v2\x10.protos.AtmModelR\x04atms\"*\n" +
 	"\x11GetAtmByIdRequest\x12\x15\n" +
@@ -524,11 +662,14 @@ const file_atm_proto_rawDesc = "" +
 	"\x14UpdateAtmBulkRequest\x12,\n" +
 	"\x04atms\x18\x01 \x03(\v2\x18.protos.UpdateAtmRequestR\x04atms\"D\n" +
 	"\x14DeleteAtmBulkRequest\x12,\n" +
-	"\x04atms\x18\x01 \x03(\v2\x18.protos.DeleteAtmRequestR\x04atms2\xef\x03\n" +
+	"\x04atms\x18\x01 \x03(\v2\x18.protos.DeleteAtmRequestR\x04atms2\xe0\x05\n" +
 	"\n" +
 	"AtmService\x12;\n" +
 	"\x06GetAll\x12\x15.protos.GetAllRequest\x1a\x1a.protos.GetAllAtmsResponse\x126\n" +
-	"\aGetById\x12\x19.protos.GetAtmByIdRequest\x1a\x10.protos.AtmModel\x12.\n" +
+	"\aGetById\x12\x19.protos.GetAtmByIdRequest\x1a\x10.protos.AtmModel\x12I\n" +
+	"\vGetByStatus\x12\x1e.protos.GetAtmsByStatusRequest\x1a\x1a.protos.GetAllAtmsResponse\x12Y\n" +
+	"\x13GetByLocationSubStr\x12&.protos.GetAtmsByLocationSubStrRequest\x1a\x1a.protos.GetAllAtmsResponse\x12I\n" +
+	"\vGetByBranch\x12\x1e.protos.GetAtmsByBranchRequest\x1a\x1a.protos.GetAllAtmsResponse\x12.\n" +
 	"\x03Add\x12\x15.protos.AddAtmRequest\x1a\x10.protos.AtmModel\x12:\n" +
 	"\x06Update\x12\x18.protos.UpdateAtmRequest\x1a\x16.google.protobuf.Empty\x12:\n" +
 	"\x06Delete\x12\x18.protos.DeleteAtmRequest\x1a\x16.google.protobuf.Empty\x12<\n" +
@@ -550,43 +691,52 @@ func file_atm_proto_rawDescGZIP() []byte {
 	return file_atm_proto_rawDescData
 }
 
-var file_atm_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
+var file_atm_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
 var file_atm_proto_goTypes = []any{
-	(*AtmModel)(nil),             // 0: protos.AtmModel
-	(*GetAllAtmsResponse)(nil),   // 1: protos.GetAllAtmsResponse
-	(*GetAtmByIdRequest)(nil),    // 2: protos.GetAtmByIdRequest
-	(*AddAtmRequest)(nil),        // 3: protos.AddAtmRequest
-	(*UpdateAtmRequest)(nil),     // 4: protos.UpdateAtmRequest
-	(*DeleteAtmRequest)(nil),     // 5: protos.DeleteAtmRequest
-	(*AddAtmBulkRequest)(nil),    // 6: protos.AddAtmBulkRequest
-	(*UpdateAtmBulkRequest)(nil), // 7: protos.UpdateAtmBulkRequest
-	(*DeleteAtmBulkRequest)(nil), // 8: protos.DeleteAtmBulkRequest
-	(*GetAllRequest)(nil),        // 9: protos.GetAllRequest
-	(*emptypb.Empty)(nil),        // 10: google.protobuf.Empty
+	(*AtmModel)(nil),                       // 0: protos.AtmModel
+	(*GetAtmsByStatusRequest)(nil),         // 1: protos.GetAtmsByStatusRequest
+	(*GetAtmsByLocationSubStrRequest)(nil), // 2: protos.GetAtmsByLocationSubStrRequest
+	(*GetAtmsByBranchRequest)(nil),         // 3: protos.GetAtmsByBranchRequest
+	(*GetAllAtmsResponse)(nil),             // 4: protos.GetAllAtmsResponse
+	(*GetAtmByIdRequest)(nil),              // 5: protos.GetAtmByIdRequest
+	(*AddAtmRequest)(nil),                  // 6: protos.AddAtmRequest
+	(*UpdateAtmRequest)(nil),               // 7: protos.UpdateAtmRequest
+	(*DeleteAtmRequest)(nil),               // 8: protos.DeleteAtmRequest
+	(*AddAtmBulkRequest)(nil),              // 9: protos.AddAtmBulkRequest
+	(*UpdateAtmBulkRequest)(nil),           // 10: protos.UpdateAtmBulkRequest
+	(*DeleteAtmBulkRequest)(nil),           // 11: protos.DeleteAtmBulkRequest
+	(*GetAllRequest)(nil),                  // 12: protos.GetAllRequest
+	(*emptypb.Empty)(nil),                  // 13: google.protobuf.Empty
 }
 var file_atm_proto_depIdxs = []int32{
 	0,  // 0: protos.GetAllAtmsResponse.atms:type_name -> protos.AtmModel
-	3,  // 1: protos.AddAtmBulkRequest.atms:type_name -> protos.AddAtmRequest
-	4,  // 2: protos.UpdateAtmBulkRequest.atms:type_name -> protos.UpdateAtmRequest
-	5,  // 3: protos.DeleteAtmBulkRequest.atms:type_name -> protos.DeleteAtmRequest
-	9,  // 4: protos.AtmService.GetAll:input_type -> protos.GetAllRequest
-	2,  // 5: protos.AtmService.GetById:input_type -> protos.GetAtmByIdRequest
-	3,  // 6: protos.AtmService.Add:input_type -> protos.AddAtmRequest
-	4,  // 7: protos.AtmService.Update:input_type -> protos.UpdateAtmRequest
-	5,  // 8: protos.AtmService.Delete:input_type -> protos.DeleteAtmRequest
-	6,  // 9: protos.AtmService.AddBulk:input_type -> protos.AddAtmBulkRequest
-	7,  // 10: protos.AtmService.UpdateBulk:input_type -> protos.UpdateAtmBulkRequest
-	8,  // 11: protos.AtmService.DeleteBulk:input_type -> protos.DeleteAtmBulkRequest
-	1,  // 12: protos.AtmService.GetAll:output_type -> protos.GetAllAtmsResponse
-	0,  // 13: protos.AtmService.GetById:output_type -> protos.AtmModel
-	0,  // 14: protos.AtmService.Add:output_type -> protos.AtmModel
-	10, // 15: protos.AtmService.Update:output_type -> google.protobuf.Empty
-	10, // 16: protos.AtmService.Delete:output_type -> google.protobuf.Empty
-	10, // 17: protos.AtmService.AddBulk:output_type -> google.protobuf.Empty
-	10, // 18: protos.AtmService.UpdateBulk:output_type -> google.protobuf.Empty
-	10, // 19: protos.AtmService.DeleteBulk:output_type -> google.protobuf.Empty
-	12, // [12:20] is the sub-list for method output_type
-	4,  // [4:12] is the sub-list for method input_type
+	6,  // 1: protos.AddAtmBulkRequest.atms:type_name -> protos.AddAtmRequest
+	7,  // 2: protos.UpdateAtmBulkRequest.atms:type_name -> protos.UpdateAtmRequest
+	8,  // 3: protos.DeleteAtmBulkRequest.atms:type_name -> protos.DeleteAtmRequest
+	12, // 4: protos.AtmService.GetAll:input_type -> protos.GetAllRequest
+	5,  // 5: protos.AtmService.GetById:input_type -> protos.GetAtmByIdRequest
+	1,  // 6: protos.AtmService.GetByStatus:input_type -> protos.GetAtmsByStatusRequest
+	2,  // 7: protos.AtmService.GetByLocationSubStr:input_type -> protos.GetAtmsByLocationSubStrRequest
+	3,  // 8: protos.AtmService.GetByBranch:input_type -> protos.GetAtmsByBranchRequest
+	6,  // 9: protos.AtmService.Add:input_type -> protos.AddAtmRequest
+	7,  // 10: protos.AtmService.Update:input_type -> protos.UpdateAtmRequest
+	8,  // 11: protos.AtmService.Delete:input_type -> protos.DeleteAtmRequest
+	9,  // 12: protos.AtmService.AddBulk:input_type -> protos.AddAtmBulkRequest
+	10, // 13: protos.AtmService.UpdateBulk:input_type -> protos.UpdateAtmBulkRequest
+	11, // 14: protos.AtmService.DeleteBulk:input_type -> protos.DeleteAtmBulkRequest
+	4,  // 15: protos.AtmService.GetAll:output_type -> protos.GetAllAtmsResponse
+	0,  // 16: protos.AtmService.GetById:output_type -> protos.AtmModel
+	4,  // 17: protos.AtmService.GetByStatus:output_type -> protos.GetAllAtmsResponse
+	4,  // 18: protos.AtmService.GetByLocationSubStr:output_type -> protos.GetAllAtmsResponse
+	4,  // 19: protos.AtmService.GetByBranch:output_type -> protos.GetAllAtmsResponse
+	0,  // 20: protos.AtmService.Add:output_type -> protos.AtmModel
+	13, // 21: protos.AtmService.Update:output_type -> google.protobuf.Empty
+	13, // 22: protos.AtmService.Delete:output_type -> google.protobuf.Empty
+	13, // 23: protos.AtmService.AddBulk:output_type -> google.protobuf.Empty
+	13, // 24: protos.AtmService.UpdateBulk:output_type -> google.protobuf.Empty
+	13, // 25: protos.AtmService.DeleteBulk:output_type -> google.protobuf.Empty
+	15, // [15:26] is the sub-list for method output_type
+	4,  // [4:15] is the sub-list for method input_type
 	4,  // [4:4] is the sub-list for extension type_name
 	4,  // [4:4] is the sub-list for extension extendee
 	0,  // [0:4] is the sub-list for field type_name
@@ -599,15 +749,15 @@ func file_atm_proto_init() {
 	}
 	file_custom_types_proto_init()
 	file_atm_proto_msgTypes[0].OneofWrappers = []any{}
-	file_atm_proto_msgTypes[3].OneofWrappers = []any{}
-	file_atm_proto_msgTypes[4].OneofWrappers = []any{}
+	file_atm_proto_msgTypes[6].OneofWrappers = []any{}
+	file_atm_proto_msgTypes[7].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_atm_proto_rawDesc), len(file_atm_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   9,
+			NumMessages:   12,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
