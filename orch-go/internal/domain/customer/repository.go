@@ -1,10 +1,14 @@
-﻿package customer
+package customer
 
-import "context"
+import (
+	"context"
+)
 
 type Repository interface {
 	GetAll(ctx context.Context, pageN, pageSize int32) ([]Customer, error)
 	GetById(ctx context.Context, id int32) (*Customer, error)
+	GetBySubstring(ctx context.Context, request GetBySubStrRequest) ([]Customer, error)
+	GetByDateRange(ctx context.Context, request GetByDateRangeRequest) ([]Customer, error)
 	Create(ctx context.Context, customer *Customer) (*Customer, error)
 	Update(ctx context.Context, customer *Customer) error
 	Delete(ctx context.Context, id int32) error

@@ -20,13 +20,15 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	CustomerService_GetAll_FullMethodName     = "/protos.CustomerService/GetAll"
-	CustomerService_GetById_FullMethodName    = "/protos.CustomerService/GetById"
-	CustomerService_Add_FullMethodName        = "/protos.CustomerService/Add"
-	CustomerService_Update_FullMethodName     = "/protos.CustomerService/Update"
-	CustomerService_Delete_FullMethodName     = "/protos.CustomerService/Delete"
-	CustomerService_UpdateBulk_FullMethodName = "/protos.CustomerService/UpdateBulk"
-	CustomerService_DeleteBulk_FullMethodName = "/protos.CustomerService/DeleteBulk"
+	CustomerService_GetAll_FullMethodName         = "/protos.CustomerService/GetAll"
+	CustomerService_GetById_FullMethodName        = "/protos.CustomerService/GetById"
+	CustomerService_GetBySubstring_FullMethodName = "/protos.CustomerService/GetBySubstring"
+	CustomerService_GetByDateRange_FullMethodName = "/protos.CustomerService/GetByDateRange"
+	CustomerService_Add_FullMethodName            = "/protos.CustomerService/Add"
+	CustomerService_Update_FullMethodName         = "/protos.CustomerService/Update"
+	CustomerService_Delete_FullMethodName         = "/protos.CustomerService/Delete"
+	CustomerService_UpdateBulk_FullMethodName     = "/protos.CustomerService/UpdateBulk"
+	CustomerService_DeleteBulk_FullMethodName     = "/protos.CustomerService/DeleteBulk"
 )
 
 // CustomerServiceClient is the client API for CustomerService service.
@@ -35,6 +37,8 @@ const (
 type CustomerServiceClient interface {
 	GetAll(ctx context.Context, in *GetAllRequest, opts ...grpc.CallOption) (*GetAllCustomersResponse, error)
 	GetById(ctx context.Context, in *GetCustomerByIdRequest, opts ...grpc.CallOption) (*CustomerModel, error)
+	GetBySubstring(ctx context.Context, in *GetBySubstringRequest, opts ...grpc.CallOption) (*GetAllCustomersResponse, error)
+	GetByDateRange(ctx context.Context, in *GetByDateRangeRequest, opts ...grpc.CallOption) (*GetAllCustomersResponse, error)
 	Add(ctx context.Context, in *AddCustomerRequest, opts ...grpc.CallOption) (*CustomerModel, error)
 	Update(ctx context.Context, in *UpdateCustomerRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	Delete(ctx context.Context, in *DeleteCustomerRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
@@ -64,6 +68,26 @@ func (c *customerServiceClient) GetById(ctx context.Context, in *GetCustomerById
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(CustomerModel)
 	err := c.cc.Invoke(ctx, CustomerService_GetById_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *customerServiceClient) GetBySubstring(ctx context.Context, in *GetBySubstringRequest, opts ...grpc.CallOption) (*GetAllCustomersResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetAllCustomersResponse)
+	err := c.cc.Invoke(ctx, CustomerService_GetBySubstring_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *customerServiceClient) GetByDateRange(ctx context.Context, in *GetByDateRangeRequest, opts ...grpc.CallOption) (*GetAllCustomersResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetAllCustomersResponse)
+	err := c.cc.Invoke(ctx, CustomerService_GetByDateRange_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -126,6 +150,8 @@ func (c *customerServiceClient) DeleteBulk(ctx context.Context, in *DeleteCustom
 type CustomerServiceServer interface {
 	GetAll(context.Context, *GetAllRequest) (*GetAllCustomersResponse, error)
 	GetById(context.Context, *GetCustomerByIdRequest) (*CustomerModel, error)
+	GetBySubstring(context.Context, *GetBySubstringRequest) (*GetAllCustomersResponse, error)
+	GetByDateRange(context.Context, *GetByDateRangeRequest) (*GetAllCustomersResponse, error)
 	Add(context.Context, *AddCustomerRequest) (*CustomerModel, error)
 	Update(context.Context, *UpdateCustomerRequest) (*emptypb.Empty, error)
 	Delete(context.Context, *DeleteCustomerRequest) (*emptypb.Empty, error)
@@ -146,6 +172,12 @@ func (UnimplementedCustomerServiceServer) GetAll(context.Context, *GetAllRequest
 }
 func (UnimplementedCustomerServiceServer) GetById(context.Context, *GetCustomerByIdRequest) (*CustomerModel, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetById not implemented")
+}
+func (UnimplementedCustomerServiceServer) GetBySubstring(context.Context, *GetBySubstringRequest) (*GetAllCustomersResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetBySubstring not implemented")
+}
+func (UnimplementedCustomerServiceServer) GetByDateRange(context.Context, *GetByDateRangeRequest) (*GetAllCustomersResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetByDateRange not implemented")
 }
 func (UnimplementedCustomerServiceServer) Add(context.Context, *AddCustomerRequest) (*CustomerModel, error) {
 	return nil, status.Error(codes.Unimplemented, "method Add not implemented")
@@ -215,6 +247,42 @@ func _CustomerService_GetById_Handler(srv interface{}, ctx context.Context, dec 
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CustomerServiceServer).GetById(ctx, req.(*GetCustomerByIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CustomerService_GetBySubstring_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetBySubstringRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CustomerServiceServer).GetBySubstring(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CustomerService_GetBySubstring_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CustomerServiceServer).GetBySubstring(ctx, req.(*GetBySubstringRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CustomerService_GetByDateRange_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetByDateRangeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CustomerServiceServer).GetByDateRange(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CustomerService_GetByDateRange_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CustomerServiceServer).GetByDateRange(ctx, req.(*GetByDateRangeRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -323,6 +391,14 @@ var CustomerService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetById",
 			Handler:    _CustomerService_GetById_Handler,
+		},
+		{
+			MethodName: "GetBySubstring",
+			Handler:    _CustomerService_GetBySubstring_Handler,
+		},
+		{
+			MethodName: "GetByDateRange",
+			Handler:    _CustomerService_GetByDateRange_Handler,
 		},
 		{
 			MethodName: "Add",

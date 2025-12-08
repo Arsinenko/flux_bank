@@ -4,10 +4,32 @@ import (
 	"context"
 	pb "orch-go/api/generated"
 	"orch-go/internal/domain/notification"
+
+	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
 type Repository struct {
 	client pb.NotificationServiceClient
+}
+
+func (r Repository) GetByDateRange(ctx context.Context, request notification.GetByDateRangeRequest) ([]*notification.Notification, error) {
+	resp, err := r.client.GetByDateRange(ctx, &pb.GetByDateRangeRequest{
+		From:     timestamppb.New(request.From),
+		To:       timestamppb.New(request.To),
+		PageN:    &request.PageN,
+		PageSize: &request.PageSize,
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	var notifications []*notification.Notification
+	for _, notif := range resp.Notifications {
+		notifications = append(notifications, ToDomain(notif))
+	}
+
+	return notifications, nil
+
 }
 
 func NewRepository(client pb.NotificationServiceClient) Repository {

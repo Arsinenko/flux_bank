@@ -9,3 +9,8 @@ type Notification struct {
 	CreatedAt  time.Time
 	IsRead     bool
 }
+
+type GetByDateRangeRequest struct {
+	From, To        time.Time
+	PageN, PageSize int32
+}

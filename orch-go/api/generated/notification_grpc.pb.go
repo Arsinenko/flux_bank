@@ -20,14 +20,15 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	NotificationService_GetAll_FullMethodName     = "/protos.NotificationService/GetAll"
-	NotificationService_GetById_FullMethodName    = "/protos.NotificationService/GetById"
-	NotificationService_Add_FullMethodName        = "/protos.NotificationService/Add"
-	NotificationService_Update_FullMethodName     = "/protos.NotificationService/Update"
-	NotificationService_Delete_FullMethodName     = "/protos.NotificationService/Delete"
-	NotificationService_AddBulk_FullMethodName    = "/protos.NotificationService/AddBulk"
-	NotificationService_UpdateBulk_FullMethodName = "/protos.NotificationService/UpdateBulk"
-	NotificationService_DeleteBulk_FullMethodName = "/protos.NotificationService/DeleteBulk"
+	NotificationService_GetAll_FullMethodName         = "/protos.NotificationService/GetAll"
+	NotificationService_GetById_FullMethodName        = "/protos.NotificationService/GetById"
+	NotificationService_GetByDateRange_FullMethodName = "/protos.NotificationService/GetByDateRange"
+	NotificationService_Add_FullMethodName            = "/protos.NotificationService/Add"
+	NotificationService_Update_FullMethodName         = "/protos.NotificationService/Update"
+	NotificationService_Delete_FullMethodName         = "/protos.NotificationService/Delete"
+	NotificationService_AddBulk_FullMethodName        = "/protos.NotificationService/AddBulk"
+	NotificationService_UpdateBulk_FullMethodName     = "/protos.NotificationService/UpdateBulk"
+	NotificationService_DeleteBulk_FullMethodName     = "/protos.NotificationService/DeleteBulk"
 )
 
 // NotificationServiceClient is the client API for NotificationService service.
@@ -36,6 +37,7 @@ const (
 type NotificationServiceClient interface {
 	GetAll(ctx context.Context, in *GetAllRequest, opts ...grpc.CallOption) (*GetAllNotificationsResponse, error)
 	GetById(ctx context.Context, in *GetNotificationByIdRequest, opts ...grpc.CallOption) (*NotificationModel, error)
+	GetByDateRange(ctx context.Context, in *GetByDateRangeRequest, opts ...grpc.CallOption) (*GetAllNotificationsResponse, error)
 	Add(ctx context.Context, in *AddNotificationRequest, opts ...grpc.CallOption) (*NotificationModel, error)
 	Update(ctx context.Context, in *UpdateNotificationRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	Delete(ctx context.Context, in *DeleteNotificationRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
@@ -66,6 +68,16 @@ func (c *notificationServiceClient) GetById(ctx context.Context, in *GetNotifica
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(NotificationModel)
 	err := c.cc.Invoke(ctx, NotificationService_GetById_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *notificationServiceClient) GetByDateRange(ctx context.Context, in *GetByDateRangeRequest, opts ...grpc.CallOption) (*GetAllNotificationsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetAllNotificationsResponse)
+	err := c.cc.Invoke(ctx, NotificationService_GetByDateRange_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -138,6 +150,7 @@ func (c *notificationServiceClient) DeleteBulk(ctx context.Context, in *DeleteNo
 type NotificationServiceServer interface {
 	GetAll(context.Context, *GetAllRequest) (*GetAllNotificationsResponse, error)
 	GetById(context.Context, *GetNotificationByIdRequest) (*NotificationModel, error)
+	GetByDateRange(context.Context, *GetByDateRangeRequest) (*GetAllNotificationsResponse, error)
 	Add(context.Context, *AddNotificationRequest) (*NotificationModel, error)
 	Update(context.Context, *UpdateNotificationRequest) (*emptypb.Empty, error)
 	Delete(context.Context, *DeleteNotificationRequest) (*emptypb.Empty, error)
@@ -159,6 +172,9 @@ func (UnimplementedNotificationServiceServer) GetAll(context.Context, *GetAllReq
 }
 func (UnimplementedNotificationServiceServer) GetById(context.Context, *GetNotificationByIdRequest) (*NotificationModel, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetById not implemented")
+}
+func (UnimplementedNotificationServiceServer) GetByDateRange(context.Context, *GetByDateRangeRequest) (*GetAllNotificationsResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetByDateRange not implemented")
 }
 func (UnimplementedNotificationServiceServer) Add(context.Context, *AddNotificationRequest) (*NotificationModel, error) {
 	return nil, status.Error(codes.Unimplemented, "method Add not implemented")
@@ -231,6 +247,24 @@ func _NotificationService_GetById_Handler(srv interface{}, ctx context.Context, 
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(NotificationServiceServer).GetById(ctx, req.(*GetNotificationByIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _NotificationService_GetByDateRange_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetByDateRangeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(NotificationServiceServer).GetByDateRange(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: NotificationService_GetByDateRange_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(NotificationServiceServer).GetByDateRange(ctx, req.(*GetByDateRangeRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -357,6 +391,10 @@ var NotificationService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetById",
 			Handler:    _NotificationService_GetById_Handler,
+		},
+		{
+			MethodName: "GetByDateRange",
+			Handler:    _NotificationService_GetByDateRange_Handler,
 		},
 		{
 			MethodName: "Add",

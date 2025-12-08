@@ -5,6 +5,8 @@ import (
 	"fmt"
 	pb "orch-go/api/generated"
 	"orch-go/internal/domain/customer"
+
+	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
 type Repository struct {
@@ -15,6 +17,47 @@ func NewRepository(client pb.CustomerServiceClient) *Repository {
 	return &Repository{
 		client: client,
 	}
+}
+func (r Repository) GetBySubstring(ctx context.Context, request customer.GetBySubStrRequest) ([]customer.Customer, error) {
+	resp, err := r.client.GetBySubstring(ctx, &pb.GetBySubstringRequest{
+		SubStr:   request.SubStr,
+		PageN:    &request.PageN,
+		PageSize: &request.PageSize,
+		Order:    request.Order,
+		Desc:     &request.Desk,
+	})
+	if err != nil {
+		return nil, fmt.Errorf("customer_repo.GetBySubstring: %w", err)
+	}
+	result := make([]customer.Customer, len(resp.Customers))
+	for _, c := range resp.Customers {
+		domainModel := ToDomain(c)
+		if domainModel != nil {
+			result = append(result, *domainModel)
+		}
+	}
+	return result, nil
+}
+
+func (r Repository) GetByDateRange(ctx context.Context, request customer.GetByDateRangeRequest) ([]customer.Customer, error) {
+	resp, err := r.client.GetByDateRange(ctx, &pb.GetByDateRangeRequest{
+		From:     timestamppb.New(request.From),
+		To:       timestamppb.New(request.To),
+		PageN:    &request.PageN,
+		PageSize: &request.PageSize,
+	})
+	if err != nil {
+		return nil, fmt.Errorf("customer_repo.GetByDateRange: %w", err)
+	}
+	result := make([]customer.Customer, len(resp.Customers))
+	for _, c := range resp.Customers {
+		domainModel := ToDomain(c)
+		if domainModel != nil {
+			result = append(result, *domainModel)
+		}
+	}
+	return result, nil
+
 }
 
 func (r Repository) GetAll(ctx context.Context, pageN, pageSize int32) ([]customer.Customer, error) {

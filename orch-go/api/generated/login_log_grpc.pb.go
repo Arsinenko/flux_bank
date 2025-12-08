@@ -30,6 +30,8 @@ const (
 // LoginLogServiceClient is the client API for LoginLogService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+//
+// TODO
 type LoginLogServiceClient interface {
 	GetAll(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*GetAllLoginLogsResponse, error)
 	GetById(ctx context.Context, in *GetLoginLogByIdRequest, opts ...grpc.CallOption) (*LoginLogModel, error)
@@ -99,6 +101,8 @@ func (c *loginLogServiceClient) Delete(ctx context.Context, in *DeleteLoginLogRe
 // LoginLogServiceServer is the server API for LoginLogService service.
 // All implementations must embed UnimplementedLoginLogServiceServer
 // for forward compatibility.
+//
+// TODO
 type LoginLogServiceServer interface {
 	GetAll(context.Context, *emptypb.Empty) (*GetAllLoginLogsResponse, error)
 	GetById(context.Context, *GetLoginLogByIdRequest) (*LoginLogModel, error)
