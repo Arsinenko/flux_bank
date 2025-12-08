@@ -102,5 +102,14 @@ public class CardService(ICardRepository repository, IMapper mapper) : Core.Card
             throw new RpcException(new Status(StatusCode.Internal, e.Message));
         }
     }
+
+    public override async Task<GetAllCardsResponse> GetByAccount(GetCardsByAccountRequest request, ServerCallContext context)
+    {
+        var cards = await repository.FindAsync(c => c.AccountId == request.AccountId);
+        return new GetAllCardsResponse()
+        {
+            Cards = { mapper.Map<IEnumerable<CardModel>>(cards) }
+        };
+    }
 }
      

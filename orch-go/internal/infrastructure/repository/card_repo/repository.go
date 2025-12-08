@@ -11,6 +11,19 @@ type Repository struct {
 	client pb.CardServiceClient
 }
 
+func (r Repository) GetByAccountId(ctx context.Context, accountId int32) ([]*card.Card, error) {
+	resp, err := r.client.GetByAccountId(ctx, &pb.GetCardsByAccountRequest{AccountId: accountId})
+	if err != nil {
+		return nil, fmt.Errorf("card_repo.GetByAccountId: %w", err)
+	}
+	result := make([]*card.Card, 0, len(resp.Cards))
+	for _, c := range resp.Cards {
+		result = append(result, ToDomain(c))
+	}
+	return result, nil
+
+}
+
 func NewRepository(client pb.CardServiceClient) Repository {
 	return Repository{
 		client: client,
