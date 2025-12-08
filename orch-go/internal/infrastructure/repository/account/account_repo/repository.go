@@ -13,6 +13,18 @@ type Repository struct {
 	client pb.AccountServiceClient
 }
 
+func (r Repository) GetByCustomerId(ctx context.Context, customerId int32) ([]*account.Account, error) {
+	resp, err := r.client.GetByCustomerId(ctx, &pb.GetAccountByCustomerIdRequest{CustomerId: customerId})
+	if err != nil {
+		return nil, fmt.Errorf("account_repo.GetByCustomerId: %w", err)
+	}
+	result := make([]*account.Account, 0, len(resp.Accounts))
+	for _, a := range resp.Accounts {
+		result = append(result, AccountToDomain(a))
+	}
+	return result, nil
+}
+
 func (r Repository) GetByDateRange(ctx context.Context, request account.GetByDateRange) ([]*account.Account, error) {
 	resp, err := r.client.GetByDateRange(ctx, &pb.GetByDateRangeRequest{
 		From:     timestamppb.New(request.From),

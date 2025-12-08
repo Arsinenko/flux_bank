@@ -9,4 +9,9 @@ public class AccountRepository : GenericRepository<Account, int>, IAccountReposi
     public AccountRepository(MyDbContext context) : base(context)
     {
     }
+
+    public Task<IEnumerable<Account>> GetByCustomerIdAsync(int customerId)
+    {
+        return FindAsync(account => account.CustomerId == customerId);
+    }
 }

@@ -5,6 +5,7 @@ import "context"
 type AccountRepository interface {
 	GetAll(ctx context.Context, pageN, pageSize int32) ([]Account, error)
 	GetById(ctx context.Context, id int32) (*Account, error)
+	GetByCustomerId(ctx context.Context, customerId int32) ([]*Account, error)
 	GetByDateRange(ctx context.Context, request GetByDateRange) ([]*Account, error)
 	Create(ctx context.Context, account *Account) (*Account, error)
 	Update(ctx context.Context, account *Account) error

@@ -20,14 +20,15 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	AccountService_GetAll_FullMethodName         = "/protos.AccountService/GetAll"
-	AccountService_GetById_FullMethodName        = "/protos.AccountService/GetById"
-	AccountService_GetByDateRange_FullMethodName = "/protos.AccountService/GetByDateRange"
-	AccountService_Add_FullMethodName            = "/protos.AccountService/Add"
-	AccountService_Update_FullMethodName         = "/protos.AccountService/Update"
-	AccountService_Delete_FullMethodName         = "/protos.AccountService/Delete"
-	AccountService_UpdateBulk_FullMethodName     = "/protos.AccountService/UpdateBulk"
-	AccountService_DeleteBulk_FullMethodName     = "/protos.AccountService/DeleteBulk"
+	AccountService_GetAll_FullMethodName          = "/protos.AccountService/GetAll"
+	AccountService_GetById_FullMethodName         = "/protos.AccountService/GetById"
+	AccountService_GetByCustomerId_FullMethodName = "/protos.AccountService/GetByCustomerId"
+	AccountService_GetByDateRange_FullMethodName  = "/protos.AccountService/GetByDateRange"
+	AccountService_Add_FullMethodName             = "/protos.AccountService/Add"
+	AccountService_Update_FullMethodName          = "/protos.AccountService/Update"
+	AccountService_Delete_FullMethodName          = "/protos.AccountService/Delete"
+	AccountService_UpdateBulk_FullMethodName      = "/protos.AccountService/UpdateBulk"
+	AccountService_DeleteBulk_FullMethodName      = "/protos.AccountService/DeleteBulk"
 )
 
 // AccountServiceClient is the client API for AccountService service.
@@ -36,6 +37,7 @@ const (
 type AccountServiceClient interface {
 	GetAll(ctx context.Context, in *GetAllRequest, opts ...grpc.CallOption) (*GetAllAccountsResponse, error)
 	GetById(ctx context.Context, in *GetAccountByIdRequest, opts ...grpc.CallOption) (*AccountModel, error)
+	GetByCustomerId(ctx context.Context, in *GetAccountByCustomerIdRequest, opts ...grpc.CallOption) (*GetAllAccountsResponse, error)
 	GetByDateRange(ctx context.Context, in *GetByDateRangeRequest, opts ...grpc.CallOption) (*GetAllAccountsResponse, error)
 	Add(ctx context.Context, in *AddAccountRequest, opts ...grpc.CallOption) (*AccountModel, error)
 	Update(ctx context.Context, in *UpdateAccountRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
@@ -66,6 +68,16 @@ func (c *accountServiceClient) GetById(ctx context.Context, in *GetAccountByIdRe
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(AccountModel)
 	err := c.cc.Invoke(ctx, AccountService_GetById_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *accountServiceClient) GetByCustomerId(ctx context.Context, in *GetAccountByCustomerIdRequest, opts ...grpc.CallOption) (*GetAllAccountsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetAllAccountsResponse)
+	err := c.cc.Invoke(ctx, AccountService_GetByCustomerId_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -138,6 +150,7 @@ func (c *accountServiceClient) DeleteBulk(ctx context.Context, in *DeleteAccount
 type AccountServiceServer interface {
 	GetAll(context.Context, *GetAllRequest) (*GetAllAccountsResponse, error)
 	GetById(context.Context, *GetAccountByIdRequest) (*AccountModel, error)
+	GetByCustomerId(context.Context, *GetAccountByCustomerIdRequest) (*GetAllAccountsResponse, error)
 	GetByDateRange(context.Context, *GetByDateRangeRequest) (*GetAllAccountsResponse, error)
 	Add(context.Context, *AddAccountRequest) (*AccountModel, error)
 	Update(context.Context, *UpdateAccountRequest) (*emptypb.Empty, error)
@@ -159,6 +172,9 @@ func (UnimplementedAccountServiceServer) GetAll(context.Context, *GetAllRequest)
 }
 func (UnimplementedAccountServiceServer) GetById(context.Context, *GetAccountByIdRequest) (*AccountModel, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetById not implemented")
+}
+func (UnimplementedAccountServiceServer) GetByCustomerId(context.Context, *GetAccountByCustomerIdRequest) (*GetAllAccountsResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetByCustomerId not implemented")
 }
 func (UnimplementedAccountServiceServer) GetByDateRange(context.Context, *GetByDateRangeRequest) (*GetAllAccountsResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetByDateRange not implemented")
@@ -231,6 +247,24 @@ func _AccountService_GetById_Handler(srv interface{}, ctx context.Context, dec f
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(AccountServiceServer).GetById(ctx, req.(*GetAccountByIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AccountService_GetByCustomerId_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAccountByCustomerIdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountServiceServer).GetByCustomerId(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AccountService_GetByCustomerId_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountServiceServer).GetByCustomerId(ctx, req.(*GetAccountByCustomerIdRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -357,6 +391,10 @@ var AccountService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetById",
 			Handler:    _AccountService_GetById_Handler,
+		},
+		{
+			MethodName: "GetByCustomerId",
+			Handler:    _AccountService_GetByCustomerId_Handler,
 		},
 		{
 			MethodName: "GetByDateRange",

@@ -89,4 +89,13 @@ public class AccountService(IAccountRepository accountRepository, IMapper mapper
         await accountRepository.UpdateRangeAsync(accounts);
         return new Empty();
     }
+
+    public override async Task<GetAllAccountsResponse> GetByCustomerId(GetAccountByCustomerIdRequest request, ServerCallContext context)
+    {
+        var accounts = await accountRepository.GetByCustomerIdAsync(request.CustomerId);
+        return new GetAllAccountsResponse()
+        {
+            Accounts = { mapper.Map<IEnumerable<AccountModel>>(accounts) }
+        };
+    }
 }

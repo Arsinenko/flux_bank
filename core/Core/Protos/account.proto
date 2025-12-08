@@ -13,6 +13,7 @@ import "Protos/account_type.proto";
 service AccountService {
   rpc GetAll (GetAllRequest) returns (GetAllAccountsResponse);
   rpc GetById (GetAccountByIdRequest) returns (AccountModel);
+  rpc GetByCustomerId (GetAccountByCustomerIdRequest) returns (GetAllAccountsResponse);
   rpc GetByDateRange (GetByDateRangeRequest) returns (GetAllAccountsResponse);
   rpc Add (AddAccountRequest) returns (AccountModel);
   rpc Update (UpdateAccountRequest) returns (google.protobuf.Empty);
@@ -29,6 +30,10 @@ message AccountModel {
   optional string balance = 5;
   optional google.protobuf.Timestamp created_at = 6;
   optional bool is_active = 7;
+}
+
+message GetAccountByCustomerIdRequest {
+  int32 customer_id = 1;
 }
 
 message GetAllAccountsResponse {
