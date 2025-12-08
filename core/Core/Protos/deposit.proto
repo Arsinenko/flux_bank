@@ -11,6 +11,7 @@ import "google/protobuf/empty.proto";
 service DepositService {
   rpc GetAll (GetAllRequest) returns (GetAllDepositsResponse);
   rpc GetById (GetDepositByIdRequest) returns (DepositModel);
+  rpc GetByCustomer (GetDepositsByCustomerRequest) returns (GetAllDepositsResponse);
   rpc Add (AddDepositRequest) returns (DepositModel);
   rpc Update (UpdateDepositRequest) returns (google.protobuf.Empty);
   rpc Delete (DeleteDepositRequest) returns (google.protobuf.Empty);
@@ -35,6 +36,10 @@ message GetAllDepositsResponse {
 
 message GetDepositByIdRequest {
   int32 deposit_id = 1;
+}
+
+message GetDepositsByCustomerRequest {
+  int32 customer_id = 1;
 }
 
 message AddDepositRequest {

@@ -20,14 +20,15 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	DepositService_GetAll_FullMethodName     = "/protos.DepositService/GetAll"
-	DepositService_GetById_FullMethodName    = "/protos.DepositService/GetById"
-	DepositService_Add_FullMethodName        = "/protos.DepositService/Add"
-	DepositService_Update_FullMethodName     = "/protos.DepositService/Update"
-	DepositService_Delete_FullMethodName     = "/protos.DepositService/Delete"
-	DepositService_AddBulk_FullMethodName    = "/protos.DepositService/AddBulk"
-	DepositService_UpdateBulk_FullMethodName = "/protos.DepositService/UpdateBulk"
-	DepositService_DeleteBulk_FullMethodName = "/protos.DepositService/DeleteBulk"
+	DepositService_GetAll_FullMethodName        = "/protos.DepositService/GetAll"
+	DepositService_GetById_FullMethodName       = "/protos.DepositService/GetById"
+	DepositService_GetByCustomer_FullMethodName = "/protos.DepositService/GetByCustomer"
+	DepositService_Add_FullMethodName           = "/protos.DepositService/Add"
+	DepositService_Update_FullMethodName        = "/protos.DepositService/Update"
+	DepositService_Delete_FullMethodName        = "/protos.DepositService/Delete"
+	DepositService_AddBulk_FullMethodName       = "/protos.DepositService/AddBulk"
+	DepositService_UpdateBulk_FullMethodName    = "/protos.DepositService/UpdateBulk"
+	DepositService_DeleteBulk_FullMethodName    = "/protos.DepositService/DeleteBulk"
 )
 
 // DepositServiceClient is the client API for DepositService service.
@@ -36,6 +37,7 @@ const (
 type DepositServiceClient interface {
 	GetAll(ctx context.Context, in *GetAllRequest, opts ...grpc.CallOption) (*GetAllDepositsResponse, error)
 	GetById(ctx context.Context, in *GetDepositByIdRequest, opts ...grpc.CallOption) (*DepositModel, error)
+	GetByCustomer(ctx context.Context, in *GetDepositsByCustomerRequest, opts ...grpc.CallOption) (*GetAllDepositsResponse, error)
 	Add(ctx context.Context, in *AddDepositRequest, opts ...grpc.CallOption) (*DepositModel, error)
 	Update(ctx context.Context, in *UpdateDepositRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	Delete(ctx context.Context, in *DeleteDepositRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
@@ -66,6 +68,16 @@ func (c *depositServiceClient) GetById(ctx context.Context, in *GetDepositByIdRe
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(DepositModel)
 	err := c.cc.Invoke(ctx, DepositService_GetById_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *depositServiceClient) GetByCustomer(ctx context.Context, in *GetDepositsByCustomerRequest, opts ...grpc.CallOption) (*GetAllDepositsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetAllDepositsResponse)
+	err := c.cc.Invoke(ctx, DepositService_GetByCustomer_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -138,6 +150,7 @@ func (c *depositServiceClient) DeleteBulk(ctx context.Context, in *DeleteDeposit
 type DepositServiceServer interface {
 	GetAll(context.Context, *GetAllRequest) (*GetAllDepositsResponse, error)
 	GetById(context.Context, *GetDepositByIdRequest) (*DepositModel, error)
+	GetByCustomer(context.Context, *GetDepositsByCustomerRequest) (*GetAllDepositsResponse, error)
 	Add(context.Context, *AddDepositRequest) (*DepositModel, error)
 	Update(context.Context, *UpdateDepositRequest) (*emptypb.Empty, error)
 	Delete(context.Context, *DeleteDepositRequest) (*emptypb.Empty, error)
@@ -159,6 +172,9 @@ func (UnimplementedDepositServiceServer) GetAll(context.Context, *GetAllRequest)
 }
 func (UnimplementedDepositServiceServer) GetById(context.Context, *GetDepositByIdRequest) (*DepositModel, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetById not implemented")
+}
+func (UnimplementedDepositServiceServer) GetByCustomer(context.Context, *GetDepositsByCustomerRequest) (*GetAllDepositsResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetByCustomer not implemented")
 }
 func (UnimplementedDepositServiceServer) Add(context.Context, *AddDepositRequest) (*DepositModel, error) {
 	return nil, status.Error(codes.Unimplemented, "method Add not implemented")
@@ -231,6 +247,24 @@ func _DepositService_GetById_Handler(srv interface{}, ctx context.Context, dec f
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(DepositServiceServer).GetById(ctx, req.(*GetDepositByIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DepositService_GetByCustomer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetDepositsByCustomerRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DepositServiceServer).GetByCustomer(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DepositService_GetByCustomer_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DepositServiceServer).GetByCustomer(ctx, req.(*GetDepositsByCustomerRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -357,6 +391,10 @@ var DepositService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetById",
 			Handler:    _DepositService_GetById_Handler,
+		},
+		{
+			MethodName: "GetByCustomer",
+			Handler:    _DepositService_GetByCustomer_Handler,
 		},
 		{
 			MethodName: "Add",

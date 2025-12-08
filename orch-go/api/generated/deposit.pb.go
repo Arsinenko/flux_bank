@@ -202,6 +202,50 @@ func (x *GetDepositByIdRequest) GetDepositId() int32 {
 	return 0
 }
 
+type GetDepositsByCustomerRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	CustomerId    int32                  `protobuf:"varint,1,opt,name=customer_id,json=customerId,proto3" json:"customer_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetDepositsByCustomerRequest) Reset() {
+	*x = GetDepositsByCustomerRequest{}
+	mi := &file_deposit_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetDepositsByCustomerRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetDepositsByCustomerRequest) ProtoMessage() {}
+
+func (x *GetDepositsByCustomerRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_deposit_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetDepositsByCustomerRequest.ProtoReflect.Descriptor instead.
+func (*GetDepositsByCustomerRequest) Descriptor() ([]byte, []int) {
+	return file_deposit_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *GetDepositsByCustomerRequest) GetCustomerId() int32 {
+	if x != nil {
+		return x.CustomerId
+	}
+	return 0
+}
+
 type AddDepositRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	CustomerId    *int32                 `protobuf:"varint,1,opt,name=customer_id,json=customerId,proto3,oneof" json:"customer_id,omitempty"`
@@ -216,7 +260,7 @@ type AddDepositRequest struct {
 
 func (x *AddDepositRequest) Reset() {
 	*x = AddDepositRequest{}
-	mi := &file_deposit_proto_msgTypes[3]
+	mi := &file_deposit_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -228,7 +272,7 @@ func (x *AddDepositRequest) String() string {
 func (*AddDepositRequest) ProtoMessage() {}
 
 func (x *AddDepositRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_deposit_proto_msgTypes[3]
+	mi := &file_deposit_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -241,7 +285,7 @@ func (x *AddDepositRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AddDepositRequest.ProtoReflect.Descriptor instead.
 func (*AddDepositRequest) Descriptor() ([]byte, []int) {
-	return file_deposit_proto_rawDescGZIP(), []int{3}
+	return file_deposit_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *AddDepositRequest) GetCustomerId() int32 {
@@ -301,7 +345,7 @@ type UpdateDepositRequest struct {
 
 func (x *UpdateDepositRequest) Reset() {
 	*x = UpdateDepositRequest{}
-	mi := &file_deposit_proto_msgTypes[4]
+	mi := &file_deposit_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -313,7 +357,7 @@ func (x *UpdateDepositRequest) String() string {
 func (*UpdateDepositRequest) ProtoMessage() {}
 
 func (x *UpdateDepositRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_deposit_proto_msgTypes[4]
+	mi := &file_deposit_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -326,7 +370,7 @@ func (x *UpdateDepositRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateDepositRequest.ProtoReflect.Descriptor instead.
 func (*UpdateDepositRequest) Descriptor() ([]byte, []int) {
-	return file_deposit_proto_rawDescGZIP(), []int{4}
+	return file_deposit_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *UpdateDepositRequest) GetDepositId() int32 {
@@ -387,7 +431,7 @@ type DeleteDepositRequest struct {
 
 func (x *DeleteDepositRequest) Reset() {
 	*x = DeleteDepositRequest{}
-	mi := &file_deposit_proto_msgTypes[5]
+	mi := &file_deposit_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -399,7 +443,7 @@ func (x *DeleteDepositRequest) String() string {
 func (*DeleteDepositRequest) ProtoMessage() {}
 
 func (x *DeleteDepositRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_deposit_proto_msgTypes[5]
+	mi := &file_deposit_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -412,7 +456,7 @@ func (x *DeleteDepositRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteDepositRequest.ProtoReflect.Descriptor instead.
 func (*DeleteDepositRequest) Descriptor() ([]byte, []int) {
-	return file_deposit_proto_rawDescGZIP(), []int{5}
+	return file_deposit_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *DeleteDepositRequest) GetDepositId() int32 {
@@ -431,7 +475,7 @@ type AddDepositBulkRequest struct {
 
 func (x *AddDepositBulkRequest) Reset() {
 	*x = AddDepositBulkRequest{}
-	mi := &file_deposit_proto_msgTypes[6]
+	mi := &file_deposit_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -443,7 +487,7 @@ func (x *AddDepositBulkRequest) String() string {
 func (*AddDepositBulkRequest) ProtoMessage() {}
 
 func (x *AddDepositBulkRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_deposit_proto_msgTypes[6]
+	mi := &file_deposit_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -456,7 +500,7 @@ func (x *AddDepositBulkRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AddDepositBulkRequest.ProtoReflect.Descriptor instead.
 func (*AddDepositBulkRequest) Descriptor() ([]byte, []int) {
-	return file_deposit_proto_rawDescGZIP(), []int{6}
+	return file_deposit_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *AddDepositBulkRequest) GetDeposits() []*AddDepositRequest {
@@ -475,7 +519,7 @@ type UpdateDepositBulkRequest struct {
 
 func (x *UpdateDepositBulkRequest) Reset() {
 	*x = UpdateDepositBulkRequest{}
-	mi := &file_deposit_proto_msgTypes[7]
+	mi := &file_deposit_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -487,7 +531,7 @@ func (x *UpdateDepositBulkRequest) String() string {
 func (*UpdateDepositBulkRequest) ProtoMessage() {}
 
 func (x *UpdateDepositBulkRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_deposit_proto_msgTypes[7]
+	mi := &file_deposit_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -500,7 +544,7 @@ func (x *UpdateDepositBulkRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateDepositBulkRequest.ProtoReflect.Descriptor instead.
 func (*UpdateDepositBulkRequest) Descriptor() ([]byte, []int) {
-	return file_deposit_proto_rawDescGZIP(), []int{7}
+	return file_deposit_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *UpdateDepositBulkRequest) GetDeposits() []*UpdateDepositRequest {
@@ -519,7 +563,7 @@ type DeleteDepositBulkRequest struct {
 
 func (x *DeleteDepositBulkRequest) Reset() {
 	*x = DeleteDepositBulkRequest{}
-	mi := &file_deposit_proto_msgTypes[8]
+	mi := &file_deposit_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -531,7 +575,7 @@ func (x *DeleteDepositBulkRequest) String() string {
 func (*DeleteDepositBulkRequest) ProtoMessage() {}
 
 func (x *DeleteDepositBulkRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_deposit_proto_msgTypes[8]
+	mi := &file_deposit_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -544,7 +588,7 @@ func (x *DeleteDepositBulkRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteDepositBulkRequest.ProtoReflect.Descriptor instead.
 func (*DeleteDepositBulkRequest) Descriptor() ([]byte, []int) {
-	return file_deposit_proto_rawDescGZIP(), []int{8}
+	return file_deposit_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *DeleteDepositBulkRequest) GetDeposits() []*DeleteDepositRequest {
@@ -580,7 +624,10 @@ const file_deposit_proto_rawDesc = "" +
 	"\bdeposits\x18\x01 \x03(\v2\x14.protos.DepositModelR\bdeposits\"6\n" +
 	"\x15GetDepositByIdRequest\x12\x1d\n" +
 	"\n" +
-	"deposit_id\x18\x01 \x01(\x05R\tdepositId\"\xd9\x02\n" +
+	"deposit_id\x18\x01 \x01(\x05R\tdepositId\"?\n" +
+	"\x1cGetDepositsByCustomerRequest\x12\x1f\n" +
+	"\vcustomer_id\x18\x01 \x01(\x05R\n" +
+	"customerId\"\xd9\x02\n" +
 	"\x11AddDepositRequest\x12$\n" +
 	"\vcustomer_id\x18\x01 \x01(\x05H\x00R\n" +
 	"customerId\x88\x01\x01\x12\x1b\n" +
@@ -621,10 +668,11 @@ const file_deposit_proto_rawDesc = "" +
 	"\x18UpdateDepositBulkRequest\x128\n" +
 	"\bdeposits\x18\x01 \x03(\v2\x1c.protos.UpdateDepositRequestR\bdeposits\"T\n" +
 	"\x18DeleteDepositBulkRequest\x128\n" +
-	"\bdeposits\x18\x01 \x03(\v2\x1c.protos.DeleteDepositRequestR\bdeposits2\x9b\x04\n" +
+	"\bdeposits\x18\x01 \x03(\v2\x1c.protos.DeleteDepositRequestR\bdeposits2\xf2\x04\n" +
 	"\x0eDepositService\x12?\n" +
 	"\x06GetAll\x12\x15.protos.GetAllRequest\x1a\x1e.protos.GetAllDepositsResponse\x12>\n" +
-	"\aGetById\x12\x1d.protos.GetDepositByIdRequest\x1a\x14.protos.DepositModel\x126\n" +
+	"\aGetById\x12\x1d.protos.GetDepositByIdRequest\x1a\x14.protos.DepositModel\x12U\n" +
+	"\rGetByCustomer\x12$.protos.GetDepositsByCustomerRequest\x1a\x1e.protos.GetAllDepositsResponse\x126\n" +
 	"\x03Add\x12\x19.protos.AddDepositRequest\x1a\x14.protos.DepositModel\x12>\n" +
 	"\x06Update\x12\x1c.protos.UpdateDepositRequest\x1a\x16.google.protobuf.Empty\x12>\n" +
 	"\x06Delete\x12\x1c.protos.DeleteDepositRequest\x1a\x16.google.protobuf.Empty\x12@\n" +
@@ -646,50 +694,53 @@ func file_deposit_proto_rawDescGZIP() []byte {
 	return file_deposit_proto_rawDescData
 }
 
-var file_deposit_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
+var file_deposit_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
 var file_deposit_proto_goTypes = []any{
-	(*DepositModel)(nil),             // 0: protos.DepositModel
-	(*GetAllDepositsResponse)(nil),   // 1: protos.GetAllDepositsResponse
-	(*GetDepositByIdRequest)(nil),    // 2: protos.GetDepositByIdRequest
-	(*AddDepositRequest)(nil),        // 3: protos.AddDepositRequest
-	(*UpdateDepositRequest)(nil),     // 4: protos.UpdateDepositRequest
-	(*DeleteDepositRequest)(nil),     // 5: protos.DeleteDepositRequest
-	(*AddDepositBulkRequest)(nil),    // 6: protos.AddDepositBulkRequest
-	(*UpdateDepositBulkRequest)(nil), // 7: protos.UpdateDepositBulkRequest
-	(*DeleteDepositBulkRequest)(nil), // 8: protos.DeleteDepositBulkRequest
-	(*DateOnly)(nil),                 // 9: protos.DateOnly
-	(*GetAllRequest)(nil),            // 10: protos.GetAllRequest
-	(*emptypb.Empty)(nil),            // 11: google.protobuf.Empty
+	(*DepositModel)(nil),                 // 0: protos.DepositModel
+	(*GetAllDepositsResponse)(nil),       // 1: protos.GetAllDepositsResponse
+	(*GetDepositByIdRequest)(nil),        // 2: protos.GetDepositByIdRequest
+	(*GetDepositsByCustomerRequest)(nil), // 3: protos.GetDepositsByCustomerRequest
+	(*AddDepositRequest)(nil),            // 4: protos.AddDepositRequest
+	(*UpdateDepositRequest)(nil),         // 5: protos.UpdateDepositRequest
+	(*DeleteDepositRequest)(nil),         // 6: protos.DeleteDepositRequest
+	(*AddDepositBulkRequest)(nil),        // 7: protos.AddDepositBulkRequest
+	(*UpdateDepositBulkRequest)(nil),     // 8: protos.UpdateDepositBulkRequest
+	(*DeleteDepositBulkRequest)(nil),     // 9: protos.DeleteDepositBulkRequest
+	(*DateOnly)(nil),                     // 10: protos.DateOnly
+	(*GetAllRequest)(nil),                // 11: protos.GetAllRequest
+	(*emptypb.Empty)(nil),                // 12: google.protobuf.Empty
 }
 var file_deposit_proto_depIdxs = []int32{
-	9,  // 0: protos.DepositModel.start_date:type_name -> protos.DateOnly
-	9,  // 1: protos.DepositModel.end_date:type_name -> protos.DateOnly
+	10, // 0: protos.DepositModel.start_date:type_name -> protos.DateOnly
+	10, // 1: protos.DepositModel.end_date:type_name -> protos.DateOnly
 	0,  // 2: protos.GetAllDepositsResponse.deposits:type_name -> protos.DepositModel
-	9,  // 3: protos.AddDepositRequest.start_date:type_name -> protos.DateOnly
-	9,  // 4: protos.AddDepositRequest.end_date:type_name -> protos.DateOnly
-	9,  // 5: protos.UpdateDepositRequest.start_date:type_name -> protos.DateOnly
-	9,  // 6: protos.UpdateDepositRequest.end_date:type_name -> protos.DateOnly
-	3,  // 7: protos.AddDepositBulkRequest.deposits:type_name -> protos.AddDepositRequest
-	4,  // 8: protos.UpdateDepositBulkRequest.deposits:type_name -> protos.UpdateDepositRequest
-	5,  // 9: protos.DeleteDepositBulkRequest.deposits:type_name -> protos.DeleteDepositRequest
-	10, // 10: protos.DepositService.GetAll:input_type -> protos.GetAllRequest
+	10, // 3: protos.AddDepositRequest.start_date:type_name -> protos.DateOnly
+	10, // 4: protos.AddDepositRequest.end_date:type_name -> protos.DateOnly
+	10, // 5: protos.UpdateDepositRequest.start_date:type_name -> protos.DateOnly
+	10, // 6: protos.UpdateDepositRequest.end_date:type_name -> protos.DateOnly
+	4,  // 7: protos.AddDepositBulkRequest.deposits:type_name -> protos.AddDepositRequest
+	5,  // 8: protos.UpdateDepositBulkRequest.deposits:type_name -> protos.UpdateDepositRequest
+	6,  // 9: protos.DeleteDepositBulkRequest.deposits:type_name -> protos.DeleteDepositRequest
+	11, // 10: protos.DepositService.GetAll:input_type -> protos.GetAllRequest
 	2,  // 11: protos.DepositService.GetById:input_type -> protos.GetDepositByIdRequest
-	3,  // 12: protos.DepositService.Add:input_type -> protos.AddDepositRequest
-	4,  // 13: protos.DepositService.Update:input_type -> protos.UpdateDepositRequest
-	5,  // 14: protos.DepositService.Delete:input_type -> protos.DeleteDepositRequest
-	6,  // 15: protos.DepositService.AddBulk:input_type -> protos.AddDepositBulkRequest
-	7,  // 16: protos.DepositService.UpdateBulk:input_type -> protos.UpdateDepositBulkRequest
-	8,  // 17: protos.DepositService.DeleteBulk:input_type -> protos.DeleteDepositBulkRequest
-	1,  // 18: protos.DepositService.GetAll:output_type -> protos.GetAllDepositsResponse
-	0,  // 19: protos.DepositService.GetById:output_type -> protos.DepositModel
-	0,  // 20: protos.DepositService.Add:output_type -> protos.DepositModel
-	11, // 21: protos.DepositService.Update:output_type -> google.protobuf.Empty
-	11, // 22: protos.DepositService.Delete:output_type -> google.protobuf.Empty
-	11, // 23: protos.DepositService.AddBulk:output_type -> google.protobuf.Empty
-	11, // 24: protos.DepositService.UpdateBulk:output_type -> google.protobuf.Empty
-	11, // 25: protos.DepositService.DeleteBulk:output_type -> google.protobuf.Empty
-	18, // [18:26] is the sub-list for method output_type
-	10, // [10:18] is the sub-list for method input_type
+	3,  // 12: protos.DepositService.GetByCustomer:input_type -> protos.GetDepositsByCustomerRequest
+	4,  // 13: protos.DepositService.Add:input_type -> protos.AddDepositRequest
+	5,  // 14: protos.DepositService.Update:input_type -> protos.UpdateDepositRequest
+	6,  // 15: protos.DepositService.Delete:input_type -> protos.DeleteDepositRequest
+	7,  // 16: protos.DepositService.AddBulk:input_type -> protos.AddDepositBulkRequest
+	8,  // 17: protos.DepositService.UpdateBulk:input_type -> protos.UpdateDepositBulkRequest
+	9,  // 18: protos.DepositService.DeleteBulk:input_type -> protos.DeleteDepositBulkRequest
+	1,  // 19: protos.DepositService.GetAll:output_type -> protos.GetAllDepositsResponse
+	0,  // 20: protos.DepositService.GetById:output_type -> protos.DepositModel
+	1,  // 21: protos.DepositService.GetByCustomer:output_type -> protos.GetAllDepositsResponse
+	0,  // 22: protos.DepositService.Add:output_type -> protos.DepositModel
+	12, // 23: protos.DepositService.Update:output_type -> google.protobuf.Empty
+	12, // 24: protos.DepositService.Delete:output_type -> google.protobuf.Empty
+	12, // 25: protos.DepositService.AddBulk:output_type -> google.protobuf.Empty
+	12, // 26: protos.DepositService.UpdateBulk:output_type -> google.protobuf.Empty
+	12, // 27: protos.DepositService.DeleteBulk:output_type -> google.protobuf.Empty
+	19, // [19:28] is the sub-list for method output_type
+	10, // [10:19] is the sub-list for method input_type
 	10, // [10:10] is the sub-list for extension type_name
 	10, // [10:10] is the sub-list for extension extendee
 	0,  // [0:10] is the sub-list for field type_name
@@ -702,15 +753,15 @@ func file_deposit_proto_init() {
 	}
 	file_custom_types_proto_init()
 	file_deposit_proto_msgTypes[0].OneofWrappers = []any{}
-	file_deposit_proto_msgTypes[3].OneofWrappers = []any{}
 	file_deposit_proto_msgTypes[4].OneofWrappers = []any{}
+	file_deposit_proto_msgTypes[5].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_deposit_proto_rawDesc), len(file_deposit_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   9,
+			NumMessages:   10,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

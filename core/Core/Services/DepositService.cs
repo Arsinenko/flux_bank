@@ -99,4 +99,13 @@ public class DepositService(IDepositRepository depositRepository, IMapper mapper
             throw new RpcException(new Status(StatusCode.Internal, e.Message));
         }
     }
+
+    public override async Task<GetAllDepositsResponse> GetByCustomer(GetDepositsByCustomerRequest request, ServerCallContext context)
+    {
+        var deps = await depositRepository.FindAsync(d => d.CustomerId == request.CustomerId);
+        return new GetAllDepositsResponse()
+        {
+            Deposits = { mapper.Map<DepositModel>(deps) }
+        };
+    }
 }
