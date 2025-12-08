@@ -12,6 +12,7 @@ service NotificationService {
   rpc GetAll (GetAllRequest) returns (GetAllNotificationsResponse);
   rpc GetById (GetNotificationByIdRequest) returns (NotificationModel);
   rpc GetByDateRange (GetByDateRangeRequest) returns (GetAllNotificationsResponse);
+  rpc GetByCustomer (GetNotificationsByCustomerRequest) returns (GetAllNotificationsResponse);
   rpc Add (AddNotificationRequest) returns (NotificationModel);
   rpc Update (UpdateNotificationRequest) returns (google.protobuf.Empty);
   rpc Delete (DeleteNotificationRequest) returns (google.protobuf.Empty);
@@ -35,6 +36,12 @@ message GetAllNotificationsResponse {
 message GetNotificationByIdRequest {
   int32 notification_id = 1;
 }
+
+message GetNotificationsByCustomerRequest {
+  int32 customer_id = 1;
+  optional bool is_read = 2;
+}
+
 
 message AddNotificationRequest {
   optional int32 customer_id = 1;

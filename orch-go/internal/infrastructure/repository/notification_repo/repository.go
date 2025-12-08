@@ -2,6 +2,7 @@ package notification_repo
 
 import (
 	"context"
+	"fmt"
 	pb "orch-go/api/generated"
 	"orch-go/internal/domain/notification"
 
@@ -10,6 +11,21 @@ import (
 
 type Repository struct {
 	client pb.NotificationServiceClient
+}
+
+func (r Repository) GetByCustomer(ctx context.Context, customerId int32, isRead bool) ([]*notification.Notification, error) {
+	resp, err := r.client.GetByCustomer(ctx, &pb.GetNotificationsByCustomerRequest{
+		CustomerId: customerId,
+		IsRead:     &isRead,
+	})
+	if err != nil {
+		return nil, fmt.Errorf("notification_repo.GetByCustomer: %w", err)
+	}
+	results := make([]*notification.Notification, 0, len(resp.Notifications))
+	for _, notif := range resp.Notifications {
+		results = append(results, ToDomain(notif))
+	}
+	return results, nil
 }
 
 func (r Repository) GetByDateRange(ctx context.Context, request notification.GetByDateRangeRequest) ([]*notification.Notification, error) {

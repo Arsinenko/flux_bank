@@ -100,6 +100,23 @@ public class NotificationService(INotificationRepository notificationRepository,
             throw new RpcException(new Status(StatusCode.Internal, e.Message));
         }
     }
-    
-    
+
+    public override async Task<GetAllNotificationsResponse> GetByCustomer(GetNotificationsByCustomerRequest request, ServerCallContext context)
+    {
+        var notifications = await notificationRepository.FindAsync(n => n.CustomerId == request.CustomerId && n.IsRead == request.IsRead);
+        return new GetAllNotificationsResponse()
+        {
+            Notifications = { mapper.Map<NotificationModel>(notifications) }
+        };
+    }
+
+    public override async Task<GetAllNotificationsResponse> GetByDateRange(GetByDateRangeRequest request, ServerCallContext context)
+    {
+        var notifications = await notificationRepository.GetByDateRange(request.From.ToDateTime(),
+            request.To.ToDateTime(), request.PageN, request.PageSize);
+        return new GetAllNotificationsResponse()
+        {
+            Notifications = { mapper.Map<NotificationModel>(notifications) }
+        };
+    }
 }
