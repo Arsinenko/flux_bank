@@ -20,11 +20,13 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	LoginLogService_GetAll_FullMethodName  = "/protos.LoginLogService/GetAll"
-	LoginLogService_GetById_FullMethodName = "/protos.LoginLogService/GetById"
-	LoginLogService_Add_FullMethodName     = "/protos.LoginLogService/Add"
-	LoginLogService_Update_FullMethodName  = "/protos.LoginLogService/Update"
-	LoginLogService_Delete_FullMethodName  = "/protos.LoginLogService/Delete"
+	LoginLogService_GetAll_FullMethodName         = "/protos.LoginLogService/GetAll"
+	LoginLogService_GetById_FullMethodName        = "/protos.LoginLogService/GetById"
+	LoginLogService_GetByCustomer_FullMethodName  = "/protos.LoginLogService/GetByCustomer"
+	LoginLogService_GetInTimeRange_FullMethodName = "/protos.LoginLogService/GetInTimeRange"
+	LoginLogService_Add_FullMethodName            = "/protos.LoginLogService/Add"
+	LoginLogService_Update_FullMethodName         = "/protos.LoginLogService/Update"
+	LoginLogService_Delete_FullMethodName         = "/protos.LoginLogService/Delete"
 )
 
 // LoginLogServiceClient is the client API for LoginLogService service.
@@ -33,8 +35,10 @@ const (
 //
 // TODO
 type LoginLogServiceClient interface {
-	GetAll(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*GetAllLoginLogsResponse, error)
+	GetAll(ctx context.Context, in *GetAllRequest, opts ...grpc.CallOption) (*GetAllLoginLogsResponse, error)
 	GetById(ctx context.Context, in *GetLoginLogByIdRequest, opts ...grpc.CallOption) (*LoginLogModel, error)
+	GetByCustomer(ctx context.Context, in *GetLoginLogsByCustomerRequest, opts ...grpc.CallOption) (*GetAllLoginLogsResponse, error)
+	GetInTimeRange(ctx context.Context, in *GetLoginLogsInTimeRangeRequest, opts ...grpc.CallOption) (*GetAllLoginLogsResponse, error)
 	Add(ctx context.Context, in *AddLoginLogRequest, opts ...grpc.CallOption) (*LoginLogModel, error)
 	Update(ctx context.Context, in *UpdateLoginLogRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	Delete(ctx context.Context, in *DeleteLoginLogRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
@@ -48,7 +52,7 @@ func NewLoginLogServiceClient(cc grpc.ClientConnInterface) LoginLogServiceClient
 	return &loginLogServiceClient{cc}
 }
 
-func (c *loginLogServiceClient) GetAll(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*GetAllLoginLogsResponse, error) {
+func (c *loginLogServiceClient) GetAll(ctx context.Context, in *GetAllRequest, opts ...grpc.CallOption) (*GetAllLoginLogsResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(GetAllLoginLogsResponse)
 	err := c.cc.Invoke(ctx, LoginLogService_GetAll_FullMethodName, in, out, cOpts...)
@@ -62,6 +66,26 @@ func (c *loginLogServiceClient) GetById(ctx context.Context, in *GetLoginLogById
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(LoginLogModel)
 	err := c.cc.Invoke(ctx, LoginLogService_GetById_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *loginLogServiceClient) GetByCustomer(ctx context.Context, in *GetLoginLogsByCustomerRequest, opts ...grpc.CallOption) (*GetAllLoginLogsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetAllLoginLogsResponse)
+	err := c.cc.Invoke(ctx, LoginLogService_GetByCustomer_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *loginLogServiceClient) GetInTimeRange(ctx context.Context, in *GetLoginLogsInTimeRangeRequest, opts ...grpc.CallOption) (*GetAllLoginLogsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetAllLoginLogsResponse)
+	err := c.cc.Invoke(ctx, LoginLogService_GetInTimeRange_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -104,8 +128,10 @@ func (c *loginLogServiceClient) Delete(ctx context.Context, in *DeleteLoginLogRe
 //
 // TODO
 type LoginLogServiceServer interface {
-	GetAll(context.Context, *emptypb.Empty) (*GetAllLoginLogsResponse, error)
+	GetAll(context.Context, *GetAllRequest) (*GetAllLoginLogsResponse, error)
 	GetById(context.Context, *GetLoginLogByIdRequest) (*LoginLogModel, error)
+	GetByCustomer(context.Context, *GetLoginLogsByCustomerRequest) (*GetAllLoginLogsResponse, error)
+	GetInTimeRange(context.Context, *GetLoginLogsInTimeRangeRequest) (*GetAllLoginLogsResponse, error)
 	Add(context.Context, *AddLoginLogRequest) (*LoginLogModel, error)
 	Update(context.Context, *UpdateLoginLogRequest) (*emptypb.Empty, error)
 	Delete(context.Context, *DeleteLoginLogRequest) (*emptypb.Empty, error)
@@ -119,11 +145,17 @@ type LoginLogServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedLoginLogServiceServer struct{}
 
-func (UnimplementedLoginLogServiceServer) GetAll(context.Context, *emptypb.Empty) (*GetAllLoginLogsResponse, error) {
+func (UnimplementedLoginLogServiceServer) GetAll(context.Context, *GetAllRequest) (*GetAllLoginLogsResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetAll not implemented")
 }
 func (UnimplementedLoginLogServiceServer) GetById(context.Context, *GetLoginLogByIdRequest) (*LoginLogModel, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetById not implemented")
+}
+func (UnimplementedLoginLogServiceServer) GetByCustomer(context.Context, *GetLoginLogsByCustomerRequest) (*GetAllLoginLogsResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetByCustomer not implemented")
+}
+func (UnimplementedLoginLogServiceServer) GetInTimeRange(context.Context, *GetLoginLogsInTimeRangeRequest) (*GetAllLoginLogsResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetInTimeRange not implemented")
 }
 func (UnimplementedLoginLogServiceServer) Add(context.Context, *AddLoginLogRequest) (*LoginLogModel, error) {
 	return nil, status.Error(codes.Unimplemented, "method Add not implemented")
@@ -156,7 +188,7 @@ func RegisterLoginLogServiceServer(s grpc.ServiceRegistrar, srv LoginLogServiceS
 }
 
 func _LoginLogService_GetAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(emptypb.Empty)
+	in := new(GetAllRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -168,7 +200,7 @@ func _LoginLogService_GetAll_Handler(srv interface{}, ctx context.Context, dec f
 		FullMethod: LoginLogService_GetAll_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(LoginLogServiceServer).GetAll(ctx, req.(*emptypb.Empty))
+		return srv.(LoginLogServiceServer).GetAll(ctx, req.(*GetAllRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -187,6 +219,42 @@ func _LoginLogService_GetById_Handler(srv interface{}, ctx context.Context, dec 
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(LoginLogServiceServer).GetById(ctx, req.(*GetLoginLogByIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _LoginLogService_GetByCustomer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetLoginLogsByCustomerRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LoginLogServiceServer).GetByCustomer(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: LoginLogService_GetByCustomer_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LoginLogServiceServer).GetByCustomer(ctx, req.(*GetLoginLogsByCustomerRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _LoginLogService_GetInTimeRange_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetLoginLogsInTimeRangeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LoginLogServiceServer).GetInTimeRange(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: LoginLogService_GetInTimeRange_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LoginLogServiceServer).GetInTimeRange(ctx, req.(*GetLoginLogsInTimeRangeRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -259,6 +327,14 @@ var LoginLogService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetById",
 			Handler:    _LoginLogService_GetById_Handler,
+		},
+		{
+			MethodName: "GetByCustomer",
+			Handler:    _LoginLogService_GetByCustomer_Handler,
+		},
+		{
+			MethodName: "GetInTimeRange",
+			Handler:    _LoginLogService_GetInTimeRange_Handler,
 		},
 		{
 			MethodName: "Add",

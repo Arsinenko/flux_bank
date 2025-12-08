@@ -4,8 +4,8 @@ import (
 	"context"
 	pb "orch-go/api/generated"
 	"orch-go/internal/domain/login_log"
+	"time"
 
-	"google.golang.org/protobuf/types/known/emptypb"
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
@@ -13,13 +13,47 @@ type Repository struct {
 	client pb.LoginLogServiceClient
 }
 
+func (l Repository) GetByCustomer(ctx context.Context, customerId int32) ([]*login_log.LoginLog, error) {
+	resp, err := l.client.GetByCustomer(ctx, &pb.GetLoginLogsByCustomerRequest{CustomerId: customerId})
+	if err != nil {
+		return nil, err
+	}
+
+	var loginLogs []*login_log.LoginLog
+	for _, log := range resp.LoginLogs {
+		loginLogs = append(loginLogs, ToDomain(log))
+	}
+
+	return loginLogs, nil
+}
+
+func (l Repository) GetInTimeRange(ctx context.Context, startTime, endTime time.Time) ([]*login_log.LoginLog, error) {
+	resp, err := l.client.GetInTimeRange(ctx, &pb.GetLoginLogsInTimeRangeRequest{
+		StartTime: timestamppb.New(startTime),
+		EndTime:   timestamppb.New(endTime),
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	var loginLogs []*login_log.LoginLog
+	for _, log := range resp.LoginLogs {
+		loginLogs = append(loginLogs, ToDomain(log))
+	}
+
+	return loginLogs, nil
+
+}
+
 func NewRepository(client pb.LoginLogServiceClient) Repository {
 	return Repository{client: client}
 }
 
-// TODO pagination
 func (l Repository) GetAll(ctx context.Context, pageN, pageSize int32) ([]*login_log.LoginLog, error) {
-	resp, err := l.client.GetAll(ctx, &emptypb.Empty{})
+	resp, err := l.client.GetAll(ctx, &pb.GetAllRequest{
+		PageN:    pageN,
+		PageSize: pageSize,
+	})
 	if err != nil {
 		return nil, err
 	}

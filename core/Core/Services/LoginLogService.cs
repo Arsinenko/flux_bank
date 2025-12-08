@@ -57,4 +57,23 @@ public class LoginLogService(ILoginLogRepository loginLogRepository, IMapper map
         await loginLogRepository.DeleteAsync(request.LogId);
         return new Empty();
     }
+
+    public override async Task<GetAllLoginLogsResponse> GetByCustomer(GetLoginLogsByCustomerRequest request, ServerCallContext context)
+    {
+        var logs = await loginLogRepository.FindAsync(l => l.CustomerId == request.CustomerId);
+        return new GetAllLoginLogsResponse()
+        {
+            LoginLogs = { mapper.Map<LoginLogModel>(logs) }
+        };
+    }
+
+    public override async Task<GetAllLoginLogsResponse> GetInTimeRange(GetLoginLogsInTimeRangeRequest request, ServerCallContext context)
+    {
+        var logs = await loginLogRepository.FindAsync(l =>
+            l.LoginTime >= request.StartTime.ToDateTime() && l.LoginTime <= request.EndTime.ToDateTime());
+        return new GetAllLoginLogsResponse()
+        {
+            LoginLogs = { mapper.Map<LoginLogModel>(logs) }
+        };
+    }
 }

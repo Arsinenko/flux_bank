@@ -12,6 +12,8 @@ import "Protos/custom_types.proto";
 service LoginLogService {
   rpc GetAll (GetAllRequest) returns (GetAllLoginLogsResponse);
   rpc GetById (GetLoginLogByIdRequest) returns (LoginLogModel);
+  rpc GetByCustomer (GetLoginLogsByCustomerRequest) returns (GetAllLoginLogsResponse);
+  rpc GetInTimeRange (GetLoginLogsInTimeRangeRequest) returns (GetAllLoginLogsResponse);
   rpc Add (AddLoginLogRequest) returns (LoginLogModel);
   rpc Update (UpdateLoginLogRequest) returns (google.protobuf.Empty);
   rpc Delete (DeleteLoginLogRequest) returns (google.protobuf.Empty);
@@ -31,6 +33,15 @@ message GetAllLoginLogsResponse {
 
 message GetLoginLogByIdRequest {
   int32 log_id = 1;
+}
+
+message GetLoginLogsByCustomerRequest {
+  int32 customer_id = 1;
+}
+
+message GetLoginLogsInTimeRangeRequest {
+  google.protobuf.Timestamp start_time = 1;
+  google.protobuf.Timestamp end_time = 2;
 }
 
 message AddLoginLogRequest {
