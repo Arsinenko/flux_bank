@@ -75,4 +75,13 @@ public class LoanService(ILoanRepository loanRepository, IMapper mapper)
         await loanRepository.DeleteRangeAsync(foundLoans!);
         return new Empty();
     }
+
+    public override async Task<GetAllLoansResponse> GetByCustomer(GetLoansByCustomerRequest request, ServerCallContext context)
+    {
+        var loans = await loanRepository.FindAsync(l => l.CustomerId == request.CustomerId);
+        return new GetAllLoansResponse()
+        {
+            Loans = { mapper.Map<LoanModel>(loans) }
+        };
+    }
 }

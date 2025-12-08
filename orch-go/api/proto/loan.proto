@@ -10,6 +10,7 @@ import "custom_types.proto";
 service LoanService {
   rpc GetAll (GetAllRequest) returns (GetAllLoansResponse);
   rpc GetById (GetLoanByIdRequest) returns (LoanModel);
+  rpc GetByCustomer (GetLoansByCustomerRequest) returns (GetAllLoansResponse);
   rpc Add (AddLoanRequest) returns (LoanModel);
   rpc Update (UpdateLoanRequest) returns (google.protobuf.Empty);
   rpc Delete (DeleteLoanRequest) returns (google.protobuf.Empty);
@@ -32,6 +33,10 @@ message GetAllLoansResponse {
 
 message GetLoanByIdRequest {
   int32 loan_id = 1;
+}
+
+message GetLoansByCustomerRequest {
+  int32 customer_id = 1;
 }
 
 message AddLoanRequest {
