@@ -57,4 +57,10 @@ public class UserCredentialService(IUserCredentialRepository userCredentialRepos
         await userCredentialRepository.DeleteAsync(request.CustomerId);
         return new Empty();
     }
+
+    public override async Task<UserCredentialModel> GetByUsername(GetUserCredentialByUsernameRequest request, ServerCallContext context)
+    {
+        var creds = await userCredentialRepository.FindAsync(c => c.Username == request.Username);
+        return mapper.Map<UserCredentialModel>(creds.FirstOrDefault());
+    }
 }

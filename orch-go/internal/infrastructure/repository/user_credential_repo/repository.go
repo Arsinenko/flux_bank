@@ -13,6 +13,14 @@ type Repository struct {
 	client pb.UserCredentialServiceClient
 }
 
+func (r Repository) GetByUsername(ctx context.Context, username string) (*user_credential.UserCredential, error) {
+	resp, err := r.client.GetByUsername(ctx, &pb.GetUserCredentialByUsernameRequest{Username: username})
+	if err != nil {
+		return nil, fmt.Errorf("user_credential_repo.GetByUsername: %w", err)
+	}
+	return ToDomain(resp), nil
+}
+
 func NewRepository(client pb.UserCredentialServiceClient) Repository {
 	return Repository{client: client}
 }

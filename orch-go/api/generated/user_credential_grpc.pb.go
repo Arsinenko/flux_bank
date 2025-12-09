@@ -20,11 +20,12 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	UserCredentialService_GetAll_FullMethodName  = "/protos.UserCredentialService/GetAll"
-	UserCredentialService_GetById_FullMethodName = "/protos.UserCredentialService/GetById"
-	UserCredentialService_Add_FullMethodName     = "/protos.UserCredentialService/Add"
-	UserCredentialService_Update_FullMethodName  = "/protos.UserCredentialService/Update"
-	UserCredentialService_Delete_FullMethodName  = "/protos.UserCredentialService/Delete"
+	UserCredentialService_GetAll_FullMethodName        = "/protos.UserCredentialService/GetAll"
+	UserCredentialService_GetById_FullMethodName       = "/protos.UserCredentialService/GetById"
+	UserCredentialService_GetByUsername_FullMethodName = "/protos.UserCredentialService/GetByUsername"
+	UserCredentialService_Add_FullMethodName           = "/protos.UserCredentialService/Add"
+	UserCredentialService_Update_FullMethodName        = "/protos.UserCredentialService/Update"
+	UserCredentialService_Delete_FullMethodName        = "/protos.UserCredentialService/Delete"
 )
 
 // UserCredentialServiceClient is the client API for UserCredentialService service.
@@ -33,6 +34,7 @@ const (
 type UserCredentialServiceClient interface {
 	GetAll(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*GetAllUserCredentialsResponse, error)
 	GetById(ctx context.Context, in *GetUserCredentialByIdRequest, opts ...grpc.CallOption) (*UserCredentialModel, error)
+	GetByUsername(ctx context.Context, in *GetUserCredentialByUsernameRequest, opts ...grpc.CallOption) (*UserCredentialModel, error)
 	Add(ctx context.Context, in *AddUserCredentialRequest, opts ...grpc.CallOption) (*UserCredentialModel, error)
 	Update(ctx context.Context, in *UpdateUserCredentialRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	Delete(ctx context.Context, in *DeleteUserCredentialRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
@@ -60,6 +62,16 @@ func (c *userCredentialServiceClient) GetById(ctx context.Context, in *GetUserCr
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(UserCredentialModel)
 	err := c.cc.Invoke(ctx, UserCredentialService_GetById_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userCredentialServiceClient) GetByUsername(ctx context.Context, in *GetUserCredentialByUsernameRequest, opts ...grpc.CallOption) (*UserCredentialModel, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(UserCredentialModel)
+	err := c.cc.Invoke(ctx, UserCredentialService_GetByUsername_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -102,6 +114,7 @@ func (c *userCredentialServiceClient) Delete(ctx context.Context, in *DeleteUser
 type UserCredentialServiceServer interface {
 	GetAll(context.Context, *emptypb.Empty) (*GetAllUserCredentialsResponse, error)
 	GetById(context.Context, *GetUserCredentialByIdRequest) (*UserCredentialModel, error)
+	GetByUsername(context.Context, *GetUserCredentialByUsernameRequest) (*UserCredentialModel, error)
 	Add(context.Context, *AddUserCredentialRequest) (*UserCredentialModel, error)
 	Update(context.Context, *UpdateUserCredentialRequest) (*emptypb.Empty, error)
 	Delete(context.Context, *DeleteUserCredentialRequest) (*emptypb.Empty, error)
@@ -120,6 +133,9 @@ func (UnimplementedUserCredentialServiceServer) GetAll(context.Context, *emptypb
 }
 func (UnimplementedUserCredentialServiceServer) GetById(context.Context, *GetUserCredentialByIdRequest) (*UserCredentialModel, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetById not implemented")
+}
+func (UnimplementedUserCredentialServiceServer) GetByUsername(context.Context, *GetUserCredentialByUsernameRequest) (*UserCredentialModel, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetByUsername not implemented")
 }
 func (UnimplementedUserCredentialServiceServer) Add(context.Context, *AddUserCredentialRequest) (*UserCredentialModel, error) {
 	return nil, status.Error(codes.Unimplemented, "method Add not implemented")
@@ -183,6 +199,24 @@ func _UserCredentialService_GetById_Handler(srv interface{}, ctx context.Context
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(UserCredentialServiceServer).GetById(ctx, req.(*GetUserCredentialByIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserCredentialService_GetByUsername_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUserCredentialByUsernameRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserCredentialServiceServer).GetByUsername(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserCredentialService_GetByUsername_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserCredentialServiceServer).GetByUsername(ctx, req.(*GetUserCredentialByUsernameRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -255,6 +289,10 @@ var UserCredentialService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetById",
 			Handler:    _UserCredentialService_GetById_Handler,
+		},
+		{
+			MethodName: "GetByUsername",
+			Handler:    _UserCredentialService_GetByUsername_Handler,
 		},
 		{
 			MethodName: "Add",
