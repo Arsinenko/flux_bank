@@ -427,3 +427,6 @@ FodyWeavers.xsd
 *.msm
 *.msp
 /core-csharp/.idea/
+orch-go/.idea/
+.idea/
+/analytic/.idea/
