@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package protos;
+
+
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+import "custom_types.proto";
+
+service TransactionService {
+  rpc GetAll (GetAllRequest) returns (GetAllTransactionsResponse);
+  rpc GetById (GetTransactionByIdRequest) returns (TransactionModel);
+  rpc GetByDateRange (GetByDateRangeRequest) returns (GetAllTransactionsResponse);
+}
+
+message TransactionModel {
+  int32 transaction_id = 1;
+  optional int32 source_account = 2;
+  optional int32 target_account = 3;
+  string amount = 4;
+  string currency = 5;
+  optional google.protobuf.Timestamp created_at = 6;
+  optional string status = 7;
+}
+
+message GetAllTransactionsResponse {
+  repeated TransactionModel transactions = 1;
+}
+
+message GetTransactionByIdRequest {
+  int32 transaction_id = 1;
+}

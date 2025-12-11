@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package protos;
+
+
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+import "custom_types.proto";
+
+service ExchangeRateService {
+  rpc GetAll (GetAllRequest) returns (GetAllExchangeRatesResponse);
+  rpc GetById (GetExchangeRateByIdRequest) returns (ExchangeRateModel);
+  rpc GetByBaseCurrency (GetExchangeRateByBaseCurrencyRequest) returns (GetAllExchangeRatesResponse);
+}
+
+message ExchangeRateModel {
+  int32 rate_id = 1;
+  optional string base_currency = 2;
+  optional string target_currency = 3;
+  optional string rate = 4;
+  optional google.protobuf.Timestamp updated_at = 5;
+}
+
+message GetAllExchangeRatesResponse {
+  repeated ExchangeRateModel exchange_rates = 1;
+}
+
+message GetExchangeRateByIdRequest {
+  int32 rate_id = 1;
+}
+
+message GetExchangeRateByBaseCurrencyRequest {
+  string base_currency = 1;
+}

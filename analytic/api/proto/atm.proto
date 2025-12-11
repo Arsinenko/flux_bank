@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package protos;
+
+
+
+import "google/protobuf/empty.proto";
+import "custom_types.proto";
+
+service AtmService {
+  rpc GetAll (GetAllRequest) returns (GetAllAtmsResponse);
+  rpc GetById (GetAtmByIdRequest) returns (AtmModel);
+  rpc GetByStatus (GetAtmsByStatusRequest) returns (GetAllAtmsResponse);
+  rpc GetByLocationSubStr (GetAtmsByLocationSubStrRequest) returns (GetAllAtmsResponse);
+  rpc GetByBranch (GetAtmsByBranchRequest) returns (GetAllAtmsResponse);
+}
+
+message AtmModel {
+  int32 atm_id = 1;
+  optional int32 branch_id = 2;
+  optional string location = 3;
+  optional string status = 4;
+}
+
+message GetAtmsByStatusRequest {
+  string status = 1;
+}
+
+message GetAtmsByLocationSubStrRequest {
+  string sub_str = 1;
+}
+
+message GetAtmsByBranchRequest {
+  int32 branch_id = 1;
+}
+
+message GetAllAtmsResponse {
+  repeated AtmModel atms = 1;
+}
+
+message GetAtmByIdRequest {
+  int32 atm_id = 1;
+}
