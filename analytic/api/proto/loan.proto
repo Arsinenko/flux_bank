@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package protos;
+
+
+
+import "google/protobuf/empty.proto";
+import "custom_types.proto";
+
+service LoanService {
+  rpc GetAll (GetAllRequest) returns (GetAllLoansResponse);
+  rpc GetById (GetLoanByIdRequest) returns (LoanModel);
+  rpc GetByCustomer (GetLoansByCustomerRequest) returns (GetAllLoansResponse);
+}
+
+message LoanModel {
+  int32 loan_id = 1;
+  optional int32 customer_id = 2;
+  optional string principal = 3;
+  optional string interest_rate = 4;
+  optional DateOnly start_date = 5;
+  optional DateOnly end_date = 6;
+  optional string status = 7;
+}
+
+message GetAllLoansResponse {
+  repeated LoanModel loans = 1;
+}
+
+message GetLoanByIdRequest {
+  int32 loan_id = 1;
+}
+
+message GetLoansByCustomerRequest {
+  int32 customer_id = 1;
+}

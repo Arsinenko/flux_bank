@@ -1,0 +1,10 @@
+[project]
+name = "analytic"
+version = "0.1.0"
+description = "Add your description here"
+requires-python = ">=3.13"
+dependencies = [
+    "grpcio>=1.76.0",
+    "grpcio-tools>=1.76.0",
+    "mypy-protobuf>=3.7.0",
+]

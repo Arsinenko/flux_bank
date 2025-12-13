@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package protos;
+
+
+
+import "google/protobuf/empty.proto";
+import "custom_types.proto";
+
+service FeeTypeService {
+  rpc GetAll (GetAllRequest) returns (GetAllFeeTypesResponse);
+  rpc GetById (GetFeeTypeByIdRequest) returns (FeeTypeModel);
+}
+
+message FeeTypeModel {
+  int32 fee_id = 1;
+  optional string name = 2;
+  optional string description = 3;
+}
+
+message GetAllFeeTypesResponse {
+  repeated FeeTypeModel fee_types = 1;
+}
+
+message GetFeeTypeByIdRequest {
+  int32 fee_id = 1;
+}

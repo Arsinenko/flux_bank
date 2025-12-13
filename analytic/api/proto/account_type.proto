@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package protos;
+
+
+
+import "google/protobuf/empty.proto";
+import "custom_types.proto";
+
+service AccountTypeService {
+  rpc GetAll (GetAllRequest) returns (GetAllAccountTypesResponse);
+  rpc GetById (GetAccountTypeByIdRequest) returns (AccountTypeModel);
+}
+
+message AccountTypeModel {
+  int32 type_id = 1;
+  string name = 2;
+  optional string description = 3;
+}
+
+message GetAllAccountTypesResponse {
+  repeated AccountTypeModel account_types = 1;
+}
+
+message GetAccountTypeByIdRequest {
+  int32 type_id = 1;
+}

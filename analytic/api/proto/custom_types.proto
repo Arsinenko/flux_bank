@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package protos;
+import "google/protobuf/timestamp.proto";
+
+
+
+message GetAllRequest {
+    int32 pageN = 1;
+    int32 pageSize = 2;
+}
+
+message DateOnly {
+    int32 year = 1;
+    int32 month = 2;
+    int32 day = 3;
+}
+
+message GetByDateRangeRequest{
+  google.protobuf.Timestamp from = 1;
+  google.protobuf.Timestamp to = 2;
+  optional int32 pageN = 3;
+  optional int32 pageSize = 4;
+}
