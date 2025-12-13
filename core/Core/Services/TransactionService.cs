@@ -104,4 +104,22 @@ public class TransactionService(ITransactionRepository transactionRepository, IM
             Transactions = { mapper.Map<IEnumerable<TransactionModel>>(transactions) }
         };
     }
+
+    public override async Task<GetAllTransactionsResponse> GetAccountExpenses(GetAccountExpensesRequest request, ServerCallContext context)
+    {
+        var transactions = await transactionRepository.GetExpensesAsync(request.SourceAccount, request.DateRange?.From.ToDateTime(), request.DateRange?.To.ToDateTime(), request.DateRange?.PageN, request.DateRange?.PageSize);
+        return new GetAllTransactionsResponse()
+        {
+            Transactions = { mapper.Map<IEnumerable<TransactionModel>>(transactions) }
+        };
+    }
+
+    public override async Task<GetAllTransactionsResponse> GetAccountRevenue(GetAccountRevenueRequest request, ServerCallContext context)
+    {
+        var transactions = await transactionRepository.GetRevenueAsync(request.TargetAccount, request.DateRange?.From.ToDateTime(), request.DateRange?.To.ToDateTime(), request.DateRange?.PageN, request.DateRange?.PageSize);
+        return new GetAllTransactionsResponse()
+        {
+            Transactions = { mapper.Map<IEnumerable<TransactionModel>>(transactions) }
+        };
+    }
 }

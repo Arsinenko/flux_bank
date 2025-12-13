@@ -20,15 +20,17 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	TransactionService_GetAll_FullMethodName         = "/protos.TransactionService/GetAll"
-	TransactionService_GetById_FullMethodName        = "/protos.TransactionService/GetById"
-	TransactionService_GetByDateRange_FullMethodName = "/protos.TransactionService/GetByDateRange"
-	TransactionService_Add_FullMethodName            = "/protos.TransactionService/Add"
-	TransactionService_Update_FullMethodName         = "/protos.TransactionService/Update"
-	TransactionService_Delete_FullMethodName         = "/protos.TransactionService/Delete"
-	TransactionService_AddBulk_FullMethodName        = "/protos.TransactionService/AddBulk"
-	TransactionService_UpdateBulk_FullMethodName     = "/protos.TransactionService/UpdateBulk"
-	TransactionService_DeleteBulk_FullMethodName     = "/protos.TransactionService/DeleteBulk"
+	TransactionService_GetAll_FullMethodName             = "/protos.TransactionService/GetAll"
+	TransactionService_GetById_FullMethodName            = "/protos.TransactionService/GetById"
+	TransactionService_GetByDateRange_FullMethodName     = "/protos.TransactionService/GetByDateRange"
+	TransactionService_GetAccountRevenue_FullMethodName  = "/protos.TransactionService/GetAccountRevenue"
+	TransactionService_GetAccountExpenses_FullMethodName = "/protos.TransactionService/GetAccountExpenses"
+	TransactionService_Add_FullMethodName                = "/protos.TransactionService/Add"
+	TransactionService_Update_FullMethodName             = "/protos.TransactionService/Update"
+	TransactionService_Delete_FullMethodName             = "/protos.TransactionService/Delete"
+	TransactionService_AddBulk_FullMethodName            = "/protos.TransactionService/AddBulk"
+	TransactionService_UpdateBulk_FullMethodName         = "/protos.TransactionService/UpdateBulk"
+	TransactionService_DeleteBulk_FullMethodName         = "/protos.TransactionService/DeleteBulk"
 )
 
 // TransactionServiceClient is the client API for TransactionService service.
@@ -38,6 +40,8 @@ type TransactionServiceClient interface {
 	GetAll(ctx context.Context, in *GetAllRequest, opts ...grpc.CallOption) (*GetAllTransactionsResponse, error)
 	GetById(ctx context.Context, in *GetTransactionByIdRequest, opts ...grpc.CallOption) (*TransactionModel, error)
 	GetByDateRange(ctx context.Context, in *GetByDateRangeRequest, opts ...grpc.CallOption) (*GetAllTransactionsResponse, error)
+	GetAccountRevenue(ctx context.Context, in *GetAccountRevenueRequest, opts ...grpc.CallOption) (*GetAllTransactionsResponse, error)
+	GetAccountExpenses(ctx context.Context, in *GetAccountExpensesRequest, opts ...grpc.CallOption) (*GetAllTransactionsResponse, error)
 	Add(ctx context.Context, in *AddTransactionRequest, opts ...grpc.CallOption) (*TransactionModel, error)
 	Update(ctx context.Context, in *UpdateTransactionRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	Delete(ctx context.Context, in *DeleteTransactionRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
@@ -78,6 +82,26 @@ func (c *transactionServiceClient) GetByDateRange(ctx context.Context, in *GetBy
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(GetAllTransactionsResponse)
 	err := c.cc.Invoke(ctx, TransactionService_GetByDateRange_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *transactionServiceClient) GetAccountRevenue(ctx context.Context, in *GetAccountRevenueRequest, opts ...grpc.CallOption) (*GetAllTransactionsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetAllTransactionsResponse)
+	err := c.cc.Invoke(ctx, TransactionService_GetAccountRevenue_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *transactionServiceClient) GetAccountExpenses(ctx context.Context, in *GetAccountExpensesRequest, opts ...grpc.CallOption) (*GetAllTransactionsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetAllTransactionsResponse)
+	err := c.cc.Invoke(ctx, TransactionService_GetAccountExpenses_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -151,6 +175,8 @@ type TransactionServiceServer interface {
 	GetAll(context.Context, *GetAllRequest) (*GetAllTransactionsResponse, error)
 	GetById(context.Context, *GetTransactionByIdRequest) (*TransactionModel, error)
 	GetByDateRange(context.Context, *GetByDateRangeRequest) (*GetAllTransactionsResponse, error)
+	GetAccountRevenue(context.Context, *GetAccountRevenueRequest) (*GetAllTransactionsResponse, error)
+	GetAccountExpenses(context.Context, *GetAccountExpensesRequest) (*GetAllTransactionsResponse, error)
 	Add(context.Context, *AddTransactionRequest) (*TransactionModel, error)
 	Update(context.Context, *UpdateTransactionRequest) (*emptypb.Empty, error)
 	Delete(context.Context, *DeleteTransactionRequest) (*emptypb.Empty, error)
@@ -175,6 +201,12 @@ func (UnimplementedTransactionServiceServer) GetById(context.Context, *GetTransa
 }
 func (UnimplementedTransactionServiceServer) GetByDateRange(context.Context, *GetByDateRangeRequest) (*GetAllTransactionsResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetByDateRange not implemented")
+}
+func (UnimplementedTransactionServiceServer) GetAccountRevenue(context.Context, *GetAccountRevenueRequest) (*GetAllTransactionsResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetAccountRevenue not implemented")
+}
+func (UnimplementedTransactionServiceServer) GetAccountExpenses(context.Context, *GetAccountExpensesRequest) (*GetAllTransactionsResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetAccountExpenses not implemented")
 }
 func (UnimplementedTransactionServiceServer) Add(context.Context, *AddTransactionRequest) (*TransactionModel, error) {
 	return nil, status.Error(codes.Unimplemented, "method Add not implemented")
@@ -265,6 +297,42 @@ func _TransactionService_GetByDateRange_Handler(srv interface{}, ctx context.Con
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(TransactionServiceServer).GetByDateRange(ctx, req.(*GetByDateRangeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TransactionService_GetAccountRevenue_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAccountRevenueRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionServiceServer).GetAccountRevenue(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TransactionService_GetAccountRevenue_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionServiceServer).GetAccountRevenue(ctx, req.(*GetAccountRevenueRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TransactionService_GetAccountExpenses_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAccountExpensesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionServiceServer).GetAccountExpenses(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TransactionService_GetAccountExpenses_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionServiceServer).GetAccountExpenses(ctx, req.(*GetAccountExpensesRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -395,6 +463,14 @@ var TransactionService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetByDateRange",
 			Handler:    _TransactionService_GetByDateRange_Handler,
+		},
+		{
+			MethodName: "GetAccountRevenue",
+			Handler:    _TransactionService_GetAccountRevenue_Handler,
+		},
+		{
+			MethodName: "GetAccountExpenses",
+			Handler:    _TransactionService_GetAccountExpenses_Handler,
 		},
 		{
 			MethodName: "Add",

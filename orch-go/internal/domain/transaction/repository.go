@@ -6,6 +6,8 @@ type TransactionRepository interface {
 	GetAll(ctx context.Context) ([]*Transaction, error)
 	GetById(ctx context.Context, id int32) (*Transaction, error)
 	GetByDateRange(ctx context.Context, request GetByDateRange) ([]*Transaction, error)
+	GetRevenue(ctx context.Context, accountId int32, request GetByDateRange) ([]*Transaction, error)
+	GetExpenses(ctx context.Context, accountId int32, request GetByDateRange) ([]*Transaction, error)
 	Add(ctx context.Context, transaction *Transaction) (*Transaction, error)
 	Update(ctx context.Context, transaction *Transaction) error
 	Delete(ctx context.Context, id int32) error
