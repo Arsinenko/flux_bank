@@ -76,4 +76,13 @@ public class LoginLogService(ILoginLogRepository loginLogRepository, IMapper map
             LoginLogs = { mapper.Map<LoginLogModel>(logs) }
         };
     }
+
+    public override async Task<GetAllLoginLogsResponse> GetByIds(GetLoginLogByIdsRequest request, ServerCallContext context)
+    {
+        var logs = await loginLogRepository.GetByIdsAsync(request.LogIds);
+        return new GetAllLoginLogsResponse()
+        {
+            LoginLogs = { mapper.Map<LoginLogModel>(logs) }
+        };
+    }
 }

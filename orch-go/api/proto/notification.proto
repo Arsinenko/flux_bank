@@ -11,6 +11,7 @@ import "custom_types.proto";
 service NotificationService {
   rpc GetAll (GetAllRequest) returns (GetAllNotificationsResponse);
   rpc GetById (GetNotificationByIdRequest) returns (NotificationModel);
+  rpc GetByIds (GetNotificationByIdsRequest) returns (GetAllNotificationsResponse);
   rpc GetByDateRange (GetByDateRangeRequest) returns (GetAllNotificationsResponse);
   rpc GetByCustomer (GetNotificationsByCustomerRequest) returns (GetAllNotificationsResponse);
   rpc Add (AddNotificationRequest) returns (NotificationModel);
@@ -37,11 +38,14 @@ message GetNotificationByIdRequest {
   int32 notification_id = 1;
 }
 
+message GetNotificationByIdsRequest {
+  repeated int32 notification_ids = 1;
+}
+
 message GetNotificationsByCustomerRequest {
   int32 customer_id = 1;
   optional bool is_read = 2;
 }
-
 
 message AddNotificationRequest {
   optional int32 customer_id = 1;
@@ -71,4 +75,3 @@ message UpdateNotificationBulkRequest {
 message DeleteNotificationBulkRequest {
   repeated DeleteNotificationRequest notifications = 1;
 }
-

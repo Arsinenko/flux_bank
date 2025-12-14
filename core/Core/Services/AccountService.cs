@@ -3,6 +3,7 @@ using Core.Interfaces;
 using Core.Models;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
+using Microsoft.EntityFrameworkCore;
 
 namespace Core.Services;
 
@@ -97,5 +98,29 @@ public class AccountService(IAccountRepository accountRepository, IMapper mapper
         {
             Accounts = { mapper.Map<IEnumerable<AccountModel>>(accounts) }
         };
+    }
+
+    public override async Task<GetAllAccountsResponse> GetByIds(GetAccountByIdsRequest request, ServerCallContext context)
+    {
+        var accounts =
+            await accountRepository.FindAsync(e => request.AccountIds.Contains(EF.Property<int>(e, "AccountId")));
+        return new GetAllAccountsResponse()
+        {
+            Accounts = { mapper.Map<IEnumerable<AccountModel>>(accounts) }
+        };
+    }
+
+    public override async Task<Empty> AddBulk(AddAccountBulkRequest request, ServerCallContext context)
+    {
+        var accounts = request.Accounts.Select(mapper.Map<Account>).ToList();
+        try
+        {
+            await accountRepository.AddRangeAsync(accounts);
+            return new Empty();
+        }
+        catch (Exception e)
+        {
+            throw new RpcException(new Status(StatusCode.Internal, e.Message));
+        }
     }
 }

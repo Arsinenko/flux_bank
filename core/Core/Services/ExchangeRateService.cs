@@ -108,4 +108,13 @@ public class ExchangeRateService(IExchangeRateRepository exchangeRateRepository,
             ExchangeRates = { mapper.Map<ExchangeRateModel>(rates) }
         };
     }
+
+    public override async Task<GetAllExchangeRatesResponse> GetByIds(GetExchangeRateByIdsRequest request, ServerCallContext context)
+    {
+        var rates = await exchangeRateRepository.GetByIdsAsync(request.RateIds);
+        return new GetAllExchangeRatesResponse()
+        {
+            ExchangeRates = { mapper.Map<IEnumerable<ExchangeRateModel>>(rates) }
+        };
+    }
 }

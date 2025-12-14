@@ -111,5 +111,14 @@ public class CardService(ICardRepository repository, IMapper mapper) : Core.Card
             Cards = { mapper.Map<IEnumerable<CardModel>>(cards) }
         };
     }
+
+    public override async Task<GetAllCardsResponse> GetByIds(GetCardByIdsRequest request, ServerCallContext context)
+    {
+        var cards = await repository.GetByIdsAsync(request.CardIds);
+        return new GetAllCardsResponse()
+        {
+            Cards = { mapper.Map<IEnumerable<CardModel>>(cards) }
+        };
+    }
 }
      

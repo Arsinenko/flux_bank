@@ -98,4 +98,13 @@ public class CustomerService(ICustomerRepository repository, IMapper mapper) : C
         await repository.UpdateRangeAsync(customers);
         return new Empty();
     }
+
+    public override async Task<GetAllCustomersResponse> GetByIds(GetCustomerByIdsRequest request, ServerCallContext context)
+    {
+        var customers = await repository.GetByIdsAsync(request.CustomerIds);
+        return new GetAllCustomersResponse()
+        {
+            Customers = { mapper.Map<IEnumerable<CustomerModel>>(customers) }
+        };
+    }
 }

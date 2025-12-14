@@ -1,5 +1,5 @@
-$ProtoDir = "../api/proto/bank"
-$OutDir = "../api/generated"
+$ProtoDir = "..\api\proto"
+$OutDir = "..\api\generated"
 
 Write-Host "Generating gRPC Python files..."
 

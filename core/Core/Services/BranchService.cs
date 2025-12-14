@@ -97,4 +97,13 @@ public class BranchService(IBranchRepository branchRepository, IMapper mapper) :
             throw new RpcException(new Status(StatusCode.Internal, e.Message));
         }
     }
+
+    public override async Task<GetAllBranchesResponse> GetByIds(GetBranchByIdsRequest request, ServerCallContext context)
+    {
+        var branches = await branchRepository.GetByIdsAsync(request.BranchIds);
+        return new GetAllBranchesResponse()
+        {
+            Branches = { mapper.Map<IEnumerable<BranchModel>>(branches) }
+        };
+    }
 }

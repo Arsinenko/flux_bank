@@ -11,6 +11,7 @@ import "google/protobuf/empty.proto";
 service PaymentTemplateService {
   rpc GetAll (GetAllRequest) returns (GetAllPaymentTemplatesResponse);
   rpc GetById (GetPaymentTemplateByIdRequest) returns (PaymentTemplateModel);
+  rpc GetByIds (GetPaymentTemplateByIdsRequest) returns (GetAllPaymentTemplatesResponse);
   rpc Add (AddPaymentTemplateRequest) returns (PaymentTemplateModel);
   rpc Update (UpdatePaymentTemplateRequest) returns (google.protobuf.Empty);
   rpc Delete (DeletePaymentTemplateRequest) returns (google.protobuf.Empty);
@@ -33,6 +34,10 @@ message GetAllPaymentTemplatesResponse {
 
 message GetPaymentTemplateByIdRequest {
   int32 template_id = 1;
+}
+
+message GetPaymentTemplateByIdsRequest {
+  repeated int32 template_ids = 1;
 }
 
 message AddPaymentTemplateRequest {

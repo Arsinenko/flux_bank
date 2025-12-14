@@ -12,6 +12,7 @@ import "google/protobuf/empty.proto";
 service CardService {
   rpc GetAll (GetAllRequest) returns (GetAllCardsResponse);
   rpc GetById (GetCardByIdRequest) returns (CardModel);
+  rpc GetByIds (GetCardByIdsRequest) returns (GetAllCardsResponse);
   rpc GetByAccount (GetCardsByAccountRequest) returns (GetAllCardsResponse);
   rpc Add (AddCardRequest) returns (CardModel);
   rpc Update (UpdateCardRequest) returns (google.protobuf.Empty);
@@ -36,6 +37,10 @@ message GetAllCardsResponse {
 
 message GetCardByIdRequest {
   int32 card_id = 1;
+}
+
+message GetCardByIdsRequest {
+  repeated int32 card_ids = 1;
 }
 
 message GetCardsByAccountRequest {

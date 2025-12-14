@@ -63,4 +63,13 @@ public class UserCredentialService(IUserCredentialRepository userCredentialRepos
         var creds = await userCredentialRepository.FindAsync(c => c.Username == request.Username);
         return mapper.Map<UserCredentialModel>(creds.FirstOrDefault());
     }
+
+    public override async Task<GetAllUserCredentialsResponse> GetByIds(GetUserCredentialByIdsRequest request, ServerCallContext context)
+    {
+        var userCredentials = await userCredentialRepository.GetByIdsAsync(request.CustomerIds);
+        return new GetAllUserCredentialsResponse()
+        {
+            UserCredentials = { mapper.Map<IEnumerable<UserCredentialModel>>(userCredentials) }
+        };
+    }
 }

@@ -10,6 +10,7 @@ import "custom_types.proto";
 service AccountTypeService {
   rpc GetAll (GetAllRequest) returns (GetAllAccountTypesResponse);
   rpc GetById (GetAccountTypeByIdRequest) returns (AccountTypeModel);
+  rpc GetByIds (GetAccountTypeByIdsRequest) returns (GetAllAccountTypesResponse);
   rpc Add (AddAccountTypeRequest) returns (AccountTypeModel);
   rpc Update (UpdateAccountTypeRequest) returns (google.protobuf.Empty);
   rpc Delete (DeleteAccountTypeRequest) returns (google.protobuf.Empty);
@@ -30,6 +31,10 @@ message GetAllAccountTypesResponse {
 
 message GetAccountTypeByIdRequest {
   int32 type_id = 1;
+}
+
+message GetAccountTypeByIdsRequest {
+  repeated int32 type_ids = 1;
 }
 
 message AddAccountTypeRequest {

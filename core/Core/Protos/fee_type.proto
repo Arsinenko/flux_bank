@@ -10,6 +10,7 @@ import "google/protobuf/empty.proto";
 service FeeTypeService {
   rpc GetAll (GetAllRequest) returns (GetAllFeeTypesResponse);
   rpc GetById (GetFeeTypeByIdRequest) returns (FeeTypeModel);
+  rpc GetByIds (GetFeeTypeByIdsRequest) returns (GetAllFeeTypesResponse);
   rpc Add (AddFeeTypeRequest) returns (FeeTypeModel);
   rpc Update (UpdateFeeTypeRequest) returns (google.protobuf.Empty);
   rpc Delete (DeleteFeeTypeRequest) returns (google.protobuf.Empty);
@@ -31,6 +32,10 @@ message GetAllFeeTypesResponse {
 
 message GetFeeTypeByIdRequest {
   int32 fee_id = 1;
+}
+
+message GetFeeTypeByIdsRequest {
+  repeated int32 fee_ids = 1;
 }
 
 message AddFeeTypeRequest {

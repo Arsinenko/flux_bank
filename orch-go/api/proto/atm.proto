@@ -10,6 +10,7 @@ import "custom_types.proto";
 service AtmService {
   rpc GetAll (GetAllRequest) returns (GetAllAtmsResponse);
   rpc GetById (GetAtmByIdRequest) returns (AtmModel);
+  rpc GetByIds (GetAtmByIdsRequest) returns (GetAllAtmsResponse);
   rpc GetByStatus (GetAtmsByStatusRequest) returns (GetAllAtmsResponse);
   rpc GetByLocationSubStr (GetAtmsByLocationSubStrRequest) returns (GetAllAtmsResponse);
   rpc GetByBranch (GetAtmsByBranchRequest) returns (GetAllAtmsResponse);
@@ -48,6 +49,10 @@ message GetAtmByIdRequest {
   int32 atm_id = 1;
 }
 
+message GetAtmByIdsRequest {
+  repeated int32 atm_ids = 1;
+}
+
 message AddAtmRequest {
   optional int32 branch_id = 1;
   optional string location = 2;
@@ -76,4 +81,3 @@ message UpdateAtmBulkRequest {
 message DeleteAtmBulkRequest {
   repeated DeleteAtmRequest atms = 1;
 }
-

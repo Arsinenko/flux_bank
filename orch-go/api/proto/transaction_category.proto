@@ -10,6 +10,7 @@ import "custom_types.proto";
 service TransactionCategoryService {
   rpc GetAll (GetAllRequest) returns (GetAllTransactionCategoriesResponse);
   rpc GetById (GetTransactionCategoryByIdRequest) returns (TransactionCategoryModel);
+  rpc GetByIds (GetTransactionCategoryByIdsRequest) returns (GetAllTransactionCategoriesResponse);
   rpc Add (AddTransactionCategoryRequest) returns (TransactionCategoryModel);
   rpc Update (UpdateTransactionCategoryRequest) returns (google.protobuf.Empty);
   rpc Delete (DeleteTransactionCategoryRequest) returns (google.protobuf.Empty);
@@ -29,6 +30,10 @@ message GetAllTransactionCategoriesResponse {
 
 message GetTransactionCategoryByIdRequest {
   int32 category_id = 1;
+}
+
+message GetTransactionCategoryByIdsRequest {
+  repeated int32 category_ids = 1;
 }
 
 message AddTransactionCategoryRequest {
@@ -55,4 +60,3 @@ message UpdateTransactionCategoryBulkRequest {
 message DeleteTransactionCategoryBulkRequest {
   repeated DeleteTransactionCategoryRequest transaction_categories = 1;
 }
-

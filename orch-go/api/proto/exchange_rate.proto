@@ -11,6 +11,7 @@ import "custom_types.proto";
 service ExchangeRateService {
   rpc GetAll (GetAllRequest) returns (GetAllExchangeRatesResponse);
   rpc GetById (GetExchangeRateByIdRequest) returns (ExchangeRateModel);
+  rpc GetByIds (GetExchangeRateByIdsRequest) returns (GetAllExchangeRatesResponse);
   rpc GetByBaseCurrency (GetExchangeRateByBaseCurrencyRequest) returns (GetAllExchangeRatesResponse);
   rpc Add (AddExchangeRateRequest) returns (ExchangeRateModel);
   rpc Update (UpdateExchangeRateRequest) returns (google.protobuf.Empty);
@@ -36,6 +37,10 @@ message GetExchangeRateByIdRequest {
   int32 rate_id = 1;
 }
 
+message GetExchangeRateByIdsRequest {
+  repeated int32 rate_ids = 1;
+}
+
 message GetExchangeRateByBaseCurrencyRequest {
   string base_currency = 1;
 }
@@ -59,7 +64,7 @@ message DeleteExchangeRateRequest {
 
 message AddExchangeRateBulkRequest {
   repeated AddExchangeRateRequest exchange_rates = 1;
-} 
+}
 
 message UpdateExchangeRateBulkRequest {
   repeated UpdateExchangeRateRequest exchange_rates = 1;

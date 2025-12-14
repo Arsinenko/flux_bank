@@ -119,4 +119,13 @@ public class NotificationService(INotificationRepository notificationRepository,
             Notifications = { mapper.Map<NotificationModel>(notifications) }
         };
     }
+
+    public override async Task<GetAllNotificationsResponse> GetByIds(GetNotificationByIdsRequest request, ServerCallContext context)
+    {
+        var notifications = await notificationRepository.GetByIdsAsync(request.NotificationIds);
+        return new GetAllNotificationsResponse()
+        {
+            Notifications = { mapper.Map<IEnumerable<NotificationModel>>(notifications) }
+        };
+    }
 }

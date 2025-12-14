@@ -122,4 +122,13 @@ public class TransactionService(ITransactionRepository transactionRepository, IM
             Transactions = { mapper.Map<IEnumerable<TransactionModel>>(transactions) }
         };
     }
+
+    public override async Task<GetAllTransactionsResponse> GetByIds(GetTransactionByIdsRequest request, ServerCallContext context)
+    {
+        var transactions = await transactionRepository.GetByIdsAsync(request.TransactionIds);
+        return new GetAllTransactionsResponse()
+        {
+            Transactions = { mapper.Map<TransactionModel>(transactions) }
+        };
+    }
 }

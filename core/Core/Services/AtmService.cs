@@ -126,4 +126,13 @@ public class AtmService(IAtmRepository atmRepository, IMapper mapper) : Core.Atm
             Atms = { mapper.Map<IEnumerable<AtmModel>>(atms) }
         };
     }
+
+    public override async Task<GetAllAtmsResponse> GetByIds(GetAtmByIdsRequest request, ServerCallContext context)
+    {
+        var atms = await atmRepository.GetByIdsAsync(request.AtmIds);
+        return new GetAllAtmsResponse()
+        {
+            Atms = { mapper.Map<IEnumerable<AtmModel>>(atms) }
+        };
+    }
 }

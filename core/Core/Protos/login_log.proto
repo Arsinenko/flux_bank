@@ -12,11 +12,15 @@ import "Protos/custom_types.proto";
 service LoginLogService {
   rpc GetAll (GetAllRequest) returns (GetAllLoginLogsResponse);
   rpc GetById (GetLoginLogByIdRequest) returns (LoginLogModel);
+  rpc GetByIds (GetLoginLogByIdsRequest) returns (GetAllLoginLogsResponse);
   rpc GetByCustomer (GetLoginLogsByCustomerRequest) returns (GetAllLoginLogsResponse);
   rpc GetInTimeRange (GetLoginLogsInTimeRangeRequest) returns (GetAllLoginLogsResponse);
   rpc Add (AddLoginLogRequest) returns (LoginLogModel);
   rpc Update (UpdateLoginLogRequest) returns (google.protobuf.Empty);
   rpc Delete (DeleteLoginLogRequest) returns (google.protobuf.Empty);
+  rpc AddBulk (AddLoginLogBulkRequest) returns (google.protobuf.Empty);
+  rpc UpdateBulk (UpdateLoginLogBulkRequest) returns (google.protobuf.Empty);
+  rpc DeleteBulk (DeleteLoginLogBulkRequest) returns (google.protobuf.Empty);
 }
 
 message LoginLogModel {
@@ -35,6 +39,10 @@ message GetLoginLogByIdRequest {
   int32 log_id = 1;
 }
 
+message GetLoginLogByIdsRequest {
+  repeated int32 log_ids = 1;
+}
+
 message GetLoginLogsByCustomerRequest {
   int32 customer_id = 1;
 }
@@ -51,6 +59,10 @@ message AddLoginLogRequest {
   optional string device_info = 4;
 }
 
+message AddLoginLogBulkRequest {
+  repeated AddLoginLogRequest login_logs = 1;
+}
+
 message UpdateLoginLogRequest {
   int32 log_id = 1;
   optional int32 customer_id = 2;
@@ -59,6 +71,14 @@ message UpdateLoginLogRequest {
   optional string device_info = 5;
 }
 
+message UpdateLoginLogBulkRequest {
+  repeated UpdateLoginLogRequest login_logs = 1;
+}
+
 message DeleteLoginLogRequest {
   int32 log_id = 1;
+}
+
+message DeleteLoginLogBulkRequest {
+  repeated DeleteLoginLogRequest login_logs = 1;
 }

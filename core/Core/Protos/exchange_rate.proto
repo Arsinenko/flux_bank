@@ -11,6 +11,7 @@ import "google/protobuf/timestamp.proto";
 service ExchangeRateService {
   rpc GetAll (GetAllRequest) returns (GetAllExchangeRatesResponse);
   rpc GetById (GetExchangeRateByIdRequest) returns (ExchangeRateModel);
+  rpc GetByIds (GetExchangeRateByIdsRequest) returns (GetAllExchangeRatesResponse);
   rpc GetByBaseCurrency (GetExchangeRateByBaseCurrencyRequest) returns (GetAllExchangeRatesResponse);
   rpc Add (AddExchangeRateRequest) returns (ExchangeRateModel);
   rpc Update (UpdateExchangeRateRequest) returns (google.protobuf.Empty);
@@ -34,6 +35,10 @@ message GetAllExchangeRatesResponse {
 
 message GetExchangeRateByIdRequest {
   int32 rate_id = 1;
+}
+
+message GetExchangeRateByIdsRequest {
+  repeated int32 rate_ids = 1;
 }
 
 message GetExchangeRateByBaseCurrencyRequest {

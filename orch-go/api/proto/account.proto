@@ -9,16 +9,18 @@ import "google/protobuf/timestamp.proto";
 import "custom_types.proto";
 
 service AccountService {
-  rpc GetAll (GetAllRequest) returns (GetAllAccountsResponse);
-  rpc GetById (GetAccountByIdRequest) returns (AccountModel);
-  rpc GetByCustomerId (GetAccountByCustomerIdRequest) returns (GetAllAccountsResponse);
-  rpc GetByDateRange (GetByDateRangeRequest) returns (GetAllAccountsResponse);
-  rpc Add (AddAccountRequest) returns (AccountModel);
-  rpc Update (UpdateAccountRequest) returns (google.protobuf.Empty);
-  rpc Delete (DeleteAccountRequest) returns (google.protobuf.Empty);
-  rpc UpdateBulk (UpdateAccountBulkRequest) returns (google.protobuf.Empty);
-  rpc DeleteBulk (DeleteAccountBulkRequest) returns (google.protobuf.Empty);
-}
+rpc GetAll (GetAllRequest) returns (GetAllAccountsResponse);
+rpc GetById (GetAccountByIdRequest) returns (AccountModel);
+rpc GetByIds(GetAccountByIdsRequest) returns (GetAllAccountsResponse);
+rpc GetByCustomerId (GetAccountByCustomerIdRequest) returns (GetAllAccountsResponse);
+rpc GetByDateRange (GetByDateRangeRequest) returns (GetAllAccountsResponse);
+rpc Add (AddAccountRequest) returns (AccountModel);
+rpc Update (UpdateAccountRequest) returns (google.protobuf.Empty);
+    rpc Delete (DeleteAccountRequest) returns (google.protobuf.Empty);
+    rpc AddBulk (AddAccountBulkRequest) returns (google.protobuf.Empty);
+    rpc UpdateBulk (UpdateAccountBulkRequest) returns (google.protobuf.Empty);
+    rpc DeleteBulk (DeleteAccountBulkRequest) returns (google.protobuf.Empty);
+    }
 
 message AccountModel {
   int32 account_id = 1;
@@ -38,6 +40,10 @@ message GetAllAccountsResponse {
   repeated AccountModel accounts = 1;
 }
 
+message GetAccountByIdsRequest{
+  repeated int32 account_ids = 1;
+}
+
 message GetAccountByIdRequest {
   int32 account_id = 1;
 }
@@ -48,6 +54,10 @@ message AddAccountRequest {
   string iban = 3;
   optional string balance = 4;
   optional bool is_active = 5;
+}
+
+message AddAccountBulkRequest {
+  repeated AddAccountRequest accounts = 1;
 }
 
 message UpdateAccountRequest {
@@ -70,4 +80,3 @@ message UpdateAccountBulkRequest {
 message DeleteAccountBulkRequest {
   repeated DeleteAccountRequest accounts = 1;
 }
-

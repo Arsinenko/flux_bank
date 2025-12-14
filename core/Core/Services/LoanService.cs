@@ -84,4 +84,13 @@ public class LoanService(ILoanRepository loanRepository, IMapper mapper)
             Loans = { mapper.Map<LoanModel>(loans) }
         };
     }
+
+    public override async Task<GetAllLoansResponse> GetByIds(GetLoanByIdsRequest request, ServerCallContext context)
+    {
+        var loans = await loanRepository.GetByIdsAsync(request.LoanIds);
+        return new GetAllLoansResponse()
+        {
+            Loans = { mapper.Map<IEnumerable<LoanModel>>(loans) }
+        };
+    }
 }

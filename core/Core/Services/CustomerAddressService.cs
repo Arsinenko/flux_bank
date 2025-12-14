@@ -52,5 +52,50 @@ public class CustomerAddressService(ICustomerAddressRepository repository, IMapp
         if (address == null) throw new RpcException(new Status(StatusCode.NotFound, "Address not found"));
         return mapper.Map<CustomerAddressModel>(address);
     }
-    
+
+    public override async Task<GetAllCustomerAddressesResponse> GetByIds(GetCustomerAddressByIdsRequest request, ServerCallContext context)
+    {
+        var addresses = await repository.GetByIdsAsync(request.AddressIds);
+        return new GetAllCustomerAddressesResponse()
+        {
+            CustomerAddresses = { mapper.Map<IEnumerable<CustomerAddressModel>>(addresses) }
+        };
+    }
+
+    public override async Task<Empty> AddBulk(AddCustomerAddressBulkRequest request, ServerCallContext context)
+    {
+        var addresses = request.CustomerAddresses.Select(mapper.Map<CustomerAddress>).ToList();
+        try
+        {
+            await repository.AddRangeAsync(addresses);
+            return new Empty();
+        }
+        catch (Exception e)
+        {
+            throw new RpcException(new Status(StatusCode.Internal, e.Message));
+        }
+    }
+
+    public override async Task<Empty> UpdateBulk(UpdateCustomerAddressBulkRequest request, ServerCallContext context)
+    {
+        var addresses = request.CustomerAddresses.Select(mapper.Map<CustomerAddress>).ToList();
+        if (!addresses.Any())
+        {
+            throw new RpcException(new Status(StatusCode.NotFound, "No addresses to update"));
+        }
+        await repository.UpdateRangeAsync(addresses);
+        return new Empty();
+    }
+
+    public override async Task<Empty> DeleteBulk(DeleteCustomerAddressBulkRequest request, ServerCallContext context)
+    {
+        var addresses = (await repository.GetByIdsAsync(request.CustomerAddresses.Select(a => a.AddressId))).ToList();
+        if (addresses.Count != request.CustomerAddresses.Count)
+        {
+            throw new RpcException(new Status(StatusCode.NotFound, "One or more addresses not found"));
+        }
+
+        await repository.DeleteRangeAsync(addresses!);
+        return new Empty();
+    }
 }

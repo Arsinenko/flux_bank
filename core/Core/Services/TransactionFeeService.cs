@@ -57,5 +57,13 @@ public class TransactionFeeService(ITransactionFeeRepository transactionFeeRepos
         await transactionFeeRepository.DeleteAsync(request.Id);
         return new Empty();
     }
-    
+
+    public override async Task<GetAllTransactionFeesResponse> GetByIds(GetTransactionFeeByIdsRequest request, ServerCallContext context)
+    {
+        var transactionFees = await transactionFeeRepository.GetByIdsAsync(request.Ids);
+        return new GetAllTransactionFeesResponse()
+        {
+            TransactionFees = { mapper.Map<TransactionFeeModel>(transactionFees) }
+        };
+    }
 }

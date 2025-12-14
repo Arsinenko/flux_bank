@@ -11,6 +11,7 @@ import "custom_types.proto";
 service TransactionService {
   rpc GetAll (GetAllRequest) returns (GetAllTransactionsResponse);
   rpc GetById (GetTransactionByIdRequest) returns (TransactionModel);
+  rpc GetByIds (GetTransactionByIdsRequest) returns (GetAllTransactionsResponse);
   rpc GetByDateRange (GetByDateRangeRequest) returns (GetAllTransactionsResponse);
   rpc GetAccountRevenue (GetAccountRevenueRequest) returns (GetAllTransactionsResponse);
   rpc GetAccountExpenses (GetAccountExpensesRequest) returns (GetAllTransactionsResponse);
@@ -38,6 +39,10 @@ message GetAllTransactionsResponse {
 
 message GetTransactionByIdRequest {
   int32 transaction_id = 1;
+}
+
+message GetTransactionByIdsRequest {
+  repeated int32 transaction_ids = 1;
 }
 
 message GetAccountRevenueRequest{

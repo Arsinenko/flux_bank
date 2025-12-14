@@ -99,4 +99,13 @@ public class FeeTypeService(IFeeTypeRepository feeTypeRepository, IMapper mapper
             throw new RpcException(new Status(StatusCode.Internal, e.Message));
         }
     }
+    public override async Task<GetAllFeeTypesResponse> GetByIds(GetFeeTypeByIdsRequest request, ServerCallContext context)
+    {
+        var feeTypes = await feeTypeRepository.GetByIdsAsync(request.FeeIds);
+        return new GetAllFeeTypesResponse()
+        {
+            FeeTypes = { mapper.Map<IEnumerable<FeeTypeModel>>(feeTypes) }
+        };
+    }
+
 }

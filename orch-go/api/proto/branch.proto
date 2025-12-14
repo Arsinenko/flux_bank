@@ -10,6 +10,7 @@ import "custom_types.proto";
 service BranchService {
   rpc GetAll (GetAllRequest) returns (GetAllBranchesResponse);
   rpc GetById (GetBranchByIdRequest) returns (BranchModel);
+  rpc GetByIds (GetBranchByIdsRequest) returns (GetAllBranchesResponse);
   rpc Add (AddBranchRequest) returns (BranchModel);
   rpc Update (UpdateBranchRequest) returns (google.protobuf.Empty);
   rpc Delete (DeleteBranchRequest) returns (google.protobuf.Empty);
@@ -32,6 +33,10 @@ message GetAllBranchesResponse {
 
 message GetBranchByIdRequest {
   int32 branch_id = 1;
+}
+
+message GetBranchByIdsRequest {
+  repeated int32 branch_ids = 1;
 }
 
 message AddBranchRequest {

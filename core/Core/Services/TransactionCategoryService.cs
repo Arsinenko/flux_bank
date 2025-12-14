@@ -99,4 +99,13 @@ public class TransactionCategoryService(ITransactionCategoryRepository transacti
             throw new RpcException(new Status(StatusCode.Internal, e.Message));
         }
     }
+
+    public override async Task<GetAllTransactionCategoriesResponse> GetByIds(GetTransactionCategoryByIdsRequest request, ServerCallContext context)
+    {
+        var transactionCategories = await transactionCategoryRepository.GetByIdsAsync(request.CategoryIds);
+        return new GetAllTransactionCategoriesResponse()
+        {
+            TransactionCategories = { mapper.Map<TransactionCategoryModel>(transactionCategories) }
+        };
+    }
 }

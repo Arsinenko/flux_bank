@@ -7,4 +7,5 @@ dependencies = [
     "grpcio>=1.76.0",
     "grpcio-tools>=1.76.0",
     "mypy-protobuf>=3.7.0",
+    "pandas>=2.3.3",
 ]

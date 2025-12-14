@@ -10,6 +10,7 @@ import "custom_types.proto";
 service TransactionFeeService {
   rpc GetAll (GetAllRequest) returns (GetAllTransactionFeesResponse);
   rpc GetById (GetTransactionFeeByIdRequest) returns (TransactionFeeModel);
+  rpc GetByIds (GetTransactionFeeByIdsRequest) returns (GetAllTransactionFeesResponse);
   rpc Add (AddTransactionFeeRequest) returns (TransactionFeeModel);
   rpc Update (UpdateTransactionFeeRequest) returns (google.protobuf.Empty);
   rpc Delete (DeleteTransactionFeeRequest) returns (google.protobuf.Empty);
@@ -31,6 +32,10 @@ message GetAllTransactionFeesResponse {
 
 message GetTransactionFeeByIdRequest {
   int32 id = 1;
+}
+
+message GetTransactionFeeByIdsRequest {
+  repeated int32 ids = 1;
 }
 
 message AddTransactionFeeRequest {
@@ -61,4 +66,3 @@ message UpdateTransactionFeeBulkRequest {
 message DeleteTransactionFeeBulkRequest {
   repeated DeleteTransactionFeeRequest transaction_fees = 1;
 }
-

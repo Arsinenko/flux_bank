@@ -108,4 +108,13 @@ public class DepositService(IDepositRepository depositRepository, IMapper mapper
             Deposits = { mapper.Map<DepositModel>(deps) }
         };
     }
+
+    public override async Task<GetAllDepositsResponse> GetByIds(GetDepositByIdsRequest request, ServerCallContext context)
+    {
+        var deps = await depositRepository.GetByIdsAsync(request.DepositIds);
+        return new GetAllDepositsResponse()
+        {
+            Deposits = { mapper.Map<IEnumerable<DepositModel>>(deps) }
+        };
+    }
 }

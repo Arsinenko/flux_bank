@@ -83,4 +83,38 @@ public class LoanPaymentService(ILoanPaymentRepository loanPaymentRepository, IM
             LoanPayments = { mapper.Map<LoanPaymentModel>(loanPayments) }
         };
     }
+    public override async Task<Empty> UpdateBulk(UpdateLoanPaymentBulkRequest request, ServerCallContext context)
+    {
+        var loanPayments = request.Payments.Select(mapper.Map<LoanPayment>).ToList();
+        if (!loanPayments.Any())
+        {
+            throw new RpcException(new Status(StatusCode.NotFound, "No loan payments to update"));
+        }
+        await loanPaymentRepository.UpdateRangeAsync(loanPayments);
+        return new Empty();
+    }
+
+    public override async Task<Empty> AddBulk(AddLoanPaymentBulkRequest request, ServerCallContext context)
+    {
+        var loanPayments = request.Payments.Select(mapper.Map<LoanPayment>).ToList();
+        try
+        {
+            await loanPaymentRepository.AddRangeAsync(loanPayments);
+            return new Empty();
+        }
+        catch (Exception e)
+        {
+            throw new RpcException(new Status(StatusCode.Internal, e.Message));
+        }
+    }
+
+    public override async Task<GetAllLoanPaymentsResponse> GetByIds(GetLoanPaymentByIdsRequest request, ServerCallContext context)
+    {
+        var loanPayments = await loanPaymentRepository.GetByIdsAsync(request.PaymentIds);
+        return new GetAllLoanPaymentsResponse()
+        {
+            LoanPayments = { mapper.Map<IEnumerable<LoanPaymentModel>>(loanPayments) }
+        };
+    }
+
 }

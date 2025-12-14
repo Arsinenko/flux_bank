@@ -99,4 +99,15 @@ public class AccountTypeService(IAccountTypeRepository accountTypeRepository, IM
             throw new RpcException(new Status(StatusCode.Internal, e.Message));
         }
     }
+
+    public override async Task<GetAllAccountTypesResponse> GetByIds(GetAccountTypeByIdsRequest request,
+        ServerCallContext context)
+    {
+        var accountTypes =
+            await accountTypeRepository.GetByIdsAsync(request.TypeIds);
+        return new GetAllAccountTypesResponse()
+        {
+            AccountTypes = { mapper.Map<IEnumerable<AccountTypeModel>>(accountTypes) }
+        };
+    }
 }

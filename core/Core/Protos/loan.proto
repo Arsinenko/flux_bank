@@ -11,6 +11,7 @@ import "google/protobuf/empty.proto";
 service LoanService {
   rpc GetAll (GetAllRequest) returns (GetAllLoansResponse);
   rpc GetById (GetLoanByIdRequest) returns (LoanModel);
+  rpc GetByIds (GetLoanByIdsRequest) returns (GetAllLoansResponse);
   rpc GetByCustomer (GetLoansByCustomerRequest) returns (GetAllLoansResponse);
   rpc Add (AddLoanRequest) returns (LoanModel);
   rpc Update (UpdateLoanRequest) returns (google.protobuf.Empty);
@@ -34,6 +35,10 @@ message GetAllLoansResponse {
 
 message GetLoanByIdRequest {
   int32 loan_id = 1;
+}
+
+message GetLoanByIdsRequest {
+  repeated int32 loan_ids = 1;
 }
 
 message GetLoansByCustomerRequest {
