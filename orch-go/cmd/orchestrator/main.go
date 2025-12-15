@@ -2,20 +2,83 @@ package main
 
 import (
 	"fmt"
+	"orch-go/config"
+	"orch-go/internal/infrastructure/repository/account/account_repo"
+	"orch-go/internal/infrastructure/repository/atm_repo"
+	"orch-go/internal/infrastructure/repository/branch_repo"
+	"orch-go/internal/infrastructure/repository/card_repo"
+	"orch-go/internal/infrastructure/repository/customer_address_repo"
+	"orch-go/internal/infrastructure/repository/customer_repo"
+	"orch-go/internal/infrastructure/repository/deposit_repo"
+	"orch-go/internal/infrastructure/repository/exchange_rate_repo"
+	"orch-go/internal/infrastructure/repository/fee_type_repo"
+	"orch-go/internal/infrastructure/repository/loan_repo"
+	"orch-go/internal/infrastructure/repository/login_log_repo"
+	"orch-go/internal/infrastructure/repository/notification_repo"
+	"orch-go/internal/infrastructure/repository/payment_template_repo"
+	"orch-go/internal/infrastructure/repository/transaction_repo"
+	"orch-go/internal/infrastructure/repository/user_credential_repo"
+
+	pb "orch-go/api/generated"
+
+	"google.golang.org/grpc"
 )
 
 //TIP <p>To run your code, right-click the code and select <b>Run</b>.</p> <p>Alternatively, click
 // the <icon src="AllIcons.Actions.Execute"/> icon in the gutter and select the <b>Run</b> menu item from here.</p>
 
 func main() {
-	//TIP <p>Press <shortcut actionId="ShowIntentionActions"/> when your caret is at the underlined text
-	// to see how GoLand suggests fixing the warning.</p><p>Alternatively, if available, click the lightbulb to view possible fixes.</p>
-	s := "gopher"
-	fmt.Printf("Hello and welcome, %s!\n", s)
-
-	for i := 1; i <= 5; i++ {
-		//TIP <p>To start your debugging session, right-click your code in the editor and select the Debug option.</p> <p>We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-		// for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.</p>
-		fmt.Println("i =", 100/i)
+	config, err := config.LoadConfig()
+	if err != nil {
+		fmt.Println("Error loading config:", err)
+		return
 	}
+	//Init gRPC clients
+	conn, err := grpc.NewClient(config.Core.Address, grpc.WithInsecure())
+	if err != nil {
+		panic(err)
+	}
+	defer conn.Close()
+
+	accountClient := pb.NewAccountServiceClient(conn)
+	accountTypeClient := pb.NewAccountTypeServiceClient(conn)
+	atmClient := pb.NewAtmServiceClient(conn)
+	branchClient := pb.NewBranchServiceClient(conn)
+	cardClient := pb.NewCardServiceClient(conn)
+	customerAddressClient := pb.NewCustomerAddressServiceClient(conn)
+	customerClient := pb.NewCustomerServiceClient(conn)
+	depositClient := pb.NewDepositServiceClient(conn)
+	exchangeRateClient := pb.NewExchangeRateServiceClient(conn)
+	feeTypeClient := pb.NewFeeTypeServiceClient(conn)
+	loanClient := pb.NewLoanServiceClient(conn)
+	loanPaymentClient := pb.NewLoanPaymentServiceClient(conn)
+	loginLogClient := pb.NewLoginLogServiceClient(conn)
+	notificationClient := pb.NewNotificationServiceClient(conn)
+	paymentTemplateClient := pb.NewPaymentTemplateServiceClient(conn)
+	transactionClient := pb.NewTransactionServiceClient(conn)
+	transactionCategoryClient := pb.NewTransactionCategoryServiceClient(conn)
+	transactionFeeClient := pb.NewTransactionFeeServiceClient(conn)
+	userCredentialClient := pb.NewUserCredentialServiceClient(conn)
+
+	// Init infrastructure repositories
+	accountRepo := account_repo.NewRepository(accountClient)
+	accountTypeRepo := account_repo.NewAccountTypeRepository(accountTypeClient)
+	atmRepo := atm_repo.NewRepository(atmClient)
+	branchRepo := branch_repo.NewRepository(branchClient)
+	cardRepo := card_repo.NewRepository(cardClient)
+	customerRepo := customer_repo.NewRepository(customerClient)
+	customerAddressRepo := customer_address_repo.NewCustomerAddressRepository(customerAddressClient)
+	depositRepo := deposit_repo.NewRepository(depositClient)
+	exchangeRateRepo := exchange_rate_repo.NewRepository(exchangeRateClient)
+	feeTypeRepo := fee_type_repo.NewRepository(feeTypeClient)
+	loanRepo := loan_repo.NewLoanRepository(loanClient)
+	loanPaymentRepo := loan_repo.NewLoanPaymentRepository(loanPaymentClient)
+	loginLogRepo := login_log_repo.NewRepository(loginLogClient)
+	notificationRepo := notification_repo.NewRepository(notificationClient)
+	paymentTemplateRepo := payment_template_repo.NewRepository(paymentTemplateClient)
+	transactionRepo := transaction_repo.NewTransactionRepository(transactionClient)
+	transactionCategoryRepo := transaction_repo.NewTransactionCategoryRepository(transactionCategoryClient)
+	transactionFeeRepo := transaction_repo.NewTransactionFeeRepository(transactionFeeClient)
+	userCredentialRepo := user_credential_repo.NewRepository(userCredentialClient)
+
 }

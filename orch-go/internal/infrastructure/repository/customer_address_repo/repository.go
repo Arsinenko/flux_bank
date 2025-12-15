@@ -79,7 +79,7 @@ func (r Repository) Delete(ctx context.Context, id int32) error {
 	return nil
 }
 
-func New(client pb.CustomerAddressServiceClient) *Repository {
+func NewCustomerAddressRepository(client pb.CustomerAddressServiceClient) *Repository {
 	return &Repository{
 		client: client,
 	}

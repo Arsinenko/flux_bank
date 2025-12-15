@@ -1,0 +1,6 @@
+core:
+	address: "localhost:8080"
+analytics:
+	address: "localhost:8081"
+host:
+	address: "localhost:8000"
