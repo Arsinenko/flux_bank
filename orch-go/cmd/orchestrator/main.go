@@ -18,6 +18,7 @@ import (
 	"orch-go/internal/infrastructure/repository/payment_template_repo"
 	"orch-go/internal/infrastructure/repository/transaction_repo"
 	"orch-go/internal/infrastructure/repository/user_credential_repo"
+	"orch-go/internal/services"
 
 	pb "orch-go/api/generated"
 
@@ -81,4 +82,24 @@ func main() {
 	transactionFeeRepo := transaction_repo.NewTransactionFeeRepository(transactionFeeClient)
 	userCredentialRepo := user_credential_repo.NewRepository(userCredentialClient)
 
+	// Init services
+	_ = services.NewAccountService(accountRepo)
+	_ = services.NewAccountTypeService(accountTypeRepo)
+	_ = services.NewAtmService(atmRepo)
+	_ = services.NewBranchService(branchRepo)
+	_ = services.NewCardService(cardRepo)
+	_ = services.NewCustomerService(customerRepo)
+	// TODO: CustomerAddressService?
+	_ = customerAddressRepo // Placeholder usage
+	_ = services.NewDepositService(depositRepo)
+	_ = services.NewExchangeRateService(exchangeRateRepo)
+	_ = services.NewFeeTypeService(feeTypeRepo)
+	_ = services.NewLoanService(loanRepo, loanPaymentRepo)
+	_ = services.NewLoginLogService(loginLogRepo)
+	_ = services.NewNotificationService(notificationRepo)
+	_ = services.NewPaymentTemplateService(paymentTemplateRepo)
+	_ = services.NewTransactionService(transactionRepo, transactionCategoryRepo, transactionFeeRepo)
+	_ = services.NewUserCredentialService(userCredentialRepo)
+
+	fmt.Println("Orchestrator started with all services initialized")
 }

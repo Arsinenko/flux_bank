@@ -3,9 +3,9 @@
 This document outlines the development roadmap for the `orch-go` service, which serves as the orchestrator and emulator for the banking system. It manages autonomous agents and interacts with backend services via gRPC.
 
 ## 1. Foundation & Architecture
-* [ ] **Initialize Main Entry Point**: Implement `cmd/orchestrator/main.go` to bootstrap the application, load config, and handle graceful shutdown.
-* [ ] **Dependency Injection**: Set up a DI container (e.g., manual wiring or a library) to manage clients, repositories, and services.
-* [ ] **Configuration Management**: Implement loading configuration (env variables/files) for gRPC service endpoints, agent settings, and log levels.
+* [x] **Initialize Main Entry Point**: Implement `cmd/orchestrator/main.go` to bootstrap the application, load config, and handle graceful shutdown.
+* [x] **Dependency Injection**: Set up a DI container (e.g., manual wiring or a library) to manage clients, repositories, and services.
+* [x] **Configuration Management**: Implement loading configuration (env variables/files) for gRPC service endpoints, agent settings, and log levels.
 
 ## 2. Core Domain & Infrastructure
 * [ ] **Complete Repositories**: Ensure all infrastructure repositories (Account, Transaction, etc.) correctly wrap their respective gRPC clients.
