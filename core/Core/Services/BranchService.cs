@@ -62,13 +62,13 @@ public class BranchService(IBranchRepository branchRepository, IMapper mapper) :
         var ids = request.Branches.Select(b => b.BranchId).ToList();
         if (ids.Count == 0)
         {
-            throw new NotFoundException("No branches to delete");
+            throw new ValidationException("No branches to delete");
         }
         var branches = await branchRepository.GetByIdsAsync(ids);
         var foundBranches = branches.Where(b => b != null).ToList();
         if (foundBranches.Count != ids.Count)
         {
-            throw new NotFoundException("Some branches not found");
+            throw new ValidationException("Some branches not found");
         }
         await branchRepository.DeleteRangeAsync(foundBranches!);
         return new Empty();
@@ -79,7 +79,7 @@ public class BranchService(IBranchRepository branchRepository, IMapper mapper) :
         var branches = request.Branches.Select(mapper.Map<Branch>).ToList();
         if (!branches.Any())
         {
-            throw new NotFoundException("No branches to update");
+            throw new ValidationException("No branches to update");
         }
         await branchRepository.UpdateRangeAsync(branches);
         return new Empty();

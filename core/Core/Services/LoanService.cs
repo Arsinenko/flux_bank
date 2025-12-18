@@ -64,14 +64,14 @@ public class LoanService(ILoanRepository loanRepository, IMapper mapper)
         var ids = request.Loans.Select(l => l.LoanId).ToList();
         if (ids.Count == 0)
         {
-            throw new NotFoundException("No loans to delete");
+            throw new ValidationException("No loans to delete");
         }
         
         var loans = await loanRepository.GetByIdsAsync(ids);
         var foundLoans = loans.Where(l => l != null).ToList();
         if (foundLoans.Count != ids.Count)
         {
-            throw new NotFoundException("Some loans not found");
+            throw new ValidationException("Some loans not found");
         }
         await loanRepository.DeleteRangeAsync(foundLoans!);
         return new Empty();

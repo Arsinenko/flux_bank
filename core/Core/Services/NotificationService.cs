@@ -64,13 +64,13 @@ public class NotificationService(INotificationRepository notificationRepository,
         var ids = request.Notifications.Select(n => n.NotificationId).ToList();
         if (ids.Count == 0)
         {
-            throw new NotFoundException("No notifications to delete");
+            throw new ValidationException("No notifications to delete");
         }
         var notifications = await notificationRepository.GetByIdsAsync(ids);
         var foundNotifications = notifications.Where(n => n != null).ToList();
         if (foundNotifications.Count != ids.Count)
         {
-            throw new NotFoundException("Some notifications not found");
+            throw new ValidationException("Some notifications not found");
         }
         await notificationRepository.DeleteRangeAsync(foundNotifications!);
         return new Empty();
@@ -81,7 +81,7 @@ public class NotificationService(INotificationRepository notificationRepository,
         var notifications = request.Notifications.Select(mapper.Map<Notification>).ToList();
         if (!notifications.Any())
         {
-            throw new NotFoundException("No notifications to update");
+            throw new ValidationException("No notifications to update");
         }
 
         await notificationRepository.UpdateRangeAsync(notifications);

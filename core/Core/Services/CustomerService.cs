@@ -76,13 +76,13 @@ public class CustomerService(ICustomerRepository repository, IMapper mapper) : C
         var ids = request.Customers.Select(c => c.CustomerId).ToList();
         if (ids.Count == 0)
         {
-            throw new NotFoundException("No customers to delete");
+            throw new ValidationException("No customers to delete");
         }
         var customers = await repository.GetByIdsAsync(ids);
         var foundCustomers = customers.Where(c => c != null).ToList();
         if (foundCustomers.Count != ids.Count)
         {
-            throw new NotFoundException("Some customers not found");
+            throw new ValidationException("Some customers not found");
         }
         await repository.DeleteRangeAsync(foundCustomers!);
         return new Empty();
@@ -93,7 +93,7 @@ public class CustomerService(ICustomerRepository repository, IMapper mapper) : C
         var customers = request.Customers.Select(mapper.Map<Customer>).ToList();
         if (!customers.Any())
         {
-            throw new NotFoundException("No customers to update");
+            throw new ValidationException("No customers to update");
         }
 
         await repository.UpdateRangeAsync(customers);

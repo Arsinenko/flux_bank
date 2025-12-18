@@ -65,9 +65,9 @@ public class AccountService(IAccountRepository accountRepository, IMapper mapper
     {
         var accounts = (await accountRepository.GetByIdsAsync(request.Accounts
             .Select(a => a.AccountId))).ToList();
-        if (accounts.Count != request.Accounts.Count)
+        if (accounts.Count != request.Accounts.Count || accounts.Count == 0)
         {
-            throw new NotFoundException("One or more accounts not found");
+            throw new ValidationException("One or more accounts not found");
         }
         await accountRepository.DeleteRangeAsync(accounts!);
         return new Empty();
@@ -87,7 +87,7 @@ public class AccountService(IAccountRepository accountRepository, IMapper mapper
         var accounts = request.Accounts.Select(mapper.Map<Account>).ToList();
         if (!accounts.Any())
         {
-            throw new NotFoundException("No accounts found");
+            throw new ValidationException("No accounts found");
         }
         await accountRepository.UpdateRangeAsync(accounts);
         return new Empty();

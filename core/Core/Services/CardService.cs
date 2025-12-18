@@ -67,13 +67,13 @@ public class CardService(ICardRepository repository, IMapper mapper) : Core.Card
         var ids = request.Cards.Select(c => c.CardId).ToList();
         if (ids.Count == 0)
         {
-            throw new NotFoundException("No cards to delete");
+            throw new ValidationException("No cards to delete");
         }
         var cards = await repository.GetByIdsAsync(ids);
         var foundCards = cards.Where(c => c != null).ToList();
         if (foundCards.Count != ids.Count)
         {
-            throw new NotFoundException("Some cards not found");
+            throw new ValidationException("Some cards not found");
         }
         await repository.DeleteRangeAsync(foundCards!);
         return new Empty();
@@ -84,7 +84,7 @@ public class CardService(ICardRepository repository, IMapper mapper) : Core.Card
         var cards = request.Cards.Select(mapper.Map<Card>).ToList();
         if (!cards.Any())
         {
-            throw new NotFoundException("No cards to update");
+            throw new ValidationException("No cards to update");
         }
         await repository.UpdateRangeAsync(cards);
         return new Empty();

@@ -64,13 +64,13 @@ public class FeeTypeService(IFeeTypeRepository feeTypeRepository, IMapper mapper
         var ids = request.FeeTypes.Select(f => f.FeeId).ToList();
         if (ids.Count == 0)
         {
-            throw new NotFoundException("No fee types to delete");
+            throw new ValidationException("No fee types to delete");
         }
         var feeTypes = await feeTypeRepository.GetByIdsAsync(ids);
         var foundFeeTypes = feeTypes.Where(ft => ft != null).ToList();
         if (foundFeeTypes.Count != ids.Count)
         {
-            throw new NotFoundException("Some fee types not found");
+            throw new ValidationException("Some fee types not found");
         }
         await feeTypeRepository.DeleteRangeAsync(foundFeeTypes!);
         return new Empty();
@@ -81,7 +81,7 @@ public class FeeTypeService(IFeeTypeRepository feeTypeRepository, IMapper mapper
         var feeTypes = request.FeeTypes.Select(mapper.Map<FeeType>).ToList();
         if (!feeTypes.Any())
         {
-            throw new NotFoundException("No fee types to update");
+            throw new ValidationException("No fee types to update");
         }
         await feeTypeRepository.UpdateRangeAsync(feeTypes);
         return new Empty();

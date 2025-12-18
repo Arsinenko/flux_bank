@@ -71,13 +71,13 @@ public class AtmService(IAtmRepository atmRepository, IMapper mapper) : Core.Atm
         var ids = request.Atms.Select(a => a.AtmId).ToList();
         if (ids.Count == 0)
         {
-            throw new NotFoundException("No ATMs to delete");
+            throw new ValidationException("No ATMs to delete");
         }
         var atms = await atmRepository.GetByIdsAsync(ids);
         var foundAtms = atms.Where(a => a != null).ToList();
         if (foundAtms.Count != ids.Count)
         {
-            throw new NotFoundException("Some ATMs not found");
+            throw new ValidationException("Some ATMs not found");
         }
         await atmRepository.DeleteRangeAsync(foundAtms!);
         return new Empty();
@@ -88,7 +88,7 @@ public class AtmService(IAtmRepository atmRepository, IMapper mapper) : Core.Atm
         var atms = request.Atms.Select(mapper.Map<Atm>).ToList();
         if (!atms.Any())
         {
-            throw new NotFoundException("No ATMs to update");
+            throw new ValidationException("No ATMs to update");
         }
         await atmRepository.UpdateRangeAsync(atms);
         return new Empty(); 

@@ -64,13 +64,13 @@ public class DepositService(IDepositRepository depositRepository, IMapper mapper
         var ids = request.Deposits.Select(d => d.DepositId).ToList();
         if (ids.Count == 0)
         {
-            throw new NotFoundException("No deposits to delete");
+            throw new ValidationException("No deposits to delete");
         }
         var deposits = await depositRepository.GetByIdsAsync(ids);
         var foundDeposits = deposits.Where(d => d != null).ToList();
         if (foundDeposits.Count != ids.Count)
         {
-            throw new NotFoundException("Some deposits not found");
+            throw new ValidationException("Some deposits not found");
         }
         await depositRepository.DeleteRangeAsync(foundDeposits!);
         return new Empty();
@@ -81,7 +81,7 @@ public class DepositService(IDepositRepository depositRepository, IMapper mapper
         var deposits = request.Deposits.Select(mapper.Map<Deposit>).ToList();
         if (!deposits.Any())
         {
-            throw new NotFoundException("No deposits to update");
+            throw new ValidationException("No deposits to update");
         }
         await depositRepository.UpdateRangeAsync(deposits);
         return new Empty();

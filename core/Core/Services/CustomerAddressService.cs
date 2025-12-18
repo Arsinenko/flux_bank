@@ -74,7 +74,7 @@ public class CustomerAddressService(ICustomerAddressRepository repository, IMapp
         var addresses = request.CustomerAddresses.Select(mapper.Map<CustomerAddress>).ToList();
         if (!addresses.Any())
         {
-            throw new NotFoundException("No addresses to update");
+            throw new ValidationException("No addresses to update");
         }
         await repository.UpdateRangeAsync(addresses);
         return new Empty();
@@ -85,7 +85,7 @@ public class CustomerAddressService(ICustomerAddressRepository repository, IMapp
         var addresses = (await repository.GetByIdsAsync(request.CustomerAddresses.Select(a => a.AddressId))).ToList();
         if (addresses.Count != request.CustomerAddresses.Count)
         {
-            throw new NotFoundException("One or more addresses not found");
+            throw new ValidationException("One or more addresses not found");
         }
 
         await repository.DeleteRangeAsync(addresses!);

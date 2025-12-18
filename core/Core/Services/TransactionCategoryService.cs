@@ -64,13 +64,13 @@ public class TransactionCategoryService(ITransactionCategoryRepository transacti
         var ids = request.TransactionCategories.Select(t => t.CategoryId).ToList();
         if (ids.Count == 0)
         {
-            throw new NotFoundException("No transaction categories to delete");
+            throw new ValidationException("No transaction categories to delete");
         }
         var transactionCategories = await transactionCategoryRepository.GetByIdsAsync(ids);
         var foundTransactionCategories = transactionCategories.Where(tc => tc != null).ToList();
         if (foundTransactionCategories.Count != ids.Count)
         {
-            throw new NotFoundException("Some transaction categories not found");
+            throw new ValidationException("Some transaction categories not found");
         }
         await transactionCategoryRepository.DeleteRangeAsync(foundTransactionCategories!);
         return new Empty();
@@ -81,7 +81,7 @@ public class TransactionCategoryService(ITransactionCategoryRepository transacti
         var transactionCategories = request.TransactionCategories.Select(mapper.Map<TransactionCategory>).ToList();
         if (!transactionCategories.Any())
         {
-            throw new NotFoundException("No transaction categories to update");
+            throw new ValidationException("No transaction categories to update");
         }
         await transactionCategoryRepository.UpdateRangeAsync(transactionCategories);
         return new Empty();

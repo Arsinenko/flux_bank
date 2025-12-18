@@ -65,7 +65,7 @@ public class TransactionService(ITransactionRepository transactionRepository, IM
         var ids = request.Transactions.Select(t => t.TransactionId).ToList();
         if (ids.Count == 0)
         {
-            throw new NotFoundException("No transactions to delete");
+            throw new ValidationException("No transactions to delete");
         }
         var transactions = await transactionRepository.GetByIdsAsync(ids);
         await transactionRepository.DeleteRangeAsync(transactions.Where(t => t is not null)!);
@@ -77,7 +77,7 @@ public class TransactionService(ITransactionRepository transactionRepository, IM
         var transactions = request.Transactions.Select(mapper.Map<Transaction>).ToList();
         if (!transactions.Any())
         {
-            throw new NotFoundException("No transactions to update");
+            throw new ValidationException("No transactions to update");
         }
         await transactionRepository.UpdateRangeAsync(transactions);
         return new Empty();

@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Grpc.Core;
+﻿using Grpc.Core;
 using Grpc.Core.Interceptors;
 using Microsoft.EntityFrameworkCore;
 

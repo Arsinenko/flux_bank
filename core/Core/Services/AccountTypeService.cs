@@ -64,13 +64,13 @@ public class AccountTypeService(IAccountTypeRepository accountTypeRepository, IM
         var ids = request.AccountTypes.Select(a => a.TypeId).ToList();
         if (ids.Count == 0)
         {
-            throw new NotFoundException("No account types to delete");
+            throw new ValidationException("No account types to delete");
         }
         var accountTypes = await accountTypeRepository.GetByIdsAsync(ids);
         var foundAccountTypes = accountTypes.Where(at => at != null).ToList();
         if (foundAccountTypes.Count != ids.Count)
         {
-            throw new NotFoundException("One or more account types not found");
+            throw new ValidationException("One or more account types not found");
         }
         await accountTypeRepository.DeleteRangeAsync(foundAccountTypes!);
         return new Empty();
@@ -81,7 +81,7 @@ public class AccountTypeService(IAccountTypeRepository accountTypeRepository, IM
         var accountTypes = request.AccountTypes.Select(mapper.Map<AccountType>).ToList();
         if (!accountTypes.Any())
         {
-            throw new NotFoundException("No account types found");
+            throw new ValidationException("No account types found");
         }
         await accountTypeRepository.UpdateRangeAsync(accountTypes);
         return new Empty();

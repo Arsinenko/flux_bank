@@ -64,13 +64,13 @@ public class LoanPaymentService(ILoanPaymentRepository loanPaymentRepository, IM
         var ids = request.Payments.Select(p => p.PaymentId).ToList();
         if (ids.Count == 0)
         {
-            throw new NotFoundException("No payments to delete");
+            throw new ValidationException("No payments to delete");
         }
         var loanPayments = await loanPaymentRepository.GetByIdsAsync(ids);
         var foundLoanPayments = loanPayments.Where(lp => lp != null).ToList();
         if (foundLoanPayments.Count != ids.Count)
         {
-            throw new NotFoundException("Some loan payments not found");
+            throw new ValidationException("Some loan payments not found");
         }
         await loanPaymentRepository.DeleteRangeAsync(foundLoanPayments!);
         return new Empty();
@@ -89,7 +89,7 @@ public class LoanPaymentService(ILoanPaymentRepository loanPaymentRepository, IM
         var loanPayments = request.Payments.Select(mapper.Map<LoanPayment>).ToList();
         if (!loanPayments.Any())
         {
-            throw new NotFoundException("No loan payments to update");
+            throw new ValidationException("No loan payments to update");
         }
         await loanPaymentRepository.UpdateRangeAsync(loanPayments);
         return new Empty();

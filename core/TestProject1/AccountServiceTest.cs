@@ -6,6 +6,8 @@ using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using Moq;
 using Core;
+using Core.Exceptions;
+using ValidationException = System.ComponentModel.DataAnnotations.ValidationException;
 
 namespace TestProject1;
 
@@ -88,8 +90,7 @@ public class AccountServiceTest
         Func<Task> act = async () => await _accountService.GetById(request, Mock.Of<ServerCallContext>());
 
         // Assert
-        var exception = await act.Should().ThrowAsync<RpcException>();
-        exception.Which.Status.StatusCode.Should().Be(StatusCode.NotFound);
+        var exception = await act.Should().ThrowAsync<NotFoundException>();
     }
 
     [Fact]
@@ -121,8 +122,7 @@ public class AccountServiceTest
         Func<Task> act = async () => await _accountService.Update(request, Mock.Of<ServerCallContext>());
 
         // Assert
-        var exception = await act.Should().ThrowAsync<RpcException>();
-        exception.Which.Status.StatusCode.Should().Be(StatusCode.NotFound);
+        var exception = await act.Should().ThrowAsync<NotFoundException>();
     }
 
     [Fact]
@@ -168,9 +168,8 @@ public class AccountServiceTest
         Func<Task> act = async () => await _accountService.DeleteBulk(request, Mock.Of<ServerCallContext>());
 
         // Assert
-        var exception = await act.Should().ThrowAsync<RpcException>();
-        exception.Which.Status.StatusCode.Should().Be(StatusCode.NotFound);
-        exception.Which.Status.Detail.Should().Be("No accounts to delete");
+        var exception = await act.Should().ThrowAsync<ValidationException>();
+        exception.Which.Message.Should().Be("No accounts to delete");
     }
 
     [Fact]
@@ -189,9 +188,8 @@ public class AccountServiceTest
         Func<Task> act = async () => await _accountService.DeleteBulk(request, Mock.Of<ServerCallContext>());
 
         // Assert
-        var exception = await act.Should().ThrowAsync<RpcException>();
-        exception.Which.Status.StatusCode.Should().Be(StatusCode.NotFound);
-        exception.Which.Status.Detail.Should().Be("Some accounts not found");
+        var exception = await act.Should().ThrowAsync<ValidationException>();
+        exception.Which.Message.Should().Be("One or more accounts not found");
     }
 
     [Fact]
@@ -223,8 +221,7 @@ public class AccountServiceTest
         Func<Task> act = async () => await _accountService.UpdateBulk(request, Mock.Of<ServerCallContext>());
 
         // Assert
-        var exception = await act.Should().ThrowAsync<RpcException>();
-        exception.Which.Status.StatusCode.Should().Be(StatusCode.NotFound);
-        exception.Which.Status.Detail.Should().Be("No accounts to update");
+        var exception = await act.Should().ThrowAsync<ValidationException>();
+        exception.Which.Message.Should().Be("No accounts found");
     }
 }
