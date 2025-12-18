@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Core.Exceptions;
 using Core.Interfaces;
 using Core.Models;
 using Google.Protobuf.WellKnownTypes;
@@ -33,7 +34,7 @@ public class LoanService(ILoanRepository loanRepository, IMapper mapper)
         var loan = await loanRepository.GetByIdAsync(request.LoanId);
 
         if (loan == null)
-            throw new RpcException(new Status(StatusCode.NotFound, "Loan not found"));
+            throw new NotFoundException("Loan not found");
 
         return mapper.Map<LoanModel>(loan);
     }
@@ -43,7 +44,7 @@ public class LoanService(ILoanRepository loanRepository, IMapper mapper)
         var loan = await loanRepository.GetByIdAsync(request.LoanId);
 
         if (loan == null)
-            throw new RpcException(new Status(StatusCode.NotFound, "Loan not found"));
+            throw new NotFoundException("Loan not found");
 
         mapper.Map(request, loan);
 
@@ -63,14 +64,14 @@ public class LoanService(ILoanRepository loanRepository, IMapper mapper)
         var ids = request.Loans.Select(l => l.LoanId).ToList();
         if (ids.Count == 0)
         {
-            throw new RpcException(new Status(StatusCode.NotFound, "No loans to delete"));
+            throw new NotFoundException("No loans to delete");
         }
         
         var loans = await loanRepository.GetByIdsAsync(ids);
         var foundLoans = loans.Where(l => l != null).ToList();
         if (foundLoans.Count != ids.Count)
         {
-            throw new RpcException(new Status(StatusCode.NotFound, "Some loans not found"));
+            throw new NotFoundException("Some loans not found");
         }
         await loanRepository.DeleteRangeAsync(foundLoans!);
         return new Empty();

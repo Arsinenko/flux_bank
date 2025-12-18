@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Core.Exceptions;
 using Core.Interfaces;
 using Core.Models;
 using Google.Protobuf.WellKnownTypes;
@@ -35,7 +36,7 @@ public class AccountService(IAccountRepository accountRepository, IMapper mapper
         var account = await accountRepository.GetByIdAsync(request.AccountId);
 
         if (account == null)
-            throw new RpcException(new Status(StatusCode.NotFound, "Account not found"));
+            throw new NotFoundException("Account not found");
 
         return mapper.Map<AccountModel>(account);
     }
@@ -45,7 +46,7 @@ public class AccountService(IAccountRepository accountRepository, IMapper mapper
         var account = await accountRepository.GetByIdAsync(request.AccountId);
 
         if (account == null)
-            throw new RpcException(new Status(StatusCode.NotFound, "Account not found"));
+            throw new NotFoundException("Account not found");
 
         mapper.Map(request, account);
 
@@ -66,7 +67,7 @@ public class AccountService(IAccountRepository accountRepository, IMapper mapper
             .Select(a => a.AccountId))).ToList();
         if (accounts.Count != request.Accounts.Count)
         {
-            throw new RpcException(new Status(StatusCode.NotFound, "One or more accounts not found"));
+            throw new NotFoundException("One or more accounts not found");
         }
         await accountRepository.DeleteRangeAsync(accounts!);
         return new Empty();
@@ -86,7 +87,7 @@ public class AccountService(IAccountRepository accountRepository, IMapper mapper
         var accounts = request.Accounts.Select(mapper.Map<Account>).ToList();
         if (!accounts.Any())
         {
-            throw new RpcException(new Status(StatusCode.NotFound, "No accounts to update"));
+            throw new NotFoundException("No accounts found");
         }
         await accountRepository.UpdateRangeAsync(accounts);
         return new Empty();
@@ -114,14 +115,7 @@ public class AccountService(IAccountRepository accountRepository, IMapper mapper
     public override async Task<Empty> AddBulk(AddAccountBulkRequest request, ServerCallContext context)
     {
         var accounts = request.Accounts.Select(mapper.Map<Account>).ToList();
-        try
-        {
-            await accountRepository.AddRangeAsync(accounts);
-            return new Empty();
-        }
-        catch (Exception e)
-        {
-            throw new RpcException(new Status(StatusCode.Internal, e.Message));
-        }
+        await accountRepository.AddRangeAsync(accounts);
+        return new Empty();
     }
 }

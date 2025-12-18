@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Core.Exceptions;
 using Core.Interfaces;
 using Core.Models;
 using Google.Protobuf.WellKnownTypes;
@@ -33,7 +34,7 @@ public class TransactionFeeService(ITransactionFeeRepository transactionFeeRepos
         var transactionFee = await transactionFeeRepository.GetByIdAsync(request.Id);
 
         if (transactionFee == null)
-            throw new RpcException(new Status(StatusCode.NotFound, "TransactionFee not found"));
+            throw new NotFoundException("TransactionFee not found");
 
         return mapper.Map<TransactionFeeModel>(transactionFee);
     }
@@ -43,7 +44,7 @@ public class TransactionFeeService(ITransactionFeeRepository transactionFeeRepos
         var transactionFee = await transactionFeeRepository.GetByIdAsync(request.Id);
 
         if (transactionFee == null)
-            throw new RpcException(new Status(StatusCode.NotFound, "TransactionFee not found"));
+            throw new NotFoundException("TransactionFee not found");
 
         mapper.Map(request, transactionFee);
 

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Core.Exceptions;
 using Core.Interfaces;
 using Core.Models;
 using Google.Protobuf.WellKnownTypes;
@@ -33,7 +34,7 @@ public class ExchangeRateService(IExchangeRateRepository exchangeRateRepository,
         var exchangeRate = await exchangeRateRepository.GetByIdAsync(request.RateId);
 
         if (exchangeRate == null)
-            throw new RpcException(new Status(StatusCode.NotFound, "ExchangeRate not found"));
+            throw new NotFoundException("ExchangeRate not found");
 
         return mapper.Map<ExchangeRateModel>(exchangeRate);
     }
@@ -43,7 +44,7 @@ public class ExchangeRateService(IExchangeRateRepository exchangeRateRepository,
         var exchangeRate = await exchangeRateRepository.GetByIdAsync(request.RateId);
 
         if (exchangeRate == null)
-            throw new RpcException(new Status(StatusCode.NotFound, "ExchangeRate not found"));
+            throw new NotFoundException("ExchangeRate not found");
 
         mapper.Map(request, exchangeRate);
 
@@ -63,13 +64,13 @@ public class ExchangeRateService(IExchangeRateRepository exchangeRateRepository,
         var ids = request.ExchangeRates.Select(e => e.RateId).ToList();
         if (ids.Count == 0)
         {
-            throw new RpcException(new Status(StatusCode.NotFound, "No exchange to delete!"));
+            throw new NotFoundException("No exchange to delete!");
         }
         var exchangeRates = await exchangeRateRepository.GetByIdsAsync(ids);
         var foundExchangeRates = exchangeRates.Where(er => er != null).ToList();
         if (foundExchangeRates.Count != ids.Count)
         {
-            throw new RpcException(new Status(StatusCode.NotFound, "Some exchange rates not found"));
+            throw new NotFoundException("Some exchange rates not found");
         }
         await exchangeRateRepository.DeleteRangeAsync(foundExchangeRates!);
         return new Empty();
@@ -80,7 +81,7 @@ public class ExchangeRateService(IExchangeRateRepository exchangeRateRepository,
         var exchangeRates = request.ExchangeRates.Select(mapper.Map<ExchangeRate>).ToList();
         if (!exchangeRates.Any())
         {
-            throw new RpcException(new Status(StatusCode.NotFound, "No exchange to update!"));
+            throw new NotFoundException("No exchange to update!");
         }
         await exchangeRateRepository.UpdateRangeAsync(exchangeRates);
         return new Empty();
@@ -89,15 +90,8 @@ public class ExchangeRateService(IExchangeRateRepository exchangeRateRepository,
     public override async Task<Empty> AddBulk(AddExchangeRateBulkRequest request, ServerCallContext context)
     {
         var exchangeRates = request.ExchangeRates.Select(mapper.Map<ExchangeRate>).ToList();
-        try
-        {
-            await exchangeRateRepository.AddRangeAsync(exchangeRates);
-            return new Empty();
-        }
-        catch (Exception e)
-        {
-            throw new RpcException(new Status(StatusCode.Internal, e.Message));
-        }
+        await exchangeRateRepository.AddRangeAsync(exchangeRates);
+        return new Empty();
     }
 
     public override async Task<GetAllExchangeRatesResponse> GetByBaseCurrency(GetExchangeRateByBaseCurrencyRequest request, ServerCallContext context)

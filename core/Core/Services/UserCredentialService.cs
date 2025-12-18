@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Core.Exceptions;
 using Core.Interfaces;
 using Core.Models;
 using Google.Protobuf.WellKnownTypes;
@@ -33,7 +34,7 @@ public class UserCredentialService(IUserCredentialRepository userCredentialRepos
         var userCredential = await userCredentialRepository.GetByIdAsync(request.CustomerId);
 
         if (userCredential == null)
-            throw new RpcException(new Status(StatusCode.NotFound, "UserCredential not found"));
+            throw new NotFoundException("UserCredential not found");
 
         return mapper.Map<UserCredentialModel>(userCredential);
     }
@@ -43,7 +44,7 @@ public class UserCredentialService(IUserCredentialRepository userCredentialRepos
         var userCredential = await userCredentialRepository.GetByIdAsync(request.CustomerId);
 
         if (userCredential == null)
-            throw new RpcException(new Status(StatusCode.NotFound, "UserCredential not found"));
+            throw new NotFoundException("UserCredential not found");
 
         mapper.Map(request, userCredential);
 

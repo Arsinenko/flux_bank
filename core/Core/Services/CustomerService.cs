@@ -1,4 +1,5 @@
 using AutoMapper;
+using Core.Exceptions;
 using Core.Interfaces;
 using Core.Models;
 using Google.Protobuf.WellKnownTypes;
@@ -20,7 +21,7 @@ public class CustomerService(ICustomerRepository repository, IMapper mapper) : C
         var customer = await repository.GetByIdAsync(request.CustomerId);
         if (customer == null)
         {
-            throw new RpcException(new Status(StatusCode.NotFound, "Customer not found."));
+            throw new NotFoundException("Customer not found");
         }
         await repository.DeleteAsync(request.CustomerId);
         return new Empty();
@@ -38,7 +39,7 @@ public class CustomerService(ICustomerRepository repository, IMapper mapper) : C
     public override async Task<CustomerModel> GetById(GetCustomerByIdRequest request, ServerCallContext context)
     {
         var customer = await repository.GetByIdAsync(request.CustomerId);
-        if (customer == null) throw new RpcException(new Status(StatusCode.NotFound, "Customer not found"));
+        if (customer == null) throw new NotFoundException("Customer not found");
         return mapper.Map<CustomerModel>(customer);
     }
 
@@ -64,7 +65,7 @@ public class CustomerService(ICustomerRepository repository, IMapper mapper) : C
     public override async Task<Empty> Update(UpdateCustomerRequest request, ServerCallContext context)
     {
         var customer = await repository.GetByIdAsync(request.CustomerId);
-        if (customer == null) throw new RpcException(new Status(StatusCode.NotFound, "Customer not found"));
+        if (customer == null) throw new NotFoundException("Customer not found");
         mapper.Map(request, customer);
         await repository.UpdateAsync(customer);
         return new Empty();
@@ -75,13 +76,13 @@ public class CustomerService(ICustomerRepository repository, IMapper mapper) : C
         var ids = request.Customers.Select(c => c.CustomerId).ToList();
         if (ids.Count == 0)
         {
-            throw new RpcException(new Status(StatusCode.NotFound, "No customers to delete"));
+            throw new NotFoundException("No customers to delete");
         }
         var customers = await repository.GetByIdsAsync(ids);
         var foundCustomers = customers.Where(c => c != null).ToList();
         if (foundCustomers.Count != ids.Count)
         {
-            throw new RpcException(new Status(StatusCode.NotFound, "Some customers not found"));
+            throw new NotFoundException("Some customers not found");
         }
         await repository.DeleteRangeAsync(foundCustomers!);
         return new Empty();
@@ -92,7 +93,7 @@ public class CustomerService(ICustomerRepository repository, IMapper mapper) : C
         var customers = request.Customers.Select(mapper.Map<Customer>).ToList();
         if (!customers.Any())
         {
-            throw new RpcException(new Status(StatusCode.NotFound, "No customers to update"));
+            throw new NotFoundException("No customers to update");
         }
 
         await repository.UpdateRangeAsync(customers);

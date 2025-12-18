@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Core.Exceptions;
 using Core.Interfaces;
 using Core.Models;
 using Google.Protobuf.WellKnownTypes;
@@ -33,7 +34,7 @@ public class TransactionCategoryService(ITransactionCategoryRepository transacti
         var transactionCategory = await transactionCategoryRepository.GetByIdAsync(request.CategoryId);
 
         if (transactionCategory == null)
-            throw new RpcException(new Status(StatusCode.NotFound, "TransactionCategory not found"));
+            throw new NotFoundException("TransactionCategory not found");
 
         return mapper.Map<TransactionCategoryModel>(transactionCategory);
     }
@@ -43,7 +44,7 @@ public class TransactionCategoryService(ITransactionCategoryRepository transacti
         var transactionCategory = await transactionCategoryRepository.GetByIdAsync(request.CategoryId);
 
         if (transactionCategory == null)
-            throw new RpcException(new Status(StatusCode.NotFound, "TransactionCategory not found"));
+            throw new NotFoundException("TransactionCategory not found");
 
         mapper.Map(request, transactionCategory);
 
@@ -63,13 +64,13 @@ public class TransactionCategoryService(ITransactionCategoryRepository transacti
         var ids = request.TransactionCategories.Select(t => t.CategoryId).ToList();
         if (ids.Count == 0)
         {
-            throw new RpcException(new Status(StatusCode.NotFound, "No transaction categories to delete"));
+            throw new NotFoundException("No transaction categories to delete");
         }
         var transactionCategories = await transactionCategoryRepository.GetByIdsAsync(ids);
         var foundTransactionCategories = transactionCategories.Where(tc => tc != null).ToList();
         if (foundTransactionCategories.Count != ids.Count)
         {
-            throw new RpcException(new Status(StatusCode.NotFound, "Some transaction categories not found"));
+            throw new NotFoundException("Some transaction categories not found");
         }
         await transactionCategoryRepository.DeleteRangeAsync(foundTransactionCategories!);
         return new Empty();
@@ -80,7 +81,7 @@ public class TransactionCategoryService(ITransactionCategoryRepository transacti
         var transactionCategories = request.TransactionCategories.Select(mapper.Map<TransactionCategory>).ToList();
         if (!transactionCategories.Any())
         {
-            throw new RpcException(new Status(StatusCode.NotFound, "No transaction categories to update"));
+            throw new NotFoundException("No transaction categories to update");
         }
         await transactionCategoryRepository.UpdateRangeAsync(transactionCategories);
         return new Empty();
@@ -89,15 +90,8 @@ public class TransactionCategoryService(ITransactionCategoryRepository transacti
     public override async Task<Empty> AddBulk(AddTransactionCategoryBulkRequest request, ServerCallContext context)
     {
         var transactionCategories = request.TransactionCategories.Select(mapper.Map<TransactionCategory>).ToList();
-        try
-        {
-            await transactionCategoryRepository.AddRangeAsync(transactionCategories);
-            return new Empty();
-        }
-        catch (Exception e)
-        {
-            throw new RpcException(new Status(StatusCode.Internal, e.Message));
-        }
+        await transactionCategoryRepository.AddRangeAsync(transactionCategories);
+        return new Empty();
     }
 
     public override async Task<GetAllTransactionCategoriesResponse> GetByIds(GetTransactionCategoryByIdsRequest request, ServerCallContext context)

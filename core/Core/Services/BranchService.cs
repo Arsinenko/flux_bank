@@ -4,6 +4,7 @@ using Core.Models;
 using Google.Protobuf.Collections;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
+using Core.Exceptions;
 
 namespace Core.Services;
 
@@ -13,10 +14,10 @@ public class BranchService(IBranchRepository branchRepository, IMapper mapper) :
     {
         var branch = mapper.Map<Branch>(request);
         await branchRepository.AddAsync(branch);
-        return mapper.Map<BranchModel>(branch); 
+        return mapper.Map<BranchModel>(branch);
     }
 
-    public override async Task<GetAllBranchesResponse>GetAll( GetAllRequest request, ServerCallContext context)
+    public override async Task<GetAllBranchesResponse> GetAll(GetAllRequest request, ServerCallContext context)
     {
         var branches = await branchRepository.GetAllAsync(request.PageN, request.PageSize);
         return new GetAllBranchesResponse()
@@ -29,7 +30,7 @@ public class BranchService(IBranchRepository branchRepository, IMapper mapper) :
         var branch = await branchRepository.GetByIdAsync(request.BranchId);
         if (branch == null)
         {
-            throw new RpcException(new Status(StatusCode.NotFound, "Branch not found"));
+            throw new NotFoundException("Branch not found");
         }
         return mapper.Map<BranchModel>(branch);
     }
@@ -39,7 +40,7 @@ public class BranchService(IBranchRepository branchRepository, IMapper mapper) :
         var branch = await branchRepository.GetByIdAsync(request.BranchId);
         if (branch == null)
         {
-            throw new RpcException(new Status(StatusCode.NotFound, "Branch not found"));
+            throw new NotFoundException("Branch not found");
         }
         mapper.Map(request, branch);
         await branchRepository.UpdateAsync(branch);
@@ -50,7 +51,7 @@ public class BranchService(IBranchRepository branchRepository, IMapper mapper) :
         var branch = await branchRepository.GetByIdAsync(request.BranchId);
         if (branch == null)
         {
-            throw new RpcException(new Status(StatusCode.NotFound, "Branch not found"));
+            throw new NotFoundException("Branch not found");
         }
         await branchRepository.DeleteAsync(branch.BranchId);
         return new Empty();
@@ -61,13 +62,13 @@ public class BranchService(IBranchRepository branchRepository, IMapper mapper) :
         var ids = request.Branches.Select(b => b.BranchId).ToList();
         if (ids.Count == 0)
         {
-            throw new RpcException(new Status(StatusCode.NotFound, "No branches to delete"));
+            throw new NotFoundException("No branches to delete");
         }
         var branches = await branchRepository.GetByIdsAsync(ids);
         var foundBranches = branches.Where(b => b != null).ToList();
         if (foundBranches.Count != ids.Count)
         {
-            throw new RpcException(new Status(StatusCode.NotFound, "Some branches not found"));
+            throw new NotFoundException("Some branches not found");
         }
         await branchRepository.DeleteRangeAsync(foundBranches!);
         return new Empty();
@@ -78,7 +79,7 @@ public class BranchService(IBranchRepository branchRepository, IMapper mapper) :
         var branches = request.Branches.Select(mapper.Map<Branch>).ToList();
         if (!branches.Any())
         {
-            throw new RpcException(new Status(StatusCode.NotFound, "No branches to update"));
+            throw new NotFoundException("No branches to update");
         }
         await branchRepository.UpdateRangeAsync(branches);
         return new Empty();
@@ -87,15 +88,8 @@ public class BranchService(IBranchRepository branchRepository, IMapper mapper) :
     public override async Task<Empty> AddBulk(AddBranchBulkRequest request, ServerCallContext context)
     {
         var branches = request.Branches.Select(mapper.Map<Branch>).ToList();
-        try
-        {
-            await branchRepository.AddRangeAsync(branches);
-            return new Empty();
-        }
-        catch (Exception e)
-        {
-            throw new RpcException(new Status(StatusCode.Internal, e.Message));
-        }
+        await branchRepository.AddRangeAsync(branches);
+        return new Empty();
     }
 
     public override async Task<GetAllBranchesResponse> GetByIds(GetBranchByIdsRequest request, ServerCallContext context)

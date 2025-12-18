@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Core.Exceptions;
 using Core.Interfaces;
 using Core.Models;
 using Google.Protobuf.WellKnownTypes;
@@ -33,7 +34,7 @@ public class LoginLogService(ILoginLogRepository loginLogRepository, IMapper map
         var loginLog = await loginLogRepository.GetByIdAsync(request.LogId);
 
         if (loginLog == null)
-            throw new RpcException(new Status(StatusCode.NotFound, "LoginLog not found"));
+            throw new NotFoundException("LoginLog not found");
 
         return mapper.Map<LoginLogModel>(loginLog);
     }
@@ -43,7 +44,7 @@ public class LoginLogService(ILoginLogRepository loginLogRepository, IMapper map
         var loginLog = await loginLogRepository.GetByIdAsync(request.LogId);
 
         if (loginLog == null)
-            throw new RpcException(new Status(StatusCode.NotFound, "LoginLog not found"));
+            throw new NotFoundException("LoginLog not found");
 
         mapper.Map(request, loginLog);
 

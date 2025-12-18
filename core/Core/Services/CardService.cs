@@ -1,4 +1,5 @@
 using AutoMapper;
+using Core.Exceptions;
 using Core.Interfaces;
 using Core.Models;
 using Google.Protobuf.WellKnownTypes;
@@ -29,7 +30,7 @@ public class CardService(ICardRepository repository, IMapper mapper) : Core.Card
         var card = await repository.GetByIdAsync(request.CardId);
         if (card == null)
         {
-            throw new RpcException(new Status(StatusCode.NotFound, "Card not found"));
+            throw new NotFoundException("Card not found");
         }
         await repository.DeleteAsync(card.CardId);
         return new Empty();
@@ -40,7 +41,7 @@ public class CardService(ICardRepository repository, IMapper mapper) : Core.Card
         var card = await repository.GetByIdAsync(request.CardId);
         if (card == null)
         {
-            throw new RpcException(new Status(StatusCode.NotFound, "Card not found"));
+            throw new NotFoundException("Card not found");
         }
 
         mapper.Map(request, card);
@@ -55,7 +56,7 @@ public class CardService(ICardRepository repository, IMapper mapper) : Core.Card
         var card = await repository.GetByIdAsync(request.CardId);
         if (card == null)
         {
-            throw new RpcException(new Status(StatusCode.NotFound, "Card not found"));
+            throw new NotFoundException("Card not found");
         }
 
         return mapper.Map<CardModel>(card);
@@ -66,13 +67,13 @@ public class CardService(ICardRepository repository, IMapper mapper) : Core.Card
         var ids = request.Cards.Select(c => c.CardId).ToList();
         if (ids.Count == 0)
         {
-            throw new RpcException(new Status(StatusCode.NotFound, "No cards to delete"));
+            throw new NotFoundException("No cards to delete");
         }
         var cards = await repository.GetByIdsAsync(ids);
         var foundCards = cards.Where(c => c != null).ToList();
         if (foundCards.Count != ids.Count)
         {
-            throw new RpcException(new Status(StatusCode.NotFound, "Some cards not found"));
+            throw new NotFoundException("Some cards not found");
         }
         await repository.DeleteRangeAsync(foundCards!);
         return new Empty();
@@ -83,7 +84,7 @@ public class CardService(ICardRepository repository, IMapper mapper) : Core.Card
         var cards = request.Cards.Select(mapper.Map<Card>).ToList();
         if (!cards.Any())
         {
-            throw new RpcException(new Status(StatusCode.NotFound, "No cards to update"));
+            throw new NotFoundException("No cards to update");
         }
         await repository.UpdateRangeAsync(cards);
         return new Empty();
@@ -92,15 +93,8 @@ public class CardService(ICardRepository repository, IMapper mapper) : Core.Card
     public override async Task<Empty> AddBulk(AddCardBulkRequest request, ServerCallContext context)
     {
         var cards = request.Cards.Select(mapper.Map<Card>).ToList();
-        try
-        {
-            await repository.AddRangeAsync(cards);
-            return new Empty();
-        }
-        catch (Exception e)
-        {
-            throw new RpcException(new Status(StatusCode.Internal, e.Message));
-        }
+        await repository.AddRangeAsync(cards);
+        return new Empty();
     }
 
     public override async Task<GetAllCardsResponse> GetByAccount(GetCardsByAccountRequest request, ServerCallContext context)

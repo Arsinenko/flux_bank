@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Core.Exceptions;
 using Core.Interfaces;
 using Core.Models;
 using Google.Protobuf.Collections;
@@ -30,7 +31,7 @@ public class AccountTypeService(IAccountTypeRepository accountTypeRepository, IM
         var accountType = await accountTypeRepository.GetByIdAsync(request.TypeId);
         if (accountType == null)
         {
-            throw new RpcException(new Status(StatusCode.NotFound, "Account type not found"));
+            throw new NotFoundException("Account type not found");
         }
         return mapper.Map<AccountTypeModel>(accountType);
     }
@@ -40,7 +41,7 @@ public class AccountTypeService(IAccountTypeRepository accountTypeRepository, IM
         var accountType = await accountTypeRepository.GetByIdAsync(request.TypeId);
         if (accountType == null)
         {
-            throw new RpcException(new Status(StatusCode.NotFound, "Account type not found"));
+            throw new NotFoundException("Account type not found");
         }
         mapper.Map(request, accountType);
         await accountTypeRepository.UpdateAsync(accountType);
@@ -52,7 +53,7 @@ public class AccountTypeService(IAccountTypeRepository accountTypeRepository, IM
         var accountType = await accountTypeRepository.GetByIdAsync(request.TypeId);
         if (accountType == null)
         {
-            throw new RpcException(new Status(StatusCode.NotFound, "Account type not found"));
+            throw new NotFoundException("Account type not found");
         }
         await accountTypeRepository.DeleteAsync(request.TypeId);
         return new Empty();
@@ -63,13 +64,13 @@ public class AccountTypeService(IAccountTypeRepository accountTypeRepository, IM
         var ids = request.AccountTypes.Select(a => a.TypeId).ToList();
         if (ids.Count == 0)
         {
-            throw new RpcException(new Status(StatusCode.NotFound, "No account types to delete"));
+            throw new NotFoundException("No account types to delete");
         }
         var accountTypes = await accountTypeRepository.GetByIdsAsync(ids);
         var foundAccountTypes = accountTypes.Where(at => at != null).ToList();
         if (foundAccountTypes.Count != ids.Count)
         {
-            throw new RpcException(new Status(StatusCode.NotFound, "Some account types not found"));
+            throw new NotFoundException("One or more account types not found");
         }
         await accountTypeRepository.DeleteRangeAsync(foundAccountTypes!);
         return new Empty();
@@ -80,7 +81,7 @@ public class AccountTypeService(IAccountTypeRepository accountTypeRepository, IM
         var accountTypes = request.AccountTypes.Select(mapper.Map<AccountType>).ToList();
         if (!accountTypes.Any())
         {
-            throw new RpcException(new Status(StatusCode.NotFound, "No account types to update"));
+            throw new NotFoundException("No account types found");
         }
         await accountTypeRepository.UpdateRangeAsync(accountTypes);
         return new Empty();
@@ -89,15 +90,8 @@ public class AccountTypeService(IAccountTypeRepository accountTypeRepository, IM
     public override async Task<Empty> AddBulk(AddAccountTypeBulkRequest request, ServerCallContext context)
     {
         var accountTypes = request.AccountTypes.Select(a => mapper.Map<AccountType>(a));
-        try
-        {
-            await accountTypeRepository.AddRangeAsync(accountTypes);
-            return new Empty();
-        }
-        catch (Exception e)
-        {
-            throw new RpcException(new Status(StatusCode.Internal, e.Message));
-        }
+        await accountTypeRepository.AddRangeAsync(accountTypes);
+        return new Empty();
     }
 
     public override async Task<GetAllAccountTypesResponse> GetByIds(GetAccountTypeByIdsRequest request,

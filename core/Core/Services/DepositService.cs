@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Core.Exceptions;
 using Core.Interfaces;
 using Core.Models;
 using Google.Protobuf.WellKnownTypes;
@@ -33,7 +34,7 @@ public class DepositService(IDepositRepository depositRepository, IMapper mapper
         var deposit = await depositRepository.GetByIdAsync(request.DepositId);
 
         if (deposit == null)
-            throw new RpcException(new Status(StatusCode.NotFound, "Deposit not found"));
+            throw new NotFoundException("Deposit not found");
 
         return mapper.Map<DepositModel>(deposit);
     }
@@ -43,7 +44,7 @@ public class DepositService(IDepositRepository depositRepository, IMapper mapper
         var deposit = await depositRepository.GetByIdAsync(request.DepositId);
 
         if (deposit == null)
-            throw new RpcException(new Status(StatusCode.NotFound, "Deposit not found"));
+            throw new NotFoundException("Deposit not found");
 
         mapper.Map(request, deposit);
 
@@ -63,13 +64,13 @@ public class DepositService(IDepositRepository depositRepository, IMapper mapper
         var ids = request.Deposits.Select(d => d.DepositId).ToList();
         if (ids.Count == 0)
         {
-            throw new RpcException(new Status(StatusCode.NotFound, "No deposits to delete"));
+            throw new NotFoundException("No deposits to delete");
         }
         var deposits = await depositRepository.GetByIdsAsync(ids);
         var foundDeposits = deposits.Where(d => d != null).ToList();
         if (foundDeposits.Count != ids.Count)
         {
-            throw new RpcException(new Status(StatusCode.NotFound, "Some deposits not found"));
+            throw new NotFoundException("Some deposits not found");
         }
         await depositRepository.DeleteRangeAsync(foundDeposits!);
         return new Empty();
@@ -80,7 +81,7 @@ public class DepositService(IDepositRepository depositRepository, IMapper mapper
         var deposits = request.Deposits.Select(mapper.Map<Deposit>).ToList();
         if (!deposits.Any())
         {
-            throw new RpcException(new Status(StatusCode.NotFound, "No deposits to update"));
+            throw new NotFoundException("No deposits to update");
         }
         await depositRepository.UpdateRangeAsync(deposits);
         return new Empty();
@@ -89,15 +90,8 @@ public class DepositService(IDepositRepository depositRepository, IMapper mapper
     public override async Task<Empty> AddBulk(AddDepositBulkRequest request, ServerCallContext context)
     {
         var deposits = request.Deposits.Select(mapper.Map<Deposit>).ToList();
-        try
-        {
-            await depositRepository.AddRangeAsync(deposits);
-            return new Empty();
-        }
-        catch (Exception e)
-        {
-            throw new RpcException(new Status(StatusCode.Internal, e.Message));
-        }
+        await depositRepository.AddRangeAsync(deposits);
+        return new Empty();
     }
 
     public override async Task<GetAllDepositsResponse> GetByCustomer(GetDepositsByCustomerRequest request, ServerCallContext context)

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Core.Exceptions;
 using Core.Interfaces;
 using Core.Models;
 using Google.Protobuf.Collections;
@@ -21,7 +22,7 @@ public class CustomerAddressService(ICustomerAddressRepository repository, IMapp
         var address = await repository.GetByIdAsync(request.AddressId);
         if (address == null)
         {
-            throw new RpcException(new Status(StatusCode.NotFound, "Address not found."));
+            throw new NotFoundException("Address not found");
         }
         await repository.DeleteAsync(request.AddressId);
         return new Empty();
@@ -30,7 +31,6 @@ public class CustomerAddressService(ICustomerAddressRepository repository, IMapp
     public override async Task<GetAllCustomerAddressesResponse>GetAll( GetAllRequest request, ServerCallContext context)
     {
         var result = await repository.GetAllAsync(request.PageN, request.PageSize);
-        var addresses = new RepeatedField<CustomerAddressModel>();
         return new GetAllCustomerAddressesResponse()
         {
             CustomerAddresses = { mapper.Map<IEnumerable<CustomerAddressModel>>(result) }
@@ -40,7 +40,7 @@ public class CustomerAddressService(ICustomerAddressRepository repository, IMapp
     public override async Task<Empty> Update(UpdateCustomerAddressRequest request, ServerCallContext context)
     {
         var address = await repository.GetByIdAsync(request.AddressId);
-        if (address == null) throw new RpcException(new Status(StatusCode.NotFound, "Address not found"));
+        if (address == null) throw new NotFoundException("Address not found");
         mapper.Map(request, address);
         await repository.UpdateAsync(address);
         return new Empty();
@@ -49,7 +49,7 @@ public class CustomerAddressService(ICustomerAddressRepository repository, IMapp
     public override async Task<CustomerAddressModel> GetById(GetCustomerAddressByIdRequest request, ServerCallContext context)
     {
         var address = await repository.GetByIdAsync(request.AddressId);
-        if (address == null) throw new RpcException(new Status(StatusCode.NotFound, "Address not found"));
+        if (address == null) throw new NotFoundException("Address not found");
         return mapper.Map<CustomerAddressModel>(address);
     }
 
@@ -65,15 +65,8 @@ public class CustomerAddressService(ICustomerAddressRepository repository, IMapp
     public override async Task<Empty> AddBulk(AddCustomerAddressBulkRequest request, ServerCallContext context)
     {
         var addresses = request.CustomerAddresses.Select(mapper.Map<CustomerAddress>).ToList();
-        try
-        {
-            await repository.AddRangeAsync(addresses);
-            return new Empty();
-        }
-        catch (Exception e)
-        {
-            throw new RpcException(new Status(StatusCode.Internal, e.Message));
-        }
+        await repository.AddRangeAsync(addresses);
+        return new Empty();
     }
 
     public override async Task<Empty> UpdateBulk(UpdateCustomerAddressBulkRequest request, ServerCallContext context)
@@ -81,7 +74,7 @@ public class CustomerAddressService(ICustomerAddressRepository repository, IMapp
         var addresses = request.CustomerAddresses.Select(mapper.Map<CustomerAddress>).ToList();
         if (!addresses.Any())
         {
-            throw new RpcException(new Status(StatusCode.NotFound, "No addresses to update"));
+            throw new NotFoundException("No addresses to update");
         }
         await repository.UpdateRangeAsync(addresses);
         return new Empty();
@@ -92,7 +85,7 @@ public class CustomerAddressService(ICustomerAddressRepository repository, IMapp
         var addresses = (await repository.GetByIdsAsync(request.CustomerAddresses.Select(a => a.AddressId))).ToList();
         if (addresses.Count != request.CustomerAddresses.Count)
         {
-            throw new RpcException(new Status(StatusCode.NotFound, "One or more addresses not found"));
+            throw new NotFoundException("One or more addresses not found");
         }
 
         await repository.DeleteRangeAsync(addresses!);

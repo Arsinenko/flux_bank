@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Core.Exceptions;
 using Core.Interfaces;
 using Core.Models;
 using Google.Protobuf.WellKnownTypes;
@@ -33,7 +34,7 @@ public class NotificationService(INotificationRepository notificationRepository,
         var notification = await notificationRepository.GetByIdAsync(request.NotificationId);
 
         if (notification == null)
-            throw new RpcException(new Status(StatusCode.NotFound, "Notification not found"));
+            throw new NotFoundException("Notification not found");
 
         return mapper.Map<NotificationModel>(notification);
     }
@@ -43,7 +44,7 @@ public class NotificationService(INotificationRepository notificationRepository,
         var notification = await notificationRepository.GetByIdAsync(request.NotificationId);
 
         if (notification == null)
-            throw new RpcException(new Status(StatusCode.NotFound, "Notification not found"));
+            throw new NotFoundException("Notification not found");
 
         mapper.Map(request, notification);
 
@@ -63,13 +64,13 @@ public class NotificationService(INotificationRepository notificationRepository,
         var ids = request.Notifications.Select(n => n.NotificationId).ToList();
         if (ids.Count == 0)
         {
-            throw new RpcException(new Status(StatusCode.NotFound, "No notifications to delete"));
+            throw new NotFoundException("No notifications to delete");
         }
         var notifications = await notificationRepository.GetByIdsAsync(ids);
         var foundNotifications = notifications.Where(n => n != null).ToList();
         if (foundNotifications.Count != ids.Count)
         {
-            throw new RpcException(new Status(StatusCode.NotFound, "Some notifications not found"));
+            throw new NotFoundException("Some notifications not found");
         }
         await notificationRepository.DeleteRangeAsync(foundNotifications!);
         return new Empty();
@@ -80,7 +81,7 @@ public class NotificationService(INotificationRepository notificationRepository,
         var notifications = request.Notifications.Select(mapper.Map<Notification>).ToList();
         if (!notifications.Any())
         {
-            throw new RpcException(new Status(StatusCode.NotFound, "No notifications to update"));
+            throw new NotFoundException("No notifications to update");
         }
 
         await notificationRepository.UpdateRangeAsync(notifications);
@@ -90,15 +91,8 @@ public class NotificationService(INotificationRepository notificationRepository,
     public override async Task<Empty> AddBulk(AddNotificationBulkRequest request, ServerCallContext context)
     {
         var notifications = request.Notifications.Select(mapper.Map<Notification>).ToList();
-        try
-        {
-            await notificationRepository.AddRangeAsync(notifications);
-            return new Empty();
-        }
-        catch (Exception e)
-        {
-            throw new RpcException(new Status(StatusCode.Internal, e.Message));
-        }
+        await notificationRepository.AddRangeAsync(notifications);
+        return new Empty();
     }
 
     public override async Task<GetAllNotificationsResponse> GetByCustomer(GetNotificationsByCustomerRequest request, ServerCallContext context)

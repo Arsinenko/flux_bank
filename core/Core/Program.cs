@@ -1,5 +1,6 @@
 using Core;
 using Core.Context;
+using Core.Exceptions;
 using Core.Interfaces;
 using Core.Mappings;
 using Core.Repositories;
@@ -27,7 +28,11 @@ using UserCredentialService = Core.Services.UserCredentialService;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddGrpc();
+builder.Services.AddGrpc(options =>
+{
+    options.Interceptors.Add<GrpcExceptionInterceptor>();
+});
+
 builder.Services.AddAutoMapper(typeof(ProtoMappingProfile));
 
 builder.Services.AddDbContext<MyDbContext>(options =>

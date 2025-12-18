@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Core.Exceptions;
 using Core.Interfaces;
 using Core.Models;
 using Google.Protobuf.WellKnownTypes;
@@ -33,7 +34,7 @@ public class LoanPaymentService(ILoanPaymentRepository loanPaymentRepository, IM
         var loanPayment = await loanPaymentRepository.GetByIdAsync(request.PaymentId);
 
         if (loanPayment == null)
-            throw new RpcException(new Status(StatusCode.NotFound, "LoanPayment not found"));
+            throw new NotFoundException("LoanPayment not found");
 
         return mapper.Map<LoanPaymentModel>(loanPayment);
     }
@@ -43,7 +44,7 @@ public class LoanPaymentService(ILoanPaymentRepository loanPaymentRepository, IM
         var loanPayment = await loanPaymentRepository.GetByIdAsync(request.PaymentId);
 
         if (loanPayment == null)
-            throw new RpcException(new Status(StatusCode.NotFound, "LoanPayment not found"));
+            throw new NotFoundException("LoanPayment not found");
 
         mapper.Map(request, loanPayment);
 
@@ -63,13 +64,13 @@ public class LoanPaymentService(ILoanPaymentRepository loanPaymentRepository, IM
         var ids = request.Payments.Select(p => p.PaymentId).ToList();
         if (ids.Count == 0)
         {
-            throw new RpcException(new Status(StatusCode.NotFound, "No payments to delete"));
+            throw new NotFoundException("No payments to delete");
         }
         var loanPayments = await loanPaymentRepository.GetByIdsAsync(ids);
         var foundLoanPayments = loanPayments.Where(lp => lp != null).ToList();
         if (foundLoanPayments.Count != ids.Count)
         {
-            throw new RpcException(new Status(StatusCode.NotFound, "Some loan payments not found"));
+            throw new NotFoundException("Some loan payments not found");
         }
         await loanPaymentRepository.DeleteRangeAsync(foundLoanPayments!);
         return new Empty();
@@ -88,7 +89,7 @@ public class LoanPaymentService(ILoanPaymentRepository loanPaymentRepository, IM
         var loanPayments = request.Payments.Select(mapper.Map<LoanPayment>).ToList();
         if (!loanPayments.Any())
         {
-            throw new RpcException(new Status(StatusCode.NotFound, "No loan payments to update"));
+            throw new NotFoundException("No loan payments to update");
         }
         await loanPaymentRepository.UpdateRangeAsync(loanPayments);
         return new Empty();
@@ -97,15 +98,8 @@ public class LoanPaymentService(ILoanPaymentRepository loanPaymentRepository, IM
     public override async Task<Empty> AddBulk(AddLoanPaymentBulkRequest request, ServerCallContext context)
     {
         var loanPayments = request.Payments.Select(mapper.Map<LoanPayment>).ToList();
-        try
-        {
-            await loanPaymentRepository.AddRangeAsync(loanPayments);
-            return new Empty();
-        }
-        catch (Exception e)
-        {
-            throw new RpcException(new Status(StatusCode.Internal, e.Message));
-        }
+        await loanPaymentRepository.AddRangeAsync(loanPayments);
+        return new Empty();
     }
 
     public override async Task<GetAllLoanPaymentsResponse> GetByIds(GetLoanPaymentByIdsRequest request, ServerCallContext context)

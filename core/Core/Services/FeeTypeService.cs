@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Core.Exceptions;
 using Core.Interfaces;
 using Core.Models;
 using Google.Protobuf.WellKnownTypes;
@@ -33,7 +34,7 @@ public class FeeTypeService(IFeeTypeRepository feeTypeRepository, IMapper mapper
         var feeType = await feeTypeRepository.GetByIdAsync(request.FeeId);
 
         if (feeType == null)
-            throw new RpcException(new Status(StatusCode.NotFound, "FeeType not found"));
+            throw new NotFoundException("FeeType not found");
 
         return mapper.Map<FeeTypeModel>(feeType);
     }
@@ -43,7 +44,7 @@ public class FeeTypeService(IFeeTypeRepository feeTypeRepository, IMapper mapper
         var feeType = await feeTypeRepository.GetByIdAsync(request.FeeId);
 
         if (feeType == null)
-            throw new RpcException(new Status(StatusCode.NotFound, "FeeType not found"));
+            throw new NotFoundException("FeeType not found");
 
         mapper.Map(request, feeType);
 
@@ -63,13 +64,13 @@ public class FeeTypeService(IFeeTypeRepository feeTypeRepository, IMapper mapper
         var ids = request.FeeTypes.Select(f => f.FeeId).ToList();
         if (ids.Count == 0)
         {
-            throw new RpcException(new Status(StatusCode.NotFound, "No fee types to delete"));
+            throw new NotFoundException("No fee types to delete");
         }
         var feeTypes = await feeTypeRepository.GetByIdsAsync(ids);
         var foundFeeTypes = feeTypes.Where(ft => ft != null).ToList();
         if (foundFeeTypes.Count != ids.Count)
         {
-            throw new RpcException(new Status(StatusCode.NotFound, "Some fee types not found"));
+            throw new NotFoundException("Some fee types not found");
         }
         await feeTypeRepository.DeleteRangeAsync(foundFeeTypes!);
         return new Empty();
@@ -80,7 +81,7 @@ public class FeeTypeService(IFeeTypeRepository feeTypeRepository, IMapper mapper
         var feeTypes = request.FeeTypes.Select(mapper.Map<FeeType>).ToList();
         if (!feeTypes.Any())
         {
-            throw new RpcException(new Status(StatusCode.NotFound, "No fee types to update"));
+            throw new NotFoundException("No fee types to update");
         }
         await feeTypeRepository.UpdateRangeAsync(feeTypes);
         return new Empty();
@@ -89,15 +90,8 @@ public class FeeTypeService(IFeeTypeRepository feeTypeRepository, IMapper mapper
     public override async Task<Empty> AddBulk(AddFeeTypeBulkRequest request, ServerCallContext context)
     {
         var feeTypes = request.FeeTypes.Select(mapper.Map<FeeType>).ToList();
-        try
-        {
-            await feeTypeRepository.AddRangeAsync(feeTypes);
-            return new Empty();
-        }
-        catch (Exception e)
-        {
-            throw new RpcException(new Status(StatusCode.Internal, e.Message));
-        }
+        await feeTypeRepository.AddRangeAsync(feeTypes);
+        return new Empty();
     }
     public override async Task<GetAllFeeTypesResponse> GetByIds(GetFeeTypeByIdsRequest request, ServerCallContext context)
     {
