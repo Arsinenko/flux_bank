@@ -22,7 +22,7 @@ public class GenericRepository<TEntity, TId>
     {
         IQueryable<TEntity> query = DbSet;
         
-        if (pageN.HasValue && pageSize.HasValue)
+        if (pageN != 0 && pageSize != 0)
         {
             if (pageN <= 0 || pageSize <= 0) throw new ArgumentException("pageN and pageSize must be greater than 0");
             var keyName = GetEntityKey();

@@ -1,7 +1,9 @@
 package main
 
 import (
+	"context"
 	"fmt"
+	pb "orch-go/api/generated"
 	"orch-go/config"
 	"orch-go/internal/infrastructure/repository/account/account_repo"
 	"orch-go/internal/infrastructure/repository/atm_repo"
@@ -19,23 +21,24 @@ import (
 	"orch-go/internal/infrastructure/repository/transaction_repo"
 	"orch-go/internal/infrastructure/repository/user_credential_repo"
 	"orch-go/internal/services"
-
-	pb "orch-go/api/generated"
+	"orch-go/internal/simulation"
+	"sync"
 
 	"google.golang.org/grpc"
 )
 
-//TIP <p>To run your code, right-click the code and select <b>Run</b>.</p> <p>Alternatively, click
+// TIP <p>To run your code, right-click the code and select <b>Run</b>.</p> <p>Alternatively, click
 // the <icon src="AllIcons.Actions.Execute"/> icon in the gutter and select the <b>Run</b> menu item from here.</p>
+var wg = sync.WaitGroup{}
 
 func main() {
-	config, err := config.LoadConfig()
+	cfg, err := config.LoadConfig()
 	if err != nil {
 		fmt.Println("Error loading config:", err)
 		return
 	}
 	//Init gRPC clients
-	conn, err := grpc.NewClient(config.Core.Address, grpc.WithInsecure())
+	conn, err := grpc.NewClient(cfg.Core.Address, grpc.WithInsecure())
 	if err != nil {
 		panic(err)
 	}
@@ -100,6 +103,13 @@ func main() {
 	_ = services.NewPaymentTemplateService(paymentTemplateRepo)
 	_ = services.NewTransactionService(transactionRepo, transactionCategoryRepo, transactionFeeRepo)
 	_ = services.NewUserCredentialService(userCredentialRepo)
+	wg.Add(1)
+	go func(ctx context.Context) {
+		err := simulation.RunSimulation(ctx)
+		if err != nil {
+			panic(err)
+		}
+	}(context.Background())
+	wg.Wait()
 
-	fmt.Println("Orchestrator started with all services initialized")
 }

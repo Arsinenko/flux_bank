@@ -12,6 +12,7 @@ public class AccountService(IAccountRepository accountRepository, IMapper mapper
 {
     public override async Task<GetAllAccountsResponse> GetAll(GetAllRequest request, ServerCallContext context)
     {
+        
         var accounts = await accountRepository.GetAllAsync(request.PageN, request.PageSize);
 
         return new GetAllAccountsResponse
