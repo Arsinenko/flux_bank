@@ -24,6 +24,7 @@ public class AccountService(IAccountRepository accountRepository, IMapper mapper
 
     public override async Task<AccountModel> Add(AddAccountRequest request, ServerCallContext context)
     {
+        ValidateBalance(request.Balance);
         var account = mapper.Map<Account>(request);
 
         await accountRepository.AddAsync(account);
@@ -43,6 +44,7 @@ public class AccountService(IAccountRepository accountRepository, IMapper mapper
 
     public override async Task<Empty> Update(UpdateAccountRequest request, ServerCallContext context)
     {
+        ValidateBalance(request.Balance);
         var account = await accountRepository.GetByIdAsync(request.AccountId);
 
         if (account == null)
@@ -53,6 +55,14 @@ public class AccountService(IAccountRepository accountRepository, IMapper mapper
         await accountRepository.UpdateAsync(account);
 
         return new Empty();
+    }
+
+    private static void ValidateBalance(string? balance)
+    {
+        if (!string.IsNullOrWhiteSpace(balance) && !decimal.TryParse(balance, System.Globalization.CultureInfo.InvariantCulture, out _))
+        {
+            throw new ValidationException($"Invalid balance format: {balance}");
+        }
     }
 
     public override async Task<Empty> Delete(DeleteAccountRequest request, ServerCallContext context)

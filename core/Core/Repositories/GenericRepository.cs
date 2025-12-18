@@ -1,5 +1,6 @@
 using System.Linq.Expressions;
 using Core.Context;
+using Core.Exceptions;
 using Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -77,11 +78,10 @@ public class GenericRepository<TEntity, TId>
     public virtual async Task DeleteAsync(TId id)
     {
         var entity = await GetByIdAsync(id);
-        if (entity != null)
-        {
-            DbSet.Remove(entity);
-            await Context.SaveChangesAsync();
-        }
+        if (entity == null)
+            throw new NotFoundException($"Entity {entity} not found");
+        DbSet.Remove(entity);
+        await Context.SaveChangesAsync();
     }
 
     public virtual async Task<IEnumerable<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate)

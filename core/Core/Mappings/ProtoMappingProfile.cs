@@ -1,6 +1,7 @@
 using System;
 using System.Globalization;
 using AutoMapper;
+using Core.Exceptions;
 using Core.Models;
 using Google.Protobuf.WellKnownTypes;
 using ProtoModels = global::Core;
@@ -53,6 +54,22 @@ public sealed class ProtoMappingProfile : Profile
             .ForMember(dest => dest.TransactionSourceAccountNavigations, opt => opt.Ignore())
             .ForMember(dest => dest.TransactionTargetAccountNavigations, opt => opt.Ignore())
             .ForMember(dest => dest.Type, opt => opt.Ignore());
+        CreateMap<ProtoModels.AddAccountRequest, Account>()
+            .ForMember(dest => dest.Balance,
+                opt => opt.MapFrom(src => MappingConverters.StringToNullableDecimal(src.Balance)))
+            .ForMember(dest => dest.Cards, opt => opt.Ignore())
+            .ForMember(dest => dest.Customer, opt => opt.Ignore())
+            .ForMember(dest => dest.TransactionSourceAccountNavigations, opt => opt.Ignore())
+            .ForMember(dest => dest.TransactionTargetAccountNavigations, opt => opt.Ignore())
+            .ForMember(dest => dest.Type, opt => opt.Ignore());
+        CreateMap<ProtoModels.UpdateAccountRequest, Account>()
+            .ForMember(dest => dest.Balance,
+                opt => opt.MapFrom(src => MappingConverters.StringToNullableDecimal(src.Balance)))
+            .ForMember(dest => dest.Cards, opt => opt.Ignore())
+            .ForMember(dest => dest.Customer, opt => opt.Ignore())
+            .ForMember(dest => dest.TransactionSourceAccountNavigations, opt => opt.Ignore())
+            .ForMember(dest => dest.TransactionTargetAccountNavigations, opt => opt.Ignore())
+            .ForMember(dest => dest.Type, opt => opt.Ignore()); 
     }
 
     private void MapAccountType()
@@ -326,7 +343,12 @@ internal static class MappingConverters
             return null;
         }
 
-        return decimal.Parse(value, Culture);
+        if (decimal.TryParse(value, Culture, out var result))
+        {
+            return result;
+        }
+
+        return null;
     }
 
     public static decimal StringToDecimal(string? value)
@@ -336,7 +358,12 @@ internal static class MappingConverters
             throw new InvalidOperationException("Decimal value must be provided.");
         }
 
-        return decimal.Parse(value, Culture);
+        if (decimal.TryParse(value, Culture, out var result))
+        {
+            return result;
+        }
+
+        throw new ValidationException($"Decimal value must be provided and in correct format. Value: '{value}'");
     }
 
     public static Timestamp? DateTimeToTimestamp(DateTime? value) =>

@@ -7,7 +7,8 @@ using Grpc.Core;
 using Moq;
 using Core;
 using Core.Exceptions;
-using ValidationException = System.ComponentModel.DataAnnotations.ValidationException;
+// using ValidationException = System.ComponentModel.DataAnnotations.ValidationException;
+using ValidationException = Core.Exceptions.ValidationException;
 
 namespace TestProject1;
 
@@ -169,7 +170,7 @@ public class AccountServiceTest
 
         // Assert
         var exception = await act.Should().ThrowAsync<ValidationException>();
-        exception.Which.Message.Should().Be("No accounts to delete");
+        exception.Which.Message.Should().Be("One or more accounts not found");
     }
 
     [Fact]
