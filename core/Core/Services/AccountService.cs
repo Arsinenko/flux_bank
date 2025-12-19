@@ -85,7 +85,7 @@ public class AccountService(IAccountRepository accountRepository, IMapper mapper
 
     public override async Task<GetAllAccountsResponse> GetByDateRange(GetByDateRangeRequest request, ServerCallContext context)
     {
-        var accounts = await accountRepository.GetByDateRange(request.From.ToDateTime(), request.To.ToDateTime(), request.PageN, request.PageSize);
+        var accounts = await accountRepository.GetByDateRange(request.FromDate.ToDateTime(), request.ToDate.ToDateTime(), request.PageN, request.PageSize);
         return new GetAllAccountsResponse()
         {
             Accounts = { mapper.Map<IEnumerable<AccountModel>>(accounts) }

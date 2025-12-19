@@ -106,8 +106,8 @@ public class NotificationService(INotificationRepository notificationRepository,
 
     public override async Task<GetAllNotificationsResponse> GetByDateRange(GetByDateRangeRequest request, ServerCallContext context)
     {
-        var notifications = await notificationRepository.GetByDateRange(request.From.ToDateTime(),
-            request.To.ToDateTime(), request.PageN, request.PageSize);
+        var notifications = await notificationRepository.GetByDateRange(request.FromDate.ToDateTime(),
+            request.ToDate.ToDateTime(), request.PageN, request.PageSize);
         return new GetAllNotificationsResponse()
         {
             Notifications = { mapper.Map<NotificationModel>(notifications) }

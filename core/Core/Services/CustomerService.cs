@@ -55,7 +55,7 @@ public class CustomerService(ICustomerRepository repository, IMapper mapper) : C
 
     public override async Task<GetAllCustomersResponse> GetByDateRange(GetByDateRangeRequest request, ServerCallContext context)
     {
-        var customers = await repository.GetByDateRange(request.From.ToDateTime(), request.To.ToDateTime(), request.PageN, request.PageSize);
+        var customers = await repository.GetByDateRange(request.FromDate.ToDateTime(), request.ToDate.ToDateTime(), request.PageN, request.PageSize);
         return new GetAllCustomersResponse()
         {
             Customers = { mapper.Map<IEnumerable<CustomerModel>>(customers) }

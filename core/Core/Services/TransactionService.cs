@@ -92,7 +92,7 @@ public class TransactionService(ITransactionRepository transactionRepository, IM
 
     public override async Task<GetAllTransactionsResponse> GetByDateRange(GetByDateRangeRequest request, ServerCallContext context)
     {
-        var transactions = await transactionRepository.GetByDateRange(request.From.ToDateTime(), request.To.ToDateTime(), request.PageN, request.PageSize);
+        var transactions = await transactionRepository.GetByDateRange(request.FromDate.ToDateTime(), request.ToDate.ToDateTime(), request.PageN, request.PageSize);
         return new GetAllTransactionsResponse()
         {
             Transactions = { mapper.Map<IEnumerable<TransactionModel>>(transactions) }
@@ -101,7 +101,7 @@ public class TransactionService(ITransactionRepository transactionRepository, IM
 
     public override async Task<GetAllTransactionsResponse> GetAccountExpenses(GetAccountExpensesRequest request, ServerCallContext context)
     {
-        var transactions = await transactionRepository.GetExpensesAsync(request.SourceAccount, request.DateRange?.From.ToDateTime(), request.DateRange?.To.ToDateTime(), request.DateRange?.PageN, request.DateRange?.PageSize);
+        var transactions = await transactionRepository.GetExpensesAsync(request.SourceAccount, request.DateRange?.FromDate.ToDateTime(), request.DateRange?.ToDate.ToDateTime(), request.DateRange?.PageN, request.DateRange?.PageSize);
         return new GetAllTransactionsResponse()
         {
             Transactions = { mapper.Map<IEnumerable<TransactionModel>>(transactions) }
@@ -110,7 +110,7 @@ public class TransactionService(ITransactionRepository transactionRepository, IM
 
     public override async Task<GetAllTransactionsResponse> GetAccountRevenue(GetAccountRevenueRequest request, ServerCallContext context)
     {
-        var transactions = await transactionRepository.GetRevenueAsync(request.TargetAccount, request.DateRange?.From.ToDateTime(), request.DateRange?.To.ToDateTime(), request.DateRange?.PageN, request.DateRange?.PageSize);
+        var transactions = await transactionRepository.GetRevenueAsync(request.TargetAccount, request.DateRange?.FromDate.ToDateTime(), request.DateRange?.ToDate.ToDateTime(), request.DateRange?.PageN, request.DateRange?.PageSize);
         return new GetAllTransactionsResponse()
         {
             Transactions = { mapper.Map<IEnumerable<TransactionModel>>(transactions) }
