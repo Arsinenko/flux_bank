@@ -2,7 +2,6 @@
 using Core.Exceptions;
 using Core.Interfaces;
 using Core.Models;
-using Google.Protobuf.Collections;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 

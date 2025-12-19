@@ -78,6 +78,11 @@ public sealed class ProtoMappingProfile : Profile
 
         CreateMap<ProtoModels.AccountTypeModel, AccountType>()
             .ForMember(dest => dest.Accounts, opt => opt.Ignore());
+        CreateMap<ProtoModels.AddAccountTypeRequest, AccountType>()
+            .ForMember(dest => dest.Accounts, opt => opt.Ignore());
+        CreateMap<ProtoModels.UpdateAccountTypeRequest, AccountType>()
+            .ForMember(dest => dest.Accounts, opt => opt.Ignore());
+
     }
 
     private void MapAtm()
@@ -86,6 +91,10 @@ public sealed class ProtoMappingProfile : Profile
 
         CreateMap<ProtoModels.AtmModel, Atm>()
             .ForMember(dest => dest.Branch, opt => opt.Ignore());
+        CreateMap<ProtoModels.AddAtmRequest, Atm>()
+            .ForMember(dest => dest.Branch, opt => opt.Ignore());
+        CreateMap<ProtoModels.UpdateAtmRequest, Atm>()
+            .ForMember(dest => dest.Branch, opt => opt.Ignore());
     }
 
     private void MapBranch()
@@ -93,6 +102,10 @@ public sealed class ProtoMappingProfile : Profile
         CreateMap<Branch, ProtoModels.BranchModel>();
 
         CreateMap<ProtoModels.BranchModel, Branch>()
+            .ForMember(dest => dest.Atms, opt => opt.Ignore());
+        CreateMap<ProtoModels.AddBranchRequest, Branch>()
+            .ForMember(dest => dest.Atms, opt => opt.Ignore());
+        CreateMap<ProtoModels.UpdateBranchRequest, Branch>()
             .ForMember(dest => dest.Atms, opt => opt.Ignore());
     }
 
@@ -106,6 +119,27 @@ public sealed class ProtoMappingProfile : Profile
             .ForMember(dest => dest.ExpiryDate,
                 opt => opt.MapFrom(src => MappingConverters.TimestampToDateOnly(src.ExpiryDate)))
             .ForMember(dest => dest.Account, opt => opt.Ignore());
+    
+        CreateMap<ProtoModels.AddCardRequest, Card>()
+            .ForMember(dest => dest.ExpiryDate,
+                opt => opt.MapFrom(src => 
+                    MappingConverters.DateOnlyToTimestamp(
+                        src.ExpiryDate == null ? null : 
+                            ProtoDateOnlyToSystemDateOnly(src.ExpiryDate))))
+            .ForMember(dest => dest.Account, opt => opt.Ignore());
+    
+        CreateMap<ProtoModels.UpdateCardRequest, Card>()
+            .ForMember(dest => dest.ExpiryDate,
+                opt => opt.MapFrom(src => 
+                    src.ExpiryDate == null ? null :
+                        MappingConverters.DateOnlyToTimestamp(ProtoDateOnlyToSystemDateOnly(src.ExpiryDate))))
+            .ForMember(dest => dest.Account, opt => opt.Ignore());
+    }
+
+    private static SystemDateOnly? ProtoDateOnlyToSystemDateOnly(ProtoDateOnlyMessage? protoDate)
+    {
+        if (protoDate == null) return null;
+        return new SystemDateOnly(protoDate.Year, protoDate.Month, protoDate.Day);
     }
 
     private void MapCustomer()
@@ -131,6 +165,36 @@ public sealed class ProtoMappingProfile : Profile
             .ForMember(dest => dest.Notifications, opt => opt.Ignore())
             .ForMember(dest => dest.PaymentTemplates, opt => opt.Ignore())
             .ForMember(dest => dest.UserCredential, opt => opt.Ignore());
+        CreateMap<ProtoModels.AddCustomerRequest, Customer>()
+            .ForMember(dest => dest.BirthDate,
+                opt => opt.MapFrom(src => MappingConverters.ProtoToDateOnly(src.BirthDate) ?? default))
+            .ForMember(dest => dest.CreatedAt,
+                opt => opt.Ignore())
+            .ForMember(dest => dest.Phone,
+                opt => opt.MapFrom(src => src.Phone ?? string.Empty))
+            .ForMember(dest => dest.Accounts, opt => opt.Ignore())
+            .ForMember(dest => dest.CustomerAddresses, opt => opt.Ignore())
+            .ForMember(dest => dest.Deposits, opt => opt.Ignore())
+            .ForMember(dest => dest.Loans, opt => opt.Ignore())
+            .ForMember(dest => dest.LoginLogs, opt => opt.Ignore())
+            .ForMember(dest => dest.Notifications, opt => opt.Ignore())
+            .ForMember(dest => dest.PaymentTemplates, opt => opt.Ignore())
+            .ForMember(dest => dest.UserCredential, opt => opt.Ignore());
+        CreateMap<ProtoModels.UpdateCustomerRequest, Customer>()
+            .ForMember(dest => dest.BirthDate,
+                opt => opt.MapFrom(src => MappingConverters.ProtoToDateOnly(src.BirthDate) ?? default))
+            .ForMember(dest => dest.CreatedAt,
+                opt => opt.Ignore())
+            .ForMember(dest => dest.Phone,
+                opt => opt.MapFrom(src => src.Phone ?? string.Empty))
+            .ForMember(dest => dest.Accounts, opt => opt.Ignore())
+            .ForMember(dest => dest.CustomerAddresses, opt => opt.Ignore())
+            .ForMember(dest => dest.Deposits, opt => opt.Ignore())
+            .ForMember(dest => dest.Loans, opt => opt.Ignore())
+            .ForMember(dest => dest.LoginLogs, opt => opt.Ignore())
+            .ForMember(dest => dest.Notifications, opt => opt.Ignore())
+            .ForMember(dest => dest.PaymentTemplates, opt => opt.Ignore())
+            .ForMember(dest => dest.UserCredential, opt => opt.Ignore());
     }
 
     private void MapCustomerAddress()
@@ -139,7 +203,15 @@ public sealed class ProtoMappingProfile : Profile
 
         CreateMap<ProtoModels.CustomerAddressModel, CustomerAddress>()
             .ForMember(dest => dest.IsPrimary,
-                opt => opt.MapFrom(src => src.HasIsPrimary ? src.IsPrimary : false))
+                opt => opt.MapFrom(src => src.HasIsPrimary && src.IsPrimary))
+            .ForMember(dest => dest.Customer, opt => opt.Ignore());
+        CreateMap<ProtoModels.AddCustomerAddressRequest, CustomerAddress>()
+            .ForMember(dest => dest.IsPrimary,
+                opt => opt.MapFrom(src => src.HasIsPrimary && src.IsPrimary))
+            .ForMember(dest => dest.Customer, opt => opt.Ignore());
+        CreateMap<ProtoModels.UpdateCustomerAddressRequest, CustomerAddress>()
+            .ForMember(dest => dest.IsPrimary,
+                opt => opt.MapFrom(src => src.HasIsPrimary && src.IsPrimary))
             .ForMember(dest => dest.Customer, opt => opt.Ignore());
     }
 
@@ -165,6 +237,26 @@ public sealed class ProtoMappingProfile : Profile
             .ForMember(dest => dest.EndDate,
                 opt => opt.MapFrom(src => MappingConverters.ProtoToDateOnly(src.EndDate)))
             .ForMember(dest => dest.Customer, opt => opt.Ignore());
+        CreateMap<ProtoModels.AddDepositRequest, Deposit>()
+            .ForMember(dest => dest.Amount,
+                opt => opt.MapFrom(src => MappingConverters.StringToDecimal(src.Amount)))
+            .ForMember(dest => dest.InterestRate,
+                opt => opt.MapFrom(src => MappingConverters.StringToDecimal(src.InterestRate)))
+            .ForMember(dest => dest.StartDate,
+                opt => opt.MapFrom(src => MappingConverters.ProtoToDateOnly(src.StartDate) ?? default))
+            .ForMember(dest => dest.EndDate,
+                opt => opt.MapFrom(src => MappingConverters.ProtoToDateOnly(src.EndDate)))
+            .ForMember(dest => dest.Customer, opt => opt.Ignore());
+        CreateMap<ProtoModels.UpdateDepositRequest, Deposit>()
+            .ForMember(dest => dest.Amount,
+                opt => opt.MapFrom(src => MappingConverters.StringToDecimal(src.Amount)))
+            .ForMember(dest => dest.InterestRate,
+                opt => opt.MapFrom(src => MappingConverters.StringToDecimal(src.InterestRate)))
+            .ForMember(dest => dest.StartDate,
+                opt => opt.MapFrom(src => MappingConverters.ProtoToDateOnly(src.StartDate) ?? default))
+            .ForMember(dest => dest.EndDate,
+                opt => opt.MapFrom(src => MappingConverters.ProtoToDateOnly(src.EndDate)))
+            .ForMember(dest => dest.Customer, opt => opt.Ignore());
     }
 
     private void MapExchangeRate()
@@ -179,7 +271,17 @@ public sealed class ProtoMappingProfile : Profile
             .ForMember(dest => dest.Rate,
                 opt => opt.MapFrom(src => MappingConverters.StringToDecimal(src.Rate)))
             .ForMember(dest => dest.UpdatedAt,
-                opt => opt.MapFrom(src => MappingConverters.TimestampToDateTime(src.UpdatedAt)));
+                opt => opt.MapFrom(src => MappingConverters.TimestampToDateTime(src.UpdatedAt))); 
+        CreateMap<ProtoModels.AddExchangeRateRequest, ExchangeRate>()
+            .ForMember(dest => dest.Rate,
+                opt => opt.MapFrom(src => MappingConverters.StringToDecimal(src.Rate)))
+            .ForMember(dest => dest.UpdatedAt,
+                opt => opt.Ignore());
+        CreateMap<ProtoModels.UpdateExchangeRateRequest, ExchangeRate>()
+            .ForMember(dest => dest.Rate,
+                opt => opt.MapFrom(src => MappingConverters.StringToDecimal(src.Rate)))
+            .ForMember(dest => dest.UpdatedAt,
+                opt => opt.Ignore());
     }
 
     private void MapFeeType()
@@ -188,6 +290,11 @@ public sealed class ProtoMappingProfile : Profile
 
         CreateMap<ProtoModels.FeeTypeModel, FeeType>()
             .ForMember(dest => dest.TransactionFees, opt => opt.Ignore());
+        CreateMap<ProtoModels.AddFeeTypeRequest, FeeType>()
+            .ForMember(dest => dest.TransactionFees, opt => opt.Ignore());
+        CreateMap<ProtoModels.UpdateFeeTypeRequest, FeeType>()
+            .ForMember(dest => dest.TransactionFees, opt => opt.Ignore());
+
     }
 
     private void MapLoan()
@@ -213,6 +320,29 @@ public sealed class ProtoMappingProfile : Profile
                 opt => opt.MapFrom(src => MappingConverters.ProtoToDateOnly(src.EndDate)))
             .ForMember(dest => dest.Customer, opt => opt.Ignore())
             .ForMember(dest => dest.LoanPayments, opt => opt.Ignore());
+        CreateMap<ProtoModels.AddLoanRequest, Loan>()
+            .ForMember(dest => dest.Principal,
+                opt => opt.MapFrom(src => MappingConverters.StringToDecimal(src.Principal)))
+            .ForMember(dest => dest.InterestRate,
+                opt => opt.MapFrom(src => MappingConverters.StringToDecimal(src.InterestRate)))
+            .ForMember(dest => dest.StartDate,
+                opt => opt.MapFrom(src => MappingConverters.ProtoToDateOnly(src.StartDate) ?? default))
+            .ForMember(dest => dest.EndDate,
+                opt => opt.MapFrom(src => MappingConverters.ProtoToDateOnly(src.EndDate)))
+            .ForMember(dest => dest.Customer, opt => opt.Ignore())
+            .ForMember(dest => dest.LoanPayments, opt => opt.Ignore());
+        CreateMap<ProtoModels.UpdateLoanRequest, Loan>()
+            .ForMember(dest => dest.Principal,
+                opt => opt.MapFrom(src => MappingConverters.StringToDecimal(src.Principal)))
+            .ForMember(dest => dest.InterestRate,
+                opt => opt.MapFrom(src => MappingConverters.StringToDecimal(src.InterestRate)))
+            .ForMember(dest => dest.StartDate,
+                opt => opt.MapFrom(src => MappingConverters.ProtoToDateOnly(src.StartDate) ?? default))
+            .ForMember(dest => dest.EndDate,
+                opt => opt.MapFrom(src => MappingConverters.ProtoToDateOnly(src.EndDate)))
+            .ForMember(dest => dest.Customer, opt => opt.Ignore())
+            .ForMember(dest => dest.LoanPayments, opt => opt.Ignore());
+
     }
 
     private void MapLoanPayment()
@@ -233,6 +363,22 @@ public sealed class ProtoMappingProfile : Profile
             .ForMember(dest => dest.IsPaid,
                 opt => opt.MapFrom(src => src.HasIsPaid ? src.IsPaid : false))
             .ForMember(dest => dest.Loan, opt => opt.Ignore());
+        CreateMap<ProtoModels.AddLoanPaymentRequest, LoanPayment>()
+            .ForMember(dest => dest.Amount,
+                opt => opt.MapFrom(src => MappingConverters.StringToDecimal(src.Amount)))
+            .ForMember(dest => dest.PaymentDate,
+                opt => opt.MapFrom(src => MappingConverters.ProtoToDateOnly(src.PaymentDate) ?? default))
+            .ForMember(dest => dest.IsPaid,
+                opt => opt.MapFrom(src => src.HasIsPaid ? src.IsPaid : false))
+            .ForMember(dest => dest.Loan, opt => opt.Ignore());
+        CreateMap<ProtoModels.UpdateLoanPaymentRequest, LoanPayment>()
+            .ForMember(dest => dest.Amount,
+                opt => opt.MapFrom(src => MappingConverters.StringToDecimal(src.Amount)))
+            .ForMember(dest => dest.PaymentDate,
+                opt => opt.MapFrom(src => MappingConverters.ProtoToDateOnly(src.PaymentDate) ?? default))
+            .ForMember(dest => dest.IsPaid,
+                opt => opt.MapFrom(src => src.HasIsPaid ? src.IsPaid : false))
+            .ForMember(dest => dest.Loan, opt => opt.Ignore());
     }
 
     private void MapLoginLog()
@@ -245,6 +391,15 @@ public sealed class ProtoMappingProfile : Profile
             .ForMember(dest => dest.LoginTime,
                 opt => opt.MapFrom(src => MappingConverters.TimestampToDateTime(src.LoginTime) ?? default))
             .ForMember(dest => dest.Customer, opt => opt.Ignore());
+        CreateMap<ProtoModels.AddLoginLogRequest, LoginLog>()
+            .ForMember(dest => dest.LoginTime,
+                opt => opt.MapFrom(src => MappingConverters.TimestampToDateTime(src.LoginTime) ?? default))
+            .ForMember(dest => dest.Customer, opt => opt.Ignore());
+        CreateMap<ProtoModels.UpdateLoginLogRequest, LoginLog>()
+            .ForMember(dest => dest.LoginTime,
+                opt => opt.MapFrom(src => MappingConverters.TimestampToDateTime(src.LoginTime) ?? default))
+            .ForMember(dest => dest.Customer, opt => opt.Ignore());
+
     }
 
     private void MapNotification()
@@ -256,6 +411,18 @@ public sealed class ProtoMappingProfile : Profile
         CreateMap<ProtoModels.NotificationModel, Notification>()
             .ForMember(dest => dest.CreatedAt,
                 opt => opt.MapFrom(src => MappingConverters.TimestampToDateTime(src.CreatedAt) ?? default))
+            .ForMember(dest => dest.IsRead,
+                opt => opt.MapFrom(src => src.HasIsRead ? src.IsRead : false))
+            .ForMember(dest => dest.Customer, opt => opt.Ignore());
+        CreateMap<ProtoModels.AddNotificationRequest, Notification>()
+            .ForMember(dest => dest.CreatedAt,
+                opt => opt.Ignore())
+            .ForMember(dest => dest.IsRead,
+                opt => opt.MapFrom(src => src.HasIsRead ? src.IsRead : false))
+            .ForMember(dest => dest.Customer, opt => opt.Ignore());
+        CreateMap<ProtoModels.UpdateNotificationRequest, Notification>()
+            .ForMember(dest => dest.CreatedAt,
+                opt => opt.Ignore())
             .ForMember(dest => dest.IsRead,
                 opt => opt.MapFrom(src => src.HasIsRead ? src.IsRead : false))
             .ForMember(dest => dest.Customer, opt => opt.Ignore());
@@ -271,6 +438,15 @@ public sealed class ProtoMappingProfile : Profile
             .ForMember(dest => dest.DefaultAmount,
                 opt => opt.MapFrom(src => MappingConverters.StringToNullableDecimal(src.DefaultAmount)))
             .ForMember(dest => dest.Customer, opt => opt.Ignore());
+        CreateMap<ProtoModels.AddPaymentTemplateRequest, PaymentTemplate>()
+            .ForMember(dest => dest.DefaultAmount,
+                opt => opt.MapFrom(src => MappingConverters.StringToNullableDecimal(src.DefaultAmount)))
+            .ForMember(dest => dest.Customer, opt => opt.Ignore());
+        CreateMap<ProtoModels.UpdatePaymentTemplateRequest, PaymentTemplate>()
+            .ForMember(dest => dest.DefaultAmount,
+                opt => opt.MapFrom(src => MappingConverters.StringToNullableDecimal(src.DefaultAmount)))
+            .ForMember(dest => dest.Customer, opt => opt.Ignore());
+
     }
 
     private void MapTransaction()
@@ -290,6 +466,25 @@ public sealed class ProtoMappingProfile : Profile
             .ForMember(dest => dest.TargetAccountNavigation, opt => opt.Ignore())
             .ForMember(dest => dest.TransactionFees, opt => opt.Ignore())
             .ForMember(dest => dest.Categories, opt => opt.Ignore());
+        CreateMap<ProtoModels.AddTransactionRequest, Transaction>()
+            .ForMember(dest => dest.Amount,
+                opt => opt.MapFrom(src => MappingConverters.StringToDecimal(src.Amount)))
+            .ForMember(dest => dest.CreatedAt,
+                opt => opt.Ignore())
+            .ForMember(dest => dest.SourceAccountNavigation, opt => opt.Ignore())
+            .ForMember(dest => dest.TargetAccountNavigation, opt => opt.Ignore())
+            .ForMember(dest => dest.TransactionFees, opt => opt.Ignore())
+            .ForMember(dest => dest.Categories, opt => opt.Ignore());
+        CreateMap<ProtoModels.UpdateTransactionRequest, Transaction>()
+            .ForMember(dest => dest.Amount,
+                opt => opt.MapFrom(src => MappingConverters.StringToDecimal(src.Amount)))
+            .ForMember(dest => dest.CreatedAt,
+                opt => opt.Ignore())
+            .ForMember(dest => dest.SourceAccountNavigation, opt => opt.Ignore())
+            .ForMember(dest => dest.TargetAccountNavigation, opt => opt.Ignore())
+            .ForMember(dest => dest.TransactionFees, opt => opt.Ignore())
+            .ForMember(dest => dest.Categories, opt => opt.Ignore());
+
     }
 
     private void MapTransactionCategory()
@@ -297,6 +492,10 @@ public sealed class ProtoMappingProfile : Profile
         CreateMap<TransactionCategory, ProtoModels.TransactionCategoryModel>();
 
         CreateMap<ProtoModels.TransactionCategoryModel, TransactionCategory>()
+            .ForMember(dest => dest.Transactions, opt => opt.Ignore());
+        CreateMap<ProtoModels.AddTransactionCategoryRequest, TransactionCategory>()
+            .ForMember(dest => dest.Transactions, opt => opt.Ignore());
+        CreateMap<ProtoModels.UpdateTransactionCategoryRequest, TransactionCategory>()
             .ForMember(dest => dest.Transactions, opt => opt.Ignore());
     }
 
@@ -311,6 +510,17 @@ public sealed class ProtoMappingProfile : Profile
                 opt => opt.MapFrom(src => MappingConverters.StringToDecimal(src.Amount)))
             .ForMember(dest => dest.Transaction, opt => opt.Ignore())
             .ForMember(dest => dest.Fee, opt => opt.Ignore());
+        CreateMap<ProtoModels.AddTransactionFeeRequest, TransactionFee>()
+            .ForMember(dest => dest.Amount,
+                opt => opt.MapFrom(src => MappingConverters.StringToDecimal(src.Amount)))
+            .ForMember(dest => dest.Transaction, opt => opt.Ignore())
+            .ForMember(dest => dest.Fee, opt => opt.Ignore());
+        CreateMap<ProtoModels.UpdateTransactionFeeRequest, TransactionFee>()
+            .ForMember(dest => dest.Amount,
+                opt => opt.MapFrom(src => MappingConverters.StringToDecimal(src.Amount)))
+            .ForMember(dest => dest.Transaction, opt => opt.Ignore())
+            .ForMember(dest => dest.Fee, opt => opt.Ignore());
+
     }
 
     private void MapUserCredential()
@@ -322,6 +532,14 @@ public sealed class ProtoMappingProfile : Profile
         CreateMap<ProtoModels.UserCredentialModel, UserCredential>()
             .ForMember(dest => dest.UpdatedAt,
                 opt => opt.MapFrom(src => MappingConverters.TimestampToDateTime(src.UpdatedAt) ?? default))
+            .ForMember(dest => dest.Customer, opt => opt.Ignore());
+        CreateMap<ProtoModels.AddUserCredentialRequest, UserCredential>()
+            .ForMember(dest => dest.UpdatedAt,
+                opt => opt.Ignore())
+            .ForMember(dest => dest.Customer, opt => opt.Ignore());
+        CreateMap<ProtoModels.UpdateUserCredentialRequest, UserCredential>()
+            .ForMember(dest => dest.UpdatedAt,
+                opt => opt.Ignore())
             .ForMember(dest => dest.Customer, opt => opt.Ignore());
     }
 }
@@ -408,6 +626,11 @@ internal static class MappingConverters
 
         var asDateTime = value.Value.ToDateTime(SystemTimeOnly.MinValue);
         return Timestamp.FromDateTime(DateTime.SpecifyKind(asDateTime, DateTimeKind.Utc));
+    }
+    private static SystemDateOnly? ProtoDateOnlyToSystemDateOnly(ProtoDateOnlyMessage? protoDate)
+    {
+        if (protoDate == null) return null;
+        return new SystemDateOnly(protoDate.Year, protoDate.Month, protoDate.Day);
     }
 
     public static SystemDateOnly? TimestampToDateOnly(Timestamp? value) =>
