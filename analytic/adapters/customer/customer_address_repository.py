@@ -2,6 +2,7 @@ from typing import List
 
 import grpc
 
+from adapters.base_grpc_repository import BaseGrpcRepository
 from api.generated.custom_types_pb2 import GetAllRequest
 from api.generated.customer_address_pb2 import *
 from api.generated.customer_address_pb2_grpc import CustomerAddressServiceStub
@@ -9,13 +10,10 @@ from domain.customer.customer_address import CustomerAddress
 from domain.customer.customer_address_repo import CustomerAddressRepositoryAbc
 
 
-class CustomerAddressRepository(CustomerAddressRepositoryAbc):
+class CustomerAddressRepository(CustomerAddressRepositoryAbc, BaseGrpcRepository):
     def __init__(self, target: str):
-        self.chanel = grpc.aio.insecure_channel(target)
+        super().__init__(target)
         self.stub = CustomerAddressServiceStub(channel=self.chanel)
-
-    async def close(self):
-        await self.chanel.close()
 
     @staticmethod
     def to_domain(model: CustomerAddressModel) -> CustomerAddress:
@@ -34,18 +32,15 @@ class CustomerAddressRepository(CustomerAddressRepositoryAbc):
         return [CustomerAddressRepository.to_domain(model) for model in response.customer_addresses]
 
     async def get_all(self, page_n: int, page_size: int) -> List[CustomerAddress]:
-        try:
-            request = GetAllRequest(pageN=page_n, pageSize=page_size)
-            result = await self.stub.GetAll(request)
+        request = GetAllRequest(pageN=page_n, pageSize=page_size)
+        result = await self._execute(self.stub.GetAll(request))
+        if result:
             return self.response_to_list(result)
-        except grpc.aio.AioRpcError as err:
-            print(f"Error calling GetAll: {err}")
-            return []
+        return []
 
     async def get_by_id(self, address_id: int) -> CustomerAddress | None:
-        try:
-            result = await self.stub.GetById(GetCustomerAddressByIdRequest(address_id=address_id))
+        request = GetCustomerAddressByIdRequest(address_id=address_id)
+        result = await self._execute(self.stub.GetById(request))
+        if result:
             return self.to_domain(result)
-        except grpc.aio.AioRpcError as err:
-            print(f"Error calling GetById: {err}")
-            return None
+        return None

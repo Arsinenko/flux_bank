@@ -2,6 +2,7 @@ from typing import List
 
 import grpc.aio
 
+from adapters.base_grpc_repository import BaseGrpcRepository
 from api.generated.atm_pb2 import *
 from api.generated.atm_pb2_grpc import AtmServiceStub
 from api.generated.custom_types_pb2 import GetAllRequest
@@ -9,13 +10,10 @@ from domain.atm.atm import Atm
 from domain.atm.atm_repo import AtmRepositoryAbc
 
 
-class AtmRepository(AtmRepositoryAbc):
+class AtmRepository(AtmRepositoryAbc, BaseGrpcRepository):
     def __init__(self, target: str):
-        self.chanel = grpc.aio.insecure_channel(target)
+        super().__init__(target)
         self.stub = AtmServiceStub(channel=self.chanel)
-
-    async def close(self):
-        await self.chanel.close()
 
     @staticmethod
     def to_domain(model: AtmModel) -> Atm:
@@ -31,44 +29,38 @@ class AtmRepository(AtmRepositoryAbc):
         return [self.to_domain(model) for model in response.atms]
 
     async def get_all(self, page_n: int, page_size: int) -> List[Atm]:
-        try:
-            request = GetAllRequest(pageN=page_n, pageSize=page_size)
-            result = await self.stub.GetAll(request)
+        request = GetAllRequest(pageN=page_n, pageSize=page_size)
+        result = await self._execute(self.stub.GetAll(request))
+        if result:
             return self.response_to_list(result)
-        except grpc.aio.AioRpcError as err:
-            print(f"Error calling GetAll: {err}")
-            return []
+        return []
 
     async def get_by_id(self, atm_id: int) -> Atm | None:
-        try:
-            result = await self.stub.GetById(GetAtmByIdRequest(atm_id=atm_id))
+        request = GetAtmByIdRequest(atm_id=atm_id)
+        result = await self._execute(self.stub.GetById(request))
+        if result:
             return self.to_domain(result)
-        except grpc.aio.AioRpcError as err:
-            print(f"Error calling GetById: {err}")
-            return None
+        return None
 
     async def get_by_status(self, status: str) -> List[Atm]:
-        try:
-            result = await self.stub.GetByStatus(GetAtmsByStatusRequest(status=status))
+        request = GetAtmsByStatusRequest(status=status)
+        result = await self._execute(self.stub.GetByStatus(request))
+        if result:
             return self.response_to_list(result)
-        except grpc.aio.AioRpcError as err:
-            print(f"Error calling GetByStatus: {err}")
-            return []
+        return []
 
 
     async def get_by_location_substr(self, sub_str: str) -> List[Atm]:
-        try:
-            result = await self.stub.GetByLocationSubStr(GetAtmsByLocationSubStrRequest(sub_str=sub_str))
+        request = GetAtmsByLocationSubStrRequest(sub_str=sub_str)
+        result = await self._execute(self.stub.GetByLocationSubStr(request))
+        if result:
             return self.response_to_list(result)
-        except grpc.aio.AioRpcError as err:
-            print(f"Error calling GetByLocationSubStr: {err}")
-            return []
+        return []
 
 
     async def get_by_branch(self, branch_id: int) -> List[Atm]:
-        try:
-            result = await self.stub.GetByBranch(GetAtmsByBranchRequest(branch_id=branch_id))
+        request = GetAtmsByBranchRequest(branch_id=branch_id)
+        result = await self._execute(self.stub.GetByBranch(request))
+        if result:
             return self.response_to_list(result)
-        except grpc.aio.AioRpcError as err:
-            print(f"Error calling GetByBranch: {err}")
-            return []
+        return []

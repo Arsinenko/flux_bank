@@ -3,6 +3,7 @@ from typing import List
 
 import grpc.aio
 
+from adapters.base_grpc_repository import BaseGrpcRepository
 from api.generated import account_pb2
 from api.generated.account_pb2 import AccountModel
 from api.generated.account_pb2_grpc import AccountServiceStub
@@ -11,12 +12,11 @@ from domain.account.account import Account
 from domain.account.account_repo import AccountRepositoryAbc
 
 
-class AccountRepository(AccountRepositoryAbc):
+class AccountRepository(AccountRepositoryAbc, BaseGrpcRepository):
     def __init__(self, target: str):
-        self.chanel = grpc.aio.insecure_channel(target)
+        super().__init__(target)
         self.stub = AccountServiceStub(self.chanel)
-    async def close(self):
-        await self.chanel.close()
+
 
     @staticmethod
     def to_domain(self, model) -> Account:
@@ -35,38 +35,31 @@ class AccountRepository(AccountRepositoryAbc):
 
 
     async def get_all(self, page_n: int, page_size: int) -> List[Account]:
-        try:
-            request = GetAllRequest(pageN=page_n, pageSize=page_size)
-            result = await self.stub.GetAll(request)
-            return self.response_to_list(result)
-        except grpc.aio.AioRpcError as err:
-            print(f"Error calling GetAll: {err}")
-            return []
+        request = GetAllRequest(pageN=page_n, pageSize=page_size)
+        result = await self._execute(self.stub.GetAll(request))
+        return self.response_to_list(result)
+
 
 
     async def get_by_id(self, account_id: int) -> Account | None:
-        try:
-            request = account_pb2.GetAccountByIdRequest(account_id=account_id)
-            result = await self.stub.GetById(request)
+        request = account_pb2.GetAccountByIdRequest(account_id=account_id)
+        result: AccountModel = await self._execute(self.stub.GetById(request))
+        if result:
             return self.to_domain(result)
-        except grpc.aio.AioRpcError as err:
-            print(f"Error calling GetById: {err}")
-            return None
+        return None
+
 
     async def get_by_customer_id(self, customer_id: int) -> List[Account]:
-        try:
-            request = account_pb2.GetAccountByCustomerIdRequest(customer_id=customer_id)
-            result: account_pb2.GetAllAccountsResponse = await self.stub.GetByCustomerId(request)
-            return self.response_to_list(result)
-        except grpc.aio.AioRpcError as err:
-            print(f"Error calling GetByCustomerId: {err}")
-            return []
+        request = account_pb2.GetAccountByCustomerIdRequest(customer_id=customer_id)
+        result = await self._execute(self.stub.GetByCustomerId(request))
+        return self.response_to_list(result)
 
     async def get_by_date_range(self, from_date, to_date, page_n: int, page_size: int) -> List[Account]:
-        try:
-            request = GetByDateRangeRequest(fromDate=from_date, toDate=to_date)
-            result = await self.stub.GetByDateRange(request)
-            return self.response_to_list(result)
-        except grpc.aio.AioRpcError as ex:
-            print(f"Error calling GetByDateRange: {ex}")
-            return []
+        request = GetByDateRangeRequest(
+            fromDate=from_date,
+            toDate=to_date,
+            pageN=page_n,
+            pageSize=page_size
+        )
+        result = await self._execute(self.stub.GetByDateRange(request))
+        return self.response_to_list(result)

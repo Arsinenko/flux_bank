@@ -2,6 +2,7 @@ from datetime import datetime
 
 import grpc.aio
 
+from adapters.base_grpc_repository import BaseGrpcRepository
 from api.generated.custom_types_pb2 import GetAllRequest
 from api.generated.login_log_pb2 import *
 from api.generated.login_log_pb2_grpc import LoginLogServiceStub
@@ -10,13 +11,10 @@ from typing import List
 from domain.login_log.login_log import LoginLog
 
 
-class LoginLogRepository(LoginLogRepositoryAbc):
+class LoginLogRepository(LoginLogRepositoryAbc, BaseGrpcRepository):
     def __init__(self, target: str):
-        self.chanel = grpc.aio.insecure_channel(target)
+        super().__init__(target)
         self.stub = LoginLogServiceStub(self.chanel)
-
-    async def close(self):
-        await self.chanel.close()
 
     @staticmethod
     def to_domain(model: LoginLogModel) -> LoginLog:
@@ -33,37 +31,32 @@ class LoginLogRepository(LoginLogRepositoryAbc):
         return [LoginLogRepository.to_domain(model) for model in response.login_logs]
 
     async def get_all(self, page_n: int, page_size: int) -> List[LoginLog]:
-        try:
-            result = await self.stub.GetAll(GetAllRequest(pageN=page_n, pageSize=page_size))
+        request = GetAllRequest(pageN=page_n, pageSize=page_size)
+        result = await self._execute(self.stub.GetAll(request))
+        if result:
             return self.response_to_list(result)
-        except grpc.aio.AioRpcError as err:
-            print(f"Error calling GetAll: {err}")
-            return []
+        return []
 
     async def get_by_id(self, log_id: int) -> LoginLog | None:
-        try:
-            result = await self.stub.GetById(GetLoginLogByIdRequest(log_id=log_id))
+        request = GetLoginLogByIdRequest(log_id=log_id)
+        result = await self._execute(self.stub.GetById(request))
+        if result:
             return self.to_domain(result)
-        except grpc.aio.AioRpcError as err:
-            print(f"Error calling GetById: {err}")
-            return None
+        return None
 
     async def get_by_customer(self, customer_id: int) -> List[LoginLog]:
-        try:
-            result = await self.stub.GetByCustomer(GetLoginLogsByCustomerRequest(customer_id=customer_id))
+        request = GetLoginLogsByCustomerRequest(customer_id=customer_id)
+        result = await self._execute(self.stub.GetByCustomer(request))
+        if result:
             return self.response_to_list(result)
-        except grpc.aio.AioRpcError as err:
-            print(f"Error calling GetByCustomer: {err}")
-            return []
+        return []
 
     async def get_in_time_range(self, start_time: datetime, end_time: datetime) -> List[LoginLog]:
-        try:
-            request = GetLoginLogsInTimeRangeRequest(
-                start_time=start_time.isoformat(),
-                end_time=end_time.isoformat()
-            )
-            result = await self.stub.GetInTimeRange(request)
+        request = GetLoginLogsInTimeRangeRequest(
+            start_time=start_time.isoformat(),
+            end_time=end_time.isoformat()
+        )
+        result = await self._execute(self.stub.GetInTimeRange(request))
+        if result:
             return self.response_to_list(result)
-        except grpc.aio.AioRpcError as err:
-            print(f"Error calling GetInTimeRange: {err}")
-            return []
+        return []

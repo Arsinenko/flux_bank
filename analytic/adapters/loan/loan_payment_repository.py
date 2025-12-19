@@ -3,6 +3,7 @@ from typing import List
 
 import grpc
 
+from adapters.base_grpc_repository import BaseGrpcRepository
 from api.generated.custom_types_pb2 import GetAllRequest
 from api.generated.loan_payment_pb2 import *
 from api.generated.loan_payment_pb2_grpc import LoanPaymentServiceStub
@@ -10,13 +11,10 @@ from domain.loan.loan_payment import LoanPayment
 from domain.loan.loan_payment_repo import LoanPaymentRepositoryAbc
 
 
-class LoanPaymentRepository(LoanPaymentRepositoryAbc):
+class LoanPaymentRepository(LoanPaymentRepositoryAbc, BaseGrpcRepository):
     def __init__(self, target: str):
-        self.chanel = grpc.aio.insecure_channel(target)
+        super().__init__(target)
         self.stub = LoanPaymentServiceStub(channel=self.chanel)
-
-    async def close(self):
-        await self.chanel.close()
 
     @staticmethod
     def to_domain(model: LoanPaymentModel) -> LoanPayment:
@@ -33,26 +31,22 @@ class LoanPaymentRepository(LoanPaymentRepositoryAbc):
         return [LoanPaymentRepository.to_domain(model) for model in response.loan_payments]
 
     async def get_all(self, page_n: int, page_size: int) -> List[LoanPayment]:
-        try:
-            request = GetAllRequest(pageN=page_n, pageSize=page_size)
-            result = await self.stub.GetAll(request)
+        request = GetAllRequest(pageN=page_n, pageSize=page_size)
+        result = await self._execute(self.stub.GetAll(request))
+        if result:
             return self.response_to_list(result)
-        except grpc.aio.AioRpcError as err:
-            print(f"Error calling GetAll: {err}")
-            return []
+        return []
 
     async def get_by_id(self, payment_id: int) -> LoanPayment | None:
-        try:
-            result = await self.stub.GetById(GetLoanPaymentByIdRequest(payment_id=payment_id))
+        request = GetLoanPaymentByIdRequest(payment_id=payment_id)
+        result = await self._execute(self.stub.GetById(request))
+        if result:
             return self.to_domain(result)
-        except grpc.aio.AioRpcError as err:
-            print(f"Error calling GetById: {err}")
-            return None
+        return None
 
     async def get_by_loan_id(self, loan_id: int) -> List[LoanPayment]:
-        try:
-            result = await self.stub.GetByLoan(GetLoanPaymentsByLoanRequest(loan_id=loan_id))
+        request = GetLoanPaymentsByLoanRequest(loan_id=loan_id)
+        result = await self._execute(self.stub.GetByLoan(request))
+        if result:
             return self.response_to_list(result)
-        except grpc.aio.AioRpcError as err:
-            print(f"Error calling GetByLoan: {err}")
-            return []
+        return []

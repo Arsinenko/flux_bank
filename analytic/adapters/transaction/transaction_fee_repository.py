@@ -3,6 +3,7 @@ from typing import List
 
 import grpc
 
+from adapters.base_grpc_repository import BaseGrpcRepository
 from api.generated.custom_types_pb2 import GetAllRequest
 from api.generated.transaction_fee_pb2 import *
 from api.generated.transaction_fee_pb2_grpc import TransactionFeeServiceStub
@@ -10,13 +11,10 @@ from domain.transaction.transaction_fee import TransactionFee
 from domain.transaction.transaction_fee_repo import TransactionFeeRepositoryAbc
 
 
-class TransactionFeeRepository(TransactionFeeRepositoryAbc):
+class TransactionFeeRepository(TransactionFeeRepositoryAbc, BaseGrpcRepository):
     def __init__(self, target: str):
-        self.chanel = grpc.aio.insecure_channel(target)
+        super().__init__(target)
         self.stub = TransactionFeeServiceStub(channel=self.chanel)
-
-    async def close(self):
-        await self.chanel.close()
 
     @staticmethod
     def to_domain(model: TransactionFeeModel) -> TransactionFee:
@@ -32,18 +30,15 @@ class TransactionFeeRepository(TransactionFeeRepositoryAbc):
         return [TransactionFeeRepository.to_domain(model) for model in response.transaction_fees]
 
     async def get_all(self, page_n: int, page_size: int) -> List[TransactionFee]:
-        try:
-            request = GetAllRequest(pageN=page_n, pageSize=page_size)
-            result = await self.stub.GetAll(request)
+        request = GetAllRequest(pageN=page_n, pageSize=page_size)
+        result = await self._execute(self.stub.GetAll(request))
+        if result:
             return self.response_to_list(result)
-        except grpc.aio.AioRpcError as err:
-            print(f"Error calling GetAll: {err}")
-            return []
+        return []
 
     async def get_by_id(self, id: int) -> TransactionFee | None:
-        try:
-            result = await self.stub.GetById(GetTransactionFeeByIdRequest(id=id))
+        request = GetTransactionFeeByIdRequest(id=id)
+        result = await self._execute(self.stub.GetById(request))
+        if result:
             return self.to_domain(result)
-        except grpc.aio.AioRpcError as err:
-            print(f"Error calling GetById: {err}")
-            return None
+        return None

@@ -2,19 +2,18 @@ from typing import List
 
 import grpc.aio
 
-from api.generated.account_type_pb2 import AccountTypeModel
+from adapters.base_grpc_repository import BaseGrpcRepository
+from api.generated.account_type_pb2 import *
 from api.generated.account_type_pb2_grpc import AccountTypeServiceStub
+from api.generated.custom_types_pb2 import GetAllRequest
 from domain.account.account_type import AccountType
 from domain.account.account_type_repo import AccountTypeRepositoryAbc
 
 
-class AccountTypeRepository(AccountTypeRepositoryAbc):
+class AccountTypeRepository(AccountTypeRepositoryAbc, BaseGrpcRepository):
     def __init__(self, target: str):
-        self.chanel = grpc.aio.insecure_channel(target)
+        super().__init__(target)
         self.stub = AccountTypeServiceStub(channel=self.chanel)
-
-    async def close(self):
-        await self.chanel.close()
 
     @staticmethod
     def to_domain(model: AccountTypeModel) -> AccountType:
@@ -23,19 +22,16 @@ class AccountTypeRepository(AccountTypeRepositoryAbc):
             name=model.name,
             description=model.description
         )
-    async def get_all(self) -> List[AccountType]:
-        try:
-            result = await self.stub.GetAll(AccountTypeModel())
-            return [self.to_domain(model) for model in result.account_types]
-        except grpc.aio.AioRpcError as err:
-            print(f"Error calling GetAll: {err}")
-            return []
+    async def get_all(self, page_n: int, page_size: int) -> List[AccountType]:
+        request = GetAllRequest(pageN=page_n, pageSize=page_size)
+        result = await self._execute(self.stub.GetAll(request))
+        return [self.to_domain(model) for model in result.account_types]
+
 
     async def get_by_id(self, type_id: int) -> AccountType | None:
-        try:
-            result = await self.stub.GetById(AccountTypeModel(type_id=type_id))
+        request = GetAccountTypeByIdRequest(type_id=type_id)
+        result: AccountTypeModel = await self._execute(self.stub.GetById(request))
+        if result:
             return self.to_domain(result)
-        except grpc.aio.AioRpcError as err:
-            print(f"Error calling GetById: {err}")
-            return None
+        return None
 

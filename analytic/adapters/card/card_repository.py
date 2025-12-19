@@ -2,6 +2,7 @@ from typing import List
 
 import grpc
 
+from adapters.base_grpc_repository import BaseGrpcRepository
 from api.generated.card_pb2 import *
 from api.generated.card_pb2_grpc import CardServiceStub
 from api.generated.custom_types_pb2 import GetAllRequest
@@ -9,13 +10,10 @@ from domain.card.card import Card
 from domain.card.card_repo import CardRepositoryAbc
 
 
-class CardRepository(CardRepositoryAbc):
+class CardRepository(CardRepositoryAbc, BaseGrpcRepository):
     def __init__(self, target: str):
-        self.chanel = grpc.aio.insecure_channel(target)
+        super().__init__(target)
         self.stub = CardServiceStub(channel=self.chanel)
-
-    async def close(self):
-        await self.chanel.close()
 
     @staticmethod
     def to_domain(model: CardModel) -> Card:
@@ -33,27 +31,23 @@ class CardRepository(CardRepositoryAbc):
         return [CardRepository.to_domain(model) for model in response.cards]
 
     async def get_all(self, page_n: int, page_size: int) -> List[Card]:
-        try:
-            request = GetAllRequest(pageN=page_n, pageSize=page_size)
-            result = await self.stub.GetAll(request)
+        request = GetAllRequest(pageN=page_n, pageSize=page_size)
+        result = await self._execute(self.stub.GetAll(request))
+        if result:
             return self.response_to_list(result)
-        except grpc.aio.AioRpcError as err:
-            print(f"Error calling GetAll: {err}")
-            return []
+        return []
 
     async def get_by_id(self, branch_id: int) -> Card | None:
-        try:
-            result = await self.stub.GetById(GetCardByIdRequest(card_id=branch_id))
+        request = GetCardByIdRequest(card_id=branch_id)
+        result = await self._execute(self.stub.GetById(request))
+        if result:
             return self.to_domain(result)
-        except grpc.aio.AioRpcError as err:
-            print(f"Error calling GetById: {err}")
-            return None
+        return None
 
 
     async def get_by_account_id(self, account_id: int) -> List[Card]:
-        try:
-            result = await self.stub.GetByAccountId(GetCardsByAccountRequest(account_id=account_id))
+        request = GetCardsByAccountRequest(account_id=account_id)
+        result = await self._execute(self.stub.GetByAccountId(request))
+        if result:
             return self.response_to_list(result)
-        except grpc.aio.AioRpcError as err:
-            print(f"Error calling GetByAccountId: {err}")
-            return []
+        return []
