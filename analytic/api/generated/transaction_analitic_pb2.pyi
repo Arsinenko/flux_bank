@@ -221,3 +221,46 @@ class GetAnomalousTransactionsByDateRangeResponse(google.protobuf.message.Messag
     def ClearField(self, field_name: typing.Literal["transactions", b"transactions"]) -> None: ...
 
 Global___GetAnomalousTransactionsByDateRangeResponse: typing_extensions.TypeAlias = GetAnomalousTransactionsByDateRangeResponse
+
+@typing.final
+class GetUserSumTransactionsByDateRangeRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    START_DATE_FIELD_NUMBER: builtins.int
+    END_DATE_FIELD_NUMBER: builtins.int
+    USER_ID_FIELD_NUMBER: builtins.int
+    user_id: builtins.int
+    @property
+    def start_date(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
+    @property
+    def end_date(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
+    def __init__(
+        self,
+        *,
+        start_date: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        end_date: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        user_id: builtins.int = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["_end_date", b"_end_date", "_start_date", b"_start_date", "end_date", b"end_date", "start_date", b"start_date"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_end_date", b"_end_date", "_start_date", b"_start_date", "end_date", b"end_date", "start_date", b"start_date", "user_id", b"user_id"]) -> None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_end_date", b"_end_date"]) -> typing.Literal["end_date"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_start_date", b"_start_date"]) -> typing.Literal["start_date"] | None: ...
+
+Global___GetUserSumTransactionsByDateRangeRequest: typing_extensions.TypeAlias = GetUserSumTransactionsByDateRangeRequest
+
+@typing.final
+class GetUserSumTransactionsByDateRangeResponse(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    SUM_FIELD_NUMBER: builtins.int
+    sum: builtins.int
+    def __init__(
+        self,
+        *,
+        sum: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["sum", b"sum"]) -> None: ...
+
+Global___GetUserSumTransactionsByDateRangeResponse: typing_extensions.TypeAlias = GetUserSumTransactionsByDateRangeResponse

@@ -62,5 +62,11 @@ class AccountRepository(AccountRepositoryAbc):
             print(f"Error calling GetByCustomerId: {err}")
             return []
 
-    async def get_by_date_range(self, from_date, to_date, page_n: int, page_size: int) -> Account:
-        pass #TODO fix from keyword
+    async def get_by_date_range(self, from_date, to_date, page_n: int, page_size: int) -> List[Account]:
+        try:
+            request = GetByDateRangeRequest(fromDate=from_date, toDate=to_date)
+            result = await self.stub.GetByDateRange(request)
+            return self.response_to_list(result)
+        except grpc.aio.AioRpcError as ex:
+            print(f"Error calling GetByDateRange: {ex}")
+            return []

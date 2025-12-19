@@ -60,23 +60,26 @@ Global___DateOnly: typing_extensions.TypeAlias = DateOnly
 class GetByDateRangeRequest(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-    FROM_FIELD_NUMBER: builtins.int
-    TO_FIELD_NUMBER: builtins.int
+    FROMDATE_FIELD_NUMBER: builtins.int
+    TODATE_FIELD_NUMBER: builtins.int
     PAGEN_FIELD_NUMBER: builtins.int
     PAGESIZE_FIELD_NUMBER: builtins.int
     pageN: builtins.int
     pageSize: builtins.int
     @property
-    def to(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
+    def fromDate(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
+    @property
+    def toDate(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
     def __init__(
         self,
         *,
-        to: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        fromDate: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        toDate: google.protobuf.timestamp_pb2.Timestamp | None = ...,
         pageN: builtins.int | None = ...,
         pageSize: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["_pageN", b"_pageN", "_pageSize", b"_pageSize", "from", b"from", "pageN", b"pageN", "pageSize", b"pageSize", "to", b"to"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["_pageN", b"_pageN", "_pageSize", b"_pageSize", "from", b"from", "pageN", b"pageN", "pageSize", b"pageSize", "to", b"to"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["_pageN", b"_pageN", "_pageSize", b"_pageSize", "fromDate", b"fromDate", "pageN", b"pageN", "pageSize", b"pageSize", "toDate", b"toDate"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_pageN", b"_pageN", "_pageSize", b"_pageSize", "fromDate", b"fromDate", "pageN", b"pageN", "pageSize", b"pageSize", "toDate", b"toDate"]) -> None: ...
     @typing.overload
     def WhichOneof(self, oneof_group: typing.Literal["_pageN", b"_pageN"]) -> typing.Literal["pageN"] | None: ...
     @typing.overload

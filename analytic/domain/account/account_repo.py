@@ -18,5 +18,5 @@ class AccountRepositoryAbc(ABC):
         pass
 
     @abstractmethod
-    async def get_by_date_range(self, from_date, to_date, page_n: int, page_size: int) -> Account:
+    async def get_by_date_range(self, from_date, to_date, page_n: int, page_size: int) -> List[Account]:
         pass

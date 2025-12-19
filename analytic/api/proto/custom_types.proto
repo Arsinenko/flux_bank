@@ -17,8 +17,8 @@ message DateOnly {
 }
 
 message GetByDateRangeRequest{
-  google.protobuf.Timestamp from = 1;
-  google.protobuf.Timestamp to = 2;
-  optional int32 pageN = 3;
-  optional int32 pageSize = 4;
+    google.protobuf.Timestamp fromDate = 1;
+    google.protobuf.Timestamp toDate = 2;
+    optional int32 pageN = 3;
+    optional int32 pageSize = 4;
 }

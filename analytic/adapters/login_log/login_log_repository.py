@@ -57,4 +57,13 @@ class LoginLogRepository(LoginLogRepositoryAbc):
             return []
 
     async def get_in_time_range(self, start_time: datetime, end_time: datetime) -> List[LoginLog]:
-        pass #TODO fix "from" keyword
+        try:
+            request = GetLoginLogsInTimeRangeRequest(
+                start_time=start_time.isoformat(),
+                end_time=end_time.isoformat()
+            )
+            result = await self.stub.GetInTimeRange(request)
+            return self.response_to_list(result)
+        except grpc.aio.AioRpcError as err:
+            print(f"Error calling GetInTimeRange: {err}")
+            return []

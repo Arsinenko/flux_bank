@@ -48,8 +48,14 @@ class NotificationRepository(NotificationRepositoryAbc):
 
 
     async def get_by_date_range(self, start_date: str, end_date: str) -> List[Notification]:
-        #TODO fix "from" keyword
-        pass
+        try:
+            request = GetByDateRangeRequest(fromDate=start_date, toDate=end_date)
+            result = await self.stub.GetByDateRange(request)
+            return self.response_to_list(result)
+        except grpc.aio.AioRpcError as err:
+            print(f"Error calling GetByDateRange: {err}")
+            return []
+
 
 
     async def get_by_customer(self, customer_id: int) -> List[Notification]:
