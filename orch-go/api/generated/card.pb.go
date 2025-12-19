@@ -288,7 +288,7 @@ type AddCardRequest struct {
 	AccountId     *int32                 `protobuf:"varint,1,opt,name=account_id,json=accountId,proto3,oneof" json:"account_id,omitempty"`
 	CardNumber    string                 `protobuf:"bytes,2,opt,name=card_number,json=cardNumber,proto3" json:"card_number,omitempty"`
 	Cvv           string                 `protobuf:"bytes,3,opt,name=cvv,proto3" json:"cvv,omitempty"`
-	ExpiryDate    *DateOnly              `protobuf:"bytes,4,opt,name=expiry_date,json=expiryDate,proto3" json:"expiry_date,omitempty"`
+	ExpiryDate    *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=expiry_date,json=expiryDate,proto3" json:"expiry_date,omitempty"`
 	Status        *string                `protobuf:"bytes,5,opt,name=status,proto3,oneof" json:"status,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -345,7 +345,7 @@ func (x *AddCardRequest) GetCvv() string {
 	return ""
 }
 
-func (x *AddCardRequest) GetExpiryDate() *DateOnly {
+func (x *AddCardRequest) GetExpiryDate() *timestamppb.Timestamp {
 	if x != nil {
 		return x.ExpiryDate
 	}
@@ -365,7 +365,7 @@ type UpdateCardRequest struct {
 	AccountId     *int32                 `protobuf:"varint,2,opt,name=account_id,json=accountId,proto3,oneof" json:"account_id,omitempty"`
 	CardNumber    string                 `protobuf:"bytes,3,opt,name=card_number,json=cardNumber,proto3" json:"card_number,omitempty"`
 	Cvv           string                 `protobuf:"bytes,4,opt,name=cvv,proto3" json:"cvv,omitempty"`
-	ExpiryDate    *DateOnly              `protobuf:"bytes,5,opt,name=expiry_date,json=expiryDate,proto3" json:"expiry_date,omitempty"`
+	ExpiryDate    *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=expiry_date,json=expiryDate,proto3" json:"expiry_date,omitempty"`
 	Status        *string                `protobuf:"bytes,6,opt,name=status,proto3,oneof" json:"status,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -429,7 +429,7 @@ func (x *UpdateCardRequest) GetCvv() string {
 	return ""
 }
 
-func (x *UpdateCardRequest) GetExpiryDate() *DateOnly {
+func (x *UpdateCardRequest) GetExpiryDate() *timestamppb.Timestamp {
 	if x != nil {
 		return x.ExpiryDate
 	}
@@ -646,26 +646,26 @@ const file_card_proto_rawDesc = "" +
 	"\bcard_ids\x18\x01 \x03(\x05R\acardIds\"9\n" +
 	"\x18GetCardsByAccountRequest\x12\x1d\n" +
 	"\n" +
-	"account_id\x18\x01 \x01(\x05R\taccountId\"\xd1\x01\n" +
+	"account_id\x18\x01 \x01(\x05R\taccountId\"\xdb\x01\n" +
 	"\x0eAddCardRequest\x12\"\n" +
 	"\n" +
 	"account_id\x18\x01 \x01(\x05H\x00R\taccountId\x88\x01\x01\x12\x1f\n" +
 	"\vcard_number\x18\x02 \x01(\tR\n" +
 	"cardNumber\x12\x10\n" +
-	"\x03cvv\x18\x03 \x01(\tR\x03cvv\x121\n" +
-	"\vexpiry_date\x18\x04 \x01(\v2\x10.protos.DateOnlyR\n" +
+	"\x03cvv\x18\x03 \x01(\tR\x03cvv\x12;\n" +
+	"\vexpiry_date\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampR\n" +
 	"expiryDate\x12\x1b\n" +
 	"\x06status\x18\x05 \x01(\tH\x01R\x06status\x88\x01\x01B\r\n" +
 	"\v_account_idB\t\n" +
-	"\a_status\"\xed\x01\n" +
+	"\a_status\"\xf7\x01\n" +
 	"\x11UpdateCardRequest\x12\x17\n" +
 	"\acard_id\x18\x01 \x01(\x05R\x06cardId\x12\"\n" +
 	"\n" +
 	"account_id\x18\x02 \x01(\x05H\x00R\taccountId\x88\x01\x01\x12\x1f\n" +
 	"\vcard_number\x18\x03 \x01(\tR\n" +
 	"cardNumber\x12\x10\n" +
-	"\x03cvv\x18\x04 \x01(\tR\x03cvv\x121\n" +
-	"\vexpiry_date\x18\x05 \x01(\v2\x10.protos.DateOnlyR\n" +
+	"\x03cvv\x18\x04 \x01(\tR\x03cvv\x12;\n" +
+	"\vexpiry_date\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\n" +
 	"expiryDate\x12\x1b\n" +
 	"\x06status\x18\x06 \x01(\tH\x01R\x06status\x88\x01\x01B\r\n" +
 	"\v_account_idB\t\n" +
@@ -718,19 +718,18 @@ var file_card_proto_goTypes = []any{
 	(*UpdateCardBulkRequest)(nil),    // 9: protos.UpdateCardBulkRequest
 	(*DeleteCardBulkRequest)(nil),    // 10: protos.DeleteCardBulkRequest
 	(*timestamppb.Timestamp)(nil),    // 11: google.protobuf.Timestamp
-	(*DateOnly)(nil),                 // 12: protos.DateOnly
-	(*GetAllRequest)(nil),            // 13: protos.GetAllRequest
-	(*emptypb.Empty)(nil),            // 14: google.protobuf.Empty
+	(*GetAllRequest)(nil),            // 12: protos.GetAllRequest
+	(*emptypb.Empty)(nil),            // 13: google.protobuf.Empty
 }
 var file_card_proto_depIdxs = []int32{
 	11, // 0: protos.CardModel.expiry_date:type_name -> google.protobuf.Timestamp
 	0,  // 1: protos.GetAllCardsResponse.cards:type_name -> protos.CardModel
-	12, // 2: protos.AddCardRequest.expiry_date:type_name -> protos.DateOnly
-	12, // 3: protos.UpdateCardRequest.expiry_date:type_name -> protos.DateOnly
+	11, // 2: protos.AddCardRequest.expiry_date:type_name -> google.protobuf.Timestamp
+	11, // 3: protos.UpdateCardRequest.expiry_date:type_name -> google.protobuf.Timestamp
 	5,  // 4: protos.AddCardBulkRequest.cards:type_name -> protos.AddCardRequest
 	6,  // 5: protos.UpdateCardBulkRequest.cards:type_name -> protos.UpdateCardRequest
 	7,  // 6: protos.DeleteCardBulkRequest.cards:type_name -> protos.DeleteCardRequest
-	13, // 7: protos.CardService.GetAll:input_type -> protos.GetAllRequest
+	12, // 7: protos.CardService.GetAll:input_type -> protos.GetAllRequest
 	2,  // 8: protos.CardService.GetById:input_type -> protos.GetCardByIdRequest
 	3,  // 9: protos.CardService.GetByIds:input_type -> protos.GetCardByIdsRequest
 	4,  // 10: protos.CardService.GetByAccount:input_type -> protos.GetCardsByAccountRequest
@@ -745,11 +744,11 @@ var file_card_proto_depIdxs = []int32{
 	1,  // 19: protos.CardService.GetByIds:output_type -> protos.GetAllCardsResponse
 	1,  // 20: protos.CardService.GetByAccount:output_type -> protos.GetAllCardsResponse
 	0,  // 21: protos.CardService.Add:output_type -> protos.CardModel
-	14, // 22: protos.CardService.Update:output_type -> google.protobuf.Empty
-	14, // 23: protos.CardService.Delete:output_type -> google.protobuf.Empty
-	14, // 24: protos.CardService.AddBulk:output_type -> google.protobuf.Empty
-	14, // 25: protos.CardService.UpdateBulk:output_type -> google.protobuf.Empty
-	14, // 26: protos.CardService.DeleteBulk:output_type -> google.protobuf.Empty
+	13, // 22: protos.CardService.Update:output_type -> google.protobuf.Empty
+	13, // 23: protos.CardService.Delete:output_type -> google.protobuf.Empty
+	13, // 24: protos.CardService.AddBulk:output_type -> google.protobuf.Empty
+	13, // 25: protos.CardService.UpdateBulk:output_type -> google.protobuf.Empty
+	13, // 26: protos.CardService.DeleteBulk:output_type -> google.protobuf.Empty
 	17, // [17:27] is the sub-list for method output_type
 	7,  // [7:17] is the sub-list for method input_type
 	7,  // [7:7] is the sub-list for extension type_name

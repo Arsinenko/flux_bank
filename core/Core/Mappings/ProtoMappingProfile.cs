@@ -125,26 +125,16 @@ public sealed class ProtoMappingProfile : Profile
             .ForMember(dest => dest.Account, opt => opt.Ignore());
 
         CreateMap<AddCardRequest, Card>()
-            .ForMember(dest => dest.ExpiryDate,
-                opt => opt.MapFrom(src =>
-                    MappingConverters.DateOnlyToTimestamp(
-                        src.ExpiryDate == null ? null : ProtoDateOnlyToSystemDateOnly(src.ExpiryDate))))
+            .ForMember(dest => dest.ExpiryDate, opt => opt
+                .MapFrom(src => MappingConverters.TimestampToDateOnly(src.ExpiryDate)))
             .ForMember(dest => dest.CardId, opt => opt.Ignore())
             .ForMember(dest => dest.Account, opt => opt.Ignore());
 
         CreateMap<UpdateCardRequest, Card>()
             .ForMember(dest => dest.ExpiryDate,
-                opt => opt.MapFrom(src =>
-                    src.ExpiryDate == null
-                        ? null
-                        : MappingConverters.DateOnlyToTimestamp(ProtoDateOnlyToSystemDateOnly(src.ExpiryDate))))
+                opt => opt
+                    .MapFrom(src => MappingConverters.TimestampToDateOnly(src.ExpiryDate)))
             .ForMember(dest => dest.Account, opt => opt.Ignore());
-    }
-
-    private static SystemDateOnly? ProtoDateOnlyToSystemDateOnly(ProtoDateOnlyMessage? protoDate)
-    {
-        if (protoDate == null) return null;
-        return new SystemDateOnly(protoDate.Year, protoDate.Month, protoDate.Day);
     }
 
     private void MapCustomer()

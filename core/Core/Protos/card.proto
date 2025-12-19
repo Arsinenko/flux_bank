@@ -51,7 +51,7 @@ message AddCardRequest {
   optional int32 account_id = 1;
   string card_number = 2;
   string cvv = 3;
-  DateOnly expiry_date = 4;
+  google.protobuf.Timestamp expiry_date = 4;
   optional string status = 5;
 }
 
@@ -60,7 +60,7 @@ message UpdateCardRequest {
   optional int32 account_id = 2;
   string card_number = 3;
   string cvv = 4;
-  DateOnly expiry_date = 5;
+  google.protobuf.Timestamp expiry_date = 5;
   optional string status = 6;
 }
 

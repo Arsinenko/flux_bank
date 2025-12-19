@@ -5,6 +5,8 @@ import (
 	"fmt"
 	pb "orch-go/api/generated"
 	"orch-go/internal/domain/card"
+
+	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
 type Repository struct {
@@ -55,7 +57,7 @@ func (r Repository) Add(ctx context.Context, card *card.Card) (*card.Card, error
 		AccountId:  card.AccountID,
 		CardNumber: card.CardNumber,
 		Cvv:        card.CVV,
-		ExpiryDate: ToDateOnly(card.ExpiryDate),
+		ExpiryDate: timestamppb.New(*card.ExpiryDate),
 		Status:     card.Status,
 	}
 	resp, err := r.client.Add(ctx, req)
@@ -71,7 +73,7 @@ func (r Repository) Update(ctx context.Context, card *card.Card) error {
 		AccountId:  card.AccountID,
 		CardNumber: card.CardNumber,
 		Cvv:        card.CVV,
-		ExpiryDate: ToDateOnly(card.ExpiryDate),
+		ExpiryDate: timestamppb.New(*card.ExpiryDate),
 		Status:     card.Status,
 	}
 	_, err := r.client.Update(ctx, req)
@@ -96,7 +98,7 @@ func (r Repository) AddBulk(ctx context.Context, cards []*card.Card) error {
 			AccountId:  c.AccountID,
 			CardNumber: c.CardNumber,
 			Cvv:        c.CVV,
-			ExpiryDate: ToDateOnly(c.ExpiryDate),
+			ExpiryDate: timestamppb.New(*c.ExpiryDate),
 			Status:     c.Status,
 		})
 	}
@@ -115,7 +117,7 @@ func (r Repository) UpdateBulk(ctx context.Context, cards []*card.Card) error {
 			AccountId:  c.AccountID,
 			CardNumber: c.CardNumber,
 			Cvv:        c.CVV,
-			ExpiryDate: ToDateOnly(c.ExpiryDate),
+			ExpiryDate: timestamppb.New(*c.ExpiryDate),
 			Status:     c.Status,
 		})
 	}
