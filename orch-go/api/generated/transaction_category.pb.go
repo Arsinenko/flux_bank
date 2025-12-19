@@ -162,6 +162,50 @@ func (x *GetTransactionCategoryByIdRequest) GetCategoryId() int32 {
 	return 0
 }
 
+type GetTransactionCategoryByIdsRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	CategoryIds   []int32                `protobuf:"varint,1,rep,packed,name=category_ids,json=categoryIds,proto3" json:"category_ids,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetTransactionCategoryByIdsRequest) Reset() {
+	*x = GetTransactionCategoryByIdsRequest{}
+	mi := &file_transaction_category_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetTransactionCategoryByIdsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetTransactionCategoryByIdsRequest) ProtoMessage() {}
+
+func (x *GetTransactionCategoryByIdsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_transaction_category_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetTransactionCategoryByIdsRequest.ProtoReflect.Descriptor instead.
+func (*GetTransactionCategoryByIdsRequest) Descriptor() ([]byte, []int) {
+	return file_transaction_category_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *GetTransactionCategoryByIdsRequest) GetCategoryIds() []int32 {
+	if x != nil {
+		return x.CategoryIds
+	}
+	return nil
+}
+
 type AddTransactionCategoryRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
@@ -171,7 +215,7 @@ type AddTransactionCategoryRequest struct {
 
 func (x *AddTransactionCategoryRequest) Reset() {
 	*x = AddTransactionCategoryRequest{}
-	mi := &file_transaction_category_proto_msgTypes[3]
+	mi := &file_transaction_category_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -183,7 +227,7 @@ func (x *AddTransactionCategoryRequest) String() string {
 func (*AddTransactionCategoryRequest) ProtoMessage() {}
 
 func (x *AddTransactionCategoryRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_transaction_category_proto_msgTypes[3]
+	mi := &file_transaction_category_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -196,7 +240,7 @@ func (x *AddTransactionCategoryRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AddTransactionCategoryRequest.ProtoReflect.Descriptor instead.
 func (*AddTransactionCategoryRequest) Descriptor() ([]byte, []int) {
-	return file_transaction_category_proto_rawDescGZIP(), []int{3}
+	return file_transaction_category_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *AddTransactionCategoryRequest) GetName() string {
@@ -216,7 +260,7 @@ type UpdateTransactionCategoryRequest struct {
 
 func (x *UpdateTransactionCategoryRequest) Reset() {
 	*x = UpdateTransactionCategoryRequest{}
-	mi := &file_transaction_category_proto_msgTypes[4]
+	mi := &file_transaction_category_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -228,7 +272,7 @@ func (x *UpdateTransactionCategoryRequest) String() string {
 func (*UpdateTransactionCategoryRequest) ProtoMessage() {}
 
 func (x *UpdateTransactionCategoryRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_transaction_category_proto_msgTypes[4]
+	mi := &file_transaction_category_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -241,7 +285,7 @@ func (x *UpdateTransactionCategoryRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateTransactionCategoryRequest.ProtoReflect.Descriptor instead.
 func (*UpdateTransactionCategoryRequest) Descriptor() ([]byte, []int) {
-	return file_transaction_category_proto_rawDescGZIP(), []int{4}
+	return file_transaction_category_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *UpdateTransactionCategoryRequest) GetCategoryId() int32 {
@@ -267,7 +311,7 @@ type DeleteTransactionCategoryRequest struct {
 
 func (x *DeleteTransactionCategoryRequest) Reset() {
 	*x = DeleteTransactionCategoryRequest{}
-	mi := &file_transaction_category_proto_msgTypes[5]
+	mi := &file_transaction_category_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -279,7 +323,7 @@ func (x *DeleteTransactionCategoryRequest) String() string {
 func (*DeleteTransactionCategoryRequest) ProtoMessage() {}
 
 func (x *DeleteTransactionCategoryRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_transaction_category_proto_msgTypes[5]
+	mi := &file_transaction_category_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -292,7 +336,7 @@ func (x *DeleteTransactionCategoryRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteTransactionCategoryRequest.ProtoReflect.Descriptor instead.
 func (*DeleteTransactionCategoryRequest) Descriptor() ([]byte, []int) {
-	return file_transaction_category_proto_rawDescGZIP(), []int{5}
+	return file_transaction_category_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *DeleteTransactionCategoryRequest) GetCategoryId() int32 {
@@ -311,7 +355,7 @@ type AddTransactionCategoryBulkRequest struct {
 
 func (x *AddTransactionCategoryBulkRequest) Reset() {
 	*x = AddTransactionCategoryBulkRequest{}
-	mi := &file_transaction_category_proto_msgTypes[6]
+	mi := &file_transaction_category_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -323,7 +367,7 @@ func (x *AddTransactionCategoryBulkRequest) String() string {
 func (*AddTransactionCategoryBulkRequest) ProtoMessage() {}
 
 func (x *AddTransactionCategoryBulkRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_transaction_category_proto_msgTypes[6]
+	mi := &file_transaction_category_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -336,7 +380,7 @@ func (x *AddTransactionCategoryBulkRequest) ProtoReflect() protoreflect.Message 
 
 // Deprecated: Use AddTransactionCategoryBulkRequest.ProtoReflect.Descriptor instead.
 func (*AddTransactionCategoryBulkRequest) Descriptor() ([]byte, []int) {
-	return file_transaction_category_proto_rawDescGZIP(), []int{6}
+	return file_transaction_category_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *AddTransactionCategoryBulkRequest) GetTransactionCategories() []*AddTransactionCategoryRequest {
@@ -355,7 +399,7 @@ type UpdateTransactionCategoryBulkRequest struct {
 
 func (x *UpdateTransactionCategoryBulkRequest) Reset() {
 	*x = UpdateTransactionCategoryBulkRequest{}
-	mi := &file_transaction_category_proto_msgTypes[7]
+	mi := &file_transaction_category_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -367,7 +411,7 @@ func (x *UpdateTransactionCategoryBulkRequest) String() string {
 func (*UpdateTransactionCategoryBulkRequest) ProtoMessage() {}
 
 func (x *UpdateTransactionCategoryBulkRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_transaction_category_proto_msgTypes[7]
+	mi := &file_transaction_category_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -380,7 +424,7 @@ func (x *UpdateTransactionCategoryBulkRequest) ProtoReflect() protoreflect.Messa
 
 // Deprecated: Use UpdateTransactionCategoryBulkRequest.ProtoReflect.Descriptor instead.
 func (*UpdateTransactionCategoryBulkRequest) Descriptor() ([]byte, []int) {
-	return file_transaction_category_proto_rawDescGZIP(), []int{7}
+	return file_transaction_category_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *UpdateTransactionCategoryBulkRequest) GetTransactionCategories() []*UpdateTransactionCategoryRequest {
@@ -399,7 +443,7 @@ type DeleteTransactionCategoryBulkRequest struct {
 
 func (x *DeleteTransactionCategoryBulkRequest) Reset() {
 	*x = DeleteTransactionCategoryBulkRequest{}
-	mi := &file_transaction_category_proto_msgTypes[8]
+	mi := &file_transaction_category_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -411,7 +455,7 @@ func (x *DeleteTransactionCategoryBulkRequest) String() string {
 func (*DeleteTransactionCategoryBulkRequest) ProtoMessage() {}
 
 func (x *DeleteTransactionCategoryBulkRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_transaction_category_proto_msgTypes[8]
+	mi := &file_transaction_category_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -424,7 +468,7 @@ func (x *DeleteTransactionCategoryBulkRequest) ProtoReflect() protoreflect.Messa
 
 // Deprecated: Use DeleteTransactionCategoryBulkRequest.ProtoReflect.Descriptor instead.
 func (*DeleteTransactionCategoryBulkRequest) Descriptor() ([]byte, []int) {
-	return file_transaction_category_proto_rawDescGZIP(), []int{8}
+	return file_transaction_category_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *DeleteTransactionCategoryBulkRequest) GetTransactionCategories() []*DeleteTransactionCategoryRequest {
@@ -447,7 +491,9 @@ const file_transaction_category_proto_rawDesc = "" +
 	"\x16transaction_categories\x18\x01 \x03(\v2 .protos.TransactionCategoryModelR\x15transactionCategories\"D\n" +
 	"!GetTransactionCategoryByIdRequest\x12\x1f\n" +
 	"\vcategory_id\x18\x01 \x01(\x05R\n" +
-	"categoryId\"3\n" +
+	"categoryId\"G\n" +
+	"\"GetTransactionCategoryByIdsRequest\x12!\n" +
+	"\fcategory_ids\x18\x01 \x03(\x05R\vcategoryIds\"3\n" +
 	"\x1dAddTransactionCategoryRequest\x12\x12\n" +
 	"\x04name\x18\x01 \x01(\tR\x04name\"W\n" +
 	" UpdateTransactionCategoryRequest\x12\x1f\n" +
@@ -462,10 +508,11 @@ const file_transaction_category_proto_rawDesc = "" +
 	"$UpdateTransactionCategoryBulkRequest\x12_\n" +
 	"\x16transaction_categories\x18\x01 \x03(\v2(.protos.UpdateTransactionCategoryRequestR\x15transactionCategories\"\x87\x01\n" +
 	"$DeleteTransactionCategoryBulkRequest\x12_\n" +
-	"\x16transaction_categories\x18\x01 \x03(\v2(.protos.DeleteTransactionCategoryRequestR\x15transactionCategories2\xa0\x05\n" +
+	"\x16transaction_categories\x18\x01 \x03(\v2(.protos.DeleteTransactionCategoryRequestR\x15transactionCategories2\x85\x06\n" +
 	"\x1aTransactionCategoryService\x12L\n" +
 	"\x06GetAll\x12\x15.protos.GetAllRequest\x1a+.protos.GetAllTransactionCategoriesResponse\x12V\n" +
-	"\aGetById\x12).protos.GetTransactionCategoryByIdRequest\x1a .protos.TransactionCategoryModel\x12N\n" +
+	"\aGetById\x12).protos.GetTransactionCategoryByIdRequest\x1a .protos.TransactionCategoryModel\x12c\n" +
+	"\bGetByIds\x12*.protos.GetTransactionCategoryByIdsRequest\x1a+.protos.GetAllTransactionCategoriesResponse\x12N\n" +
 	"\x03Add\x12%.protos.AddTransactionCategoryRequest\x1a .protos.TransactionCategoryModel\x12J\n" +
 	"\x06Update\x12(.protos.UpdateTransactionCategoryRequest\x1a\x16.google.protobuf.Empty\x12J\n" +
 	"\x06Delete\x12(.protos.DeleteTransactionCategoryRequest\x1a\x16.google.protobuf.Empty\x12L\n" +
@@ -487,43 +534,46 @@ func file_transaction_category_proto_rawDescGZIP() []byte {
 	return file_transaction_category_proto_rawDescData
 }
 
-var file_transaction_category_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
+var file_transaction_category_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
 var file_transaction_category_proto_goTypes = []any{
 	(*TransactionCategoryModel)(nil),             // 0: protos.TransactionCategoryModel
 	(*GetAllTransactionCategoriesResponse)(nil),  // 1: protos.GetAllTransactionCategoriesResponse
 	(*GetTransactionCategoryByIdRequest)(nil),    // 2: protos.GetTransactionCategoryByIdRequest
-	(*AddTransactionCategoryRequest)(nil),        // 3: protos.AddTransactionCategoryRequest
-	(*UpdateTransactionCategoryRequest)(nil),     // 4: protos.UpdateTransactionCategoryRequest
-	(*DeleteTransactionCategoryRequest)(nil),     // 5: protos.DeleteTransactionCategoryRequest
-	(*AddTransactionCategoryBulkRequest)(nil),    // 6: protos.AddTransactionCategoryBulkRequest
-	(*UpdateTransactionCategoryBulkRequest)(nil), // 7: protos.UpdateTransactionCategoryBulkRequest
-	(*DeleteTransactionCategoryBulkRequest)(nil), // 8: protos.DeleteTransactionCategoryBulkRequest
-	(*GetAllRequest)(nil),                        // 9: protos.GetAllRequest
-	(*emptypb.Empty)(nil),                        // 10: google.protobuf.Empty
+	(*GetTransactionCategoryByIdsRequest)(nil),   // 3: protos.GetTransactionCategoryByIdsRequest
+	(*AddTransactionCategoryRequest)(nil),        // 4: protos.AddTransactionCategoryRequest
+	(*UpdateTransactionCategoryRequest)(nil),     // 5: protos.UpdateTransactionCategoryRequest
+	(*DeleteTransactionCategoryRequest)(nil),     // 6: protos.DeleteTransactionCategoryRequest
+	(*AddTransactionCategoryBulkRequest)(nil),    // 7: protos.AddTransactionCategoryBulkRequest
+	(*UpdateTransactionCategoryBulkRequest)(nil), // 8: protos.UpdateTransactionCategoryBulkRequest
+	(*DeleteTransactionCategoryBulkRequest)(nil), // 9: protos.DeleteTransactionCategoryBulkRequest
+	(*GetAllRequest)(nil),                        // 10: protos.GetAllRequest
+	(*emptypb.Empty)(nil),                        // 11: google.protobuf.Empty
 }
 var file_transaction_category_proto_depIdxs = []int32{
 	0,  // 0: protos.GetAllTransactionCategoriesResponse.transaction_categories:type_name -> protos.TransactionCategoryModel
-	3,  // 1: protos.AddTransactionCategoryBulkRequest.transaction_categories:type_name -> protos.AddTransactionCategoryRequest
-	4,  // 2: protos.UpdateTransactionCategoryBulkRequest.transaction_categories:type_name -> protos.UpdateTransactionCategoryRequest
-	5,  // 3: protos.DeleteTransactionCategoryBulkRequest.transaction_categories:type_name -> protos.DeleteTransactionCategoryRequest
-	9,  // 4: protos.TransactionCategoryService.GetAll:input_type -> protos.GetAllRequest
+	4,  // 1: protos.AddTransactionCategoryBulkRequest.transaction_categories:type_name -> protos.AddTransactionCategoryRequest
+	5,  // 2: protos.UpdateTransactionCategoryBulkRequest.transaction_categories:type_name -> protos.UpdateTransactionCategoryRequest
+	6,  // 3: protos.DeleteTransactionCategoryBulkRequest.transaction_categories:type_name -> protos.DeleteTransactionCategoryRequest
+	10, // 4: protos.TransactionCategoryService.GetAll:input_type -> protos.GetAllRequest
 	2,  // 5: protos.TransactionCategoryService.GetById:input_type -> protos.GetTransactionCategoryByIdRequest
-	3,  // 6: protos.TransactionCategoryService.Add:input_type -> protos.AddTransactionCategoryRequest
-	4,  // 7: protos.TransactionCategoryService.Update:input_type -> protos.UpdateTransactionCategoryRequest
-	5,  // 8: protos.TransactionCategoryService.Delete:input_type -> protos.DeleteTransactionCategoryRequest
-	6,  // 9: protos.TransactionCategoryService.AddBulk:input_type -> protos.AddTransactionCategoryBulkRequest
-	7,  // 10: protos.TransactionCategoryService.UpdateBulk:input_type -> protos.UpdateTransactionCategoryBulkRequest
-	8,  // 11: protos.TransactionCategoryService.DeleteBulk:input_type -> protos.DeleteTransactionCategoryBulkRequest
-	1,  // 12: protos.TransactionCategoryService.GetAll:output_type -> protos.GetAllTransactionCategoriesResponse
-	0,  // 13: protos.TransactionCategoryService.GetById:output_type -> protos.TransactionCategoryModel
-	0,  // 14: protos.TransactionCategoryService.Add:output_type -> protos.TransactionCategoryModel
-	10, // 15: protos.TransactionCategoryService.Update:output_type -> google.protobuf.Empty
-	10, // 16: protos.TransactionCategoryService.Delete:output_type -> google.protobuf.Empty
-	10, // 17: protos.TransactionCategoryService.AddBulk:output_type -> google.protobuf.Empty
-	10, // 18: protos.TransactionCategoryService.UpdateBulk:output_type -> google.protobuf.Empty
-	10, // 19: protos.TransactionCategoryService.DeleteBulk:output_type -> google.protobuf.Empty
-	12, // [12:20] is the sub-list for method output_type
-	4,  // [4:12] is the sub-list for method input_type
+	3,  // 6: protos.TransactionCategoryService.GetByIds:input_type -> protos.GetTransactionCategoryByIdsRequest
+	4,  // 7: protos.TransactionCategoryService.Add:input_type -> protos.AddTransactionCategoryRequest
+	5,  // 8: protos.TransactionCategoryService.Update:input_type -> protos.UpdateTransactionCategoryRequest
+	6,  // 9: protos.TransactionCategoryService.Delete:input_type -> protos.DeleteTransactionCategoryRequest
+	7,  // 10: protos.TransactionCategoryService.AddBulk:input_type -> protos.AddTransactionCategoryBulkRequest
+	8,  // 11: protos.TransactionCategoryService.UpdateBulk:input_type -> protos.UpdateTransactionCategoryBulkRequest
+	9,  // 12: protos.TransactionCategoryService.DeleteBulk:input_type -> protos.DeleteTransactionCategoryBulkRequest
+	1,  // 13: protos.TransactionCategoryService.GetAll:output_type -> protos.GetAllTransactionCategoriesResponse
+	0,  // 14: protos.TransactionCategoryService.GetById:output_type -> protos.TransactionCategoryModel
+	1,  // 15: protos.TransactionCategoryService.GetByIds:output_type -> protos.GetAllTransactionCategoriesResponse
+	0,  // 16: protos.TransactionCategoryService.Add:output_type -> protos.TransactionCategoryModel
+	11, // 17: protos.TransactionCategoryService.Update:output_type -> google.protobuf.Empty
+	11, // 18: protos.TransactionCategoryService.Delete:output_type -> google.protobuf.Empty
+	11, // 19: protos.TransactionCategoryService.AddBulk:output_type -> google.protobuf.Empty
+	11, // 20: protos.TransactionCategoryService.UpdateBulk:output_type -> google.protobuf.Empty
+	11, // 21: protos.TransactionCategoryService.DeleteBulk:output_type -> google.protobuf.Empty
+	13, // [13:22] is the sub-list for method output_type
+	4,  // [4:13] is the sub-list for method input_type
 	4,  // [4:4] is the sub-list for extension type_name
 	4,  // [4:4] is the sub-list for extension extendee
 	0,  // [0:4] is the sub-list for field type_name
@@ -541,7 +591,7 @@ func file_transaction_category_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_transaction_category_proto_rawDesc), len(file_transaction_category_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   9,
+			NumMessages:   10,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

@@ -22,6 +22,7 @@ const _ = grpc.SupportPackageIsVersion9
 const (
 	AtmService_GetAll_FullMethodName              = "/protos.AtmService/GetAll"
 	AtmService_GetById_FullMethodName             = "/protos.AtmService/GetById"
+	AtmService_GetByIds_FullMethodName            = "/protos.AtmService/GetByIds"
 	AtmService_GetByStatus_FullMethodName         = "/protos.AtmService/GetByStatus"
 	AtmService_GetByLocationSubStr_FullMethodName = "/protos.AtmService/GetByLocationSubStr"
 	AtmService_GetByBranch_FullMethodName         = "/protos.AtmService/GetByBranch"
@@ -39,6 +40,7 @@ const (
 type AtmServiceClient interface {
 	GetAll(ctx context.Context, in *GetAllRequest, opts ...grpc.CallOption) (*GetAllAtmsResponse, error)
 	GetById(ctx context.Context, in *GetAtmByIdRequest, opts ...grpc.CallOption) (*AtmModel, error)
+	GetByIds(ctx context.Context, in *GetAtmByIdsRequest, opts ...grpc.CallOption) (*GetAllAtmsResponse, error)
 	GetByStatus(ctx context.Context, in *GetAtmsByStatusRequest, opts ...grpc.CallOption) (*GetAllAtmsResponse, error)
 	GetByLocationSubStr(ctx context.Context, in *GetAtmsByLocationSubStrRequest, opts ...grpc.CallOption) (*GetAllAtmsResponse, error)
 	GetByBranch(ctx context.Context, in *GetAtmsByBranchRequest, opts ...grpc.CallOption) (*GetAllAtmsResponse, error)
@@ -72,6 +74,16 @@ func (c *atmServiceClient) GetById(ctx context.Context, in *GetAtmByIdRequest, o
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(AtmModel)
 	err := c.cc.Invoke(ctx, AtmService_GetById_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *atmServiceClient) GetByIds(ctx context.Context, in *GetAtmByIdsRequest, opts ...grpc.CallOption) (*GetAllAtmsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetAllAtmsResponse)
+	err := c.cc.Invoke(ctx, AtmService_GetByIds_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -174,6 +186,7 @@ func (c *atmServiceClient) DeleteBulk(ctx context.Context, in *DeleteAtmBulkRequ
 type AtmServiceServer interface {
 	GetAll(context.Context, *GetAllRequest) (*GetAllAtmsResponse, error)
 	GetById(context.Context, *GetAtmByIdRequest) (*AtmModel, error)
+	GetByIds(context.Context, *GetAtmByIdsRequest) (*GetAllAtmsResponse, error)
 	GetByStatus(context.Context, *GetAtmsByStatusRequest) (*GetAllAtmsResponse, error)
 	GetByLocationSubStr(context.Context, *GetAtmsByLocationSubStrRequest) (*GetAllAtmsResponse, error)
 	GetByBranch(context.Context, *GetAtmsByBranchRequest) (*GetAllAtmsResponse, error)
@@ -198,6 +211,9 @@ func (UnimplementedAtmServiceServer) GetAll(context.Context, *GetAllRequest) (*G
 }
 func (UnimplementedAtmServiceServer) GetById(context.Context, *GetAtmByIdRequest) (*AtmModel, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetById not implemented")
+}
+func (UnimplementedAtmServiceServer) GetByIds(context.Context, *GetAtmByIdsRequest) (*GetAllAtmsResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetByIds not implemented")
 }
 func (UnimplementedAtmServiceServer) GetByStatus(context.Context, *GetAtmsByStatusRequest) (*GetAllAtmsResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetByStatus not implemented")
@@ -279,6 +295,24 @@ func _AtmService_GetById_Handler(srv interface{}, ctx context.Context, dec func(
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(AtmServiceServer).GetById(ctx, req.(*GetAtmByIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AtmService_GetByIds_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAtmByIdsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AtmServiceServer).GetByIds(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AtmService_GetByIds_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AtmServiceServer).GetByIds(ctx, req.(*GetAtmByIdsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -459,6 +493,10 @@ var AtmService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetById",
 			Handler:    _AtmService_GetById_Handler,
+		},
+		{
+			MethodName: "GetByIds",
+			Handler:    _AtmService_GetByIds_Handler,
 		},
 		{
 			MethodName: "GetByStatus",

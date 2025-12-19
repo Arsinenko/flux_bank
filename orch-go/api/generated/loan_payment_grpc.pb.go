@@ -22,10 +22,13 @@ const _ = grpc.SupportPackageIsVersion9
 const (
 	LoanPaymentService_GetAll_FullMethodName     = "/protos.LoanPaymentService/GetAll"
 	LoanPaymentService_GetById_FullMethodName    = "/protos.LoanPaymentService/GetById"
+	LoanPaymentService_GetByIds_FullMethodName   = "/protos.LoanPaymentService/GetByIds"
 	LoanPaymentService_GetByLoan_FullMethodName  = "/protos.LoanPaymentService/GetByLoan"
 	LoanPaymentService_Add_FullMethodName        = "/protos.LoanPaymentService/Add"
 	LoanPaymentService_Update_FullMethodName     = "/protos.LoanPaymentService/Update"
 	LoanPaymentService_Delete_FullMethodName     = "/protos.LoanPaymentService/Delete"
+	LoanPaymentService_AddBulk_FullMethodName    = "/protos.LoanPaymentService/AddBulk"
+	LoanPaymentService_UpdateBulk_FullMethodName = "/protos.LoanPaymentService/UpdateBulk"
 	LoanPaymentService_DeleteBulk_FullMethodName = "/protos.LoanPaymentService/DeleteBulk"
 )
 
@@ -35,10 +38,13 @@ const (
 type LoanPaymentServiceClient interface {
 	GetAll(ctx context.Context, in *GetAllRequest, opts ...grpc.CallOption) (*GetAllLoanPaymentsResponse, error)
 	GetById(ctx context.Context, in *GetLoanPaymentByIdRequest, opts ...grpc.CallOption) (*LoanPaymentModel, error)
+	GetByIds(ctx context.Context, in *GetLoanPaymentByIdsRequest, opts ...grpc.CallOption) (*GetAllLoanPaymentsResponse, error)
 	GetByLoan(ctx context.Context, in *GetLoanPaymentsByLoanRequest, opts ...grpc.CallOption) (*GetAllLoanPaymentsResponse, error)
 	Add(ctx context.Context, in *AddLoanPaymentRequest, opts ...grpc.CallOption) (*LoanPaymentModel, error)
 	Update(ctx context.Context, in *UpdateLoanPaymentRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	Delete(ctx context.Context, in *DeleteLoanPaymentRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	AddBulk(ctx context.Context, in *AddLoanPaymentBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	UpdateBulk(ctx context.Context, in *UpdateLoanPaymentBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	DeleteBulk(ctx context.Context, in *DeleteLoanPaymentBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
@@ -64,6 +70,16 @@ func (c *loanPaymentServiceClient) GetById(ctx context.Context, in *GetLoanPayme
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(LoanPaymentModel)
 	err := c.cc.Invoke(ctx, LoanPaymentService_GetById_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *loanPaymentServiceClient) GetByIds(ctx context.Context, in *GetLoanPaymentByIdsRequest, opts ...grpc.CallOption) (*GetAllLoanPaymentsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetAllLoanPaymentsResponse)
+	err := c.cc.Invoke(ctx, LoanPaymentService_GetByIds_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -110,6 +126,26 @@ func (c *loanPaymentServiceClient) Delete(ctx context.Context, in *DeleteLoanPay
 	return out, nil
 }
 
+func (c *loanPaymentServiceClient) AddBulk(ctx context.Context, in *AddLoanPaymentBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, LoanPaymentService_AddBulk_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *loanPaymentServiceClient) UpdateBulk(ctx context.Context, in *UpdateLoanPaymentBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, LoanPaymentService_UpdateBulk_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *loanPaymentServiceClient) DeleteBulk(ctx context.Context, in *DeleteLoanPaymentBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(emptypb.Empty)
@@ -126,10 +162,13 @@ func (c *loanPaymentServiceClient) DeleteBulk(ctx context.Context, in *DeleteLoa
 type LoanPaymentServiceServer interface {
 	GetAll(context.Context, *GetAllRequest) (*GetAllLoanPaymentsResponse, error)
 	GetById(context.Context, *GetLoanPaymentByIdRequest) (*LoanPaymentModel, error)
+	GetByIds(context.Context, *GetLoanPaymentByIdsRequest) (*GetAllLoanPaymentsResponse, error)
 	GetByLoan(context.Context, *GetLoanPaymentsByLoanRequest) (*GetAllLoanPaymentsResponse, error)
 	Add(context.Context, *AddLoanPaymentRequest) (*LoanPaymentModel, error)
 	Update(context.Context, *UpdateLoanPaymentRequest) (*emptypb.Empty, error)
 	Delete(context.Context, *DeleteLoanPaymentRequest) (*emptypb.Empty, error)
+	AddBulk(context.Context, *AddLoanPaymentBulkRequest) (*emptypb.Empty, error)
+	UpdateBulk(context.Context, *UpdateLoanPaymentBulkRequest) (*emptypb.Empty, error)
 	DeleteBulk(context.Context, *DeleteLoanPaymentBulkRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedLoanPaymentServiceServer()
 }
@@ -147,6 +186,9 @@ func (UnimplementedLoanPaymentServiceServer) GetAll(context.Context, *GetAllRequ
 func (UnimplementedLoanPaymentServiceServer) GetById(context.Context, *GetLoanPaymentByIdRequest) (*LoanPaymentModel, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetById not implemented")
 }
+func (UnimplementedLoanPaymentServiceServer) GetByIds(context.Context, *GetLoanPaymentByIdsRequest) (*GetAllLoanPaymentsResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetByIds not implemented")
+}
 func (UnimplementedLoanPaymentServiceServer) GetByLoan(context.Context, *GetLoanPaymentsByLoanRequest) (*GetAllLoanPaymentsResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetByLoan not implemented")
 }
@@ -158,6 +200,12 @@ func (UnimplementedLoanPaymentServiceServer) Update(context.Context, *UpdateLoan
 }
 func (UnimplementedLoanPaymentServiceServer) Delete(context.Context, *DeleteLoanPaymentRequest) (*emptypb.Empty, error) {
 	return nil, status.Error(codes.Unimplemented, "method Delete not implemented")
+}
+func (UnimplementedLoanPaymentServiceServer) AddBulk(context.Context, *AddLoanPaymentBulkRequest) (*emptypb.Empty, error) {
+	return nil, status.Error(codes.Unimplemented, "method AddBulk not implemented")
+}
+func (UnimplementedLoanPaymentServiceServer) UpdateBulk(context.Context, *UpdateLoanPaymentBulkRequest) (*emptypb.Empty, error) {
+	return nil, status.Error(codes.Unimplemented, "method UpdateBulk not implemented")
 }
 func (UnimplementedLoanPaymentServiceServer) DeleteBulk(context.Context, *DeleteLoanPaymentBulkRequest) (*emptypb.Empty, error) {
 	return nil, status.Error(codes.Unimplemented, "method DeleteBulk not implemented")
@@ -215,6 +263,24 @@ func _LoanPaymentService_GetById_Handler(srv interface{}, ctx context.Context, d
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(LoanPaymentServiceServer).GetById(ctx, req.(*GetLoanPaymentByIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _LoanPaymentService_GetByIds_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetLoanPaymentByIdsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LoanPaymentServiceServer).GetByIds(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: LoanPaymentService_GetByIds_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LoanPaymentServiceServer).GetByIds(ctx, req.(*GetLoanPaymentByIdsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -291,6 +357,42 @@ func _LoanPaymentService_Delete_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
+func _LoanPaymentService_AddBulk_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddLoanPaymentBulkRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LoanPaymentServiceServer).AddBulk(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: LoanPaymentService_AddBulk_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LoanPaymentServiceServer).AddBulk(ctx, req.(*AddLoanPaymentBulkRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _LoanPaymentService_UpdateBulk_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateLoanPaymentBulkRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LoanPaymentServiceServer).UpdateBulk(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: LoanPaymentService_UpdateBulk_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LoanPaymentServiceServer).UpdateBulk(ctx, req.(*UpdateLoanPaymentBulkRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _LoanPaymentService_DeleteBulk_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DeleteLoanPaymentBulkRequest)
 	if err := dec(in); err != nil {
@@ -325,6 +427,10 @@ var LoanPaymentService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _LoanPaymentService_GetById_Handler,
 		},
 		{
+			MethodName: "GetByIds",
+			Handler:    _LoanPaymentService_GetByIds_Handler,
+		},
+		{
 			MethodName: "GetByLoan",
 			Handler:    _LoanPaymentService_GetByLoan_Handler,
 		},
@@ -339,6 +445,14 @@ var LoanPaymentService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Delete",
 			Handler:    _LoanPaymentService_Delete_Handler,
+		},
+		{
+			MethodName: "AddBulk",
+			Handler:    _LoanPaymentService_AddBulk_Handler,
+		},
+		{
+			MethodName: "UpdateBulk",
+			Handler:    _LoanPaymentService_UpdateBulk_Handler,
 		},
 		{
 			MethodName: "DeleteBulk",

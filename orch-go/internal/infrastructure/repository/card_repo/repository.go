@@ -12,7 +12,7 @@ type Repository struct {
 }
 
 func (r Repository) GetByAccountId(ctx context.Context, accountId int32) ([]*card.Card, error) {
-	resp, err := r.client.GetByAccountId(ctx, &pb.GetCardsByAccountRequest{AccountId: accountId})
+	resp, err := r.client.GetByAccount(ctx, &pb.GetCardsByAccountRequest{AccountId: accountId})
 	if err != nil {
 		return nil, fmt.Errorf("card_repo.GetByAccountId: %w", err)
 	}

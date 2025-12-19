@@ -22,6 +22,7 @@ const _ = grpc.SupportPackageIsVersion9
 const (
 	TransactionFeeService_GetAll_FullMethodName     = "/protos.TransactionFeeService/GetAll"
 	TransactionFeeService_GetById_FullMethodName    = "/protos.TransactionFeeService/GetById"
+	TransactionFeeService_GetByIds_FullMethodName   = "/protos.TransactionFeeService/GetByIds"
 	TransactionFeeService_Add_FullMethodName        = "/protos.TransactionFeeService/Add"
 	TransactionFeeService_Update_FullMethodName     = "/protos.TransactionFeeService/Update"
 	TransactionFeeService_Delete_FullMethodName     = "/protos.TransactionFeeService/Delete"
@@ -36,6 +37,7 @@ const (
 type TransactionFeeServiceClient interface {
 	GetAll(ctx context.Context, in *GetAllRequest, opts ...grpc.CallOption) (*GetAllTransactionFeesResponse, error)
 	GetById(ctx context.Context, in *GetTransactionFeeByIdRequest, opts ...grpc.CallOption) (*TransactionFeeModel, error)
+	GetByIds(ctx context.Context, in *GetTransactionFeeByIdsRequest, opts ...grpc.CallOption) (*GetAllTransactionFeesResponse, error)
 	Add(ctx context.Context, in *AddTransactionFeeRequest, opts ...grpc.CallOption) (*TransactionFeeModel, error)
 	Update(ctx context.Context, in *UpdateTransactionFeeRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	Delete(ctx context.Context, in *DeleteTransactionFeeRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
@@ -66,6 +68,16 @@ func (c *transactionFeeServiceClient) GetById(ctx context.Context, in *GetTransa
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(TransactionFeeModel)
 	err := c.cc.Invoke(ctx, TransactionFeeService_GetById_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *transactionFeeServiceClient) GetByIds(ctx context.Context, in *GetTransactionFeeByIdsRequest, opts ...grpc.CallOption) (*GetAllTransactionFeesResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetAllTransactionFeesResponse)
+	err := c.cc.Invoke(ctx, TransactionFeeService_GetByIds_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -138,6 +150,7 @@ func (c *transactionFeeServiceClient) DeleteBulk(ctx context.Context, in *Delete
 type TransactionFeeServiceServer interface {
 	GetAll(context.Context, *GetAllRequest) (*GetAllTransactionFeesResponse, error)
 	GetById(context.Context, *GetTransactionFeeByIdRequest) (*TransactionFeeModel, error)
+	GetByIds(context.Context, *GetTransactionFeeByIdsRequest) (*GetAllTransactionFeesResponse, error)
 	Add(context.Context, *AddTransactionFeeRequest) (*TransactionFeeModel, error)
 	Update(context.Context, *UpdateTransactionFeeRequest) (*emptypb.Empty, error)
 	Delete(context.Context, *DeleteTransactionFeeRequest) (*emptypb.Empty, error)
@@ -159,6 +172,9 @@ func (UnimplementedTransactionFeeServiceServer) GetAll(context.Context, *GetAllR
 }
 func (UnimplementedTransactionFeeServiceServer) GetById(context.Context, *GetTransactionFeeByIdRequest) (*TransactionFeeModel, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetById not implemented")
+}
+func (UnimplementedTransactionFeeServiceServer) GetByIds(context.Context, *GetTransactionFeeByIdsRequest) (*GetAllTransactionFeesResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetByIds not implemented")
 }
 func (UnimplementedTransactionFeeServiceServer) Add(context.Context, *AddTransactionFeeRequest) (*TransactionFeeModel, error) {
 	return nil, status.Error(codes.Unimplemented, "method Add not implemented")
@@ -231,6 +247,24 @@ func _TransactionFeeService_GetById_Handler(srv interface{}, ctx context.Context
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(TransactionFeeServiceServer).GetById(ctx, req.(*GetTransactionFeeByIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TransactionFeeService_GetByIds_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetTransactionFeeByIdsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionFeeServiceServer).GetByIds(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TransactionFeeService_GetByIds_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionFeeServiceServer).GetByIds(ctx, req.(*GetTransactionFeeByIdsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -357,6 +391,10 @@ var TransactionFeeService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetById",
 			Handler:    _TransactionFeeService_GetById_Handler,
+		},
+		{
+			MethodName: "GetByIds",
+			Handler:    _TransactionFeeService_GetByIds_Handler,
 		},
 		{
 			MethodName: "Add",

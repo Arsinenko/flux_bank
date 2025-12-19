@@ -186,6 +186,50 @@ func (x *GetLoanPaymentByIdRequest) GetPaymentId() int32 {
 	return 0
 }
 
+type GetLoanPaymentByIdsRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	PaymentIds    []int32                `protobuf:"varint,1,rep,packed,name=payment_ids,json=paymentIds,proto3" json:"payment_ids,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetLoanPaymentByIdsRequest) Reset() {
+	*x = GetLoanPaymentByIdsRequest{}
+	mi := &file_loan_payment_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetLoanPaymentByIdsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetLoanPaymentByIdsRequest) ProtoMessage() {}
+
+func (x *GetLoanPaymentByIdsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_loan_payment_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetLoanPaymentByIdsRequest.ProtoReflect.Descriptor instead.
+func (*GetLoanPaymentByIdsRequest) Descriptor() ([]byte, []int) {
+	return file_loan_payment_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *GetLoanPaymentByIdsRequest) GetPaymentIds() []int32 {
+	if x != nil {
+		return x.PaymentIds
+	}
+	return nil
+}
+
 type GetLoanPaymentsByLoanRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	LoanId        int32                  `protobuf:"varint,1,opt,name=loan_id,json=loanId,proto3" json:"loan_id,omitempty"`
@@ -195,7 +239,7 @@ type GetLoanPaymentsByLoanRequest struct {
 
 func (x *GetLoanPaymentsByLoanRequest) Reset() {
 	*x = GetLoanPaymentsByLoanRequest{}
-	mi := &file_loan_payment_proto_msgTypes[3]
+	mi := &file_loan_payment_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -207,7 +251,7 @@ func (x *GetLoanPaymentsByLoanRequest) String() string {
 func (*GetLoanPaymentsByLoanRequest) ProtoMessage() {}
 
 func (x *GetLoanPaymentsByLoanRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_loan_payment_proto_msgTypes[3]
+	mi := &file_loan_payment_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -220,7 +264,7 @@ func (x *GetLoanPaymentsByLoanRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetLoanPaymentsByLoanRequest.ProtoReflect.Descriptor instead.
 func (*GetLoanPaymentsByLoanRequest) Descriptor() ([]byte, []int) {
-	return file_loan_payment_proto_rawDescGZIP(), []int{3}
+	return file_loan_payment_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *GetLoanPaymentsByLoanRequest) GetLoanId() int32 {
@@ -242,7 +286,7 @@ type AddLoanPaymentRequest struct {
 
 func (x *AddLoanPaymentRequest) Reset() {
 	*x = AddLoanPaymentRequest{}
-	mi := &file_loan_payment_proto_msgTypes[4]
+	mi := &file_loan_payment_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -254,7 +298,7 @@ func (x *AddLoanPaymentRequest) String() string {
 func (*AddLoanPaymentRequest) ProtoMessage() {}
 
 func (x *AddLoanPaymentRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_loan_payment_proto_msgTypes[4]
+	mi := &file_loan_payment_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -267,7 +311,7 @@ func (x *AddLoanPaymentRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AddLoanPaymentRequest.ProtoReflect.Descriptor instead.
 func (*AddLoanPaymentRequest) Descriptor() ([]byte, []int) {
-	return file_loan_payment_proto_rawDescGZIP(), []int{4}
+	return file_loan_payment_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *AddLoanPaymentRequest) GetLoanId() int32 {
@@ -298,6 +342,50 @@ func (x *AddLoanPaymentRequest) GetIsPaid() bool {
 	return false
 }
 
+type AddLoanPaymentBulkRequest struct {
+	state         protoimpl.MessageState   `protogen:"open.v1"`
+	Payments      []*AddLoanPaymentRequest `protobuf:"bytes,1,rep,name=payments,proto3" json:"payments,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AddLoanPaymentBulkRequest) Reset() {
+	*x = AddLoanPaymentBulkRequest{}
+	mi := &file_loan_payment_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AddLoanPaymentBulkRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AddLoanPaymentBulkRequest) ProtoMessage() {}
+
+func (x *AddLoanPaymentBulkRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_loan_payment_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AddLoanPaymentBulkRequest.ProtoReflect.Descriptor instead.
+func (*AddLoanPaymentBulkRequest) Descriptor() ([]byte, []int) {
+	return file_loan_payment_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *AddLoanPaymentBulkRequest) GetPayments() []*AddLoanPaymentRequest {
+	if x != nil {
+		return x.Payments
+	}
+	return nil
+}
+
 type UpdateLoanPaymentRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	PaymentId     int32                  `protobuf:"varint,1,opt,name=payment_id,json=paymentId,proto3" json:"payment_id,omitempty"`
@@ -311,7 +399,7 @@ type UpdateLoanPaymentRequest struct {
 
 func (x *UpdateLoanPaymentRequest) Reset() {
 	*x = UpdateLoanPaymentRequest{}
-	mi := &file_loan_payment_proto_msgTypes[5]
+	mi := &file_loan_payment_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -323,7 +411,7 @@ func (x *UpdateLoanPaymentRequest) String() string {
 func (*UpdateLoanPaymentRequest) ProtoMessage() {}
 
 func (x *UpdateLoanPaymentRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_loan_payment_proto_msgTypes[5]
+	mi := &file_loan_payment_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -336,7 +424,7 @@ func (x *UpdateLoanPaymentRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateLoanPaymentRequest.ProtoReflect.Descriptor instead.
 func (*UpdateLoanPaymentRequest) Descriptor() ([]byte, []int) {
-	return file_loan_payment_proto_rawDescGZIP(), []int{5}
+	return file_loan_payment_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *UpdateLoanPaymentRequest) GetPaymentId() int32 {
@@ -374,6 +462,50 @@ func (x *UpdateLoanPaymentRequest) GetIsPaid() bool {
 	return false
 }
 
+type UpdateLoanPaymentBulkRequest struct {
+	state         protoimpl.MessageState      `protogen:"open.v1"`
+	Payments      []*UpdateLoanPaymentRequest `protobuf:"bytes,1,rep,name=payments,proto3" json:"payments,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateLoanPaymentBulkRequest) Reset() {
+	*x = UpdateLoanPaymentBulkRequest{}
+	mi := &file_loan_payment_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateLoanPaymentBulkRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateLoanPaymentBulkRequest) ProtoMessage() {}
+
+func (x *UpdateLoanPaymentBulkRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_loan_payment_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateLoanPaymentBulkRequest.ProtoReflect.Descriptor instead.
+func (*UpdateLoanPaymentBulkRequest) Descriptor() ([]byte, []int) {
+	return file_loan_payment_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *UpdateLoanPaymentBulkRequest) GetPayments() []*UpdateLoanPaymentRequest {
+	if x != nil {
+		return x.Payments
+	}
+	return nil
+}
+
 type DeleteLoanPaymentRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	PaymentId     int32                  `protobuf:"varint,1,opt,name=payment_id,json=paymentId,proto3" json:"payment_id,omitempty"`
@@ -383,7 +515,7 @@ type DeleteLoanPaymentRequest struct {
 
 func (x *DeleteLoanPaymentRequest) Reset() {
 	*x = DeleteLoanPaymentRequest{}
-	mi := &file_loan_payment_proto_msgTypes[6]
+	mi := &file_loan_payment_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -395,7 +527,7 @@ func (x *DeleteLoanPaymentRequest) String() string {
 func (*DeleteLoanPaymentRequest) ProtoMessage() {}
 
 func (x *DeleteLoanPaymentRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_loan_payment_proto_msgTypes[6]
+	mi := &file_loan_payment_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -408,7 +540,7 @@ func (x *DeleteLoanPaymentRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteLoanPaymentRequest.ProtoReflect.Descriptor instead.
 func (*DeleteLoanPaymentRequest) Descriptor() ([]byte, []int) {
-	return file_loan_payment_proto_rawDescGZIP(), []int{6}
+	return file_loan_payment_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *DeleteLoanPaymentRequest) GetPaymentId() int32 {
@@ -427,7 +559,7 @@ type DeleteLoanPaymentBulkRequest struct {
 
 func (x *DeleteLoanPaymentBulkRequest) Reset() {
 	*x = DeleteLoanPaymentBulkRequest{}
-	mi := &file_loan_payment_proto_msgTypes[7]
+	mi := &file_loan_payment_proto_msgTypes[10]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -439,7 +571,7 @@ func (x *DeleteLoanPaymentBulkRequest) String() string {
 func (*DeleteLoanPaymentBulkRequest) ProtoMessage() {}
 
 func (x *DeleteLoanPaymentBulkRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_loan_payment_proto_msgTypes[7]
+	mi := &file_loan_payment_proto_msgTypes[10]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -452,7 +584,7 @@ func (x *DeleteLoanPaymentBulkRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteLoanPaymentBulkRequest.ProtoReflect.Descriptor instead.
 func (*DeleteLoanPaymentBulkRequest) Descriptor() ([]byte, []int) {
-	return file_loan_payment_proto_rawDescGZIP(), []int{7}
+	return file_loan_payment_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *DeleteLoanPaymentBulkRequest) GetPayments() []*DeleteLoanPaymentRequest {
@@ -484,7 +616,10 @@ const file_loan_payment_proto_rawDesc = "" +
 	"\rloan_payments\x18\x01 \x03(\v2\x18.protos.LoanPaymentModelR\floanPayments\":\n" +
 	"\x19GetLoanPaymentByIdRequest\x12\x1d\n" +
 	"\n" +
-	"payment_id\x18\x01 \x01(\x05R\tpaymentId\"7\n" +
+	"payment_id\x18\x01 \x01(\x05R\tpaymentId\"=\n" +
+	"\x1aGetLoanPaymentByIdsRequest\x12\x1f\n" +
+	"\vpayment_ids\x18\x01 \x03(\x05R\n" +
+	"paymentIds\"7\n" +
 	"\x1cGetLoanPaymentsByLoanRequest\x12\x17\n" +
 	"\aloan_id\x18\x01 \x01(\x05R\x06loanId\"\xde\x01\n" +
 	"\x15AddLoanPaymentRequest\x12\x1c\n" +
@@ -497,7 +632,9 @@ const file_loan_payment_proto_rawDesc = "" +
 	"\a_amountB\x0f\n" +
 	"\r_payment_dateB\n" +
 	"\n" +
-	"\b_is_paid\"\x80\x02\n" +
+	"\b_is_paid\"V\n" +
+	"\x19AddLoanPaymentBulkRequest\x129\n" +
+	"\bpayments\x18\x01 \x03(\v2\x1d.protos.AddLoanPaymentRequestR\bpayments\"\x80\x02\n" +
 	"\x18UpdateLoanPaymentRequest\x12\x1d\n" +
 	"\n" +
 	"payment_id\x18\x01 \x01(\x05R\tpaymentId\x12\x1c\n" +
@@ -510,19 +647,25 @@ const file_loan_payment_proto_rawDesc = "" +
 	"\a_amountB\x0f\n" +
 	"\r_payment_dateB\n" +
 	"\n" +
-	"\b_is_paid\"9\n" +
+	"\b_is_paid\"\\\n" +
+	"\x1cUpdateLoanPaymentBulkRequest\x12<\n" +
+	"\bpayments\x18\x01 \x03(\v2 .protos.UpdateLoanPaymentRequestR\bpayments\"9\n" +
 	"\x18DeleteLoanPaymentRequest\x12\x1d\n" +
 	"\n" +
 	"payment_id\x18\x01 \x01(\x05R\tpaymentId\"\\\n" +
 	"\x1cDeleteLoanPaymentBulkRequest\x12<\n" +
-	"\bpayments\x18\x01 \x03(\v2 .protos.DeleteLoanPaymentRequestR\bpayments2\x8c\x04\n" +
+	"\bpayments\x18\x01 \x03(\v2 .protos.DeleteLoanPaymentRequestR\bpayments2\xf2\x05\n" +
 	"\x12LoanPaymentService\x12C\n" +
 	"\x06GetAll\x12\x15.protos.GetAllRequest\x1a\".protos.GetAllLoanPaymentsResponse\x12F\n" +
-	"\aGetById\x12!.protos.GetLoanPaymentByIdRequest\x1a\x18.protos.LoanPaymentModel\x12U\n" +
+	"\aGetById\x12!.protos.GetLoanPaymentByIdRequest\x1a\x18.protos.LoanPaymentModel\x12R\n" +
+	"\bGetByIds\x12\".protos.GetLoanPaymentByIdsRequest\x1a\".protos.GetAllLoanPaymentsResponse\x12U\n" +
 	"\tGetByLoan\x12$.protos.GetLoanPaymentsByLoanRequest\x1a\".protos.GetAllLoanPaymentsResponse\x12>\n" +
 	"\x03Add\x12\x1d.protos.AddLoanPaymentRequest\x1a\x18.protos.LoanPaymentModel\x12B\n" +
 	"\x06Update\x12 .protos.UpdateLoanPaymentRequest\x1a\x16.google.protobuf.Empty\x12B\n" +
-	"\x06Delete\x12 .protos.DeleteLoanPaymentRequest\x1a\x16.google.protobuf.Empty\x12J\n" +
+	"\x06Delete\x12 .protos.DeleteLoanPaymentRequest\x1a\x16.google.protobuf.Empty\x12D\n" +
+	"\aAddBulk\x12!.protos.AddLoanPaymentBulkRequest\x1a\x16.google.protobuf.Empty\x12J\n" +
+	"\n" +
+	"UpdateBulk\x12$.protos.UpdateLoanPaymentBulkRequest\x1a\x16.google.protobuf.Empty\x12J\n" +
 	"\n" +
 	"DeleteBulk\x12$.protos.DeleteLoanPaymentBulkRequest\x1a\x16.google.protobuf.EmptyB\x1bZ\x19orch-go/gen/protos;protosb\x06proto3"
 
@@ -538,45 +681,56 @@ func file_loan_payment_proto_rawDescGZIP() []byte {
 	return file_loan_payment_proto_rawDescData
 }
 
-var file_loan_payment_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
+var file_loan_payment_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
 var file_loan_payment_proto_goTypes = []any{
 	(*LoanPaymentModel)(nil),             // 0: protos.LoanPaymentModel
 	(*GetAllLoanPaymentsResponse)(nil),   // 1: protos.GetAllLoanPaymentsResponse
 	(*GetLoanPaymentByIdRequest)(nil),    // 2: protos.GetLoanPaymentByIdRequest
-	(*GetLoanPaymentsByLoanRequest)(nil), // 3: protos.GetLoanPaymentsByLoanRequest
-	(*AddLoanPaymentRequest)(nil),        // 4: protos.AddLoanPaymentRequest
-	(*UpdateLoanPaymentRequest)(nil),     // 5: protos.UpdateLoanPaymentRequest
-	(*DeleteLoanPaymentRequest)(nil),     // 6: protos.DeleteLoanPaymentRequest
-	(*DeleteLoanPaymentBulkRequest)(nil), // 7: protos.DeleteLoanPaymentBulkRequest
-	(*DateOnly)(nil),                     // 8: protos.DateOnly
-	(*GetAllRequest)(nil),                // 9: protos.GetAllRequest
-	(*emptypb.Empty)(nil),                // 10: google.protobuf.Empty
+	(*GetLoanPaymentByIdsRequest)(nil),   // 3: protos.GetLoanPaymentByIdsRequest
+	(*GetLoanPaymentsByLoanRequest)(nil), // 4: protos.GetLoanPaymentsByLoanRequest
+	(*AddLoanPaymentRequest)(nil),        // 5: protos.AddLoanPaymentRequest
+	(*AddLoanPaymentBulkRequest)(nil),    // 6: protos.AddLoanPaymentBulkRequest
+	(*UpdateLoanPaymentRequest)(nil),     // 7: protos.UpdateLoanPaymentRequest
+	(*UpdateLoanPaymentBulkRequest)(nil), // 8: protos.UpdateLoanPaymentBulkRequest
+	(*DeleteLoanPaymentRequest)(nil),     // 9: protos.DeleteLoanPaymentRequest
+	(*DeleteLoanPaymentBulkRequest)(nil), // 10: protos.DeleteLoanPaymentBulkRequest
+	(*DateOnly)(nil),                     // 11: protos.DateOnly
+	(*GetAllRequest)(nil),                // 12: protos.GetAllRequest
+	(*emptypb.Empty)(nil),                // 13: google.protobuf.Empty
 }
 var file_loan_payment_proto_depIdxs = []int32{
-	8,  // 0: protos.LoanPaymentModel.payment_date:type_name -> protos.DateOnly
+	11, // 0: protos.LoanPaymentModel.payment_date:type_name -> protos.DateOnly
 	0,  // 1: protos.GetAllLoanPaymentsResponse.loan_payments:type_name -> protos.LoanPaymentModel
-	8,  // 2: protos.AddLoanPaymentRequest.payment_date:type_name -> protos.DateOnly
-	8,  // 3: protos.UpdateLoanPaymentRequest.payment_date:type_name -> protos.DateOnly
-	6,  // 4: protos.DeleteLoanPaymentBulkRequest.payments:type_name -> protos.DeleteLoanPaymentRequest
-	9,  // 5: protos.LoanPaymentService.GetAll:input_type -> protos.GetAllRequest
-	2,  // 6: protos.LoanPaymentService.GetById:input_type -> protos.GetLoanPaymentByIdRequest
-	3,  // 7: protos.LoanPaymentService.GetByLoan:input_type -> protos.GetLoanPaymentsByLoanRequest
-	4,  // 8: protos.LoanPaymentService.Add:input_type -> protos.AddLoanPaymentRequest
-	5,  // 9: protos.LoanPaymentService.Update:input_type -> protos.UpdateLoanPaymentRequest
-	6,  // 10: protos.LoanPaymentService.Delete:input_type -> protos.DeleteLoanPaymentRequest
-	7,  // 11: protos.LoanPaymentService.DeleteBulk:input_type -> protos.DeleteLoanPaymentBulkRequest
-	1,  // 12: protos.LoanPaymentService.GetAll:output_type -> protos.GetAllLoanPaymentsResponse
-	0,  // 13: protos.LoanPaymentService.GetById:output_type -> protos.LoanPaymentModel
-	1,  // 14: protos.LoanPaymentService.GetByLoan:output_type -> protos.GetAllLoanPaymentsResponse
-	0,  // 15: protos.LoanPaymentService.Add:output_type -> protos.LoanPaymentModel
-	10, // 16: protos.LoanPaymentService.Update:output_type -> google.protobuf.Empty
-	10, // 17: protos.LoanPaymentService.Delete:output_type -> google.protobuf.Empty
-	10, // 18: protos.LoanPaymentService.DeleteBulk:output_type -> google.protobuf.Empty
-	12, // [12:19] is the sub-list for method output_type
-	5,  // [5:12] is the sub-list for method input_type
-	5,  // [5:5] is the sub-list for extension type_name
-	5,  // [5:5] is the sub-list for extension extendee
-	0,  // [0:5] is the sub-list for field type_name
+	11, // 2: protos.AddLoanPaymentRequest.payment_date:type_name -> protos.DateOnly
+	5,  // 3: protos.AddLoanPaymentBulkRequest.payments:type_name -> protos.AddLoanPaymentRequest
+	11, // 4: protos.UpdateLoanPaymentRequest.payment_date:type_name -> protos.DateOnly
+	7,  // 5: protos.UpdateLoanPaymentBulkRequest.payments:type_name -> protos.UpdateLoanPaymentRequest
+	9,  // 6: protos.DeleteLoanPaymentBulkRequest.payments:type_name -> protos.DeleteLoanPaymentRequest
+	12, // 7: protos.LoanPaymentService.GetAll:input_type -> protos.GetAllRequest
+	2,  // 8: protos.LoanPaymentService.GetById:input_type -> protos.GetLoanPaymentByIdRequest
+	3,  // 9: protos.LoanPaymentService.GetByIds:input_type -> protos.GetLoanPaymentByIdsRequest
+	4,  // 10: protos.LoanPaymentService.GetByLoan:input_type -> protos.GetLoanPaymentsByLoanRequest
+	5,  // 11: protos.LoanPaymentService.Add:input_type -> protos.AddLoanPaymentRequest
+	7,  // 12: protos.LoanPaymentService.Update:input_type -> protos.UpdateLoanPaymentRequest
+	9,  // 13: protos.LoanPaymentService.Delete:input_type -> protos.DeleteLoanPaymentRequest
+	6,  // 14: protos.LoanPaymentService.AddBulk:input_type -> protos.AddLoanPaymentBulkRequest
+	8,  // 15: protos.LoanPaymentService.UpdateBulk:input_type -> protos.UpdateLoanPaymentBulkRequest
+	10, // 16: protos.LoanPaymentService.DeleteBulk:input_type -> protos.DeleteLoanPaymentBulkRequest
+	1,  // 17: protos.LoanPaymentService.GetAll:output_type -> protos.GetAllLoanPaymentsResponse
+	0,  // 18: protos.LoanPaymentService.GetById:output_type -> protos.LoanPaymentModel
+	1,  // 19: protos.LoanPaymentService.GetByIds:output_type -> protos.GetAllLoanPaymentsResponse
+	1,  // 20: protos.LoanPaymentService.GetByLoan:output_type -> protos.GetAllLoanPaymentsResponse
+	0,  // 21: protos.LoanPaymentService.Add:output_type -> protos.LoanPaymentModel
+	13, // 22: protos.LoanPaymentService.Update:output_type -> google.protobuf.Empty
+	13, // 23: protos.LoanPaymentService.Delete:output_type -> google.protobuf.Empty
+	13, // 24: protos.LoanPaymentService.AddBulk:output_type -> google.protobuf.Empty
+	13, // 25: protos.LoanPaymentService.UpdateBulk:output_type -> google.protobuf.Empty
+	13, // 26: protos.LoanPaymentService.DeleteBulk:output_type -> google.protobuf.Empty
+	17, // [17:27] is the sub-list for method output_type
+	7,  // [7:17] is the sub-list for method input_type
+	7,  // [7:7] is the sub-list for extension type_name
+	7,  // [7:7] is the sub-list for extension extendee
+	0,  // [0:7] is the sub-list for field type_name
 }
 
 func init() { file_loan_payment_proto_init() }
@@ -586,15 +740,15 @@ func file_loan_payment_proto_init() {
 	}
 	file_custom_types_proto_init()
 	file_loan_payment_proto_msgTypes[0].OneofWrappers = []any{}
-	file_loan_payment_proto_msgTypes[4].OneofWrappers = []any{}
 	file_loan_payment_proto_msgTypes[5].OneofWrappers = []any{}
+	file_loan_payment_proto_msgTypes[7].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_loan_payment_proto_rawDesc), len(file_loan_payment_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   8,
+			NumMessages:   11,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

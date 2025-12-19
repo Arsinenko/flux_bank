@@ -22,6 +22,7 @@ const _ = grpc.SupportPackageIsVersion9
 const (
 	AccountTypeService_GetAll_FullMethodName     = "/protos.AccountTypeService/GetAll"
 	AccountTypeService_GetById_FullMethodName    = "/protos.AccountTypeService/GetById"
+	AccountTypeService_GetByIds_FullMethodName   = "/protos.AccountTypeService/GetByIds"
 	AccountTypeService_Add_FullMethodName        = "/protos.AccountTypeService/Add"
 	AccountTypeService_Update_FullMethodName     = "/protos.AccountTypeService/Update"
 	AccountTypeService_Delete_FullMethodName     = "/protos.AccountTypeService/Delete"
@@ -36,6 +37,7 @@ const (
 type AccountTypeServiceClient interface {
 	GetAll(ctx context.Context, in *GetAllRequest, opts ...grpc.CallOption) (*GetAllAccountTypesResponse, error)
 	GetById(ctx context.Context, in *GetAccountTypeByIdRequest, opts ...grpc.CallOption) (*AccountTypeModel, error)
+	GetByIds(ctx context.Context, in *GetAccountTypeByIdsRequest, opts ...grpc.CallOption) (*GetAllAccountTypesResponse, error)
 	Add(ctx context.Context, in *AddAccountTypeRequest, opts ...grpc.CallOption) (*AccountTypeModel, error)
 	Update(ctx context.Context, in *UpdateAccountTypeRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	Delete(ctx context.Context, in *DeleteAccountTypeRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
@@ -66,6 +68,16 @@ func (c *accountTypeServiceClient) GetById(ctx context.Context, in *GetAccountTy
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(AccountTypeModel)
 	err := c.cc.Invoke(ctx, AccountTypeService_GetById_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *accountTypeServiceClient) GetByIds(ctx context.Context, in *GetAccountTypeByIdsRequest, opts ...grpc.CallOption) (*GetAllAccountTypesResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetAllAccountTypesResponse)
+	err := c.cc.Invoke(ctx, AccountTypeService_GetByIds_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -138,6 +150,7 @@ func (c *accountTypeServiceClient) DeleteBulk(ctx context.Context, in *DeleteAcc
 type AccountTypeServiceServer interface {
 	GetAll(context.Context, *GetAllRequest) (*GetAllAccountTypesResponse, error)
 	GetById(context.Context, *GetAccountTypeByIdRequest) (*AccountTypeModel, error)
+	GetByIds(context.Context, *GetAccountTypeByIdsRequest) (*GetAllAccountTypesResponse, error)
 	Add(context.Context, *AddAccountTypeRequest) (*AccountTypeModel, error)
 	Update(context.Context, *UpdateAccountTypeRequest) (*emptypb.Empty, error)
 	Delete(context.Context, *DeleteAccountTypeRequest) (*emptypb.Empty, error)
@@ -159,6 +172,9 @@ func (UnimplementedAccountTypeServiceServer) GetAll(context.Context, *GetAllRequ
 }
 func (UnimplementedAccountTypeServiceServer) GetById(context.Context, *GetAccountTypeByIdRequest) (*AccountTypeModel, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetById not implemented")
+}
+func (UnimplementedAccountTypeServiceServer) GetByIds(context.Context, *GetAccountTypeByIdsRequest) (*GetAllAccountTypesResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetByIds not implemented")
 }
 func (UnimplementedAccountTypeServiceServer) Add(context.Context, *AddAccountTypeRequest) (*AccountTypeModel, error) {
 	return nil, status.Error(codes.Unimplemented, "method Add not implemented")
@@ -231,6 +247,24 @@ func _AccountTypeService_GetById_Handler(srv interface{}, ctx context.Context, d
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(AccountTypeServiceServer).GetById(ctx, req.(*GetAccountTypeByIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AccountTypeService_GetByIds_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAccountTypeByIdsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountTypeServiceServer).GetByIds(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AccountTypeService_GetByIds_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountTypeServiceServer).GetByIds(ctx, req.(*GetAccountTypeByIdsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -357,6 +391,10 @@ var AccountTypeService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetById",
 			Handler:    _AccountTypeService_GetById_Handler,
+		},
+		{
+			MethodName: "GetByIds",
+			Handler:    _AccountTypeService_GetByIds_Handler,
 		},
 		{
 			MethodName: "Add",

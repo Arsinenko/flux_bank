@@ -27,8 +27,8 @@ func (r Repository) GetByCustomerId(ctx context.Context, customerId int32) ([]*a
 
 func (r Repository) GetByDateRange(ctx context.Context, request account.GetByDateRange) ([]*account.Account, error) {
 	resp, err := r.client.GetByDateRange(ctx, &pb.GetByDateRangeRequest{
-		From:     timestamppb.New(request.From),
-		To:       timestamppb.New(request.To),
+		FromDate: timestamppb.New(request.From),
+		ToDate:   timestamppb.New(request.To),
 		PageN:    &request.PageN,
 		PageSize: &request.PageSize,
 	})

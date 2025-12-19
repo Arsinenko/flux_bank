@@ -22,6 +22,7 @@ const _ = grpc.SupportPackageIsVersion9
 const (
 	TransactionCategoryService_GetAll_FullMethodName     = "/protos.TransactionCategoryService/GetAll"
 	TransactionCategoryService_GetById_FullMethodName    = "/protos.TransactionCategoryService/GetById"
+	TransactionCategoryService_GetByIds_FullMethodName   = "/protos.TransactionCategoryService/GetByIds"
 	TransactionCategoryService_Add_FullMethodName        = "/protos.TransactionCategoryService/Add"
 	TransactionCategoryService_Update_FullMethodName     = "/protos.TransactionCategoryService/Update"
 	TransactionCategoryService_Delete_FullMethodName     = "/protos.TransactionCategoryService/Delete"
@@ -36,6 +37,7 @@ const (
 type TransactionCategoryServiceClient interface {
 	GetAll(ctx context.Context, in *GetAllRequest, opts ...grpc.CallOption) (*GetAllTransactionCategoriesResponse, error)
 	GetById(ctx context.Context, in *GetTransactionCategoryByIdRequest, opts ...grpc.CallOption) (*TransactionCategoryModel, error)
+	GetByIds(ctx context.Context, in *GetTransactionCategoryByIdsRequest, opts ...grpc.CallOption) (*GetAllTransactionCategoriesResponse, error)
 	Add(ctx context.Context, in *AddTransactionCategoryRequest, opts ...grpc.CallOption) (*TransactionCategoryModel, error)
 	Update(ctx context.Context, in *UpdateTransactionCategoryRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	Delete(ctx context.Context, in *DeleteTransactionCategoryRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
@@ -66,6 +68,16 @@ func (c *transactionCategoryServiceClient) GetById(ctx context.Context, in *GetT
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(TransactionCategoryModel)
 	err := c.cc.Invoke(ctx, TransactionCategoryService_GetById_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *transactionCategoryServiceClient) GetByIds(ctx context.Context, in *GetTransactionCategoryByIdsRequest, opts ...grpc.CallOption) (*GetAllTransactionCategoriesResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetAllTransactionCategoriesResponse)
+	err := c.cc.Invoke(ctx, TransactionCategoryService_GetByIds_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -138,6 +150,7 @@ func (c *transactionCategoryServiceClient) DeleteBulk(ctx context.Context, in *D
 type TransactionCategoryServiceServer interface {
 	GetAll(context.Context, *GetAllRequest) (*GetAllTransactionCategoriesResponse, error)
 	GetById(context.Context, *GetTransactionCategoryByIdRequest) (*TransactionCategoryModel, error)
+	GetByIds(context.Context, *GetTransactionCategoryByIdsRequest) (*GetAllTransactionCategoriesResponse, error)
 	Add(context.Context, *AddTransactionCategoryRequest) (*TransactionCategoryModel, error)
 	Update(context.Context, *UpdateTransactionCategoryRequest) (*emptypb.Empty, error)
 	Delete(context.Context, *DeleteTransactionCategoryRequest) (*emptypb.Empty, error)
@@ -159,6 +172,9 @@ func (UnimplementedTransactionCategoryServiceServer) GetAll(context.Context, *Ge
 }
 func (UnimplementedTransactionCategoryServiceServer) GetById(context.Context, *GetTransactionCategoryByIdRequest) (*TransactionCategoryModel, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetById not implemented")
+}
+func (UnimplementedTransactionCategoryServiceServer) GetByIds(context.Context, *GetTransactionCategoryByIdsRequest) (*GetAllTransactionCategoriesResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetByIds not implemented")
 }
 func (UnimplementedTransactionCategoryServiceServer) Add(context.Context, *AddTransactionCategoryRequest) (*TransactionCategoryModel, error) {
 	return nil, status.Error(codes.Unimplemented, "method Add not implemented")
@@ -232,6 +248,24 @@ func _TransactionCategoryService_GetById_Handler(srv interface{}, ctx context.Co
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(TransactionCategoryServiceServer).GetById(ctx, req.(*GetTransactionCategoryByIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TransactionCategoryService_GetByIds_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetTransactionCategoryByIdsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionCategoryServiceServer).GetByIds(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TransactionCategoryService_GetByIds_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionCategoryServiceServer).GetByIds(ctx, req.(*GetTransactionCategoryByIdsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -358,6 +392,10 @@ var TransactionCategoryService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetById",
 			Handler:    _TransactionCategoryService_GetById_Handler,
+		},
+		{
+			MethodName: "GetByIds",
+			Handler:    _TransactionCategoryService_GetByIds_Handler,
 		},
 		{
 			MethodName: "Add",

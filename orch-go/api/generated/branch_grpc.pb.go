@@ -22,6 +22,7 @@ const _ = grpc.SupportPackageIsVersion9
 const (
 	BranchService_GetAll_FullMethodName     = "/protos.BranchService/GetAll"
 	BranchService_GetById_FullMethodName    = "/protos.BranchService/GetById"
+	BranchService_GetByIds_FullMethodName   = "/protos.BranchService/GetByIds"
 	BranchService_Add_FullMethodName        = "/protos.BranchService/Add"
 	BranchService_Update_FullMethodName     = "/protos.BranchService/Update"
 	BranchService_Delete_FullMethodName     = "/protos.BranchService/Delete"
@@ -36,6 +37,7 @@ const (
 type BranchServiceClient interface {
 	GetAll(ctx context.Context, in *GetAllRequest, opts ...grpc.CallOption) (*GetAllBranchesResponse, error)
 	GetById(ctx context.Context, in *GetBranchByIdRequest, opts ...grpc.CallOption) (*BranchModel, error)
+	GetByIds(ctx context.Context, in *GetBranchByIdsRequest, opts ...grpc.CallOption) (*GetAllBranchesResponse, error)
 	Add(ctx context.Context, in *AddBranchRequest, opts ...grpc.CallOption) (*BranchModel, error)
 	Update(ctx context.Context, in *UpdateBranchRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	Delete(ctx context.Context, in *DeleteBranchRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
@@ -66,6 +68,16 @@ func (c *branchServiceClient) GetById(ctx context.Context, in *GetBranchByIdRequ
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(BranchModel)
 	err := c.cc.Invoke(ctx, BranchService_GetById_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *branchServiceClient) GetByIds(ctx context.Context, in *GetBranchByIdsRequest, opts ...grpc.CallOption) (*GetAllBranchesResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetAllBranchesResponse)
+	err := c.cc.Invoke(ctx, BranchService_GetByIds_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -138,6 +150,7 @@ func (c *branchServiceClient) DeleteBulk(ctx context.Context, in *DeleteBranchBu
 type BranchServiceServer interface {
 	GetAll(context.Context, *GetAllRequest) (*GetAllBranchesResponse, error)
 	GetById(context.Context, *GetBranchByIdRequest) (*BranchModel, error)
+	GetByIds(context.Context, *GetBranchByIdsRequest) (*GetAllBranchesResponse, error)
 	Add(context.Context, *AddBranchRequest) (*BranchModel, error)
 	Update(context.Context, *UpdateBranchRequest) (*emptypb.Empty, error)
 	Delete(context.Context, *DeleteBranchRequest) (*emptypb.Empty, error)
@@ -159,6 +172,9 @@ func (UnimplementedBranchServiceServer) GetAll(context.Context, *GetAllRequest) 
 }
 func (UnimplementedBranchServiceServer) GetById(context.Context, *GetBranchByIdRequest) (*BranchModel, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetById not implemented")
+}
+func (UnimplementedBranchServiceServer) GetByIds(context.Context, *GetBranchByIdsRequest) (*GetAllBranchesResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetByIds not implemented")
 }
 func (UnimplementedBranchServiceServer) Add(context.Context, *AddBranchRequest) (*BranchModel, error) {
 	return nil, status.Error(codes.Unimplemented, "method Add not implemented")
@@ -231,6 +247,24 @@ func _BranchService_GetById_Handler(srv interface{}, ctx context.Context, dec fu
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(BranchServiceServer).GetById(ctx, req.(*GetBranchByIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _BranchService_GetByIds_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetBranchByIdsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BranchServiceServer).GetByIds(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: BranchService_GetByIds_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BranchServiceServer).GetByIds(ctx, req.(*GetBranchByIdsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -357,6 +391,10 @@ var BranchService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetById",
 			Handler:    _BranchService_GetById_Handler,
+		},
+		{
+			MethodName: "GetByIds",
+			Handler:    _BranchService_GetByIds_Handler,
 		},
 		{
 			MethodName: "Add",

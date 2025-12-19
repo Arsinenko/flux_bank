@@ -187,6 +187,50 @@ func (x *GetLoginLogByIdRequest) GetLogId() int32 {
 	return 0
 }
 
+type GetLoginLogByIdsRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	LogIds        []int32                `protobuf:"varint,1,rep,packed,name=log_ids,json=logIds,proto3" json:"log_ids,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetLoginLogByIdsRequest) Reset() {
+	*x = GetLoginLogByIdsRequest{}
+	mi := &file_login_log_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetLoginLogByIdsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetLoginLogByIdsRequest) ProtoMessage() {}
+
+func (x *GetLoginLogByIdsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_login_log_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetLoginLogByIdsRequest.ProtoReflect.Descriptor instead.
+func (*GetLoginLogByIdsRequest) Descriptor() ([]byte, []int) {
+	return file_login_log_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *GetLoginLogByIdsRequest) GetLogIds() []int32 {
+	if x != nil {
+		return x.LogIds
+	}
+	return nil
+}
+
 type GetLoginLogsByCustomerRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	CustomerId    int32                  `protobuf:"varint,1,opt,name=customer_id,json=customerId,proto3" json:"customer_id,omitempty"`
@@ -196,7 +240,7 @@ type GetLoginLogsByCustomerRequest struct {
 
 func (x *GetLoginLogsByCustomerRequest) Reset() {
 	*x = GetLoginLogsByCustomerRequest{}
-	mi := &file_login_log_proto_msgTypes[3]
+	mi := &file_login_log_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -208,7 +252,7 @@ func (x *GetLoginLogsByCustomerRequest) String() string {
 func (*GetLoginLogsByCustomerRequest) ProtoMessage() {}
 
 func (x *GetLoginLogsByCustomerRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_login_log_proto_msgTypes[3]
+	mi := &file_login_log_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -221,7 +265,7 @@ func (x *GetLoginLogsByCustomerRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetLoginLogsByCustomerRequest.ProtoReflect.Descriptor instead.
 func (*GetLoginLogsByCustomerRequest) Descriptor() ([]byte, []int) {
-	return file_login_log_proto_rawDescGZIP(), []int{3}
+	return file_login_log_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *GetLoginLogsByCustomerRequest) GetCustomerId() int32 {
@@ -241,7 +285,7 @@ type GetLoginLogsInTimeRangeRequest struct {
 
 func (x *GetLoginLogsInTimeRangeRequest) Reset() {
 	*x = GetLoginLogsInTimeRangeRequest{}
-	mi := &file_login_log_proto_msgTypes[4]
+	mi := &file_login_log_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -253,7 +297,7 @@ func (x *GetLoginLogsInTimeRangeRequest) String() string {
 func (*GetLoginLogsInTimeRangeRequest) ProtoMessage() {}
 
 func (x *GetLoginLogsInTimeRangeRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_login_log_proto_msgTypes[4]
+	mi := &file_login_log_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -266,7 +310,7 @@ func (x *GetLoginLogsInTimeRangeRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetLoginLogsInTimeRangeRequest.ProtoReflect.Descriptor instead.
 func (*GetLoginLogsInTimeRangeRequest) Descriptor() ([]byte, []int) {
-	return file_login_log_proto_rawDescGZIP(), []int{4}
+	return file_login_log_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *GetLoginLogsInTimeRangeRequest) GetStartTime() *timestamppb.Timestamp {
@@ -295,7 +339,7 @@ type AddLoginLogRequest struct {
 
 func (x *AddLoginLogRequest) Reset() {
 	*x = AddLoginLogRequest{}
-	mi := &file_login_log_proto_msgTypes[5]
+	mi := &file_login_log_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -307,7 +351,7 @@ func (x *AddLoginLogRequest) String() string {
 func (*AddLoginLogRequest) ProtoMessage() {}
 
 func (x *AddLoginLogRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_login_log_proto_msgTypes[5]
+	mi := &file_login_log_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -320,7 +364,7 @@ func (x *AddLoginLogRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AddLoginLogRequest.ProtoReflect.Descriptor instead.
 func (*AddLoginLogRequest) Descriptor() ([]byte, []int) {
-	return file_login_log_proto_rawDescGZIP(), []int{5}
+	return file_login_log_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *AddLoginLogRequest) GetCustomerId() int32 {
@@ -351,6 +395,50 @@ func (x *AddLoginLogRequest) GetDeviceInfo() string {
 	return ""
 }
 
+type AddLoginLogBulkRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	LoginLogs     []*AddLoginLogRequest  `protobuf:"bytes,1,rep,name=login_logs,json=loginLogs,proto3" json:"login_logs,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AddLoginLogBulkRequest) Reset() {
+	*x = AddLoginLogBulkRequest{}
+	mi := &file_login_log_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AddLoginLogBulkRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AddLoginLogBulkRequest) ProtoMessage() {}
+
+func (x *AddLoginLogBulkRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_login_log_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AddLoginLogBulkRequest.ProtoReflect.Descriptor instead.
+func (*AddLoginLogBulkRequest) Descriptor() ([]byte, []int) {
+	return file_login_log_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *AddLoginLogBulkRequest) GetLoginLogs() []*AddLoginLogRequest {
+	if x != nil {
+		return x.LoginLogs
+	}
+	return nil
+}
+
 type UpdateLoginLogRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	LogId         int32                  `protobuf:"varint,1,opt,name=log_id,json=logId,proto3" json:"log_id,omitempty"`
@@ -364,7 +452,7 @@ type UpdateLoginLogRequest struct {
 
 func (x *UpdateLoginLogRequest) Reset() {
 	*x = UpdateLoginLogRequest{}
-	mi := &file_login_log_proto_msgTypes[6]
+	mi := &file_login_log_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -376,7 +464,7 @@ func (x *UpdateLoginLogRequest) String() string {
 func (*UpdateLoginLogRequest) ProtoMessage() {}
 
 func (x *UpdateLoginLogRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_login_log_proto_msgTypes[6]
+	mi := &file_login_log_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -389,7 +477,7 @@ func (x *UpdateLoginLogRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateLoginLogRequest.ProtoReflect.Descriptor instead.
 func (*UpdateLoginLogRequest) Descriptor() ([]byte, []int) {
-	return file_login_log_proto_rawDescGZIP(), []int{6}
+	return file_login_log_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *UpdateLoginLogRequest) GetLogId() int32 {
@@ -427,6 +515,50 @@ func (x *UpdateLoginLogRequest) GetDeviceInfo() string {
 	return ""
 }
 
+type UpdateLoginLogBulkRequest struct {
+	state         protoimpl.MessageState   `protogen:"open.v1"`
+	LoginLogs     []*UpdateLoginLogRequest `protobuf:"bytes,1,rep,name=login_logs,json=loginLogs,proto3" json:"login_logs,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateLoginLogBulkRequest) Reset() {
+	*x = UpdateLoginLogBulkRequest{}
+	mi := &file_login_log_proto_msgTypes[9]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateLoginLogBulkRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateLoginLogBulkRequest) ProtoMessage() {}
+
+func (x *UpdateLoginLogBulkRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_login_log_proto_msgTypes[9]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateLoginLogBulkRequest.ProtoReflect.Descriptor instead.
+func (*UpdateLoginLogBulkRequest) Descriptor() ([]byte, []int) {
+	return file_login_log_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *UpdateLoginLogBulkRequest) GetLoginLogs() []*UpdateLoginLogRequest {
+	if x != nil {
+		return x.LoginLogs
+	}
+	return nil
+}
+
 type DeleteLoginLogRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	LogId         int32                  `protobuf:"varint,1,opt,name=log_id,json=logId,proto3" json:"log_id,omitempty"`
@@ -436,7 +568,7 @@ type DeleteLoginLogRequest struct {
 
 func (x *DeleteLoginLogRequest) Reset() {
 	*x = DeleteLoginLogRequest{}
-	mi := &file_login_log_proto_msgTypes[7]
+	mi := &file_login_log_proto_msgTypes[10]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -448,7 +580,7 @@ func (x *DeleteLoginLogRequest) String() string {
 func (*DeleteLoginLogRequest) ProtoMessage() {}
 
 func (x *DeleteLoginLogRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_login_log_proto_msgTypes[7]
+	mi := &file_login_log_proto_msgTypes[10]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -461,7 +593,7 @@ func (x *DeleteLoginLogRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteLoginLogRequest.ProtoReflect.Descriptor instead.
 func (*DeleteLoginLogRequest) Descriptor() ([]byte, []int) {
-	return file_login_log_proto_rawDescGZIP(), []int{7}
+	return file_login_log_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *DeleteLoginLogRequest) GetLogId() int32 {
@@ -469,6 +601,50 @@ func (x *DeleteLoginLogRequest) GetLogId() int32 {
 		return x.LogId
 	}
 	return 0
+}
+
+type DeleteLoginLogBulkRequest struct {
+	state         protoimpl.MessageState   `protogen:"open.v1"`
+	LoginLogs     []*DeleteLoginLogRequest `protobuf:"bytes,1,rep,name=login_logs,json=loginLogs,proto3" json:"login_logs,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DeleteLoginLogBulkRequest) Reset() {
+	*x = DeleteLoginLogBulkRequest{}
+	mi := &file_login_log_proto_msgTypes[11]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteLoginLogBulkRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteLoginLogBulkRequest) ProtoMessage() {}
+
+func (x *DeleteLoginLogBulkRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_login_log_proto_msgTypes[11]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteLoginLogBulkRequest.ProtoReflect.Descriptor instead.
+func (*DeleteLoginLogBulkRequest) Descriptor() ([]byte, []int) {
+	return file_login_log_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *DeleteLoginLogBulkRequest) GetLoginLogs() []*DeleteLoginLogRequest {
+	if x != nil {
+		return x.LoginLogs
+	}
+	return nil
 }
 
 var File_login_log_proto protoreflect.FileDescriptor
@@ -494,7 +670,9 @@ const file_login_log_proto_rawDesc = "" +
 	"\n" +
 	"login_logs\x18\x01 \x03(\v2\x15.protos.LoginLogModelR\tloginLogs\"/\n" +
 	"\x16GetLoginLogByIdRequest\x12\x15\n" +
-	"\x06log_id\x18\x01 \x01(\x05R\x05logId\"@\n" +
+	"\x06log_id\x18\x01 \x01(\x05R\x05logId\"2\n" +
+	"\x17GetLoginLogByIdsRequest\x12\x17\n" +
+	"\alog_ids\x18\x01 \x03(\x05R\x06logIds\"@\n" +
 	"\x1dGetLoginLogsByCustomerRequest\x12\x1f\n" +
 	"\vcustomer_id\x18\x01 \x01(\x05R\n" +
 	"customerId\"\x92\x01\n" +
@@ -514,7 +692,10 @@ const file_login_log_proto_rawDesc = "" +
 	"\f_customer_idB\r\n" +
 	"\v_login_timeB\r\n" +
 	"\v_ip_addressB\x0e\n" +
-	"\f_device_info\"\x9c\x02\n" +
+	"\f_device_info\"S\n" +
+	"\x16AddLoginLogBulkRequest\x129\n" +
+	"\n" +
+	"login_logs\x18\x01 \x03(\v2\x1a.protos.AddLoginLogRequestR\tloginLogs\"\x9c\x02\n" +
 	"\x15UpdateLoginLogRequest\x12\x15\n" +
 	"\x06log_id\x18\x01 \x01(\x05R\x05logId\x12$\n" +
 	"\vcustomer_id\x18\x02 \x01(\x05H\x00R\n" +
@@ -528,17 +709,29 @@ const file_login_log_proto_rawDesc = "" +
 	"\f_customer_idB\r\n" +
 	"\v_login_timeB\r\n" +
 	"\v_ip_addressB\x0e\n" +
-	"\f_device_info\".\n" +
+	"\f_device_info\"Y\n" +
+	"\x19UpdateLoginLogBulkRequest\x12<\n" +
+	"\n" +
+	"login_logs\x18\x01 \x03(\v2\x1d.protos.UpdateLoginLogRequestR\tloginLogs\".\n" +
 	"\x15DeleteLoginLogRequest\x12\x15\n" +
-	"\x06log_id\x18\x01 \x01(\x05R\x05logId2\x85\x04\n" +
+	"\x06log_id\x18\x01 \x01(\x05R\x05logId\"Y\n" +
+	"\x19DeleteLoginLogBulkRequest\x12<\n" +
+	"\n" +
+	"login_logs\x18\x01 \x03(\v2\x1d.protos.DeleteLoginLogRequestR\tloginLogs2\xa8\x06\n" +
 	"\x0fLoginLogService\x12@\n" +
 	"\x06GetAll\x12\x15.protos.GetAllRequest\x1a\x1f.protos.GetAllLoginLogsResponse\x12@\n" +
-	"\aGetById\x12\x1e.protos.GetLoginLogByIdRequest\x1a\x15.protos.LoginLogModel\x12W\n" +
+	"\aGetById\x12\x1e.protos.GetLoginLogByIdRequest\x1a\x15.protos.LoginLogModel\x12L\n" +
+	"\bGetByIds\x12\x1f.protos.GetLoginLogByIdsRequest\x1a\x1f.protos.GetAllLoginLogsResponse\x12W\n" +
 	"\rGetByCustomer\x12%.protos.GetLoginLogsByCustomerRequest\x1a\x1f.protos.GetAllLoginLogsResponse\x12Y\n" +
 	"\x0eGetInTimeRange\x12&.protos.GetLoginLogsInTimeRangeRequest\x1a\x1f.protos.GetAllLoginLogsResponse\x128\n" +
 	"\x03Add\x12\x1a.protos.AddLoginLogRequest\x1a\x15.protos.LoginLogModel\x12?\n" +
 	"\x06Update\x12\x1d.protos.UpdateLoginLogRequest\x1a\x16.google.protobuf.Empty\x12?\n" +
-	"\x06Delete\x12\x1d.protos.DeleteLoginLogRequest\x1a\x16.google.protobuf.EmptyB\x1bZ\x19orch-go/gen/protos;protosb\x06proto3"
+	"\x06Delete\x12\x1d.protos.DeleteLoginLogRequest\x1a\x16.google.protobuf.Empty\x12A\n" +
+	"\aAddBulk\x12\x1e.protos.AddLoginLogBulkRequest\x1a\x16.google.protobuf.Empty\x12G\n" +
+	"\n" +
+	"UpdateBulk\x12!.protos.UpdateLoginLogBulkRequest\x1a\x16.google.protobuf.Empty\x12G\n" +
+	"\n" +
+	"DeleteBulk\x12!.protos.DeleteLoginLogBulkRequest\x1a\x16.google.protobuf.EmptyB\x1bZ\x19orch-go/gen/protos;protosb\x06proto3"
 
 var (
 	file_login_log_proto_rawDescOnce sync.Once
@@ -552,46 +745,61 @@ func file_login_log_proto_rawDescGZIP() []byte {
 	return file_login_log_proto_rawDescData
 }
 
-var file_login_log_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
+var file_login_log_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
 var file_login_log_proto_goTypes = []any{
 	(*LoginLogModel)(nil),                  // 0: protos.LoginLogModel
 	(*GetAllLoginLogsResponse)(nil),        // 1: protos.GetAllLoginLogsResponse
 	(*GetLoginLogByIdRequest)(nil),         // 2: protos.GetLoginLogByIdRequest
-	(*GetLoginLogsByCustomerRequest)(nil),  // 3: protos.GetLoginLogsByCustomerRequest
-	(*GetLoginLogsInTimeRangeRequest)(nil), // 4: protos.GetLoginLogsInTimeRangeRequest
-	(*AddLoginLogRequest)(nil),             // 5: protos.AddLoginLogRequest
-	(*UpdateLoginLogRequest)(nil),          // 6: protos.UpdateLoginLogRequest
-	(*DeleteLoginLogRequest)(nil),          // 7: protos.DeleteLoginLogRequest
-	(*timestamppb.Timestamp)(nil),          // 8: google.protobuf.Timestamp
-	(*GetAllRequest)(nil),                  // 9: protos.GetAllRequest
-	(*emptypb.Empty)(nil),                  // 10: google.protobuf.Empty
+	(*GetLoginLogByIdsRequest)(nil),        // 3: protos.GetLoginLogByIdsRequest
+	(*GetLoginLogsByCustomerRequest)(nil),  // 4: protos.GetLoginLogsByCustomerRequest
+	(*GetLoginLogsInTimeRangeRequest)(nil), // 5: protos.GetLoginLogsInTimeRangeRequest
+	(*AddLoginLogRequest)(nil),             // 6: protos.AddLoginLogRequest
+	(*AddLoginLogBulkRequest)(nil),         // 7: protos.AddLoginLogBulkRequest
+	(*UpdateLoginLogRequest)(nil),          // 8: protos.UpdateLoginLogRequest
+	(*UpdateLoginLogBulkRequest)(nil),      // 9: protos.UpdateLoginLogBulkRequest
+	(*DeleteLoginLogRequest)(nil),          // 10: protos.DeleteLoginLogRequest
+	(*DeleteLoginLogBulkRequest)(nil),      // 11: protos.DeleteLoginLogBulkRequest
+	(*timestamppb.Timestamp)(nil),          // 12: google.protobuf.Timestamp
+	(*GetAllRequest)(nil),                  // 13: protos.GetAllRequest
+	(*emptypb.Empty)(nil),                  // 14: google.protobuf.Empty
 }
 var file_login_log_proto_depIdxs = []int32{
-	8,  // 0: protos.LoginLogModel.login_time:type_name -> google.protobuf.Timestamp
+	12, // 0: protos.LoginLogModel.login_time:type_name -> google.protobuf.Timestamp
 	0,  // 1: protos.GetAllLoginLogsResponse.login_logs:type_name -> protos.LoginLogModel
-	8,  // 2: protos.GetLoginLogsInTimeRangeRequest.start_time:type_name -> google.protobuf.Timestamp
-	8,  // 3: protos.GetLoginLogsInTimeRangeRequest.end_time:type_name -> google.protobuf.Timestamp
-	8,  // 4: protos.AddLoginLogRequest.login_time:type_name -> google.protobuf.Timestamp
-	8,  // 5: protos.UpdateLoginLogRequest.login_time:type_name -> google.protobuf.Timestamp
-	9,  // 6: protos.LoginLogService.GetAll:input_type -> protos.GetAllRequest
-	2,  // 7: protos.LoginLogService.GetById:input_type -> protos.GetLoginLogByIdRequest
-	3,  // 8: protos.LoginLogService.GetByCustomer:input_type -> protos.GetLoginLogsByCustomerRequest
-	4,  // 9: protos.LoginLogService.GetInTimeRange:input_type -> protos.GetLoginLogsInTimeRangeRequest
-	5,  // 10: protos.LoginLogService.Add:input_type -> protos.AddLoginLogRequest
-	6,  // 11: protos.LoginLogService.Update:input_type -> protos.UpdateLoginLogRequest
-	7,  // 12: protos.LoginLogService.Delete:input_type -> protos.DeleteLoginLogRequest
-	1,  // 13: protos.LoginLogService.GetAll:output_type -> protos.GetAllLoginLogsResponse
-	0,  // 14: protos.LoginLogService.GetById:output_type -> protos.LoginLogModel
-	1,  // 15: protos.LoginLogService.GetByCustomer:output_type -> protos.GetAllLoginLogsResponse
-	1,  // 16: protos.LoginLogService.GetInTimeRange:output_type -> protos.GetAllLoginLogsResponse
-	0,  // 17: protos.LoginLogService.Add:output_type -> protos.LoginLogModel
-	10, // 18: protos.LoginLogService.Update:output_type -> google.protobuf.Empty
-	10, // 19: protos.LoginLogService.Delete:output_type -> google.protobuf.Empty
-	13, // [13:20] is the sub-list for method output_type
-	6,  // [6:13] is the sub-list for method input_type
-	6,  // [6:6] is the sub-list for extension type_name
-	6,  // [6:6] is the sub-list for extension extendee
-	0,  // [0:6] is the sub-list for field type_name
+	12, // 2: protos.GetLoginLogsInTimeRangeRequest.start_time:type_name -> google.protobuf.Timestamp
+	12, // 3: protos.GetLoginLogsInTimeRangeRequest.end_time:type_name -> google.protobuf.Timestamp
+	12, // 4: protos.AddLoginLogRequest.login_time:type_name -> google.protobuf.Timestamp
+	6,  // 5: protos.AddLoginLogBulkRequest.login_logs:type_name -> protos.AddLoginLogRequest
+	12, // 6: protos.UpdateLoginLogRequest.login_time:type_name -> google.protobuf.Timestamp
+	8,  // 7: protos.UpdateLoginLogBulkRequest.login_logs:type_name -> protos.UpdateLoginLogRequest
+	10, // 8: protos.DeleteLoginLogBulkRequest.login_logs:type_name -> protos.DeleteLoginLogRequest
+	13, // 9: protos.LoginLogService.GetAll:input_type -> protos.GetAllRequest
+	2,  // 10: protos.LoginLogService.GetById:input_type -> protos.GetLoginLogByIdRequest
+	3,  // 11: protos.LoginLogService.GetByIds:input_type -> protos.GetLoginLogByIdsRequest
+	4,  // 12: protos.LoginLogService.GetByCustomer:input_type -> protos.GetLoginLogsByCustomerRequest
+	5,  // 13: protos.LoginLogService.GetInTimeRange:input_type -> protos.GetLoginLogsInTimeRangeRequest
+	6,  // 14: protos.LoginLogService.Add:input_type -> protos.AddLoginLogRequest
+	8,  // 15: protos.LoginLogService.Update:input_type -> protos.UpdateLoginLogRequest
+	10, // 16: protos.LoginLogService.Delete:input_type -> protos.DeleteLoginLogRequest
+	7,  // 17: protos.LoginLogService.AddBulk:input_type -> protos.AddLoginLogBulkRequest
+	9,  // 18: protos.LoginLogService.UpdateBulk:input_type -> protos.UpdateLoginLogBulkRequest
+	11, // 19: protos.LoginLogService.DeleteBulk:input_type -> protos.DeleteLoginLogBulkRequest
+	1,  // 20: protos.LoginLogService.GetAll:output_type -> protos.GetAllLoginLogsResponse
+	0,  // 21: protos.LoginLogService.GetById:output_type -> protos.LoginLogModel
+	1,  // 22: protos.LoginLogService.GetByIds:output_type -> protos.GetAllLoginLogsResponse
+	1,  // 23: protos.LoginLogService.GetByCustomer:output_type -> protos.GetAllLoginLogsResponse
+	1,  // 24: protos.LoginLogService.GetInTimeRange:output_type -> protos.GetAllLoginLogsResponse
+	0,  // 25: protos.LoginLogService.Add:output_type -> protos.LoginLogModel
+	14, // 26: protos.LoginLogService.Update:output_type -> google.protobuf.Empty
+	14, // 27: protos.LoginLogService.Delete:output_type -> google.protobuf.Empty
+	14, // 28: protos.LoginLogService.AddBulk:output_type -> google.protobuf.Empty
+	14, // 29: protos.LoginLogService.UpdateBulk:output_type -> google.protobuf.Empty
+	14, // 30: protos.LoginLogService.DeleteBulk:output_type -> google.protobuf.Empty
+	20, // [20:31] is the sub-list for method output_type
+	9,  // [9:20] is the sub-list for method input_type
+	9,  // [9:9] is the sub-list for extension type_name
+	9,  // [9:9] is the sub-list for extension extendee
+	0,  // [0:9] is the sub-list for field type_name
 }
 
 func init() { file_login_log_proto_init() }
@@ -601,15 +809,15 @@ func file_login_log_proto_init() {
 	}
 	file_custom_types_proto_init()
 	file_login_log_proto_msgTypes[0].OneofWrappers = []any{}
-	file_login_log_proto_msgTypes[5].OneofWrappers = []any{}
 	file_login_log_proto_msgTypes[6].OneofWrappers = []any{}
+	file_login_log_proto_msgTypes[8].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_login_log_proto_rawDesc), len(file_login_log_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   8,
+			NumMessages:   12,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

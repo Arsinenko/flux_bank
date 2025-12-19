@@ -22,11 +22,15 @@ const _ = grpc.SupportPackageIsVersion9
 const (
 	LoginLogService_GetAll_FullMethodName         = "/protos.LoginLogService/GetAll"
 	LoginLogService_GetById_FullMethodName        = "/protos.LoginLogService/GetById"
+	LoginLogService_GetByIds_FullMethodName       = "/protos.LoginLogService/GetByIds"
 	LoginLogService_GetByCustomer_FullMethodName  = "/protos.LoginLogService/GetByCustomer"
 	LoginLogService_GetInTimeRange_FullMethodName = "/protos.LoginLogService/GetInTimeRange"
 	LoginLogService_Add_FullMethodName            = "/protos.LoginLogService/Add"
 	LoginLogService_Update_FullMethodName         = "/protos.LoginLogService/Update"
 	LoginLogService_Delete_FullMethodName         = "/protos.LoginLogService/Delete"
+	LoginLogService_AddBulk_FullMethodName        = "/protos.LoginLogService/AddBulk"
+	LoginLogService_UpdateBulk_FullMethodName     = "/protos.LoginLogService/UpdateBulk"
+	LoginLogService_DeleteBulk_FullMethodName     = "/protos.LoginLogService/DeleteBulk"
 )
 
 // LoginLogServiceClient is the client API for LoginLogService service.
@@ -37,11 +41,15 @@ const (
 type LoginLogServiceClient interface {
 	GetAll(ctx context.Context, in *GetAllRequest, opts ...grpc.CallOption) (*GetAllLoginLogsResponse, error)
 	GetById(ctx context.Context, in *GetLoginLogByIdRequest, opts ...grpc.CallOption) (*LoginLogModel, error)
+	GetByIds(ctx context.Context, in *GetLoginLogByIdsRequest, opts ...grpc.CallOption) (*GetAllLoginLogsResponse, error)
 	GetByCustomer(ctx context.Context, in *GetLoginLogsByCustomerRequest, opts ...grpc.CallOption) (*GetAllLoginLogsResponse, error)
 	GetInTimeRange(ctx context.Context, in *GetLoginLogsInTimeRangeRequest, opts ...grpc.CallOption) (*GetAllLoginLogsResponse, error)
 	Add(ctx context.Context, in *AddLoginLogRequest, opts ...grpc.CallOption) (*LoginLogModel, error)
 	Update(ctx context.Context, in *UpdateLoginLogRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	Delete(ctx context.Context, in *DeleteLoginLogRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	AddBulk(ctx context.Context, in *AddLoginLogBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	UpdateBulk(ctx context.Context, in *UpdateLoginLogBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	DeleteBulk(ctx context.Context, in *DeleteLoginLogBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
 type loginLogServiceClient struct {
@@ -66,6 +74,16 @@ func (c *loginLogServiceClient) GetById(ctx context.Context, in *GetLoginLogById
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(LoginLogModel)
 	err := c.cc.Invoke(ctx, LoginLogService_GetById_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *loginLogServiceClient) GetByIds(ctx context.Context, in *GetLoginLogByIdsRequest, opts ...grpc.CallOption) (*GetAllLoginLogsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetAllLoginLogsResponse)
+	err := c.cc.Invoke(ctx, LoginLogService_GetByIds_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -122,6 +140,36 @@ func (c *loginLogServiceClient) Delete(ctx context.Context, in *DeleteLoginLogRe
 	return out, nil
 }
 
+func (c *loginLogServiceClient) AddBulk(ctx context.Context, in *AddLoginLogBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, LoginLogService_AddBulk_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *loginLogServiceClient) UpdateBulk(ctx context.Context, in *UpdateLoginLogBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, LoginLogService_UpdateBulk_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *loginLogServiceClient) DeleteBulk(ctx context.Context, in *DeleteLoginLogBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, LoginLogService_DeleteBulk_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // LoginLogServiceServer is the server API for LoginLogService service.
 // All implementations must embed UnimplementedLoginLogServiceServer
 // for forward compatibility.
@@ -130,11 +178,15 @@ func (c *loginLogServiceClient) Delete(ctx context.Context, in *DeleteLoginLogRe
 type LoginLogServiceServer interface {
 	GetAll(context.Context, *GetAllRequest) (*GetAllLoginLogsResponse, error)
 	GetById(context.Context, *GetLoginLogByIdRequest) (*LoginLogModel, error)
+	GetByIds(context.Context, *GetLoginLogByIdsRequest) (*GetAllLoginLogsResponse, error)
 	GetByCustomer(context.Context, *GetLoginLogsByCustomerRequest) (*GetAllLoginLogsResponse, error)
 	GetInTimeRange(context.Context, *GetLoginLogsInTimeRangeRequest) (*GetAllLoginLogsResponse, error)
 	Add(context.Context, *AddLoginLogRequest) (*LoginLogModel, error)
 	Update(context.Context, *UpdateLoginLogRequest) (*emptypb.Empty, error)
 	Delete(context.Context, *DeleteLoginLogRequest) (*emptypb.Empty, error)
+	AddBulk(context.Context, *AddLoginLogBulkRequest) (*emptypb.Empty, error)
+	UpdateBulk(context.Context, *UpdateLoginLogBulkRequest) (*emptypb.Empty, error)
+	DeleteBulk(context.Context, *DeleteLoginLogBulkRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedLoginLogServiceServer()
 }
 
@@ -151,6 +203,9 @@ func (UnimplementedLoginLogServiceServer) GetAll(context.Context, *GetAllRequest
 func (UnimplementedLoginLogServiceServer) GetById(context.Context, *GetLoginLogByIdRequest) (*LoginLogModel, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetById not implemented")
 }
+func (UnimplementedLoginLogServiceServer) GetByIds(context.Context, *GetLoginLogByIdsRequest) (*GetAllLoginLogsResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetByIds not implemented")
+}
 func (UnimplementedLoginLogServiceServer) GetByCustomer(context.Context, *GetLoginLogsByCustomerRequest) (*GetAllLoginLogsResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetByCustomer not implemented")
 }
@@ -165,6 +220,15 @@ func (UnimplementedLoginLogServiceServer) Update(context.Context, *UpdateLoginLo
 }
 func (UnimplementedLoginLogServiceServer) Delete(context.Context, *DeleteLoginLogRequest) (*emptypb.Empty, error) {
 	return nil, status.Error(codes.Unimplemented, "method Delete not implemented")
+}
+func (UnimplementedLoginLogServiceServer) AddBulk(context.Context, *AddLoginLogBulkRequest) (*emptypb.Empty, error) {
+	return nil, status.Error(codes.Unimplemented, "method AddBulk not implemented")
+}
+func (UnimplementedLoginLogServiceServer) UpdateBulk(context.Context, *UpdateLoginLogBulkRequest) (*emptypb.Empty, error) {
+	return nil, status.Error(codes.Unimplemented, "method UpdateBulk not implemented")
+}
+func (UnimplementedLoginLogServiceServer) DeleteBulk(context.Context, *DeleteLoginLogBulkRequest) (*emptypb.Empty, error) {
+	return nil, status.Error(codes.Unimplemented, "method DeleteBulk not implemented")
 }
 func (UnimplementedLoginLogServiceServer) mustEmbedUnimplementedLoginLogServiceServer() {}
 func (UnimplementedLoginLogServiceServer) testEmbeddedByValue()                         {}
@@ -219,6 +283,24 @@ func _LoginLogService_GetById_Handler(srv interface{}, ctx context.Context, dec 
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(LoginLogServiceServer).GetById(ctx, req.(*GetLoginLogByIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _LoginLogService_GetByIds_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetLoginLogByIdsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LoginLogServiceServer).GetByIds(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: LoginLogService_GetByIds_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LoginLogServiceServer).GetByIds(ctx, req.(*GetLoginLogByIdsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -313,6 +395,60 @@ func _LoginLogService_Delete_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _LoginLogService_AddBulk_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddLoginLogBulkRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LoginLogServiceServer).AddBulk(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: LoginLogService_AddBulk_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LoginLogServiceServer).AddBulk(ctx, req.(*AddLoginLogBulkRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _LoginLogService_UpdateBulk_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateLoginLogBulkRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LoginLogServiceServer).UpdateBulk(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: LoginLogService_UpdateBulk_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LoginLogServiceServer).UpdateBulk(ctx, req.(*UpdateLoginLogBulkRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _LoginLogService_DeleteBulk_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteLoginLogBulkRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LoginLogServiceServer).DeleteBulk(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: LoginLogService_DeleteBulk_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LoginLogServiceServer).DeleteBulk(ctx, req.(*DeleteLoginLogBulkRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // LoginLogService_ServiceDesc is the grpc.ServiceDesc for LoginLogService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -327,6 +463,10 @@ var LoginLogService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetById",
 			Handler:    _LoginLogService_GetById_Handler,
+		},
+		{
+			MethodName: "GetByIds",
+			Handler:    _LoginLogService_GetByIds_Handler,
 		},
 		{
 			MethodName: "GetByCustomer",
@@ -347,6 +487,18 @@ var LoginLogService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Delete",
 			Handler:    _LoginLogService_Delete_Handler,
+		},
+		{
+			MethodName: "AddBulk",
+			Handler:    _LoginLogService_AddBulk_Handler,
+		},
+		{
+			MethodName: "UpdateBulk",
+			Handler:    _LoginLogService_UpdateBulk_Handler,
+		},
+		{
+			MethodName: "DeleteBulk",
+			Handler:    _LoginLogService_DeleteBulk_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

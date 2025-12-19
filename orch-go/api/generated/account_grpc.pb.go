@@ -22,11 +22,13 @@ const _ = grpc.SupportPackageIsVersion9
 const (
 	AccountService_GetAll_FullMethodName          = "/protos.AccountService/GetAll"
 	AccountService_GetById_FullMethodName         = "/protos.AccountService/GetById"
+	AccountService_GetByIds_FullMethodName        = "/protos.AccountService/GetByIds"
 	AccountService_GetByCustomerId_FullMethodName = "/protos.AccountService/GetByCustomerId"
 	AccountService_GetByDateRange_FullMethodName  = "/protos.AccountService/GetByDateRange"
 	AccountService_Add_FullMethodName             = "/protos.AccountService/Add"
 	AccountService_Update_FullMethodName          = "/protos.AccountService/Update"
 	AccountService_Delete_FullMethodName          = "/protos.AccountService/Delete"
+	AccountService_AddBulk_FullMethodName         = "/protos.AccountService/AddBulk"
 	AccountService_UpdateBulk_FullMethodName      = "/protos.AccountService/UpdateBulk"
 	AccountService_DeleteBulk_FullMethodName      = "/protos.AccountService/DeleteBulk"
 )
@@ -37,11 +39,13 @@ const (
 type AccountServiceClient interface {
 	GetAll(ctx context.Context, in *GetAllRequest, opts ...grpc.CallOption) (*GetAllAccountsResponse, error)
 	GetById(ctx context.Context, in *GetAccountByIdRequest, opts ...grpc.CallOption) (*AccountModel, error)
+	GetByIds(ctx context.Context, in *GetAccountByIdsRequest, opts ...grpc.CallOption) (*GetAllAccountsResponse, error)
 	GetByCustomerId(ctx context.Context, in *GetAccountByCustomerIdRequest, opts ...grpc.CallOption) (*GetAllAccountsResponse, error)
 	GetByDateRange(ctx context.Context, in *GetByDateRangeRequest, opts ...grpc.CallOption) (*GetAllAccountsResponse, error)
 	Add(ctx context.Context, in *AddAccountRequest, opts ...grpc.CallOption) (*AccountModel, error)
 	Update(ctx context.Context, in *UpdateAccountRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	Delete(ctx context.Context, in *DeleteAccountRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	AddBulk(ctx context.Context, in *AddAccountBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	UpdateBulk(ctx context.Context, in *UpdateAccountBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	DeleteBulk(ctx context.Context, in *DeleteAccountBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
@@ -68,6 +72,16 @@ func (c *accountServiceClient) GetById(ctx context.Context, in *GetAccountByIdRe
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(AccountModel)
 	err := c.cc.Invoke(ctx, AccountService_GetById_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *accountServiceClient) GetByIds(ctx context.Context, in *GetAccountByIdsRequest, opts ...grpc.CallOption) (*GetAllAccountsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetAllAccountsResponse)
+	err := c.cc.Invoke(ctx, AccountService_GetByIds_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -124,6 +138,16 @@ func (c *accountServiceClient) Delete(ctx context.Context, in *DeleteAccountRequ
 	return out, nil
 }
 
+func (c *accountServiceClient) AddBulk(ctx context.Context, in *AddAccountBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, AccountService_AddBulk_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *accountServiceClient) UpdateBulk(ctx context.Context, in *UpdateAccountBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(emptypb.Empty)
@@ -150,11 +174,13 @@ func (c *accountServiceClient) DeleteBulk(ctx context.Context, in *DeleteAccount
 type AccountServiceServer interface {
 	GetAll(context.Context, *GetAllRequest) (*GetAllAccountsResponse, error)
 	GetById(context.Context, *GetAccountByIdRequest) (*AccountModel, error)
+	GetByIds(context.Context, *GetAccountByIdsRequest) (*GetAllAccountsResponse, error)
 	GetByCustomerId(context.Context, *GetAccountByCustomerIdRequest) (*GetAllAccountsResponse, error)
 	GetByDateRange(context.Context, *GetByDateRangeRequest) (*GetAllAccountsResponse, error)
 	Add(context.Context, *AddAccountRequest) (*AccountModel, error)
 	Update(context.Context, *UpdateAccountRequest) (*emptypb.Empty, error)
 	Delete(context.Context, *DeleteAccountRequest) (*emptypb.Empty, error)
+	AddBulk(context.Context, *AddAccountBulkRequest) (*emptypb.Empty, error)
 	UpdateBulk(context.Context, *UpdateAccountBulkRequest) (*emptypb.Empty, error)
 	DeleteBulk(context.Context, *DeleteAccountBulkRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedAccountServiceServer()
@@ -173,6 +199,9 @@ func (UnimplementedAccountServiceServer) GetAll(context.Context, *GetAllRequest)
 func (UnimplementedAccountServiceServer) GetById(context.Context, *GetAccountByIdRequest) (*AccountModel, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetById not implemented")
 }
+func (UnimplementedAccountServiceServer) GetByIds(context.Context, *GetAccountByIdsRequest) (*GetAllAccountsResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetByIds not implemented")
+}
 func (UnimplementedAccountServiceServer) GetByCustomerId(context.Context, *GetAccountByCustomerIdRequest) (*GetAllAccountsResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetByCustomerId not implemented")
 }
@@ -187,6 +216,9 @@ func (UnimplementedAccountServiceServer) Update(context.Context, *UpdateAccountR
 }
 func (UnimplementedAccountServiceServer) Delete(context.Context, *DeleteAccountRequest) (*emptypb.Empty, error) {
 	return nil, status.Error(codes.Unimplemented, "method Delete not implemented")
+}
+func (UnimplementedAccountServiceServer) AddBulk(context.Context, *AddAccountBulkRequest) (*emptypb.Empty, error) {
+	return nil, status.Error(codes.Unimplemented, "method AddBulk not implemented")
 }
 func (UnimplementedAccountServiceServer) UpdateBulk(context.Context, *UpdateAccountBulkRequest) (*emptypb.Empty, error) {
 	return nil, status.Error(codes.Unimplemented, "method UpdateBulk not implemented")
@@ -247,6 +279,24 @@ func _AccountService_GetById_Handler(srv interface{}, ctx context.Context, dec f
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(AccountServiceServer).GetById(ctx, req.(*GetAccountByIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AccountService_GetByIds_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAccountByIdsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountServiceServer).GetByIds(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AccountService_GetByIds_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountServiceServer).GetByIds(ctx, req.(*GetAccountByIdsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -341,6 +391,24 @@ func _AccountService_Delete_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AccountService_AddBulk_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddAccountBulkRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountServiceServer).AddBulk(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AccountService_AddBulk_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountServiceServer).AddBulk(ctx, req.(*AddAccountBulkRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _AccountService_UpdateBulk_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(UpdateAccountBulkRequest)
 	if err := dec(in); err != nil {
@@ -393,6 +461,10 @@ var AccountService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _AccountService_GetById_Handler,
 		},
 		{
+			MethodName: "GetByIds",
+			Handler:    _AccountService_GetByIds_Handler,
+		},
+		{
 			MethodName: "GetByCustomerId",
 			Handler:    _AccountService_GetByCustomerId_Handler,
 		},
@@ -411,6 +483,10 @@ var AccountService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Delete",
 			Handler:    _AccountService_Delete_Handler,
+		},
+		{
+			MethodName: "AddBulk",
+			Handler:    _AccountService_AddBulk_Handler,
 		},
 		{
 			MethodName: "UpdateBulk",

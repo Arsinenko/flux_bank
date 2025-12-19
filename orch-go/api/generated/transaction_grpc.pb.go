@@ -22,6 +22,7 @@ const _ = grpc.SupportPackageIsVersion9
 const (
 	TransactionService_GetAll_FullMethodName             = "/protos.TransactionService/GetAll"
 	TransactionService_GetById_FullMethodName            = "/protos.TransactionService/GetById"
+	TransactionService_GetByIds_FullMethodName           = "/protos.TransactionService/GetByIds"
 	TransactionService_GetByDateRange_FullMethodName     = "/protos.TransactionService/GetByDateRange"
 	TransactionService_GetAccountRevenue_FullMethodName  = "/protos.TransactionService/GetAccountRevenue"
 	TransactionService_GetAccountExpenses_FullMethodName = "/protos.TransactionService/GetAccountExpenses"
@@ -39,6 +40,7 @@ const (
 type TransactionServiceClient interface {
 	GetAll(ctx context.Context, in *GetAllRequest, opts ...grpc.CallOption) (*GetAllTransactionsResponse, error)
 	GetById(ctx context.Context, in *GetTransactionByIdRequest, opts ...grpc.CallOption) (*TransactionModel, error)
+	GetByIds(ctx context.Context, in *GetTransactionByIdsRequest, opts ...grpc.CallOption) (*GetAllTransactionsResponse, error)
 	GetByDateRange(ctx context.Context, in *GetByDateRangeRequest, opts ...grpc.CallOption) (*GetAllTransactionsResponse, error)
 	GetAccountRevenue(ctx context.Context, in *GetAccountRevenueRequest, opts ...grpc.CallOption) (*GetAllTransactionsResponse, error)
 	GetAccountExpenses(ctx context.Context, in *GetAccountExpensesRequest, opts ...grpc.CallOption) (*GetAllTransactionsResponse, error)
@@ -72,6 +74,16 @@ func (c *transactionServiceClient) GetById(ctx context.Context, in *GetTransacti
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(TransactionModel)
 	err := c.cc.Invoke(ctx, TransactionService_GetById_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *transactionServiceClient) GetByIds(ctx context.Context, in *GetTransactionByIdsRequest, opts ...grpc.CallOption) (*GetAllTransactionsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetAllTransactionsResponse)
+	err := c.cc.Invoke(ctx, TransactionService_GetByIds_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -174,6 +186,7 @@ func (c *transactionServiceClient) DeleteBulk(ctx context.Context, in *DeleteTra
 type TransactionServiceServer interface {
 	GetAll(context.Context, *GetAllRequest) (*GetAllTransactionsResponse, error)
 	GetById(context.Context, *GetTransactionByIdRequest) (*TransactionModel, error)
+	GetByIds(context.Context, *GetTransactionByIdsRequest) (*GetAllTransactionsResponse, error)
 	GetByDateRange(context.Context, *GetByDateRangeRequest) (*GetAllTransactionsResponse, error)
 	GetAccountRevenue(context.Context, *GetAccountRevenueRequest) (*GetAllTransactionsResponse, error)
 	GetAccountExpenses(context.Context, *GetAccountExpensesRequest) (*GetAllTransactionsResponse, error)
@@ -198,6 +211,9 @@ func (UnimplementedTransactionServiceServer) GetAll(context.Context, *GetAllRequ
 }
 func (UnimplementedTransactionServiceServer) GetById(context.Context, *GetTransactionByIdRequest) (*TransactionModel, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetById not implemented")
+}
+func (UnimplementedTransactionServiceServer) GetByIds(context.Context, *GetTransactionByIdsRequest) (*GetAllTransactionsResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetByIds not implemented")
 }
 func (UnimplementedTransactionServiceServer) GetByDateRange(context.Context, *GetByDateRangeRequest) (*GetAllTransactionsResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetByDateRange not implemented")
@@ -279,6 +295,24 @@ func _TransactionService_GetById_Handler(srv interface{}, ctx context.Context, d
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(TransactionServiceServer).GetById(ctx, req.(*GetTransactionByIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TransactionService_GetByIds_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetTransactionByIdsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionServiceServer).GetByIds(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TransactionService_GetByIds_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionServiceServer).GetByIds(ctx, req.(*GetTransactionByIdsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -459,6 +493,10 @@ var TransactionService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetById",
 			Handler:    _TransactionService_GetById_Handler,
+		},
+		{
+			MethodName: "GetByIds",
+			Handler:    _TransactionService_GetByIds_Handler,
 		},
 		{
 			MethodName: "GetByDateRange",

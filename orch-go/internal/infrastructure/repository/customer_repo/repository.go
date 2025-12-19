@@ -41,8 +41,8 @@ func (r Repository) GetBySubstring(ctx context.Context, request customer.GetBySu
 
 func (r Repository) GetByDateRange(ctx context.Context, request customer.GetByDateRangeRequest) ([]customer.Customer, error) {
 	resp, err := r.client.GetByDateRange(ctx, &pb.GetByDateRangeRequest{
-		From:     timestamppb.New(request.From),
-		To:       timestamppb.New(request.To),
+		FromDate: timestamppb.New(request.From),
+		ToDate:   timestamppb.New(request.To),
 		PageN:    &request.PageN,
 		PageSize: &request.PageSize,
 	})

@@ -136,8 +136,8 @@ func (x *DateOnly) GetDay() int32 {
 
 type GetByDateRangeRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	From          *timestamppb.Timestamp `protobuf:"bytes,1,opt,name=from,proto3" json:"from,omitempty"`
-	To            *timestamppb.Timestamp `protobuf:"bytes,2,opt,name=to,proto3" json:"to,omitempty"`
+	FromDate      *timestamppb.Timestamp `protobuf:"bytes,1,opt,name=fromDate,proto3" json:"fromDate,omitempty"`
+	ToDate        *timestamppb.Timestamp `protobuf:"bytes,2,opt,name=toDate,proto3" json:"toDate,omitempty"`
 	PageN         *int32                 `protobuf:"varint,3,opt,name=pageN,proto3,oneof" json:"pageN,omitempty"`
 	PageSize      *int32                 `protobuf:"varint,4,opt,name=pageSize,proto3,oneof" json:"pageSize,omitempty"`
 	unknownFields protoimpl.UnknownFields
@@ -174,16 +174,16 @@ func (*GetByDateRangeRequest) Descriptor() ([]byte, []int) {
 	return file_custom_types_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *GetByDateRangeRequest) GetFrom() *timestamppb.Timestamp {
+func (x *GetByDateRangeRequest) GetFromDate() *timestamppb.Timestamp {
 	if x != nil {
-		return x.From
+		return x.FromDate
 	}
 	return nil
 }
 
-func (x *GetByDateRangeRequest) GetTo() *timestamppb.Timestamp {
+func (x *GetByDateRangeRequest) GetToDate() *timestamppb.Timestamp {
 	if x != nil {
-		return x.To
+		return x.ToDate
 	}
 	return nil
 }
@@ -213,10 +213,10 @@ const file_custom_types_proto_rawDesc = "" +
 	"\bDateOnly\x12\x12\n" +
 	"\x04year\x18\x01 \x01(\x05R\x04year\x12\x14\n" +
 	"\x05month\x18\x02 \x01(\x05R\x05month\x12\x10\n" +
-	"\x03day\x18\x03 \x01(\x05R\x03day\"\xc6\x01\n" +
-	"\x15GetByDateRangeRequest\x12.\n" +
-	"\x04from\x18\x01 \x01(\v2\x1a.google.protobuf.TimestampR\x04from\x12*\n" +
-	"\x02to\x18\x02 \x01(\v2\x1a.google.protobuf.TimestampR\x02to\x12\x19\n" +
+	"\x03day\x18\x03 \x01(\x05R\x03day\"\xd6\x01\n" +
+	"\x15GetByDateRangeRequest\x126\n" +
+	"\bfromDate\x18\x01 \x01(\v2\x1a.google.protobuf.TimestampR\bfromDate\x122\n" +
+	"\x06toDate\x18\x02 \x01(\v2\x1a.google.protobuf.TimestampR\x06toDate\x12\x19\n" +
 	"\x05pageN\x18\x03 \x01(\x05H\x00R\x05pageN\x88\x01\x01\x12\x1f\n" +
 	"\bpageSize\x18\x04 \x01(\x05H\x01R\bpageSize\x88\x01\x01B\b\n" +
 	"\x06_pageNB\v\n" +
@@ -242,8 +242,8 @@ var file_custom_types_proto_goTypes = []any{
 	(*timestamppb.Timestamp)(nil), // 3: google.protobuf.Timestamp
 }
 var file_custom_types_proto_depIdxs = []int32{
-	3, // 0: protos.GetByDateRangeRequest.from:type_name -> google.protobuf.Timestamp
-	3, // 1: protos.GetByDateRangeRequest.to:type_name -> google.protobuf.Timestamp
+	3, // 0: protos.GetByDateRangeRequest.fromDate:type_name -> google.protobuf.Timestamp
+	3, // 1: protos.GetByDateRangeRequest.toDate:type_name -> google.protobuf.Timestamp
 	2, // [2:2] is the sub-list for method output_type
 	2, // [2:2] is the sub-list for method input_type
 	2, // [2:2] is the sub-list for extension type_name

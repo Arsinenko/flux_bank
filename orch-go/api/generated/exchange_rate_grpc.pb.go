@@ -22,6 +22,7 @@ const _ = grpc.SupportPackageIsVersion9
 const (
 	ExchangeRateService_GetAll_FullMethodName            = "/protos.ExchangeRateService/GetAll"
 	ExchangeRateService_GetById_FullMethodName           = "/protos.ExchangeRateService/GetById"
+	ExchangeRateService_GetByIds_FullMethodName          = "/protos.ExchangeRateService/GetByIds"
 	ExchangeRateService_GetByBaseCurrency_FullMethodName = "/protos.ExchangeRateService/GetByBaseCurrency"
 	ExchangeRateService_Add_FullMethodName               = "/protos.ExchangeRateService/Add"
 	ExchangeRateService_Update_FullMethodName            = "/protos.ExchangeRateService/Update"
@@ -37,6 +38,7 @@ const (
 type ExchangeRateServiceClient interface {
 	GetAll(ctx context.Context, in *GetAllRequest, opts ...grpc.CallOption) (*GetAllExchangeRatesResponse, error)
 	GetById(ctx context.Context, in *GetExchangeRateByIdRequest, opts ...grpc.CallOption) (*ExchangeRateModel, error)
+	GetByIds(ctx context.Context, in *GetExchangeRateByIdsRequest, opts ...grpc.CallOption) (*GetAllExchangeRatesResponse, error)
 	GetByBaseCurrency(ctx context.Context, in *GetExchangeRateByBaseCurrencyRequest, opts ...grpc.CallOption) (*GetAllExchangeRatesResponse, error)
 	Add(ctx context.Context, in *AddExchangeRateRequest, opts ...grpc.CallOption) (*ExchangeRateModel, error)
 	Update(ctx context.Context, in *UpdateExchangeRateRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
@@ -68,6 +70,16 @@ func (c *exchangeRateServiceClient) GetById(ctx context.Context, in *GetExchange
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(ExchangeRateModel)
 	err := c.cc.Invoke(ctx, ExchangeRateService_GetById_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *exchangeRateServiceClient) GetByIds(ctx context.Context, in *GetExchangeRateByIdsRequest, opts ...grpc.CallOption) (*GetAllExchangeRatesResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetAllExchangeRatesResponse)
+	err := c.cc.Invoke(ctx, ExchangeRateService_GetByIds_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -150,6 +162,7 @@ func (c *exchangeRateServiceClient) DeleteBulk(ctx context.Context, in *DeleteEx
 type ExchangeRateServiceServer interface {
 	GetAll(context.Context, *GetAllRequest) (*GetAllExchangeRatesResponse, error)
 	GetById(context.Context, *GetExchangeRateByIdRequest) (*ExchangeRateModel, error)
+	GetByIds(context.Context, *GetExchangeRateByIdsRequest) (*GetAllExchangeRatesResponse, error)
 	GetByBaseCurrency(context.Context, *GetExchangeRateByBaseCurrencyRequest) (*GetAllExchangeRatesResponse, error)
 	Add(context.Context, *AddExchangeRateRequest) (*ExchangeRateModel, error)
 	Update(context.Context, *UpdateExchangeRateRequest) (*emptypb.Empty, error)
@@ -172,6 +185,9 @@ func (UnimplementedExchangeRateServiceServer) GetAll(context.Context, *GetAllReq
 }
 func (UnimplementedExchangeRateServiceServer) GetById(context.Context, *GetExchangeRateByIdRequest) (*ExchangeRateModel, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetById not implemented")
+}
+func (UnimplementedExchangeRateServiceServer) GetByIds(context.Context, *GetExchangeRateByIdsRequest) (*GetAllExchangeRatesResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetByIds not implemented")
 }
 func (UnimplementedExchangeRateServiceServer) GetByBaseCurrency(context.Context, *GetExchangeRateByBaseCurrencyRequest) (*GetAllExchangeRatesResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetByBaseCurrency not implemented")
@@ -247,6 +263,24 @@ func _ExchangeRateService_GetById_Handler(srv interface{}, ctx context.Context, 
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ExchangeRateServiceServer).GetById(ctx, req.(*GetExchangeRateByIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ExchangeRateService_GetByIds_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetExchangeRateByIdsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ExchangeRateServiceServer).GetByIds(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ExchangeRateService_GetByIds_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ExchangeRateServiceServer).GetByIds(ctx, req.(*GetExchangeRateByIdsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -391,6 +425,10 @@ var ExchangeRateService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetById",
 			Handler:    _ExchangeRateService_GetById_Handler,
+		},
+		{
+			MethodName: "GetByIds",
+			Handler:    _ExchangeRateService_GetByIds_Handler,
 		},
 		{
 			MethodName: "GetByBaseCurrency",

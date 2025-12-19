@@ -20,11 +20,15 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	CustomerAddressService_GetAll_FullMethodName  = "/protos.CustomerAddressService/GetAll"
-	CustomerAddressService_GetById_FullMethodName = "/protos.CustomerAddressService/GetById"
-	CustomerAddressService_Add_FullMethodName     = "/protos.CustomerAddressService/Add"
-	CustomerAddressService_Update_FullMethodName  = "/protos.CustomerAddressService/Update"
-	CustomerAddressService_Delete_FullMethodName  = "/protos.CustomerAddressService/Delete"
+	CustomerAddressService_GetAll_FullMethodName     = "/protos.CustomerAddressService/GetAll"
+	CustomerAddressService_GetById_FullMethodName    = "/protos.CustomerAddressService/GetById"
+	CustomerAddressService_GetByIds_FullMethodName   = "/protos.CustomerAddressService/GetByIds"
+	CustomerAddressService_Add_FullMethodName        = "/protos.CustomerAddressService/Add"
+	CustomerAddressService_Update_FullMethodName     = "/protos.CustomerAddressService/Update"
+	CustomerAddressService_Delete_FullMethodName     = "/protos.CustomerAddressService/Delete"
+	CustomerAddressService_AddBulk_FullMethodName    = "/protos.CustomerAddressService/AddBulk"
+	CustomerAddressService_UpdateBulk_FullMethodName = "/protos.CustomerAddressService/UpdateBulk"
+	CustomerAddressService_DeleteBulk_FullMethodName = "/protos.CustomerAddressService/DeleteBulk"
 )
 
 // CustomerAddressServiceClient is the client API for CustomerAddressService service.
@@ -33,9 +37,13 @@ const (
 type CustomerAddressServiceClient interface {
 	GetAll(ctx context.Context, in *GetAllRequest, opts ...grpc.CallOption) (*GetAllCustomerAddressesResponse, error)
 	GetById(ctx context.Context, in *GetCustomerAddressByIdRequest, opts ...grpc.CallOption) (*CustomerAddressModel, error)
+	GetByIds(ctx context.Context, in *GetCustomerAddressByIdsRequest, opts ...grpc.CallOption) (*GetAllCustomerAddressesResponse, error)
 	Add(ctx context.Context, in *AddCustomerAddressRequest, opts ...grpc.CallOption) (*CustomerAddressModel, error)
 	Update(ctx context.Context, in *UpdateCustomerAddressRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	Delete(ctx context.Context, in *DeleteCustomerAddressRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	AddBulk(ctx context.Context, in *AddCustomerAddressBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	UpdateBulk(ctx context.Context, in *UpdateCustomerAddressBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	DeleteBulk(ctx context.Context, in *DeleteCustomerAddressBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
 type customerAddressServiceClient struct {
@@ -60,6 +68,16 @@ func (c *customerAddressServiceClient) GetById(ctx context.Context, in *GetCusto
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(CustomerAddressModel)
 	err := c.cc.Invoke(ctx, CustomerAddressService_GetById_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *customerAddressServiceClient) GetByIds(ctx context.Context, in *GetCustomerAddressByIdsRequest, opts ...grpc.CallOption) (*GetAllCustomerAddressesResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetAllCustomerAddressesResponse)
+	err := c.cc.Invoke(ctx, CustomerAddressService_GetByIds_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -96,15 +114,49 @@ func (c *customerAddressServiceClient) Delete(ctx context.Context, in *DeleteCus
 	return out, nil
 }
 
+func (c *customerAddressServiceClient) AddBulk(ctx context.Context, in *AddCustomerAddressBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, CustomerAddressService_AddBulk_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *customerAddressServiceClient) UpdateBulk(ctx context.Context, in *UpdateCustomerAddressBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, CustomerAddressService_UpdateBulk_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *customerAddressServiceClient) DeleteBulk(ctx context.Context, in *DeleteCustomerAddressBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, CustomerAddressService_DeleteBulk_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CustomerAddressServiceServer is the server API for CustomerAddressService service.
 // All implementations must embed UnimplementedCustomerAddressServiceServer
 // for forward compatibility.
 type CustomerAddressServiceServer interface {
 	GetAll(context.Context, *GetAllRequest) (*GetAllCustomerAddressesResponse, error)
 	GetById(context.Context, *GetCustomerAddressByIdRequest) (*CustomerAddressModel, error)
+	GetByIds(context.Context, *GetCustomerAddressByIdsRequest) (*GetAllCustomerAddressesResponse, error)
 	Add(context.Context, *AddCustomerAddressRequest) (*CustomerAddressModel, error)
 	Update(context.Context, *UpdateCustomerAddressRequest) (*emptypb.Empty, error)
 	Delete(context.Context, *DeleteCustomerAddressRequest) (*emptypb.Empty, error)
+	AddBulk(context.Context, *AddCustomerAddressBulkRequest) (*emptypb.Empty, error)
+	UpdateBulk(context.Context, *UpdateCustomerAddressBulkRequest) (*emptypb.Empty, error)
+	DeleteBulk(context.Context, *DeleteCustomerAddressBulkRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedCustomerAddressServiceServer()
 }
 
@@ -121,6 +173,9 @@ func (UnimplementedCustomerAddressServiceServer) GetAll(context.Context, *GetAll
 func (UnimplementedCustomerAddressServiceServer) GetById(context.Context, *GetCustomerAddressByIdRequest) (*CustomerAddressModel, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetById not implemented")
 }
+func (UnimplementedCustomerAddressServiceServer) GetByIds(context.Context, *GetCustomerAddressByIdsRequest) (*GetAllCustomerAddressesResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetByIds not implemented")
+}
 func (UnimplementedCustomerAddressServiceServer) Add(context.Context, *AddCustomerAddressRequest) (*CustomerAddressModel, error) {
 	return nil, status.Error(codes.Unimplemented, "method Add not implemented")
 }
@@ -129,6 +184,15 @@ func (UnimplementedCustomerAddressServiceServer) Update(context.Context, *Update
 }
 func (UnimplementedCustomerAddressServiceServer) Delete(context.Context, *DeleteCustomerAddressRequest) (*emptypb.Empty, error) {
 	return nil, status.Error(codes.Unimplemented, "method Delete not implemented")
+}
+func (UnimplementedCustomerAddressServiceServer) AddBulk(context.Context, *AddCustomerAddressBulkRequest) (*emptypb.Empty, error) {
+	return nil, status.Error(codes.Unimplemented, "method AddBulk not implemented")
+}
+func (UnimplementedCustomerAddressServiceServer) UpdateBulk(context.Context, *UpdateCustomerAddressBulkRequest) (*emptypb.Empty, error) {
+	return nil, status.Error(codes.Unimplemented, "method UpdateBulk not implemented")
+}
+func (UnimplementedCustomerAddressServiceServer) DeleteBulk(context.Context, *DeleteCustomerAddressBulkRequest) (*emptypb.Empty, error) {
+	return nil, status.Error(codes.Unimplemented, "method DeleteBulk not implemented")
 }
 func (UnimplementedCustomerAddressServiceServer) mustEmbedUnimplementedCustomerAddressServiceServer() {
 }
@@ -188,6 +252,24 @@ func _CustomerAddressService_GetById_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _CustomerAddressService_GetByIds_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetCustomerAddressByIdsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CustomerAddressServiceServer).GetByIds(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CustomerAddressService_GetByIds_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CustomerAddressServiceServer).GetByIds(ctx, req.(*GetCustomerAddressByIdsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _CustomerAddressService_Add_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(AddCustomerAddressRequest)
 	if err := dec(in); err != nil {
@@ -242,6 +324,60 @@ func _CustomerAddressService_Delete_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _CustomerAddressService_AddBulk_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddCustomerAddressBulkRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CustomerAddressServiceServer).AddBulk(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CustomerAddressService_AddBulk_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CustomerAddressServiceServer).AddBulk(ctx, req.(*AddCustomerAddressBulkRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CustomerAddressService_UpdateBulk_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateCustomerAddressBulkRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CustomerAddressServiceServer).UpdateBulk(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CustomerAddressService_UpdateBulk_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CustomerAddressServiceServer).UpdateBulk(ctx, req.(*UpdateCustomerAddressBulkRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CustomerAddressService_DeleteBulk_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteCustomerAddressBulkRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CustomerAddressServiceServer).DeleteBulk(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CustomerAddressService_DeleteBulk_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CustomerAddressServiceServer).DeleteBulk(ctx, req.(*DeleteCustomerAddressBulkRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // CustomerAddressService_ServiceDesc is the grpc.ServiceDesc for CustomerAddressService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -258,6 +394,10 @@ var CustomerAddressService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _CustomerAddressService_GetById_Handler,
 		},
 		{
+			MethodName: "GetByIds",
+			Handler:    _CustomerAddressService_GetByIds_Handler,
+		},
+		{
 			MethodName: "Add",
 			Handler:    _CustomerAddressService_Add_Handler,
 		},
@@ -268,6 +408,18 @@ var CustomerAddressService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Delete",
 			Handler:    _CustomerAddressService_Delete_Handler,
+		},
+		{
+			MethodName: "AddBulk",
+			Handler:    _CustomerAddressService_AddBulk_Handler,
+		},
+		{
+			MethodName: "UpdateBulk",
+			Handler:    _CustomerAddressService_UpdateBulk_Handler,
+		},
+		{
+			MethodName: "DeleteBulk",
+			Handler:    _CustomerAddressService_DeleteBulk_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

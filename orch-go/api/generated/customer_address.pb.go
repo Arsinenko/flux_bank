@@ -202,6 +202,50 @@ func (x *GetCustomerAddressByIdRequest) GetAddressId() int32 {
 	return 0
 }
 
+type GetCustomerAddressByIdsRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	AddressIds    []int32                `protobuf:"varint,1,rep,packed,name=address_ids,json=addressIds,proto3" json:"address_ids,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetCustomerAddressByIdsRequest) Reset() {
+	*x = GetCustomerAddressByIdsRequest{}
+	mi := &file_customer_address_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetCustomerAddressByIdsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetCustomerAddressByIdsRequest) ProtoMessage() {}
+
+func (x *GetCustomerAddressByIdsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_customer_address_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetCustomerAddressByIdsRequest.ProtoReflect.Descriptor instead.
+func (*GetCustomerAddressByIdsRequest) Descriptor() ([]byte, []int) {
+	return file_customer_address_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *GetCustomerAddressByIdsRequest) GetAddressIds() []int32 {
+	if x != nil {
+		return x.AddressIds
+	}
+	return nil
+}
+
 type AddCustomerAddressRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	CustomerId    *int32                 `protobuf:"varint,1,opt,name=customer_id,json=customerId,proto3,oneof" json:"customer_id,omitempty"`
@@ -216,7 +260,7 @@ type AddCustomerAddressRequest struct {
 
 func (x *AddCustomerAddressRequest) Reset() {
 	*x = AddCustomerAddressRequest{}
-	mi := &file_customer_address_proto_msgTypes[3]
+	mi := &file_customer_address_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -228,7 +272,7 @@ func (x *AddCustomerAddressRequest) String() string {
 func (*AddCustomerAddressRequest) ProtoMessage() {}
 
 func (x *AddCustomerAddressRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_customer_address_proto_msgTypes[3]
+	mi := &file_customer_address_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -241,7 +285,7 @@ func (x *AddCustomerAddressRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AddCustomerAddressRequest.ProtoReflect.Descriptor instead.
 func (*AddCustomerAddressRequest) Descriptor() ([]byte, []int) {
-	return file_customer_address_proto_rawDescGZIP(), []int{3}
+	return file_customer_address_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *AddCustomerAddressRequest) GetCustomerId() int32 {
@@ -286,6 +330,50 @@ func (x *AddCustomerAddressRequest) GetIsPrimary() bool {
 	return false
 }
 
+type AddCustomerAddressBulkRequest struct {
+	state             protoimpl.MessageState       `protogen:"open.v1"`
+	CustomerAddresses []*AddCustomerAddressRequest `protobuf:"bytes,1,rep,name=customer_addresses,json=customerAddresses,proto3" json:"customer_addresses,omitempty"`
+	unknownFields     protoimpl.UnknownFields
+	sizeCache         protoimpl.SizeCache
+}
+
+func (x *AddCustomerAddressBulkRequest) Reset() {
+	*x = AddCustomerAddressBulkRequest{}
+	mi := &file_customer_address_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AddCustomerAddressBulkRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AddCustomerAddressBulkRequest) ProtoMessage() {}
+
+func (x *AddCustomerAddressBulkRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_customer_address_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AddCustomerAddressBulkRequest.ProtoReflect.Descriptor instead.
+func (*AddCustomerAddressBulkRequest) Descriptor() ([]byte, []int) {
+	return file_customer_address_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *AddCustomerAddressBulkRequest) GetCustomerAddresses() []*AddCustomerAddressRequest {
+	if x != nil {
+		return x.CustomerAddresses
+	}
+	return nil
+}
+
 type UpdateCustomerAddressRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	AddressId     int32                  `protobuf:"varint,1,opt,name=address_id,json=addressId,proto3" json:"address_id,omitempty"`
@@ -301,7 +389,7 @@ type UpdateCustomerAddressRequest struct {
 
 func (x *UpdateCustomerAddressRequest) Reset() {
 	*x = UpdateCustomerAddressRequest{}
-	mi := &file_customer_address_proto_msgTypes[4]
+	mi := &file_customer_address_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -313,7 +401,7 @@ func (x *UpdateCustomerAddressRequest) String() string {
 func (*UpdateCustomerAddressRequest) ProtoMessage() {}
 
 func (x *UpdateCustomerAddressRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_customer_address_proto_msgTypes[4]
+	mi := &file_customer_address_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -326,7 +414,7 @@ func (x *UpdateCustomerAddressRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateCustomerAddressRequest.ProtoReflect.Descriptor instead.
 func (*UpdateCustomerAddressRequest) Descriptor() ([]byte, []int) {
-	return file_customer_address_proto_rawDescGZIP(), []int{4}
+	return file_customer_address_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *UpdateCustomerAddressRequest) GetAddressId() int32 {
@@ -378,6 +466,50 @@ func (x *UpdateCustomerAddressRequest) GetIsPrimary() bool {
 	return false
 }
 
+type UpdateCustomerAddressBulkRequest struct {
+	state             protoimpl.MessageState          `protogen:"open.v1"`
+	CustomerAddresses []*UpdateCustomerAddressRequest `protobuf:"bytes,1,rep,name=customer_addresses,json=customerAddresses,proto3" json:"customer_addresses,omitempty"`
+	unknownFields     protoimpl.UnknownFields
+	sizeCache         protoimpl.SizeCache
+}
+
+func (x *UpdateCustomerAddressBulkRequest) Reset() {
+	*x = UpdateCustomerAddressBulkRequest{}
+	mi := &file_customer_address_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateCustomerAddressBulkRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateCustomerAddressBulkRequest) ProtoMessage() {}
+
+func (x *UpdateCustomerAddressBulkRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_customer_address_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateCustomerAddressBulkRequest.ProtoReflect.Descriptor instead.
+func (*UpdateCustomerAddressBulkRequest) Descriptor() ([]byte, []int) {
+	return file_customer_address_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *UpdateCustomerAddressBulkRequest) GetCustomerAddresses() []*UpdateCustomerAddressRequest {
+	if x != nil {
+		return x.CustomerAddresses
+	}
+	return nil
+}
+
 type DeleteCustomerAddressRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	AddressId     int32                  `protobuf:"varint,1,opt,name=address_id,json=addressId,proto3" json:"address_id,omitempty"`
@@ -387,7 +519,7 @@ type DeleteCustomerAddressRequest struct {
 
 func (x *DeleteCustomerAddressRequest) Reset() {
 	*x = DeleteCustomerAddressRequest{}
-	mi := &file_customer_address_proto_msgTypes[5]
+	mi := &file_customer_address_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -399,7 +531,7 @@ func (x *DeleteCustomerAddressRequest) String() string {
 func (*DeleteCustomerAddressRequest) ProtoMessage() {}
 
 func (x *DeleteCustomerAddressRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_customer_address_proto_msgTypes[5]
+	mi := &file_customer_address_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -412,7 +544,7 @@ func (x *DeleteCustomerAddressRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteCustomerAddressRequest.ProtoReflect.Descriptor instead.
 func (*DeleteCustomerAddressRequest) Descriptor() ([]byte, []int) {
-	return file_customer_address_proto_rawDescGZIP(), []int{5}
+	return file_customer_address_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *DeleteCustomerAddressRequest) GetAddressId() int32 {
@@ -420,6 +552,50 @@ func (x *DeleteCustomerAddressRequest) GetAddressId() int32 {
 		return x.AddressId
 	}
 	return 0
+}
+
+type DeleteCustomerAddressBulkRequest struct {
+	state             protoimpl.MessageState          `protogen:"open.v1"`
+	CustomerAddresses []*DeleteCustomerAddressRequest `protobuf:"bytes,1,rep,name=customer_addresses,json=customerAddresses,proto3" json:"customer_addresses,omitempty"`
+	unknownFields     protoimpl.UnknownFields
+	sizeCache         protoimpl.SizeCache
+}
+
+func (x *DeleteCustomerAddressBulkRequest) Reset() {
+	*x = DeleteCustomerAddressBulkRequest{}
+	mi := &file_customer_address_proto_msgTypes[9]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteCustomerAddressBulkRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteCustomerAddressBulkRequest) ProtoMessage() {}
+
+func (x *DeleteCustomerAddressBulkRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_customer_address_proto_msgTypes[9]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteCustomerAddressBulkRequest.ProtoReflect.Descriptor instead.
+func (*DeleteCustomerAddressBulkRequest) Descriptor() ([]byte, []int) {
+	return file_customer_address_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *DeleteCustomerAddressBulkRequest) GetCustomerAddresses() []*DeleteCustomerAddressRequest {
+	if x != nil {
+		return x.CustomerAddresses
+	}
+	return nil
 }
 
 var File_customer_address_proto protoreflect.FileDescriptor
@@ -449,7 +625,10 @@ const file_customer_address_proto_rawDesc = "" +
 	"\x12customer_addresses\x18\x01 \x03(\v2\x1c.protos.CustomerAddressModelR\x11customerAddresses\">\n" +
 	"\x1dGetCustomerAddressByIdRequest\x12\x1d\n" +
 	"\n" +
-	"address_id\x18\x01 \x01(\x05R\taddressId\"\xa6\x02\n" +
+	"address_id\x18\x01 \x01(\x05R\taddressId\"A\n" +
+	"\x1eGetCustomerAddressByIdsRequest\x12\x1f\n" +
+	"\vaddress_ids\x18\x01 \x03(\x05R\n" +
+	"addressIds\"\xa6\x02\n" +
 	"\x19AddCustomerAddressRequest\x12$\n" +
 	"\vcustomer_id\x18\x01 \x01(\x05H\x00R\n" +
 	"customerId\x88\x01\x01\x12\x1d\n" +
@@ -465,7 +644,9 @@ const file_customer_address_proto_rawDesc = "" +
 	"\x05_cityB\t\n" +
 	"\a_streetB\v\n" +
 	"\t_zip_codeB\r\n" +
-	"\v_is_primary\"\xc8\x02\n" +
+	"\v_is_primary\"q\n" +
+	"\x1dAddCustomerAddressBulkRequest\x12P\n" +
+	"\x12customer_addresses\x18\x01 \x03(\v2!.protos.AddCustomerAddressRequestR\x11customerAddresses\"\xc8\x02\n" +
 	"\x1cUpdateCustomerAddressRequest\x12\x1d\n" +
 	"\n" +
 	"address_id\x18\x01 \x01(\x05R\taddressId\x12$\n" +
@@ -483,16 +664,26 @@ const file_customer_address_proto_rawDesc = "" +
 	"\x05_cityB\t\n" +
 	"\a_streetB\v\n" +
 	"\t_zip_codeB\r\n" +
-	"\v_is_primary\"=\n" +
+	"\v_is_primary\"w\n" +
+	" UpdateCustomerAddressBulkRequest\x12S\n" +
+	"\x12customer_addresses\x18\x01 \x03(\v2$.protos.UpdateCustomerAddressRequestR\x11customerAddresses\"=\n" +
 	"\x1cDeleteCustomerAddressRequest\x12\x1d\n" +
 	"\n" +
-	"address_id\x18\x01 \x01(\x05R\taddressId2\x8a\x03\n" +
+	"address_id\x18\x01 \x01(\x05R\taddressId\"w\n" +
+	" DeleteCustomerAddressBulkRequest\x12S\n" +
+	"\x12customer_addresses\x18\x01 \x03(\v2$.protos.DeleteCustomerAddressRequestR\x11customerAddresses2\xd1\x05\n" +
 	"\x16CustomerAddressService\x12H\n" +
 	"\x06GetAll\x12\x15.protos.GetAllRequest\x1a'.protos.GetAllCustomerAddressesResponse\x12N\n" +
-	"\aGetById\x12%.protos.GetCustomerAddressByIdRequest\x1a\x1c.protos.CustomerAddressModel\x12F\n" +
+	"\aGetById\x12%.protos.GetCustomerAddressByIdRequest\x1a\x1c.protos.CustomerAddressModel\x12[\n" +
+	"\bGetByIds\x12&.protos.GetCustomerAddressByIdsRequest\x1a'.protos.GetAllCustomerAddressesResponse\x12F\n" +
 	"\x03Add\x12!.protos.AddCustomerAddressRequest\x1a\x1c.protos.CustomerAddressModel\x12F\n" +
 	"\x06Update\x12$.protos.UpdateCustomerAddressRequest\x1a\x16.google.protobuf.Empty\x12F\n" +
-	"\x06Delete\x12$.protos.DeleteCustomerAddressRequest\x1a\x16.google.protobuf.EmptyB\x1bZ\x19orch-go/gen/protos;protosb\x06proto3"
+	"\x06Delete\x12$.protos.DeleteCustomerAddressRequest\x1a\x16.google.protobuf.Empty\x12H\n" +
+	"\aAddBulk\x12%.protos.AddCustomerAddressBulkRequest\x1a\x16.google.protobuf.Empty\x12N\n" +
+	"\n" +
+	"UpdateBulk\x12(.protos.UpdateCustomerAddressBulkRequest\x1a\x16.google.protobuf.Empty\x12N\n" +
+	"\n" +
+	"DeleteBulk\x12(.protos.DeleteCustomerAddressBulkRequest\x1a\x16.google.protobuf.EmptyB\x1bZ\x19orch-go/gen/protos;protosb\x06proto3"
 
 var (
 	file_customer_address_proto_rawDescOnce sync.Once
@@ -506,34 +697,49 @@ func file_customer_address_proto_rawDescGZIP() []byte {
 	return file_customer_address_proto_rawDescData
 }
 
-var file_customer_address_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+var file_customer_address_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
 var file_customer_address_proto_goTypes = []any{
-	(*CustomerAddressModel)(nil),            // 0: protos.CustomerAddressModel
-	(*GetAllCustomerAddressesResponse)(nil), // 1: protos.GetAllCustomerAddressesResponse
-	(*GetCustomerAddressByIdRequest)(nil),   // 2: protos.GetCustomerAddressByIdRequest
-	(*AddCustomerAddressRequest)(nil),       // 3: protos.AddCustomerAddressRequest
-	(*UpdateCustomerAddressRequest)(nil),    // 4: protos.UpdateCustomerAddressRequest
-	(*DeleteCustomerAddressRequest)(nil),    // 5: protos.DeleteCustomerAddressRequest
-	(*GetAllRequest)(nil),                   // 6: protos.GetAllRequest
-	(*emptypb.Empty)(nil),                   // 7: google.protobuf.Empty
+	(*CustomerAddressModel)(nil),             // 0: protos.CustomerAddressModel
+	(*GetAllCustomerAddressesResponse)(nil),  // 1: protos.GetAllCustomerAddressesResponse
+	(*GetCustomerAddressByIdRequest)(nil),    // 2: protos.GetCustomerAddressByIdRequest
+	(*GetCustomerAddressByIdsRequest)(nil),   // 3: protos.GetCustomerAddressByIdsRequest
+	(*AddCustomerAddressRequest)(nil),        // 4: protos.AddCustomerAddressRequest
+	(*AddCustomerAddressBulkRequest)(nil),    // 5: protos.AddCustomerAddressBulkRequest
+	(*UpdateCustomerAddressRequest)(nil),     // 6: protos.UpdateCustomerAddressRequest
+	(*UpdateCustomerAddressBulkRequest)(nil), // 7: protos.UpdateCustomerAddressBulkRequest
+	(*DeleteCustomerAddressRequest)(nil),     // 8: protos.DeleteCustomerAddressRequest
+	(*DeleteCustomerAddressBulkRequest)(nil), // 9: protos.DeleteCustomerAddressBulkRequest
+	(*GetAllRequest)(nil),                    // 10: protos.GetAllRequest
+	(*emptypb.Empty)(nil),                    // 11: google.protobuf.Empty
 }
 var file_customer_address_proto_depIdxs = []int32{
-	0, // 0: protos.GetAllCustomerAddressesResponse.customer_addresses:type_name -> protos.CustomerAddressModel
-	6, // 1: protos.CustomerAddressService.GetAll:input_type -> protos.GetAllRequest
-	2, // 2: protos.CustomerAddressService.GetById:input_type -> protos.GetCustomerAddressByIdRequest
-	3, // 3: protos.CustomerAddressService.Add:input_type -> protos.AddCustomerAddressRequest
-	4, // 4: protos.CustomerAddressService.Update:input_type -> protos.UpdateCustomerAddressRequest
-	5, // 5: protos.CustomerAddressService.Delete:input_type -> protos.DeleteCustomerAddressRequest
-	1, // 6: protos.CustomerAddressService.GetAll:output_type -> protos.GetAllCustomerAddressesResponse
-	0, // 7: protos.CustomerAddressService.GetById:output_type -> protos.CustomerAddressModel
-	0, // 8: protos.CustomerAddressService.Add:output_type -> protos.CustomerAddressModel
-	7, // 9: protos.CustomerAddressService.Update:output_type -> google.protobuf.Empty
-	7, // 10: protos.CustomerAddressService.Delete:output_type -> google.protobuf.Empty
-	6, // [6:11] is the sub-list for method output_type
-	1, // [1:6] is the sub-list for method input_type
-	1, // [1:1] is the sub-list for extension type_name
-	1, // [1:1] is the sub-list for extension extendee
-	0, // [0:1] is the sub-list for field type_name
+	0,  // 0: protos.GetAllCustomerAddressesResponse.customer_addresses:type_name -> protos.CustomerAddressModel
+	4,  // 1: protos.AddCustomerAddressBulkRequest.customer_addresses:type_name -> protos.AddCustomerAddressRequest
+	6,  // 2: protos.UpdateCustomerAddressBulkRequest.customer_addresses:type_name -> protos.UpdateCustomerAddressRequest
+	8,  // 3: protos.DeleteCustomerAddressBulkRequest.customer_addresses:type_name -> protos.DeleteCustomerAddressRequest
+	10, // 4: protos.CustomerAddressService.GetAll:input_type -> protos.GetAllRequest
+	2,  // 5: protos.CustomerAddressService.GetById:input_type -> protos.GetCustomerAddressByIdRequest
+	3,  // 6: protos.CustomerAddressService.GetByIds:input_type -> protos.GetCustomerAddressByIdsRequest
+	4,  // 7: protos.CustomerAddressService.Add:input_type -> protos.AddCustomerAddressRequest
+	6,  // 8: protos.CustomerAddressService.Update:input_type -> protos.UpdateCustomerAddressRequest
+	8,  // 9: protos.CustomerAddressService.Delete:input_type -> protos.DeleteCustomerAddressRequest
+	5,  // 10: protos.CustomerAddressService.AddBulk:input_type -> protos.AddCustomerAddressBulkRequest
+	7,  // 11: protos.CustomerAddressService.UpdateBulk:input_type -> protos.UpdateCustomerAddressBulkRequest
+	9,  // 12: protos.CustomerAddressService.DeleteBulk:input_type -> protos.DeleteCustomerAddressBulkRequest
+	1,  // 13: protos.CustomerAddressService.GetAll:output_type -> protos.GetAllCustomerAddressesResponse
+	0,  // 14: protos.CustomerAddressService.GetById:output_type -> protos.CustomerAddressModel
+	1,  // 15: protos.CustomerAddressService.GetByIds:output_type -> protos.GetAllCustomerAddressesResponse
+	0,  // 16: protos.CustomerAddressService.Add:output_type -> protos.CustomerAddressModel
+	11, // 17: protos.CustomerAddressService.Update:output_type -> google.protobuf.Empty
+	11, // 18: protos.CustomerAddressService.Delete:output_type -> google.protobuf.Empty
+	11, // 19: protos.CustomerAddressService.AddBulk:output_type -> google.protobuf.Empty
+	11, // 20: protos.CustomerAddressService.UpdateBulk:output_type -> google.protobuf.Empty
+	11, // 21: protos.CustomerAddressService.DeleteBulk:output_type -> google.protobuf.Empty
+	13, // [13:22] is the sub-list for method output_type
+	4,  // [4:13] is the sub-list for method input_type
+	4,  // [4:4] is the sub-list for extension type_name
+	4,  // [4:4] is the sub-list for extension extendee
+	0,  // [0:4] is the sub-list for field type_name
 }
 
 func init() { file_customer_address_proto_init() }
@@ -543,15 +749,15 @@ func file_customer_address_proto_init() {
 	}
 	file_custom_types_proto_init()
 	file_customer_address_proto_msgTypes[0].OneofWrappers = []any{}
-	file_customer_address_proto_msgTypes[3].OneofWrappers = []any{}
 	file_customer_address_proto_msgTypes[4].OneofWrappers = []any{}
+	file_customer_address_proto_msgTypes[6].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_customer_address_proto_rawDesc), len(file_customer_address_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   6,
+			NumMessages:   10,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

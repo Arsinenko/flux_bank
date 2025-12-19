@@ -22,6 +22,7 @@ const _ = grpc.SupportPackageIsVersion9
 const (
 	PaymentTemplateService_GetAll_FullMethodName     = "/protos.PaymentTemplateService/GetAll"
 	PaymentTemplateService_GetById_FullMethodName    = "/protos.PaymentTemplateService/GetById"
+	PaymentTemplateService_GetByIds_FullMethodName   = "/protos.PaymentTemplateService/GetByIds"
 	PaymentTemplateService_Add_FullMethodName        = "/protos.PaymentTemplateService/Add"
 	PaymentTemplateService_Update_FullMethodName     = "/protos.PaymentTemplateService/Update"
 	PaymentTemplateService_Delete_FullMethodName     = "/protos.PaymentTemplateService/Delete"
@@ -36,6 +37,7 @@ const (
 type PaymentTemplateServiceClient interface {
 	GetAll(ctx context.Context, in *GetAllRequest, opts ...grpc.CallOption) (*GetAllPaymentTemplatesResponse, error)
 	GetById(ctx context.Context, in *GetPaymentTemplateByIdRequest, opts ...grpc.CallOption) (*PaymentTemplateModel, error)
+	GetByIds(ctx context.Context, in *GetPaymentTemplateByIdsRequest, opts ...grpc.CallOption) (*GetAllPaymentTemplatesResponse, error)
 	Add(ctx context.Context, in *AddPaymentTemplateRequest, opts ...grpc.CallOption) (*PaymentTemplateModel, error)
 	Update(ctx context.Context, in *UpdatePaymentTemplateRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	Delete(ctx context.Context, in *DeletePaymentTemplateRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
@@ -66,6 +68,16 @@ func (c *paymentTemplateServiceClient) GetById(ctx context.Context, in *GetPayme
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(PaymentTemplateModel)
 	err := c.cc.Invoke(ctx, PaymentTemplateService_GetById_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *paymentTemplateServiceClient) GetByIds(ctx context.Context, in *GetPaymentTemplateByIdsRequest, opts ...grpc.CallOption) (*GetAllPaymentTemplatesResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetAllPaymentTemplatesResponse)
+	err := c.cc.Invoke(ctx, PaymentTemplateService_GetByIds_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -138,6 +150,7 @@ func (c *paymentTemplateServiceClient) DeleteBulk(ctx context.Context, in *Delet
 type PaymentTemplateServiceServer interface {
 	GetAll(context.Context, *GetAllRequest) (*GetAllPaymentTemplatesResponse, error)
 	GetById(context.Context, *GetPaymentTemplateByIdRequest) (*PaymentTemplateModel, error)
+	GetByIds(context.Context, *GetPaymentTemplateByIdsRequest) (*GetAllPaymentTemplatesResponse, error)
 	Add(context.Context, *AddPaymentTemplateRequest) (*PaymentTemplateModel, error)
 	Update(context.Context, *UpdatePaymentTemplateRequest) (*emptypb.Empty, error)
 	Delete(context.Context, *DeletePaymentTemplateRequest) (*emptypb.Empty, error)
@@ -159,6 +172,9 @@ func (UnimplementedPaymentTemplateServiceServer) GetAll(context.Context, *GetAll
 }
 func (UnimplementedPaymentTemplateServiceServer) GetById(context.Context, *GetPaymentTemplateByIdRequest) (*PaymentTemplateModel, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetById not implemented")
+}
+func (UnimplementedPaymentTemplateServiceServer) GetByIds(context.Context, *GetPaymentTemplateByIdsRequest) (*GetAllPaymentTemplatesResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetByIds not implemented")
 }
 func (UnimplementedPaymentTemplateServiceServer) Add(context.Context, *AddPaymentTemplateRequest) (*PaymentTemplateModel, error) {
 	return nil, status.Error(codes.Unimplemented, "method Add not implemented")
@@ -232,6 +248,24 @@ func _PaymentTemplateService_GetById_Handler(srv interface{}, ctx context.Contex
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(PaymentTemplateServiceServer).GetById(ctx, req.(*GetPaymentTemplateByIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _PaymentTemplateService_GetByIds_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetPaymentTemplateByIdsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PaymentTemplateServiceServer).GetByIds(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PaymentTemplateService_GetByIds_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PaymentTemplateServiceServer).GetByIds(ctx, req.(*GetPaymentTemplateByIdsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -358,6 +392,10 @@ var PaymentTemplateService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetById",
 			Handler:    _PaymentTemplateService_GetById_Handler,
+		},
+		{
+			MethodName: "GetByIds",
+			Handler:    _PaymentTemplateService_GetByIds_Handler,
 		},
 		{
 			MethodName: "Add",

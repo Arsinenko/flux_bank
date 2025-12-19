@@ -5,8 +5,6 @@ import (
 	"fmt"
 	pb "orch-go/api/generated"
 	"orch-go/internal/domain/user_credential"
-
-	"google.golang.org/protobuf/types/known/emptypb"
 )
 
 type Repository struct {
@@ -25,8 +23,11 @@ func NewRepository(client pb.UserCredentialServiceClient) Repository {
 	return Repository{client: client}
 }
 
-func (r Repository) GetAll(ctx context.Context) ([]*user_credential.UserCredential, error) {
-	resp, err := r.client.GetAll(ctx, &emptypb.Empty{})
+func (r Repository) GetAll(ctx context.Context, pageN, pageSize int32) ([]*user_credential.UserCredential, error) {
+	resp, err := r.client.GetAll(ctx, &pb.GetAllRequest{
+		PageN:    pageN,
+		PageSize: pageSize,
+	})
 	if err != nil {
 		return nil, fmt.Errorf("user_credential_repo.GetAll: %w", err)
 	}

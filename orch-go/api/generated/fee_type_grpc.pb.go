@@ -22,6 +22,7 @@ const _ = grpc.SupportPackageIsVersion9
 const (
 	FeeTypeService_GetAll_FullMethodName     = "/protos.FeeTypeService/GetAll"
 	FeeTypeService_GetById_FullMethodName    = "/protos.FeeTypeService/GetById"
+	FeeTypeService_GetByIds_FullMethodName   = "/protos.FeeTypeService/GetByIds"
 	FeeTypeService_Add_FullMethodName        = "/protos.FeeTypeService/Add"
 	FeeTypeService_Update_FullMethodName     = "/protos.FeeTypeService/Update"
 	FeeTypeService_Delete_FullMethodName     = "/protos.FeeTypeService/Delete"
@@ -36,6 +37,7 @@ const (
 type FeeTypeServiceClient interface {
 	GetAll(ctx context.Context, in *GetAllRequest, opts ...grpc.CallOption) (*GetAllFeeTypesResponse, error)
 	GetById(ctx context.Context, in *GetFeeTypeByIdRequest, opts ...grpc.CallOption) (*FeeTypeModel, error)
+	GetByIds(ctx context.Context, in *GetFeeTypeByIdsRequest, opts ...grpc.CallOption) (*GetAllFeeTypesResponse, error)
 	Add(ctx context.Context, in *AddFeeTypeRequest, opts ...grpc.CallOption) (*FeeTypeModel, error)
 	Update(ctx context.Context, in *UpdateFeeTypeRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	Delete(ctx context.Context, in *DeleteFeeTypeRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
@@ -66,6 +68,16 @@ func (c *feeTypeServiceClient) GetById(ctx context.Context, in *GetFeeTypeByIdRe
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(FeeTypeModel)
 	err := c.cc.Invoke(ctx, FeeTypeService_GetById_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *feeTypeServiceClient) GetByIds(ctx context.Context, in *GetFeeTypeByIdsRequest, opts ...grpc.CallOption) (*GetAllFeeTypesResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetAllFeeTypesResponse)
+	err := c.cc.Invoke(ctx, FeeTypeService_GetByIds_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -138,6 +150,7 @@ func (c *feeTypeServiceClient) DeleteBulk(ctx context.Context, in *DeleteFeeType
 type FeeTypeServiceServer interface {
 	GetAll(context.Context, *GetAllRequest) (*GetAllFeeTypesResponse, error)
 	GetById(context.Context, *GetFeeTypeByIdRequest) (*FeeTypeModel, error)
+	GetByIds(context.Context, *GetFeeTypeByIdsRequest) (*GetAllFeeTypesResponse, error)
 	Add(context.Context, *AddFeeTypeRequest) (*FeeTypeModel, error)
 	Update(context.Context, *UpdateFeeTypeRequest) (*emptypb.Empty, error)
 	Delete(context.Context, *DeleteFeeTypeRequest) (*emptypb.Empty, error)
@@ -159,6 +172,9 @@ func (UnimplementedFeeTypeServiceServer) GetAll(context.Context, *GetAllRequest)
 }
 func (UnimplementedFeeTypeServiceServer) GetById(context.Context, *GetFeeTypeByIdRequest) (*FeeTypeModel, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetById not implemented")
+}
+func (UnimplementedFeeTypeServiceServer) GetByIds(context.Context, *GetFeeTypeByIdsRequest) (*GetAllFeeTypesResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetByIds not implemented")
 }
 func (UnimplementedFeeTypeServiceServer) Add(context.Context, *AddFeeTypeRequest) (*FeeTypeModel, error) {
 	return nil, status.Error(codes.Unimplemented, "method Add not implemented")
@@ -231,6 +247,24 @@ func _FeeTypeService_GetById_Handler(srv interface{}, ctx context.Context, dec f
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(FeeTypeServiceServer).GetById(ctx, req.(*GetFeeTypeByIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _FeeTypeService_GetByIds_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetFeeTypeByIdsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FeeTypeServiceServer).GetByIds(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: FeeTypeService_GetByIds_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FeeTypeServiceServer).GetByIds(ctx, req.(*GetFeeTypeByIdsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -357,6 +391,10 @@ var FeeTypeService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetById",
 			Handler:    _FeeTypeService_GetById_Handler,
+		},
+		{
+			MethodName: "GetByIds",
+			Handler:    _FeeTypeService_GetByIds_Handler,
 		},
 		{
 			MethodName: "Add",
