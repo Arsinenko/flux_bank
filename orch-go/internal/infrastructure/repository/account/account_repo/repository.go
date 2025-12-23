@@ -58,7 +58,7 @@ func (r Repository) GetAll(ctx context.Context, pageN, pageSize int32) ([]accoun
 	if err != nil {
 		return nil, fmt.Errorf("account_repo.GetAll: %w", err)
 	}
-	result := make([]account.Account, len(resp.Accounts))
+	result := make([]account.Account, 0, len(resp.Accounts))
 	for _, c := range resp.Accounts {
 		domainModel := AccountToDomain(c)
 		if domainModel != nil {

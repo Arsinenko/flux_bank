@@ -24,6 +24,7 @@ class TransactionAnalyticService(TransactionAnalyticServiceServicer):
         return GetCountOfTransactionsByDateRangeResponse(count=len(transactions))
 
     async def GetMostFrequentTransactionsByDateRange(self, request, context):
-        pass #TODO
+        pass
+
 
 
