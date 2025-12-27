@@ -26,7 +26,7 @@ func (a AccountTypeRepository) GetAll(ctx context.Context, pageN, pageSize int32
 	if err != nil {
 		return nil, fmt.Errorf("account_repo.GetAll: %w", err)
 	}
-	result := make([]account.AccountType, len(resp.AccountTypes))
+	result := make([]account.AccountType, 0, len(resp.AccountTypes))
 	for _, c := range resp.AccountTypes {
 		domainModel := AccountTypeToDomain(c)
 		if domainModel != nil {

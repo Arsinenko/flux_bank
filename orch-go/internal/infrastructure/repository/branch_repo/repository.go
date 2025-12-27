@@ -17,8 +17,11 @@ func NewRepository(client pb.BranchServiceClient) Repository {
 	}
 }
 
-func (r Repository) GetAll(ctx context.Context) ([]*branch.Branch, error) {
-	resp, err := r.client.GetAll(ctx, &pb.GetAllRequest{})
+func (r Repository) GetAll(ctx context.Context, pageN, pageSize int32) ([]*branch.Branch, error) {
+	resp, err := r.client.GetAll(ctx, &pb.GetAllRequest{
+		PageN:    pageN,
+		PageSize: pageSize,
+	})
 	if err != nil {
 		return nil, fmt.Errorf("branch_repo.GetAll: %w", err)
 	}
