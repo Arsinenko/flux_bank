@@ -22,8 +22,8 @@ func (s *CardService) GetCardsByAccountId(ctx context.Context, accountId int32) 
 	return s.repo.GetByAccountId(ctx, accountId)
 }
 
-func (s *CardService) GetAllCards(ctx context.Context) ([]*card.Card, error) {
-	return s.repo.GetAll(ctx)
+func (s *CardService) GetAllCards(ctx context.Context, pageN, pageSize int32) ([]*card.Card, error) {
+	return s.repo.GetAll(ctx, pageN, pageSize)
 }
 
 func (s *CardService) CreateCard(ctx context.Context, card *card.Card) (*card.Card, error) {

@@ -3,7 +3,7 @@ package card
 import "context"
 
 type Repository interface {
-	GetAll(ctx context.Context) ([]*Card, error)
+	GetAll(ctx context.Context, pageN, pageSize int32) ([]*Card, error)
 	GetById(ctx context.Context, id int32) (*Card, error)
 	GetByAccountId(ctx context.Context, accountId int32) ([]*Card, error)
 	Add(ctx context.Context, card *Card) (*Card, error)

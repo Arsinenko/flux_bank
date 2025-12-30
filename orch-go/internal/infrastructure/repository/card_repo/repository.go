@@ -32,8 +32,11 @@ func NewRepository(client pb.CardServiceClient) Repository {
 	}
 }
 
-func (r Repository) GetAll(ctx context.Context) ([]*card.Card, error) {
-	resp, err := r.client.GetAll(ctx, &pb.GetAllRequest{})
+func (r Repository) GetAll(ctx context.Context, pageN, pageSize int32) ([]*card.Card, error) {
+	resp, err := r.client.GetAll(ctx, &pb.GetAllRequest{
+		PageN:    pageN,
+		PageSize: pageSize,
+	})
 	if err != nil {
 		return nil, fmt.Errorf("card_repo.GetAll: %w", err)
 	}

@@ -18,8 +18,8 @@ func (s *BranchService) GetBranchById(ctx context.Context, id int32) (*branch.Br
 	return s.repo.GetById(ctx, id)
 }
 
-func (s *BranchService) GetAllBranches(ctx context.Context) ([]*branch.Branch, error) {
-	return s.repo.GetAll(ctx)
+func (s *BranchService) GetAllBranches(ctx context.Context, pageN, pageSize int32) ([]*branch.Branch, error) {
+	return s.repo.GetAll(ctx, pageN, pageSize)
 }
 
 func (s *BranchService) CreateBranch(ctx context.Context, branch *branch.Branch) (*branch.Branch, error) {
