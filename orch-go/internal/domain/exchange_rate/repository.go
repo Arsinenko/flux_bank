@@ -3,7 +3,7 @@ package exchange_rate
 import "context"
 
 type Repository interface {
-	GetAll(ctx context.Context) ([]*ExchangeRate, error)
+	GetAll(ctx context.Context, pageN int32, pageSize int32) ([]*ExchangeRate, error)
 	GetById(ctx context.Context, id int32) (*ExchangeRate, error)
 	GetByBaseCurrency(ctx context.Context, baseCurrency string) ([]*ExchangeRate, error)
 	Add(ctx context.Context, exchangeRate *ExchangeRate) (*ExchangeRate, error)
