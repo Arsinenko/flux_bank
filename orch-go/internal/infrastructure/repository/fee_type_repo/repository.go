@@ -17,7 +17,7 @@ func NewRepository(client pb.FeeTypeServiceClient) Repository {
 	}
 }
 
-func (r Repository) GetAll(ctx context.Context) ([]*fee_type.FeeType, error) {
+func (r Repository) GetAll(ctx context.Context, pageN, pageSize int32) ([]*fee_type.FeeType, error) {
 	resp, err := r.client.GetAll(ctx, &pb.GetAllRequest{})
 	if err != nil {
 		return nil, fmt.Errorf("fee_type_repo.GetAll: %w", err)

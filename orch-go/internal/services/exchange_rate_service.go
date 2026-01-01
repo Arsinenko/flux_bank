@@ -22,8 +22,8 @@ func (s *ExchangeRateService) GetExchangeRatesByBaseCurrency(ctx context.Context
 	return s.repo.GetByBaseCurrency(ctx, baseCurrency)
 }
 
-func (s *ExchangeRateService) GetAllExchangeRates(ctx context.Context) ([]*exchange_rate.ExchangeRate, error) {
-	return s.repo.GetAll(ctx)
+func (s *ExchangeRateService) GetAllExchangeRates(ctx context.Context, pageN, pageSize int32) ([]*exchange_rate.ExchangeRate, error) {
+	return s.repo.GetAll(ctx, pageN, pageSize)
 }
 
 func (s *ExchangeRateService) CreateExchangeRate(ctx context.Context, er *exchange_rate.ExchangeRate) (*exchange_rate.ExchangeRate, error) {

@@ -18,8 +18,8 @@ func (s *FeeTypeService) GetFeeTypeById(ctx context.Context, id int32) (*fee_typ
 	return s.repo.GetById(ctx, id)
 }
 
-func (s *FeeTypeService) GetAllFeeTypes(ctx context.Context) ([]*fee_type.FeeType, error) {
-	return s.repo.GetAll(ctx)
+func (s *FeeTypeService) GetAllFeeTypes(ctx context.Context, pageN, pageSize int32) ([]*fee_type.FeeType, error) {
+	return s.repo.GetAll(ctx, pageN, pageSize)
 }
 
 func (s *FeeTypeService) CreateFeeType(ctx context.Context, ft *fee_type.FeeType) (*fee_type.FeeType, error) {
