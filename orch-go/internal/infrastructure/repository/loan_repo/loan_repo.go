@@ -29,7 +29,7 @@ func NewLoanRepository(client pb.LoanServiceClient) LoanRepository {
 	}
 }
 
-func (r LoanRepository) GetAll(ctx context.Context) ([]*loan.Loan, error) {
+func (r LoanRepository) GetAll(ctx context.Context, pageN, pageSize int32) ([]*loan.Loan, error) {
 	resp, err := r.client.GetAll(ctx, &pb.GetAllRequest{})
 	if err != nil {
 		return nil, fmt.Errorf("loan_repo.GetAll: %w", err)

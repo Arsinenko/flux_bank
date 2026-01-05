@@ -28,8 +28,8 @@ func (s *LoanService) GetLoansByCustomer(ctx context.Context, customerId int32) 
 	return s.loanRepo.GetByCustomer(ctx, customerId)
 }
 
-func (s *LoanService) GetAllLoans(ctx context.Context) ([]*loan.Loan, error) {
-	return s.loanRepo.GetAll(ctx)
+func (s *LoanService) GetAllLoans(ctx context.Context, pageN, pageSize int32) ([]*loan.Loan, error) {
+	return s.loanRepo.GetAll(ctx, pageN, pageSize)
 }
 
 func (s *LoanService) CreateLoan(ctx context.Context, l *loan.Loan) (*loan.Loan, error) {
@@ -58,8 +58,8 @@ func (s *LoanService) GetLoanPaymentsByLoan(ctx context.Context, loanId int32) (
 	return s.loanPaymentRepo.GetByLoan(ctx, loanId)
 }
 
-func (s *LoanService) GetAllLoanPayments(ctx context.Context) ([]*loan.LoanPayment, error) {
-	return s.loanPaymentRepo.GetAll(ctx)
+func (s *LoanService) GetAllLoanPayments(ctx context.Context, pageN, pageSize int32) ([]*loan.LoanPayment, error) {
+	return s.loanPaymentRepo.GetAll(ctx, pageN, pageSize)
 }
 
 func (s *LoanService) CreateLoanPayment(ctx context.Context, lp *loan.LoanPayment) (*loan.LoanPayment, error) {
