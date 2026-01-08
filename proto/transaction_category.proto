@@ -19,6 +19,7 @@ service TransactionCategoryService {
   rpc AddBulk (AddTransactionCategoryBulkRequest) returns (google.protobuf.Empty);
   rpc UpdateBulk (UpdateTransactionCategoryBulkRequest) returns (google.protobuf.Empty);
   rpc DeleteBulk (DeleteTransactionCategoryBulkRequest) returns (google.protobuf.Empty);
+  rpc GetCount (google.protobuf.Empty) returns (CountResponse);
 }
 
 message TransactionCategoryModel {
@@ -62,4 +63,3 @@ message UpdateTransactionCategoryBulkRequest {
 message DeleteTransactionCategoryBulkRequest {
   repeated DeleteTransactionCategoryRequest transaction_categories = 1;
 }
-

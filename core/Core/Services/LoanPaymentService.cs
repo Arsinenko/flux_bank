@@ -111,4 +111,13 @@ public class LoanPaymentService(ILoanPaymentRepository loanPaymentRepository, IM
         };
     }
 
+    public override async Task<CountResponse> GetCount(Empty request, ServerCallContext context)
+    {
+        var count = await loanPaymentRepository.GetCountAsync();
+        return new CountResponse()
+        {
+            Count = count
+        };
+    }
+    
 }

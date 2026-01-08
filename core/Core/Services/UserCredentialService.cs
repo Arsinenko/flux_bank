@@ -73,4 +73,13 @@ public class UserCredentialService(IUserCredentialRepository userCredentialRepos
             UserCredentials = { mapper.Map<IEnumerable<UserCredentialModel>>(userCredentials) }
         };
     }
+
+    public override async Task<CountResponse> GetCount(Empty request, ServerCallContext context)
+    {
+        var count = await userCredentialRepository.GetCountAsync();
+        return new CountResponse()
+        {
+            Count = count
+        };
+    }
 }

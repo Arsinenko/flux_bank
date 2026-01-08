@@ -6,6 +6,8 @@ public interface IGenericRepository<TEntity, TId> where TEntity : class
 {
     public Task<IEnumerable<TEntity>> GetAllAsync(int? pageN, int? pageSize);
     public Task<TEntity?> GetByIdAsync(TId id);
+    public Task<int> GetCountAsync();
+    public Task<int> GetCountByDateRangeAsync(DateTime fromDate, DateTime ToDate);
     public Task<IEnumerable<TEntity?>> GetByIdsAsync(IEnumerable<TId> ids);
     public Task<IEnumerable<TEntity?>> GetByDateRange(DateTime from, DateTime to, int? pageN, int? pageSize);
     public Task AddAsync(TEntity entity);

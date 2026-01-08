@@ -18,6 +18,13 @@ public class TransactionRepository : GenericRepository<Transaction, int>, ITrans
         return await query.ToListAsync();
     }
 
+    public async Task<int> GetCountRevenuesAsync(int accountId, DateTime? from, DateTime? to)
+    {
+        IQueryable<Transaction> query = DbSet.Where(t => t.TargetAccount == accountId);
+        query = TransactionsPaged(from, to, null, null, query);
+        return await query.CountAsync();
+    }
+
 
     public async Task<IEnumerable<Transaction>> GetExpensesAsync(int accountId, DateTime? from, DateTime? to, int? pageN, int? pageSize)
     {
@@ -25,6 +32,14 @@ public class TransactionRepository : GenericRepository<Transaction, int>, ITrans
         query = TransactionsPaged(from, to, pageN, pageSize, query);
         return await query.ToListAsync();
     }
+
+    public async Task<int> GetCountExpensesAsync(int accountId, DateTime? from, DateTime? to)
+    {
+        IQueryable<Transaction> query = DbSet.Where(t => t.SourceAccount == accountId);
+        query = TransactionsPaged(from, to, null, null, query);
+        return await query.CountAsync();
+    }
+
 
     private IQueryable<Transaction> TransactionsPaged(DateTime? from, DateTime? to, int? pageN, int? pageSize, IQueryable<Transaction> query)
     {

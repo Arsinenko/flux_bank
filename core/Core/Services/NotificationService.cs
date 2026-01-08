@@ -122,4 +122,13 @@ public class NotificationService(INotificationRepository notificationRepository,
             Notifications = { mapper.Map<IEnumerable<NotificationModel>>(notifications) }
         };
     }
+
+    public override async Task<CountResponse> GetCount(Empty request, ServerCallContext context)
+    {
+        var count = await notificationRepository.GetCountAsync();
+        return new CountResponse()
+        {
+            Count = count
+        };
+    }
 }

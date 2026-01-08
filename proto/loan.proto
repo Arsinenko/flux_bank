@@ -19,6 +19,7 @@ service LoanService {
   rpc Update (UpdateLoanRequest) returns (google.protobuf.Empty);
   rpc Delete (DeleteLoanRequest) returns (google.protobuf.Empty);
   rpc DeleteBulk (DeleteLoanBulkRequest) returns (google.protobuf.Empty);
+  rpc GetCount (google.protobuf.Empty) returns (CountResponse);
 }
 
 message LoanModel {
@@ -73,4 +74,3 @@ message DeleteLoanRequest {
 message DeleteLoanBulkRequest {
   repeated DeleteLoanRequest loans = 1;
 }
-

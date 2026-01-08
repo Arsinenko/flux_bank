@@ -20,6 +20,7 @@ service CustomerAddressService {
   rpc AddBulk (AddCustomerAddressBulkRequest) returns (google.protobuf.Empty);
   rpc UpdateBulk (UpdateCustomerAddressBulkRequest) returns (google.protobuf.Empty);
   rpc DeleteBulk (DeleteCustomerAddressBulkRequest) returns (google.protobuf.Empty);
+  rpc GetCount (google.protobuf.Empty) returns (CountResponse);
 }
 
 message CustomerAddressModel {
@@ -78,4 +79,3 @@ message DeleteCustomerAddressRequest {
 message DeleteCustomerAddressBulkRequest {
   repeated DeleteCustomerAddressRequest customer_addresses = 1;
 }
-

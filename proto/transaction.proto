@@ -24,6 +24,10 @@ service TransactionService {
   rpc AddBulk (AddTransactionBulkRequest) returns (google.protobuf.Empty);
   rpc UpdateBulk (UpdateTransactionBulkRequest) returns (google.protobuf.Empty);
   rpc DeleteBulk (DeleteTransactionBulkRequest) returns (google.protobuf.Empty);
+  rpc GetCount (google.protobuf.Empty) returns (CountResponse);
+  rpc GetCountByDateRange (GetByDateRangeRequest) returns (CountResponse);
+  rpc GetCountAccountRevenue (GetAccountRevenueRequest) returns (CountResponse);
+  rpc GetCountAccountExpenses (GetAccountExpensesRequest) returns (CountResponse);
 }
 
 message TransactionModel {
@@ -90,4 +94,3 @@ message UpdateTransactionBulkRequest {
 message DeleteTransactionBulkRequest {
   repeated DeleteTransactionRequest transactions = 1;
 }
-

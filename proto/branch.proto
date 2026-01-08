@@ -19,6 +19,7 @@ service BranchService {
   rpc AddBulk (AddBranchBulkRequest) returns (google.protobuf.Empty);
   rpc UpdateBulk (UpdateBranchBulkRequest) returns (google.protobuf.Empty);
   rpc DeleteBulk (DeleteBranchBulkRequest) returns (google.protobuf.Empty);
+  rpc GetCount (google.protobuf.Empty) returns (CountResponse);
 }
 
 message BranchModel {
@@ -71,4 +72,3 @@ message UpdateBranchBulkRequest {
 message DeleteBranchBulkRequest {
   repeated DeleteBranchRequest branches = 1;
 }
-

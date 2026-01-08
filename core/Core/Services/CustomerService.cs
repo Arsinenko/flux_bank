@@ -108,4 +108,38 @@ public class CustomerService(ICustomerRepository repository, IMapper mapper) : C
             Customers = { mapper.Map<IEnumerable<CustomerModel>>(customers) }
         };
     }
+
+    public override async Task<CountResponse> GetCount(Empty request, ServerCallContext context)
+    {
+        var count = await repository.GetCountAsync();
+        return new CountResponse()
+        {
+            Count = count
+        };
+    }
+
+    public override async Task<CountResponse> GetCountByDateRange(GetByDateRangeRequest request, ServerCallContext context)
+    {
+        var count = await repository.GetCountByDateRangeAsync(request.FromDate.ToDateTime(), request.ToDate.ToDateTime());
+        return new CountResponse()
+        {
+            Count = count
+        };
+    }
+
+    public override async Task<CountResponse> GetCountBySubstring(GetBySubstringRequest request, ServerCallContext context)
+    {
+        var count = await repository.GetCountBySubstring(request.SubStr);
+        return new CountResponse()
+        {
+            Count = count
+        };
+    }
+
+    public override async Task<Empty> AddBulk(AddCustomerBulkRequest request, ServerCallContext context)
+    {
+        var customers = request.Customers.Select(mapper.Map<Customer>).ToList();
+        await repository.AddRangeAsync(customers);
+        return new Empty();
+    }
 }

@@ -7,6 +7,7 @@ option csharp_namespace = "Core";
 import "customer.proto";
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/empty.proto";
+import "custom_types.proto";
 
 
 service CustomerAnalyticService {
@@ -15,6 +16,9 @@ service CustomerAnalyticService {
   rpc GetCustomerLifeTime (GetCustomerLifeTimeRequest) returns (GetCustomerLifeTimeResponse);
   rpc GetCustomersLifeTime (google.protobuf.Empty) returns (GetCustomersLifeTimeResponse);
   rpc GetInactiveCustomers (google.protobuf.Empty) returns (GetAllCustomersResponse);
+  rpc GetCountByBalanceRange (GetCustomersByBalanceRangeRequest) returns (CountResponse);
+  rpc GetCountByTransactionQuantityRange (GetCustomersByTransactionQuantityRangeRequest) returns (CountResponse);
+  rpc GetCountInactiveCustomers (google.protobuf.Empty) returns (CountResponse);
 }
 
 
@@ -40,5 +44,3 @@ message GetCustomerLifeTimeResponse {
 message GetCustomersLifeTimeResponse {
   repeated GetCustomerLifeTimeResponse customer_life_time = 1;
 }
-
-

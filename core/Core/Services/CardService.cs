@@ -114,5 +114,14 @@ public class CardService(ICardRepository repository, IMapper mapper) : Core.Card
             Cards = { mapper.Map<IEnumerable<CardModel>>(cards) }
         };
     }
+
+    public override async Task<CountResponse> GetCount(Empty request, ServerCallContext context)
+    {
+        var count = await repository.GetCountAsync();
+        return new CountResponse()
+        {
+            Count = count
+        };
+    }
 }
      

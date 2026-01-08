@@ -86,4 +86,13 @@ public class LoginLogService(ILoginLogRepository loginLogRepository, IMapper map
             LoginLogs = { mapper.Map<LoginLogModel>(logs) }
         };
     }
+
+    public override async Task<CountResponse> GetCount(Empty request, ServerCallContext context)
+    {
+        var count = await loginLogRepository.GetCountAsync();
+        return new CountResponse()
+        {
+            Count = count
+        };
+    }
 }

@@ -125,4 +125,43 @@ public class TransactionService(ITransactionRepository transactionRepository, IM
             Transactions = { mapper.Map<TransactionModel>(transactions) }
         };
     }
+
+    public override async Task<CountResponse> GetCount(Empty request, ServerCallContext context)
+    {
+        var count = await transactionRepository.GetCountAsync();
+        return new CountResponse()
+        {
+            Count = count
+        };
+    }
+
+    public override async Task<CountResponse> GetCountAccountExpenses(GetAccountExpensesRequest request, ServerCallContext context)
+    {
+        var count = await transactionRepository.GetCountExpensesAsync(request.SourceAccount,
+            request.DateRange.FromDate.ToDateTime(), request.DateRange.ToDate.ToDateTime());
+        return new CountResponse()
+        {
+            Count = count
+        };
+    }
+
+    public override async Task<CountResponse> GetCountAccountRevenue(GetAccountRevenueRequest request, ServerCallContext context)
+    {
+        var count = await transactionRepository.GetCountRevenuesAsync(request.TargetAccount,
+            request.DateRange.FromDate.ToDateTime(), request.DateRange.FromDate.ToDateTime());
+        return new CountResponse()
+        {
+            Count = count
+        };
+    }
+
+    public override async Task<CountResponse> GetCountByDateRange(GetByDateRangeRequest request, ServerCallContext context)
+    {
+        var count = await transactionRepository.GetCountByDateRangeAsync(request.FromDate.ToDateTime(),
+            request.ToDate.ToDateTime());
+        return new CountResponse()
+        {
+            Count = count
+        };
+    }
 }

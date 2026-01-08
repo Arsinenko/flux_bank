@@ -38,4 +38,11 @@ public class CustomerRepository : GenericRepository<Customer, int>, ICustomerRep
 
 
     }
+
+    public async Task<int> GetCountBySubstring(string subStr)
+    {
+        return await DbSet.Where(c => c.FirstName.Contains(subStr) || c.LastName.Contains(subStr) ||
+                               c.Email.Contains(subStr) ||
+                               c.Phone.Contains(subStr)).CountAsync();
+    }
 }

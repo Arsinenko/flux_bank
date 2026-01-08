@@ -102,4 +102,12 @@ public class FeeTypeService(IFeeTypeRepository feeTypeRepository, IMapper mapper
         };
     }
 
+    public override async Task<CountResponse> GetCount(Empty request, ServerCallContext context)
+    {
+        var count = await feeTypeRepository.GetCountAsync();
+        return new CountResponse()
+        {
+            Count = count
+        };
+    }
 }

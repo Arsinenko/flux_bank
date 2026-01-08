@@ -129,4 +129,13 @@ public class AtmService(IAtmRepository atmRepository, IMapper mapper) : Core.Atm
             Atms = { mapper.Map<IEnumerable<AtmModel>>(atms) }
         };
     }
+
+    public override async Task<CountResponse> GetCount(Empty request, ServerCallContext context)
+    {
+        var count = await atmRepository.GetCountAsync();
+        return new CountResponse()
+        {
+            Count = count
+        };
+    }
 }

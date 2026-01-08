@@ -20,6 +20,7 @@ service PaymentTemplateService {
   rpc AddBulk (AddPaymentTemplateBulkRequest) returns (google.protobuf.Empty);
   rpc UpdateBulk (UpdatePaymentTemplateBulkRequest) returns (google.protobuf.Empty);
   rpc DeleteBulk (DeletePaymentTemplateBulkRequest) returns (google.protobuf.Empty);
+  rpc GetCount (google.protobuf.Empty) returns (CountResponse);
 }
 
 message PaymentTemplateModel {
@@ -49,6 +50,10 @@ message AddPaymentTemplateRequest {
   optional string default_amount = 4;
 }
 
+message AddPaymentTemplateBulkRequest {
+  repeated AddPaymentTemplateRequest templates = 1;
+}
+
 message UpdatePaymentTemplateRequest {
   int32 template_id = 1;
   optional int32 customer_id = 2;
@@ -57,19 +62,14 @@ message UpdatePaymentTemplateRequest {
   optional string default_amount = 5;
 }
 
-message DeletePaymentTemplateRequest {
-  int32 template_id = 1;
-}
-
-message AddPaymentTemplateBulkRequest {
-  repeated AddPaymentTemplateRequest templates = 1;
-}
-
 message UpdatePaymentTemplateBulkRequest {
   repeated UpdatePaymentTemplateRequest templates = 1;
+}
+
+message DeletePaymentTemplateRequest {
+  int32 template_id = 1;
 }
 
 message DeletePaymentTemplateBulkRequest {
   repeated DeletePaymentTemplateRequest templates = 1;
 }
-

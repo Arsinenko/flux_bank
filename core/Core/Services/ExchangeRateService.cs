@@ -111,4 +111,14 @@ public class ExchangeRateService(IExchangeRateRepository exchangeRateRepository,
             ExchangeRates = { mapper.Map<IEnumerable<ExchangeRateModel>>(rates) }
         };
     }
+
+    public override async Task<CountResponse> GetCount(Empty request, ServerCallContext context)
+    {
+        var count = await exchangeRateRepository.GetCountAsync();
+        return new CountResponse()
+        {
+            Count = count
+        };
+    }
+    
 }

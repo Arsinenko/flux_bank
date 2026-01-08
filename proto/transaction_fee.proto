@@ -21,6 +21,7 @@ service TransactionFeeService {
   rpc AddBulk (AddTransactionFeeBulkRequest) returns (google.protobuf.Empty);
   rpc UpdateBulk (UpdateTransactionFeeBulkRequest) returns (google.protobuf.Empty);
   rpc DeleteBulk (DeleteTransactionFeeBulkRequest) returns (google.protobuf.Empty);
+  rpc GetCount (google.protobuf.Empty) returns (CountResponse);
 }
 
 message TransactionFeeModel {
@@ -70,4 +71,3 @@ message UpdateTransactionFeeBulkRequest {
 message DeleteTransactionFeeBulkRequest {
   repeated DeleteTransactionFeeRequest transaction_fees = 1;
 }
-

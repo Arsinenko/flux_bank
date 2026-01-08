@@ -24,3 +24,6 @@ message GetByDateRangeRequest{
     optional int32 pageSize = 4;
 }
 
+message CountResponse {
+    int64 count = 1;
+}

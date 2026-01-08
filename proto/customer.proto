@@ -22,6 +22,9 @@ service CustomerService {
   rpc AddBulk (AddCustomerBulkRequest) returns (google.protobuf.Empty);
   rpc UpdateBulk (UpdateCustomerBulkRequest) returns (google.protobuf.Empty);
   rpc DeleteBulk (DeleteCustomerBulkRequest) returns (google.protobuf.Empty);
+  rpc GetCount (google.protobuf.Empty) returns (CountResponse);
+  rpc GetCountBySubstring (GetBySubstringRequest) returns (CountResponse);
+  rpc GetCountByDateRange (GetByDateRangeRequest) returns (CountResponse);
 }
 
 message CustomerModel {
@@ -86,4 +89,3 @@ message UpdateCustomerBulkRequest {
 message DeleteCustomerBulkRequest {
   repeated DeleteCustomerRequest customers = 1;
 }
-

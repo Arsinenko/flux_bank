@@ -128,4 +128,31 @@ public class AccountService(IAccountRepository accountRepository, IMapper mapper
         await accountRepository.AddRangeAsync(accounts);
         return new Empty();
     }
+
+    public override async Task<CountResponse> GetCount(Empty request, ServerCallContext context)
+    {
+        var count = await accountRepository.GetCountAsync();
+        return new CountResponse()
+        {
+            Count = count
+        };
+    }
+
+    public override async Task<CountResponse> GetCountByCustomerId(GetAccountByCustomerIdRequest request, ServerCallContext context)
+    {
+        var accounts = await accountRepository.FindAsync(a => a.CustomerId == request.CustomerId);
+        return new CountResponse()
+        {
+            Count = accounts.Count()
+        };
+    }
+
+    public override async Task<CountResponse> GetCountByDateRange(GetByDateRangeRequest request, ServerCallContext context)
+    {
+        var count = await accountRepository.GetCountByDateRangeAsync(request.FromDate.ToDateTime(), request.ToDate.ToDateTime());
+        return new CountResponse()
+        {
+            Count = count
+        };
+    }
 }

@@ -94,4 +94,13 @@ public class LoanService(ILoanRepository loanRepository, IMapper mapper)
             Loans = { mapper.Map<IEnumerable<LoanModel>>(loans) }
         };
     }
+
+    public override async Task<CountResponse> GetCount(Empty request, ServerCallContext context)
+    {
+        var count = await loanRepository.GetCountAsync();
+        return new CountResponse()
+        {
+            Count = count
+        };
+    }
 }

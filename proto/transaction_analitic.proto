@@ -6,11 +6,12 @@ option csharp_namespace = "Core";
 
 import "google/protobuf/timestamp.proto";
 import "transaction.proto";
+import "custom_types.proto";
 
 service TransactionAnalyticService {
     rpc GetSumOfTransactionsByDateRange (GetSumOfTransactionsByDateRangeRequest) returns (GetSumOfTransactionsByDateRangeResponse);
     rpc GetAverageOfTransactionsByDateRange (GetAverageOfTransactionsByDateRangeRequest) returns (GetAverageOfTransactionsByDateRangeResponse);
-    rpc GetCountOfTransactionsByDateRange (GetCountOfTransactionsByDateRangeRequest) returns (GetCountOfTransactionsByDateRangeResponse);
+    rpc GetCountOfTransactionsByDateRange (GetCountOfTransactionsByDateRangeRequest) returns (CountResponse);
     rpc GetMostFrequentTransactionsByDateRange (GetMostFrequentTransactionsByDateRangeRequest) returns (GetMostFrequentTransactionsByDateRangeResponse);
     rpc GetAnomalousTransactionsByDateRange (GetAnomalousTransactionsByDateRangeRequest) returns (GetAnomalousTransactionsByDateRangeResponse);
 }

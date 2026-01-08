@@ -23,6 +23,7 @@ service NotificationService {
   rpc AddBulk (AddNotificationBulkRequest) returns (google.protobuf.Empty);
   rpc UpdateBulk (UpdateNotificationBulkRequest) returns (google.protobuf.Empty);
   rpc DeleteBulk (DeleteNotificationBulkRequest) returns (google.protobuf.Empty);
+  rpc GetCount (google.protobuf.Empty) returns (CountResponse);
 }
 
 message NotificationModel {
@@ -78,4 +79,3 @@ message UpdateNotificationBulkRequest {
 message DeleteNotificationBulkRequest {
   repeated DeleteNotificationRequest notifications = 1;
 }
-

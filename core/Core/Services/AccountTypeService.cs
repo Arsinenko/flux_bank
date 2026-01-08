@@ -103,4 +103,13 @@ public class AccountTypeService(IAccountTypeRepository accountTypeRepository, IM
             AccountTypes = { mapper.Map<IEnumerable<AccountTypeModel>>(accountTypes) }
         };
     }
+
+    public override async Task<CountResponse> GetCount(Empty request, ServerCallContext context)
+    {
+        var count = await accountTypeRepository.GetCountAsync();
+        return new CountResponse()
+        {
+            Count = count
+        };
+    }
 }

@@ -21,6 +21,7 @@ service ExchangeRateService {
   rpc AddBulk (AddExchangeRateBulkRequest) returns (google.protobuf.Empty);
   rpc UpdateBulk (UpdateExchangeRateBulkRequest) returns (google.protobuf.Empty);
   rpc DeleteBulk (DeleteExchangeRateBulkRequest) returns (google.protobuf.Empty);
+  rpc GetCount (google.protobuf.Empty) returns (CountResponse);
 }
 
 message ExchangeRateModel {
@@ -75,4 +76,3 @@ message UpdateExchangeRateBulkRequest {
 message DeleteExchangeRateBulkRequest {
   repeated DeleteExchangeRateRequest exchange_rates = 1;
 }
-

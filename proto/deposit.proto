@@ -21,6 +21,7 @@ service DepositService {
   rpc AddBulk (AddDepositBulkRequest) returns (google.protobuf.Empty);
   rpc UpdateBulk (UpdateDepositBulkRequest) returns (google.protobuf.Empty);
   rpc DeleteBulk (DeleteDepositBulkRequest) returns (google.protobuf.Empty);
+  rpc GetCount (google.protobuf.Empty) returns (CountResponse);
 }
 
 message DepositModel {
@@ -83,4 +84,3 @@ message UpdateDepositBulkRequest {
 message DeleteDepositBulkRequest {
   repeated DeleteDepositRequest deposits = 1;
 }
-

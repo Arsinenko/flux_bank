@@ -102,4 +102,13 @@ public class TransactionCategoryService(ITransactionCategoryRepository transacti
             TransactionCategories = { mapper.Map<TransactionCategoryModel>(transactionCategories) }
         };
     }
+
+    public override async Task<CountResponse> GetCount(Empty request, ServerCallContext context)
+    {
+        var count = await transactionCategoryRepository.GetCountAsync();
+        return new CountResponse()
+        {
+            Count = count
+        };
+    }
 }

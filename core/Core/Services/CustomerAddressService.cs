@@ -91,4 +91,13 @@ public class CustomerAddressService(ICustomerAddressRepository repository, IMapp
         await repository.DeleteRangeAsync(addresses!);
         return new Empty();
     }
+
+    public override async Task<CountResponse> GetCount(Empty request, ServerCallContext context)
+    {
+        var count = await repository.GetCountAsync();
+        return new CountResponse()
+        {
+            Count = count
+        };
+    }
 }

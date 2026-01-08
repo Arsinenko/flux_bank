@@ -23,6 +23,7 @@ service AtmService {
   rpc AddBulk (AddAtmBulkRequest) returns (google.protobuf.Empty);
   rpc UpdateBulk (UpdateAtmBulkRequest) returns (google.protobuf.Empty);
   rpc DeleteBulk (DeleteAtmBulkRequest) returns (google.protobuf.Empty);
+  rpc GetCount (google.protobuf.Empty) returns (CountResponse);
 }
 
 message AtmModel {
@@ -84,4 +85,3 @@ message UpdateAtmBulkRequest {
 message DeleteAtmBulkRequest {
   repeated DeleteAtmRequest atms = 1;
 }
-

@@ -38,6 +38,17 @@ public class GenericRepository<TEntity, TId>
         return await DbSet.FindAsync(id);
     }
 
+    public async Task<int> GetCountAsync()
+    {
+        return await DbSet.CountAsync();
+    }
+
+    public async Task<int> GetCountByDateRangeAsync(DateTime fromDate, DateTime ToDate)
+    {
+        return await DbSet.Where(e => 
+            EF.Property<DateTime>(e, "CreatedAt") >= fromDate && EF.Property<DateTime>(e, "CreatedAt") <= ToDate).CountAsync();
+    }
+
     public async Task<IEnumerable<TEntity?>> GetByIdsAsync(IEnumerable<TId> ids)
     {
         var keyName = GetEntityKey();

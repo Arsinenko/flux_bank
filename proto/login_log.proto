@@ -23,6 +23,7 @@ service LoginLogService {
   rpc AddBulk (AddLoginLogBulkRequest) returns (google.protobuf.Empty);
   rpc UpdateBulk (UpdateLoginLogBulkRequest) returns (google.protobuf.Empty);
   rpc DeleteBulk (DeleteLoginLogBulkRequest) returns (google.protobuf.Empty);
+  rpc GetCount (google.protobuf.Empty) returns (CountResponse);
 }
 
 message LoginLogModel {
@@ -84,4 +85,3 @@ message DeleteLoginLogRequest {
 message DeleteLoginLogBulkRequest {
   repeated DeleteLoginLogRequest login_logs = 1;
 }
-

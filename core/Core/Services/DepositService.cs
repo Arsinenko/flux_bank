@@ -89,8 +89,7 @@ public class DepositService(IDepositRepository depositRepository, IMapper mapper
 
     public override async Task<Empty> AddBulk(AddDepositBulkRequest request, ServerCallContext context)
     {
-        var deposits = request.Deposits.Select(mapper.Map<Deposit>).ToList();
-        await depositRepository.AddRangeAsync(deposits);
+        var deposits = request.Deposits.Select(mapper.Map<Deposit>).ToList(); await depositRepository.AddRangeAsync(deposits);
         return new Empty();
     }
 
@@ -109,6 +108,15 @@ public class DepositService(IDepositRepository depositRepository, IMapper mapper
         return new GetAllDepositsResponse()
         {
             Deposits = { mapper.Map<IEnumerable<DepositModel>>(deps) }
+        };
+    }
+
+    public override async Task<CountResponse> GetCount(Empty request, ServerCallContext context)
+    {
+        var count = await depositRepository.GetCountAsync();
+        return new CountResponse()
+        {
+            Count = count
         };
     }
 }

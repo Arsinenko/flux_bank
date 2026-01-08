@@ -100,4 +100,13 @@ public class BranchService(IBranchRepository branchRepository, IMapper mapper) :
             Branches = { mapper.Map<IEnumerable<BranchModel>>(branches) }
         };
     }
+
+    public override async Task<CountResponse> GetCount(Empty request, ServerCallContext context)
+    {
+        var count = await branchRepository.GetCountAsync();
+        return new CountResponse()
+        {
+            Count = count
+        };
+    }
 }
