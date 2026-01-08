@@ -4,6 +4,7 @@ import grpc
 import warnings
 
 import custom_types_pb2 as custom__types__pb2
+from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 import loan_payment_pb2 as loan__payment__pb2
 
 GRPC_GENERATED_VERSION = '1.76.0'
@@ -45,10 +46,45 @@ class LoanPaymentServiceStub(object):
                 request_serializer=loan__payment__pb2.GetLoanPaymentByIdRequest.SerializeToString,
                 response_deserializer=loan__payment__pb2.LoanPaymentModel.FromString,
                 _registered_method=True)
+        self.GetByIds = channel.unary_unary(
+                '/protos.LoanPaymentService/GetByIds',
+                request_serializer=loan__payment__pb2.GetLoanPaymentByIdsRequest.SerializeToString,
+                response_deserializer=loan__payment__pb2.GetAllLoanPaymentsResponse.FromString,
+                _registered_method=True)
         self.GetByLoan = channel.unary_unary(
                 '/protos.LoanPaymentService/GetByLoan',
                 request_serializer=loan__payment__pb2.GetLoanPaymentsByLoanRequest.SerializeToString,
                 response_deserializer=loan__payment__pb2.GetAllLoanPaymentsResponse.FromString,
+                _registered_method=True)
+        self.Add = channel.unary_unary(
+                '/protos.LoanPaymentService/Add',
+                request_serializer=loan__payment__pb2.AddLoanPaymentRequest.SerializeToString,
+                response_deserializer=loan__payment__pb2.LoanPaymentModel.FromString,
+                _registered_method=True)
+        self.Update = channel.unary_unary(
+                '/protos.LoanPaymentService/Update',
+                request_serializer=loan__payment__pb2.UpdateLoanPaymentRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                _registered_method=True)
+        self.Delete = channel.unary_unary(
+                '/protos.LoanPaymentService/Delete',
+                request_serializer=loan__payment__pb2.DeleteLoanPaymentRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                _registered_method=True)
+        self.AddBulk = channel.unary_unary(
+                '/protos.LoanPaymentService/AddBulk',
+                request_serializer=loan__payment__pb2.AddLoanPaymentBulkRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                _registered_method=True)
+        self.UpdateBulk = channel.unary_unary(
+                '/protos.LoanPaymentService/UpdateBulk',
+                request_serializer=loan__payment__pb2.UpdateLoanPaymentBulkRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                _registered_method=True)
+        self.DeleteBulk = channel.unary_unary(
+                '/protos.LoanPaymentService/DeleteBulk',
+                request_serializer=loan__payment__pb2.DeleteLoanPaymentBulkRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 _registered_method=True)
 
 
@@ -67,7 +103,49 @@ class LoanPaymentServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetByIds(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def GetByLoan(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def Add(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def Update(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def Delete(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def AddBulk(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def UpdateBulk(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def DeleteBulk(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -86,10 +164,45 @@ def add_LoanPaymentServiceServicer_to_server(servicer, server):
                     request_deserializer=loan__payment__pb2.GetLoanPaymentByIdRequest.FromString,
                     response_serializer=loan__payment__pb2.LoanPaymentModel.SerializeToString,
             ),
+            'GetByIds': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetByIds,
+                    request_deserializer=loan__payment__pb2.GetLoanPaymentByIdsRequest.FromString,
+                    response_serializer=loan__payment__pb2.GetAllLoanPaymentsResponse.SerializeToString,
+            ),
             'GetByLoan': grpc.unary_unary_rpc_method_handler(
                     servicer.GetByLoan,
                     request_deserializer=loan__payment__pb2.GetLoanPaymentsByLoanRequest.FromString,
                     response_serializer=loan__payment__pb2.GetAllLoanPaymentsResponse.SerializeToString,
+            ),
+            'Add': grpc.unary_unary_rpc_method_handler(
+                    servicer.Add,
+                    request_deserializer=loan__payment__pb2.AddLoanPaymentRequest.FromString,
+                    response_serializer=loan__payment__pb2.LoanPaymentModel.SerializeToString,
+            ),
+            'Update': grpc.unary_unary_rpc_method_handler(
+                    servicer.Update,
+                    request_deserializer=loan__payment__pb2.UpdateLoanPaymentRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'Delete': grpc.unary_unary_rpc_method_handler(
+                    servicer.Delete,
+                    request_deserializer=loan__payment__pb2.DeleteLoanPaymentRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'AddBulk': grpc.unary_unary_rpc_method_handler(
+                    servicer.AddBulk,
+                    request_deserializer=loan__payment__pb2.AddLoanPaymentBulkRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'UpdateBulk': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateBulk,
+                    request_deserializer=loan__payment__pb2.UpdateLoanPaymentBulkRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'DeleteBulk': grpc.unary_unary_rpc_method_handler(
+                    servicer.DeleteBulk,
+                    request_deserializer=loan__payment__pb2.DeleteLoanPaymentBulkRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -157,6 +270,33 @@ class LoanPaymentService(object):
             _registered_method=True)
 
     @staticmethod
+    def GetByIds(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.LoanPaymentService/GetByIds',
+            loan__payment__pb2.GetLoanPaymentByIdsRequest.SerializeToString,
+            loan__payment__pb2.GetAllLoanPaymentsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
     def GetByLoan(request,
             target,
             options=(),
@@ -173,6 +313,168 @@ class LoanPaymentService(object):
             '/protos.LoanPaymentService/GetByLoan',
             loan__payment__pb2.GetLoanPaymentsByLoanRequest.SerializeToString,
             loan__payment__pb2.GetAllLoanPaymentsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def Add(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.LoanPaymentService/Add',
+            loan__payment__pb2.AddLoanPaymentRequest.SerializeToString,
+            loan__payment__pb2.LoanPaymentModel.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def Update(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.LoanPaymentService/Update',
+            loan__payment__pb2.UpdateLoanPaymentRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def Delete(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.LoanPaymentService/Delete',
+            loan__payment__pb2.DeleteLoanPaymentRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def AddBulk(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.LoanPaymentService/AddBulk',
+            loan__payment__pb2.AddLoanPaymentBulkRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def UpdateBulk(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.LoanPaymentService/UpdateBulk',
+            loan__payment__pb2.UpdateLoanPaymentBulkRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def DeleteBulk(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.LoanPaymentService/DeleteBulk',
+            loan__payment__pb2.DeleteLoanPaymentBulkRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options,
             channel_credentials,
             insecure,

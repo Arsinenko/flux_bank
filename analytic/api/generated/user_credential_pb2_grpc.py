@@ -3,6 +3,7 @@
 import grpc
 import warnings
 
+import custom_types_pb2 as custom__types__pb2
 from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 import user_credential_pb2 as user__credential__pb2
 
@@ -37,7 +38,7 @@ class UserCredentialServiceStub(object):
         """
         self.GetAll = channel.unary_unary(
                 '/protos.UserCredentialService/GetAll',
-                request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+                request_serializer=custom__types__pb2.GetAllRequest.SerializeToString,
                 response_deserializer=user__credential__pb2.GetAllUserCredentialsResponse.FromString,
                 _registered_method=True)
         self.GetById = channel.unary_unary(
@@ -45,10 +46,45 @@ class UserCredentialServiceStub(object):
                 request_serializer=user__credential__pb2.GetUserCredentialByIdRequest.SerializeToString,
                 response_deserializer=user__credential__pb2.UserCredentialModel.FromString,
                 _registered_method=True)
+        self.GetByIds = channel.unary_unary(
+                '/protos.UserCredentialService/GetByIds',
+                request_serializer=user__credential__pb2.GetUserCredentialByIdsRequest.SerializeToString,
+                response_deserializer=user__credential__pb2.GetAllUserCredentialsResponse.FromString,
+                _registered_method=True)
         self.GetByUsername = channel.unary_unary(
                 '/protos.UserCredentialService/GetByUsername',
                 request_serializer=user__credential__pb2.GetUserCredentialByUsernameRequest.SerializeToString,
                 response_deserializer=user__credential__pb2.UserCredentialModel.FromString,
+                _registered_method=True)
+        self.Add = channel.unary_unary(
+                '/protos.UserCredentialService/Add',
+                request_serializer=user__credential__pb2.AddUserCredentialRequest.SerializeToString,
+                response_deserializer=user__credential__pb2.UserCredentialModel.FromString,
+                _registered_method=True)
+        self.Update = channel.unary_unary(
+                '/protos.UserCredentialService/Update',
+                request_serializer=user__credential__pb2.UpdateUserCredentialRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                _registered_method=True)
+        self.Delete = channel.unary_unary(
+                '/protos.UserCredentialService/Delete',
+                request_serializer=user__credential__pb2.DeleteUserCredentialRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                _registered_method=True)
+        self.AddBulk = channel.unary_unary(
+                '/protos.UserCredentialService/AddBulk',
+                request_serializer=user__credential__pb2.AddUserCredentialBulkRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                _registered_method=True)
+        self.UpdateBulk = channel.unary_unary(
+                '/protos.UserCredentialService/UpdateBulk',
+                request_serializer=user__credential__pb2.UpdateUserCredentialBulkRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                _registered_method=True)
+        self.DeleteBulk = channel.unary_unary(
+                '/protos.UserCredentialService/DeleteBulk',
+                request_serializer=user__credential__pb2.DeleteUserCredentialBulkRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 _registered_method=True)
 
 
@@ -67,7 +103,49 @@ class UserCredentialServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetByIds(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def GetByUsername(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def Add(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def Update(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def Delete(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def AddBulk(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def UpdateBulk(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def DeleteBulk(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -78,7 +156,7 @@ def add_UserCredentialServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'GetAll': grpc.unary_unary_rpc_method_handler(
                     servicer.GetAll,
-                    request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                    request_deserializer=custom__types__pb2.GetAllRequest.FromString,
                     response_serializer=user__credential__pb2.GetAllUserCredentialsResponse.SerializeToString,
             ),
             'GetById': grpc.unary_unary_rpc_method_handler(
@@ -86,10 +164,45 @@ def add_UserCredentialServiceServicer_to_server(servicer, server):
                     request_deserializer=user__credential__pb2.GetUserCredentialByIdRequest.FromString,
                     response_serializer=user__credential__pb2.UserCredentialModel.SerializeToString,
             ),
+            'GetByIds': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetByIds,
+                    request_deserializer=user__credential__pb2.GetUserCredentialByIdsRequest.FromString,
+                    response_serializer=user__credential__pb2.GetAllUserCredentialsResponse.SerializeToString,
+            ),
             'GetByUsername': grpc.unary_unary_rpc_method_handler(
                     servicer.GetByUsername,
                     request_deserializer=user__credential__pb2.GetUserCredentialByUsernameRequest.FromString,
                     response_serializer=user__credential__pb2.UserCredentialModel.SerializeToString,
+            ),
+            'Add': grpc.unary_unary_rpc_method_handler(
+                    servicer.Add,
+                    request_deserializer=user__credential__pb2.AddUserCredentialRequest.FromString,
+                    response_serializer=user__credential__pb2.UserCredentialModel.SerializeToString,
+            ),
+            'Update': grpc.unary_unary_rpc_method_handler(
+                    servicer.Update,
+                    request_deserializer=user__credential__pb2.UpdateUserCredentialRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'Delete': grpc.unary_unary_rpc_method_handler(
+                    servicer.Delete,
+                    request_deserializer=user__credential__pb2.DeleteUserCredentialRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'AddBulk': grpc.unary_unary_rpc_method_handler(
+                    servicer.AddBulk,
+                    request_deserializer=user__credential__pb2.AddUserCredentialBulkRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'UpdateBulk': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateBulk,
+                    request_deserializer=user__credential__pb2.UpdateUserCredentialBulkRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'DeleteBulk': grpc.unary_unary_rpc_method_handler(
+                    servicer.DeleteBulk,
+                    request_deserializer=user__credential__pb2.DeleteUserCredentialBulkRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -117,7 +230,7 @@ class UserCredentialService(object):
             request,
             target,
             '/protos.UserCredentialService/GetAll',
-            google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            custom__types__pb2.GetAllRequest.SerializeToString,
             user__credential__pb2.GetAllUserCredentialsResponse.FromString,
             options,
             channel_credentials,
@@ -157,6 +270,33 @@ class UserCredentialService(object):
             _registered_method=True)
 
     @staticmethod
+    def GetByIds(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.UserCredentialService/GetByIds',
+            user__credential__pb2.GetUserCredentialByIdsRequest.SerializeToString,
+            user__credential__pb2.GetAllUserCredentialsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
     def GetByUsername(request,
             target,
             options=(),
@@ -173,6 +313,168 @@ class UserCredentialService(object):
             '/protos.UserCredentialService/GetByUsername',
             user__credential__pb2.GetUserCredentialByUsernameRequest.SerializeToString,
             user__credential__pb2.UserCredentialModel.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def Add(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.UserCredentialService/Add',
+            user__credential__pb2.AddUserCredentialRequest.SerializeToString,
+            user__credential__pb2.UserCredentialModel.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def Update(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.UserCredentialService/Update',
+            user__credential__pb2.UpdateUserCredentialRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def Delete(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.UserCredentialService/Delete',
+            user__credential__pb2.DeleteUserCredentialRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def AddBulk(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.UserCredentialService/AddBulk',
+            user__credential__pb2.AddUserCredentialBulkRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def UpdateBulk(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.UserCredentialService/UpdateBulk',
+            user__credential__pb2.UpdateUserCredentialBulkRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def DeleteBulk(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.UserCredentialService/DeleteBulk',
+            user__credential__pb2.DeleteUserCredentialBulkRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options,
             channel_credentials,
             insecure,

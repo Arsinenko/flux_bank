@@ -88,6 +88,22 @@ class GetLoanPaymentByIdRequest(google.protobuf.message.Message):
 Global___GetLoanPaymentByIdRequest: typing_extensions.TypeAlias = GetLoanPaymentByIdRequest
 
 @typing.final
+class GetLoanPaymentByIdsRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    PAYMENT_IDS_FIELD_NUMBER: builtins.int
+    @property
+    def payment_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
+    def __init__(
+        self,
+        *,
+        payment_ids: collections.abc.Iterable[builtins.int] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["payment_ids", b"payment_ids"]) -> None: ...
+
+Global___GetLoanPaymentByIdsRequest: typing_extensions.TypeAlias = GetLoanPaymentByIdsRequest
+
+@typing.final
 class GetLoanPaymentsByLoanRequest(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -101,3 +117,137 @@ class GetLoanPaymentsByLoanRequest(google.protobuf.message.Message):
     def ClearField(self, field_name: typing.Literal["loan_id", b"loan_id"]) -> None: ...
 
 Global___GetLoanPaymentsByLoanRequest: typing_extensions.TypeAlias = GetLoanPaymentsByLoanRequest
+
+@typing.final
+class AddLoanPaymentRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    LOAN_ID_FIELD_NUMBER: builtins.int
+    AMOUNT_FIELD_NUMBER: builtins.int
+    PAYMENT_DATE_FIELD_NUMBER: builtins.int
+    IS_PAID_FIELD_NUMBER: builtins.int
+    loan_id: builtins.int
+    amount: builtins.str
+    is_paid: builtins.bool
+    @property
+    def payment_date(self) -> custom_types_pb2.DateOnly: ...
+    def __init__(
+        self,
+        *,
+        loan_id: builtins.int | None = ...,
+        amount: builtins.str | None = ...,
+        payment_date: custom_types_pb2.DateOnly | None = ...,
+        is_paid: builtins.bool | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["_amount", b"_amount", "_is_paid", b"_is_paid", "_loan_id", b"_loan_id", "_payment_date", b"_payment_date", "amount", b"amount", "is_paid", b"is_paid", "loan_id", b"loan_id", "payment_date", b"payment_date"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_amount", b"_amount", "_is_paid", b"_is_paid", "_loan_id", b"_loan_id", "_payment_date", b"_payment_date", "amount", b"amount", "is_paid", b"is_paid", "loan_id", b"loan_id", "payment_date", b"payment_date"]) -> None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_amount", b"_amount"]) -> typing.Literal["amount"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_is_paid", b"_is_paid"]) -> typing.Literal["is_paid"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_loan_id", b"_loan_id"]) -> typing.Literal["loan_id"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_payment_date", b"_payment_date"]) -> typing.Literal["payment_date"] | None: ...
+
+Global___AddLoanPaymentRequest: typing_extensions.TypeAlias = AddLoanPaymentRequest
+
+@typing.final
+class AddLoanPaymentBulkRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    PAYMENTS_FIELD_NUMBER: builtins.int
+    @property
+    def payments(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___AddLoanPaymentRequest]: ...
+    def __init__(
+        self,
+        *,
+        payments: collections.abc.Iterable[Global___AddLoanPaymentRequest] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["payments", b"payments"]) -> None: ...
+
+Global___AddLoanPaymentBulkRequest: typing_extensions.TypeAlias = AddLoanPaymentBulkRequest
+
+@typing.final
+class UpdateLoanPaymentRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    PAYMENT_ID_FIELD_NUMBER: builtins.int
+    LOAN_ID_FIELD_NUMBER: builtins.int
+    AMOUNT_FIELD_NUMBER: builtins.int
+    PAYMENT_DATE_FIELD_NUMBER: builtins.int
+    IS_PAID_FIELD_NUMBER: builtins.int
+    payment_id: builtins.int
+    loan_id: builtins.int
+    amount: builtins.str
+    is_paid: builtins.bool
+    @property
+    def payment_date(self) -> custom_types_pb2.DateOnly: ...
+    def __init__(
+        self,
+        *,
+        payment_id: builtins.int = ...,
+        loan_id: builtins.int | None = ...,
+        amount: builtins.str | None = ...,
+        payment_date: custom_types_pb2.DateOnly | None = ...,
+        is_paid: builtins.bool | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["_amount", b"_amount", "_is_paid", b"_is_paid", "_loan_id", b"_loan_id", "_payment_date", b"_payment_date", "amount", b"amount", "is_paid", b"is_paid", "loan_id", b"loan_id", "payment_date", b"payment_date"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_amount", b"_amount", "_is_paid", b"_is_paid", "_loan_id", b"_loan_id", "_payment_date", b"_payment_date", "amount", b"amount", "is_paid", b"is_paid", "loan_id", b"loan_id", "payment_date", b"payment_date", "payment_id", b"payment_id"]) -> None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_amount", b"_amount"]) -> typing.Literal["amount"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_is_paid", b"_is_paid"]) -> typing.Literal["is_paid"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_loan_id", b"_loan_id"]) -> typing.Literal["loan_id"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_payment_date", b"_payment_date"]) -> typing.Literal["payment_date"] | None: ...
+
+Global___UpdateLoanPaymentRequest: typing_extensions.TypeAlias = UpdateLoanPaymentRequest
+
+@typing.final
+class UpdateLoanPaymentBulkRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    PAYMENTS_FIELD_NUMBER: builtins.int
+    @property
+    def payments(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___UpdateLoanPaymentRequest]: ...
+    def __init__(
+        self,
+        *,
+        payments: collections.abc.Iterable[Global___UpdateLoanPaymentRequest] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["payments", b"payments"]) -> None: ...
+
+Global___UpdateLoanPaymentBulkRequest: typing_extensions.TypeAlias = UpdateLoanPaymentBulkRequest
+
+@typing.final
+class DeleteLoanPaymentRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    PAYMENT_ID_FIELD_NUMBER: builtins.int
+    payment_id: builtins.int
+    def __init__(
+        self,
+        *,
+        payment_id: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["payment_id", b"payment_id"]) -> None: ...
+
+Global___DeleteLoanPaymentRequest: typing_extensions.TypeAlias = DeleteLoanPaymentRequest
+
+@typing.final
+class DeleteLoanPaymentBulkRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    PAYMENTS_FIELD_NUMBER: builtins.int
+    @property
+    def payments(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___DeleteLoanPaymentRequest]: ...
+    def __init__(
+        self,
+        *,
+        payments: collections.abc.Iterable[Global___DeleteLoanPaymentRequest] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["payments", b"payments"]) -> None: ...
+
+Global___DeleteLoanPaymentBulkRequest: typing_extensions.TypeAlias = DeleteLoanPaymentBulkRequest

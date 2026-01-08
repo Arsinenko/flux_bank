@@ -583,7 +583,7 @@ var File_exchange_rate_proto protoreflect.FileDescriptor
 
 const file_exchange_rate_proto_rawDesc = "" +
 	"\n" +
-	"\x13exchange_rate.proto\x12\x06protos\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x12custom_types.proto\"\x9b\x02\n" +
+	"\x13exchange_rate.proto\x12\x06protos\x1a\x12custom_types.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\x9b\x02\n" +
 	"\x11ExchangeRateModel\x12\x17\n" +
 	"\arate_id\x18\x01 \x01(\x05R\x06rateId\x12(\n" +
 	"\rbase_currency\x18\x02 \x01(\tH\x00R\fbaseCurrency\x88\x01\x01\x12,\n" +
@@ -638,7 +638,7 @@ const file_exchange_rate_proto_rawDesc = "" +
 	"\n" +
 	"UpdateBulk\x12%.protos.UpdateExchangeRateBulkRequest\x1a\x16.google.protobuf.Empty\x12K\n" +
 	"\n" +
-	"DeleteBulk\x12%.protos.DeleteExchangeRateBulkRequest\x1a\x16.google.protobuf.EmptyB\x1bZ\x19orch-go/gen/protos;protosb\x06proto3"
+	"DeleteBulk\x12%.protos.DeleteExchangeRateBulkRequest\x1a\x16.google.protobuf.EmptyB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
 
 var (
 	file_exchange_rate_proto_rawDescOnce sync.Once

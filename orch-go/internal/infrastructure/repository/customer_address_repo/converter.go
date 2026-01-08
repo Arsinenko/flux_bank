@@ -10,13 +10,13 @@ func ToDomain(p *pb.CustomerAddressModel) *customerAdress.CustomerAddress {
 		return nil
 	}
 	return &customerAdress.CustomerAddress{
-		Id:          &p.AddressId,
-		Customer_id: *p.CustomerId,
-		Country:     *p.Country,
-		City:        *p.City,
-		Street:      *p.Street,
-		ZipCode:     *p.ZipCode,
-		IsPrimary:   *p.IsPrimary,
+		Id:         &p.AddressId,
+		CustomerId: *p.CustomerId,
+		Country:    *p.Country,
+		City:       *p.City,
+		Street:     *p.Street,
+		ZipCode:    *p.ZipCode,
+		IsPrimary:  *p.IsPrimary,
 	}
 }
 
@@ -26,7 +26,7 @@ func ToProto(c *customerAdress.CustomerAddress) *pb.CustomerAddressModel {
 	}
 	return &pb.CustomerAddressModel{
 		AddressId:  *c.Id,
-		CustomerId: &c.Customer_id,
+		CustomerId: &c.CustomerId,
 		Country:    &c.Country,
 		City:       &c.City,
 		Street:     &c.Street,

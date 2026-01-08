@@ -22,23 +22,38 @@ _runtime_version.ValidateProtobufRuntimeVersion(
 _sym_db = _symbol_database.Default()
 
 
-from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 import custom_types_pb2 as custom__types__pb2
+from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0e\x66\x65\x65_type.proto\x12\x06protos\x1a\x1bgoogle/protobuf/empty.proto\x1a\x12\x63ustom_types.proto\"d\n\x0c\x46\x65\x65TypeModel\x12\x0e\n\x06\x66\x65\x65_id\x18\x01 \x01(\x05\x12\x11\n\x04name\x18\x02 \x01(\tH\x00\x88\x01\x01\x12\x18\n\x0b\x64\x65scription\x18\x03 \x01(\tH\x01\x88\x01\x01\x42\x07\n\x05_nameB\x0e\n\x0c_description\"A\n\x16GetAllFeeTypesResponse\x12\'\n\tfee_types\x18\x01 \x03(\x0b\x32\x14.protos.FeeTypeModel\"\'\n\x15GetFeeTypeByIdRequest\x12\x0e\n\x06\x66\x65\x65_id\x18\x01 \x01(\x05\x32\x91\x01\n\x0e\x46\x65\x65TypeService\x12?\n\x06GetAll\x12\x15.protos.GetAllRequest\x1a\x1e.protos.GetAllFeeTypesResponse\x12>\n\x07GetById\x12\x1d.protos.GetFeeTypeByIdRequest\x1a\x14.protos.FeeTypeModelb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0e\x66\x65\x65_type.proto\x12\x06protos\x1a\x12\x63ustom_types.proto\x1a\x1bgoogle/protobuf/empty.proto\"d\n\x0c\x46\x65\x65TypeModel\x12\x0e\n\x06\x66\x65\x65_id\x18\x01 \x01(\x05\x12\x11\n\x04name\x18\x02 \x01(\tH\x00\x88\x01\x01\x12\x18\n\x0b\x64\x65scription\x18\x03 \x01(\tH\x01\x88\x01\x01\x42\x07\n\x05_nameB\x0e\n\x0c_description\"A\n\x16GetAllFeeTypesResponse\x12\'\n\tfee_types\x18\x01 \x03(\x0b\x32\x14.protos.FeeTypeModel\"\'\n\x15GetFeeTypeByIdRequest\x12\x0e\n\x06\x66\x65\x65_id\x18\x01 \x01(\x05\")\n\x16GetFeeTypeByIdsRequest\x12\x0f\n\x07\x66\x65\x65_ids\x18\x01 \x03(\x05\"Y\n\x11\x41\x64\x64\x46\x65\x65TypeRequest\x12\x11\n\x04name\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x18\n\x0b\x64\x65scription\x18\x02 \x01(\tH\x01\x88\x01\x01\x42\x07\n\x05_nameB\x0e\n\x0c_description\"l\n\x14UpdateFeeTypeRequest\x12\x0e\n\x06\x66\x65\x65_id\x18\x01 \x01(\x05\x12\x11\n\x04name\x18\x02 \x01(\tH\x00\x88\x01\x01\x12\x18\n\x0b\x64\x65scription\x18\x03 \x01(\tH\x01\x88\x01\x01\x42\x07\n\x05_nameB\x0e\n\x0c_description\"&\n\x14\x44\x65leteFeeTypeRequest\x12\x0e\n\x06\x66\x65\x65_id\x18\x01 \x01(\x05\"E\n\x15\x41\x64\x64\x46\x65\x65TypeBulkRequest\x12,\n\tfee_types\x18\x01 \x03(\x0b\x32\x19.protos.AddFeeTypeRequest\"K\n\x18UpdateFeeTypeBulkRequest\x12/\n\tfee_types\x18\x01 \x03(\x0b\x32\x1c.protos.UpdateFeeTypeRequest\"K\n\x18\x44\x65leteFeeTypeBulkRequest\x12/\n\tfee_types\x18\x01 \x03(\x0b\x32\x1c.protos.DeleteFeeTypeRequest2\xe7\x04\n\x0e\x46\x65\x65TypeService\x12?\n\x06GetAll\x12\x15.protos.GetAllRequest\x1a\x1e.protos.GetAllFeeTypesResponse\x12>\n\x07GetById\x12\x1d.protos.GetFeeTypeByIdRequest\x1a\x14.protos.FeeTypeModel\x12J\n\x08GetByIds\x12\x1e.protos.GetFeeTypeByIdsRequest\x1a\x1e.protos.GetAllFeeTypesResponse\x12\x36\n\x03\x41\x64\x64\x12\x19.protos.AddFeeTypeRequest\x1a\x14.protos.FeeTypeModel\x12>\n\x06Update\x12\x1c.protos.UpdateFeeTypeRequest\x1a\x16.google.protobuf.Empty\x12>\n\x06\x44\x65lete\x12\x1c.protos.DeleteFeeTypeRequest\x1a\x16.google.protobuf.Empty\x12@\n\x07\x41\x64\x64\x42ulk\x12\x1d.protos.AddFeeTypeBulkRequest\x1a\x16.google.protobuf.Empty\x12\x46\n\nUpdateBulk\x12 .protos.UpdateFeeTypeBulkRequest\x1a\x16.google.protobuf.Empty\x12\x46\n\nDeleteBulk\x12 .protos.DeleteFeeTypeBulkRequest\x1a\x16.google.protobuf.EmptyB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04\x43oreb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'fee_type_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
-  DESCRIPTOR._loaded_options = None
+  _globals['DESCRIPTOR']._loaded_options = None
+  _globals['DESCRIPTOR']._serialized_options = b'Z\031orch-go/gen/protos;protos\252\002\004Core'
   _globals['_FEETYPEMODEL']._serialized_start=75
   _globals['_FEETYPEMODEL']._serialized_end=175
   _globals['_GETALLFEETYPESRESPONSE']._serialized_start=177
   _globals['_GETALLFEETYPESRESPONSE']._serialized_end=242
   _globals['_GETFEETYPEBYIDREQUEST']._serialized_start=244
   _globals['_GETFEETYPEBYIDREQUEST']._serialized_end=283
-  _globals['_FEETYPESERVICE']._serialized_start=286
-  _globals['_FEETYPESERVICE']._serialized_end=431
+  _globals['_GETFEETYPEBYIDSREQUEST']._serialized_start=285
+  _globals['_GETFEETYPEBYIDSREQUEST']._serialized_end=326
+  _globals['_ADDFEETYPEREQUEST']._serialized_start=328
+  _globals['_ADDFEETYPEREQUEST']._serialized_end=417
+  _globals['_UPDATEFEETYPEREQUEST']._serialized_start=419
+  _globals['_UPDATEFEETYPEREQUEST']._serialized_end=527
+  _globals['_DELETEFEETYPEREQUEST']._serialized_start=529
+  _globals['_DELETEFEETYPEREQUEST']._serialized_end=567
+  _globals['_ADDFEETYPEBULKREQUEST']._serialized_start=569
+  _globals['_ADDFEETYPEBULKREQUEST']._serialized_end=638
+  _globals['_UPDATEFEETYPEBULKREQUEST']._serialized_start=640
+  _globals['_UPDATEFEETYPEBULKREQUEST']._serialized_end=715
+  _globals['_DELETEFEETYPEBULKREQUEST']._serialized_start=717
+  _globals['_DELETEFEETYPEBULKREQUEST']._serialized_end=792
+  _globals['_FEETYPESERVICE']._serialized_start=795
+  _globals['_FEETYPESERVICE']._serialized_end=1410
 # @@protoc_insertion_point(module_scope)

@@ -96,6 +96,22 @@ class GetAllAccountsResponse(google.protobuf.message.Message):
 Global___GetAllAccountsResponse: typing_extensions.TypeAlias = GetAllAccountsResponse
 
 @typing.final
+class GetAccountByIdsRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ACCOUNT_IDS_FIELD_NUMBER: builtins.int
+    @property
+    def account_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
+    def __init__(
+        self,
+        *,
+        account_ids: collections.abc.Iterable[builtins.int] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["account_ids", b"account_ids"]) -> None: ...
+
+Global___GetAccountByIdsRequest: typing_extensions.TypeAlias = GetAccountByIdsRequest
+
+@typing.final
 class GetAccountByIdRequest(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -109,3 +125,141 @@ class GetAccountByIdRequest(google.protobuf.message.Message):
     def ClearField(self, field_name: typing.Literal["account_id", b"account_id"]) -> None: ...
 
 Global___GetAccountByIdRequest: typing_extensions.TypeAlias = GetAccountByIdRequest
+
+@typing.final
+class AddAccountRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CUSTOMER_ID_FIELD_NUMBER: builtins.int
+    TYPE_ID_FIELD_NUMBER: builtins.int
+    IBAN_FIELD_NUMBER: builtins.int
+    BALANCE_FIELD_NUMBER: builtins.int
+    IS_ACTIVE_FIELD_NUMBER: builtins.int
+    customer_id: builtins.int
+    type_id: builtins.int
+    iban: builtins.str
+    balance: builtins.str
+    is_active: builtins.bool
+    def __init__(
+        self,
+        *,
+        customer_id: builtins.int | None = ...,
+        type_id: builtins.int | None = ...,
+        iban: builtins.str = ...,
+        balance: builtins.str | None = ...,
+        is_active: builtins.bool | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["_balance", b"_balance", "_customer_id", b"_customer_id", "_is_active", b"_is_active", "_type_id", b"_type_id", "balance", b"balance", "customer_id", b"customer_id", "is_active", b"is_active", "type_id", b"type_id"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_balance", b"_balance", "_customer_id", b"_customer_id", "_is_active", b"_is_active", "_type_id", b"_type_id", "balance", b"balance", "customer_id", b"customer_id", "iban", b"iban", "is_active", b"is_active", "type_id", b"type_id"]) -> None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_balance", b"_balance"]) -> typing.Literal["balance"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_customer_id", b"_customer_id"]) -> typing.Literal["customer_id"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_is_active", b"_is_active"]) -> typing.Literal["is_active"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_type_id", b"_type_id"]) -> typing.Literal["type_id"] | None: ...
+
+Global___AddAccountRequest: typing_extensions.TypeAlias = AddAccountRequest
+
+@typing.final
+class AddAccountBulkRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ACCOUNTS_FIELD_NUMBER: builtins.int
+    @property
+    def accounts(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___AddAccountRequest]: ...
+    def __init__(
+        self,
+        *,
+        accounts: collections.abc.Iterable[Global___AddAccountRequest] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["accounts", b"accounts"]) -> None: ...
+
+Global___AddAccountBulkRequest: typing_extensions.TypeAlias = AddAccountBulkRequest
+
+@typing.final
+class UpdateAccountRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ACCOUNT_ID_FIELD_NUMBER: builtins.int
+    CUSTOMER_ID_FIELD_NUMBER: builtins.int
+    TYPE_ID_FIELD_NUMBER: builtins.int
+    IBAN_FIELD_NUMBER: builtins.int
+    BALANCE_FIELD_NUMBER: builtins.int
+    IS_ACTIVE_FIELD_NUMBER: builtins.int
+    account_id: builtins.int
+    customer_id: builtins.int
+    type_id: builtins.int
+    iban: builtins.str
+    balance: builtins.str
+    is_active: builtins.bool
+    def __init__(
+        self,
+        *,
+        account_id: builtins.int = ...,
+        customer_id: builtins.int | None = ...,
+        type_id: builtins.int | None = ...,
+        iban: builtins.str = ...,
+        balance: builtins.str | None = ...,
+        is_active: builtins.bool | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["_balance", b"_balance", "_customer_id", b"_customer_id", "_is_active", b"_is_active", "_type_id", b"_type_id", "balance", b"balance", "customer_id", b"customer_id", "is_active", b"is_active", "type_id", b"type_id"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_balance", b"_balance", "_customer_id", b"_customer_id", "_is_active", b"_is_active", "_type_id", b"_type_id", "account_id", b"account_id", "balance", b"balance", "customer_id", b"customer_id", "iban", b"iban", "is_active", b"is_active", "type_id", b"type_id"]) -> None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_balance", b"_balance"]) -> typing.Literal["balance"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_customer_id", b"_customer_id"]) -> typing.Literal["customer_id"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_is_active", b"_is_active"]) -> typing.Literal["is_active"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_type_id", b"_type_id"]) -> typing.Literal["type_id"] | None: ...
+
+Global___UpdateAccountRequest: typing_extensions.TypeAlias = UpdateAccountRequest
+
+@typing.final
+class DeleteAccountRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ACCOUNT_ID_FIELD_NUMBER: builtins.int
+    account_id: builtins.int
+    def __init__(
+        self,
+        *,
+        account_id: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["account_id", b"account_id"]) -> None: ...
+
+Global___DeleteAccountRequest: typing_extensions.TypeAlias = DeleteAccountRequest
+
+@typing.final
+class UpdateAccountBulkRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ACCOUNTS_FIELD_NUMBER: builtins.int
+    @property
+    def accounts(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___UpdateAccountRequest]: ...
+    def __init__(
+        self,
+        *,
+        accounts: collections.abc.Iterable[Global___UpdateAccountRequest] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["accounts", b"accounts"]) -> None: ...
+
+Global___UpdateAccountBulkRequest: typing_extensions.TypeAlias = UpdateAccountBulkRequest
+
+@typing.final
+class DeleteAccountBulkRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ACCOUNTS_FIELD_NUMBER: builtins.int
+    @property
+    def accounts(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___DeleteAccountRequest]: ...
+    def __init__(
+        self,
+        *,
+        accounts: collections.abc.Iterable[Global___DeleteAccountRequest] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["accounts", b"accounts"]) -> None: ...
+
+Global___DeleteAccountBulkRequest: typing_extensions.TypeAlias = DeleteAccountBulkRequest

@@ -5,6 +5,7 @@ import warnings
 
 import custom_types_pb2 as custom__types__pb2
 import deposit_pb2 as deposit__pb2
+from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 
 GRPC_GENERATED_VERSION = '1.76.0'
 GRPC_VERSION = grpc.__version__
@@ -45,10 +46,45 @@ class DepositServiceStub(object):
                 request_serializer=deposit__pb2.GetDepositByIdRequest.SerializeToString,
                 response_deserializer=deposit__pb2.DepositModel.FromString,
                 _registered_method=True)
+        self.GetByIds = channel.unary_unary(
+                '/protos.DepositService/GetByIds',
+                request_serializer=deposit__pb2.GetDepositByIdsRequest.SerializeToString,
+                response_deserializer=deposit__pb2.GetAllDepositsResponse.FromString,
+                _registered_method=True)
         self.GetByCustomer = channel.unary_unary(
                 '/protos.DepositService/GetByCustomer',
                 request_serializer=deposit__pb2.GetDepositsByCustomerRequest.SerializeToString,
                 response_deserializer=deposit__pb2.GetAllDepositsResponse.FromString,
+                _registered_method=True)
+        self.Add = channel.unary_unary(
+                '/protos.DepositService/Add',
+                request_serializer=deposit__pb2.AddDepositRequest.SerializeToString,
+                response_deserializer=deposit__pb2.DepositModel.FromString,
+                _registered_method=True)
+        self.Update = channel.unary_unary(
+                '/protos.DepositService/Update',
+                request_serializer=deposit__pb2.UpdateDepositRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                _registered_method=True)
+        self.Delete = channel.unary_unary(
+                '/protos.DepositService/Delete',
+                request_serializer=deposit__pb2.DeleteDepositRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                _registered_method=True)
+        self.AddBulk = channel.unary_unary(
+                '/protos.DepositService/AddBulk',
+                request_serializer=deposit__pb2.AddDepositBulkRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                _registered_method=True)
+        self.UpdateBulk = channel.unary_unary(
+                '/protos.DepositService/UpdateBulk',
+                request_serializer=deposit__pb2.UpdateDepositBulkRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                _registered_method=True)
+        self.DeleteBulk = channel.unary_unary(
+                '/protos.DepositService/DeleteBulk',
+                request_serializer=deposit__pb2.DeleteDepositBulkRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 _registered_method=True)
 
 
@@ -67,7 +103,49 @@ class DepositServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetByIds(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def GetByCustomer(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def Add(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def Update(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def Delete(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def AddBulk(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def UpdateBulk(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def DeleteBulk(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -86,10 +164,45 @@ def add_DepositServiceServicer_to_server(servicer, server):
                     request_deserializer=deposit__pb2.GetDepositByIdRequest.FromString,
                     response_serializer=deposit__pb2.DepositModel.SerializeToString,
             ),
+            'GetByIds': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetByIds,
+                    request_deserializer=deposit__pb2.GetDepositByIdsRequest.FromString,
+                    response_serializer=deposit__pb2.GetAllDepositsResponse.SerializeToString,
+            ),
             'GetByCustomer': grpc.unary_unary_rpc_method_handler(
                     servicer.GetByCustomer,
                     request_deserializer=deposit__pb2.GetDepositsByCustomerRequest.FromString,
                     response_serializer=deposit__pb2.GetAllDepositsResponse.SerializeToString,
+            ),
+            'Add': grpc.unary_unary_rpc_method_handler(
+                    servicer.Add,
+                    request_deserializer=deposit__pb2.AddDepositRequest.FromString,
+                    response_serializer=deposit__pb2.DepositModel.SerializeToString,
+            ),
+            'Update': grpc.unary_unary_rpc_method_handler(
+                    servicer.Update,
+                    request_deserializer=deposit__pb2.UpdateDepositRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'Delete': grpc.unary_unary_rpc_method_handler(
+                    servicer.Delete,
+                    request_deserializer=deposit__pb2.DeleteDepositRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'AddBulk': grpc.unary_unary_rpc_method_handler(
+                    servicer.AddBulk,
+                    request_deserializer=deposit__pb2.AddDepositBulkRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'UpdateBulk': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateBulk,
+                    request_deserializer=deposit__pb2.UpdateDepositBulkRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'DeleteBulk': grpc.unary_unary_rpc_method_handler(
+                    servicer.DeleteBulk,
+                    request_deserializer=deposit__pb2.DeleteDepositBulkRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -157,6 +270,33 @@ class DepositService(object):
             _registered_method=True)
 
     @staticmethod
+    def GetByIds(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.DepositService/GetByIds',
+            deposit__pb2.GetDepositByIdsRequest.SerializeToString,
+            deposit__pb2.GetAllDepositsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
     def GetByCustomer(request,
             target,
             options=(),
@@ -173,6 +313,168 @@ class DepositService(object):
             '/protos.DepositService/GetByCustomer',
             deposit__pb2.GetDepositsByCustomerRequest.SerializeToString,
             deposit__pb2.GetAllDepositsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def Add(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.DepositService/Add',
+            deposit__pb2.AddDepositRequest.SerializeToString,
+            deposit__pb2.DepositModel.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def Update(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.DepositService/Update',
+            deposit__pb2.UpdateDepositRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def Delete(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.DepositService/Delete',
+            deposit__pb2.DeleteDepositRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def AddBulk(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.DepositService/AddBulk',
+            deposit__pb2.AddDepositBulkRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def UpdateBulk(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.DepositService/UpdateBulk',
+            deposit__pb2.UpdateDepositBulkRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def DeleteBulk(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.DepositService/DeleteBulk',
+            deposit__pb2.DeleteDepositBulkRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options,
             channel_credentials,
             insecure,

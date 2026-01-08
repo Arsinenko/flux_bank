@@ -2,7 +2,7 @@
 
 set -e
 
-PROTO_DIR="../api/proto/bank"
+PROTO_DIR="../../proto"
 OUT_DIR="../api/generated"
 
 echo "Generating gRPC Python files..."

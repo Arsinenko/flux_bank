@@ -1,0 +1,87 @@
+syntax = "proto3";
+
+package protos;
+option go_package = "orch-go/gen/protos;protos";
+option csharp_namespace = "Core";
+
+
+
+import "custom_types.proto";
+import "google/protobuf/empty.proto";
+import "branch.proto";
+
+service AtmService {
+  rpc GetAll (GetAllRequest) returns (GetAllAtmsResponse);
+  rpc GetById (GetAtmByIdRequest) returns (AtmModel);
+  rpc GetByIds (GetAtmByIdsRequest) returns (GetAllAtmsResponse);
+  rpc GetByStatus (GetAtmsByStatusRequest) returns (GetAllAtmsResponse);
+  rpc GetByLocationSubStr (GetAtmsByLocationSubStrRequest) returns (GetAllAtmsResponse);
+  rpc GetByBranch (GetAtmsByBranchRequest) returns (GetAllAtmsResponse);
+  rpc Add (AddAtmRequest) returns (AtmModel);
+  rpc Update (UpdateAtmRequest) returns (google.protobuf.Empty);
+  rpc Delete (DeleteAtmRequest) returns (google.protobuf.Empty);
+  rpc AddBulk (AddAtmBulkRequest) returns (google.protobuf.Empty);
+  rpc UpdateBulk (UpdateAtmBulkRequest) returns (google.protobuf.Empty);
+  rpc DeleteBulk (DeleteAtmBulkRequest) returns (google.protobuf.Empty);
+}
+
+message AtmModel {
+  int32 atm_id = 1;
+  optional int32 branch_id = 2;
+  optional string location = 3;
+  optional string status = 4;
+}
+
+message GetAtmsByStatusRequest {
+  string status = 1;
+}
+
+message GetAtmsByLocationSubStrRequest {
+  string sub_str = 1;
+}
+
+message GetAtmsByBranchRequest {
+  int32 branch_id = 1;
+}
+
+message GetAllAtmsResponse {
+  repeated AtmModel atms = 1;
+}
+
+message GetAtmByIdRequest {
+  int32 atm_id = 1;
+}
+
+message GetAtmByIdsRequest {
+  repeated int32 atm_ids = 1;
+}
+
+message AddAtmRequest {
+  optional int32 branch_id = 1;
+  optional string location = 2;
+  optional string status = 3;
+}
+
+message UpdateAtmRequest {
+  int32 atm_id = 1;
+  optional int32 branch_id = 2;
+  optional string location = 3;
+  optional string status = 4;
+}
+
+message DeleteAtmRequest {
+  int32 atm_id = 1;
+}
+
+message AddAtmBulkRequest {
+  repeated AddAtmRequest atms = 1;
+}
+
+message UpdateAtmBulkRequest {
+  repeated UpdateAtmRequest atms = 1;
+}
+
+message DeleteAtmBulkRequest {
+  repeated DeleteAtmRequest atms = 1;
+}
+

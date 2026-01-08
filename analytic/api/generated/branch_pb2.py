@@ -22,23 +22,38 @@ _runtime_version.ValidateProtobufRuntimeVersion(
 _sym_db = _symbol_database.Default()
 
 
-from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 import custom_types_pb2 as custom__types__pb2
+from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0c\x62ranch.proto\x12\x06protos\x1a\x1bgoogle/protobuf/empty.proto\x1a\x12\x63ustom_types.proto\"\x98\x01\n\x0b\x42ranchModel\x12\x11\n\tbranch_id\x18\x01 \x01(\x05\x12\x11\n\x04name\x18\x02 \x01(\tH\x00\x88\x01\x01\x12\x11\n\x04\x63ity\x18\x03 \x01(\tH\x01\x88\x01\x01\x12\x14\n\x07\x61\x64\x64ress\x18\x04 \x01(\tH\x02\x88\x01\x01\x12\x12\n\x05phone\x18\x05 \x01(\tH\x03\x88\x01\x01\x42\x07\n\x05_nameB\x07\n\x05_cityB\n\n\x08_addressB\x08\n\x06_phone\"?\n\x16GetAllBranchesResponse\x12%\n\x08\x62ranches\x18\x01 \x03(\x0b\x32\x13.protos.BranchModel\")\n\x14GetBranchByIdRequest\x12\x11\n\tbranch_id\x18\x01 \x01(\x05\x32\x8e\x01\n\rBranchService\x12?\n\x06GetAll\x12\x15.protos.GetAllRequest\x1a\x1e.protos.GetAllBranchesResponse\x12<\n\x07GetById\x12\x1c.protos.GetBranchByIdRequest\x1a\x13.protos.BranchModelb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0c\x62ranch.proto\x12\x06protos\x1a\x12\x63ustom_types.proto\x1a\x1bgoogle/protobuf/empty.proto\"\x98\x01\n\x0b\x42ranchModel\x12\x11\n\tbranch_id\x18\x01 \x01(\x05\x12\x11\n\x04name\x18\x02 \x01(\tH\x00\x88\x01\x01\x12\x11\n\x04\x63ity\x18\x03 \x01(\tH\x01\x88\x01\x01\x12\x14\n\x07\x61\x64\x64ress\x18\x04 \x01(\tH\x02\x88\x01\x01\x12\x12\n\x05phone\x18\x05 \x01(\tH\x03\x88\x01\x01\x42\x07\n\x05_nameB\x07\n\x05_cityB\n\n\x08_addressB\x08\n\x06_phone\"?\n\x16GetAllBranchesResponse\x12%\n\x08\x62ranches\x18\x01 \x03(\x0b\x32\x13.protos.BranchModel\")\n\x14GetBranchByIdRequest\x12\x11\n\tbranch_id\x18\x01 \x01(\x05\"+\n\x15GetBranchByIdsRequest\x12\x12\n\nbranch_ids\x18\x01 \x03(\x05\"\x8a\x01\n\x10\x41\x64\x64\x42ranchRequest\x12\x11\n\x04name\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x11\n\x04\x63ity\x18\x02 \x01(\tH\x01\x88\x01\x01\x12\x14\n\x07\x61\x64\x64ress\x18\x03 \x01(\tH\x02\x88\x01\x01\x12\x12\n\x05phone\x18\x04 \x01(\tH\x03\x88\x01\x01\x42\x07\n\x05_nameB\x07\n\x05_cityB\n\n\x08_addressB\x08\n\x06_phone\"\xa0\x01\n\x13UpdateBranchRequest\x12\x11\n\tbranch_id\x18\x01 \x01(\x05\x12\x11\n\x04name\x18\x02 \x01(\tH\x00\x88\x01\x01\x12\x11\n\x04\x63ity\x18\x03 \x01(\tH\x01\x88\x01\x01\x12\x14\n\x07\x61\x64\x64ress\x18\x04 \x01(\tH\x02\x88\x01\x01\x12\x12\n\x05phone\x18\x05 \x01(\tH\x03\x88\x01\x01\x42\x07\n\x05_nameB\x07\n\x05_cityB\n\n\x08_addressB\x08\n\x06_phone\"(\n\x13\x44\x65leteBranchRequest\x12\x11\n\tbranch_id\x18\x01 \x01(\x05\"B\n\x14\x41\x64\x64\x42ranchBulkRequest\x12*\n\x08\x62ranches\x18\x01 \x03(\x0b\x32\x18.protos.AddBranchRequest\"H\n\x17UpdateBranchBulkRequest\x12-\n\x08\x62ranches\x18\x01 \x03(\x0b\x32\x1b.protos.UpdateBranchRequest\"H\n\x17\x44\x65leteBranchBulkRequest\x12-\n\x08\x62ranches\x18\x01 \x03(\x0b\x32\x1b.protos.DeleteBranchRequest2\xdc\x04\n\rBranchService\x12?\n\x06GetAll\x12\x15.protos.GetAllRequest\x1a\x1e.protos.GetAllBranchesResponse\x12<\n\x07GetById\x12\x1c.protos.GetBranchByIdRequest\x1a\x13.protos.BranchModel\x12I\n\x08GetByIds\x12\x1d.protos.GetBranchByIdsRequest\x1a\x1e.protos.GetAllBranchesResponse\x12\x34\n\x03\x41\x64\x64\x12\x18.protos.AddBranchRequest\x1a\x13.protos.BranchModel\x12=\n\x06Update\x12\x1b.protos.UpdateBranchRequest\x1a\x16.google.protobuf.Empty\x12=\n\x06\x44\x65lete\x12\x1b.protos.DeleteBranchRequest\x1a\x16.google.protobuf.Empty\x12?\n\x07\x41\x64\x64\x42ulk\x12\x1c.protos.AddBranchBulkRequest\x1a\x16.google.protobuf.Empty\x12\x45\n\nUpdateBulk\x12\x1f.protos.UpdateBranchBulkRequest\x1a\x16.google.protobuf.Empty\x12\x45\n\nDeleteBulk\x12\x1f.protos.DeleteBranchBulkRequest\x1a\x16.google.protobuf.EmptyB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04\x43oreb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'branch_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
-  DESCRIPTOR._loaded_options = None
+  _globals['DESCRIPTOR']._loaded_options = None
+  _globals['DESCRIPTOR']._serialized_options = b'Z\031orch-go/gen/protos;protos\252\002\004Core'
   _globals['_BRANCHMODEL']._serialized_start=74
   _globals['_BRANCHMODEL']._serialized_end=226
   _globals['_GETALLBRANCHESRESPONSE']._serialized_start=228
   _globals['_GETALLBRANCHESRESPONSE']._serialized_end=291
   _globals['_GETBRANCHBYIDREQUEST']._serialized_start=293
   _globals['_GETBRANCHBYIDREQUEST']._serialized_end=334
-  _globals['_BRANCHSERVICE']._serialized_start=337
-  _globals['_BRANCHSERVICE']._serialized_end=479
+  _globals['_GETBRANCHBYIDSREQUEST']._serialized_start=336
+  _globals['_GETBRANCHBYIDSREQUEST']._serialized_end=379
+  _globals['_ADDBRANCHREQUEST']._serialized_start=382
+  _globals['_ADDBRANCHREQUEST']._serialized_end=520
+  _globals['_UPDATEBRANCHREQUEST']._serialized_start=523
+  _globals['_UPDATEBRANCHREQUEST']._serialized_end=683
+  _globals['_DELETEBRANCHREQUEST']._serialized_start=685
+  _globals['_DELETEBRANCHREQUEST']._serialized_end=725
+  _globals['_ADDBRANCHBULKREQUEST']._serialized_start=727
+  _globals['_ADDBRANCHBULKREQUEST']._serialized_end=793
+  _globals['_UPDATEBRANCHBULKREQUEST']._serialized_start=795
+  _globals['_UPDATEBRANCHBULKREQUEST']._serialized_end=867
+  _globals['_DELETEBRANCHBULKREQUEST']._serialized_start=869
+  _globals['_DELETEBRANCHBULKREQUEST']._serialized_end=941
+  _globals['_BRANCHSERVICE']._serialized_start=944
+  _globals['_BRANCHSERVICE']._serialized_end=1548
 # @@protoc_insertion_point(module_scope)

@@ -94,3 +94,171 @@ class GetCustomerAddressByIdRequest(google.protobuf.message.Message):
     def ClearField(self, field_name: typing.Literal["address_id", b"address_id"]) -> None: ...
 
 Global___GetCustomerAddressByIdRequest: typing_extensions.TypeAlias = GetCustomerAddressByIdRequest
+
+@typing.final
+class GetCustomerAddressByIdsRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ADDRESS_IDS_FIELD_NUMBER: builtins.int
+    @property
+    def address_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
+    def __init__(
+        self,
+        *,
+        address_ids: collections.abc.Iterable[builtins.int] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["address_ids", b"address_ids"]) -> None: ...
+
+Global___GetCustomerAddressByIdsRequest: typing_extensions.TypeAlias = GetCustomerAddressByIdsRequest
+
+@typing.final
+class AddCustomerAddressRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CUSTOMER_ID_FIELD_NUMBER: builtins.int
+    COUNTRY_FIELD_NUMBER: builtins.int
+    CITY_FIELD_NUMBER: builtins.int
+    STREET_FIELD_NUMBER: builtins.int
+    ZIP_CODE_FIELD_NUMBER: builtins.int
+    IS_PRIMARY_FIELD_NUMBER: builtins.int
+    customer_id: builtins.int
+    country: builtins.str
+    city: builtins.str
+    street: builtins.str
+    zip_code: builtins.str
+    is_primary: builtins.bool
+    def __init__(
+        self,
+        *,
+        customer_id: builtins.int | None = ...,
+        country: builtins.str | None = ...,
+        city: builtins.str | None = ...,
+        street: builtins.str | None = ...,
+        zip_code: builtins.str | None = ...,
+        is_primary: builtins.bool | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["_city", b"_city", "_country", b"_country", "_customer_id", b"_customer_id", "_is_primary", b"_is_primary", "_street", b"_street", "_zip_code", b"_zip_code", "city", b"city", "country", b"country", "customer_id", b"customer_id", "is_primary", b"is_primary", "street", b"street", "zip_code", b"zip_code"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_city", b"_city", "_country", b"_country", "_customer_id", b"_customer_id", "_is_primary", b"_is_primary", "_street", b"_street", "_zip_code", b"_zip_code", "city", b"city", "country", b"country", "customer_id", b"customer_id", "is_primary", b"is_primary", "street", b"street", "zip_code", b"zip_code"]) -> None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_city", b"_city"]) -> typing.Literal["city"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_country", b"_country"]) -> typing.Literal["country"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_customer_id", b"_customer_id"]) -> typing.Literal["customer_id"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_is_primary", b"_is_primary"]) -> typing.Literal["is_primary"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_street", b"_street"]) -> typing.Literal["street"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_zip_code", b"_zip_code"]) -> typing.Literal["zip_code"] | None: ...
+
+Global___AddCustomerAddressRequest: typing_extensions.TypeAlias = AddCustomerAddressRequest
+
+@typing.final
+class AddCustomerAddressBulkRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CUSTOMER_ADDRESSES_FIELD_NUMBER: builtins.int
+    @property
+    def customer_addresses(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___AddCustomerAddressRequest]: ...
+    def __init__(
+        self,
+        *,
+        customer_addresses: collections.abc.Iterable[Global___AddCustomerAddressRequest] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["customer_addresses", b"customer_addresses"]) -> None: ...
+
+Global___AddCustomerAddressBulkRequest: typing_extensions.TypeAlias = AddCustomerAddressBulkRequest
+
+@typing.final
+class UpdateCustomerAddressRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ADDRESS_ID_FIELD_NUMBER: builtins.int
+    CUSTOMER_ID_FIELD_NUMBER: builtins.int
+    COUNTRY_FIELD_NUMBER: builtins.int
+    CITY_FIELD_NUMBER: builtins.int
+    STREET_FIELD_NUMBER: builtins.int
+    ZIP_CODE_FIELD_NUMBER: builtins.int
+    IS_PRIMARY_FIELD_NUMBER: builtins.int
+    address_id: builtins.int
+    customer_id: builtins.int
+    country: builtins.str
+    city: builtins.str
+    street: builtins.str
+    zip_code: builtins.str
+    is_primary: builtins.bool
+    def __init__(
+        self,
+        *,
+        address_id: builtins.int = ...,
+        customer_id: builtins.int | None = ...,
+        country: builtins.str | None = ...,
+        city: builtins.str | None = ...,
+        street: builtins.str | None = ...,
+        zip_code: builtins.str | None = ...,
+        is_primary: builtins.bool | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["_city", b"_city", "_country", b"_country", "_customer_id", b"_customer_id", "_is_primary", b"_is_primary", "_street", b"_street", "_zip_code", b"_zip_code", "city", b"city", "country", b"country", "customer_id", b"customer_id", "is_primary", b"is_primary", "street", b"street", "zip_code", b"zip_code"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_city", b"_city", "_country", b"_country", "_customer_id", b"_customer_id", "_is_primary", b"_is_primary", "_street", b"_street", "_zip_code", b"_zip_code", "address_id", b"address_id", "city", b"city", "country", b"country", "customer_id", b"customer_id", "is_primary", b"is_primary", "street", b"street", "zip_code", b"zip_code"]) -> None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_city", b"_city"]) -> typing.Literal["city"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_country", b"_country"]) -> typing.Literal["country"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_customer_id", b"_customer_id"]) -> typing.Literal["customer_id"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_is_primary", b"_is_primary"]) -> typing.Literal["is_primary"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_street", b"_street"]) -> typing.Literal["street"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_zip_code", b"_zip_code"]) -> typing.Literal["zip_code"] | None: ...
+
+Global___UpdateCustomerAddressRequest: typing_extensions.TypeAlias = UpdateCustomerAddressRequest
+
+@typing.final
+class UpdateCustomerAddressBulkRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CUSTOMER_ADDRESSES_FIELD_NUMBER: builtins.int
+    @property
+    def customer_addresses(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___UpdateCustomerAddressRequest]: ...
+    def __init__(
+        self,
+        *,
+        customer_addresses: collections.abc.Iterable[Global___UpdateCustomerAddressRequest] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["customer_addresses", b"customer_addresses"]) -> None: ...
+
+Global___UpdateCustomerAddressBulkRequest: typing_extensions.TypeAlias = UpdateCustomerAddressBulkRequest
+
+@typing.final
+class DeleteCustomerAddressRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ADDRESS_ID_FIELD_NUMBER: builtins.int
+    address_id: builtins.int
+    def __init__(
+        self,
+        *,
+        address_id: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["address_id", b"address_id"]) -> None: ...
+
+Global___DeleteCustomerAddressRequest: typing_extensions.TypeAlias = DeleteCustomerAddressRequest
+
+@typing.final
+class DeleteCustomerAddressBulkRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CUSTOMER_ADDRESSES_FIELD_NUMBER: builtins.int
+    @property
+    def customer_addresses(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___DeleteCustomerAddressRequest]: ...
+    def __init__(
+        self,
+        *,
+        customer_addresses: collections.abc.Iterable[Global___DeleteCustomerAddressRequest] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["customer_addresses", b"customer_addresses"]) -> None: ...
+
+Global___DeleteCustomerAddressBulkRequest: typing_extensions.TypeAlias = DeleteCustomerAddressBulkRequest

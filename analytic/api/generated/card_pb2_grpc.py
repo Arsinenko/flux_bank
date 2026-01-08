@@ -5,6 +5,7 @@ import warnings
 
 import card_pb2 as card__pb2
 import custom_types_pb2 as custom__types__pb2
+from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 
 GRPC_GENERATED_VERSION = '1.76.0'
 GRPC_VERSION = grpc.__version__
@@ -45,10 +46,45 @@ class CardServiceStub(object):
                 request_serializer=card__pb2.GetCardByIdRequest.SerializeToString,
                 response_deserializer=card__pb2.CardModel.FromString,
                 _registered_method=True)
-        self.GetByAccountId = channel.unary_unary(
-                '/protos.CardService/GetByAccountId',
+        self.GetByIds = channel.unary_unary(
+                '/protos.CardService/GetByIds',
+                request_serializer=card__pb2.GetCardByIdsRequest.SerializeToString,
+                response_deserializer=card__pb2.GetAllCardsResponse.FromString,
+                _registered_method=True)
+        self.GetByAccount = channel.unary_unary(
+                '/protos.CardService/GetByAccount',
                 request_serializer=card__pb2.GetCardsByAccountRequest.SerializeToString,
                 response_deserializer=card__pb2.GetAllCardsResponse.FromString,
+                _registered_method=True)
+        self.Add = channel.unary_unary(
+                '/protos.CardService/Add',
+                request_serializer=card__pb2.AddCardRequest.SerializeToString,
+                response_deserializer=card__pb2.CardModel.FromString,
+                _registered_method=True)
+        self.Update = channel.unary_unary(
+                '/protos.CardService/Update',
+                request_serializer=card__pb2.UpdateCardRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                _registered_method=True)
+        self.Delete = channel.unary_unary(
+                '/protos.CardService/Delete',
+                request_serializer=card__pb2.DeleteCardRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                _registered_method=True)
+        self.AddBulk = channel.unary_unary(
+                '/protos.CardService/AddBulk',
+                request_serializer=card__pb2.AddCardBulkRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                _registered_method=True)
+        self.UpdateBulk = channel.unary_unary(
+                '/protos.CardService/UpdateBulk',
+                request_serializer=card__pb2.UpdateCardBulkRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                _registered_method=True)
+        self.DeleteBulk = channel.unary_unary(
+                '/protos.CardService/DeleteBulk',
+                request_serializer=card__pb2.DeleteCardBulkRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 _registered_method=True)
 
 
@@ -67,7 +103,49 @@ class CardServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def GetByAccountId(self, request, context):
+    def GetByIds(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetByAccount(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def Add(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def Update(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def Delete(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def AddBulk(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def UpdateBulk(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def DeleteBulk(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -86,10 +164,45 @@ def add_CardServiceServicer_to_server(servicer, server):
                     request_deserializer=card__pb2.GetCardByIdRequest.FromString,
                     response_serializer=card__pb2.CardModel.SerializeToString,
             ),
-            'GetByAccountId': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetByAccountId,
+            'GetByIds': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetByIds,
+                    request_deserializer=card__pb2.GetCardByIdsRequest.FromString,
+                    response_serializer=card__pb2.GetAllCardsResponse.SerializeToString,
+            ),
+            'GetByAccount': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetByAccount,
                     request_deserializer=card__pb2.GetCardsByAccountRequest.FromString,
                     response_serializer=card__pb2.GetAllCardsResponse.SerializeToString,
+            ),
+            'Add': grpc.unary_unary_rpc_method_handler(
+                    servicer.Add,
+                    request_deserializer=card__pb2.AddCardRequest.FromString,
+                    response_serializer=card__pb2.CardModel.SerializeToString,
+            ),
+            'Update': grpc.unary_unary_rpc_method_handler(
+                    servicer.Update,
+                    request_deserializer=card__pb2.UpdateCardRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'Delete': grpc.unary_unary_rpc_method_handler(
+                    servicer.Delete,
+                    request_deserializer=card__pb2.DeleteCardRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'AddBulk': grpc.unary_unary_rpc_method_handler(
+                    servicer.AddBulk,
+                    request_deserializer=card__pb2.AddCardBulkRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'UpdateBulk': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateBulk,
+                    request_deserializer=card__pb2.UpdateCardBulkRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'DeleteBulk': grpc.unary_unary_rpc_method_handler(
+                    servicer.DeleteBulk,
+                    request_deserializer=card__pb2.DeleteCardBulkRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -157,7 +270,7 @@ class CardService(object):
             _registered_method=True)
 
     @staticmethod
-    def GetByAccountId(request,
+    def GetByIds(request,
             target,
             options=(),
             channel_credentials=None,
@@ -170,9 +283,198 @@ class CardService(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/protos.CardService/GetByAccountId',
+            '/protos.CardService/GetByIds',
+            card__pb2.GetCardByIdsRequest.SerializeToString,
+            card__pb2.GetAllCardsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetByAccount(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.CardService/GetByAccount',
             card__pb2.GetCardsByAccountRequest.SerializeToString,
             card__pb2.GetAllCardsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def Add(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.CardService/Add',
+            card__pb2.AddCardRequest.SerializeToString,
+            card__pb2.CardModel.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def Update(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.CardService/Update',
+            card__pb2.UpdateCardRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def Delete(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.CardService/Delete',
+            card__pb2.DeleteCardRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def AddBulk(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.CardService/AddBulk',
+            card__pb2.AddCardBulkRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def UpdateBulk(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.CardService/UpdateBulk',
+            card__pb2.UpdateCardBulkRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def DeleteBulk(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.CardService/DeleteBulk',
+            card__pb2.DeleteCardBulkRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options,
             channel_credentials,
             insecure,

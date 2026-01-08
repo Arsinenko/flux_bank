@@ -22,29 +22,45 @@ _runtime_version.ValidateProtobufRuntimeVersion(
 _sym_db = _symbol_database.Default()
 
 
-from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 import custom_types_pb2 as custom__types__pb2
+from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
+import branch_pb2 as branch__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\tatm.proto\x12\x06protos\x1a\x1bgoogle/protobuf/empty.proto\x1a\x12\x63ustom_types.proto\"\x84\x01\n\x08\x41tmModel\x12\x0e\n\x06\x61tm_id\x18\x01 \x01(\x05\x12\x16\n\tbranch_id\x18\x02 \x01(\x05H\x00\x88\x01\x01\x12\x15\n\x08location\x18\x03 \x01(\tH\x01\x88\x01\x01\x12\x13\n\x06status\x18\x04 \x01(\tH\x02\x88\x01\x01\x42\x0c\n\n_branch_idB\x0b\n\t_locationB\t\n\x07_status\"(\n\x16GetAtmsByStatusRequest\x12\x0e\n\x06status\x18\x01 \x01(\t\"1\n\x1eGetAtmsByLocationSubStrRequest\x12\x0f\n\x07sub_str\x18\x01 \x01(\t\"+\n\x16GetAtmsByBranchRequest\x12\x11\n\tbranch_id\x18\x01 \x01(\x05\"4\n\x12GetAllAtmsResponse\x12\x1e\n\x04\x61tms\x18\x01 \x03(\x0b\x32\x10.protos.AtmModel\"#\n\x11GetAtmByIdRequest\x12\x0e\n\x06\x61tm_id\x18\x01 \x01(\x05\x32\xf2\x02\n\nAtmService\x12;\n\x06GetAll\x12\x15.protos.GetAllRequest\x1a\x1a.protos.GetAllAtmsResponse\x12\x36\n\x07GetById\x12\x19.protos.GetAtmByIdRequest\x1a\x10.protos.AtmModel\x12I\n\x0bGetByStatus\x12\x1e.protos.GetAtmsByStatusRequest\x1a\x1a.protos.GetAllAtmsResponse\x12Y\n\x13GetByLocationSubStr\x12&.protos.GetAtmsByLocationSubStrRequest\x1a\x1a.protos.GetAllAtmsResponse\x12I\n\x0bGetByBranch\x12\x1e.protos.GetAtmsByBranchRequest\x1a\x1a.protos.GetAllAtmsResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\tatm.proto\x12\x06protos\x1a\x12\x63ustom_types.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x0c\x62ranch.proto\"\x84\x01\n\x08\x41tmModel\x12\x0e\n\x06\x61tm_id\x18\x01 \x01(\x05\x12\x16\n\tbranch_id\x18\x02 \x01(\x05H\x00\x88\x01\x01\x12\x15\n\x08location\x18\x03 \x01(\tH\x01\x88\x01\x01\x12\x13\n\x06status\x18\x04 \x01(\tH\x02\x88\x01\x01\x42\x0c\n\n_branch_idB\x0b\n\t_locationB\t\n\x07_status\"(\n\x16GetAtmsByStatusRequest\x12\x0e\n\x06status\x18\x01 \x01(\t\"1\n\x1eGetAtmsByLocationSubStrRequest\x12\x0f\n\x07sub_str\x18\x01 \x01(\t\"+\n\x16GetAtmsByBranchRequest\x12\x11\n\tbranch_id\x18\x01 \x01(\x05\"4\n\x12GetAllAtmsResponse\x12\x1e\n\x04\x61tms\x18\x01 \x03(\x0b\x32\x10.protos.AtmModel\"#\n\x11GetAtmByIdRequest\x12\x0e\n\x06\x61tm_id\x18\x01 \x01(\x05\"%\n\x12GetAtmByIdsRequest\x12\x0f\n\x07\x61tm_ids\x18\x01 \x03(\x05\"y\n\rAddAtmRequest\x12\x16\n\tbranch_id\x18\x01 \x01(\x05H\x00\x88\x01\x01\x12\x15\n\x08location\x18\x02 \x01(\tH\x01\x88\x01\x01\x12\x13\n\x06status\x18\x03 \x01(\tH\x02\x88\x01\x01\x42\x0c\n\n_branch_idB\x0b\n\t_locationB\t\n\x07_status\"\x8c\x01\n\x10UpdateAtmRequest\x12\x0e\n\x06\x61tm_id\x18\x01 \x01(\x05\x12\x16\n\tbranch_id\x18\x02 \x01(\x05H\x00\x88\x01\x01\x12\x15\n\x08location\x18\x03 \x01(\tH\x01\x88\x01\x01\x12\x13\n\x06status\x18\x04 \x01(\tH\x02\x88\x01\x01\x42\x0c\n\n_branch_idB\x0b\n\t_locationB\t\n\x07_status\"\"\n\x10\x44\x65leteAtmRequest\x12\x0e\n\x06\x61tm_id\x18\x01 \x01(\x05\"8\n\x11\x41\x64\x64\x41tmBulkRequest\x12#\n\x04\x61tms\x18\x01 \x03(\x0b\x32\x15.protos.AddAtmRequest\">\n\x14UpdateAtmBulkRequest\x12&\n\x04\x61tms\x18\x01 \x03(\x0b\x32\x18.protos.UpdateAtmRequest\">\n\x14\x44\x65leteAtmBulkRequest\x12&\n\x04\x61tms\x18\x01 \x03(\x0b\x32\x18.protos.DeleteAtmRequest2\xa4\x06\n\nAtmService\x12;\n\x06GetAll\x12\x15.protos.GetAllRequest\x1a\x1a.protos.GetAllAtmsResponse\x12\x36\n\x07GetById\x12\x19.protos.GetAtmByIdRequest\x1a\x10.protos.AtmModel\x12\x42\n\x08GetByIds\x12\x1a.protos.GetAtmByIdsRequest\x1a\x1a.protos.GetAllAtmsResponse\x12I\n\x0bGetByStatus\x12\x1e.protos.GetAtmsByStatusRequest\x1a\x1a.protos.GetAllAtmsResponse\x12Y\n\x13GetByLocationSubStr\x12&.protos.GetAtmsByLocationSubStrRequest\x1a\x1a.protos.GetAllAtmsResponse\x12I\n\x0bGetByBranch\x12\x1e.protos.GetAtmsByBranchRequest\x1a\x1a.protos.GetAllAtmsResponse\x12.\n\x03\x41\x64\x64\x12\x15.protos.AddAtmRequest\x1a\x10.protos.AtmModel\x12:\n\x06Update\x12\x18.protos.UpdateAtmRequest\x1a\x16.google.protobuf.Empty\x12:\n\x06\x44\x65lete\x12\x18.protos.DeleteAtmRequest\x1a\x16.google.protobuf.Empty\x12<\n\x07\x41\x64\x64\x42ulk\x12\x19.protos.AddAtmBulkRequest\x1a\x16.google.protobuf.Empty\x12\x42\n\nUpdateBulk\x12\x1c.protos.UpdateAtmBulkRequest\x1a\x16.google.protobuf.Empty\x12\x42\n\nDeleteBulk\x12\x1c.protos.DeleteAtmBulkRequest\x1a\x16.google.protobuf.EmptyB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04\x43oreb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'atm_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
-  DESCRIPTOR._loaded_options = None
-  _globals['_ATMMODEL']._serialized_start=71
-  _globals['_ATMMODEL']._serialized_end=203
-  _globals['_GETATMSBYSTATUSREQUEST']._serialized_start=205
-  _globals['_GETATMSBYSTATUSREQUEST']._serialized_end=245
-  _globals['_GETATMSBYLOCATIONSUBSTRREQUEST']._serialized_start=247
-  _globals['_GETATMSBYLOCATIONSUBSTRREQUEST']._serialized_end=296
-  _globals['_GETATMSBYBRANCHREQUEST']._serialized_start=298
-  _globals['_GETATMSBYBRANCHREQUEST']._serialized_end=341
-  _globals['_GETALLATMSRESPONSE']._serialized_start=343
-  _globals['_GETALLATMSRESPONSE']._serialized_end=395
-  _globals['_GETATMBYIDREQUEST']._serialized_start=397
-  _globals['_GETATMBYIDREQUEST']._serialized_end=432
-  _globals['_ATMSERVICE']._serialized_start=435
-  _globals['_ATMSERVICE']._serialized_end=805
+  _globals['DESCRIPTOR']._loaded_options = None
+  _globals['DESCRIPTOR']._serialized_options = b'Z\031orch-go/gen/protos;protos\252\002\004Core'
+  _globals['_ATMMODEL']._serialized_start=85
+  _globals['_ATMMODEL']._serialized_end=217
+  _globals['_GETATMSBYSTATUSREQUEST']._serialized_start=219
+  _globals['_GETATMSBYSTATUSREQUEST']._serialized_end=259
+  _globals['_GETATMSBYLOCATIONSUBSTRREQUEST']._serialized_start=261
+  _globals['_GETATMSBYLOCATIONSUBSTRREQUEST']._serialized_end=310
+  _globals['_GETATMSBYBRANCHREQUEST']._serialized_start=312
+  _globals['_GETATMSBYBRANCHREQUEST']._serialized_end=355
+  _globals['_GETALLATMSRESPONSE']._serialized_start=357
+  _globals['_GETALLATMSRESPONSE']._serialized_end=409
+  _globals['_GETATMBYIDREQUEST']._serialized_start=411
+  _globals['_GETATMBYIDREQUEST']._serialized_end=446
+  _globals['_GETATMBYIDSREQUEST']._serialized_start=448
+  _globals['_GETATMBYIDSREQUEST']._serialized_end=485
+  _globals['_ADDATMREQUEST']._serialized_start=487
+  _globals['_ADDATMREQUEST']._serialized_end=608
+  _globals['_UPDATEATMREQUEST']._serialized_start=611
+  _globals['_UPDATEATMREQUEST']._serialized_end=751
+  _globals['_DELETEATMREQUEST']._serialized_start=753
+  _globals['_DELETEATMREQUEST']._serialized_end=787
+  _globals['_ADDATMBULKREQUEST']._serialized_start=789
+  _globals['_ADDATMBULKREQUEST']._serialized_end=845
+  _globals['_UPDATEATMBULKREQUEST']._serialized_start=847
+  _globals['_UPDATEATMBULKREQUEST']._serialized_end=909
+  _globals['_DELETEATMBULKREQUEST']._serialized_start=911
+  _globals['_DELETEATMBULKREQUEST']._serialized_end=973
+  _globals['_ATMSERVICE']._serialized_start=976
+  _globals['_ATMSERVICE']._serialized_end=1780
 # @@protoc_insertion_point(module_scope)

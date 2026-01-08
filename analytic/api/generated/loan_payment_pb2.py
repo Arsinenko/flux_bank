@@ -22,25 +22,41 @@ _runtime_version.ValidateProtobufRuntimeVersion(
 _sym_db = _symbol_database.Default()
 
 
-from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
+import loan_pb2 as loan__pb2
 import custom_types_pb2 as custom__types__pb2
+from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x12loan_payment.proto\x12\x06protos\x1a\x1bgoogle/protobuf/empty.proto\x1a\x12\x63ustom_types.proto\"\xc8\x01\n\x10LoanPaymentModel\x12\x12\n\npayment_id\x18\x01 \x01(\x05\x12\x14\n\x07loan_id\x18\x02 \x01(\x05H\x00\x88\x01\x01\x12\x13\n\x06\x61mount\x18\x03 \x01(\tH\x01\x88\x01\x01\x12+\n\x0cpayment_date\x18\x04 \x01(\x0b\x32\x10.protos.DateOnlyH\x02\x88\x01\x01\x12\x14\n\x07is_paid\x18\x05 \x01(\x08H\x03\x88\x01\x01\x42\n\n\x08_loan_idB\t\n\x07_amountB\x0f\n\r_payment_dateB\n\n\x08_is_paid\"M\n\x1aGetAllLoanPaymentsResponse\x12/\n\rloan_payments\x18\x01 \x03(\x0b\x32\x18.protos.LoanPaymentModel\"/\n\x19GetLoanPaymentByIdRequest\x12\x12\n\npayment_id\x18\x01 \x01(\x05\"/\n\x1cGetLoanPaymentsByLoanRequest\x12\x0f\n\x07loan_id\x18\x01 \x01(\x05\x32\xf8\x01\n\x12LoanPaymentService\x12\x43\n\x06GetAll\x12\x15.protos.GetAllRequest\x1a\".protos.GetAllLoanPaymentsResponse\x12\x46\n\x07GetById\x12!.protos.GetLoanPaymentByIdRequest\x1a\x18.protos.LoanPaymentModel\x12U\n\tGetByLoan\x12$.protos.GetLoanPaymentsByLoanRequest\x1a\".protos.GetAllLoanPaymentsResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x12loan_payment.proto\x12\x06protos\x1a\nloan.proto\x1a\x12\x63ustom_types.proto\x1a\x1bgoogle/protobuf/empty.proto\"\xc8\x01\n\x10LoanPaymentModel\x12\x12\n\npayment_id\x18\x01 \x01(\x05\x12\x14\n\x07loan_id\x18\x02 \x01(\x05H\x00\x88\x01\x01\x12\x13\n\x06\x61mount\x18\x03 \x01(\tH\x01\x88\x01\x01\x12+\n\x0cpayment_date\x18\x04 \x01(\x0b\x32\x10.protos.DateOnlyH\x02\x88\x01\x01\x12\x14\n\x07is_paid\x18\x05 \x01(\x08H\x03\x88\x01\x01\x42\n\n\x08_loan_idB\t\n\x07_amountB\x0f\n\r_payment_dateB\n\n\x08_is_paid\"M\n\x1aGetAllLoanPaymentsResponse\x12/\n\rloan_payments\x18\x01 \x03(\x0b\x32\x18.protos.LoanPaymentModel\"/\n\x19GetLoanPaymentByIdRequest\x12\x12\n\npayment_id\x18\x01 \x01(\x05\"1\n\x1aGetLoanPaymentByIdsRequest\x12\x13\n\x0bpayment_ids\x18\x01 \x03(\x05\"/\n\x1cGetLoanPaymentsByLoanRequest\x12\x0f\n\x07loan_id\x18\x01 \x01(\x05\"\xb9\x01\n\x15\x41\x64\x64LoanPaymentRequest\x12\x14\n\x07loan_id\x18\x01 \x01(\x05H\x00\x88\x01\x01\x12\x13\n\x06\x61mount\x18\x02 \x01(\tH\x01\x88\x01\x01\x12+\n\x0cpayment_date\x18\x03 \x01(\x0b\x32\x10.protos.DateOnlyH\x02\x88\x01\x01\x12\x14\n\x07is_paid\x18\x04 \x01(\x08H\x03\x88\x01\x01\x42\n\n\x08_loan_idB\t\n\x07_amountB\x0f\n\r_payment_dateB\n\n\x08_is_paid\"L\n\x19\x41\x64\x64LoanPaymentBulkRequest\x12/\n\x08payments\x18\x01 \x03(\x0b\x32\x1d.protos.AddLoanPaymentRequest\"\xd0\x01\n\x18UpdateLoanPaymentRequest\x12\x12\n\npayment_id\x18\x01 \x01(\x05\x12\x14\n\x07loan_id\x18\x02 \x01(\x05H\x00\x88\x01\x01\x12\x13\n\x06\x61mount\x18\x03 \x01(\tH\x01\x88\x01\x01\x12+\n\x0cpayment_date\x18\x04 \x01(\x0b\x32\x10.protos.DateOnlyH\x02\x88\x01\x01\x12\x14\n\x07is_paid\x18\x05 \x01(\x08H\x03\x88\x01\x01\x42\n\n\x08_loan_idB\t\n\x07_amountB\x0f\n\r_payment_dateB\n\n\x08_is_paid\"R\n\x1cUpdateLoanPaymentBulkRequest\x12\x32\n\x08payments\x18\x01 \x03(\x0b\x32 .protos.UpdateLoanPaymentRequest\".\n\x18\x44\x65leteLoanPaymentRequest\x12\x12\n\npayment_id\x18\x01 \x01(\x05\"R\n\x1c\x44\x65leteLoanPaymentBulkRequest\x12\x32\n\x08payments\x18\x01 \x03(\x0b\x32 .protos.DeleteLoanPaymentRequest2\xf2\x05\n\x12LoanPaymentService\x12\x43\n\x06GetAll\x12\x15.protos.GetAllRequest\x1a\".protos.GetAllLoanPaymentsResponse\x12\x46\n\x07GetById\x12!.protos.GetLoanPaymentByIdRequest\x1a\x18.protos.LoanPaymentModel\x12R\n\x08GetByIds\x12\".protos.GetLoanPaymentByIdsRequest\x1a\".protos.GetAllLoanPaymentsResponse\x12U\n\tGetByLoan\x12$.protos.GetLoanPaymentsByLoanRequest\x1a\".protos.GetAllLoanPaymentsResponse\x12>\n\x03\x41\x64\x64\x12\x1d.protos.AddLoanPaymentRequest\x1a\x18.protos.LoanPaymentModel\x12\x42\n\x06Update\x12 .protos.UpdateLoanPaymentRequest\x1a\x16.google.protobuf.Empty\x12\x42\n\x06\x44\x65lete\x12 .protos.DeleteLoanPaymentRequest\x1a\x16.google.protobuf.Empty\x12\x44\n\x07\x41\x64\x64\x42ulk\x12!.protos.AddLoanPaymentBulkRequest\x1a\x16.google.protobuf.Empty\x12J\n\nUpdateBulk\x12$.protos.UpdateLoanPaymentBulkRequest\x1a\x16.google.protobuf.Empty\x12J\n\nDeleteBulk\x12$.protos.DeleteLoanPaymentBulkRequest\x1a\x16.google.protobuf.EmptyB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04\x43oreb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'loan_payment_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
-  DESCRIPTOR._loaded_options = None
-  _globals['_LOANPAYMENTMODEL']._serialized_start=80
-  _globals['_LOANPAYMENTMODEL']._serialized_end=280
-  _globals['_GETALLLOANPAYMENTSRESPONSE']._serialized_start=282
-  _globals['_GETALLLOANPAYMENTSRESPONSE']._serialized_end=359
-  _globals['_GETLOANPAYMENTBYIDREQUEST']._serialized_start=361
-  _globals['_GETLOANPAYMENTBYIDREQUEST']._serialized_end=408
-  _globals['_GETLOANPAYMENTSBYLOANREQUEST']._serialized_start=410
-  _globals['_GETLOANPAYMENTSBYLOANREQUEST']._serialized_end=457
-  _globals['_LOANPAYMENTSERVICE']._serialized_start=460
-  _globals['_LOANPAYMENTSERVICE']._serialized_end=708
+  _globals['DESCRIPTOR']._loaded_options = None
+  _globals['DESCRIPTOR']._serialized_options = b'Z\031orch-go/gen/protos;protos\252\002\004Core'
+  _globals['_LOANPAYMENTMODEL']._serialized_start=92
+  _globals['_LOANPAYMENTMODEL']._serialized_end=292
+  _globals['_GETALLLOANPAYMENTSRESPONSE']._serialized_start=294
+  _globals['_GETALLLOANPAYMENTSRESPONSE']._serialized_end=371
+  _globals['_GETLOANPAYMENTBYIDREQUEST']._serialized_start=373
+  _globals['_GETLOANPAYMENTBYIDREQUEST']._serialized_end=420
+  _globals['_GETLOANPAYMENTBYIDSREQUEST']._serialized_start=422
+  _globals['_GETLOANPAYMENTBYIDSREQUEST']._serialized_end=471
+  _globals['_GETLOANPAYMENTSBYLOANREQUEST']._serialized_start=473
+  _globals['_GETLOANPAYMENTSBYLOANREQUEST']._serialized_end=520
+  _globals['_ADDLOANPAYMENTREQUEST']._serialized_start=523
+  _globals['_ADDLOANPAYMENTREQUEST']._serialized_end=708
+  _globals['_ADDLOANPAYMENTBULKREQUEST']._serialized_start=710
+  _globals['_ADDLOANPAYMENTBULKREQUEST']._serialized_end=786
+  _globals['_UPDATELOANPAYMENTREQUEST']._serialized_start=789
+  _globals['_UPDATELOANPAYMENTREQUEST']._serialized_end=997
+  _globals['_UPDATELOANPAYMENTBULKREQUEST']._serialized_start=999
+  _globals['_UPDATELOANPAYMENTBULKREQUEST']._serialized_end=1081
+  _globals['_DELETELOANPAYMENTREQUEST']._serialized_start=1083
+  _globals['_DELETELOANPAYMENTREQUEST']._serialized_end=1129
+  _globals['_DELETELOANPAYMENTBULKREQUEST']._serialized_start=1131
+  _globals['_DELETELOANPAYMENTBULKREQUEST']._serialized_end=1213
+  _globals['_LOANPAYMENTSERVICE']._serialized_start=1216
+  _globals['_LOANPAYMENTSERVICE']._serialized_end=1970
 # @@protoc_insertion_point(module_scope)

@@ -24,23 +24,40 @@ _sym_db = _symbol_database.Default()
 
 from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
+import customer_pb2 as customer__pb2
+import custom_types_pb2 as custom__types__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x15user_credential.proto\x12\x06protos\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\x97\x01\n\x13UserCredentialModel\x12\x13\n\x0b\x63ustomer_id\x18\x01 \x01(\x05\x12\x10\n\x08username\x18\x02 \x01(\t\x12\x15\n\rpassword_hash\x18\x03 \x01(\t\x12\x33\n\nupdated_at\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.TimestampH\x00\x88\x01\x01\x42\r\n\x0b_updated_at\"V\n\x1dGetAllUserCredentialsResponse\x12\x35\n\x10user_credentials\x18\x01 \x03(\x0b\x32\x1b.protos.UserCredentialModel\"3\n\x1cGetUserCredentialByIdRequest\x12\x13\n\x0b\x63ustomer_id\x18\x01 \x01(\x05\"6\n\"GetUserCredentialByUsernameRequest\x12\x10\n\x08username\x18\x01 \x01(\t2\x88\x02\n\x15UserCredentialService\x12G\n\x06GetAll\x12\x16.google.protobuf.Empty\x1a%.protos.GetAllUserCredentialsResponse\x12L\n\x07GetById\x12$.protos.GetUserCredentialByIdRequest\x1a\x1b.protos.UserCredentialModel\x12X\n\rGetByUsername\x12*.protos.GetUserCredentialByUsernameRequest\x1a\x1b.protos.UserCredentialModelb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x15user_credential.proto\x12\x06protos\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x0e\x63ustomer.proto\x1a\x12\x63ustom_types.proto\"\x97\x01\n\x13UserCredentialModel\x12\x13\n\x0b\x63ustomer_id\x18\x01 \x01(\x05\x12\x10\n\x08username\x18\x02 \x01(\t\x12\x15\n\rpassword_hash\x18\x03 \x01(\t\x12\x33\n\nupdated_at\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.TimestampH\x00\x88\x01\x01\x42\r\n\x0b_updated_at\"V\n\x1dGetAllUserCredentialsResponse\x12\x35\n\x10user_credentials\x18\x01 \x03(\x0b\x32\x1b.protos.UserCredentialModel\"3\n\x1cGetUserCredentialByIdRequest\x12\x13\n\x0b\x63ustomer_id\x18\x01 \x01(\x05\"5\n\x1dGetUserCredentialByIdsRequest\x12\x14\n\x0c\x63ustomer_ids\x18\x01 \x03(\x05\"6\n\"GetUserCredentialByUsernameRequest\x12\x10\n\x08username\x18\x01 \x01(\t\"X\n\x18\x41\x64\x64UserCredentialRequest\x12\x13\n\x0b\x63ustomer_id\x18\x01 \x01(\x05\x12\x10\n\x08username\x18\x02 \x01(\t\x12\x15\n\rpassword_hash\x18\x03 \x01(\t\"Z\n\x1c\x41\x64\x64UserCredentialBulkRequest\x12:\n\x10user_credentials\x18\x01 \x03(\x0b\x32 .protos.AddUserCredentialRequest\"[\n\x1bUpdateUserCredentialRequest\x12\x13\n\x0b\x63ustomer_id\x18\x01 \x01(\x05\x12\x10\n\x08username\x18\x02 \x01(\t\x12\x15\n\rpassword_hash\x18\x03 \x01(\t\"`\n\x1fUpdateUserCredentialBulkRequest\x12=\n\x10user_credentials\x18\x01 \x03(\x0b\x32#.protos.UpdateUserCredentialRequest\"2\n\x1b\x44\x65leteUserCredentialRequest\x12\x13\n\x0b\x63ustomer_id\x18\x01 \x01(\x05\"`\n\x1f\x44\x65leteUserCredentialBulkRequest\x12=\n\x10user_credentials\x18\x01 \x03(\x0b\x32#.protos.DeleteUserCredentialRequest2\x9c\x06\n\x15UserCredentialService\x12\x46\n\x06GetAll\x12\x15.protos.GetAllRequest\x1a%.protos.GetAllUserCredentialsResponse\x12L\n\x07GetById\x12$.protos.GetUserCredentialByIdRequest\x1a\x1b.protos.UserCredentialModel\x12X\n\x08GetByIds\x12%.protos.GetUserCredentialByIdsRequest\x1a%.protos.GetAllUserCredentialsResponse\x12X\n\rGetByUsername\x12*.protos.GetUserCredentialByUsernameRequest\x1a\x1b.protos.UserCredentialModel\x12\x44\n\x03\x41\x64\x64\x12 .protos.AddUserCredentialRequest\x1a\x1b.protos.UserCredentialModel\x12\x45\n\x06Update\x12#.protos.UpdateUserCredentialRequest\x1a\x16.google.protobuf.Empty\x12\x45\n\x06\x44\x65lete\x12#.protos.DeleteUserCredentialRequest\x1a\x16.google.protobuf.Empty\x12G\n\x07\x41\x64\x64\x42ulk\x12$.protos.AddUserCredentialBulkRequest\x1a\x16.google.protobuf.Empty\x12M\n\nUpdateBulk\x12\'.protos.UpdateUserCredentialBulkRequest\x1a\x16.google.protobuf.Empty\x12M\n\nDeleteBulk\x12\'.protos.DeleteUserCredentialBulkRequest\x1a\x16.google.protobuf.EmptyB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04\x43oreb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'user_credential_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
-  DESCRIPTOR._loaded_options = None
-  _globals['_USERCREDENTIALMODEL']._serialized_start=96
-  _globals['_USERCREDENTIALMODEL']._serialized_end=247
-  _globals['_GETALLUSERCREDENTIALSRESPONSE']._serialized_start=249
-  _globals['_GETALLUSERCREDENTIALSRESPONSE']._serialized_end=335
-  _globals['_GETUSERCREDENTIALBYIDREQUEST']._serialized_start=337
-  _globals['_GETUSERCREDENTIALBYIDREQUEST']._serialized_end=388
-  _globals['_GETUSERCREDENTIALBYUSERNAMEREQUEST']._serialized_start=390
-  _globals['_GETUSERCREDENTIALBYUSERNAMEREQUEST']._serialized_end=444
-  _globals['_USERCREDENTIALSERVICE']._serialized_start=447
-  _globals['_USERCREDENTIALSERVICE']._serialized_end=711
+  _globals['DESCRIPTOR']._loaded_options = None
+  _globals['DESCRIPTOR']._serialized_options = b'Z\031orch-go/gen/protos;protos\252\002\004Core'
+  _globals['_USERCREDENTIALMODEL']._serialized_start=132
+  _globals['_USERCREDENTIALMODEL']._serialized_end=283
+  _globals['_GETALLUSERCREDENTIALSRESPONSE']._serialized_start=285
+  _globals['_GETALLUSERCREDENTIALSRESPONSE']._serialized_end=371
+  _globals['_GETUSERCREDENTIALBYIDREQUEST']._serialized_start=373
+  _globals['_GETUSERCREDENTIALBYIDREQUEST']._serialized_end=424
+  _globals['_GETUSERCREDENTIALBYIDSREQUEST']._serialized_start=426
+  _globals['_GETUSERCREDENTIALBYIDSREQUEST']._serialized_end=479
+  _globals['_GETUSERCREDENTIALBYUSERNAMEREQUEST']._serialized_start=481
+  _globals['_GETUSERCREDENTIALBYUSERNAMEREQUEST']._serialized_end=535
+  _globals['_ADDUSERCREDENTIALREQUEST']._serialized_start=537
+  _globals['_ADDUSERCREDENTIALREQUEST']._serialized_end=625
+  _globals['_ADDUSERCREDENTIALBULKREQUEST']._serialized_start=627
+  _globals['_ADDUSERCREDENTIALBULKREQUEST']._serialized_end=717
+  _globals['_UPDATEUSERCREDENTIALREQUEST']._serialized_start=719
+  _globals['_UPDATEUSERCREDENTIALREQUEST']._serialized_end=810
+  _globals['_UPDATEUSERCREDENTIALBULKREQUEST']._serialized_start=812
+  _globals['_UPDATEUSERCREDENTIALBULKREQUEST']._serialized_end=908
+  _globals['_DELETEUSERCREDENTIALREQUEST']._serialized_start=910
+  _globals['_DELETEUSERCREDENTIALREQUEST']._serialized_end=960
+  _globals['_DELETEUSERCREDENTIALBULKREQUEST']._serialized_start=962
+  _globals['_DELETEUSERCREDENTIALBULKREQUEST']._serialized_end=1058
+  _globals['_USERCREDENTIALSERVICE']._serialized_start=1061
+  _globals['_USERCREDENTIALSERVICE']._serialized_end=1857
 # @@protoc_insertion_point(module_scope)

@@ -66,3 +66,115 @@ class GetTransactionCategoryByIdRequest(google.protobuf.message.Message):
     def ClearField(self, field_name: typing.Literal["category_id", b"category_id"]) -> None: ...
 
 Global___GetTransactionCategoryByIdRequest: typing_extensions.TypeAlias = GetTransactionCategoryByIdRequest
+
+@typing.final
+class GetTransactionCategoryByIdsRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CATEGORY_IDS_FIELD_NUMBER: builtins.int
+    @property
+    def category_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
+    def __init__(
+        self,
+        *,
+        category_ids: collections.abc.Iterable[builtins.int] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["category_ids", b"category_ids"]) -> None: ...
+
+Global___GetTransactionCategoryByIdsRequest: typing_extensions.TypeAlias = GetTransactionCategoryByIdsRequest
+
+@typing.final
+class AddTransactionCategoryRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    NAME_FIELD_NUMBER: builtins.int
+    name: builtins.str
+    def __init__(
+        self,
+        *,
+        name: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["name", b"name"]) -> None: ...
+
+Global___AddTransactionCategoryRequest: typing_extensions.TypeAlias = AddTransactionCategoryRequest
+
+@typing.final
+class UpdateTransactionCategoryRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CATEGORY_ID_FIELD_NUMBER: builtins.int
+    NAME_FIELD_NUMBER: builtins.int
+    category_id: builtins.int
+    name: builtins.str
+    def __init__(
+        self,
+        *,
+        category_id: builtins.int = ...,
+        name: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["category_id", b"category_id", "name", b"name"]) -> None: ...
+
+Global___UpdateTransactionCategoryRequest: typing_extensions.TypeAlias = UpdateTransactionCategoryRequest
+
+@typing.final
+class DeleteTransactionCategoryRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CATEGORY_ID_FIELD_NUMBER: builtins.int
+    category_id: builtins.int
+    def __init__(
+        self,
+        *,
+        category_id: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["category_id", b"category_id"]) -> None: ...
+
+Global___DeleteTransactionCategoryRequest: typing_extensions.TypeAlias = DeleteTransactionCategoryRequest
+
+@typing.final
+class AddTransactionCategoryBulkRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    TRANSACTION_CATEGORIES_FIELD_NUMBER: builtins.int
+    @property
+    def transaction_categories(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___AddTransactionCategoryRequest]: ...
+    def __init__(
+        self,
+        *,
+        transaction_categories: collections.abc.Iterable[Global___AddTransactionCategoryRequest] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["transaction_categories", b"transaction_categories"]) -> None: ...
+
+Global___AddTransactionCategoryBulkRequest: typing_extensions.TypeAlias = AddTransactionCategoryBulkRequest
+
+@typing.final
+class UpdateTransactionCategoryBulkRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    TRANSACTION_CATEGORIES_FIELD_NUMBER: builtins.int
+    @property
+    def transaction_categories(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___UpdateTransactionCategoryRequest]: ...
+    def __init__(
+        self,
+        *,
+        transaction_categories: collections.abc.Iterable[Global___UpdateTransactionCategoryRequest] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["transaction_categories", b"transaction_categories"]) -> None: ...
+
+Global___UpdateTransactionCategoryBulkRequest: typing_extensions.TypeAlias = UpdateTransactionCategoryBulkRequest
+
+@typing.final
+class DeleteTransactionCategoryBulkRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    TRANSACTION_CATEGORIES_FIELD_NUMBER: builtins.int
+    @property
+    def transaction_categories(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___DeleteTransactionCategoryRequest]: ...
+    def __init__(
+        self,
+        *,
+        transaction_categories: collections.abc.Iterable[Global___DeleteTransactionCategoryRequest] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["transaction_categories", b"transaction_categories"]) -> None: ...
+
+Global___DeleteTransactionCategoryBulkRequest: typing_extensions.TypeAlias = DeleteTransactionCategoryBulkRequest

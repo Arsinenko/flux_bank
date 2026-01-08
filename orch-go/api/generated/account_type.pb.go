@@ -506,7 +506,7 @@ var File_account_type_proto protoreflect.FileDescriptor
 
 const file_account_type_proto_rawDesc = "" +
 	"\n" +
-	"\x12account_type.proto\x12\x06protos\x1a\x1bgoogle/protobuf/empty.proto\x1a\x12custom_types.proto\"v\n" +
+	"\x12account_type.proto\x12\x06protos\x1a\x12custom_types.proto\x1a\x1bgoogle/protobuf/empty.proto\"v\n" +
 	"\x10AccountTypeModel\x12\x17\n" +
 	"\atype_id\x18\x01 \x01(\x05R\x06typeId\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12%\n" +
@@ -546,7 +546,7 @@ const file_account_type_proto_rawDesc = "" +
 	"\n" +
 	"UpdateBulk\x12$.protos.UpdateAccountTypeBulkRequest\x1a\x16.google.protobuf.Empty\x12J\n" +
 	"\n" +
-	"DeleteBulk\x12$.protos.DeleteAccountTypeBulkRequest\x1a\x16.google.protobuf.EmptyB\x1bZ\x19orch-go/gen/protos;protosb\x06proto3"
+	"DeleteBulk\x12$.protos.DeleteAccountTypeBulkRequest\x1a\x16.google.protobuf.EmptyB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
 
 var (
 	file_account_type_proto_rawDescOnce sync.Once

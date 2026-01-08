@@ -5,6 +5,7 @@ import warnings
 
 import custom_types_pb2 as custom__types__pb2
 import customer_pb2 as customer__pb2
+from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 
 GRPC_GENERATED_VERSION = '1.76.0'
 GRPC_VERSION = grpc.__version__
@@ -45,6 +46,11 @@ class CustomerServiceStub(object):
                 request_serializer=customer__pb2.GetCustomerByIdRequest.SerializeToString,
                 response_deserializer=customer__pb2.CustomerModel.FromString,
                 _registered_method=True)
+        self.GetByIds = channel.unary_unary(
+                '/protos.CustomerService/GetByIds',
+                request_serializer=customer__pb2.GetCustomerByIdsRequest.SerializeToString,
+                response_deserializer=customer__pb2.GetAllCustomersResponse.FromString,
+                _registered_method=True)
         self.GetBySubstring = channel.unary_unary(
                 '/protos.CustomerService/GetBySubstring',
                 request_serializer=customer__pb2.GetBySubstringRequest.SerializeToString,
@@ -54,6 +60,36 @@ class CustomerServiceStub(object):
                 '/protos.CustomerService/GetByDateRange',
                 request_serializer=custom__types__pb2.GetByDateRangeRequest.SerializeToString,
                 response_deserializer=customer__pb2.GetAllCustomersResponse.FromString,
+                _registered_method=True)
+        self.Add = channel.unary_unary(
+                '/protos.CustomerService/Add',
+                request_serializer=customer__pb2.AddCustomerRequest.SerializeToString,
+                response_deserializer=customer__pb2.CustomerModel.FromString,
+                _registered_method=True)
+        self.Update = channel.unary_unary(
+                '/protos.CustomerService/Update',
+                request_serializer=customer__pb2.UpdateCustomerRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                _registered_method=True)
+        self.Delete = channel.unary_unary(
+                '/protos.CustomerService/Delete',
+                request_serializer=customer__pb2.DeleteCustomerRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                _registered_method=True)
+        self.AddBulk = channel.unary_unary(
+                '/protos.CustomerService/AddBulk',
+                request_serializer=customer__pb2.AddCustomerBulkRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                _registered_method=True)
+        self.UpdateBulk = channel.unary_unary(
+                '/protos.CustomerService/UpdateBulk',
+                request_serializer=customer__pb2.UpdateCustomerBulkRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                _registered_method=True)
+        self.DeleteBulk = channel.unary_unary(
+                '/protos.CustomerService/DeleteBulk',
+                request_serializer=customer__pb2.DeleteCustomerBulkRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 _registered_method=True)
 
 
@@ -72,6 +108,12 @@ class CustomerServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetByIds(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def GetBySubstring(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -79,6 +121,42 @@ class CustomerServiceServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def GetByDateRange(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def Add(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def Update(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def Delete(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def AddBulk(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def UpdateBulk(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def DeleteBulk(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -97,6 +175,11 @@ def add_CustomerServiceServicer_to_server(servicer, server):
                     request_deserializer=customer__pb2.GetCustomerByIdRequest.FromString,
                     response_serializer=customer__pb2.CustomerModel.SerializeToString,
             ),
+            'GetByIds': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetByIds,
+                    request_deserializer=customer__pb2.GetCustomerByIdsRequest.FromString,
+                    response_serializer=customer__pb2.GetAllCustomersResponse.SerializeToString,
+            ),
             'GetBySubstring': grpc.unary_unary_rpc_method_handler(
                     servicer.GetBySubstring,
                     request_deserializer=customer__pb2.GetBySubstringRequest.FromString,
@@ -106,6 +189,36 @@ def add_CustomerServiceServicer_to_server(servicer, server):
                     servicer.GetByDateRange,
                     request_deserializer=custom__types__pb2.GetByDateRangeRequest.FromString,
                     response_serializer=customer__pb2.GetAllCustomersResponse.SerializeToString,
+            ),
+            'Add': grpc.unary_unary_rpc_method_handler(
+                    servicer.Add,
+                    request_deserializer=customer__pb2.AddCustomerRequest.FromString,
+                    response_serializer=customer__pb2.CustomerModel.SerializeToString,
+            ),
+            'Update': grpc.unary_unary_rpc_method_handler(
+                    servicer.Update,
+                    request_deserializer=customer__pb2.UpdateCustomerRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'Delete': grpc.unary_unary_rpc_method_handler(
+                    servicer.Delete,
+                    request_deserializer=customer__pb2.DeleteCustomerRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'AddBulk': grpc.unary_unary_rpc_method_handler(
+                    servicer.AddBulk,
+                    request_deserializer=customer__pb2.AddCustomerBulkRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'UpdateBulk': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateBulk,
+                    request_deserializer=customer__pb2.UpdateCustomerBulkRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'DeleteBulk': grpc.unary_unary_rpc_method_handler(
+                    servicer.DeleteBulk,
+                    request_deserializer=customer__pb2.DeleteCustomerBulkRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -173,6 +286,33 @@ class CustomerService(object):
             _registered_method=True)
 
     @staticmethod
+    def GetByIds(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.CustomerService/GetByIds',
+            customer__pb2.GetCustomerByIdsRequest.SerializeToString,
+            customer__pb2.GetAllCustomersResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
     def GetBySubstring(request,
             target,
             options=(),
@@ -216,6 +356,168 @@ class CustomerService(object):
             '/protos.CustomerService/GetByDateRange',
             custom__types__pb2.GetByDateRangeRequest.SerializeToString,
             customer__pb2.GetAllCustomersResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def Add(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.CustomerService/Add',
+            customer__pb2.AddCustomerRequest.SerializeToString,
+            customer__pb2.CustomerModel.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def Update(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.CustomerService/Update',
+            customer__pb2.UpdateCustomerRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def Delete(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.CustomerService/Delete',
+            customer__pb2.DeleteCustomerRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def AddBulk(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.CustomerService/AddBulk',
+            customer__pb2.AddCustomerBulkRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def UpdateBulk(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.CustomerService/UpdateBulk',
+            customer__pb2.UpdateCustomerBulkRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def DeleteBulk(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.CustomerService/DeleteBulk',
+            customer__pb2.DeleteCustomerBulkRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options,
             channel_credentials,
             insecure,

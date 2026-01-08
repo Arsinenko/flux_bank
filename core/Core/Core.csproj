@@ -36,7 +36,7 @@
 
         <ItemGroup>
 
-            <Protobuf Include="Protos\*.proto" GrpcServices="Server" />
+            <Protobuf Include="..\..\proto\*.proto" GrpcServices="Server" />
 
         </ItemGroup>
 

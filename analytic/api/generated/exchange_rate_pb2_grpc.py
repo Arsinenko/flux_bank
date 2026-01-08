@@ -5,6 +5,7 @@ import warnings
 
 import custom_types_pb2 as custom__types__pb2
 import exchange_rate_pb2 as exchange__rate__pb2
+from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 
 GRPC_GENERATED_VERSION = '1.76.0'
 GRPC_VERSION = grpc.__version__
@@ -45,10 +46,45 @@ class ExchangeRateServiceStub(object):
                 request_serializer=exchange__rate__pb2.GetExchangeRateByIdRequest.SerializeToString,
                 response_deserializer=exchange__rate__pb2.ExchangeRateModel.FromString,
                 _registered_method=True)
+        self.GetByIds = channel.unary_unary(
+                '/protos.ExchangeRateService/GetByIds',
+                request_serializer=exchange__rate__pb2.GetExchangeRateByIdsRequest.SerializeToString,
+                response_deserializer=exchange__rate__pb2.GetAllExchangeRatesResponse.FromString,
+                _registered_method=True)
         self.GetByBaseCurrency = channel.unary_unary(
                 '/protos.ExchangeRateService/GetByBaseCurrency',
                 request_serializer=exchange__rate__pb2.GetExchangeRateByBaseCurrencyRequest.SerializeToString,
                 response_deserializer=exchange__rate__pb2.GetAllExchangeRatesResponse.FromString,
+                _registered_method=True)
+        self.Add = channel.unary_unary(
+                '/protos.ExchangeRateService/Add',
+                request_serializer=exchange__rate__pb2.AddExchangeRateRequest.SerializeToString,
+                response_deserializer=exchange__rate__pb2.ExchangeRateModel.FromString,
+                _registered_method=True)
+        self.Update = channel.unary_unary(
+                '/protos.ExchangeRateService/Update',
+                request_serializer=exchange__rate__pb2.UpdateExchangeRateRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                _registered_method=True)
+        self.Delete = channel.unary_unary(
+                '/protos.ExchangeRateService/Delete',
+                request_serializer=exchange__rate__pb2.DeleteExchangeRateRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                _registered_method=True)
+        self.AddBulk = channel.unary_unary(
+                '/protos.ExchangeRateService/AddBulk',
+                request_serializer=exchange__rate__pb2.AddExchangeRateBulkRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                _registered_method=True)
+        self.UpdateBulk = channel.unary_unary(
+                '/protos.ExchangeRateService/UpdateBulk',
+                request_serializer=exchange__rate__pb2.UpdateExchangeRateBulkRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                _registered_method=True)
+        self.DeleteBulk = channel.unary_unary(
+                '/protos.ExchangeRateService/DeleteBulk',
+                request_serializer=exchange__rate__pb2.DeleteExchangeRateBulkRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 _registered_method=True)
 
 
@@ -67,7 +103,49 @@ class ExchangeRateServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetByIds(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def GetByBaseCurrency(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def Add(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def Update(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def Delete(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def AddBulk(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def UpdateBulk(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def DeleteBulk(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -86,10 +164,45 @@ def add_ExchangeRateServiceServicer_to_server(servicer, server):
                     request_deserializer=exchange__rate__pb2.GetExchangeRateByIdRequest.FromString,
                     response_serializer=exchange__rate__pb2.ExchangeRateModel.SerializeToString,
             ),
+            'GetByIds': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetByIds,
+                    request_deserializer=exchange__rate__pb2.GetExchangeRateByIdsRequest.FromString,
+                    response_serializer=exchange__rate__pb2.GetAllExchangeRatesResponse.SerializeToString,
+            ),
             'GetByBaseCurrency': grpc.unary_unary_rpc_method_handler(
                     servicer.GetByBaseCurrency,
                     request_deserializer=exchange__rate__pb2.GetExchangeRateByBaseCurrencyRequest.FromString,
                     response_serializer=exchange__rate__pb2.GetAllExchangeRatesResponse.SerializeToString,
+            ),
+            'Add': grpc.unary_unary_rpc_method_handler(
+                    servicer.Add,
+                    request_deserializer=exchange__rate__pb2.AddExchangeRateRequest.FromString,
+                    response_serializer=exchange__rate__pb2.ExchangeRateModel.SerializeToString,
+            ),
+            'Update': grpc.unary_unary_rpc_method_handler(
+                    servicer.Update,
+                    request_deserializer=exchange__rate__pb2.UpdateExchangeRateRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'Delete': grpc.unary_unary_rpc_method_handler(
+                    servicer.Delete,
+                    request_deserializer=exchange__rate__pb2.DeleteExchangeRateRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'AddBulk': grpc.unary_unary_rpc_method_handler(
+                    servicer.AddBulk,
+                    request_deserializer=exchange__rate__pb2.AddExchangeRateBulkRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'UpdateBulk': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateBulk,
+                    request_deserializer=exchange__rate__pb2.UpdateExchangeRateBulkRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'DeleteBulk': grpc.unary_unary_rpc_method_handler(
+                    servicer.DeleteBulk,
+                    request_deserializer=exchange__rate__pb2.DeleteExchangeRateBulkRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -157,6 +270,33 @@ class ExchangeRateService(object):
             _registered_method=True)
 
     @staticmethod
+    def GetByIds(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.ExchangeRateService/GetByIds',
+            exchange__rate__pb2.GetExchangeRateByIdsRequest.SerializeToString,
+            exchange__rate__pb2.GetAllExchangeRatesResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
     def GetByBaseCurrency(request,
             target,
             options=(),
@@ -173,6 +313,168 @@ class ExchangeRateService(object):
             '/protos.ExchangeRateService/GetByBaseCurrency',
             exchange__rate__pb2.GetExchangeRateByBaseCurrencyRequest.SerializeToString,
             exchange__rate__pb2.GetAllExchangeRatesResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def Add(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.ExchangeRateService/Add',
+            exchange__rate__pb2.AddExchangeRateRequest.SerializeToString,
+            exchange__rate__pb2.ExchangeRateModel.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def Update(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.ExchangeRateService/Update',
+            exchange__rate__pb2.UpdateExchangeRateRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def Delete(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.ExchangeRateService/Delete',
+            exchange__rate__pb2.DeleteExchangeRateRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def AddBulk(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.ExchangeRateService/AddBulk',
+            exchange__rate__pb2.AddExchangeRateBulkRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def UpdateBulk(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.ExchangeRateService/UpdateBulk',
+            exchange__rate__pb2.UpdateExchangeRateBulkRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def DeleteBulk(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.ExchangeRateService/DeleteBulk',
+            exchange__rate__pb2.DeleteExchangeRateBulkRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options,
             channel_credentials,
             insecure,

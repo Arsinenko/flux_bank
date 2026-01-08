@@ -99,6 +99,22 @@ class GetLoanByIdRequest(google.protobuf.message.Message):
 Global___GetLoanByIdRequest: typing_extensions.TypeAlias = GetLoanByIdRequest
 
 @typing.final
+class GetLoanByIdsRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    LOAN_IDS_FIELD_NUMBER: builtins.int
+    @property
+    def loan_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
+    def __init__(
+        self,
+        *,
+        loan_ids: collections.abc.Iterable[builtins.int] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["loan_ids", b"loan_ids"]) -> None: ...
+
+Global___GetLoanByIdsRequest: typing_extensions.TypeAlias = GetLoanByIdsRequest
+
+@typing.final
 class GetLoansByCustomerRequest(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -112,3 +128,127 @@ class GetLoansByCustomerRequest(google.protobuf.message.Message):
     def ClearField(self, field_name: typing.Literal["customer_id", b"customer_id"]) -> None: ...
 
 Global___GetLoansByCustomerRequest: typing_extensions.TypeAlias = GetLoansByCustomerRequest
+
+@typing.final
+class AddLoanRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CUSTOMER_ID_FIELD_NUMBER: builtins.int
+    PRINCIPAL_FIELD_NUMBER: builtins.int
+    INTEREST_RATE_FIELD_NUMBER: builtins.int
+    START_DATE_FIELD_NUMBER: builtins.int
+    END_DATE_FIELD_NUMBER: builtins.int
+    STATUS_FIELD_NUMBER: builtins.int
+    customer_id: builtins.int
+    principal: builtins.str
+    interest_rate: builtins.str
+    status: builtins.str
+    @property
+    def start_date(self) -> custom_types_pb2.DateOnly: ...
+    @property
+    def end_date(self) -> custom_types_pb2.DateOnly: ...
+    def __init__(
+        self,
+        *,
+        customer_id: builtins.int | None = ...,
+        principal: builtins.str | None = ...,
+        interest_rate: builtins.str | None = ...,
+        start_date: custom_types_pb2.DateOnly | None = ...,
+        end_date: custom_types_pb2.DateOnly | None = ...,
+        status: builtins.str | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["_customer_id", b"_customer_id", "_end_date", b"_end_date", "_interest_rate", b"_interest_rate", "_principal", b"_principal", "_start_date", b"_start_date", "_status", b"_status", "customer_id", b"customer_id", "end_date", b"end_date", "interest_rate", b"interest_rate", "principal", b"principal", "start_date", b"start_date", "status", b"status"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_customer_id", b"_customer_id", "_end_date", b"_end_date", "_interest_rate", b"_interest_rate", "_principal", b"_principal", "_start_date", b"_start_date", "_status", b"_status", "customer_id", b"customer_id", "end_date", b"end_date", "interest_rate", b"interest_rate", "principal", b"principal", "start_date", b"start_date", "status", b"status"]) -> None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_customer_id", b"_customer_id"]) -> typing.Literal["customer_id"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_end_date", b"_end_date"]) -> typing.Literal["end_date"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_interest_rate", b"_interest_rate"]) -> typing.Literal["interest_rate"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_principal", b"_principal"]) -> typing.Literal["principal"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_start_date", b"_start_date"]) -> typing.Literal["start_date"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_status", b"_status"]) -> typing.Literal["status"] | None: ...
+
+Global___AddLoanRequest: typing_extensions.TypeAlias = AddLoanRequest
+
+@typing.final
+class UpdateLoanRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    LOAN_ID_FIELD_NUMBER: builtins.int
+    CUSTOMER_ID_FIELD_NUMBER: builtins.int
+    PRINCIPAL_FIELD_NUMBER: builtins.int
+    INTEREST_RATE_FIELD_NUMBER: builtins.int
+    START_DATE_FIELD_NUMBER: builtins.int
+    END_DATE_FIELD_NUMBER: builtins.int
+    STATUS_FIELD_NUMBER: builtins.int
+    loan_id: builtins.int
+    customer_id: builtins.int
+    principal: builtins.str
+    interest_rate: builtins.str
+    status: builtins.str
+    @property
+    def start_date(self) -> custom_types_pb2.DateOnly: ...
+    @property
+    def end_date(self) -> custom_types_pb2.DateOnly: ...
+    def __init__(
+        self,
+        *,
+        loan_id: builtins.int = ...,
+        customer_id: builtins.int | None = ...,
+        principal: builtins.str | None = ...,
+        interest_rate: builtins.str | None = ...,
+        start_date: custom_types_pb2.DateOnly | None = ...,
+        end_date: custom_types_pb2.DateOnly | None = ...,
+        status: builtins.str | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["_customer_id", b"_customer_id", "_end_date", b"_end_date", "_interest_rate", b"_interest_rate", "_principal", b"_principal", "_start_date", b"_start_date", "_status", b"_status", "customer_id", b"customer_id", "end_date", b"end_date", "interest_rate", b"interest_rate", "principal", b"principal", "start_date", b"start_date", "status", b"status"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_customer_id", b"_customer_id", "_end_date", b"_end_date", "_interest_rate", b"_interest_rate", "_principal", b"_principal", "_start_date", b"_start_date", "_status", b"_status", "customer_id", b"customer_id", "end_date", b"end_date", "interest_rate", b"interest_rate", "loan_id", b"loan_id", "principal", b"principal", "start_date", b"start_date", "status", b"status"]) -> None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_customer_id", b"_customer_id"]) -> typing.Literal["customer_id"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_end_date", b"_end_date"]) -> typing.Literal["end_date"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_interest_rate", b"_interest_rate"]) -> typing.Literal["interest_rate"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_principal", b"_principal"]) -> typing.Literal["principal"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_start_date", b"_start_date"]) -> typing.Literal["start_date"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_status", b"_status"]) -> typing.Literal["status"] | None: ...
+
+Global___UpdateLoanRequest: typing_extensions.TypeAlias = UpdateLoanRequest
+
+@typing.final
+class DeleteLoanRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    LOAN_ID_FIELD_NUMBER: builtins.int
+    loan_id: builtins.int
+    def __init__(
+        self,
+        *,
+        loan_id: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["loan_id", b"loan_id"]) -> None: ...
+
+Global___DeleteLoanRequest: typing_extensions.TypeAlias = DeleteLoanRequest
+
+@typing.final
+class DeleteLoanBulkRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    LOANS_FIELD_NUMBER: builtins.int
+    @property
+    def loans(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___DeleteLoanRequest]: ...
+    def __init__(
+        self,
+        *,
+        loans: collections.abc.Iterable[Global___DeleteLoanRequest] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["loans", b"loans"]) -> None: ...
+
+Global___DeleteLoanBulkRequest: typing_extensions.TypeAlias = DeleteLoanBulkRequest

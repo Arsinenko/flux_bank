@@ -23,22 +23,39 @@ _sym_db = _symbol_database.Default()
 
 
 from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
+import transaction_pb2 as transaction__pb2
+import fee_type_pb2 as fee__type__pb2
 import custom_types_pb2 as custom__types__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x15transaction_fee.proto\x12\x06protos\x1a\x1bgoogle/protobuf/empty.proto\x1a\x12\x63ustom_types.proto\"\x91\x01\n\x13TransactionFeeModel\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x1b\n\x0etransaction_id\x18\x02 \x01(\x05H\x00\x88\x01\x01\x12\x13\n\x06\x66\x65\x65_id\x18\x03 \x01(\x05H\x01\x88\x01\x01\x12\x13\n\x06\x61mount\x18\x04 \x01(\tH\x02\x88\x01\x01\x42\x11\n\x0f_transaction_idB\t\n\x07_fee_idB\t\n\x07_amount\"V\n\x1dGetAllTransactionFeesResponse\x12\x35\n\x10transaction_fees\x18\x01 \x03(\x0b\x32\x1b.protos.TransactionFeeModel\"*\n\x1cGetTransactionFeeByIdRequest\x12\n\n\x02id\x18\x01 \x01(\x05\x32\xad\x01\n\x15TransactionFeeService\x12\x46\n\x06GetAll\x12\x15.protos.GetAllRequest\x1a%.protos.GetAllTransactionFeesResponse\x12L\n\x07GetById\x12$.protos.GetTransactionFeeByIdRequest\x1a\x1b.protos.TransactionFeeModelb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x15transaction_fee.proto\x12\x06protos\x1a\x1bgoogle/protobuf/empty.proto\x1a\x11transaction.proto\x1a\x0e\x66\x65\x65_type.proto\x1a\x12\x63ustom_types.proto\"\x91\x01\n\x13TransactionFeeModel\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x1b\n\x0etransaction_id\x18\x02 \x01(\x05H\x00\x88\x01\x01\x12\x13\n\x06\x66\x65\x65_id\x18\x03 \x01(\x05H\x01\x88\x01\x01\x12\x13\n\x06\x61mount\x18\x04 \x01(\tH\x02\x88\x01\x01\x42\x11\n\x0f_transaction_idB\t\n\x07_fee_idB\t\n\x07_amount\"V\n\x1dGetAllTransactionFeesResponse\x12\x35\n\x10transaction_fees\x18\x01 \x03(\x0b\x32\x1b.protos.TransactionFeeModel\"*\n\x1cGetTransactionFeeByIdRequest\x12\n\n\x02id\x18\x01 \x01(\x05\",\n\x1dGetTransactionFeeByIdsRequest\x12\x0b\n\x03ids\x18\x01 \x03(\x05\"\x8a\x01\n\x18\x41\x64\x64TransactionFeeRequest\x12\x1b\n\x0etransaction_id\x18\x01 \x01(\x05H\x00\x88\x01\x01\x12\x13\n\x06\x66\x65\x65_id\x18\x02 \x01(\x05H\x01\x88\x01\x01\x12\x13\n\x06\x61mount\x18\x03 \x01(\tH\x02\x88\x01\x01\x42\x11\n\x0f_transaction_idB\t\n\x07_fee_idB\t\n\x07_amount\"\x99\x01\n\x1bUpdateTransactionFeeRequest\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x1b\n\x0etransaction_id\x18\x02 \x01(\x05H\x00\x88\x01\x01\x12\x13\n\x06\x66\x65\x65_id\x18\x03 \x01(\x05H\x01\x88\x01\x01\x12\x13\n\x06\x61mount\x18\x04 \x01(\tH\x02\x88\x01\x01\x42\x11\n\x0f_transaction_idB\t\n\x07_fee_idB\t\n\x07_amount\")\n\x1b\x44\x65leteTransactionFeeRequest\x12\n\n\x02id\x18\x01 \x01(\x05\"Z\n\x1c\x41\x64\x64TransactionFeeBulkRequest\x12:\n\x10transaction_fees\x18\x01 \x03(\x0b\x32 .protos.AddTransactionFeeRequest\"`\n\x1fUpdateTransactionFeeBulkRequest\x12=\n\x10transaction_fees\x18\x01 \x03(\x0b\x32#.protos.UpdateTransactionFeeRequest\"`\n\x1f\x44\x65leteTransactionFeeBulkRequest\x12=\n\x10transaction_fees\x18\x01 \x03(\x0b\x32#.protos.DeleteTransactionFeeRequest2\xc2\x05\n\x15TransactionFeeService\x12\x46\n\x06GetAll\x12\x15.protos.GetAllRequest\x1a%.protos.GetAllTransactionFeesResponse\x12L\n\x07GetById\x12$.protos.GetTransactionFeeByIdRequest\x1a\x1b.protos.TransactionFeeModel\x12X\n\x08GetByIds\x12%.protos.GetTransactionFeeByIdsRequest\x1a%.protos.GetAllTransactionFeesResponse\x12\x44\n\x03\x41\x64\x64\x12 .protos.AddTransactionFeeRequest\x1a\x1b.protos.TransactionFeeModel\x12\x45\n\x06Update\x12#.protos.UpdateTransactionFeeRequest\x1a\x16.google.protobuf.Empty\x12\x45\n\x06\x44\x65lete\x12#.protos.DeleteTransactionFeeRequest\x1a\x16.google.protobuf.Empty\x12G\n\x07\x41\x64\x64\x42ulk\x12$.protos.AddTransactionFeeBulkRequest\x1a\x16.google.protobuf.Empty\x12M\n\nUpdateBulk\x12\'.protos.UpdateTransactionFeeBulkRequest\x1a\x16.google.protobuf.Empty\x12M\n\nDeleteBulk\x12\'.protos.DeleteTransactionFeeBulkRequest\x1a\x16.google.protobuf.EmptyB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04\x43oreb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'transaction_fee_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
-  DESCRIPTOR._loaded_options = None
-  _globals['_TRANSACTIONFEEMODEL']._serialized_start=83
-  _globals['_TRANSACTIONFEEMODEL']._serialized_end=228
-  _globals['_GETALLTRANSACTIONFEESRESPONSE']._serialized_start=230
-  _globals['_GETALLTRANSACTIONFEESRESPONSE']._serialized_end=316
-  _globals['_GETTRANSACTIONFEEBYIDREQUEST']._serialized_start=318
-  _globals['_GETTRANSACTIONFEEBYIDREQUEST']._serialized_end=360
-  _globals['_TRANSACTIONFEESERVICE']._serialized_start=363
-  _globals['_TRANSACTIONFEESERVICE']._serialized_end=536
+  _globals['DESCRIPTOR']._loaded_options = None
+  _globals['DESCRIPTOR']._serialized_options = b'Z\031orch-go/gen/protos;protos\252\002\004Core'
+  _globals['_TRANSACTIONFEEMODEL']._serialized_start=118
+  _globals['_TRANSACTIONFEEMODEL']._serialized_end=263
+  _globals['_GETALLTRANSACTIONFEESRESPONSE']._serialized_start=265
+  _globals['_GETALLTRANSACTIONFEESRESPONSE']._serialized_end=351
+  _globals['_GETTRANSACTIONFEEBYIDREQUEST']._serialized_start=353
+  _globals['_GETTRANSACTIONFEEBYIDREQUEST']._serialized_end=395
+  _globals['_GETTRANSACTIONFEEBYIDSREQUEST']._serialized_start=397
+  _globals['_GETTRANSACTIONFEEBYIDSREQUEST']._serialized_end=441
+  _globals['_ADDTRANSACTIONFEEREQUEST']._serialized_start=444
+  _globals['_ADDTRANSACTIONFEEREQUEST']._serialized_end=582
+  _globals['_UPDATETRANSACTIONFEEREQUEST']._serialized_start=585
+  _globals['_UPDATETRANSACTIONFEEREQUEST']._serialized_end=738
+  _globals['_DELETETRANSACTIONFEEREQUEST']._serialized_start=740
+  _globals['_DELETETRANSACTIONFEEREQUEST']._serialized_end=781
+  _globals['_ADDTRANSACTIONFEEBULKREQUEST']._serialized_start=783
+  _globals['_ADDTRANSACTIONFEEBULKREQUEST']._serialized_end=873
+  _globals['_UPDATETRANSACTIONFEEBULKREQUEST']._serialized_start=875
+  _globals['_UPDATETRANSACTIONFEEBULKREQUEST']._serialized_end=971
+  _globals['_DELETETRANSACTIONFEEBULKREQUEST']._serialized_start=973
+  _globals['_DELETETRANSACTIONFEEBULKREQUEST']._serialized_end=1069
+  _globals['_TRANSACTIONFEESERVICE']._serialized_start=1072
+  _globals['_TRANSACTIONFEESERVICE']._serialized_end=1778
 # @@protoc_insertion_point(module_scope)

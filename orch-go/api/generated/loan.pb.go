@@ -559,7 +559,7 @@ var File_loan_proto protoreflect.FileDescriptor
 const file_loan_proto_rawDesc = "" +
 	"\n" +
 	"\n" +
-	"loan.proto\x12\x06protos\x1a\x1bgoogle/protobuf/empty.proto\x1a\x12custom_types.proto\"\xf3\x02\n" +
+	"loan.proto\x12\x06protos\x1a\x0ecustomer.proto\x1a\x12custom_types.proto\x1a\x1bgoogle/protobuf/empty.proto\"\xf3\x02\n" +
 	"\tLoanModel\x12\x17\n" +
 	"\aloan_id\x18\x01 \x01(\x05R\x06loanId\x12$\n" +
 	"\vcustomer_id\x18\x02 \x01(\x05H\x00R\n" +
@@ -632,7 +632,7 @@ const file_loan_proto_rawDesc = "" +
 	"\x06Update\x12\x19.protos.UpdateLoanRequest\x1a\x16.google.protobuf.Empty\x12;\n" +
 	"\x06Delete\x12\x19.protos.DeleteLoanRequest\x1a\x16.google.protobuf.Empty\x12C\n" +
 	"\n" +
-	"DeleteBulk\x12\x1d.protos.DeleteLoanBulkRequest\x1a\x16.google.protobuf.EmptyB\x1bZ\x19orch-go/gen/protos;protosb\x06proto3"
+	"DeleteBulk\x12\x1d.protos.DeleteLoanBulkRequest\x1a\x16.google.protobuf.EmptyB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
 
 var (
 	file_loan_proto_rawDescOnce sync.Once
@@ -698,6 +698,7 @@ func file_loan_proto_init() {
 	if File_loan_proto != nil {
 		return
 	}
+	file_customer_proto_init()
 	file_custom_types_proto_init()
 	file_loan_proto_msgTypes[0].OneofWrappers = []any{}
 	file_loan_proto_msgTypes[5].OneofWrappers = []any{}

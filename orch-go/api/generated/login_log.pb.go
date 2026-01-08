@@ -651,7 +651,7 @@ var File_login_log_proto protoreflect.FileDescriptor
 
 const file_login_log_proto_rawDesc = "" +
 	"\n" +
-	"\x0flogin_log.proto\x12\x06protos\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x12custom_types.proto\"\x94\x02\n" +
+	"\x0flogin_log.proto\x12\x06protos\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x0ecustomer.proto\x1a\x12custom_types.proto\"\x94\x02\n" +
 	"\rLoginLogModel\x12\x15\n" +
 	"\x06log_id\x18\x01 \x01(\x05R\x05logId\x12$\n" +
 	"\vcustomer_id\x18\x02 \x01(\x05H\x00R\n" +
@@ -731,7 +731,7 @@ const file_login_log_proto_rawDesc = "" +
 	"\n" +
 	"UpdateBulk\x12!.protos.UpdateLoginLogBulkRequest\x1a\x16.google.protobuf.Empty\x12G\n" +
 	"\n" +
-	"DeleteBulk\x12!.protos.DeleteLoginLogBulkRequest\x1a\x16.google.protobuf.EmptyB\x1bZ\x19orch-go/gen/protos;protosb\x06proto3"
+	"DeleteBulk\x12!.protos.DeleteLoginLogBulkRequest\x1a\x16.google.protobuf.EmptyB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
 
 var (
 	file_login_log_proto_rawDescOnce sync.Once
@@ -807,6 +807,7 @@ func file_login_log_proto_init() {
 	if File_login_log_proto != nil {
 		return
 	}
+	file_customer_proto_init()
 	file_custom_types_proto_init()
 	file_login_log_proto_msgTypes[0].OneofWrappers = []any{}
 	file_login_log_proto_msgTypes[6].OneofWrappers = []any{}

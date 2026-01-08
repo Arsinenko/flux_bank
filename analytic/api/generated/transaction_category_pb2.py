@@ -22,23 +22,38 @@ _runtime_version.ValidateProtobufRuntimeVersion(
 _sym_db = _symbol_database.Default()
 
 
-from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 import custom_types_pb2 as custom__types__pb2
+from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1atransaction_category.proto\x12\x06protos\x1a\x1bgoogle/protobuf/empty.proto\x1a\x12\x63ustom_types.proto\"=\n\x18TransactionCategoryModel\x12\x13\n\x0b\x63\x61tegory_id\x18\x01 \x01(\x05\x12\x0c\n\x04name\x18\x02 \x01(\t\"g\n#GetAllTransactionCategoriesResponse\x12@\n\x16transaction_categories\x18\x01 \x03(\x0b\x32 .protos.TransactionCategoryModel\"8\n!GetTransactionCategoryByIdRequest\x12\x13\n\x0b\x63\x61tegory_id\x18\x01 \x01(\x05\x32\xc2\x01\n\x1aTransactionCategoryService\x12L\n\x06GetAll\x12\x15.protos.GetAllRequest\x1a+.protos.GetAllTransactionCategoriesResponse\x12V\n\x07GetById\x12).protos.GetTransactionCategoryByIdRequest\x1a .protos.TransactionCategoryModelb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1atransaction_category.proto\x12\x06protos\x1a\x12\x63ustom_types.proto\x1a\x1bgoogle/protobuf/empty.proto\"=\n\x18TransactionCategoryModel\x12\x13\n\x0b\x63\x61tegory_id\x18\x01 \x01(\x05\x12\x0c\n\x04name\x18\x02 \x01(\t\"g\n#GetAllTransactionCategoriesResponse\x12@\n\x16transaction_categories\x18\x01 \x03(\x0b\x32 .protos.TransactionCategoryModel\"8\n!GetTransactionCategoryByIdRequest\x12\x13\n\x0b\x63\x61tegory_id\x18\x01 \x01(\x05\":\n\"GetTransactionCategoryByIdsRequest\x12\x14\n\x0c\x63\x61tegory_ids\x18\x01 \x03(\x05\"-\n\x1d\x41\x64\x64TransactionCategoryRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\"E\n UpdateTransactionCategoryRequest\x12\x13\n\x0b\x63\x61tegory_id\x18\x01 \x01(\x05\x12\x0c\n\x04name\x18\x02 \x01(\t\"7\n DeleteTransactionCategoryRequest\x12\x13\n\x0b\x63\x61tegory_id\x18\x01 \x01(\x05\"j\n!AddTransactionCategoryBulkRequest\x12\x45\n\x16transaction_categories\x18\x01 \x03(\x0b\x32%.protos.AddTransactionCategoryRequest\"p\n$UpdateTransactionCategoryBulkRequest\x12H\n\x16transaction_categories\x18\x01 \x03(\x0b\x32(.protos.UpdateTransactionCategoryRequest\"p\n$DeleteTransactionCategoryBulkRequest\x12H\n\x16transaction_categories\x18\x01 \x03(\x0b\x32(.protos.DeleteTransactionCategoryRequest2\x85\x06\n\x1aTransactionCategoryService\x12L\n\x06GetAll\x12\x15.protos.GetAllRequest\x1a+.protos.GetAllTransactionCategoriesResponse\x12V\n\x07GetById\x12).protos.GetTransactionCategoryByIdRequest\x1a .protos.TransactionCategoryModel\x12\x63\n\x08GetByIds\x12*.protos.GetTransactionCategoryByIdsRequest\x1a+.protos.GetAllTransactionCategoriesResponse\x12N\n\x03\x41\x64\x64\x12%.protos.AddTransactionCategoryRequest\x1a .protos.TransactionCategoryModel\x12J\n\x06Update\x12(.protos.UpdateTransactionCategoryRequest\x1a\x16.google.protobuf.Empty\x12J\n\x06\x44\x65lete\x12(.protos.DeleteTransactionCategoryRequest\x1a\x16.google.protobuf.Empty\x12L\n\x07\x41\x64\x64\x42ulk\x12).protos.AddTransactionCategoryBulkRequest\x1a\x16.google.protobuf.Empty\x12R\n\nUpdateBulk\x12,.protos.UpdateTransactionCategoryBulkRequest\x1a\x16.google.protobuf.Empty\x12R\n\nDeleteBulk\x12,.protos.DeleteTransactionCategoryBulkRequest\x1a\x16.google.protobuf.EmptyB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04\x43oreb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'transaction_category_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
-  DESCRIPTOR._loaded_options = None
+  _globals['DESCRIPTOR']._loaded_options = None
+  _globals['DESCRIPTOR']._serialized_options = b'Z\031orch-go/gen/protos;protos\252\002\004Core'
   _globals['_TRANSACTIONCATEGORYMODEL']._serialized_start=87
   _globals['_TRANSACTIONCATEGORYMODEL']._serialized_end=148
   _globals['_GETALLTRANSACTIONCATEGORIESRESPONSE']._serialized_start=150
   _globals['_GETALLTRANSACTIONCATEGORIESRESPONSE']._serialized_end=253
   _globals['_GETTRANSACTIONCATEGORYBYIDREQUEST']._serialized_start=255
   _globals['_GETTRANSACTIONCATEGORYBYIDREQUEST']._serialized_end=311
-  _globals['_TRANSACTIONCATEGORYSERVICE']._serialized_start=314
-  _globals['_TRANSACTIONCATEGORYSERVICE']._serialized_end=508
+  _globals['_GETTRANSACTIONCATEGORYBYIDSREQUEST']._serialized_start=313
+  _globals['_GETTRANSACTIONCATEGORYBYIDSREQUEST']._serialized_end=371
+  _globals['_ADDTRANSACTIONCATEGORYREQUEST']._serialized_start=373
+  _globals['_ADDTRANSACTIONCATEGORYREQUEST']._serialized_end=418
+  _globals['_UPDATETRANSACTIONCATEGORYREQUEST']._serialized_start=420
+  _globals['_UPDATETRANSACTIONCATEGORYREQUEST']._serialized_end=489
+  _globals['_DELETETRANSACTIONCATEGORYREQUEST']._serialized_start=491
+  _globals['_DELETETRANSACTIONCATEGORYREQUEST']._serialized_end=546
+  _globals['_ADDTRANSACTIONCATEGORYBULKREQUEST']._serialized_start=548
+  _globals['_ADDTRANSACTIONCATEGORYBULKREQUEST']._serialized_end=654
+  _globals['_UPDATETRANSACTIONCATEGORYBULKREQUEST']._serialized_start=656
+  _globals['_UPDATETRANSACTIONCATEGORYBULKREQUEST']._serialized_end=768
+  _globals['_DELETETRANSACTIONCATEGORYBULKREQUEST']._serialized_start=770
+  _globals['_DELETETRANSACTIONCATEGORYBULKREQUEST']._serialized_end=882
+  _globals['_TRANSACTIONCATEGORYSERVICE']._serialized_start=885
+  _globals['_TRANSACTIONCATEGORYSERVICE']._serialized_end=1658
 # @@protoc_insertion_point(module_scope)

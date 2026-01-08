@@ -220,7 +220,7 @@ const file_custom_types_proto_rawDesc = "" +
 	"\x05pageN\x18\x03 \x01(\x05H\x00R\x05pageN\x88\x01\x01\x12\x1f\n" +
 	"\bpageSize\x18\x04 \x01(\x05H\x01R\bpageSize\x88\x01\x01B\b\n" +
 	"\x06_pageNB\v\n" +
-	"\t_pageSizeB\x1bZ\x19orch-go/gen/protos;protosb\x06proto3"
+	"\t_pageSizeB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
 
 var (
 	file_custom_types_proto_rawDescOnce sync.Once

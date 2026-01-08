@@ -40,7 +40,7 @@ func (r Repository) GetById(ctx context.Context, id int32) (*customerAdress.Cust
 
 func (r Repository) Create(ctx context.Context, address *customerAdress.CustomerAddress) (*customerAdress.CustomerAddress, error) {
 	req := &pb.AddCustomerAddressRequest{
-		CustomerId: &address.Customer_id,
+		CustomerId: &address.CustomerId,
 		Country:    &address.Country,
 		City:       &address.City,
 		Street:     &address.Street,
@@ -57,7 +57,7 @@ func (r Repository) Create(ctx context.Context, address *customerAdress.Customer
 func (r Repository) Update(ctx context.Context, address *customerAdress.CustomerAddress) error {
 	req := &pb.UpdateCustomerAddressRequest{
 		AddressId:  *address.Id,
-		CustomerId: &address.Customer_id,
+		CustomerId: &address.CustomerId,
 		Country:    &address.Country,
 		City:       &address.City,
 		Street:     &address.Street,

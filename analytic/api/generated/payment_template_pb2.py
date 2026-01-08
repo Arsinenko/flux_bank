@@ -22,23 +22,39 @@ _runtime_version.ValidateProtobufRuntimeVersion(
 _sym_db = _symbol_database.Default()
 
 
-from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 import custom_types_pb2 as custom__types__pb2
+import customer_pb2 as customer__pb2
+from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x16payment_template.proto\x12\x06protos\x1a\x1bgoogle/protobuf/empty.proto\x1a\x12\x63ustom_types.proto\"\xcb\x01\n\x14PaymentTemplateModel\x12\x13\n\x0btemplate_id\x18\x01 \x01(\x05\x12\x18\n\x0b\x63ustomer_id\x18\x02 \x01(\x05H\x00\x88\x01\x01\x12\x11\n\x04name\x18\x03 \x01(\tH\x01\x88\x01\x01\x12\x18\n\x0btarget_iban\x18\x04 \x01(\tH\x02\x88\x01\x01\x12\x1b\n\x0e\x64\x65\x66\x61ult_amount\x18\x05 \x01(\tH\x03\x88\x01\x01\x42\x0e\n\x0c_customer_idB\x07\n\x05_nameB\x0e\n\x0c_target_ibanB\x11\n\x0f_default_amount\"Y\n\x1eGetAllPaymentTemplatesResponse\x12\x37\n\x11payment_templates\x18\x01 \x03(\x0b\x32\x1c.protos.PaymentTemplateModel\"4\n\x1dGetPaymentTemplateByIdRequest\x12\x13\n\x0btemplate_id\x18\x01 \x01(\x05\x32\xb1\x01\n\x16PaymentTemplateService\x12G\n\x06GetAll\x12\x15.protos.GetAllRequest\x1a&.protos.GetAllPaymentTemplatesResponse\x12N\n\x07GetById\x12%.protos.GetPaymentTemplateByIdRequest\x1a\x1c.protos.PaymentTemplateModelb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x16payment_template.proto\x12\x06protos\x1a\x12\x63ustom_types.proto\x1a\x0e\x63ustomer.proto\x1a\x1bgoogle/protobuf/empty.proto\"\xcb\x01\n\x14PaymentTemplateModel\x12\x13\n\x0btemplate_id\x18\x01 \x01(\x05\x12\x18\n\x0b\x63ustomer_id\x18\x02 \x01(\x05H\x00\x88\x01\x01\x12\x11\n\x04name\x18\x03 \x01(\tH\x01\x88\x01\x01\x12\x18\n\x0btarget_iban\x18\x04 \x01(\tH\x02\x88\x01\x01\x12\x1b\n\x0e\x64\x65\x66\x61ult_amount\x18\x05 \x01(\tH\x03\x88\x01\x01\x42\x0e\n\x0c_customer_idB\x07\n\x05_nameB\x0e\n\x0c_target_ibanB\x11\n\x0f_default_amount\"Y\n\x1eGetAllPaymentTemplatesResponse\x12\x37\n\x11payment_templates\x18\x01 \x03(\x0b\x32\x1c.protos.PaymentTemplateModel\"4\n\x1dGetPaymentTemplateByIdRequest\x12\x13\n\x0btemplate_id\x18\x01 \x01(\x05\"6\n\x1eGetPaymentTemplateByIdsRequest\x12\x14\n\x0ctemplate_ids\x18\x01 \x03(\x05\"\xbb\x01\n\x19\x41\x64\x64PaymentTemplateRequest\x12\x18\n\x0b\x63ustomer_id\x18\x01 \x01(\x05H\x00\x88\x01\x01\x12\x11\n\x04name\x18\x02 \x01(\tH\x01\x88\x01\x01\x12\x18\n\x0btarget_iban\x18\x03 \x01(\tH\x02\x88\x01\x01\x12\x1b\n\x0e\x64\x65\x66\x61ult_amount\x18\x04 \x01(\tH\x03\x88\x01\x01\x42\x0e\n\x0c_customer_idB\x07\n\x05_nameB\x0e\n\x0c_target_ibanB\x11\n\x0f_default_amount\"\xd3\x01\n\x1cUpdatePaymentTemplateRequest\x12\x13\n\x0btemplate_id\x18\x01 \x01(\x05\x12\x18\n\x0b\x63ustomer_id\x18\x02 \x01(\x05H\x00\x88\x01\x01\x12\x11\n\x04name\x18\x03 \x01(\tH\x01\x88\x01\x01\x12\x18\n\x0btarget_iban\x18\x04 \x01(\tH\x02\x88\x01\x01\x12\x1b\n\x0e\x64\x65\x66\x61ult_amount\x18\x05 \x01(\tH\x03\x88\x01\x01\x42\x0e\n\x0c_customer_idB\x07\n\x05_nameB\x0e\n\x0c_target_ibanB\x11\n\x0f_default_amount\"3\n\x1c\x44\x65letePaymentTemplateRequest\x12\x13\n\x0btemplate_id\x18\x01 \x01(\x05\"U\n\x1d\x41\x64\x64PaymentTemplateBulkRequest\x12\x34\n\ttemplates\x18\x01 \x03(\x0b\x32!.protos.AddPaymentTemplateRequest\"[\n UpdatePaymentTemplateBulkRequest\x12\x37\n\ttemplates\x18\x01 \x03(\x0b\x32$.protos.UpdatePaymentTemplateRequest\"[\n DeletePaymentTemplateBulkRequest\x12\x37\n\ttemplates\x18\x01 \x03(\x0b\x32$.protos.DeletePaymentTemplateRequest2\xcf\x05\n\x16PaymentTemplateService\x12G\n\x06GetAll\x12\x15.protos.GetAllRequest\x1a&.protos.GetAllPaymentTemplatesResponse\x12N\n\x07GetById\x12%.protos.GetPaymentTemplateByIdRequest\x1a\x1c.protos.PaymentTemplateModel\x12Z\n\x08GetByIds\x12&.protos.GetPaymentTemplateByIdsRequest\x1a&.protos.GetAllPaymentTemplatesResponse\x12\x46\n\x03\x41\x64\x64\x12!.protos.AddPaymentTemplateRequest\x1a\x1c.protos.PaymentTemplateModel\x12\x46\n\x06Update\x12$.protos.UpdatePaymentTemplateRequest\x1a\x16.google.protobuf.Empty\x12\x46\n\x06\x44\x65lete\x12$.protos.DeletePaymentTemplateRequest\x1a\x16.google.protobuf.Empty\x12H\n\x07\x41\x64\x64\x42ulk\x12%.protos.AddPaymentTemplateBulkRequest\x1a\x16.google.protobuf.Empty\x12N\n\nUpdateBulk\x12(.protos.UpdatePaymentTemplateBulkRequest\x1a\x16.google.protobuf.Empty\x12N\n\nDeleteBulk\x12(.protos.DeletePaymentTemplateBulkRequest\x1a\x16.google.protobuf.EmptyB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04\x43oreb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'payment_template_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
-  DESCRIPTOR._loaded_options = None
-  _globals['_PAYMENTTEMPLATEMODEL']._serialized_start=84
-  _globals['_PAYMENTTEMPLATEMODEL']._serialized_end=287
-  _globals['_GETALLPAYMENTTEMPLATESRESPONSE']._serialized_start=289
-  _globals['_GETALLPAYMENTTEMPLATESRESPONSE']._serialized_end=378
-  _globals['_GETPAYMENTTEMPLATEBYIDREQUEST']._serialized_start=380
-  _globals['_GETPAYMENTTEMPLATEBYIDREQUEST']._serialized_end=432
-  _globals['_PAYMENTTEMPLATESERVICE']._serialized_start=435
-  _globals['_PAYMENTTEMPLATESERVICE']._serialized_end=612
+  _globals['DESCRIPTOR']._loaded_options = None
+  _globals['DESCRIPTOR']._serialized_options = b'Z\031orch-go/gen/protos;protos\252\002\004Core'
+  _globals['_PAYMENTTEMPLATEMODEL']._serialized_start=100
+  _globals['_PAYMENTTEMPLATEMODEL']._serialized_end=303
+  _globals['_GETALLPAYMENTTEMPLATESRESPONSE']._serialized_start=305
+  _globals['_GETALLPAYMENTTEMPLATESRESPONSE']._serialized_end=394
+  _globals['_GETPAYMENTTEMPLATEBYIDREQUEST']._serialized_start=396
+  _globals['_GETPAYMENTTEMPLATEBYIDREQUEST']._serialized_end=448
+  _globals['_GETPAYMENTTEMPLATEBYIDSREQUEST']._serialized_start=450
+  _globals['_GETPAYMENTTEMPLATEBYIDSREQUEST']._serialized_end=504
+  _globals['_ADDPAYMENTTEMPLATEREQUEST']._serialized_start=507
+  _globals['_ADDPAYMENTTEMPLATEREQUEST']._serialized_end=694
+  _globals['_UPDATEPAYMENTTEMPLATEREQUEST']._serialized_start=697
+  _globals['_UPDATEPAYMENTTEMPLATEREQUEST']._serialized_end=908
+  _globals['_DELETEPAYMENTTEMPLATEREQUEST']._serialized_start=910
+  _globals['_DELETEPAYMENTTEMPLATEREQUEST']._serialized_end=961
+  _globals['_ADDPAYMENTTEMPLATEBULKREQUEST']._serialized_start=963
+  _globals['_ADDPAYMENTTEMPLATEBULKREQUEST']._serialized_end=1048
+  _globals['_UPDATEPAYMENTTEMPLATEBULKREQUEST']._serialized_start=1050
+  _globals['_UPDATEPAYMENTTEMPLATEBULKREQUEST']._serialized_end=1141
+  _globals['_DELETEPAYMENTTEMPLATEBULKREQUEST']._serialized_start=1143
+  _globals['_DELETEPAYMENTTEMPLATEBULKREQUEST']._serialized_end=1234
+  _globals['_PAYMENTTEMPLATESERVICE']._serialized_start=1237
+  _globals['_PAYMENTTEMPLATESERVICE']._serialized_end=1956
 # @@protoc_insertion_point(module_scope)

@@ -74,3 +74,131 @@ class GetFeeTypeByIdRequest(google.protobuf.message.Message):
     def ClearField(self, field_name: typing.Literal["fee_id", b"fee_id"]) -> None: ...
 
 Global___GetFeeTypeByIdRequest: typing_extensions.TypeAlias = GetFeeTypeByIdRequest
+
+@typing.final
+class GetFeeTypeByIdsRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    FEE_IDS_FIELD_NUMBER: builtins.int
+    @property
+    def fee_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
+    def __init__(
+        self,
+        *,
+        fee_ids: collections.abc.Iterable[builtins.int] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["fee_ids", b"fee_ids"]) -> None: ...
+
+Global___GetFeeTypeByIdsRequest: typing_extensions.TypeAlias = GetFeeTypeByIdsRequest
+
+@typing.final
+class AddFeeTypeRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    NAME_FIELD_NUMBER: builtins.int
+    DESCRIPTION_FIELD_NUMBER: builtins.int
+    name: builtins.str
+    description: builtins.str
+    def __init__(
+        self,
+        *,
+        name: builtins.str | None = ...,
+        description: builtins.str | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["_description", b"_description", "_name", b"_name", "description", b"description", "name", b"name"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_description", b"_description", "_name", b"_name", "description", b"description", "name", b"name"]) -> None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_description", b"_description"]) -> typing.Literal["description"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_name", b"_name"]) -> typing.Literal["name"] | None: ...
+
+Global___AddFeeTypeRequest: typing_extensions.TypeAlias = AddFeeTypeRequest
+
+@typing.final
+class UpdateFeeTypeRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    FEE_ID_FIELD_NUMBER: builtins.int
+    NAME_FIELD_NUMBER: builtins.int
+    DESCRIPTION_FIELD_NUMBER: builtins.int
+    fee_id: builtins.int
+    name: builtins.str
+    description: builtins.str
+    def __init__(
+        self,
+        *,
+        fee_id: builtins.int = ...,
+        name: builtins.str | None = ...,
+        description: builtins.str | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["_description", b"_description", "_name", b"_name", "description", b"description", "name", b"name"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_description", b"_description", "_name", b"_name", "description", b"description", "fee_id", b"fee_id", "name", b"name"]) -> None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_description", b"_description"]) -> typing.Literal["description"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_name", b"_name"]) -> typing.Literal["name"] | None: ...
+
+Global___UpdateFeeTypeRequest: typing_extensions.TypeAlias = UpdateFeeTypeRequest
+
+@typing.final
+class DeleteFeeTypeRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    FEE_ID_FIELD_NUMBER: builtins.int
+    fee_id: builtins.int
+    def __init__(
+        self,
+        *,
+        fee_id: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["fee_id", b"fee_id"]) -> None: ...
+
+Global___DeleteFeeTypeRequest: typing_extensions.TypeAlias = DeleteFeeTypeRequest
+
+@typing.final
+class AddFeeTypeBulkRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    FEE_TYPES_FIELD_NUMBER: builtins.int
+    @property
+    def fee_types(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___AddFeeTypeRequest]: ...
+    def __init__(
+        self,
+        *,
+        fee_types: collections.abc.Iterable[Global___AddFeeTypeRequest] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["fee_types", b"fee_types"]) -> None: ...
+
+Global___AddFeeTypeBulkRequest: typing_extensions.TypeAlias = AddFeeTypeBulkRequest
+
+@typing.final
+class UpdateFeeTypeBulkRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    FEE_TYPES_FIELD_NUMBER: builtins.int
+    @property
+    def fee_types(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___UpdateFeeTypeRequest]: ...
+    def __init__(
+        self,
+        *,
+        fee_types: collections.abc.Iterable[Global___UpdateFeeTypeRequest] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["fee_types", b"fee_types"]) -> None: ...
+
+Global___UpdateFeeTypeBulkRequest: typing_extensions.TypeAlias = UpdateFeeTypeBulkRequest
+
+@typing.final
+class DeleteFeeTypeBulkRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    FEE_TYPES_FIELD_NUMBER: builtins.int
+    @property
+    def fee_types(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___DeleteFeeTypeRequest]: ...
+    def __init__(
+        self,
+        *,
+        fee_types: collections.abc.Iterable[Global___DeleteFeeTypeRequest] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["fee_types", b"fee_types"]) -> None: ...
+
+Global___DeleteFeeTypeBulkRequest: typing_extensions.TypeAlias = DeleteFeeTypeBulkRequest

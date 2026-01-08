@@ -1,7 +1,14 @@
-﻿# Директория с proto файлами
-$PROTO_DIR = "api/proto"
-# Директория для сгенерированных файлов
-$GENERATED_DIR = "api/generated"
+﻿# Добавляем путь к Go бинарникам в PATH
+$env:PATH += ";C:\Users\Arsinenko\go\bin"
+
+# Директория с proto файлами (относительно скрипта)
+$PSScriptRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
+$PROTO_DIR = Join-Path $PSScriptRoot "../../proto"
+$PROTO_DIR = [System.IO.Path]::GetFullPath($PROTO_DIR)
+
+# Директория для сгенерированных файлов (относительно текущей рабочей директории, обычно корень проекта)
+$GENERATED_DIR = Join-Path (Get-Location) "api/generated"
+$GENERATED_DIR = [System.IO.Path]::GetFullPath($GENERATED_DIR)
 
 # Создаем директорию, если она не существует
 if (-not (Test-Path $GENERATED_DIR)) {
@@ -9,18 +16,14 @@ if (-not (Test-Path $GENERATED_DIR)) {
 }
 
 # Получаем относительные пути proto файлов
-$protoFiles = Get-ChildItem -Path $PROTO_DIR -Filter *.proto -Recurse |
-        ForEach-Object {
-            $full = $_.FullName
-            $root = (Resolve-Path $PROTO_DIR).ToString()
-            $rel = $full.Substring($root.Length).TrimStart("\", "/")
-            $rel
-        }
+$protoFiles = Get-ChildItem -Path $PROTO_DIR -Filter *.proto | ForEach-Object { $_.Name }
 
 if ($protoFiles.Count -eq 0) {
     Write-Host "Нет .proto файлов в каталоге $PROTO_DIR"
     exit 1
 }
+
+Write-Host "Генерируем Go файлы из $PROTO_DIR в $GENERATED_DIR..."
 
 # Запускаем protoc
 protoc @(

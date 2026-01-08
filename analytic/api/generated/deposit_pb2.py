@@ -22,25 +22,41 @@ _runtime_version.ValidateProtobufRuntimeVersion(
 _sym_db = _symbol_database.Default()
 
 
-from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
+import customer_pb2 as customer__pb2
 import custom_types_pb2 as custom__types__pb2
+from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\rdeposit.proto\x12\x06protos\x1a\x1bgoogle/protobuf/empty.proto\x1a\x12\x63ustom_types.proto\"\xaa\x02\n\x0c\x44\x65positModel\x12\x12\n\ndeposit_id\x18\x01 \x01(\x05\x12\x18\n\x0b\x63ustomer_id\x18\x02 \x01(\x05H\x00\x88\x01\x01\x12\x13\n\x06\x61mount\x18\x03 \x01(\tH\x01\x88\x01\x01\x12\x1a\n\rinterest_rate\x18\x04 \x01(\tH\x02\x88\x01\x01\x12)\n\nstart_date\x18\x05 \x01(\x0b\x32\x10.protos.DateOnlyH\x03\x88\x01\x01\x12\'\n\x08\x65nd_date\x18\x06 \x01(\x0b\x32\x10.protos.DateOnlyH\x04\x88\x01\x01\x12\x13\n\x06status\x18\x07 \x01(\tH\x05\x88\x01\x01\x42\x0e\n\x0c_customer_idB\t\n\x07_amountB\x10\n\x0e_interest_rateB\r\n\x0b_start_dateB\x0b\n\t_end_dateB\t\n\x07_status\"@\n\x16GetAllDepositsResponse\x12&\n\x08\x64\x65posits\x18\x01 \x03(\x0b\x32\x14.protos.DepositModel\"+\n\x15GetDepositByIdRequest\x12\x12\n\ndeposit_id\x18\x01 \x01(\x05\"3\n\x1cGetDepositsByCustomerRequest\x12\x13\n\x0b\x63ustomer_id\x18\x01 \x01(\x05\x32\xe8\x01\n\x0e\x44\x65positService\x12?\n\x06GetAll\x12\x15.protos.GetAllRequest\x1a\x1e.protos.GetAllDepositsResponse\x12>\n\x07GetById\x12\x1d.protos.GetDepositByIdRequest\x1a\x14.protos.DepositModel\x12U\n\rGetByCustomer\x12$.protos.GetDepositsByCustomerRequest\x1a\x1e.protos.GetAllDepositsResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\rdeposit.proto\x12\x06protos\x1a\x0e\x63ustomer.proto\x1a\x12\x63ustom_types.proto\x1a\x1bgoogle/protobuf/empty.proto\"\xaa\x02\n\x0c\x44\x65positModel\x12\x12\n\ndeposit_id\x18\x01 \x01(\x05\x12\x18\n\x0b\x63ustomer_id\x18\x02 \x01(\x05H\x00\x88\x01\x01\x12\x13\n\x06\x61mount\x18\x03 \x01(\tH\x01\x88\x01\x01\x12\x1a\n\rinterest_rate\x18\x04 \x01(\tH\x02\x88\x01\x01\x12)\n\nstart_date\x18\x05 \x01(\x0b\x32\x10.protos.DateOnlyH\x03\x88\x01\x01\x12\'\n\x08\x65nd_date\x18\x06 \x01(\x0b\x32\x10.protos.DateOnlyH\x04\x88\x01\x01\x12\x13\n\x06status\x18\x07 \x01(\tH\x05\x88\x01\x01\x42\x0e\n\x0c_customer_idB\t\n\x07_amountB\x10\n\x0e_interest_rateB\r\n\x0b_start_dateB\x0b\n\t_end_dateB\t\n\x07_status\"@\n\x16GetAllDepositsResponse\x12&\n\x08\x64\x65posits\x18\x01 \x03(\x0b\x32\x14.protos.DepositModel\"+\n\x15GetDepositByIdRequest\x12\x12\n\ndeposit_id\x18\x01 \x01(\x05\"-\n\x16GetDepositByIdsRequest\x12\x13\n\x0b\x64\x65posit_ids\x18\x01 \x03(\x05\"3\n\x1cGetDepositsByCustomerRequest\x12\x13\n\x0b\x63ustomer_id\x18\x01 \x01(\x05\"\x9b\x02\n\x11\x41\x64\x64\x44\x65positRequest\x12\x18\n\x0b\x63ustomer_id\x18\x01 \x01(\x05H\x00\x88\x01\x01\x12\x13\n\x06\x61mount\x18\x02 \x01(\tH\x01\x88\x01\x01\x12\x1a\n\rinterest_rate\x18\x03 \x01(\tH\x02\x88\x01\x01\x12)\n\nstart_date\x18\x04 \x01(\x0b\x32\x10.protos.DateOnlyH\x03\x88\x01\x01\x12\'\n\x08\x65nd_date\x18\x05 \x01(\x0b\x32\x10.protos.DateOnlyH\x04\x88\x01\x01\x12\x13\n\x06status\x18\x06 \x01(\tH\x05\x88\x01\x01\x42\x0e\n\x0c_customer_idB\t\n\x07_amountB\x10\n\x0e_interest_rateB\r\n\x0b_start_dateB\x0b\n\t_end_dateB\t\n\x07_status\"\xb2\x02\n\x14UpdateDepositRequest\x12\x12\n\ndeposit_id\x18\x01 \x01(\x05\x12\x18\n\x0b\x63ustomer_id\x18\x02 \x01(\x05H\x00\x88\x01\x01\x12\x13\n\x06\x61mount\x18\x03 \x01(\tH\x01\x88\x01\x01\x12\x1a\n\rinterest_rate\x18\x04 \x01(\tH\x02\x88\x01\x01\x12)\n\nstart_date\x18\x05 \x01(\x0b\x32\x10.protos.DateOnlyH\x03\x88\x01\x01\x12\'\n\x08\x65nd_date\x18\x06 \x01(\x0b\x32\x10.protos.DateOnlyH\x04\x88\x01\x01\x12\x13\n\x06status\x18\x07 \x01(\tH\x05\x88\x01\x01\x42\x0e\n\x0c_customer_idB\t\n\x07_amountB\x10\n\x0e_interest_rateB\r\n\x0b_start_dateB\x0b\n\t_end_dateB\t\n\x07_status\"*\n\x14\x44\x65leteDepositRequest\x12\x12\n\ndeposit_id\x18\x01 \x01(\x05\"D\n\x15\x41\x64\x64\x44\x65positBulkRequest\x12+\n\x08\x64\x65posits\x18\x01 \x03(\x0b\x32\x19.protos.AddDepositRequest\"J\n\x18UpdateDepositBulkRequest\x12.\n\x08\x64\x65posits\x18\x01 \x03(\x0b\x32\x1c.protos.UpdateDepositRequest\"J\n\x18\x44\x65leteDepositBulkRequest\x12.\n\x08\x64\x65posits\x18\x01 \x03(\x0b\x32\x1c.protos.DeleteDepositRequest2\xbe\x05\n\x0e\x44\x65positService\x12?\n\x06GetAll\x12\x15.protos.GetAllRequest\x1a\x1e.protos.GetAllDepositsResponse\x12>\n\x07GetById\x12\x1d.protos.GetDepositByIdRequest\x1a\x14.protos.DepositModel\x12J\n\x08GetByIds\x12\x1e.protos.GetDepositByIdsRequest\x1a\x1e.protos.GetAllDepositsResponse\x12U\n\rGetByCustomer\x12$.protos.GetDepositsByCustomerRequest\x1a\x1e.protos.GetAllDepositsResponse\x12\x36\n\x03\x41\x64\x64\x12\x19.protos.AddDepositRequest\x1a\x14.protos.DepositModel\x12>\n\x06Update\x12\x1c.protos.UpdateDepositRequest\x1a\x16.google.protobuf.Empty\x12>\n\x06\x44\x65lete\x12\x1c.protos.DeleteDepositRequest\x1a\x16.google.protobuf.Empty\x12@\n\x07\x41\x64\x64\x42ulk\x12\x1d.protos.AddDepositBulkRequest\x1a\x16.google.protobuf.Empty\x12\x46\n\nUpdateBulk\x12 .protos.UpdateDepositBulkRequest\x1a\x16.google.protobuf.Empty\x12\x46\n\nDeleteBulk\x12 .protos.DeleteDepositBulkRequest\x1a\x16.google.protobuf.EmptyB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04\x43oreb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'deposit_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
-  DESCRIPTOR._loaded_options = None
-  _globals['_DEPOSITMODEL']._serialized_start=75
-  _globals['_DEPOSITMODEL']._serialized_end=373
-  _globals['_GETALLDEPOSITSRESPONSE']._serialized_start=375
-  _globals['_GETALLDEPOSITSRESPONSE']._serialized_end=439
-  _globals['_GETDEPOSITBYIDREQUEST']._serialized_start=441
-  _globals['_GETDEPOSITBYIDREQUEST']._serialized_end=484
-  _globals['_GETDEPOSITSBYCUSTOMERREQUEST']._serialized_start=486
-  _globals['_GETDEPOSITSBYCUSTOMERREQUEST']._serialized_end=537
-  _globals['_DEPOSITSERVICE']._serialized_start=540
-  _globals['_DEPOSITSERVICE']._serialized_end=772
+  _globals['DESCRIPTOR']._loaded_options = None
+  _globals['DESCRIPTOR']._serialized_options = b'Z\031orch-go/gen/protos;protos\252\002\004Core'
+  _globals['_DEPOSITMODEL']._serialized_start=91
+  _globals['_DEPOSITMODEL']._serialized_end=389
+  _globals['_GETALLDEPOSITSRESPONSE']._serialized_start=391
+  _globals['_GETALLDEPOSITSRESPONSE']._serialized_end=455
+  _globals['_GETDEPOSITBYIDREQUEST']._serialized_start=457
+  _globals['_GETDEPOSITBYIDREQUEST']._serialized_end=500
+  _globals['_GETDEPOSITBYIDSREQUEST']._serialized_start=502
+  _globals['_GETDEPOSITBYIDSREQUEST']._serialized_end=547
+  _globals['_GETDEPOSITSBYCUSTOMERREQUEST']._serialized_start=549
+  _globals['_GETDEPOSITSBYCUSTOMERREQUEST']._serialized_end=600
+  _globals['_ADDDEPOSITREQUEST']._serialized_start=603
+  _globals['_ADDDEPOSITREQUEST']._serialized_end=886
+  _globals['_UPDATEDEPOSITREQUEST']._serialized_start=889
+  _globals['_UPDATEDEPOSITREQUEST']._serialized_end=1195
+  _globals['_DELETEDEPOSITREQUEST']._serialized_start=1197
+  _globals['_DELETEDEPOSITREQUEST']._serialized_end=1239
+  _globals['_ADDDEPOSITBULKREQUEST']._serialized_start=1241
+  _globals['_ADDDEPOSITBULKREQUEST']._serialized_end=1309
+  _globals['_UPDATEDEPOSITBULKREQUEST']._serialized_start=1311
+  _globals['_UPDATEDEPOSITBULKREQUEST']._serialized_end=1385
+  _globals['_DELETEDEPOSITBULKREQUEST']._serialized_start=1387
+  _globals['_DELETEDEPOSITBULKREQUEST']._serialized_end=1461
+  _globals['_DEPOSITSERVICE']._serialized_start=1464
+  _globals['_DEPOSITSERVICE']._serialized_end=2166
 # @@protoc_insertion_point(module_scope)

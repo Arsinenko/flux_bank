@@ -88,6 +88,22 @@ class GetNotificationByIdRequest(google.protobuf.message.Message):
 Global___GetNotificationByIdRequest: typing_extensions.TypeAlias = GetNotificationByIdRequest
 
 @typing.final
+class GetNotificationByIdsRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    NOTIFICATION_IDS_FIELD_NUMBER: builtins.int
+    @property
+    def notification_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
+    def __init__(
+        self,
+        *,
+        notification_ids: collections.abc.Iterable[builtins.int] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["notification_ids", b"notification_ids"]) -> None: ...
+
+Global___GetNotificationByIdsRequest: typing_extensions.TypeAlias = GetNotificationByIdsRequest
+
+@typing.final
 class GetNotificationsByCustomerRequest(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -106,3 +122,125 @@ class GetNotificationsByCustomerRequest(google.protobuf.message.Message):
     def WhichOneof(self, oneof_group: typing.Literal["_is_read", b"_is_read"]) -> typing.Literal["is_read"] | None: ...
 
 Global___GetNotificationsByCustomerRequest: typing_extensions.TypeAlias = GetNotificationsByCustomerRequest
+
+@typing.final
+class AddNotificationRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CUSTOMER_ID_FIELD_NUMBER: builtins.int
+    MESSAGE_FIELD_NUMBER: builtins.int
+    IS_READ_FIELD_NUMBER: builtins.int
+    customer_id: builtins.int
+    message: builtins.str
+    is_read: builtins.bool
+    def __init__(
+        self,
+        *,
+        customer_id: builtins.int | None = ...,
+        message: builtins.str | None = ...,
+        is_read: builtins.bool | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["_customer_id", b"_customer_id", "_is_read", b"_is_read", "_message", b"_message", "customer_id", b"customer_id", "is_read", b"is_read", "message", b"message"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_customer_id", b"_customer_id", "_is_read", b"_is_read", "_message", b"_message", "customer_id", b"customer_id", "is_read", b"is_read", "message", b"message"]) -> None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_customer_id", b"_customer_id"]) -> typing.Literal["customer_id"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_is_read", b"_is_read"]) -> typing.Literal["is_read"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_message", b"_message"]) -> typing.Literal["message"] | None: ...
+
+Global___AddNotificationRequest: typing_extensions.TypeAlias = AddNotificationRequest
+
+@typing.final
+class UpdateNotificationRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    NOTIFICATION_ID_FIELD_NUMBER: builtins.int
+    CUSTOMER_ID_FIELD_NUMBER: builtins.int
+    MESSAGE_FIELD_NUMBER: builtins.int
+    IS_READ_FIELD_NUMBER: builtins.int
+    notification_id: builtins.int
+    customer_id: builtins.int
+    message: builtins.str
+    is_read: builtins.bool
+    def __init__(
+        self,
+        *,
+        notification_id: builtins.int = ...,
+        customer_id: builtins.int | None = ...,
+        message: builtins.str | None = ...,
+        is_read: builtins.bool | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["_customer_id", b"_customer_id", "_is_read", b"_is_read", "_message", b"_message", "customer_id", b"customer_id", "is_read", b"is_read", "message", b"message"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_customer_id", b"_customer_id", "_is_read", b"_is_read", "_message", b"_message", "customer_id", b"customer_id", "is_read", b"is_read", "message", b"message", "notification_id", b"notification_id"]) -> None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_customer_id", b"_customer_id"]) -> typing.Literal["customer_id"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_is_read", b"_is_read"]) -> typing.Literal["is_read"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_message", b"_message"]) -> typing.Literal["message"] | None: ...
+
+Global___UpdateNotificationRequest: typing_extensions.TypeAlias = UpdateNotificationRequest
+
+@typing.final
+class DeleteNotificationRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    NOTIFICATION_ID_FIELD_NUMBER: builtins.int
+    notification_id: builtins.int
+    def __init__(
+        self,
+        *,
+        notification_id: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["notification_id", b"notification_id"]) -> None: ...
+
+Global___DeleteNotificationRequest: typing_extensions.TypeAlias = DeleteNotificationRequest
+
+@typing.final
+class AddNotificationBulkRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    NOTIFICATIONS_FIELD_NUMBER: builtins.int
+    @property
+    def notifications(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___AddNotificationRequest]: ...
+    def __init__(
+        self,
+        *,
+        notifications: collections.abc.Iterable[Global___AddNotificationRequest] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["notifications", b"notifications"]) -> None: ...
+
+Global___AddNotificationBulkRequest: typing_extensions.TypeAlias = AddNotificationBulkRequest
+
+@typing.final
+class UpdateNotificationBulkRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    NOTIFICATIONS_FIELD_NUMBER: builtins.int
+    @property
+    def notifications(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___UpdateNotificationRequest]: ...
+    def __init__(
+        self,
+        *,
+        notifications: collections.abc.Iterable[Global___UpdateNotificationRequest] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["notifications", b"notifications"]) -> None: ...
+
+Global___UpdateNotificationBulkRequest: typing_extensions.TypeAlias = UpdateNotificationBulkRequest
+
+@typing.final
+class DeleteNotificationBulkRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    NOTIFICATIONS_FIELD_NUMBER: builtins.int
+    @property
+    def notifications(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___DeleteNotificationRequest]: ...
+    def __init__(
+        self,
+        *,
+        notifications: collections.abc.Iterable[Global___DeleteNotificationRequest] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["notifications", b"notifications"]) -> None: ...
+
+Global___DeleteNotificationBulkRequest: typing_extensions.TypeAlias = DeleteNotificationBulkRequest

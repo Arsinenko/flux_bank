@@ -591,7 +591,7 @@ var File_notification_proto protoreflect.FileDescriptor
 
 const file_notification_proto_rawDesc = "" +
 	"\n" +
-	"\x12notification.proto\x12\x06protos\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x12custom_types.proto\"\x96\x02\n" +
+	"\x12notification.proto\x12\x06protos\x1a\x12custom_types.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x0ecustomer.proto\"\x96\x02\n" +
 	"\x11NotificationModel\x12'\n" +
 	"\x0fnotification_id\x18\x01 \x01(\x05R\x0enotificationId\x12$\n" +
 	"\vcustomer_id\x18\x02 \x01(\x05H\x00R\n" +
@@ -660,7 +660,7 @@ const file_notification_proto_rawDesc = "" +
 	"\n" +
 	"UpdateBulk\x12%.protos.UpdateNotificationBulkRequest\x1a\x16.google.protobuf.Empty\x12K\n" +
 	"\n" +
-	"DeleteBulk\x12%.protos.DeleteNotificationBulkRequest\x1a\x16.google.protobuf.EmptyB\x1bZ\x19orch-go/gen/protos;protosb\x06proto3"
+	"DeleteBulk\x12%.protos.DeleteNotificationBulkRequest\x1a\x16.google.protobuf.EmptyB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
 
 var (
 	file_notification_proto_rawDescOnce sync.Once
@@ -733,6 +733,7 @@ func file_notification_proto_init() {
 		return
 	}
 	file_custom_types_proto_init()
+	file_customer_proto_init()
 	file_notification_proto_msgTypes[0].OneofWrappers = []any{}
 	file_notification_proto_msgTypes[4].OneofWrappers = []any{}
 	file_notification_proto_msgTypes[5].OneofWrappers = []any{}

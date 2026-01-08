@@ -482,7 +482,7 @@ var File_transaction_category_proto protoreflect.FileDescriptor
 
 const file_transaction_category_proto_rawDesc = "" +
 	"\n" +
-	"\x1atransaction_category.proto\x12\x06protos\x1a\x1bgoogle/protobuf/empty.proto\x1a\x12custom_types.proto\"O\n" +
+	"\x1atransaction_category.proto\x12\x06protos\x1a\x12custom_types.proto\x1a\x1bgoogle/protobuf/empty.proto\"O\n" +
 	"\x18TransactionCategoryModel\x12\x1f\n" +
 	"\vcategory_id\x18\x01 \x01(\x05R\n" +
 	"categoryId\x12\x12\n" +
@@ -520,7 +520,7 @@ const file_transaction_category_proto_rawDesc = "" +
 	"\n" +
 	"UpdateBulk\x12,.protos.UpdateTransactionCategoryBulkRequest\x1a\x16.google.protobuf.Empty\x12R\n" +
 	"\n" +
-	"DeleteBulk\x12,.protos.DeleteTransactionCategoryBulkRequest\x1a\x16.google.protobuf.EmptyB\x1bZ\x19orch-go/gen/protos;protosb\x06proto3"
+	"DeleteBulk\x12,.protos.DeleteTransactionCategoryBulkRequest\x1a\x16.google.protobuf.EmptyB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
 
 var (
 	file_transaction_category_proto_rawDescOnce sync.Once

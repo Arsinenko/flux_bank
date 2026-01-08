@@ -506,7 +506,7 @@ var File_fee_type_proto protoreflect.FileDescriptor
 
 const file_fee_type_proto_rawDesc = "" +
 	"\n" +
-	"\x0efee_type.proto\x12\x06protos\x1a\x1bgoogle/protobuf/empty.proto\x1a\x12custom_types.proto\"~\n" +
+	"\x0efee_type.proto\x12\x06protos\x1a\x12custom_types.proto\x1a\x1bgoogle/protobuf/empty.proto\"~\n" +
 	"\fFeeTypeModel\x12\x15\n" +
 	"\x06fee_id\x18\x01 \x01(\x05R\x05feeId\x12\x17\n" +
 	"\x04name\x18\x02 \x01(\tH\x00R\x04name\x88\x01\x01\x12%\n" +
@@ -549,7 +549,7 @@ const file_fee_type_proto_rawDesc = "" +
 	"\n" +
 	"UpdateBulk\x12 .protos.UpdateFeeTypeBulkRequest\x1a\x16.google.protobuf.Empty\x12F\n" +
 	"\n" +
-	"DeleteBulk\x12 .protos.DeleteFeeTypeBulkRequest\x1a\x16.google.protobuf.EmptyB\x1bZ\x19orch-go/gen/protos;protosb\x06proto3"
+	"DeleteBulk\x12 .protos.DeleteFeeTypeBulkRequest\x1a\x16.google.protobuf.EmptyB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
 
 var (
 	file_fee_type_proto_rawDescOnce sync.Once

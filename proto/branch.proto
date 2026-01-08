@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+package protos;
+option go_package = "orch-go/gen/protos;protos";
+option csharp_namespace = "Core";
+
+
+
+import "custom_types.proto";
+import "google/protobuf/empty.proto";
+
+service BranchService {
+  rpc GetAll (GetAllRequest) returns (GetAllBranchesResponse);
+  rpc GetById (GetBranchByIdRequest) returns (BranchModel);
+  rpc GetByIds (GetBranchByIdsRequest) returns (GetAllBranchesResponse);
+  rpc Add (AddBranchRequest) returns (BranchModel);
+  rpc Update (UpdateBranchRequest) returns (google.protobuf.Empty);
+  rpc Delete (DeleteBranchRequest) returns (google.protobuf.Empty);
+  rpc AddBulk (AddBranchBulkRequest) returns (google.protobuf.Empty);
+  rpc UpdateBulk (UpdateBranchBulkRequest) returns (google.protobuf.Empty);
+  rpc DeleteBulk (DeleteBranchBulkRequest) returns (google.protobuf.Empty);
+}
+
+message BranchModel {
+  int32 branch_id = 1;
+  optional string name = 2;
+  optional string city = 3;
+  optional string address = 4;
+  optional string phone = 5;
+}
+
+message GetAllBranchesResponse {
+  repeated BranchModel branches = 1;
+}
+
+message GetBranchByIdRequest {
+  int32 branch_id = 1;
+}
+
+message GetBranchByIdsRequest {
+  repeated int32 branch_ids = 1;
+}
+
+message AddBranchRequest {
+  optional string name = 1;
+  optional string city = 2;
+  optional string address = 3;
+  optional string phone = 4;
+}
+
+message UpdateBranchRequest {
+  int32 branch_id = 1;
+  optional string name = 2;
+  optional string city = 3;
+  optional string address = 4;
+  optional string phone = 5;
+}
+
+message DeleteBranchRequest {
+  int32 branch_id = 1;
+}
+
+message AddBranchBulkRequest {
+  repeated AddBranchRequest branches = 1;
+}
+
+message UpdateBranchBulkRequest {
+  repeated UpdateBranchRequest branches = 1;
+}
+
+message DeleteBranchBulkRequest {
+  repeated DeleteBranchRequest branches = 1;
+}
+

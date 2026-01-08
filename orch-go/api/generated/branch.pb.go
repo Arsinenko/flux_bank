@@ -554,7 +554,7 @@ var File_branch_proto protoreflect.FileDescriptor
 
 const file_branch_proto_rawDesc = "" +
 	"\n" +
-	"\fbranch.proto\x12\x06protos\x1a\x1bgoogle/protobuf/empty.proto\x1a\x12custom_types.proto\"\xbe\x01\n" +
+	"\fbranch.proto\x12\x06protos\x1a\x12custom_types.proto\x1a\x1bgoogle/protobuf/empty.proto\"\xbe\x01\n" +
 	"\vBranchModel\x12\x1b\n" +
 	"\tbranch_id\x18\x01 \x01(\x05R\bbranchId\x12\x17\n" +
 	"\x04name\x18\x02 \x01(\tH\x00R\x04name\x88\x01\x01\x12\x17\n" +
@@ -613,7 +613,7 @@ const file_branch_proto_rawDesc = "" +
 	"\n" +
 	"UpdateBulk\x12\x1f.protos.UpdateBranchBulkRequest\x1a\x16.google.protobuf.Empty\x12E\n" +
 	"\n" +
-	"DeleteBulk\x12\x1f.protos.DeleteBranchBulkRequest\x1a\x16.google.protobuf.EmptyB\x1bZ\x19orch-go/gen/protos;protosb\x06proto3"
+	"DeleteBulk\x12\x1f.protos.DeleteBranchBulkRequest\x1a\x16.google.protobuf.EmptyB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
 
 var (
 	file_branch_proto_rawDescOnce sync.Once

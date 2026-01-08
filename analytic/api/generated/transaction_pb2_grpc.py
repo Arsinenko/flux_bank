@@ -4,6 +4,7 @@ import grpc
 import warnings
 
 import custom_types_pb2 as custom__types__pb2
+from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 import transaction_pb2 as transaction__pb2
 
 GRPC_GENERATED_VERSION = '1.76.0'
@@ -45,10 +46,55 @@ class TransactionServiceStub(object):
                 request_serializer=transaction__pb2.GetTransactionByIdRequest.SerializeToString,
                 response_deserializer=transaction__pb2.TransactionModel.FromString,
                 _registered_method=True)
+        self.GetByIds = channel.unary_unary(
+                '/protos.TransactionService/GetByIds',
+                request_serializer=transaction__pb2.GetTransactionByIdsRequest.SerializeToString,
+                response_deserializer=transaction__pb2.GetAllTransactionsResponse.FromString,
+                _registered_method=True)
         self.GetByDateRange = channel.unary_unary(
                 '/protos.TransactionService/GetByDateRange',
                 request_serializer=custom__types__pb2.GetByDateRangeRequest.SerializeToString,
                 response_deserializer=transaction__pb2.GetAllTransactionsResponse.FromString,
+                _registered_method=True)
+        self.GetAccountRevenue = channel.unary_unary(
+                '/protos.TransactionService/GetAccountRevenue',
+                request_serializer=transaction__pb2.GetAccountRevenueRequest.SerializeToString,
+                response_deserializer=transaction__pb2.GetAllTransactionsResponse.FromString,
+                _registered_method=True)
+        self.GetAccountExpenses = channel.unary_unary(
+                '/protos.TransactionService/GetAccountExpenses',
+                request_serializer=transaction__pb2.GetAccountExpensesRequest.SerializeToString,
+                response_deserializer=transaction__pb2.GetAllTransactionsResponse.FromString,
+                _registered_method=True)
+        self.Add = channel.unary_unary(
+                '/protos.TransactionService/Add',
+                request_serializer=transaction__pb2.AddTransactionRequest.SerializeToString,
+                response_deserializer=transaction__pb2.TransactionModel.FromString,
+                _registered_method=True)
+        self.Update = channel.unary_unary(
+                '/protos.TransactionService/Update',
+                request_serializer=transaction__pb2.UpdateTransactionRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                _registered_method=True)
+        self.Delete = channel.unary_unary(
+                '/protos.TransactionService/Delete',
+                request_serializer=transaction__pb2.DeleteTransactionRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                _registered_method=True)
+        self.AddBulk = channel.unary_unary(
+                '/protos.TransactionService/AddBulk',
+                request_serializer=transaction__pb2.AddTransactionBulkRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                _registered_method=True)
+        self.UpdateBulk = channel.unary_unary(
+                '/protos.TransactionService/UpdateBulk',
+                request_serializer=transaction__pb2.UpdateTransactionBulkRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                _registered_method=True)
+        self.DeleteBulk = channel.unary_unary(
+                '/protos.TransactionService/DeleteBulk',
+                request_serializer=transaction__pb2.DeleteTransactionBulkRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 _registered_method=True)
 
 
@@ -67,7 +113,61 @@ class TransactionServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetByIds(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def GetByDateRange(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetAccountRevenue(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetAccountExpenses(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def Add(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def Update(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def Delete(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def AddBulk(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def UpdateBulk(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def DeleteBulk(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -86,10 +186,55 @@ def add_TransactionServiceServicer_to_server(servicer, server):
                     request_deserializer=transaction__pb2.GetTransactionByIdRequest.FromString,
                     response_serializer=transaction__pb2.TransactionModel.SerializeToString,
             ),
+            'GetByIds': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetByIds,
+                    request_deserializer=transaction__pb2.GetTransactionByIdsRequest.FromString,
+                    response_serializer=transaction__pb2.GetAllTransactionsResponse.SerializeToString,
+            ),
             'GetByDateRange': grpc.unary_unary_rpc_method_handler(
                     servicer.GetByDateRange,
                     request_deserializer=custom__types__pb2.GetByDateRangeRequest.FromString,
                     response_serializer=transaction__pb2.GetAllTransactionsResponse.SerializeToString,
+            ),
+            'GetAccountRevenue': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetAccountRevenue,
+                    request_deserializer=transaction__pb2.GetAccountRevenueRequest.FromString,
+                    response_serializer=transaction__pb2.GetAllTransactionsResponse.SerializeToString,
+            ),
+            'GetAccountExpenses': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetAccountExpenses,
+                    request_deserializer=transaction__pb2.GetAccountExpensesRequest.FromString,
+                    response_serializer=transaction__pb2.GetAllTransactionsResponse.SerializeToString,
+            ),
+            'Add': grpc.unary_unary_rpc_method_handler(
+                    servicer.Add,
+                    request_deserializer=transaction__pb2.AddTransactionRequest.FromString,
+                    response_serializer=transaction__pb2.TransactionModel.SerializeToString,
+            ),
+            'Update': grpc.unary_unary_rpc_method_handler(
+                    servicer.Update,
+                    request_deserializer=transaction__pb2.UpdateTransactionRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'Delete': grpc.unary_unary_rpc_method_handler(
+                    servicer.Delete,
+                    request_deserializer=transaction__pb2.DeleteTransactionRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'AddBulk': grpc.unary_unary_rpc_method_handler(
+                    servicer.AddBulk,
+                    request_deserializer=transaction__pb2.AddTransactionBulkRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'UpdateBulk': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateBulk,
+                    request_deserializer=transaction__pb2.UpdateTransactionBulkRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'DeleteBulk': grpc.unary_unary_rpc_method_handler(
+                    servicer.DeleteBulk,
+                    request_deserializer=transaction__pb2.DeleteTransactionBulkRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -157,6 +302,33 @@ class TransactionService(object):
             _registered_method=True)
 
     @staticmethod
+    def GetByIds(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.TransactionService/GetByIds',
+            transaction__pb2.GetTransactionByIdsRequest.SerializeToString,
+            transaction__pb2.GetAllTransactionsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
     def GetByDateRange(request,
             target,
             options=(),
@@ -173,6 +345,222 @@ class TransactionService(object):
             '/protos.TransactionService/GetByDateRange',
             custom__types__pb2.GetByDateRangeRequest.SerializeToString,
             transaction__pb2.GetAllTransactionsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetAccountRevenue(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.TransactionService/GetAccountRevenue',
+            transaction__pb2.GetAccountRevenueRequest.SerializeToString,
+            transaction__pb2.GetAllTransactionsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetAccountExpenses(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.TransactionService/GetAccountExpenses',
+            transaction__pb2.GetAccountExpensesRequest.SerializeToString,
+            transaction__pb2.GetAllTransactionsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def Add(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.TransactionService/Add',
+            transaction__pb2.AddTransactionRequest.SerializeToString,
+            transaction__pb2.TransactionModel.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def Update(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.TransactionService/Update',
+            transaction__pb2.UpdateTransactionRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def Delete(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.TransactionService/Delete',
+            transaction__pb2.DeleteTransactionRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def AddBulk(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.TransactionService/AddBulk',
+            transaction__pb2.AddTransactionBulkRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def UpdateBulk(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.TransactionService/UpdateBulk',
+            transaction__pb2.UpdateTransactionBulkRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def DeleteBulk(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.TransactionService/DeleteBulk',
+            transaction__pb2.DeleteTransactionBulkRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options,
             channel_credentials,
             insecure,

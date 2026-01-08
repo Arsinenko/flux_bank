@@ -5,6 +5,7 @@ isort:skip_file
 
 import builtins
 import collections.abc
+import custom_types_pb2
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.message
@@ -92,3 +93,195 @@ class GetTransactionByIdRequest(google.protobuf.message.Message):
     def ClearField(self, field_name: typing.Literal["transaction_id", b"transaction_id"]) -> None: ...
 
 Global___GetTransactionByIdRequest: typing_extensions.TypeAlias = GetTransactionByIdRequest
+
+@typing.final
+class GetTransactionByIdsRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    TRANSACTION_IDS_FIELD_NUMBER: builtins.int
+    @property
+    def transaction_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
+    def __init__(
+        self,
+        *,
+        transaction_ids: collections.abc.Iterable[builtins.int] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["transaction_ids", b"transaction_ids"]) -> None: ...
+
+Global___GetTransactionByIdsRequest: typing_extensions.TypeAlias = GetTransactionByIdsRequest
+
+@typing.final
+class GetAccountRevenueRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    TARGET_ACCOUNT_FIELD_NUMBER: builtins.int
+    DATE_RANGE_FIELD_NUMBER: builtins.int
+    target_account: builtins.int
+    @property
+    def date_range(self) -> custom_types_pb2.GetByDateRangeRequest: ...
+    def __init__(
+        self,
+        *,
+        target_account: builtins.int = ...,
+        date_range: custom_types_pb2.GetByDateRangeRequest | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["_date_range", b"_date_range", "date_range", b"date_range"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_date_range", b"_date_range", "date_range", b"date_range", "target_account", b"target_account"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing.Literal["_date_range", b"_date_range"]) -> typing.Literal["date_range"] | None: ...
+
+Global___GetAccountRevenueRequest: typing_extensions.TypeAlias = GetAccountRevenueRequest
+
+@typing.final
+class GetAccountExpensesRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    SOURCE_ACCOUNT_FIELD_NUMBER: builtins.int
+    DATE_RANGE_FIELD_NUMBER: builtins.int
+    source_account: builtins.int
+    @property
+    def date_range(self) -> custom_types_pb2.GetByDateRangeRequest: ...
+    def __init__(
+        self,
+        *,
+        source_account: builtins.int = ...,
+        date_range: custom_types_pb2.GetByDateRangeRequest | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["_date_range", b"_date_range", "date_range", b"date_range"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_date_range", b"_date_range", "date_range", b"date_range", "source_account", b"source_account"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing.Literal["_date_range", b"_date_range"]) -> typing.Literal["date_range"] | None: ...
+
+Global___GetAccountExpensesRequest: typing_extensions.TypeAlias = GetAccountExpensesRequest
+
+@typing.final
+class AddTransactionRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    SOURCE_ACCOUNT_FIELD_NUMBER: builtins.int
+    TARGET_ACCOUNT_FIELD_NUMBER: builtins.int
+    AMOUNT_FIELD_NUMBER: builtins.int
+    CURRENCY_FIELD_NUMBER: builtins.int
+    STATUS_FIELD_NUMBER: builtins.int
+    source_account: builtins.int
+    target_account: builtins.int
+    amount: builtins.str
+    currency: builtins.str
+    status: builtins.str
+    def __init__(
+        self,
+        *,
+        source_account: builtins.int | None = ...,
+        target_account: builtins.int | None = ...,
+        amount: builtins.str = ...,
+        currency: builtins.str = ...,
+        status: builtins.str | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["_source_account", b"_source_account", "_status", b"_status", "_target_account", b"_target_account", "source_account", b"source_account", "status", b"status", "target_account", b"target_account"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_source_account", b"_source_account", "_status", b"_status", "_target_account", b"_target_account", "amount", b"amount", "currency", b"currency", "source_account", b"source_account", "status", b"status", "target_account", b"target_account"]) -> None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_source_account", b"_source_account"]) -> typing.Literal["source_account"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_status", b"_status"]) -> typing.Literal["status"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_target_account", b"_target_account"]) -> typing.Literal["target_account"] | None: ...
+
+Global___AddTransactionRequest: typing_extensions.TypeAlias = AddTransactionRequest
+
+@typing.final
+class UpdateTransactionRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    TRANSACTION_ID_FIELD_NUMBER: builtins.int
+    SOURCE_ACCOUNT_FIELD_NUMBER: builtins.int
+    TARGET_ACCOUNT_FIELD_NUMBER: builtins.int
+    AMOUNT_FIELD_NUMBER: builtins.int
+    CURRENCY_FIELD_NUMBER: builtins.int
+    STATUS_FIELD_NUMBER: builtins.int
+    transaction_id: builtins.int
+    source_account: builtins.int
+    target_account: builtins.int
+    amount: builtins.str
+    currency: builtins.str
+    status: builtins.str
+    def __init__(
+        self,
+        *,
+        transaction_id: builtins.int = ...,
+        source_account: builtins.int | None = ...,
+        target_account: builtins.int | None = ...,
+        amount: builtins.str = ...,
+        currency: builtins.str = ...,
+        status: builtins.str | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["_source_account", b"_source_account", "_status", b"_status", "_target_account", b"_target_account", "source_account", b"source_account", "status", b"status", "target_account", b"target_account"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_source_account", b"_source_account", "_status", b"_status", "_target_account", b"_target_account", "amount", b"amount", "currency", b"currency", "source_account", b"source_account", "status", b"status", "target_account", b"target_account", "transaction_id", b"transaction_id"]) -> None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_source_account", b"_source_account"]) -> typing.Literal["source_account"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_status", b"_status"]) -> typing.Literal["status"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_target_account", b"_target_account"]) -> typing.Literal["target_account"] | None: ...
+
+Global___UpdateTransactionRequest: typing_extensions.TypeAlias = UpdateTransactionRequest
+
+@typing.final
+class DeleteTransactionRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    TRANSACTION_ID_FIELD_NUMBER: builtins.int
+    transaction_id: builtins.int
+    def __init__(
+        self,
+        *,
+        transaction_id: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["transaction_id", b"transaction_id"]) -> None: ...
+
+Global___DeleteTransactionRequest: typing_extensions.TypeAlias = DeleteTransactionRequest
+
+@typing.final
+class AddTransactionBulkRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    TRANSACTIONS_FIELD_NUMBER: builtins.int
+    @property
+    def transactions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___AddTransactionRequest]: ...
+    def __init__(
+        self,
+        *,
+        transactions: collections.abc.Iterable[Global___AddTransactionRequest] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["transactions", b"transactions"]) -> None: ...
+
+Global___AddTransactionBulkRequest: typing_extensions.TypeAlias = AddTransactionBulkRequest
+
+@typing.final
+class UpdateTransactionBulkRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    TRANSACTIONS_FIELD_NUMBER: builtins.int
+    @property
+    def transactions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___UpdateTransactionRequest]: ...
+    def __init__(
+        self,
+        *,
+        transactions: collections.abc.Iterable[Global___UpdateTransactionRequest] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["transactions", b"transactions"]) -> None: ...
+
+Global___UpdateTransactionBulkRequest: typing_extensions.TypeAlias = UpdateTransactionBulkRequest
+
+@typing.final
+class DeleteTransactionBulkRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    TRANSACTIONS_FIELD_NUMBER: builtins.int
+    @property
+    def transactions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___DeleteTransactionRequest]: ...
+    def __init__(
+        self,
+        *,
+        transactions: collections.abc.Iterable[Global___DeleteTransactionRequest] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["transactions", b"transactions"]) -> None: ...
+
+Global___DeleteTransactionBulkRequest: typing_extensions.TypeAlias = DeleteTransactionBulkRequest

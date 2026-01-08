@@ -124,3 +124,141 @@ class GetAtmByIdRequest(google.protobuf.message.Message):
     def ClearField(self, field_name: typing.Literal["atm_id", b"atm_id"]) -> None: ...
 
 Global___GetAtmByIdRequest: typing_extensions.TypeAlias = GetAtmByIdRequest
+
+@typing.final
+class GetAtmByIdsRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ATM_IDS_FIELD_NUMBER: builtins.int
+    @property
+    def atm_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
+    def __init__(
+        self,
+        *,
+        atm_ids: collections.abc.Iterable[builtins.int] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["atm_ids", b"atm_ids"]) -> None: ...
+
+Global___GetAtmByIdsRequest: typing_extensions.TypeAlias = GetAtmByIdsRequest
+
+@typing.final
+class AddAtmRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    BRANCH_ID_FIELD_NUMBER: builtins.int
+    LOCATION_FIELD_NUMBER: builtins.int
+    STATUS_FIELD_NUMBER: builtins.int
+    branch_id: builtins.int
+    location: builtins.str
+    status: builtins.str
+    def __init__(
+        self,
+        *,
+        branch_id: builtins.int | None = ...,
+        location: builtins.str | None = ...,
+        status: builtins.str | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["_branch_id", b"_branch_id", "_location", b"_location", "_status", b"_status", "branch_id", b"branch_id", "location", b"location", "status", b"status"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_branch_id", b"_branch_id", "_location", b"_location", "_status", b"_status", "branch_id", b"branch_id", "location", b"location", "status", b"status"]) -> None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_branch_id", b"_branch_id"]) -> typing.Literal["branch_id"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_location", b"_location"]) -> typing.Literal["location"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_status", b"_status"]) -> typing.Literal["status"] | None: ...
+
+Global___AddAtmRequest: typing_extensions.TypeAlias = AddAtmRequest
+
+@typing.final
+class UpdateAtmRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ATM_ID_FIELD_NUMBER: builtins.int
+    BRANCH_ID_FIELD_NUMBER: builtins.int
+    LOCATION_FIELD_NUMBER: builtins.int
+    STATUS_FIELD_NUMBER: builtins.int
+    atm_id: builtins.int
+    branch_id: builtins.int
+    location: builtins.str
+    status: builtins.str
+    def __init__(
+        self,
+        *,
+        atm_id: builtins.int = ...,
+        branch_id: builtins.int | None = ...,
+        location: builtins.str | None = ...,
+        status: builtins.str | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["_branch_id", b"_branch_id", "_location", b"_location", "_status", b"_status", "branch_id", b"branch_id", "location", b"location", "status", b"status"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_branch_id", b"_branch_id", "_location", b"_location", "_status", b"_status", "atm_id", b"atm_id", "branch_id", b"branch_id", "location", b"location", "status", b"status"]) -> None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_branch_id", b"_branch_id"]) -> typing.Literal["branch_id"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_location", b"_location"]) -> typing.Literal["location"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_status", b"_status"]) -> typing.Literal["status"] | None: ...
+
+Global___UpdateAtmRequest: typing_extensions.TypeAlias = UpdateAtmRequest
+
+@typing.final
+class DeleteAtmRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ATM_ID_FIELD_NUMBER: builtins.int
+    atm_id: builtins.int
+    def __init__(
+        self,
+        *,
+        atm_id: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["atm_id", b"atm_id"]) -> None: ...
+
+Global___DeleteAtmRequest: typing_extensions.TypeAlias = DeleteAtmRequest
+
+@typing.final
+class AddAtmBulkRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ATMS_FIELD_NUMBER: builtins.int
+    @property
+    def atms(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___AddAtmRequest]: ...
+    def __init__(
+        self,
+        *,
+        atms: collections.abc.Iterable[Global___AddAtmRequest] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["atms", b"atms"]) -> None: ...
+
+Global___AddAtmBulkRequest: typing_extensions.TypeAlias = AddAtmBulkRequest
+
+@typing.final
+class UpdateAtmBulkRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ATMS_FIELD_NUMBER: builtins.int
+    @property
+    def atms(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___UpdateAtmRequest]: ...
+    def __init__(
+        self,
+        *,
+        atms: collections.abc.Iterable[Global___UpdateAtmRequest] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["atms", b"atms"]) -> None: ...
+
+Global___UpdateAtmBulkRequest: typing_extensions.TypeAlias = UpdateAtmBulkRequest
+
+@typing.final
+class DeleteAtmBulkRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ATMS_FIELD_NUMBER: builtins.int
+    @property
+    def atms(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___DeleteAtmRequest]: ...
+    def __init__(
+        self,
+        *,
+        atms: collections.abc.Iterable[Global___DeleteAtmRequest] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["atms", b"atms"]) -> None: ...
+
+Global___DeleteAtmBulkRequest: typing_extensions.TypeAlias = DeleteAtmBulkRequest

@@ -84,3 +84,151 @@ class GetPaymentTemplateByIdRequest(google.protobuf.message.Message):
     def ClearField(self, field_name: typing.Literal["template_id", b"template_id"]) -> None: ...
 
 Global___GetPaymentTemplateByIdRequest: typing_extensions.TypeAlias = GetPaymentTemplateByIdRequest
+
+@typing.final
+class GetPaymentTemplateByIdsRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    TEMPLATE_IDS_FIELD_NUMBER: builtins.int
+    @property
+    def template_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
+    def __init__(
+        self,
+        *,
+        template_ids: collections.abc.Iterable[builtins.int] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["template_ids", b"template_ids"]) -> None: ...
+
+Global___GetPaymentTemplateByIdsRequest: typing_extensions.TypeAlias = GetPaymentTemplateByIdsRequest
+
+@typing.final
+class AddPaymentTemplateRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CUSTOMER_ID_FIELD_NUMBER: builtins.int
+    NAME_FIELD_NUMBER: builtins.int
+    TARGET_IBAN_FIELD_NUMBER: builtins.int
+    DEFAULT_AMOUNT_FIELD_NUMBER: builtins.int
+    customer_id: builtins.int
+    name: builtins.str
+    target_iban: builtins.str
+    default_amount: builtins.str
+    def __init__(
+        self,
+        *,
+        customer_id: builtins.int | None = ...,
+        name: builtins.str | None = ...,
+        target_iban: builtins.str | None = ...,
+        default_amount: builtins.str | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["_customer_id", b"_customer_id", "_default_amount", b"_default_amount", "_name", b"_name", "_target_iban", b"_target_iban", "customer_id", b"customer_id", "default_amount", b"default_amount", "name", b"name", "target_iban", b"target_iban"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_customer_id", b"_customer_id", "_default_amount", b"_default_amount", "_name", b"_name", "_target_iban", b"_target_iban", "customer_id", b"customer_id", "default_amount", b"default_amount", "name", b"name", "target_iban", b"target_iban"]) -> None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_customer_id", b"_customer_id"]) -> typing.Literal["customer_id"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_default_amount", b"_default_amount"]) -> typing.Literal["default_amount"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_name", b"_name"]) -> typing.Literal["name"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_target_iban", b"_target_iban"]) -> typing.Literal["target_iban"] | None: ...
+
+Global___AddPaymentTemplateRequest: typing_extensions.TypeAlias = AddPaymentTemplateRequest
+
+@typing.final
+class UpdatePaymentTemplateRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    TEMPLATE_ID_FIELD_NUMBER: builtins.int
+    CUSTOMER_ID_FIELD_NUMBER: builtins.int
+    NAME_FIELD_NUMBER: builtins.int
+    TARGET_IBAN_FIELD_NUMBER: builtins.int
+    DEFAULT_AMOUNT_FIELD_NUMBER: builtins.int
+    template_id: builtins.int
+    customer_id: builtins.int
+    name: builtins.str
+    target_iban: builtins.str
+    default_amount: builtins.str
+    def __init__(
+        self,
+        *,
+        template_id: builtins.int = ...,
+        customer_id: builtins.int | None = ...,
+        name: builtins.str | None = ...,
+        target_iban: builtins.str | None = ...,
+        default_amount: builtins.str | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["_customer_id", b"_customer_id", "_default_amount", b"_default_amount", "_name", b"_name", "_target_iban", b"_target_iban", "customer_id", b"customer_id", "default_amount", b"default_amount", "name", b"name", "target_iban", b"target_iban"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_customer_id", b"_customer_id", "_default_amount", b"_default_amount", "_name", b"_name", "_target_iban", b"_target_iban", "customer_id", b"customer_id", "default_amount", b"default_amount", "name", b"name", "target_iban", b"target_iban", "template_id", b"template_id"]) -> None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_customer_id", b"_customer_id"]) -> typing.Literal["customer_id"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_default_amount", b"_default_amount"]) -> typing.Literal["default_amount"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_name", b"_name"]) -> typing.Literal["name"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_target_iban", b"_target_iban"]) -> typing.Literal["target_iban"] | None: ...
+
+Global___UpdatePaymentTemplateRequest: typing_extensions.TypeAlias = UpdatePaymentTemplateRequest
+
+@typing.final
+class DeletePaymentTemplateRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    TEMPLATE_ID_FIELD_NUMBER: builtins.int
+    template_id: builtins.int
+    def __init__(
+        self,
+        *,
+        template_id: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["template_id", b"template_id"]) -> None: ...
+
+Global___DeletePaymentTemplateRequest: typing_extensions.TypeAlias = DeletePaymentTemplateRequest
+
+@typing.final
+class AddPaymentTemplateBulkRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    TEMPLATES_FIELD_NUMBER: builtins.int
+    @property
+    def templates(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___AddPaymentTemplateRequest]: ...
+    def __init__(
+        self,
+        *,
+        templates: collections.abc.Iterable[Global___AddPaymentTemplateRequest] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["templates", b"templates"]) -> None: ...
+
+Global___AddPaymentTemplateBulkRequest: typing_extensions.TypeAlias = AddPaymentTemplateBulkRequest
+
+@typing.final
+class UpdatePaymentTemplateBulkRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    TEMPLATES_FIELD_NUMBER: builtins.int
+    @property
+    def templates(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___UpdatePaymentTemplateRequest]: ...
+    def __init__(
+        self,
+        *,
+        templates: collections.abc.Iterable[Global___UpdatePaymentTemplateRequest] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["templates", b"templates"]) -> None: ...
+
+Global___UpdatePaymentTemplateBulkRequest: typing_extensions.TypeAlias = UpdatePaymentTemplateBulkRequest
+
+@typing.final
+class DeletePaymentTemplateBulkRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    TEMPLATES_FIELD_NUMBER: builtins.int
+    @property
+    def templates(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___DeletePaymentTemplateRequest]: ...
+    def __init__(
+        self,
+        *,
+        templates: collections.abc.Iterable[Global___DeletePaymentTemplateRequest] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["templates", b"templates"]) -> None: ...
+
+Global___DeletePaymentTemplateBulkRequest: typing_extensions.TypeAlias = DeletePaymentTemplateBulkRequest

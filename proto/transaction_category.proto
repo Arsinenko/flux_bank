@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+package protos;
+option go_package = "orch-go/gen/protos;protos";
+option csharp_namespace = "Core";
+
+
+
+import "custom_types.proto";
+import "google/protobuf/empty.proto";
+
+service TransactionCategoryService {
+  rpc GetAll (GetAllRequest) returns (GetAllTransactionCategoriesResponse);
+  rpc GetById (GetTransactionCategoryByIdRequest) returns (TransactionCategoryModel);
+  rpc GetByIds (GetTransactionCategoryByIdsRequest) returns (GetAllTransactionCategoriesResponse);
+  rpc Add (AddTransactionCategoryRequest) returns (TransactionCategoryModel);
+  rpc Update (UpdateTransactionCategoryRequest) returns (google.protobuf.Empty);
+  rpc Delete (DeleteTransactionCategoryRequest) returns (google.protobuf.Empty);
+  rpc AddBulk (AddTransactionCategoryBulkRequest) returns (google.protobuf.Empty);
+  rpc UpdateBulk (UpdateTransactionCategoryBulkRequest) returns (google.protobuf.Empty);
+  rpc DeleteBulk (DeleteTransactionCategoryBulkRequest) returns (google.protobuf.Empty);
+}
+
+message TransactionCategoryModel {
+  int32 category_id = 1;
+  string name = 2;
+}
+
+message GetAllTransactionCategoriesResponse {
+  repeated TransactionCategoryModel transaction_categories = 1;
+}
+
+message GetTransactionCategoryByIdRequest {
+  int32 category_id = 1;
+}
+
+message GetTransactionCategoryByIdsRequest {
+  repeated int32 category_ids = 1;
+}
+
+message AddTransactionCategoryRequest {
+  string name = 1;
+}
+
+message UpdateTransactionCategoryRequest {
+  int32 category_id = 1;
+  string name = 2;
+}
+
+message DeleteTransactionCategoryRequest {
+  int32 category_id = 1;
+}
+
+message AddTransactionCategoryBulkRequest {
+  repeated AddTransactionCategoryRequest transaction_categories = 1;
+}
+
+message UpdateTransactionCategoryBulkRequest {
+  repeated UpdateTransactionCategoryRequest transaction_categories = 1;
+}
+
+message DeleteTransactionCategoryBulkRequest {
+  repeated DeleteTransactionCategoryRequest transaction_categories = 1;
+}
+

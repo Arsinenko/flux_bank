@@ -71,3 +71,125 @@ class GetAccountTypeByIdRequest(google.protobuf.message.Message):
     def ClearField(self, field_name: typing.Literal["type_id", b"type_id"]) -> None: ...
 
 Global___GetAccountTypeByIdRequest: typing_extensions.TypeAlias = GetAccountTypeByIdRequest
+
+@typing.final
+class GetAccountTypeByIdsRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    TYPE_IDS_FIELD_NUMBER: builtins.int
+    @property
+    def type_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
+    def __init__(
+        self,
+        *,
+        type_ids: collections.abc.Iterable[builtins.int] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["type_ids", b"type_ids"]) -> None: ...
+
+Global___GetAccountTypeByIdsRequest: typing_extensions.TypeAlias = GetAccountTypeByIdsRequest
+
+@typing.final
+class AddAccountTypeRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    NAME_FIELD_NUMBER: builtins.int
+    DESCRIPTION_FIELD_NUMBER: builtins.int
+    name: builtins.str
+    description: builtins.str
+    def __init__(
+        self,
+        *,
+        name: builtins.str = ...,
+        description: builtins.str | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["_description", b"_description", "description", b"description"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_description", b"_description", "description", b"description", "name", b"name"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing.Literal["_description", b"_description"]) -> typing.Literal["description"] | None: ...
+
+Global___AddAccountTypeRequest: typing_extensions.TypeAlias = AddAccountTypeRequest
+
+@typing.final
+class UpdateAccountTypeRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    TYPE_ID_FIELD_NUMBER: builtins.int
+    NAME_FIELD_NUMBER: builtins.int
+    DESCRIPTION_FIELD_NUMBER: builtins.int
+    type_id: builtins.int
+    name: builtins.str
+    description: builtins.str
+    def __init__(
+        self,
+        *,
+        type_id: builtins.int = ...,
+        name: builtins.str = ...,
+        description: builtins.str | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["_description", b"_description", "description", b"description"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_description", b"_description", "description", b"description", "name", b"name", "type_id", b"type_id"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing.Literal["_description", b"_description"]) -> typing.Literal["description"] | None: ...
+
+Global___UpdateAccountTypeRequest: typing_extensions.TypeAlias = UpdateAccountTypeRequest
+
+@typing.final
+class DeleteAccountTypeRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    TYPE_ID_FIELD_NUMBER: builtins.int
+    type_id: builtins.int
+    def __init__(
+        self,
+        *,
+        type_id: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["type_id", b"type_id"]) -> None: ...
+
+Global___DeleteAccountTypeRequest: typing_extensions.TypeAlias = DeleteAccountTypeRequest
+
+@typing.final
+class AddAccountTypeBulkRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ACCOUNT_TYPES_FIELD_NUMBER: builtins.int
+    @property
+    def account_types(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___AddAccountTypeRequest]: ...
+    def __init__(
+        self,
+        *,
+        account_types: collections.abc.Iterable[Global___AddAccountTypeRequest] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["account_types", b"account_types"]) -> None: ...
+
+Global___AddAccountTypeBulkRequest: typing_extensions.TypeAlias = AddAccountTypeBulkRequest
+
+@typing.final
+class UpdateAccountTypeBulkRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ACCOUNT_TYPES_FIELD_NUMBER: builtins.int
+    @property
+    def account_types(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___UpdateAccountTypeRequest]: ...
+    def __init__(
+        self,
+        *,
+        account_types: collections.abc.Iterable[Global___UpdateAccountTypeRequest] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["account_types", b"account_types"]) -> None: ...
+
+Global___UpdateAccountTypeBulkRequest: typing_extensions.TypeAlias = UpdateAccountTypeBulkRequest
+
+@typing.final
+class DeleteAccountTypeBulkRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ACCOUNT_TYPES_FIELD_NUMBER: builtins.int
+    @property
+    def account_types(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___DeleteAccountTypeRequest]: ...
+    def __init__(
+        self,
+        *,
+        account_types: collections.abc.Iterable[Global___DeleteAccountTypeRequest] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["account_types", b"account_types"]) -> None: ...
+
+Global___DeleteAccountTypeBulkRequest: typing_extensions.TypeAlias = DeleteAccountTypeBulkRequest

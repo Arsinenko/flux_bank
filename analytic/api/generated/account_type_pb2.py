@@ -22,23 +22,38 @@ _runtime_version.ValidateProtobufRuntimeVersion(
 _sym_db = _symbol_database.Default()
 
 
-from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 import custom_types_pb2 as custom__types__pb2
+from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x12\x61\x63\x63ount_type.proto\x12\x06protos\x1a\x1bgoogle/protobuf/empty.proto\x1a\x12\x63ustom_types.proto\"[\n\x10\x41\x63\x63ountTypeModel\x12\x0f\n\x07type_id\x18\x01 \x01(\x05\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x18\n\x0b\x64\x65scription\x18\x03 \x01(\tH\x00\x88\x01\x01\x42\x0e\n\x0c_description\"M\n\x1aGetAllAccountTypesResponse\x12/\n\raccount_types\x18\x01 \x03(\x0b\x32\x18.protos.AccountTypeModel\",\n\x19GetAccountTypeByIdRequest\x12\x0f\n\x07type_id\x18\x01 \x01(\x05\x32\xa1\x01\n\x12\x41\x63\x63ountTypeService\x12\x43\n\x06GetAll\x12\x15.protos.GetAllRequest\x1a\".protos.GetAllAccountTypesResponse\x12\x46\n\x07GetById\x12!.protos.GetAccountTypeByIdRequest\x1a\x18.protos.AccountTypeModelb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x12\x61\x63\x63ount_type.proto\x12\x06protos\x1a\x12\x63ustom_types.proto\x1a\x1bgoogle/protobuf/empty.proto\"[\n\x10\x41\x63\x63ountTypeModel\x12\x0f\n\x07type_id\x18\x01 \x01(\x05\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x18\n\x0b\x64\x65scription\x18\x03 \x01(\tH\x00\x88\x01\x01\x42\x0e\n\x0c_description\"M\n\x1aGetAllAccountTypesResponse\x12/\n\raccount_types\x18\x01 \x03(\x0b\x32\x18.protos.AccountTypeModel\",\n\x19GetAccountTypeByIdRequest\x12\x0f\n\x07type_id\x18\x01 \x01(\x05\".\n\x1aGetAccountTypeByIdsRequest\x12\x10\n\x08type_ids\x18\x01 \x03(\x05\"O\n\x15\x41\x64\x64\x41\x63\x63ountTypeRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x18\n\x0b\x64\x65scription\x18\x02 \x01(\tH\x00\x88\x01\x01\x42\x0e\n\x0c_description\"c\n\x18UpdateAccountTypeRequest\x12\x0f\n\x07type_id\x18\x01 \x01(\x05\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x18\n\x0b\x64\x65scription\x18\x03 \x01(\tH\x00\x88\x01\x01\x42\x0e\n\x0c_description\"+\n\x18\x44\x65leteAccountTypeRequest\x12\x0f\n\x07type_id\x18\x01 \x01(\x05\"Q\n\x19\x41\x64\x64\x41\x63\x63ountTypeBulkRequest\x12\x34\n\raccount_types\x18\x01 \x03(\x0b\x32\x1d.protos.AddAccountTypeRequest\"W\n\x1cUpdateAccountTypeBulkRequest\x12\x37\n\raccount_types\x18\x01 \x03(\x0b\x32 .protos.UpdateAccountTypeRequest\"W\n\x1c\x44\x65leteAccountTypeBulkRequest\x12\x37\n\raccount_types\x18\x01 \x03(\x0b\x32 .protos.DeleteAccountTypeRequest2\x9b\x05\n\x12\x41\x63\x63ountTypeService\x12\x43\n\x06GetAll\x12\x15.protos.GetAllRequest\x1a\".protos.GetAllAccountTypesResponse\x12\x46\n\x07GetById\x12!.protos.GetAccountTypeByIdRequest\x1a\x18.protos.AccountTypeModel\x12R\n\x08GetByIds\x12\".protos.GetAccountTypeByIdsRequest\x1a\".protos.GetAllAccountTypesResponse\x12>\n\x03\x41\x64\x64\x12\x1d.protos.AddAccountTypeRequest\x1a\x18.protos.AccountTypeModel\x12\x42\n\x06Update\x12 .protos.UpdateAccountTypeRequest\x1a\x16.google.protobuf.Empty\x12\x42\n\x06\x44\x65lete\x12 .protos.DeleteAccountTypeRequest\x1a\x16.google.protobuf.Empty\x12\x44\n\x07\x41\x64\x64\x42ulk\x12!.protos.AddAccountTypeBulkRequest\x1a\x16.google.protobuf.Empty\x12J\n\nUpdateBulk\x12$.protos.UpdateAccountTypeBulkRequest\x1a\x16.google.protobuf.Empty\x12J\n\nDeleteBulk\x12$.protos.DeleteAccountTypeBulkRequest\x1a\x16.google.protobuf.EmptyB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04\x43oreb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'account_type_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
-  DESCRIPTOR._loaded_options = None
+  _globals['DESCRIPTOR']._loaded_options = None
+  _globals['DESCRIPTOR']._serialized_options = b'Z\031orch-go/gen/protos;protos\252\002\004Core'
   _globals['_ACCOUNTTYPEMODEL']._serialized_start=79
   _globals['_ACCOUNTTYPEMODEL']._serialized_end=170
   _globals['_GETALLACCOUNTTYPESRESPONSE']._serialized_start=172
   _globals['_GETALLACCOUNTTYPESRESPONSE']._serialized_end=249
   _globals['_GETACCOUNTTYPEBYIDREQUEST']._serialized_start=251
   _globals['_GETACCOUNTTYPEBYIDREQUEST']._serialized_end=295
-  _globals['_ACCOUNTTYPESERVICE']._serialized_start=298
-  _globals['_ACCOUNTTYPESERVICE']._serialized_end=459
+  _globals['_GETACCOUNTTYPEBYIDSREQUEST']._serialized_start=297
+  _globals['_GETACCOUNTTYPEBYIDSREQUEST']._serialized_end=343
+  _globals['_ADDACCOUNTTYPEREQUEST']._serialized_start=345
+  _globals['_ADDACCOUNTTYPEREQUEST']._serialized_end=424
+  _globals['_UPDATEACCOUNTTYPEREQUEST']._serialized_start=426
+  _globals['_UPDATEACCOUNTTYPEREQUEST']._serialized_end=525
+  _globals['_DELETEACCOUNTTYPEREQUEST']._serialized_start=527
+  _globals['_DELETEACCOUNTTYPEREQUEST']._serialized_end=570
+  _globals['_ADDACCOUNTTYPEBULKREQUEST']._serialized_start=572
+  _globals['_ADDACCOUNTTYPEBULKREQUEST']._serialized_end=653
+  _globals['_UPDATEACCOUNTTYPEBULKREQUEST']._serialized_start=655
+  _globals['_UPDATEACCOUNTTYPEBULKREQUEST']._serialized_end=742
+  _globals['_DELETEACCOUNTTYPEBULKREQUEST']._serialized_start=744
+  _globals['_DELETEACCOUNTTYPEBULKREQUEST']._serialized_end=831
+  _globals['_ACCOUNTTYPESERVICE']._serialized_start=834
+  _globals['_ACCOUNTTYPESERVICE']._serialized_end=1501
 # @@protoc_insertion_point(module_scope)

@@ -24,22 +24,42 @@ _sym_db = _symbol_database.Default()
 
 from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
+import account_pb2 as account__pb2
 import custom_types_pb2 as custom__types__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x11transaction.proto\x12\x06protos\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x12\x63ustom_types.proto\"\x90\x02\n\x10TransactionModel\x12\x16\n\x0etransaction_id\x18\x01 \x01(\x05\x12\x1b\n\x0esource_account\x18\x02 \x01(\x05H\x00\x88\x01\x01\x12\x1b\n\x0etarget_account\x18\x03 \x01(\x05H\x01\x88\x01\x01\x12\x0e\n\x06\x61mount\x18\x04 \x01(\t\x12\x10\n\x08\x63urrency\x18\x05 \x01(\t\x12\x33\n\ncreated_at\x18\x06 \x01(\x0b\x32\x1a.google.protobuf.TimestampH\x02\x88\x01\x01\x12\x13\n\x06status\x18\x07 \x01(\tH\x03\x88\x01\x01\x42\x11\n\x0f_source_accountB\x11\n\x0f_target_accountB\r\n\x0b_created_atB\t\n\x07_status\"L\n\x1aGetAllTransactionsResponse\x12.\n\x0ctransactions\x18\x01 \x03(\x0b\x32\x18.protos.TransactionModel\"3\n\x19GetTransactionByIdRequest\x12\x16\n\x0etransaction_id\x18\x01 \x01(\x05\x32\xf6\x01\n\x12TransactionService\x12\x43\n\x06GetAll\x12\x15.protos.GetAllRequest\x1a\".protos.GetAllTransactionsResponse\x12\x46\n\x07GetById\x12!.protos.GetTransactionByIdRequest\x1a\x18.protos.TransactionModel\x12S\n\x0eGetByDateRange\x12\x1d.protos.GetByDateRangeRequest\x1a\".protos.GetAllTransactionsResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x11transaction.proto\x12\x06protos\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\raccount.proto\x1a\x12\x63ustom_types.proto\"\x90\x02\n\x10TransactionModel\x12\x16\n\x0etransaction_id\x18\x01 \x01(\x05\x12\x1b\n\x0esource_account\x18\x02 \x01(\x05H\x00\x88\x01\x01\x12\x1b\n\x0etarget_account\x18\x03 \x01(\x05H\x01\x88\x01\x01\x12\x0e\n\x06\x61mount\x18\x04 \x01(\t\x12\x10\n\x08\x63urrency\x18\x05 \x01(\t\x12\x33\n\ncreated_at\x18\x06 \x01(\x0b\x32\x1a.google.protobuf.TimestampH\x02\x88\x01\x01\x12\x13\n\x06status\x18\x07 \x01(\tH\x03\x88\x01\x01\x42\x11\n\x0f_source_accountB\x11\n\x0f_target_accountB\r\n\x0b_created_atB\t\n\x07_status\"L\n\x1aGetAllTransactionsResponse\x12.\n\x0ctransactions\x18\x01 \x03(\x0b\x32\x18.protos.TransactionModel\"3\n\x19GetTransactionByIdRequest\x12\x16\n\x0etransaction_id\x18\x01 \x01(\x05\"5\n\x1aGetTransactionByIdsRequest\x12\x17\n\x0ftransaction_ids\x18\x01 \x03(\x05\"y\n\x18GetAccountRevenueRequest\x12\x16\n\x0etarget_account\x18\x01 \x01(\x05\x12\x36\n\ndate_range\x18\x02 \x01(\x0b\x32\x1d.protos.GetByDateRangeRequestH\x00\x88\x01\x01\x42\r\n\x0b_date_range\"z\n\x19GetAccountExpensesRequest\x12\x16\n\x0esource_account\x18\x01 \x01(\x05\x12\x36\n\ndate_range\x18\x02 \x01(\x0b\x32\x1d.protos.GetByDateRangeRequestH\x00\x88\x01\x01\x42\r\n\x0b_date_range\"\xb9\x01\n\x15\x41\x64\x64TransactionRequest\x12\x1b\n\x0esource_account\x18\x01 \x01(\x05H\x00\x88\x01\x01\x12\x1b\n\x0etarget_account\x18\x02 \x01(\x05H\x01\x88\x01\x01\x12\x0e\n\x06\x61mount\x18\x03 \x01(\t\x12\x10\n\x08\x63urrency\x18\x04 \x01(\t\x12\x13\n\x06status\x18\x05 \x01(\tH\x02\x88\x01\x01\x42\x11\n\x0f_source_accountB\x11\n\x0f_target_accountB\t\n\x07_status\"\xd4\x01\n\x18UpdateTransactionRequest\x12\x16\n\x0etransaction_id\x18\x01 \x01(\x05\x12\x1b\n\x0esource_account\x18\x02 \x01(\x05H\x00\x88\x01\x01\x12\x1b\n\x0etarget_account\x18\x03 \x01(\x05H\x01\x88\x01\x01\x12\x0e\n\x06\x61mount\x18\x04 \x01(\t\x12\x10\n\x08\x63urrency\x18\x05 \x01(\t\x12\x13\n\x06status\x18\x06 \x01(\tH\x02\x88\x01\x01\x42\x11\n\x0f_source_accountB\x11\n\x0f_target_accountB\t\n\x07_status\"2\n\x18\x44\x65leteTransactionRequest\x12\x16\n\x0etransaction_id\x18\x01 \x01(\x05\"P\n\x19\x41\x64\x64TransactionBulkRequest\x12\x33\n\x0ctransactions\x18\x01 \x03(\x0b\x32\x1d.protos.AddTransactionRequest\"V\n\x1cUpdateTransactionBulkRequest\x12\x36\n\x0ctransactions\x18\x01 \x03(\x0b\x32 .protos.UpdateTransactionRequest\"V\n\x1c\x44\x65leteTransactionBulkRequest\x12\x36\n\x0ctransactions\x18\x01 \x03(\x0b\x32 .protos.DeleteTransactionRequest2\xa8\x07\n\x12TransactionService\x12\x43\n\x06GetAll\x12\x15.protos.GetAllRequest\x1a\".protos.GetAllTransactionsResponse\x12\x46\n\x07GetById\x12!.protos.GetTransactionByIdRequest\x1a\x18.protos.TransactionModel\x12R\n\x08GetByIds\x12\".protos.GetTransactionByIdsRequest\x1a\".protos.GetAllTransactionsResponse\x12S\n\x0eGetByDateRange\x12\x1d.protos.GetByDateRangeRequest\x1a\".protos.GetAllTransactionsResponse\x12Y\n\x11GetAccountRevenue\x12 .protos.GetAccountRevenueRequest\x1a\".protos.GetAllTransactionsResponse\x12[\n\x12GetAccountExpenses\x12!.protos.GetAccountExpensesRequest\x1a\".protos.GetAllTransactionsResponse\x12>\n\x03\x41\x64\x64\x12\x1d.protos.AddTransactionRequest\x1a\x18.protos.TransactionModel\x12\x42\n\x06Update\x12 .protos.UpdateTransactionRequest\x1a\x16.google.protobuf.Empty\x12\x42\n\x06\x44\x65lete\x12 .protos.DeleteTransactionRequest\x1a\x16.google.protobuf.Empty\x12\x44\n\x07\x41\x64\x64\x42ulk\x12!.protos.AddTransactionBulkRequest\x1a\x16.google.protobuf.Empty\x12J\n\nUpdateBulk\x12$.protos.UpdateTransactionBulkRequest\x1a\x16.google.protobuf.Empty\x12J\n\nDeleteBulk\x12$.protos.DeleteTransactionBulkRequest\x1a\x16.google.protobuf.EmptyB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04\x43oreb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'transaction_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
-  DESCRIPTOR._loaded_options = None
-  _globals['_TRANSACTIONMODEL']._serialized_start=112
-  _globals['_TRANSACTIONMODEL']._serialized_end=384
-  _globals['_GETALLTRANSACTIONSRESPONSE']._serialized_start=386
-  _globals['_GETALLTRANSACTIONSRESPONSE']._serialized_end=462
-  _globals['_GETTRANSACTIONBYIDREQUEST']._serialized_start=464
-  _globals['_GETTRANSACTIONBYIDREQUEST']._serialized_end=515
-  _globals['_TRANSACTIONSERVICE']._serialized_start=518
-  _globals['_TRANSACTIONSERVICE']._serialized_end=764
+  _globals['DESCRIPTOR']._loaded_options = None
+  _globals['DESCRIPTOR']._serialized_options = b'Z\031orch-go/gen/protos;protos\252\002\004Core'
+  _globals['_TRANSACTIONMODEL']._serialized_start=127
+  _globals['_TRANSACTIONMODEL']._serialized_end=399
+  _globals['_GETALLTRANSACTIONSRESPONSE']._serialized_start=401
+  _globals['_GETALLTRANSACTIONSRESPONSE']._serialized_end=477
+  _globals['_GETTRANSACTIONBYIDREQUEST']._serialized_start=479
+  _globals['_GETTRANSACTIONBYIDREQUEST']._serialized_end=530
+  _globals['_GETTRANSACTIONBYIDSREQUEST']._serialized_start=532
+  _globals['_GETTRANSACTIONBYIDSREQUEST']._serialized_end=585
+  _globals['_GETACCOUNTREVENUEREQUEST']._serialized_start=587
+  _globals['_GETACCOUNTREVENUEREQUEST']._serialized_end=708
+  _globals['_GETACCOUNTEXPENSESREQUEST']._serialized_start=710
+  _globals['_GETACCOUNTEXPENSESREQUEST']._serialized_end=832
+  _globals['_ADDTRANSACTIONREQUEST']._serialized_start=835
+  _globals['_ADDTRANSACTIONREQUEST']._serialized_end=1020
+  _globals['_UPDATETRANSACTIONREQUEST']._serialized_start=1023
+  _globals['_UPDATETRANSACTIONREQUEST']._serialized_end=1235
+  _globals['_DELETETRANSACTIONREQUEST']._serialized_start=1237
+  _globals['_DELETETRANSACTIONREQUEST']._serialized_end=1287
+  _globals['_ADDTRANSACTIONBULKREQUEST']._serialized_start=1289
+  _globals['_ADDTRANSACTIONBULKREQUEST']._serialized_end=1369
+  _globals['_UPDATETRANSACTIONBULKREQUEST']._serialized_start=1371
+  _globals['_UPDATETRANSACTIONBULKREQUEST']._serialized_end=1457
+  _globals['_DELETETRANSACTIONBULKREQUEST']._serialized_start=1459
+  _globals['_DELETETRANSACTIONBULKREQUEST']._serialized_end=1545
+  _globals['_TRANSACTIONSERVICE']._serialized_start=1548
+  _globals['_TRANSACTIONSERVICE']._serialized_end=2484
 # @@protoc_insertion_point(module_scope)

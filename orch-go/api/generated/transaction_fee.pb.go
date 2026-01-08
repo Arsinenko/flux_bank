@@ -530,7 +530,7 @@ var File_transaction_fee_proto protoreflect.FileDescriptor
 
 const file_transaction_fee_proto_rawDesc = "" +
 	"\n" +
-	"\x15transaction_fee.proto\x12\x06protos\x1a\x1bgoogle/protobuf/empty.proto\x1a\x12custom_types.proto\"\xb3\x01\n" +
+	"\x15transaction_fee.proto\x12\x06protos\x1a\x1bgoogle/protobuf/empty.proto\x1a\x11transaction.proto\x1a\x0efee_type.proto\x1a\x12custom_types.proto\"\xb3\x01\n" +
 	"\x13TransactionFeeModel\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x05R\x02id\x12*\n" +
 	"\x0etransaction_id\x18\x02 \x01(\x05H\x00R\rtransactionId\x88\x01\x01\x12\x1a\n" +
@@ -579,7 +579,7 @@ const file_transaction_fee_proto_rawDesc = "" +
 	"\n" +
 	"UpdateBulk\x12'.protos.UpdateTransactionFeeBulkRequest\x1a\x16.google.protobuf.Empty\x12M\n" +
 	"\n" +
-	"DeleteBulk\x12'.protos.DeleteTransactionFeeBulkRequest\x1a\x16.google.protobuf.EmptyB\x1bZ\x19orch-go/gen/protos;protosb\x06proto3"
+	"DeleteBulk\x12'.protos.DeleteTransactionFeeBulkRequest\x1a\x16.google.protobuf.EmptyB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
 
 var (
 	file_transaction_fee_proto_rawDescOnce sync.Once
@@ -643,6 +643,8 @@ func file_transaction_fee_proto_init() {
 	if File_transaction_fee_proto != nil {
 		return
 	}
+	file_transaction_proto_init()
+	file_fee_type_proto_init()
 	file_custom_types_proto_init()
 	file_transaction_fee_proto_msgTypes[0].OneofWrappers = []any{}
 	file_transaction_fee_proto_msgTypes[4].OneofWrappers = []any{}

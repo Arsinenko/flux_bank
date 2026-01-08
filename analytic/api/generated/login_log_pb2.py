@@ -24,26 +24,42 @@ _sym_db = _symbol_database.Default()
 
 from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
+import customer_pb2 as customer__pb2
 import custom_types_pb2 as custom__types__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0flogin_log.proto\x12\x06protos\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x12\x63ustom_types.proto\"\xdf\x01\n\rLoginLogModel\x12\x0e\n\x06log_id\x18\x01 \x01(\x05\x12\x18\n\x0b\x63ustomer_id\x18\x02 \x01(\x05H\x00\x88\x01\x01\x12\x33\n\nlogin_time\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.TimestampH\x01\x88\x01\x01\x12\x17\n\nip_address\x18\x04 \x01(\tH\x02\x88\x01\x01\x12\x18\n\x0b\x64\x65vice_info\x18\x05 \x01(\tH\x03\x88\x01\x01\x42\x0e\n\x0c_customer_idB\r\n\x0b_login_timeB\r\n\x0b_ip_addressB\x0e\n\x0c_device_info\"D\n\x17GetAllLoginLogsResponse\x12)\n\nlogin_logs\x18\x01 \x03(\x0b\x32\x15.protos.LoginLogModel\"(\n\x16GetLoginLogByIdRequest\x12\x0e\n\x06log_id\x18\x01 \x01(\x05\"4\n\x1dGetLoginLogsByCustomerRequest\x12\x13\n\x0b\x63ustomer_id\x18\x01 \x01(\x05\"~\n\x1eGetLoginLogsInTimeRangeRequest\x12.\n\nstart_time\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12,\n\x08\x65nd_time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp2\xc9\x02\n\x0fLoginLogService\x12@\n\x06GetAll\x12\x15.protos.GetAllRequest\x1a\x1f.protos.GetAllLoginLogsResponse\x12@\n\x07GetById\x12\x1e.protos.GetLoginLogByIdRequest\x1a\x15.protos.LoginLogModel\x12W\n\rGetByCustomer\x12%.protos.GetLoginLogsByCustomerRequest\x1a\x1f.protos.GetAllLoginLogsResponse\x12Y\n\x0eGetInTimeRange\x12&.protos.GetLoginLogsInTimeRangeRequest\x1a\x1f.protos.GetAllLoginLogsResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0flogin_log.proto\x12\x06protos\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x0e\x63ustomer.proto\x1a\x12\x63ustom_types.proto\"\xdf\x01\n\rLoginLogModel\x12\x0e\n\x06log_id\x18\x01 \x01(\x05\x12\x18\n\x0b\x63ustomer_id\x18\x02 \x01(\x05H\x00\x88\x01\x01\x12\x33\n\nlogin_time\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.TimestampH\x01\x88\x01\x01\x12\x17\n\nip_address\x18\x04 \x01(\tH\x02\x88\x01\x01\x12\x18\n\x0b\x64\x65vice_info\x18\x05 \x01(\tH\x03\x88\x01\x01\x42\x0e\n\x0c_customer_idB\r\n\x0b_login_timeB\r\n\x0b_ip_addressB\x0e\n\x0c_device_info\"D\n\x17GetAllLoginLogsResponse\x12)\n\nlogin_logs\x18\x01 \x03(\x0b\x32\x15.protos.LoginLogModel\"(\n\x16GetLoginLogByIdRequest\x12\x0e\n\x06log_id\x18\x01 \x01(\x05\"*\n\x17GetLoginLogByIdsRequest\x12\x0f\n\x07log_ids\x18\x01 \x03(\x05\"4\n\x1dGetLoginLogsByCustomerRequest\x12\x13\n\x0b\x63ustomer_id\x18\x01 \x01(\x05\"~\n\x1eGetLoginLogsInTimeRangeRequest\x12.\n\nstart_time\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12,\n\x08\x65nd_time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xd4\x01\n\x12\x41\x64\x64LoginLogRequest\x12\x18\n\x0b\x63ustomer_id\x18\x01 \x01(\x05H\x00\x88\x01\x01\x12\x33\n\nlogin_time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.TimestampH\x01\x88\x01\x01\x12\x17\n\nip_address\x18\x03 \x01(\tH\x02\x88\x01\x01\x12\x18\n\x0b\x64\x65vice_info\x18\x04 \x01(\tH\x03\x88\x01\x01\x42\x0e\n\x0c_customer_idB\r\n\x0b_login_timeB\r\n\x0b_ip_addressB\x0e\n\x0c_device_info\"H\n\x16\x41\x64\x64LoginLogBulkRequest\x12.\n\nlogin_logs\x18\x01 \x03(\x0b\x32\x1a.protos.AddLoginLogRequest\"\xe7\x01\n\x15UpdateLoginLogRequest\x12\x0e\n\x06log_id\x18\x01 \x01(\x05\x12\x18\n\x0b\x63ustomer_id\x18\x02 \x01(\x05H\x00\x88\x01\x01\x12\x33\n\nlogin_time\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.TimestampH\x01\x88\x01\x01\x12\x17\n\nip_address\x18\x04 \x01(\tH\x02\x88\x01\x01\x12\x18\n\x0b\x64\x65vice_info\x18\x05 \x01(\tH\x03\x88\x01\x01\x42\x0e\n\x0c_customer_idB\r\n\x0b_login_timeB\r\n\x0b_ip_addressB\x0e\n\x0c_device_info\"N\n\x19UpdateLoginLogBulkRequest\x12\x31\n\nlogin_logs\x18\x01 \x03(\x0b\x32\x1d.protos.UpdateLoginLogRequest\"\'\n\x15\x44\x65leteLoginLogRequest\x12\x0e\n\x06log_id\x18\x01 \x01(\x05\"N\n\x19\x44\x65leteLoginLogBulkRequest\x12\x31\n\nlogin_logs\x18\x01 \x03(\x0b\x32\x1d.protos.DeleteLoginLogRequest2\xa8\x06\n\x0fLoginLogService\x12@\n\x06GetAll\x12\x15.protos.GetAllRequest\x1a\x1f.protos.GetAllLoginLogsResponse\x12@\n\x07GetById\x12\x1e.protos.GetLoginLogByIdRequest\x1a\x15.protos.LoginLogModel\x12L\n\x08GetByIds\x12\x1f.protos.GetLoginLogByIdsRequest\x1a\x1f.protos.GetAllLoginLogsResponse\x12W\n\rGetByCustomer\x12%.protos.GetLoginLogsByCustomerRequest\x1a\x1f.protos.GetAllLoginLogsResponse\x12Y\n\x0eGetInTimeRange\x12&.protos.GetLoginLogsInTimeRangeRequest\x1a\x1f.protos.GetAllLoginLogsResponse\x12\x38\n\x03\x41\x64\x64\x12\x1a.protos.AddLoginLogRequest\x1a\x15.protos.LoginLogModel\x12?\n\x06Update\x12\x1d.protos.UpdateLoginLogRequest\x1a\x16.google.protobuf.Empty\x12?\n\x06\x44\x65lete\x12\x1d.protos.DeleteLoginLogRequest\x1a\x16.google.protobuf.Empty\x12\x41\n\x07\x41\x64\x64\x42ulk\x12\x1e.protos.AddLoginLogBulkRequest\x1a\x16.google.protobuf.Empty\x12G\n\nUpdateBulk\x12!.protos.UpdateLoginLogBulkRequest\x1a\x16.google.protobuf.Empty\x12G\n\nDeleteBulk\x12!.protos.DeleteLoginLogBulkRequest\x1a\x16.google.protobuf.EmptyB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04\x43oreb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'login_log_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
-  DESCRIPTOR._loaded_options = None
-  _globals['_LOGINLOGMODEL']._serialized_start=110
-  _globals['_LOGINLOGMODEL']._serialized_end=333
-  _globals['_GETALLLOGINLOGSRESPONSE']._serialized_start=335
-  _globals['_GETALLLOGINLOGSRESPONSE']._serialized_end=403
-  _globals['_GETLOGINLOGBYIDREQUEST']._serialized_start=405
-  _globals['_GETLOGINLOGBYIDREQUEST']._serialized_end=445
-  _globals['_GETLOGINLOGSBYCUSTOMERREQUEST']._serialized_start=447
-  _globals['_GETLOGINLOGSBYCUSTOMERREQUEST']._serialized_end=499
-  _globals['_GETLOGINLOGSINTIMERANGEREQUEST']._serialized_start=501
-  _globals['_GETLOGINLOGSINTIMERANGEREQUEST']._serialized_end=627
-  _globals['_LOGINLOGSERVICE']._serialized_start=630
-  _globals['_LOGINLOGSERVICE']._serialized_end=959
+  _globals['DESCRIPTOR']._loaded_options = None
+  _globals['DESCRIPTOR']._serialized_options = b'Z\031orch-go/gen/protos;protos\252\002\004Core'
+  _globals['_LOGINLOGMODEL']._serialized_start=126
+  _globals['_LOGINLOGMODEL']._serialized_end=349
+  _globals['_GETALLLOGINLOGSRESPONSE']._serialized_start=351
+  _globals['_GETALLLOGINLOGSRESPONSE']._serialized_end=419
+  _globals['_GETLOGINLOGBYIDREQUEST']._serialized_start=421
+  _globals['_GETLOGINLOGBYIDREQUEST']._serialized_end=461
+  _globals['_GETLOGINLOGBYIDSREQUEST']._serialized_start=463
+  _globals['_GETLOGINLOGBYIDSREQUEST']._serialized_end=505
+  _globals['_GETLOGINLOGSBYCUSTOMERREQUEST']._serialized_start=507
+  _globals['_GETLOGINLOGSBYCUSTOMERREQUEST']._serialized_end=559
+  _globals['_GETLOGINLOGSINTIMERANGEREQUEST']._serialized_start=561
+  _globals['_GETLOGINLOGSINTIMERANGEREQUEST']._serialized_end=687
+  _globals['_ADDLOGINLOGREQUEST']._serialized_start=690
+  _globals['_ADDLOGINLOGREQUEST']._serialized_end=902
+  _globals['_ADDLOGINLOGBULKREQUEST']._serialized_start=904
+  _globals['_ADDLOGINLOGBULKREQUEST']._serialized_end=976
+  _globals['_UPDATELOGINLOGREQUEST']._serialized_start=979
+  _globals['_UPDATELOGINLOGREQUEST']._serialized_end=1210
+  _globals['_UPDATELOGINLOGBULKREQUEST']._serialized_start=1212
+  _globals['_UPDATELOGINLOGBULKREQUEST']._serialized_end=1290
+  _globals['_DELETELOGINLOGREQUEST']._serialized_start=1292
+  _globals['_DELETELOGINLOGREQUEST']._serialized_end=1331
+  _globals['_DELETELOGINLOGBULKREQUEST']._serialized_start=1333
+  _globals['_DELETELOGINLOGBULKREQUEST']._serialized_end=1411
+  _globals['_LOGINLOGSERVICE']._serialized_start=1414
+  _globals['_LOGINLOGSERVICE']._serialized_end=2222
 # @@protoc_insertion_point(module_scope)

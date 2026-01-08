@@ -1,0 +1,93 @@
+syntax = "proto3";
+
+package protos;
+option go_package = "orch-go/gen/protos;protos";
+option csharp_namespace = "Core";
+
+
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+import "account.proto";
+import "custom_types.proto";
+
+service TransactionService {
+  rpc GetAll (GetAllRequest) returns (GetAllTransactionsResponse);
+  rpc GetById (GetTransactionByIdRequest) returns (TransactionModel);
+  rpc GetByIds (GetTransactionByIdsRequest) returns (GetAllTransactionsResponse);
+  rpc GetByDateRange (GetByDateRangeRequest) returns (GetAllTransactionsResponse);
+  rpc GetAccountRevenue (GetAccountRevenueRequest) returns (GetAllTransactionsResponse);
+  rpc GetAccountExpenses (GetAccountExpensesRequest) returns (GetAllTransactionsResponse);
+  rpc Add (AddTransactionRequest) returns (TransactionModel);
+  rpc Update (UpdateTransactionRequest) returns (google.protobuf.Empty);
+  rpc Delete (DeleteTransactionRequest) returns (google.protobuf.Empty);
+  rpc AddBulk (AddTransactionBulkRequest) returns (google.protobuf.Empty);
+  rpc UpdateBulk (UpdateTransactionBulkRequest) returns (google.protobuf.Empty);
+  rpc DeleteBulk (DeleteTransactionBulkRequest) returns (google.protobuf.Empty);
+}
+
+message TransactionModel {
+  int32 transaction_id = 1;
+  optional int32 source_account = 2;
+  optional int32 target_account = 3;
+  string amount = 4;
+  string currency = 5;
+  optional google.protobuf.Timestamp created_at = 6;
+  optional string status = 7;
+}
+
+message GetAllTransactionsResponse {
+  repeated TransactionModel transactions = 1;
+}
+
+message GetTransactionByIdRequest {
+  int32 transaction_id = 1;
+}
+
+message GetTransactionByIdsRequest {
+  repeated int32 transaction_ids = 1;
+}
+
+message GetAccountRevenueRequest{
+  int32 target_account = 1;
+  optional GetByDateRangeRequest date_range = 2;
+}
+
+message GetAccountExpensesRequest{
+  int32 source_account = 1;
+  optional GetByDateRangeRequest date_range = 2;
+}
+
+message AddTransactionRequest {
+  optional int32 source_account = 1;
+  optional int32 target_account = 2;
+  string amount = 3;
+  string currency = 4;
+  optional string status = 5;
+}
+
+message UpdateTransactionRequest {
+  int32 transaction_id = 1;
+  optional int32 source_account = 2;
+  optional int32 target_account = 3;
+  string amount = 4;
+  string currency = 5;
+  optional string status = 6;
+}
+
+message DeleteTransactionRequest {
+  int32 transaction_id = 1;
+}
+
+message AddTransactionBulkRequest {
+  repeated AddTransactionRequest transactions = 1;
+}
+
+message UpdateTransactionBulkRequest {
+  repeated UpdateTransactionRequest transactions = 1;
+}
+
+message DeleteTransactionBulkRequest {
+  repeated DeleteTransactionRequest transactions = 1;
+}
+

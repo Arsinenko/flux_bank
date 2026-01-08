@@ -662,7 +662,7 @@ var File_atm_proto protoreflect.FileDescriptor
 
 const file_atm_proto_rawDesc = "" +
 	"\n" +
-	"\tatm.proto\x12\x06protos\x1a\x1bgoogle/protobuf/empty.proto\x1a\x12custom_types.proto\"\xa7\x01\n" +
+	"\tatm.proto\x12\x06protos\x1a\x12custom_types.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\fbranch.proto\"\xa7\x01\n" +
 	"\bAtmModel\x12\x15\n" +
 	"\x06atm_id\x18\x01 \x01(\x05R\x05atmId\x12 \n" +
 	"\tbranch_id\x18\x02 \x01(\x05H\x00R\bbranchId\x88\x01\x01\x12\x1f\n" +
@@ -724,7 +724,7 @@ const file_atm_proto_rawDesc = "" +
 	"\n" +
 	"UpdateBulk\x12\x1c.protos.UpdateAtmBulkRequest\x1a\x16.google.protobuf.Empty\x12B\n" +
 	"\n" +
-	"DeleteBulk\x12\x1c.protos.DeleteAtmBulkRequest\x1a\x16.google.protobuf.EmptyB\x1bZ\x19orch-go/gen/protos;protosb\x06proto3"
+	"DeleteBulk\x12\x1c.protos.DeleteAtmBulkRequest\x1a\x16.google.protobuf.EmptyB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
 
 var (
 	file_atm_proto_rawDescOnce sync.Once
@@ -798,6 +798,7 @@ func file_atm_proto_init() {
 		return
 	}
 	file_custom_types_proto_init()
+	file_branch_proto_init()
 	file_atm_proto_msgTypes[0].OneofWrappers = []any{}
 	file_atm_proto_msgTypes[7].OneofWrappers = []any{}
 	file_atm_proto_msgTypes[8].OneofWrappers = []any{}

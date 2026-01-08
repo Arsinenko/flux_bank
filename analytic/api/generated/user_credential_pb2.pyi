@@ -78,6 +78,22 @@ class GetUserCredentialByIdRequest(google.protobuf.message.Message):
 Global___GetUserCredentialByIdRequest: typing_extensions.TypeAlias = GetUserCredentialByIdRequest
 
 @typing.final
+class GetUserCredentialByIdsRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CUSTOMER_IDS_FIELD_NUMBER: builtins.int
+    @property
+    def customer_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
+    def __init__(
+        self,
+        *,
+        customer_ids: collections.abc.Iterable[builtins.int] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["customer_ids", b"customer_ids"]) -> None: ...
+
+Global___GetUserCredentialByIdsRequest: typing_extensions.TypeAlias = GetUserCredentialByIdsRequest
+
+@typing.final
 class GetUserCredentialByUsernameRequest(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -91,3 +107,108 @@ class GetUserCredentialByUsernameRequest(google.protobuf.message.Message):
     def ClearField(self, field_name: typing.Literal["username", b"username"]) -> None: ...
 
 Global___GetUserCredentialByUsernameRequest: typing_extensions.TypeAlias = GetUserCredentialByUsernameRequest
+
+@typing.final
+class AddUserCredentialRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CUSTOMER_ID_FIELD_NUMBER: builtins.int
+    USERNAME_FIELD_NUMBER: builtins.int
+    PASSWORD_HASH_FIELD_NUMBER: builtins.int
+    customer_id: builtins.int
+    username: builtins.str
+    password_hash: builtins.str
+    def __init__(
+        self,
+        *,
+        customer_id: builtins.int = ...,
+        username: builtins.str = ...,
+        password_hash: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["customer_id", b"customer_id", "password_hash", b"password_hash", "username", b"username"]) -> None: ...
+
+Global___AddUserCredentialRequest: typing_extensions.TypeAlias = AddUserCredentialRequest
+
+@typing.final
+class AddUserCredentialBulkRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    USER_CREDENTIALS_FIELD_NUMBER: builtins.int
+    @property
+    def user_credentials(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___AddUserCredentialRequest]: ...
+    def __init__(
+        self,
+        *,
+        user_credentials: collections.abc.Iterable[Global___AddUserCredentialRequest] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["user_credentials", b"user_credentials"]) -> None: ...
+
+Global___AddUserCredentialBulkRequest: typing_extensions.TypeAlias = AddUserCredentialBulkRequest
+
+@typing.final
+class UpdateUserCredentialRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CUSTOMER_ID_FIELD_NUMBER: builtins.int
+    USERNAME_FIELD_NUMBER: builtins.int
+    PASSWORD_HASH_FIELD_NUMBER: builtins.int
+    customer_id: builtins.int
+    username: builtins.str
+    password_hash: builtins.str
+    def __init__(
+        self,
+        *,
+        customer_id: builtins.int = ...,
+        username: builtins.str = ...,
+        password_hash: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["customer_id", b"customer_id", "password_hash", b"password_hash", "username", b"username"]) -> None: ...
+
+Global___UpdateUserCredentialRequest: typing_extensions.TypeAlias = UpdateUserCredentialRequest
+
+@typing.final
+class UpdateUserCredentialBulkRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    USER_CREDENTIALS_FIELD_NUMBER: builtins.int
+    @property
+    def user_credentials(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___UpdateUserCredentialRequest]: ...
+    def __init__(
+        self,
+        *,
+        user_credentials: collections.abc.Iterable[Global___UpdateUserCredentialRequest] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["user_credentials", b"user_credentials"]) -> None: ...
+
+Global___UpdateUserCredentialBulkRequest: typing_extensions.TypeAlias = UpdateUserCredentialBulkRequest
+
+@typing.final
+class DeleteUserCredentialRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CUSTOMER_ID_FIELD_NUMBER: builtins.int
+    customer_id: builtins.int
+    def __init__(
+        self,
+        *,
+        customer_id: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["customer_id", b"customer_id"]) -> None: ...
+
+Global___DeleteUserCredentialRequest: typing_extensions.TypeAlias = DeleteUserCredentialRequest
+
+@typing.final
+class DeleteUserCredentialBulkRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    USER_CREDENTIALS_FIELD_NUMBER: builtins.int
+    @property
+    def user_credentials(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___DeleteUserCredentialRequest]: ...
+    def __init__(
+        self,
+        *,
+        user_credentials: collections.abc.Iterable[Global___DeleteUserCredentialRequest] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["user_credentials", b"user_credentials"]) -> None: ...
+
+Global___DeleteUserCredentialBulkRequest: typing_extensions.TypeAlias = DeleteUserCredentialBulkRequest

@@ -88,6 +88,22 @@ class GetExchangeRateByIdRequest(google.protobuf.message.Message):
 Global___GetExchangeRateByIdRequest: typing_extensions.TypeAlias = GetExchangeRateByIdRequest
 
 @typing.final
+class GetExchangeRateByIdsRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    RATE_IDS_FIELD_NUMBER: builtins.int
+    @property
+    def rate_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
+    def __init__(
+        self,
+        *,
+        rate_ids: collections.abc.Iterable[builtins.int] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["rate_ids", b"rate_ids"]) -> None: ...
+
+Global___GetExchangeRateByIdsRequest: typing_extensions.TypeAlias = GetExchangeRateByIdsRequest
+
+@typing.final
 class GetExchangeRateByBaseCurrencyRequest(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -101,3 +117,125 @@ class GetExchangeRateByBaseCurrencyRequest(google.protobuf.message.Message):
     def ClearField(self, field_name: typing.Literal["base_currency", b"base_currency"]) -> None: ...
 
 Global___GetExchangeRateByBaseCurrencyRequest: typing_extensions.TypeAlias = GetExchangeRateByBaseCurrencyRequest
+
+@typing.final
+class AddExchangeRateRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    BASE_CURRENCY_FIELD_NUMBER: builtins.int
+    TARGET_CURRENCY_FIELD_NUMBER: builtins.int
+    RATE_FIELD_NUMBER: builtins.int
+    base_currency: builtins.str
+    target_currency: builtins.str
+    rate: builtins.str
+    def __init__(
+        self,
+        *,
+        base_currency: builtins.str | None = ...,
+        target_currency: builtins.str | None = ...,
+        rate: builtins.str | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["_base_currency", b"_base_currency", "_rate", b"_rate", "_target_currency", b"_target_currency", "base_currency", b"base_currency", "rate", b"rate", "target_currency", b"target_currency"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_base_currency", b"_base_currency", "_rate", b"_rate", "_target_currency", b"_target_currency", "base_currency", b"base_currency", "rate", b"rate", "target_currency", b"target_currency"]) -> None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_base_currency", b"_base_currency"]) -> typing.Literal["base_currency"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_rate", b"_rate"]) -> typing.Literal["rate"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_target_currency", b"_target_currency"]) -> typing.Literal["target_currency"] | None: ...
+
+Global___AddExchangeRateRequest: typing_extensions.TypeAlias = AddExchangeRateRequest
+
+@typing.final
+class UpdateExchangeRateRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    RATE_ID_FIELD_NUMBER: builtins.int
+    BASE_CURRENCY_FIELD_NUMBER: builtins.int
+    TARGET_CURRENCY_FIELD_NUMBER: builtins.int
+    RATE_FIELD_NUMBER: builtins.int
+    rate_id: builtins.int
+    base_currency: builtins.str
+    target_currency: builtins.str
+    rate: builtins.str
+    def __init__(
+        self,
+        *,
+        rate_id: builtins.int = ...,
+        base_currency: builtins.str | None = ...,
+        target_currency: builtins.str | None = ...,
+        rate: builtins.str | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["_base_currency", b"_base_currency", "_rate", b"_rate", "_target_currency", b"_target_currency", "base_currency", b"base_currency", "rate", b"rate", "target_currency", b"target_currency"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_base_currency", b"_base_currency", "_rate", b"_rate", "_target_currency", b"_target_currency", "base_currency", b"base_currency", "rate", b"rate", "rate_id", b"rate_id", "target_currency", b"target_currency"]) -> None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_base_currency", b"_base_currency"]) -> typing.Literal["base_currency"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_rate", b"_rate"]) -> typing.Literal["rate"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_target_currency", b"_target_currency"]) -> typing.Literal["target_currency"] | None: ...
+
+Global___UpdateExchangeRateRequest: typing_extensions.TypeAlias = UpdateExchangeRateRequest
+
+@typing.final
+class DeleteExchangeRateRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    RATE_ID_FIELD_NUMBER: builtins.int
+    rate_id: builtins.int
+    def __init__(
+        self,
+        *,
+        rate_id: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["rate_id", b"rate_id"]) -> None: ...
+
+Global___DeleteExchangeRateRequest: typing_extensions.TypeAlias = DeleteExchangeRateRequest
+
+@typing.final
+class AddExchangeRateBulkRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EXCHANGE_RATES_FIELD_NUMBER: builtins.int
+    @property
+    def exchange_rates(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___AddExchangeRateRequest]: ...
+    def __init__(
+        self,
+        *,
+        exchange_rates: collections.abc.Iterable[Global___AddExchangeRateRequest] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["exchange_rates", b"exchange_rates"]) -> None: ...
+
+Global___AddExchangeRateBulkRequest: typing_extensions.TypeAlias = AddExchangeRateBulkRequest
+
+@typing.final
+class UpdateExchangeRateBulkRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EXCHANGE_RATES_FIELD_NUMBER: builtins.int
+    @property
+    def exchange_rates(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___UpdateExchangeRateRequest]: ...
+    def __init__(
+        self,
+        *,
+        exchange_rates: collections.abc.Iterable[Global___UpdateExchangeRateRequest] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["exchange_rates", b"exchange_rates"]) -> None: ...
+
+Global___UpdateExchangeRateBulkRequest: typing_extensions.TypeAlias = UpdateExchangeRateBulkRequest
+
+@typing.final
+class DeleteExchangeRateBulkRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EXCHANGE_RATES_FIELD_NUMBER: builtins.int
+    @property
+    def exchange_rates(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___DeleteExchangeRateRequest]: ...
+    def __init__(
+        self,
+        *,
+        exchange_rates: collections.abc.Iterable[Global___DeleteExchangeRateRequest] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["exchange_rates", b"exchange_rates"]) -> None: ...
+
+Global___DeleteExchangeRateBulkRequest: typing_extensions.TypeAlias = DeleteExchangeRateBulkRequest

@@ -88,6 +88,22 @@ class GetLoginLogByIdRequest(google.protobuf.message.Message):
 Global___GetLoginLogByIdRequest: typing_extensions.TypeAlias = GetLoginLogByIdRequest
 
 @typing.final
+class GetLoginLogByIdsRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    LOG_IDS_FIELD_NUMBER: builtins.int
+    @property
+    def log_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
+    def __init__(
+        self,
+        *,
+        log_ids: collections.abc.Iterable[builtins.int] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["log_ids", b"log_ids"]) -> None: ...
+
+Global___GetLoginLogByIdsRequest: typing_extensions.TypeAlias = GetLoginLogByIdsRequest
+
+@typing.final
 class GetLoginLogsByCustomerRequest(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -122,3 +138,137 @@ class GetLoginLogsInTimeRangeRequest(google.protobuf.message.Message):
     def ClearField(self, field_name: typing.Literal["end_time", b"end_time", "start_time", b"start_time"]) -> None: ...
 
 Global___GetLoginLogsInTimeRangeRequest: typing_extensions.TypeAlias = GetLoginLogsInTimeRangeRequest
+
+@typing.final
+class AddLoginLogRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CUSTOMER_ID_FIELD_NUMBER: builtins.int
+    LOGIN_TIME_FIELD_NUMBER: builtins.int
+    IP_ADDRESS_FIELD_NUMBER: builtins.int
+    DEVICE_INFO_FIELD_NUMBER: builtins.int
+    customer_id: builtins.int
+    ip_address: builtins.str
+    device_info: builtins.str
+    @property
+    def login_time(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
+    def __init__(
+        self,
+        *,
+        customer_id: builtins.int | None = ...,
+        login_time: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        ip_address: builtins.str | None = ...,
+        device_info: builtins.str | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["_customer_id", b"_customer_id", "_device_info", b"_device_info", "_ip_address", b"_ip_address", "_login_time", b"_login_time", "customer_id", b"customer_id", "device_info", b"device_info", "ip_address", b"ip_address", "login_time", b"login_time"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_customer_id", b"_customer_id", "_device_info", b"_device_info", "_ip_address", b"_ip_address", "_login_time", b"_login_time", "customer_id", b"customer_id", "device_info", b"device_info", "ip_address", b"ip_address", "login_time", b"login_time"]) -> None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_customer_id", b"_customer_id"]) -> typing.Literal["customer_id"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_device_info", b"_device_info"]) -> typing.Literal["device_info"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_ip_address", b"_ip_address"]) -> typing.Literal["ip_address"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_login_time", b"_login_time"]) -> typing.Literal["login_time"] | None: ...
+
+Global___AddLoginLogRequest: typing_extensions.TypeAlias = AddLoginLogRequest
+
+@typing.final
+class AddLoginLogBulkRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    LOGIN_LOGS_FIELD_NUMBER: builtins.int
+    @property
+    def login_logs(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___AddLoginLogRequest]: ...
+    def __init__(
+        self,
+        *,
+        login_logs: collections.abc.Iterable[Global___AddLoginLogRequest] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["login_logs", b"login_logs"]) -> None: ...
+
+Global___AddLoginLogBulkRequest: typing_extensions.TypeAlias = AddLoginLogBulkRequest
+
+@typing.final
+class UpdateLoginLogRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    LOG_ID_FIELD_NUMBER: builtins.int
+    CUSTOMER_ID_FIELD_NUMBER: builtins.int
+    LOGIN_TIME_FIELD_NUMBER: builtins.int
+    IP_ADDRESS_FIELD_NUMBER: builtins.int
+    DEVICE_INFO_FIELD_NUMBER: builtins.int
+    log_id: builtins.int
+    customer_id: builtins.int
+    ip_address: builtins.str
+    device_info: builtins.str
+    @property
+    def login_time(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
+    def __init__(
+        self,
+        *,
+        log_id: builtins.int = ...,
+        customer_id: builtins.int | None = ...,
+        login_time: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        ip_address: builtins.str | None = ...,
+        device_info: builtins.str | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["_customer_id", b"_customer_id", "_device_info", b"_device_info", "_ip_address", b"_ip_address", "_login_time", b"_login_time", "customer_id", b"customer_id", "device_info", b"device_info", "ip_address", b"ip_address", "login_time", b"login_time"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_customer_id", b"_customer_id", "_device_info", b"_device_info", "_ip_address", b"_ip_address", "_login_time", b"_login_time", "customer_id", b"customer_id", "device_info", b"device_info", "ip_address", b"ip_address", "log_id", b"log_id", "login_time", b"login_time"]) -> None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_customer_id", b"_customer_id"]) -> typing.Literal["customer_id"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_device_info", b"_device_info"]) -> typing.Literal["device_info"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_ip_address", b"_ip_address"]) -> typing.Literal["ip_address"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_login_time", b"_login_time"]) -> typing.Literal["login_time"] | None: ...
+
+Global___UpdateLoginLogRequest: typing_extensions.TypeAlias = UpdateLoginLogRequest
+
+@typing.final
+class UpdateLoginLogBulkRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    LOGIN_LOGS_FIELD_NUMBER: builtins.int
+    @property
+    def login_logs(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___UpdateLoginLogRequest]: ...
+    def __init__(
+        self,
+        *,
+        login_logs: collections.abc.Iterable[Global___UpdateLoginLogRequest] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["login_logs", b"login_logs"]) -> None: ...
+
+Global___UpdateLoginLogBulkRequest: typing_extensions.TypeAlias = UpdateLoginLogBulkRequest
+
+@typing.final
+class DeleteLoginLogRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    LOG_ID_FIELD_NUMBER: builtins.int
+    log_id: builtins.int
+    def __init__(
+        self,
+        *,
+        log_id: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["log_id", b"log_id"]) -> None: ...
+
+Global___DeleteLoginLogRequest: typing_extensions.TypeAlias = DeleteLoginLogRequest
+
+@typing.final
+class DeleteLoginLogBulkRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    LOGIN_LOGS_FIELD_NUMBER: builtins.int
+    @property
+    def login_logs(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___DeleteLoginLogRequest]: ...
+    def __init__(
+        self,
+        *,
+        login_logs: collections.abc.Iterable[Global___DeleteLoginLogRequest] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["login_logs", b"login_logs"]) -> None: ...
+
+Global___DeleteLoginLogBulkRequest: typing_extensions.TypeAlias = DeleteLoginLogBulkRequest

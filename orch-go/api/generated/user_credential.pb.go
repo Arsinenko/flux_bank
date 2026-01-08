@@ -567,7 +567,7 @@ var File_user_credential_proto protoreflect.FileDescriptor
 
 const file_user_credential_proto_rawDesc = "" +
 	"\n" +
-	"\x15user_credential.proto\x12\x06protos\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x12custom_types.proto\"\xc6\x01\n" +
+	"\x15user_credential.proto\x12\x06protos\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x0ecustomer.proto\x1a\x12custom_types.proto\"\xc6\x01\n" +
 	"\x13UserCredentialModel\x12\x1f\n" +
 	"\vcustomer_id\x18\x01 \x01(\x05R\n" +
 	"customerId\x12\x1a\n" +
@@ -616,7 +616,7 @@ const file_user_credential_proto_rawDesc = "" +
 	"\n" +
 	"UpdateBulk\x12'.protos.UpdateUserCredentialBulkRequest\x1a\x16.google.protobuf.Empty\x12M\n" +
 	"\n" +
-	"DeleteBulk\x12'.protos.DeleteUserCredentialBulkRequest\x1a\x16.google.protobuf.EmptyB\x1bZ\x19orch-go/gen/protos;protosb\x06proto3"
+	"DeleteBulk\x12'.protos.DeleteUserCredentialBulkRequest\x1a\x16.google.protobuf.EmptyB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
 
 var (
 	file_user_credential_proto_rawDescOnce sync.Once
@@ -685,6 +685,7 @@ func file_user_credential_proto_init() {
 	if File_user_credential_proto != nil {
 		return
 	}
+	file_customer_proto_init()
 	file_custom_types_proto_init()
 	file_user_credential_proto_msgTypes[0].OneofWrappers = []any{}
 	type x struct{}

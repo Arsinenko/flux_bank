@@ -22,26 +22,41 @@ _runtime_version.ValidateProtobufRuntimeVersion(
 _sym_db = _symbol_database.Default()
 
 
+import custom_types_pb2 as custom__types__pb2
 from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
-import custom_types_pb2 as custom__types__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x13\x65xchange_rate.proto\x12\x06protos\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x12\x63ustom_types.proto\"\xe4\x01\n\x11\x45xchangeRateModel\x12\x0f\n\x07rate_id\x18\x01 \x01(\x05\x12\x1a\n\rbase_currency\x18\x02 \x01(\tH\x00\x88\x01\x01\x12\x1c\n\x0ftarget_currency\x18\x03 \x01(\tH\x01\x88\x01\x01\x12\x11\n\x04rate\x18\x04 \x01(\tH\x02\x88\x01\x01\x12\x33\n\nupdated_at\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.TimestampH\x03\x88\x01\x01\x42\x10\n\x0e_base_currencyB\x12\n\x10_target_currencyB\x07\n\x05_rateB\r\n\x0b_updated_at\"P\n\x1bGetAllExchangeRatesResponse\x12\x31\n\x0e\x65xchange_rates\x18\x01 \x03(\x0b\x32\x19.protos.ExchangeRateModel\"-\n\x1aGetExchangeRateByIdRequest\x12\x0f\n\x07rate_id\x18\x01 \x01(\x05\"=\n$GetExchangeRateByBaseCurrencyRequest\x12\x15\n\rbase_currency\x18\x01 \x01(\t2\x8d\x02\n\x13\x45xchangeRateService\x12\x44\n\x06GetAll\x12\x15.protos.GetAllRequest\x1a#.protos.GetAllExchangeRatesResponse\x12H\n\x07GetById\x12\".protos.GetExchangeRateByIdRequest\x1a\x19.protos.ExchangeRateModel\x12\x66\n\x11GetByBaseCurrency\x12,.protos.GetExchangeRateByBaseCurrencyRequest\x1a#.protos.GetAllExchangeRatesResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x13\x65xchange_rate.proto\x12\x06protos\x1a\x12\x63ustom_types.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\xe4\x01\n\x11\x45xchangeRateModel\x12\x0f\n\x07rate_id\x18\x01 \x01(\x05\x12\x1a\n\rbase_currency\x18\x02 \x01(\tH\x00\x88\x01\x01\x12\x1c\n\x0ftarget_currency\x18\x03 \x01(\tH\x01\x88\x01\x01\x12\x11\n\x04rate\x18\x04 \x01(\tH\x02\x88\x01\x01\x12\x33\n\nupdated_at\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.TimestampH\x03\x88\x01\x01\x42\x10\n\x0e_base_currencyB\x12\n\x10_target_currencyB\x07\n\x05_rateB\r\n\x0b_updated_at\"P\n\x1bGetAllExchangeRatesResponse\x12\x31\n\x0e\x65xchange_rates\x18\x01 \x03(\x0b\x32\x19.protos.ExchangeRateModel\"-\n\x1aGetExchangeRateByIdRequest\x12\x0f\n\x07rate_id\x18\x01 \x01(\x05\"/\n\x1bGetExchangeRateByIdsRequest\x12\x10\n\x08rate_ids\x18\x01 \x03(\x05\"=\n$GetExchangeRateByBaseCurrencyRequest\x12\x15\n\rbase_currency\x18\x01 \x01(\t\"\x94\x01\n\x16\x41\x64\x64\x45xchangeRateRequest\x12\x1a\n\rbase_currency\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x1c\n\x0ftarget_currency\x18\x02 \x01(\tH\x01\x88\x01\x01\x12\x11\n\x04rate\x18\x03 \x01(\tH\x02\x88\x01\x01\x42\x10\n\x0e_base_currencyB\x12\n\x10_target_currencyB\x07\n\x05_rate\"\xa8\x01\n\x19UpdateExchangeRateRequest\x12\x0f\n\x07rate_id\x18\x01 \x01(\x05\x12\x1a\n\rbase_currency\x18\x02 \x01(\tH\x00\x88\x01\x01\x12\x1c\n\x0ftarget_currency\x18\x03 \x01(\tH\x01\x88\x01\x01\x12\x11\n\x04rate\x18\x04 \x01(\tH\x02\x88\x01\x01\x42\x10\n\x0e_base_currencyB\x12\n\x10_target_currencyB\x07\n\x05_rate\",\n\x19\x44\x65leteExchangeRateRequest\x12\x0f\n\x07rate_id\x18\x01 \x01(\x05\"T\n\x1a\x41\x64\x64\x45xchangeRateBulkRequest\x12\x36\n\x0e\x65xchange_rates\x18\x01 \x03(\x0b\x32\x1e.protos.AddExchangeRateRequest\"Z\n\x1dUpdateExchangeRateBulkRequest\x12\x39\n\x0e\x65xchange_rates\x18\x01 \x03(\x0b\x32!.protos.UpdateExchangeRateRequest\"Z\n\x1d\x44\x65leteExchangeRateBulkRequest\x12\x39\n\x0e\x65xchange_rates\x18\x01 \x03(\x0b\x32!.protos.DeleteExchangeRateRequest2\x90\x06\n\x13\x45xchangeRateService\x12\x44\n\x06GetAll\x12\x15.protos.GetAllRequest\x1a#.protos.GetAllExchangeRatesResponse\x12H\n\x07GetById\x12\".protos.GetExchangeRateByIdRequest\x1a\x19.protos.ExchangeRateModel\x12T\n\x08GetByIds\x12#.protos.GetExchangeRateByIdsRequest\x1a#.protos.GetAllExchangeRatesResponse\x12\x66\n\x11GetByBaseCurrency\x12,.protos.GetExchangeRateByBaseCurrencyRequest\x1a#.protos.GetAllExchangeRatesResponse\x12@\n\x03\x41\x64\x64\x12\x1e.protos.AddExchangeRateRequest\x1a\x19.protos.ExchangeRateModel\x12\x43\n\x06Update\x12!.protos.UpdateExchangeRateRequest\x1a\x16.google.protobuf.Empty\x12\x43\n\x06\x44\x65lete\x12!.protos.DeleteExchangeRateRequest\x1a\x16.google.protobuf.Empty\x12\x45\n\x07\x41\x64\x64\x42ulk\x12\".protos.AddExchangeRateBulkRequest\x1a\x16.google.protobuf.Empty\x12K\n\nUpdateBulk\x12%.protos.UpdateExchangeRateBulkRequest\x1a\x16.google.protobuf.Empty\x12K\n\nDeleteBulk\x12%.protos.DeleteExchangeRateBulkRequest\x1a\x16.google.protobuf.EmptyB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04\x43oreb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'exchange_rate_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
-  DESCRIPTOR._loaded_options = None
+  _globals['DESCRIPTOR']._loaded_options = None
+  _globals['DESCRIPTOR']._serialized_options = b'Z\031orch-go/gen/protos;protos\252\002\004Core'
   _globals['_EXCHANGERATEMODEL']._serialized_start=114
   _globals['_EXCHANGERATEMODEL']._serialized_end=342
   _globals['_GETALLEXCHANGERATESRESPONSE']._serialized_start=344
   _globals['_GETALLEXCHANGERATESRESPONSE']._serialized_end=424
   _globals['_GETEXCHANGERATEBYIDREQUEST']._serialized_start=426
   _globals['_GETEXCHANGERATEBYIDREQUEST']._serialized_end=471
-  _globals['_GETEXCHANGERATEBYBASECURRENCYREQUEST']._serialized_start=473
-  _globals['_GETEXCHANGERATEBYBASECURRENCYREQUEST']._serialized_end=534
-  _globals['_EXCHANGERATESERVICE']._serialized_start=537
-  _globals['_EXCHANGERATESERVICE']._serialized_end=806
+  _globals['_GETEXCHANGERATEBYIDSREQUEST']._serialized_start=473
+  _globals['_GETEXCHANGERATEBYIDSREQUEST']._serialized_end=520
+  _globals['_GETEXCHANGERATEBYBASECURRENCYREQUEST']._serialized_start=522
+  _globals['_GETEXCHANGERATEBYBASECURRENCYREQUEST']._serialized_end=583
+  _globals['_ADDEXCHANGERATEREQUEST']._serialized_start=586
+  _globals['_ADDEXCHANGERATEREQUEST']._serialized_end=734
+  _globals['_UPDATEEXCHANGERATEREQUEST']._serialized_start=737
+  _globals['_UPDATEEXCHANGERATEREQUEST']._serialized_end=905
+  _globals['_DELETEEXCHANGERATEREQUEST']._serialized_start=907
+  _globals['_DELETEEXCHANGERATEREQUEST']._serialized_end=951
+  _globals['_ADDEXCHANGERATEBULKREQUEST']._serialized_start=953
+  _globals['_ADDEXCHANGERATEBULKREQUEST']._serialized_end=1037
+  _globals['_UPDATEEXCHANGERATEBULKREQUEST']._serialized_start=1039
+  _globals['_UPDATEEXCHANGERATEBULKREQUEST']._serialized_end=1129
+  _globals['_DELETEEXCHANGERATEBULKREQUEST']._serialized_start=1131
+  _globals['_DELETEEXCHANGERATEBULKREQUEST']._serialized_end=1221
+  _globals['_EXCHANGERATESERVICE']._serialized_start=1224
+  _globals['_EXCHANGERATESERVICE']._serialized_end=2008
 # @@protoc_insertion_point(module_scope)

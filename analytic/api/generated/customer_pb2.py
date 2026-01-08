@@ -22,18 +22,19 @@ _runtime_version.ValidateProtobufRuntimeVersion(
 _sym_db = _symbol_database.Default()
 
 
-from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
 import custom_types_pb2 as custom__types__pb2
+from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0e\x63ustomer.proto\x12\x06protos\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x12\x63ustom_types.proto\"\xf6\x01\n\rCustomerModel\x12\x13\n\x0b\x63ustomer_id\x18\x01 \x01(\x05\x12\x12\n\nfirst_name\x18\x02 \x01(\t\x12\x11\n\tlast_name\x18\x03 \x01(\t\x12\r\n\x05\x65mail\x18\x04 \x01(\t\x12\x12\n\x05phone\x18\x05 \x01(\tH\x00\x88\x01\x01\x12)\n\nbirth_date\x18\x06 \x01(\x0b\x32\x10.protos.DateOnlyH\x01\x88\x01\x01\x12\x33\n\ncreated_at\x18\x07 \x01(\x0b\x32\x1a.google.protobuf.TimestampH\x02\x88\x01\x01\x42\x08\n\x06_phoneB\r\n\x0b_birth_dateB\r\n\x0b_created_at\"\x99\x01\n\x15GetBySubstringRequest\x12\x0f\n\x07sub_str\x18\x01 \x01(\t\x12\x13\n\x06page_n\x18\x02 \x01(\x05H\x00\x88\x01\x01\x12\x16\n\tpage_size\x18\x03 \x01(\x05H\x01\x88\x01\x01\x12\r\n\x05order\x18\x04 \x01(\t\x12\x11\n\x04\x64\x65sc\x18\x05 \x01(\x08H\x02\x88\x01\x01\x42\t\n\x07_page_nB\x0c\n\n_page_sizeB\x07\n\x05_desc\"C\n\x17GetAllCustomersResponse\x12(\n\tcustomers\x18\x01 \x03(\x0b\x32\x15.protos.CustomerModel\"-\n\x16GetCustomerByIdRequest\x12\x13\n\x0b\x63ustomer_id\x18\x01 \x01(\x05\x32\xb9\x02\n\x0f\x43ustomerService\x12@\n\x06GetAll\x12\x15.protos.GetAllRequest\x1a\x1f.protos.GetAllCustomersResponse\x12@\n\x07GetById\x12\x1e.protos.GetCustomerByIdRequest\x1a\x15.protos.CustomerModel\x12P\n\x0eGetBySubstring\x12\x1d.protos.GetBySubstringRequest\x1a\x1f.protos.GetAllCustomersResponse\x12P\n\x0eGetByDateRange\x12\x1d.protos.GetByDateRangeRequest\x1a\x1f.protos.GetAllCustomersResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0e\x63ustomer.proto\x12\x06protos\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x12\x63ustom_types.proto\x1a\x1bgoogle/protobuf/empty.proto\"\xf6\x01\n\rCustomerModel\x12\x13\n\x0b\x63ustomer_id\x18\x01 \x01(\x05\x12\x12\n\nfirst_name\x18\x02 \x01(\t\x12\x11\n\tlast_name\x18\x03 \x01(\t\x12\r\n\x05\x65mail\x18\x04 \x01(\t\x12\x12\n\x05phone\x18\x05 \x01(\tH\x00\x88\x01\x01\x12)\n\nbirth_date\x18\x06 \x01(\x0b\x32\x10.protos.DateOnlyH\x01\x88\x01\x01\x12\x33\n\ncreated_at\x18\x07 \x01(\x0b\x32\x1a.google.protobuf.TimestampH\x02\x88\x01\x01\x42\x08\n\x06_phoneB\r\n\x0b_birth_dateB\r\n\x0b_created_at\"\x99\x01\n\x15GetBySubstringRequest\x12\x0f\n\x07sub_str\x18\x01 \x01(\t\x12\x13\n\x06page_n\x18\x02 \x01(\x05H\x00\x88\x01\x01\x12\x16\n\tpage_size\x18\x03 \x01(\x05H\x01\x88\x01\x01\x12\r\n\x05order\x18\x04 \x01(\t\x12\x11\n\x04\x64\x65sc\x18\x05 \x01(\x08H\x02\x88\x01\x01\x42\t\n\x07_page_nB\x0c\n\n_page_sizeB\x07\n\x05_desc\"C\n\x17GetAllCustomersResponse\x12(\n\tcustomers\x18\x01 \x03(\x0b\x32\x15.protos.CustomerModel\"-\n\x16GetCustomerByIdRequest\x12\x13\n\x0b\x63ustomer_id\x18\x01 \x01(\x05\"/\n\x17GetCustomerByIdsRequest\x12\x14\n\x0c\x63ustomer_ids\x18\x01 \x03(\x05\"\xa2\x01\n\x12\x41\x64\x64\x43ustomerRequest\x12\x12\n\nfirst_name\x18\x01 \x01(\t\x12\x11\n\tlast_name\x18\x02 \x01(\t\x12\r\n\x05\x65mail\x18\x03 \x01(\t\x12\x12\n\x05phone\x18\x04 \x01(\tH\x00\x88\x01\x01\x12)\n\nbirth_date\x18\x05 \x01(\x0b\x32\x10.protos.DateOnlyH\x01\x88\x01\x01\x42\x08\n\x06_phoneB\r\n\x0b_birth_date\"G\n\x16\x41\x64\x64\x43ustomerBulkRequest\x12-\n\tcustomers\x18\x01 \x03(\x0b\x32\x1a.protos.AddCustomerRequest\"\xba\x01\n\x15UpdateCustomerRequest\x12\x13\n\x0b\x63ustomer_id\x18\x01 \x01(\x05\x12\x12\n\nfirst_name\x18\x02 \x01(\t\x12\x11\n\tlast_name\x18\x03 \x01(\t\x12\r\n\x05\x65mail\x18\x04 \x01(\t\x12\x12\n\x05phone\x18\x05 \x01(\tH\x00\x88\x01\x01\x12)\n\nbirth_date\x18\x06 \x01(\x0b\x32\x10.protos.DateOnlyH\x01\x88\x01\x01\x42\x08\n\x06_phoneB\r\n\x0b_birth_date\",\n\x15\x44\x65leteCustomerRequest\x12\x13\n\x0b\x63ustomer_id\x18\x01 \x01(\x05\"M\n\x19UpdateCustomerBulkRequest\x12\x30\n\tcustomers\x18\x01 \x03(\x0b\x32\x1d.protos.UpdateCustomerRequest\"M\n\x19\x44\x65leteCustomerBulkRequest\x12\x30\n\tcustomers\x18\x01 \x03(\x0b\x32\x1d.protos.DeleteCustomerRequest2\x98\x06\n\x0f\x43ustomerService\x12@\n\x06GetAll\x12\x15.protos.GetAllRequest\x1a\x1f.protos.GetAllCustomersResponse\x12@\n\x07GetById\x12\x1e.protos.GetCustomerByIdRequest\x1a\x15.protos.CustomerModel\x12L\n\x08GetByIds\x12\x1f.protos.GetCustomerByIdsRequest\x1a\x1f.protos.GetAllCustomersResponse\x12P\n\x0eGetBySubstring\x12\x1d.protos.GetBySubstringRequest\x1a\x1f.protos.GetAllCustomersResponse\x12P\n\x0eGetByDateRange\x12\x1d.protos.GetByDateRangeRequest\x1a\x1f.protos.GetAllCustomersResponse\x12\x38\n\x03\x41\x64\x64\x12\x1a.protos.AddCustomerRequest\x1a\x15.protos.CustomerModel\x12?\n\x06Update\x12\x1d.protos.UpdateCustomerRequest\x1a\x16.google.protobuf.Empty\x12?\n\x06\x44\x65lete\x12\x1d.protos.DeleteCustomerRequest\x1a\x16.google.protobuf.Empty\x12\x41\n\x07\x41\x64\x64\x42ulk\x12\x1e.protos.AddCustomerBulkRequest\x1a\x16.google.protobuf.Empty\x12G\n\nUpdateBulk\x12!.protos.UpdateCustomerBulkRequest\x1a\x16.google.protobuf.Empty\x12G\n\nDeleteBulk\x12!.protos.DeleteCustomerBulkRequest\x1a\x16.google.protobuf.EmptyB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04\x43oreb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'customer_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
-  DESCRIPTOR._loaded_options = None
+  _globals['DESCRIPTOR']._loaded_options = None
+  _globals['DESCRIPTOR']._serialized_options = b'Z\031orch-go/gen/protos;protos\252\002\004Core'
   _globals['_CUSTOMERMODEL']._serialized_start=109
   _globals['_CUSTOMERMODEL']._serialized_end=355
   _globals['_GETBYSUBSTRINGREQUEST']._serialized_start=358
@@ -42,6 +43,20 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_GETALLCUSTOMERSRESPONSE']._serialized_end=580
   _globals['_GETCUSTOMERBYIDREQUEST']._serialized_start=582
   _globals['_GETCUSTOMERBYIDREQUEST']._serialized_end=627
-  _globals['_CUSTOMERSERVICE']._serialized_start=630
-  _globals['_CUSTOMERSERVICE']._serialized_end=943
+  _globals['_GETCUSTOMERBYIDSREQUEST']._serialized_start=629
+  _globals['_GETCUSTOMERBYIDSREQUEST']._serialized_end=676
+  _globals['_ADDCUSTOMERREQUEST']._serialized_start=679
+  _globals['_ADDCUSTOMERREQUEST']._serialized_end=841
+  _globals['_ADDCUSTOMERBULKREQUEST']._serialized_start=843
+  _globals['_ADDCUSTOMERBULKREQUEST']._serialized_end=914
+  _globals['_UPDATECUSTOMERREQUEST']._serialized_start=917
+  _globals['_UPDATECUSTOMERREQUEST']._serialized_end=1103
+  _globals['_DELETECUSTOMERREQUEST']._serialized_start=1105
+  _globals['_DELETECUSTOMERREQUEST']._serialized_end=1149
+  _globals['_UPDATECUSTOMERBULKREQUEST']._serialized_start=1151
+  _globals['_UPDATECUSTOMERBULKREQUEST']._serialized_end=1228
+  _globals['_DELETECUSTOMERBULKREQUEST']._serialized_start=1230
+  _globals['_DELETECUSTOMERBULKREQUEST']._serialized_end=1307
+  _globals['_CUSTOMERSERVICE']._serialized_start=1310
+  _globals['_CUSTOMERSERVICE']._serialized_end=2102
 # @@protoc_insertion_point(module_scope)

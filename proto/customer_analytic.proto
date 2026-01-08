@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package protos;
+option go_package = "orch-go/gen/protos;protos";
+option csharp_namespace = "Core";
+
+import "customer.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+
+service CustomerAnalyticService {
+  rpc GetCustomersByBalanceRange (GetCustomersByBalanceRangeRequest) returns (GetAllCustomersResponse);
+  rpc GetCustomersByTransactionQuantityRange (GetCustomersByTransactionQuantityRangeRequest) returns (GetAllCustomersResponse);
+  rpc GetCustomerLifeTime (GetCustomerLifeTimeRequest) returns (GetCustomerLifeTimeResponse);
+  rpc GetCustomersLifeTime (google.protobuf.Empty) returns (GetCustomersLifeTimeResponse);
+  rpc GetInactiveCustomers (google.protobuf.Empty) returns (GetAllCustomersResponse);
+}
+
+
+message GetCustomersByBalanceRangeRequest {
+  string min_balance = 1;
+  string max_balance = 2;
+}
+
+message GetCustomersByTransactionQuantityRangeRequest{
+  int32 min_quantity = 1;
+  int32 max_quantity = 2;
+}
+
+message GetCustomerLifeTimeRequest {
+  int32 customer_id = 1;
+}
+
+message GetCustomerLifeTimeResponse {
+  int32 customer_id = 1;
+  google.protobuf.Timestamp life_time = 2;
+}
+
+message GetCustomersLifeTimeResponse {
+  repeated GetCustomerLifeTimeResponse customer_life_time = 1;
+}
+
+

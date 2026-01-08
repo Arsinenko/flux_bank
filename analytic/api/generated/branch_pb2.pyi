@@ -84,3 +84,151 @@ class GetBranchByIdRequest(google.protobuf.message.Message):
     def ClearField(self, field_name: typing.Literal["branch_id", b"branch_id"]) -> None: ...
 
 Global___GetBranchByIdRequest: typing_extensions.TypeAlias = GetBranchByIdRequest
+
+@typing.final
+class GetBranchByIdsRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    BRANCH_IDS_FIELD_NUMBER: builtins.int
+    @property
+    def branch_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
+    def __init__(
+        self,
+        *,
+        branch_ids: collections.abc.Iterable[builtins.int] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["branch_ids", b"branch_ids"]) -> None: ...
+
+Global___GetBranchByIdsRequest: typing_extensions.TypeAlias = GetBranchByIdsRequest
+
+@typing.final
+class AddBranchRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    NAME_FIELD_NUMBER: builtins.int
+    CITY_FIELD_NUMBER: builtins.int
+    ADDRESS_FIELD_NUMBER: builtins.int
+    PHONE_FIELD_NUMBER: builtins.int
+    name: builtins.str
+    city: builtins.str
+    address: builtins.str
+    phone: builtins.str
+    def __init__(
+        self,
+        *,
+        name: builtins.str | None = ...,
+        city: builtins.str | None = ...,
+        address: builtins.str | None = ...,
+        phone: builtins.str | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["_address", b"_address", "_city", b"_city", "_name", b"_name", "_phone", b"_phone", "address", b"address", "city", b"city", "name", b"name", "phone", b"phone"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_address", b"_address", "_city", b"_city", "_name", b"_name", "_phone", b"_phone", "address", b"address", "city", b"city", "name", b"name", "phone", b"phone"]) -> None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_address", b"_address"]) -> typing.Literal["address"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_city", b"_city"]) -> typing.Literal["city"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_name", b"_name"]) -> typing.Literal["name"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_phone", b"_phone"]) -> typing.Literal["phone"] | None: ...
+
+Global___AddBranchRequest: typing_extensions.TypeAlias = AddBranchRequest
+
+@typing.final
+class UpdateBranchRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    BRANCH_ID_FIELD_NUMBER: builtins.int
+    NAME_FIELD_NUMBER: builtins.int
+    CITY_FIELD_NUMBER: builtins.int
+    ADDRESS_FIELD_NUMBER: builtins.int
+    PHONE_FIELD_NUMBER: builtins.int
+    branch_id: builtins.int
+    name: builtins.str
+    city: builtins.str
+    address: builtins.str
+    phone: builtins.str
+    def __init__(
+        self,
+        *,
+        branch_id: builtins.int = ...,
+        name: builtins.str | None = ...,
+        city: builtins.str | None = ...,
+        address: builtins.str | None = ...,
+        phone: builtins.str | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["_address", b"_address", "_city", b"_city", "_name", b"_name", "_phone", b"_phone", "address", b"address", "city", b"city", "name", b"name", "phone", b"phone"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_address", b"_address", "_city", b"_city", "_name", b"_name", "_phone", b"_phone", "address", b"address", "branch_id", b"branch_id", "city", b"city", "name", b"name", "phone", b"phone"]) -> None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_address", b"_address"]) -> typing.Literal["address"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_city", b"_city"]) -> typing.Literal["city"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_name", b"_name"]) -> typing.Literal["name"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_phone", b"_phone"]) -> typing.Literal["phone"] | None: ...
+
+Global___UpdateBranchRequest: typing_extensions.TypeAlias = UpdateBranchRequest
+
+@typing.final
+class DeleteBranchRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    BRANCH_ID_FIELD_NUMBER: builtins.int
+    branch_id: builtins.int
+    def __init__(
+        self,
+        *,
+        branch_id: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["branch_id", b"branch_id"]) -> None: ...
+
+Global___DeleteBranchRequest: typing_extensions.TypeAlias = DeleteBranchRequest
+
+@typing.final
+class AddBranchBulkRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    BRANCHES_FIELD_NUMBER: builtins.int
+    @property
+    def branches(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___AddBranchRequest]: ...
+    def __init__(
+        self,
+        *,
+        branches: collections.abc.Iterable[Global___AddBranchRequest] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["branches", b"branches"]) -> None: ...
+
+Global___AddBranchBulkRequest: typing_extensions.TypeAlias = AddBranchBulkRequest
+
+@typing.final
+class UpdateBranchBulkRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    BRANCHES_FIELD_NUMBER: builtins.int
+    @property
+    def branches(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___UpdateBranchRequest]: ...
+    def __init__(
+        self,
+        *,
+        branches: collections.abc.Iterable[Global___UpdateBranchRequest] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["branches", b"branches"]) -> None: ...
+
+Global___UpdateBranchBulkRequest: typing_extensions.TypeAlias = UpdateBranchBulkRequest
+
+@typing.final
+class DeleteBranchBulkRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    BRANCHES_FIELD_NUMBER: builtins.int
+    @property
+    def branches(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___DeleteBranchRequest]: ...
+    def __init__(
+        self,
+        *,
+        branches: collections.abc.Iterable[Global___DeleteBranchRequest] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["branches", b"branches"]) -> None: ...
+
+Global___DeleteBranchBulkRequest: typing_extensions.TypeAlias = DeleteBranchBulkRequest

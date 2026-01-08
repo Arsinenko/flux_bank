@@ -89,6 +89,22 @@ class GetCardByIdRequest(google.protobuf.message.Message):
 Global___GetCardByIdRequest: typing_extensions.TypeAlias = GetCardByIdRequest
 
 @typing.final
+class GetCardByIdsRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CARD_IDS_FIELD_NUMBER: builtins.int
+    @property
+    def card_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
+    def __init__(
+        self,
+        *,
+        card_ids: collections.abc.Iterable[builtins.int] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["card_ids", b"card_ids"]) -> None: ...
+
+Global___GetCardByIdsRequest: typing_extensions.TypeAlias = GetCardByIdsRequest
+
+@typing.final
 class GetCardsByAccountRequest(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -102,3 +118,135 @@ class GetCardsByAccountRequest(google.protobuf.message.Message):
     def ClearField(self, field_name: typing.Literal["account_id", b"account_id"]) -> None: ...
 
 Global___GetCardsByAccountRequest: typing_extensions.TypeAlias = GetCardsByAccountRequest
+
+@typing.final
+class AddCardRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ACCOUNT_ID_FIELD_NUMBER: builtins.int
+    CARD_NUMBER_FIELD_NUMBER: builtins.int
+    CVV_FIELD_NUMBER: builtins.int
+    EXPIRY_DATE_FIELD_NUMBER: builtins.int
+    STATUS_FIELD_NUMBER: builtins.int
+    account_id: builtins.int
+    card_number: builtins.str
+    cvv: builtins.str
+    status: builtins.str
+    @property
+    def expiry_date(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
+    def __init__(
+        self,
+        *,
+        account_id: builtins.int | None = ...,
+        card_number: builtins.str = ...,
+        cvv: builtins.str = ...,
+        expiry_date: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        status: builtins.str | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["_account_id", b"_account_id", "_status", b"_status", "account_id", b"account_id", "expiry_date", b"expiry_date", "status", b"status"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_account_id", b"_account_id", "_status", b"_status", "account_id", b"account_id", "card_number", b"card_number", "cvv", b"cvv", "expiry_date", b"expiry_date", "status", b"status"]) -> None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_account_id", b"_account_id"]) -> typing.Literal["account_id"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_status", b"_status"]) -> typing.Literal["status"] | None: ...
+
+Global___AddCardRequest: typing_extensions.TypeAlias = AddCardRequest
+
+@typing.final
+class UpdateCardRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CARD_ID_FIELD_NUMBER: builtins.int
+    ACCOUNT_ID_FIELD_NUMBER: builtins.int
+    CARD_NUMBER_FIELD_NUMBER: builtins.int
+    CVV_FIELD_NUMBER: builtins.int
+    EXPIRY_DATE_FIELD_NUMBER: builtins.int
+    STATUS_FIELD_NUMBER: builtins.int
+    card_id: builtins.int
+    account_id: builtins.int
+    card_number: builtins.str
+    cvv: builtins.str
+    status: builtins.str
+    @property
+    def expiry_date(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
+    def __init__(
+        self,
+        *,
+        card_id: builtins.int = ...,
+        account_id: builtins.int | None = ...,
+        card_number: builtins.str = ...,
+        cvv: builtins.str = ...,
+        expiry_date: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        status: builtins.str | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["_account_id", b"_account_id", "_status", b"_status", "account_id", b"account_id", "expiry_date", b"expiry_date", "status", b"status"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_account_id", b"_account_id", "_status", b"_status", "account_id", b"account_id", "card_id", b"card_id", "card_number", b"card_number", "cvv", b"cvv", "expiry_date", b"expiry_date", "status", b"status"]) -> None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_account_id", b"_account_id"]) -> typing.Literal["account_id"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_status", b"_status"]) -> typing.Literal["status"] | None: ...
+
+Global___UpdateCardRequest: typing_extensions.TypeAlias = UpdateCardRequest
+
+@typing.final
+class DeleteCardRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CARD_ID_FIELD_NUMBER: builtins.int
+    card_id: builtins.int
+    def __init__(
+        self,
+        *,
+        card_id: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["card_id", b"card_id"]) -> None: ...
+
+Global___DeleteCardRequest: typing_extensions.TypeAlias = DeleteCardRequest
+
+@typing.final
+class AddCardBulkRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CARDS_FIELD_NUMBER: builtins.int
+    @property
+    def cards(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___AddCardRequest]: ...
+    def __init__(
+        self,
+        *,
+        cards: collections.abc.Iterable[Global___AddCardRequest] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["cards", b"cards"]) -> None: ...
+
+Global___AddCardBulkRequest: typing_extensions.TypeAlias = AddCardBulkRequest
+
+@typing.final
+class UpdateCardBulkRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CARDS_FIELD_NUMBER: builtins.int
+    @property
+    def cards(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___UpdateCardRequest]: ...
+    def __init__(
+        self,
+        *,
+        cards: collections.abc.Iterable[Global___UpdateCardRequest] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["cards", b"cards"]) -> None: ...
+
+Global___UpdateCardBulkRequest: typing_extensions.TypeAlias = UpdateCardBulkRequest
+
+@typing.final
+class DeleteCardBulkRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CARDS_FIELD_NUMBER: builtins.int
+    @property
+    def cards(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___DeleteCardRequest]: ...
+    def __init__(
+        self,
+        *,
+        cards: collections.abc.Iterable[Global___DeleteCardRequest] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["cards", b"cards"]) -> None: ...
+
+Global___DeleteCardBulkRequest: typing_extensions.TypeAlias = DeleteCardBulkRequest

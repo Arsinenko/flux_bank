@@ -631,7 +631,7 @@ var File_account_proto protoreflect.FileDescriptor
 
 const file_account_proto_rawDesc = "" +
 	"\n" +
-	"\raccount.proto\x12\x06protos\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x12custom_types.proto\"\xcb\x02\n" +
+	"\raccount.proto\x12\x06protos\x1a\x12custom_types.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x0ecustomer.proto\x1a\x12account_type.proto\"\xcb\x02\n" +
 	"\fAccountModel\x12\x1d\n" +
 	"\n" +
 	"account_id\x18\x01 \x01(\x05R\taccountId\x12$\n" +
@@ -714,7 +714,7 @@ const file_account_proto_rawDesc = "" +
 	"\n" +
 	"UpdateBulk\x12 .protos.UpdateAccountBulkRequest\x1a\x16.google.protobuf.Empty\x12F\n" +
 	"\n" +
-	"DeleteBulk\x12 .protos.DeleteAccountBulkRequest\x1a\x16.google.protobuf.EmptyB\x1bZ\x19orch-go/gen/protos;protosb\x06proto3"
+	"DeleteBulk\x12 .protos.DeleteAccountBulkRequest\x1a\x16.google.protobuf.EmptyB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
 
 var (
 	file_account_proto_rawDescOnce sync.Once
@@ -787,6 +787,8 @@ func file_account_proto_init() {
 		return
 	}
 	file_custom_types_proto_init()
+	file_customer_proto_init()
+	file_account_type_proto_init()
 	file_account_proto_msgTypes[0].OneofWrappers = []any{}
 	file_account_proto_msgTypes[5].OneofWrappers = []any{}
 	file_account_proto_msgTypes[7].OneofWrappers = []any{}

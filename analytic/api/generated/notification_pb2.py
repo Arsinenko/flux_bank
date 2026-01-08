@@ -22,26 +22,42 @@ _runtime_version.ValidateProtobufRuntimeVersion(
 _sym_db = _symbol_database.Default()
 
 
+import custom_types_pb2 as custom__types__pb2
 from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
-import custom_types_pb2 as custom__types__pb2
+import customer_pb2 as customer__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x12notification.proto\x12\x06protos\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x12\x63ustom_types.proto\"\xde\x01\n\x11NotificationModel\x12\x17\n\x0fnotification_id\x18\x01 \x01(\x05\x12\x18\n\x0b\x63ustomer_id\x18\x02 \x01(\x05H\x00\x88\x01\x01\x12\x14\n\x07message\x18\x03 \x01(\tH\x01\x88\x01\x01\x12\x33\n\ncreated_at\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.TimestampH\x02\x88\x01\x01\x12\x14\n\x07is_read\x18\x05 \x01(\x08H\x03\x88\x01\x01\x42\x0e\n\x0c_customer_idB\n\n\x08_messageB\r\n\x0b_created_atB\n\n\x08_is_read\"O\n\x1bGetAllNotificationsResponse\x12\x30\n\rnotifications\x18\x01 \x03(\x0b\x32\x19.protos.NotificationModel\"5\n\x1aGetNotificationByIdRequest\x12\x17\n\x0fnotification_id\x18\x01 \x01(\x05\"Z\n!GetNotificationsByCustomerRequest\x12\x13\n\x0b\x63ustomer_id\x18\x01 \x01(\x05\x12\x14\n\x07is_read\x18\x02 \x01(\x08H\x00\x88\x01\x01\x42\n\n\x08_is_read2\xdc\x02\n\x13NotificationService\x12\x44\n\x06GetAll\x12\x15.protos.GetAllRequest\x1a#.protos.GetAllNotificationsResponse\x12H\n\x07GetById\x12\".protos.GetNotificationByIdRequest\x1a\x19.protos.NotificationModel\x12T\n\x0eGetByDateRange\x12\x1d.protos.GetByDateRangeRequest\x1a#.protos.GetAllNotificationsResponse\x12_\n\rGetByCustomer\x12).protos.GetNotificationsByCustomerRequest\x1a#.protos.GetAllNotificationsResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x12notification.proto\x12\x06protos\x1a\x12\x63ustom_types.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x0e\x63ustomer.proto\"\xde\x01\n\x11NotificationModel\x12\x17\n\x0fnotification_id\x18\x01 \x01(\x05\x12\x18\n\x0b\x63ustomer_id\x18\x02 \x01(\x05H\x00\x88\x01\x01\x12\x14\n\x07message\x18\x03 \x01(\tH\x01\x88\x01\x01\x12\x33\n\ncreated_at\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.TimestampH\x02\x88\x01\x01\x12\x14\n\x07is_read\x18\x05 \x01(\x08H\x03\x88\x01\x01\x42\x0e\n\x0c_customer_idB\n\n\x08_messageB\r\n\x0b_created_atB\n\n\x08_is_read\"O\n\x1bGetAllNotificationsResponse\x12\x30\n\rnotifications\x18\x01 \x03(\x0b\x32\x19.protos.NotificationModel\"5\n\x1aGetNotificationByIdRequest\x12\x17\n\x0fnotification_id\x18\x01 \x01(\x05\"7\n\x1bGetNotificationByIdsRequest\x12\x18\n\x10notification_ids\x18\x01 \x03(\x05\"Z\n!GetNotificationsByCustomerRequest\x12\x13\n\x0b\x63ustomer_id\x18\x01 \x01(\x05\x12\x14\n\x07is_read\x18\x02 \x01(\x08H\x00\x88\x01\x01\x42\n\n\x08_is_read\"\x86\x01\n\x16\x41\x64\x64NotificationRequest\x12\x18\n\x0b\x63ustomer_id\x18\x01 \x01(\x05H\x00\x88\x01\x01\x12\x14\n\x07message\x18\x02 \x01(\tH\x01\x88\x01\x01\x12\x14\n\x07is_read\x18\x03 \x01(\x08H\x02\x88\x01\x01\x42\x0e\n\x0c_customer_idB\n\n\x08_messageB\n\n\x08_is_read\"\xa2\x01\n\x19UpdateNotificationRequest\x12\x17\n\x0fnotification_id\x18\x01 \x01(\x05\x12\x18\n\x0b\x63ustomer_id\x18\x02 \x01(\x05H\x00\x88\x01\x01\x12\x14\n\x07message\x18\x03 \x01(\tH\x01\x88\x01\x01\x12\x14\n\x07is_read\x18\x04 \x01(\x08H\x02\x88\x01\x01\x42\x0e\n\x0c_customer_idB\n\n\x08_messageB\n\n\x08_is_read\"4\n\x19\x44\x65leteNotificationRequest\x12\x17\n\x0fnotification_id\x18\x01 \x01(\x05\"S\n\x1a\x41\x64\x64NotificationBulkRequest\x12\x35\n\rnotifications\x18\x01 \x03(\x0b\x32\x1e.protos.AddNotificationRequest\"Y\n\x1dUpdateNotificationBulkRequest\x12\x38\n\rnotifications\x18\x01 \x03(\x0b\x32!.protos.UpdateNotificationRequest\"Y\n\x1d\x44\x65leteNotificationBulkRequest\x12\x38\n\rnotifications\x18\x01 \x03(\x0b\x32!.protos.DeleteNotificationRequest2\xdf\x06\n\x13NotificationService\x12\x44\n\x06GetAll\x12\x15.protos.GetAllRequest\x1a#.protos.GetAllNotificationsResponse\x12H\n\x07GetById\x12\".protos.GetNotificationByIdRequest\x1a\x19.protos.NotificationModel\x12T\n\x08GetByIds\x12#.protos.GetNotificationByIdsRequest\x1a#.protos.GetAllNotificationsResponse\x12T\n\x0eGetByDateRange\x12\x1d.protos.GetByDateRangeRequest\x1a#.protos.GetAllNotificationsResponse\x12_\n\rGetByCustomer\x12).protos.GetNotificationsByCustomerRequest\x1a#.protos.GetAllNotificationsResponse\x12@\n\x03\x41\x64\x64\x12\x1e.protos.AddNotificationRequest\x1a\x19.protos.NotificationModel\x12\x43\n\x06Update\x12!.protos.UpdateNotificationRequest\x1a\x16.google.protobuf.Empty\x12\x43\n\x06\x44\x65lete\x12!.protos.DeleteNotificationRequest\x1a\x16.google.protobuf.Empty\x12\x45\n\x07\x41\x64\x64\x42ulk\x12\".protos.AddNotificationBulkRequest\x1a\x16.google.protobuf.Empty\x12K\n\nUpdateBulk\x12%.protos.UpdateNotificationBulkRequest\x1a\x16.google.protobuf.Empty\x12K\n\nDeleteBulk\x12%.protos.DeleteNotificationBulkRequest\x1a\x16.google.protobuf.EmptyB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04\x43oreb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'notification_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
-  DESCRIPTOR._loaded_options = None
-  _globals['_NOTIFICATIONMODEL']._serialized_start=113
-  _globals['_NOTIFICATIONMODEL']._serialized_end=335
-  _globals['_GETALLNOTIFICATIONSRESPONSE']._serialized_start=337
-  _globals['_GETALLNOTIFICATIONSRESPONSE']._serialized_end=416
-  _globals['_GETNOTIFICATIONBYIDREQUEST']._serialized_start=418
-  _globals['_GETNOTIFICATIONBYIDREQUEST']._serialized_end=471
-  _globals['_GETNOTIFICATIONSBYCUSTOMERREQUEST']._serialized_start=473
-  _globals['_GETNOTIFICATIONSBYCUSTOMERREQUEST']._serialized_end=563
-  _globals['_NOTIFICATIONSERVICE']._serialized_start=566
-  _globals['_NOTIFICATIONSERVICE']._serialized_end=914
+  _globals['DESCRIPTOR']._loaded_options = None
+  _globals['DESCRIPTOR']._serialized_options = b'Z\031orch-go/gen/protos;protos\252\002\004Core'
+  _globals['_NOTIFICATIONMODEL']._serialized_start=129
+  _globals['_NOTIFICATIONMODEL']._serialized_end=351
+  _globals['_GETALLNOTIFICATIONSRESPONSE']._serialized_start=353
+  _globals['_GETALLNOTIFICATIONSRESPONSE']._serialized_end=432
+  _globals['_GETNOTIFICATIONBYIDREQUEST']._serialized_start=434
+  _globals['_GETNOTIFICATIONBYIDREQUEST']._serialized_end=487
+  _globals['_GETNOTIFICATIONBYIDSREQUEST']._serialized_start=489
+  _globals['_GETNOTIFICATIONBYIDSREQUEST']._serialized_end=544
+  _globals['_GETNOTIFICATIONSBYCUSTOMERREQUEST']._serialized_start=546
+  _globals['_GETNOTIFICATIONSBYCUSTOMERREQUEST']._serialized_end=636
+  _globals['_ADDNOTIFICATIONREQUEST']._serialized_start=639
+  _globals['_ADDNOTIFICATIONREQUEST']._serialized_end=773
+  _globals['_UPDATENOTIFICATIONREQUEST']._serialized_start=776
+  _globals['_UPDATENOTIFICATIONREQUEST']._serialized_end=938
+  _globals['_DELETENOTIFICATIONREQUEST']._serialized_start=940
+  _globals['_DELETENOTIFICATIONREQUEST']._serialized_end=992
+  _globals['_ADDNOTIFICATIONBULKREQUEST']._serialized_start=994
+  _globals['_ADDNOTIFICATIONBULKREQUEST']._serialized_end=1077
+  _globals['_UPDATENOTIFICATIONBULKREQUEST']._serialized_start=1079
+  _globals['_UPDATENOTIFICATIONBULKREQUEST']._serialized_end=1168
+  _globals['_DELETENOTIFICATIONBULKREQUEST']._serialized_start=1170
+  _globals['_DELETENOTIFICATIONBULKREQUEST']._serialized_end=1259
+  _globals['_NOTIFICATIONSERVICE']._serialized_start=1262
+  _globals['_NOTIFICATIONSERVICE']._serialized_end=2125
 # @@protoc_insertion_point(module_scope)

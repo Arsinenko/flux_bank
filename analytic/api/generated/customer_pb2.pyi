@@ -126,3 +126,151 @@ class GetCustomerByIdRequest(google.protobuf.message.Message):
     def ClearField(self, field_name: typing.Literal["customer_id", b"customer_id"]) -> None: ...
 
 Global___GetCustomerByIdRequest: typing_extensions.TypeAlias = GetCustomerByIdRequest
+
+@typing.final
+class GetCustomerByIdsRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CUSTOMER_IDS_FIELD_NUMBER: builtins.int
+    @property
+    def customer_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
+    def __init__(
+        self,
+        *,
+        customer_ids: collections.abc.Iterable[builtins.int] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["customer_ids", b"customer_ids"]) -> None: ...
+
+Global___GetCustomerByIdsRequest: typing_extensions.TypeAlias = GetCustomerByIdsRequest
+
+@typing.final
+class AddCustomerRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    FIRST_NAME_FIELD_NUMBER: builtins.int
+    LAST_NAME_FIELD_NUMBER: builtins.int
+    EMAIL_FIELD_NUMBER: builtins.int
+    PHONE_FIELD_NUMBER: builtins.int
+    BIRTH_DATE_FIELD_NUMBER: builtins.int
+    first_name: builtins.str
+    last_name: builtins.str
+    email: builtins.str
+    phone: builtins.str
+    @property
+    def birth_date(self) -> custom_types_pb2.DateOnly: ...
+    def __init__(
+        self,
+        *,
+        first_name: builtins.str = ...,
+        last_name: builtins.str = ...,
+        email: builtins.str = ...,
+        phone: builtins.str | None = ...,
+        birth_date: custom_types_pb2.DateOnly | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["_birth_date", b"_birth_date", "_phone", b"_phone", "birth_date", b"birth_date", "phone", b"phone"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_birth_date", b"_birth_date", "_phone", b"_phone", "birth_date", b"birth_date", "email", b"email", "first_name", b"first_name", "last_name", b"last_name", "phone", b"phone"]) -> None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_birth_date", b"_birth_date"]) -> typing.Literal["birth_date"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_phone", b"_phone"]) -> typing.Literal["phone"] | None: ...
+
+Global___AddCustomerRequest: typing_extensions.TypeAlias = AddCustomerRequest
+
+@typing.final
+class AddCustomerBulkRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CUSTOMERS_FIELD_NUMBER: builtins.int
+    @property
+    def customers(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___AddCustomerRequest]: ...
+    def __init__(
+        self,
+        *,
+        customers: collections.abc.Iterable[Global___AddCustomerRequest] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["customers", b"customers"]) -> None: ...
+
+Global___AddCustomerBulkRequest: typing_extensions.TypeAlias = AddCustomerBulkRequest
+
+@typing.final
+class UpdateCustomerRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CUSTOMER_ID_FIELD_NUMBER: builtins.int
+    FIRST_NAME_FIELD_NUMBER: builtins.int
+    LAST_NAME_FIELD_NUMBER: builtins.int
+    EMAIL_FIELD_NUMBER: builtins.int
+    PHONE_FIELD_NUMBER: builtins.int
+    BIRTH_DATE_FIELD_NUMBER: builtins.int
+    customer_id: builtins.int
+    first_name: builtins.str
+    last_name: builtins.str
+    email: builtins.str
+    phone: builtins.str
+    @property
+    def birth_date(self) -> custom_types_pb2.DateOnly: ...
+    def __init__(
+        self,
+        *,
+        customer_id: builtins.int = ...,
+        first_name: builtins.str = ...,
+        last_name: builtins.str = ...,
+        email: builtins.str = ...,
+        phone: builtins.str | None = ...,
+        birth_date: custom_types_pb2.DateOnly | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["_birth_date", b"_birth_date", "_phone", b"_phone", "birth_date", b"birth_date", "phone", b"phone"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_birth_date", b"_birth_date", "_phone", b"_phone", "birth_date", b"birth_date", "customer_id", b"customer_id", "email", b"email", "first_name", b"first_name", "last_name", b"last_name", "phone", b"phone"]) -> None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_birth_date", b"_birth_date"]) -> typing.Literal["birth_date"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_phone", b"_phone"]) -> typing.Literal["phone"] | None: ...
+
+Global___UpdateCustomerRequest: typing_extensions.TypeAlias = UpdateCustomerRequest
+
+@typing.final
+class DeleteCustomerRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CUSTOMER_ID_FIELD_NUMBER: builtins.int
+    customer_id: builtins.int
+    def __init__(
+        self,
+        *,
+        customer_id: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["customer_id", b"customer_id"]) -> None: ...
+
+Global___DeleteCustomerRequest: typing_extensions.TypeAlias = DeleteCustomerRequest
+
+@typing.final
+class UpdateCustomerBulkRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CUSTOMERS_FIELD_NUMBER: builtins.int
+    @property
+    def customers(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___UpdateCustomerRequest]: ...
+    def __init__(
+        self,
+        *,
+        customers: collections.abc.Iterable[Global___UpdateCustomerRequest] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["customers", b"customers"]) -> None: ...
+
+Global___UpdateCustomerBulkRequest: typing_extensions.TypeAlias = UpdateCustomerBulkRequest
+
+@typing.final
+class DeleteCustomerBulkRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CUSTOMERS_FIELD_NUMBER: builtins.int
+    @property
+    def customers(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___DeleteCustomerRequest]: ...
+    def __init__(
+        self,
+        *,
+        customers: collections.abc.Iterable[Global___DeleteCustomerRequest] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["customers", b"customers"]) -> None: ...
+
+Global___DeleteCustomerBulkRequest: typing_extensions.TypeAlias = DeleteCustomerBulkRequest

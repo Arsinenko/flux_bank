@@ -4,6 +4,7 @@ import grpc
 import warnings
 
 import custom_types_pb2 as custom__types__pb2
+from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 import login_log_pb2 as login__log__pb2
 
 GRPC_GENERATED_VERSION = '1.76.0'
@@ -27,8 +28,7 @@ if _version_not_supported:
 
 
 class LoginLogServiceStub(object):
-    """TODO
-    """
+    """Missing associated documentation comment in .proto file."""
 
     def __init__(self, channel):
         """Constructor.
@@ -46,6 +46,11 @@ class LoginLogServiceStub(object):
                 request_serializer=login__log__pb2.GetLoginLogByIdRequest.SerializeToString,
                 response_deserializer=login__log__pb2.LoginLogModel.FromString,
                 _registered_method=True)
+        self.GetByIds = channel.unary_unary(
+                '/protos.LoginLogService/GetByIds',
+                request_serializer=login__log__pb2.GetLoginLogByIdsRequest.SerializeToString,
+                response_deserializer=login__log__pb2.GetAllLoginLogsResponse.FromString,
+                _registered_method=True)
         self.GetByCustomer = channel.unary_unary(
                 '/protos.LoginLogService/GetByCustomer',
                 request_serializer=login__log__pb2.GetLoginLogsByCustomerRequest.SerializeToString,
@@ -56,11 +61,40 @@ class LoginLogServiceStub(object):
                 request_serializer=login__log__pb2.GetLoginLogsInTimeRangeRequest.SerializeToString,
                 response_deserializer=login__log__pb2.GetAllLoginLogsResponse.FromString,
                 _registered_method=True)
+        self.Add = channel.unary_unary(
+                '/protos.LoginLogService/Add',
+                request_serializer=login__log__pb2.AddLoginLogRequest.SerializeToString,
+                response_deserializer=login__log__pb2.LoginLogModel.FromString,
+                _registered_method=True)
+        self.Update = channel.unary_unary(
+                '/protos.LoginLogService/Update',
+                request_serializer=login__log__pb2.UpdateLoginLogRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                _registered_method=True)
+        self.Delete = channel.unary_unary(
+                '/protos.LoginLogService/Delete',
+                request_serializer=login__log__pb2.DeleteLoginLogRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                _registered_method=True)
+        self.AddBulk = channel.unary_unary(
+                '/protos.LoginLogService/AddBulk',
+                request_serializer=login__log__pb2.AddLoginLogBulkRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                _registered_method=True)
+        self.UpdateBulk = channel.unary_unary(
+                '/protos.LoginLogService/UpdateBulk',
+                request_serializer=login__log__pb2.UpdateLoginLogBulkRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                _registered_method=True)
+        self.DeleteBulk = channel.unary_unary(
+                '/protos.LoginLogService/DeleteBulk',
+                request_serializer=login__log__pb2.DeleteLoginLogBulkRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                _registered_method=True)
 
 
 class LoginLogServiceServicer(object):
-    """TODO
-    """
+    """Missing associated documentation comment in .proto file."""
 
     def GetAll(self, request, context):
         """Missing associated documentation comment in .proto file."""
@@ -74,6 +108,12 @@ class LoginLogServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetByIds(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def GetByCustomer(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -81,6 +121,42 @@ class LoginLogServiceServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def GetInTimeRange(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def Add(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def Update(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def Delete(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def AddBulk(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def UpdateBulk(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def DeleteBulk(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -99,6 +175,11 @@ def add_LoginLogServiceServicer_to_server(servicer, server):
                     request_deserializer=login__log__pb2.GetLoginLogByIdRequest.FromString,
                     response_serializer=login__log__pb2.LoginLogModel.SerializeToString,
             ),
+            'GetByIds': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetByIds,
+                    request_deserializer=login__log__pb2.GetLoginLogByIdsRequest.FromString,
+                    response_serializer=login__log__pb2.GetAllLoginLogsResponse.SerializeToString,
+            ),
             'GetByCustomer': grpc.unary_unary_rpc_method_handler(
                     servicer.GetByCustomer,
                     request_deserializer=login__log__pb2.GetLoginLogsByCustomerRequest.FromString,
@@ -109,6 +190,36 @@ def add_LoginLogServiceServicer_to_server(servicer, server):
                     request_deserializer=login__log__pb2.GetLoginLogsInTimeRangeRequest.FromString,
                     response_serializer=login__log__pb2.GetAllLoginLogsResponse.SerializeToString,
             ),
+            'Add': grpc.unary_unary_rpc_method_handler(
+                    servicer.Add,
+                    request_deserializer=login__log__pb2.AddLoginLogRequest.FromString,
+                    response_serializer=login__log__pb2.LoginLogModel.SerializeToString,
+            ),
+            'Update': grpc.unary_unary_rpc_method_handler(
+                    servicer.Update,
+                    request_deserializer=login__log__pb2.UpdateLoginLogRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'Delete': grpc.unary_unary_rpc_method_handler(
+                    servicer.Delete,
+                    request_deserializer=login__log__pb2.DeleteLoginLogRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'AddBulk': grpc.unary_unary_rpc_method_handler(
+                    servicer.AddBulk,
+                    request_deserializer=login__log__pb2.AddLoginLogBulkRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'UpdateBulk': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateBulk,
+                    request_deserializer=login__log__pb2.UpdateLoginLogBulkRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'DeleteBulk': grpc.unary_unary_rpc_method_handler(
+                    servicer.DeleteBulk,
+                    request_deserializer=login__log__pb2.DeleteLoginLogBulkRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
             'protos.LoginLogService', rpc_method_handlers)
@@ -118,8 +229,7 @@ def add_LoginLogServiceServicer_to_server(servicer, server):
 
  # This class is part of an EXPERIMENTAL API.
 class LoginLogService(object):
-    """TODO
-    """
+    """Missing associated documentation comment in .proto file."""
 
     @staticmethod
     def GetAll(request,
@@ -176,6 +286,33 @@ class LoginLogService(object):
             _registered_method=True)
 
     @staticmethod
+    def GetByIds(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.LoginLogService/GetByIds',
+            login__log__pb2.GetLoginLogByIdsRequest.SerializeToString,
+            login__log__pb2.GetAllLoginLogsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
     def GetByCustomer(request,
             target,
             options=(),
@@ -219,6 +356,168 @@ class LoginLogService(object):
             '/protos.LoginLogService/GetInTimeRange',
             login__log__pb2.GetLoginLogsInTimeRangeRequest.SerializeToString,
             login__log__pb2.GetAllLoginLogsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def Add(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.LoginLogService/Add',
+            login__log__pb2.AddLoginLogRequest.SerializeToString,
+            login__log__pb2.LoginLogModel.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def Update(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.LoginLogService/Update',
+            login__log__pb2.UpdateLoginLogRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def Delete(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.LoginLogService/Delete',
+            login__log__pb2.DeleteLoginLogRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def AddBulk(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.LoginLogService/AddBulk',
+            login__log__pb2.AddLoginLogBulkRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def UpdateBulk(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.LoginLogService/UpdateBulk',
+            login__log__pb2.UpdateLoginLogBulkRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def DeleteBulk(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.LoginLogService/DeleteBulk',
+            login__log__pb2.DeleteLoginLogBulkRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options,
             channel_credentials,
             insecure,

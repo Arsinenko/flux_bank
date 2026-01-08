@@ -624,7 +624,7 @@ var File_card_proto protoreflect.FileDescriptor
 const file_card_proto_rawDesc = "" +
 	"\n" +
 	"\n" +
-	"card.proto\x12\x06protos\x1a\x1bgoogle/protobuf/empty.proto\x1a\x12custom_types.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\x84\x02\n" +
+	"card.proto\x12\x06protos\x1a\x12custom_types.proto\x1a\raccount.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1bgoogle/protobuf/empty.proto\"\x84\x02\n" +
 	"\tCardModel\x12\x17\n" +
 	"\acard_id\x18\x01 \x01(\x05R\x06cardId\x12\"\n" +
 	"\n" +
@@ -690,7 +690,7 @@ const file_card_proto_rawDesc = "" +
 	"\n" +
 	"UpdateBulk\x12\x1d.protos.UpdateCardBulkRequest\x1a\x16.google.protobuf.Empty\x12C\n" +
 	"\n" +
-	"DeleteBulk\x12\x1d.protos.DeleteCardBulkRequest\x1a\x16.google.protobuf.EmptyB\x1bZ\x19orch-go/gen/protos;protosb\x06proto3"
+	"DeleteBulk\x12\x1d.protos.DeleteCardBulkRequest\x1a\x16.google.protobuf.EmptyB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
 
 var (
 	file_card_proto_rawDescOnce sync.Once
@@ -762,6 +762,7 @@ func file_card_proto_init() {
 		return
 	}
 	file_custom_types_proto_init()
+	file_account_proto_init()
 	file_card_proto_msgTypes[0].OneofWrappers = []any{}
 	file_card_proto_msgTypes[5].OneofWrappers = []any{}
 	file_card_proto_msgTypes[6].OneofWrappers = []any{}
