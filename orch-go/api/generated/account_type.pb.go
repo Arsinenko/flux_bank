@@ -534,7 +534,7 @@ const file_account_type_proto_rawDesc = "" +
 	"\x1cUpdateAccountTypeBulkRequest\x12E\n" +
 	"\raccount_types\x18\x01 \x03(\v2 .protos.UpdateAccountTypeRequestR\faccountTypes\"e\n" +
 	"\x1cDeleteAccountTypeBulkRequest\x12E\n" +
-	"\raccount_types\x18\x01 \x03(\v2 .protos.DeleteAccountTypeRequestR\faccountTypes2\x9b\x05\n" +
+	"\raccount_types\x18\x01 \x03(\v2 .protos.DeleteAccountTypeRequestR\faccountTypes2\xd6\x05\n" +
 	"\x12AccountTypeService\x12C\n" +
 	"\x06GetAll\x12\x15.protos.GetAllRequest\x1a\".protos.GetAllAccountTypesResponse\x12F\n" +
 	"\aGetById\x12!.protos.GetAccountTypeByIdRequest\x1a\x18.protos.AccountTypeModel\x12R\n" +
@@ -546,7 +546,8 @@ const file_account_type_proto_rawDesc = "" +
 	"\n" +
 	"UpdateBulk\x12$.protos.UpdateAccountTypeBulkRequest\x1a\x16.google.protobuf.Empty\x12J\n" +
 	"\n" +
-	"DeleteBulk\x12$.protos.DeleteAccountTypeBulkRequest\x1a\x16.google.protobuf.EmptyB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
+	"DeleteBulk\x12$.protos.DeleteAccountTypeBulkRequest\x1a\x16.google.protobuf.Empty\x129\n" +
+	"\bGetCount\x12\x16.google.protobuf.Empty\x1a\x15.protos.CountResponseB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
 
 var (
 	file_account_type_proto_rawDescOnce sync.Once
@@ -574,6 +575,7 @@ var file_account_type_proto_goTypes = []any{
 	(*DeleteAccountTypeBulkRequest)(nil), // 9: protos.DeleteAccountTypeBulkRequest
 	(*GetAllRequest)(nil),                // 10: protos.GetAllRequest
 	(*emptypb.Empty)(nil),                // 11: google.protobuf.Empty
+	(*CountResponse)(nil),                // 12: protos.CountResponse
 }
 var file_account_type_proto_depIdxs = []int32{
 	0,  // 0: protos.GetAllAccountTypesResponse.account_types:type_name -> protos.AccountTypeModel
@@ -589,17 +591,19 @@ var file_account_type_proto_depIdxs = []int32{
 	7,  // 10: protos.AccountTypeService.AddBulk:input_type -> protos.AddAccountTypeBulkRequest
 	8,  // 11: protos.AccountTypeService.UpdateBulk:input_type -> protos.UpdateAccountTypeBulkRequest
 	9,  // 12: protos.AccountTypeService.DeleteBulk:input_type -> protos.DeleteAccountTypeBulkRequest
-	1,  // 13: protos.AccountTypeService.GetAll:output_type -> protos.GetAllAccountTypesResponse
-	0,  // 14: protos.AccountTypeService.GetById:output_type -> protos.AccountTypeModel
-	1,  // 15: protos.AccountTypeService.GetByIds:output_type -> protos.GetAllAccountTypesResponse
-	0,  // 16: protos.AccountTypeService.Add:output_type -> protos.AccountTypeModel
-	11, // 17: protos.AccountTypeService.Update:output_type -> google.protobuf.Empty
-	11, // 18: protos.AccountTypeService.Delete:output_type -> google.protobuf.Empty
-	11, // 19: protos.AccountTypeService.AddBulk:output_type -> google.protobuf.Empty
-	11, // 20: protos.AccountTypeService.UpdateBulk:output_type -> google.protobuf.Empty
-	11, // 21: protos.AccountTypeService.DeleteBulk:output_type -> google.protobuf.Empty
-	13, // [13:22] is the sub-list for method output_type
-	4,  // [4:13] is the sub-list for method input_type
+	11, // 13: protos.AccountTypeService.GetCount:input_type -> google.protobuf.Empty
+	1,  // 14: protos.AccountTypeService.GetAll:output_type -> protos.GetAllAccountTypesResponse
+	0,  // 15: protos.AccountTypeService.GetById:output_type -> protos.AccountTypeModel
+	1,  // 16: protos.AccountTypeService.GetByIds:output_type -> protos.GetAllAccountTypesResponse
+	0,  // 17: protos.AccountTypeService.Add:output_type -> protos.AccountTypeModel
+	11, // 18: protos.AccountTypeService.Update:output_type -> google.protobuf.Empty
+	11, // 19: protos.AccountTypeService.Delete:output_type -> google.protobuf.Empty
+	11, // 20: protos.AccountTypeService.AddBulk:output_type -> google.protobuf.Empty
+	11, // 21: protos.AccountTypeService.UpdateBulk:output_type -> google.protobuf.Empty
+	11, // 22: protos.AccountTypeService.DeleteBulk:output_type -> google.protobuf.Empty
+	12, // 23: protos.AccountTypeService.GetCount:output_type -> protos.CountResponse
+	14, // [14:24] is the sub-list for method output_type
+	4,  // [4:14] is the sub-list for method input_type
 	4,  // [4:4] is the sub-list for extension type_name
 	4,  // [4:4] is the sub-list for extension extendee
 	0,  // [0:4] is the sub-list for field type_name

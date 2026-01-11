@@ -29,6 +29,7 @@ const (
 	TransactionFeeService_AddBulk_FullMethodName    = "/protos.TransactionFeeService/AddBulk"
 	TransactionFeeService_UpdateBulk_FullMethodName = "/protos.TransactionFeeService/UpdateBulk"
 	TransactionFeeService_DeleteBulk_FullMethodName = "/protos.TransactionFeeService/DeleteBulk"
+	TransactionFeeService_GetCount_FullMethodName   = "/protos.TransactionFeeService/GetCount"
 )
 
 // TransactionFeeServiceClient is the client API for TransactionFeeService service.
@@ -44,6 +45,7 @@ type TransactionFeeServiceClient interface {
 	AddBulk(ctx context.Context, in *AddTransactionFeeBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	UpdateBulk(ctx context.Context, in *UpdateTransactionFeeBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	DeleteBulk(ctx context.Context, in *DeleteTransactionFeeBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	GetCount(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*CountResponse, error)
 }
 
 type transactionFeeServiceClient struct {
@@ -144,6 +146,16 @@ func (c *transactionFeeServiceClient) DeleteBulk(ctx context.Context, in *Delete
 	return out, nil
 }
 
+func (c *transactionFeeServiceClient) GetCount(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*CountResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CountResponse)
+	err := c.cc.Invoke(ctx, TransactionFeeService_GetCount_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TransactionFeeServiceServer is the server API for TransactionFeeService service.
 // All implementations must embed UnimplementedTransactionFeeServiceServer
 // for forward compatibility.
@@ -157,6 +169,7 @@ type TransactionFeeServiceServer interface {
 	AddBulk(context.Context, *AddTransactionFeeBulkRequest) (*emptypb.Empty, error)
 	UpdateBulk(context.Context, *UpdateTransactionFeeBulkRequest) (*emptypb.Empty, error)
 	DeleteBulk(context.Context, *DeleteTransactionFeeBulkRequest) (*emptypb.Empty, error)
+	GetCount(context.Context, *emptypb.Empty) (*CountResponse, error)
 	mustEmbedUnimplementedTransactionFeeServiceServer()
 }
 
@@ -193,6 +206,9 @@ func (UnimplementedTransactionFeeServiceServer) UpdateBulk(context.Context, *Upd
 }
 func (UnimplementedTransactionFeeServiceServer) DeleteBulk(context.Context, *DeleteTransactionFeeBulkRequest) (*emptypb.Empty, error) {
 	return nil, status.Error(codes.Unimplemented, "method DeleteBulk not implemented")
+}
+func (UnimplementedTransactionFeeServiceServer) GetCount(context.Context, *emptypb.Empty) (*CountResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetCount not implemented")
 }
 func (UnimplementedTransactionFeeServiceServer) mustEmbedUnimplementedTransactionFeeServiceServer() {}
 func (UnimplementedTransactionFeeServiceServer) testEmbeddedByValue()                               {}
@@ -377,6 +393,24 @@ func _TransactionFeeService_DeleteBulk_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TransactionFeeService_GetCount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(emptypb.Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionFeeServiceServer).GetCount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TransactionFeeService_GetCount_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionFeeServiceServer).GetCount(ctx, req.(*emptypb.Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // TransactionFeeService_ServiceDesc is the grpc.ServiceDesc for TransactionFeeService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -419,6 +453,10 @@ var TransactionFeeService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteBulk",
 			Handler:    _TransactionFeeService_DeleteBulk_Handler,
+		},
+		{
+			MethodName: "GetCount",
+			Handler:    _TransactionFeeService_GetCount_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

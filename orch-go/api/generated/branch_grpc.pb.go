@@ -29,6 +29,7 @@ const (
 	BranchService_AddBulk_FullMethodName    = "/protos.BranchService/AddBulk"
 	BranchService_UpdateBulk_FullMethodName = "/protos.BranchService/UpdateBulk"
 	BranchService_DeleteBulk_FullMethodName = "/protos.BranchService/DeleteBulk"
+	BranchService_GetCount_FullMethodName   = "/protos.BranchService/GetCount"
 )
 
 // BranchServiceClient is the client API for BranchService service.
@@ -44,6 +45,7 @@ type BranchServiceClient interface {
 	AddBulk(ctx context.Context, in *AddBranchBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	UpdateBulk(ctx context.Context, in *UpdateBranchBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	DeleteBulk(ctx context.Context, in *DeleteBranchBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	GetCount(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*CountResponse, error)
 }
 
 type branchServiceClient struct {
@@ -144,6 +146,16 @@ func (c *branchServiceClient) DeleteBulk(ctx context.Context, in *DeleteBranchBu
 	return out, nil
 }
 
+func (c *branchServiceClient) GetCount(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*CountResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CountResponse)
+	err := c.cc.Invoke(ctx, BranchService_GetCount_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // BranchServiceServer is the server API for BranchService service.
 // All implementations must embed UnimplementedBranchServiceServer
 // for forward compatibility.
@@ -157,6 +169,7 @@ type BranchServiceServer interface {
 	AddBulk(context.Context, *AddBranchBulkRequest) (*emptypb.Empty, error)
 	UpdateBulk(context.Context, *UpdateBranchBulkRequest) (*emptypb.Empty, error)
 	DeleteBulk(context.Context, *DeleteBranchBulkRequest) (*emptypb.Empty, error)
+	GetCount(context.Context, *emptypb.Empty) (*CountResponse, error)
 	mustEmbedUnimplementedBranchServiceServer()
 }
 
@@ -193,6 +206,9 @@ func (UnimplementedBranchServiceServer) UpdateBulk(context.Context, *UpdateBranc
 }
 func (UnimplementedBranchServiceServer) DeleteBulk(context.Context, *DeleteBranchBulkRequest) (*emptypb.Empty, error) {
 	return nil, status.Error(codes.Unimplemented, "method DeleteBulk not implemented")
+}
+func (UnimplementedBranchServiceServer) GetCount(context.Context, *emptypb.Empty) (*CountResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetCount not implemented")
 }
 func (UnimplementedBranchServiceServer) mustEmbedUnimplementedBranchServiceServer() {}
 func (UnimplementedBranchServiceServer) testEmbeddedByValue()                       {}
@@ -377,6 +393,24 @@ func _BranchService_DeleteBulk_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _BranchService_GetCount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(emptypb.Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BranchServiceServer).GetCount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: BranchService_GetCount_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BranchServiceServer).GetCount(ctx, req.(*emptypb.Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // BranchService_ServiceDesc is the grpc.ServiceDesc for BranchService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -419,6 +453,10 @@ var BranchService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteBulk",
 			Handler:    _BranchService_DeleteBulk_Handler,
+		},
+		{
+			MethodName: "GetCount",
+			Handler:    _BranchService_GetCount_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

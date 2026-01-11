@@ -30,6 +30,7 @@ const (
 	LoanPaymentService_AddBulk_FullMethodName    = "/protos.LoanPaymentService/AddBulk"
 	LoanPaymentService_UpdateBulk_FullMethodName = "/protos.LoanPaymentService/UpdateBulk"
 	LoanPaymentService_DeleteBulk_FullMethodName = "/protos.LoanPaymentService/DeleteBulk"
+	LoanPaymentService_GetCount_FullMethodName   = "/protos.LoanPaymentService/GetCount"
 )
 
 // LoanPaymentServiceClient is the client API for LoanPaymentService service.
@@ -46,6 +47,7 @@ type LoanPaymentServiceClient interface {
 	AddBulk(ctx context.Context, in *AddLoanPaymentBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	UpdateBulk(ctx context.Context, in *UpdateLoanPaymentBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	DeleteBulk(ctx context.Context, in *DeleteLoanPaymentBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	GetCount(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*CountResponse, error)
 }
 
 type loanPaymentServiceClient struct {
@@ -156,6 +158,16 @@ func (c *loanPaymentServiceClient) DeleteBulk(ctx context.Context, in *DeleteLoa
 	return out, nil
 }
 
+func (c *loanPaymentServiceClient) GetCount(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*CountResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CountResponse)
+	err := c.cc.Invoke(ctx, LoanPaymentService_GetCount_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // LoanPaymentServiceServer is the server API for LoanPaymentService service.
 // All implementations must embed UnimplementedLoanPaymentServiceServer
 // for forward compatibility.
@@ -170,6 +182,7 @@ type LoanPaymentServiceServer interface {
 	AddBulk(context.Context, *AddLoanPaymentBulkRequest) (*emptypb.Empty, error)
 	UpdateBulk(context.Context, *UpdateLoanPaymentBulkRequest) (*emptypb.Empty, error)
 	DeleteBulk(context.Context, *DeleteLoanPaymentBulkRequest) (*emptypb.Empty, error)
+	GetCount(context.Context, *emptypb.Empty) (*CountResponse, error)
 	mustEmbedUnimplementedLoanPaymentServiceServer()
 }
 
@@ -209,6 +222,9 @@ func (UnimplementedLoanPaymentServiceServer) UpdateBulk(context.Context, *Update
 }
 func (UnimplementedLoanPaymentServiceServer) DeleteBulk(context.Context, *DeleteLoanPaymentBulkRequest) (*emptypb.Empty, error) {
 	return nil, status.Error(codes.Unimplemented, "method DeleteBulk not implemented")
+}
+func (UnimplementedLoanPaymentServiceServer) GetCount(context.Context, *emptypb.Empty) (*CountResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetCount not implemented")
 }
 func (UnimplementedLoanPaymentServiceServer) mustEmbedUnimplementedLoanPaymentServiceServer() {}
 func (UnimplementedLoanPaymentServiceServer) testEmbeddedByValue()                            {}
@@ -411,6 +427,24 @@ func _LoanPaymentService_DeleteBulk_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _LoanPaymentService_GetCount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(emptypb.Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LoanPaymentServiceServer).GetCount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: LoanPaymentService_GetCount_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LoanPaymentServiceServer).GetCount(ctx, req.(*emptypb.Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // LoanPaymentService_ServiceDesc is the grpc.ServiceDesc for LoanPaymentService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -457,6 +491,10 @@ var LoanPaymentService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteBulk",
 			Handler:    _LoanPaymentService_DeleteBulk_Handler,
+		},
+		{
+			MethodName: "GetCount",
+			Handler:    _LoanPaymentService_GetCount_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

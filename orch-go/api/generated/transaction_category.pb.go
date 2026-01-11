@@ -508,7 +508,7 @@ const file_transaction_category_proto_rawDesc = "" +
 	"$UpdateTransactionCategoryBulkRequest\x12_\n" +
 	"\x16transaction_categories\x18\x01 \x03(\v2(.protos.UpdateTransactionCategoryRequestR\x15transactionCategories\"\x87\x01\n" +
 	"$DeleteTransactionCategoryBulkRequest\x12_\n" +
-	"\x16transaction_categories\x18\x01 \x03(\v2(.protos.DeleteTransactionCategoryRequestR\x15transactionCategories2\x85\x06\n" +
+	"\x16transaction_categories\x18\x01 \x03(\v2(.protos.DeleteTransactionCategoryRequestR\x15transactionCategories2\xc0\x06\n" +
 	"\x1aTransactionCategoryService\x12L\n" +
 	"\x06GetAll\x12\x15.protos.GetAllRequest\x1a+.protos.GetAllTransactionCategoriesResponse\x12V\n" +
 	"\aGetById\x12).protos.GetTransactionCategoryByIdRequest\x1a .protos.TransactionCategoryModel\x12c\n" +
@@ -520,7 +520,8 @@ const file_transaction_category_proto_rawDesc = "" +
 	"\n" +
 	"UpdateBulk\x12,.protos.UpdateTransactionCategoryBulkRequest\x1a\x16.google.protobuf.Empty\x12R\n" +
 	"\n" +
-	"DeleteBulk\x12,.protos.DeleteTransactionCategoryBulkRequest\x1a\x16.google.protobuf.EmptyB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
+	"DeleteBulk\x12,.protos.DeleteTransactionCategoryBulkRequest\x1a\x16.google.protobuf.Empty\x129\n" +
+	"\bGetCount\x12\x16.google.protobuf.Empty\x1a\x15.protos.CountResponseB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
 
 var (
 	file_transaction_category_proto_rawDescOnce sync.Once
@@ -548,6 +549,7 @@ var file_transaction_category_proto_goTypes = []any{
 	(*DeleteTransactionCategoryBulkRequest)(nil), // 9: protos.DeleteTransactionCategoryBulkRequest
 	(*GetAllRequest)(nil),                        // 10: protos.GetAllRequest
 	(*emptypb.Empty)(nil),                        // 11: google.protobuf.Empty
+	(*CountResponse)(nil),                        // 12: protos.CountResponse
 }
 var file_transaction_category_proto_depIdxs = []int32{
 	0,  // 0: protos.GetAllTransactionCategoriesResponse.transaction_categories:type_name -> protos.TransactionCategoryModel
@@ -563,17 +565,19 @@ var file_transaction_category_proto_depIdxs = []int32{
 	7,  // 10: protos.TransactionCategoryService.AddBulk:input_type -> protos.AddTransactionCategoryBulkRequest
 	8,  // 11: protos.TransactionCategoryService.UpdateBulk:input_type -> protos.UpdateTransactionCategoryBulkRequest
 	9,  // 12: protos.TransactionCategoryService.DeleteBulk:input_type -> protos.DeleteTransactionCategoryBulkRequest
-	1,  // 13: protos.TransactionCategoryService.GetAll:output_type -> protos.GetAllTransactionCategoriesResponse
-	0,  // 14: protos.TransactionCategoryService.GetById:output_type -> protos.TransactionCategoryModel
-	1,  // 15: protos.TransactionCategoryService.GetByIds:output_type -> protos.GetAllTransactionCategoriesResponse
-	0,  // 16: protos.TransactionCategoryService.Add:output_type -> protos.TransactionCategoryModel
-	11, // 17: protos.TransactionCategoryService.Update:output_type -> google.protobuf.Empty
-	11, // 18: protos.TransactionCategoryService.Delete:output_type -> google.protobuf.Empty
-	11, // 19: protos.TransactionCategoryService.AddBulk:output_type -> google.protobuf.Empty
-	11, // 20: protos.TransactionCategoryService.UpdateBulk:output_type -> google.protobuf.Empty
-	11, // 21: protos.TransactionCategoryService.DeleteBulk:output_type -> google.protobuf.Empty
-	13, // [13:22] is the sub-list for method output_type
-	4,  // [4:13] is the sub-list for method input_type
+	11, // 13: protos.TransactionCategoryService.GetCount:input_type -> google.protobuf.Empty
+	1,  // 14: protos.TransactionCategoryService.GetAll:output_type -> protos.GetAllTransactionCategoriesResponse
+	0,  // 15: protos.TransactionCategoryService.GetById:output_type -> protos.TransactionCategoryModel
+	1,  // 16: protos.TransactionCategoryService.GetByIds:output_type -> protos.GetAllTransactionCategoriesResponse
+	0,  // 17: protos.TransactionCategoryService.Add:output_type -> protos.TransactionCategoryModel
+	11, // 18: protos.TransactionCategoryService.Update:output_type -> google.protobuf.Empty
+	11, // 19: protos.TransactionCategoryService.Delete:output_type -> google.protobuf.Empty
+	11, // 20: protos.TransactionCategoryService.AddBulk:output_type -> google.protobuf.Empty
+	11, // 21: protos.TransactionCategoryService.UpdateBulk:output_type -> google.protobuf.Empty
+	11, // 22: protos.TransactionCategoryService.DeleteBulk:output_type -> google.protobuf.Empty
+	12, // 23: protos.TransactionCategoryService.GetCount:output_type -> protos.CountResponse
+	14, // [14:24] is the sub-list for method output_type
+	4,  // [4:14] is the sub-list for method input_type
 	4,  // [4:4] is the sub-list for extension type_name
 	4,  // [4:4] is the sub-list for extension extendee
 	0,  // [0:4] is the sub-list for field type_name

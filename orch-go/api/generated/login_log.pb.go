@@ -717,7 +717,7 @@ const file_login_log_proto_rawDesc = "" +
 	"\x06log_id\x18\x01 \x01(\x05R\x05logId\"Y\n" +
 	"\x19DeleteLoginLogBulkRequest\x12<\n" +
 	"\n" +
-	"login_logs\x18\x01 \x03(\v2\x1d.protos.DeleteLoginLogRequestR\tloginLogs2\xa8\x06\n" +
+	"login_logs\x18\x01 \x03(\v2\x1d.protos.DeleteLoginLogRequestR\tloginLogs2\xe3\x06\n" +
 	"\x0fLoginLogService\x12@\n" +
 	"\x06GetAll\x12\x15.protos.GetAllRequest\x1a\x1f.protos.GetAllLoginLogsResponse\x12@\n" +
 	"\aGetById\x12\x1e.protos.GetLoginLogByIdRequest\x1a\x15.protos.LoginLogModel\x12L\n" +
@@ -731,7 +731,8 @@ const file_login_log_proto_rawDesc = "" +
 	"\n" +
 	"UpdateBulk\x12!.protos.UpdateLoginLogBulkRequest\x1a\x16.google.protobuf.Empty\x12G\n" +
 	"\n" +
-	"DeleteBulk\x12!.protos.DeleteLoginLogBulkRequest\x1a\x16.google.protobuf.EmptyB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
+	"DeleteBulk\x12!.protos.DeleteLoginLogBulkRequest\x1a\x16.google.protobuf.Empty\x129\n" +
+	"\bGetCount\x12\x16.google.protobuf.Empty\x1a\x15.protos.CountResponseB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
 
 var (
 	file_login_log_proto_rawDescOnce sync.Once
@@ -762,6 +763,7 @@ var file_login_log_proto_goTypes = []any{
 	(*timestamppb.Timestamp)(nil),          // 12: google.protobuf.Timestamp
 	(*GetAllRequest)(nil),                  // 13: protos.GetAllRequest
 	(*emptypb.Empty)(nil),                  // 14: google.protobuf.Empty
+	(*CountResponse)(nil),                  // 15: protos.CountResponse
 }
 var file_login_log_proto_depIdxs = []int32{
 	12, // 0: protos.LoginLogModel.login_time:type_name -> google.protobuf.Timestamp
@@ -784,19 +786,21 @@ var file_login_log_proto_depIdxs = []int32{
 	7,  // 17: protos.LoginLogService.AddBulk:input_type -> protos.AddLoginLogBulkRequest
 	9,  // 18: protos.LoginLogService.UpdateBulk:input_type -> protos.UpdateLoginLogBulkRequest
 	11, // 19: protos.LoginLogService.DeleteBulk:input_type -> protos.DeleteLoginLogBulkRequest
-	1,  // 20: protos.LoginLogService.GetAll:output_type -> protos.GetAllLoginLogsResponse
-	0,  // 21: protos.LoginLogService.GetById:output_type -> protos.LoginLogModel
-	1,  // 22: protos.LoginLogService.GetByIds:output_type -> protos.GetAllLoginLogsResponse
-	1,  // 23: protos.LoginLogService.GetByCustomer:output_type -> protos.GetAllLoginLogsResponse
-	1,  // 24: protos.LoginLogService.GetInTimeRange:output_type -> protos.GetAllLoginLogsResponse
-	0,  // 25: protos.LoginLogService.Add:output_type -> protos.LoginLogModel
-	14, // 26: protos.LoginLogService.Update:output_type -> google.protobuf.Empty
-	14, // 27: protos.LoginLogService.Delete:output_type -> google.protobuf.Empty
-	14, // 28: protos.LoginLogService.AddBulk:output_type -> google.protobuf.Empty
-	14, // 29: protos.LoginLogService.UpdateBulk:output_type -> google.protobuf.Empty
-	14, // 30: protos.LoginLogService.DeleteBulk:output_type -> google.protobuf.Empty
-	20, // [20:31] is the sub-list for method output_type
-	9,  // [9:20] is the sub-list for method input_type
+	14, // 20: protos.LoginLogService.GetCount:input_type -> google.protobuf.Empty
+	1,  // 21: protos.LoginLogService.GetAll:output_type -> protos.GetAllLoginLogsResponse
+	0,  // 22: protos.LoginLogService.GetById:output_type -> protos.LoginLogModel
+	1,  // 23: protos.LoginLogService.GetByIds:output_type -> protos.GetAllLoginLogsResponse
+	1,  // 24: protos.LoginLogService.GetByCustomer:output_type -> protos.GetAllLoginLogsResponse
+	1,  // 25: protos.LoginLogService.GetInTimeRange:output_type -> protos.GetAllLoginLogsResponse
+	0,  // 26: protos.LoginLogService.Add:output_type -> protos.LoginLogModel
+	14, // 27: protos.LoginLogService.Update:output_type -> google.protobuf.Empty
+	14, // 28: protos.LoginLogService.Delete:output_type -> google.protobuf.Empty
+	14, // 29: protos.LoginLogService.AddBulk:output_type -> google.protobuf.Empty
+	14, // 30: protos.LoginLogService.UpdateBulk:output_type -> google.protobuf.Empty
+	14, // 31: protos.LoginLogService.DeleteBulk:output_type -> google.protobuf.Empty
+	15, // 32: protos.LoginLogService.GetCount:output_type -> protos.CountResponse
+	21, // [21:33] is the sub-list for method output_type
+	9,  // [9:21] is the sub-list for method input_type
 	9,  // [9:9] is the sub-list for extension type_name
 	9,  // [9:9] is the sub-list for extension extendee
 	0,  // [0:9] is the sub-list for field type_name

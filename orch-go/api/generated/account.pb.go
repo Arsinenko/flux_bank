@@ -700,7 +700,7 @@ const file_account_proto_rawDesc = "" +
 	"\x18UpdateAccountBulkRequest\x128\n" +
 	"\baccounts\x18\x01 \x03(\v2\x1c.protos.UpdateAccountRequestR\baccounts\"T\n" +
 	"\x18DeleteAccountBulkRequest\x128\n" +
-	"\baccounts\x18\x01 \x03(\v2\x1c.protos.DeleteAccountRequestR\baccounts2\x92\x06\n" +
+	"\baccounts\x18\x01 \x03(\v2\x1c.protos.DeleteAccountRequestR\baccounts2\xf0\a\n" +
 	"\x0eAccountService\x12?\n" +
 	"\x06GetAll\x12\x15.protos.GetAllRequest\x1a\x1e.protos.GetAllAccountsResponse\x12>\n" +
 	"\aGetById\x12\x1d.protos.GetAccountByIdRequest\x1a\x14.protos.AccountModel\x12J\n" +
@@ -714,7 +714,10 @@ const file_account_proto_rawDesc = "" +
 	"\n" +
 	"UpdateBulk\x12 .protos.UpdateAccountBulkRequest\x1a\x16.google.protobuf.Empty\x12F\n" +
 	"\n" +
-	"DeleteBulk\x12 .protos.DeleteAccountBulkRequest\x1a\x16.google.protobuf.EmptyB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
+	"DeleteBulk\x12 .protos.DeleteAccountBulkRequest\x1a\x16.google.protobuf.Empty\x129\n" +
+	"\bGetCount\x12\x16.google.protobuf.Empty\x1a\x15.protos.CountResponse\x12K\n" +
+	"\x13GetCountByDateRange\x12\x1d.protos.GetByDateRangeRequest\x1a\x15.protos.CountResponse\x12T\n" +
+	"\x14GetCountByCustomerId\x12%.protos.GetAccountByCustomerIdRequest\x1a\x15.protos.CountResponseB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
 
 var (
 	file_account_proto_rawDescOnce sync.Once
@@ -745,6 +748,7 @@ var file_account_proto_goTypes = []any{
 	(*GetAllRequest)(nil),                 // 12: protos.GetAllRequest
 	(*GetByDateRangeRequest)(nil),         // 13: protos.GetByDateRangeRequest
 	(*emptypb.Empty)(nil),                 // 14: google.protobuf.Empty
+	(*CountResponse)(nil),                 // 15: protos.CountResponse
 }
 var file_account_proto_depIdxs = []int32{
 	11, // 0: protos.AccountModel.created_at:type_name -> google.protobuf.Timestamp
@@ -763,19 +767,25 @@ var file_account_proto_depIdxs = []int32{
 	6,  // 13: protos.AccountService.AddBulk:input_type -> protos.AddAccountBulkRequest
 	9,  // 14: protos.AccountService.UpdateBulk:input_type -> protos.UpdateAccountBulkRequest
 	10, // 15: protos.AccountService.DeleteBulk:input_type -> protos.DeleteAccountBulkRequest
-	2,  // 16: protos.AccountService.GetAll:output_type -> protos.GetAllAccountsResponse
-	0,  // 17: protos.AccountService.GetById:output_type -> protos.AccountModel
-	2,  // 18: protos.AccountService.GetByIds:output_type -> protos.GetAllAccountsResponse
-	2,  // 19: protos.AccountService.GetByCustomerId:output_type -> protos.GetAllAccountsResponse
-	2,  // 20: protos.AccountService.GetByDateRange:output_type -> protos.GetAllAccountsResponse
-	0,  // 21: protos.AccountService.Add:output_type -> protos.AccountModel
-	14, // 22: protos.AccountService.Update:output_type -> google.protobuf.Empty
-	14, // 23: protos.AccountService.Delete:output_type -> google.protobuf.Empty
-	14, // 24: protos.AccountService.AddBulk:output_type -> google.protobuf.Empty
-	14, // 25: protos.AccountService.UpdateBulk:output_type -> google.protobuf.Empty
-	14, // 26: protos.AccountService.DeleteBulk:output_type -> google.protobuf.Empty
-	16, // [16:27] is the sub-list for method output_type
-	5,  // [5:16] is the sub-list for method input_type
+	14, // 16: protos.AccountService.GetCount:input_type -> google.protobuf.Empty
+	13, // 17: protos.AccountService.GetCountByDateRange:input_type -> protos.GetByDateRangeRequest
+	1,  // 18: protos.AccountService.GetCountByCustomerId:input_type -> protos.GetAccountByCustomerIdRequest
+	2,  // 19: protos.AccountService.GetAll:output_type -> protos.GetAllAccountsResponse
+	0,  // 20: protos.AccountService.GetById:output_type -> protos.AccountModel
+	2,  // 21: protos.AccountService.GetByIds:output_type -> protos.GetAllAccountsResponse
+	2,  // 22: protos.AccountService.GetByCustomerId:output_type -> protos.GetAllAccountsResponse
+	2,  // 23: protos.AccountService.GetByDateRange:output_type -> protos.GetAllAccountsResponse
+	0,  // 24: protos.AccountService.Add:output_type -> protos.AccountModel
+	14, // 25: protos.AccountService.Update:output_type -> google.protobuf.Empty
+	14, // 26: protos.AccountService.Delete:output_type -> google.protobuf.Empty
+	14, // 27: protos.AccountService.AddBulk:output_type -> google.protobuf.Empty
+	14, // 28: protos.AccountService.UpdateBulk:output_type -> google.protobuf.Empty
+	14, // 29: protos.AccountService.DeleteBulk:output_type -> google.protobuf.Empty
+	15, // 30: protos.AccountService.GetCount:output_type -> protos.CountResponse
+	15, // 31: protos.AccountService.GetCountByDateRange:output_type -> protos.CountResponse
+	15, // 32: protos.AccountService.GetCountByCustomerId:output_type -> protos.CountResponse
+	19, // [19:33] is the sub-list for method output_type
+	5,  // [5:19] is the sub-list for method input_type
 	5,  // [5:5] is the sub-list for extension type_name
 	5,  // [5:5] is the sub-list for extension extendee
 	0,  // [0:5] is the sub-list for field type_name

@@ -28,6 +28,7 @@ const (
 	LoanService_Update_FullMethodName        = "/protos.LoanService/Update"
 	LoanService_Delete_FullMethodName        = "/protos.LoanService/Delete"
 	LoanService_DeleteBulk_FullMethodName    = "/protos.LoanService/DeleteBulk"
+	LoanService_GetCount_FullMethodName      = "/protos.LoanService/GetCount"
 )
 
 // LoanServiceClient is the client API for LoanService service.
@@ -42,6 +43,7 @@ type LoanServiceClient interface {
 	Update(ctx context.Context, in *UpdateLoanRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	Delete(ctx context.Context, in *DeleteLoanRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	DeleteBulk(ctx context.Context, in *DeleteLoanBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	GetCount(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*CountResponse, error)
 }
 
 type loanServiceClient struct {
@@ -132,6 +134,16 @@ func (c *loanServiceClient) DeleteBulk(ctx context.Context, in *DeleteLoanBulkRe
 	return out, nil
 }
 
+func (c *loanServiceClient) GetCount(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*CountResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CountResponse)
+	err := c.cc.Invoke(ctx, LoanService_GetCount_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // LoanServiceServer is the server API for LoanService service.
 // All implementations must embed UnimplementedLoanServiceServer
 // for forward compatibility.
@@ -144,6 +156,7 @@ type LoanServiceServer interface {
 	Update(context.Context, *UpdateLoanRequest) (*emptypb.Empty, error)
 	Delete(context.Context, *DeleteLoanRequest) (*emptypb.Empty, error)
 	DeleteBulk(context.Context, *DeleteLoanBulkRequest) (*emptypb.Empty, error)
+	GetCount(context.Context, *emptypb.Empty) (*CountResponse, error)
 	mustEmbedUnimplementedLoanServiceServer()
 }
 
@@ -177,6 +190,9 @@ func (UnimplementedLoanServiceServer) Delete(context.Context, *DeleteLoanRequest
 }
 func (UnimplementedLoanServiceServer) DeleteBulk(context.Context, *DeleteLoanBulkRequest) (*emptypb.Empty, error) {
 	return nil, status.Error(codes.Unimplemented, "method DeleteBulk not implemented")
+}
+func (UnimplementedLoanServiceServer) GetCount(context.Context, *emptypb.Empty) (*CountResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetCount not implemented")
 }
 func (UnimplementedLoanServiceServer) mustEmbedUnimplementedLoanServiceServer() {}
 func (UnimplementedLoanServiceServer) testEmbeddedByValue()                     {}
@@ -343,6 +359,24 @@ func _LoanService_DeleteBulk_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _LoanService_GetCount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(emptypb.Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LoanServiceServer).GetCount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: LoanService_GetCount_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LoanServiceServer).GetCount(ctx, req.(*emptypb.Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // LoanService_ServiceDesc is the grpc.ServiceDesc for LoanService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -381,6 +415,10 @@ var LoanService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteBulk",
 			Handler:    _LoanService_DeleteBulk_Handler,
+		},
+		{
+			MethodName: "GetCount",
+			Handler:    _LoanService_GetCount_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

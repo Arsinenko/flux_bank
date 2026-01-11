@@ -20,18 +20,22 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	TransactionService_GetAll_FullMethodName             = "/protos.TransactionService/GetAll"
-	TransactionService_GetById_FullMethodName            = "/protos.TransactionService/GetById"
-	TransactionService_GetByIds_FullMethodName           = "/protos.TransactionService/GetByIds"
-	TransactionService_GetByDateRange_FullMethodName     = "/protos.TransactionService/GetByDateRange"
-	TransactionService_GetAccountRevenue_FullMethodName  = "/protos.TransactionService/GetAccountRevenue"
-	TransactionService_GetAccountExpenses_FullMethodName = "/protos.TransactionService/GetAccountExpenses"
-	TransactionService_Add_FullMethodName                = "/protos.TransactionService/Add"
-	TransactionService_Update_FullMethodName             = "/protos.TransactionService/Update"
-	TransactionService_Delete_FullMethodName             = "/protos.TransactionService/Delete"
-	TransactionService_AddBulk_FullMethodName            = "/protos.TransactionService/AddBulk"
-	TransactionService_UpdateBulk_FullMethodName         = "/protos.TransactionService/UpdateBulk"
-	TransactionService_DeleteBulk_FullMethodName         = "/protos.TransactionService/DeleteBulk"
+	TransactionService_GetAll_FullMethodName                  = "/protos.TransactionService/GetAll"
+	TransactionService_GetById_FullMethodName                 = "/protos.TransactionService/GetById"
+	TransactionService_GetByIds_FullMethodName                = "/protos.TransactionService/GetByIds"
+	TransactionService_GetByDateRange_FullMethodName          = "/protos.TransactionService/GetByDateRange"
+	TransactionService_GetAccountRevenue_FullMethodName       = "/protos.TransactionService/GetAccountRevenue"
+	TransactionService_GetAccountExpenses_FullMethodName      = "/protos.TransactionService/GetAccountExpenses"
+	TransactionService_Add_FullMethodName                     = "/protos.TransactionService/Add"
+	TransactionService_Update_FullMethodName                  = "/protos.TransactionService/Update"
+	TransactionService_Delete_FullMethodName                  = "/protos.TransactionService/Delete"
+	TransactionService_AddBulk_FullMethodName                 = "/protos.TransactionService/AddBulk"
+	TransactionService_UpdateBulk_FullMethodName              = "/protos.TransactionService/UpdateBulk"
+	TransactionService_DeleteBulk_FullMethodName              = "/protos.TransactionService/DeleteBulk"
+	TransactionService_GetCount_FullMethodName                = "/protos.TransactionService/GetCount"
+	TransactionService_GetCountByDateRange_FullMethodName     = "/protos.TransactionService/GetCountByDateRange"
+	TransactionService_GetCountAccountRevenue_FullMethodName  = "/protos.TransactionService/GetCountAccountRevenue"
+	TransactionService_GetCountAccountExpenses_FullMethodName = "/protos.TransactionService/GetCountAccountExpenses"
 )
 
 // TransactionServiceClient is the client API for TransactionService service.
@@ -50,6 +54,10 @@ type TransactionServiceClient interface {
 	AddBulk(ctx context.Context, in *AddTransactionBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	UpdateBulk(ctx context.Context, in *UpdateTransactionBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	DeleteBulk(ctx context.Context, in *DeleteTransactionBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	GetCount(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*CountResponse, error)
+	GetCountByDateRange(ctx context.Context, in *GetByDateRangeRequest, opts ...grpc.CallOption) (*CountResponse, error)
+	GetCountAccountRevenue(ctx context.Context, in *GetAccountRevenueRequest, opts ...grpc.CallOption) (*CountResponse, error)
+	GetCountAccountExpenses(ctx context.Context, in *GetAccountExpensesRequest, opts ...grpc.CallOption) (*CountResponse, error)
 }
 
 type transactionServiceClient struct {
@@ -180,6 +188,46 @@ func (c *transactionServiceClient) DeleteBulk(ctx context.Context, in *DeleteTra
 	return out, nil
 }
 
+func (c *transactionServiceClient) GetCount(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*CountResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CountResponse)
+	err := c.cc.Invoke(ctx, TransactionService_GetCount_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *transactionServiceClient) GetCountByDateRange(ctx context.Context, in *GetByDateRangeRequest, opts ...grpc.CallOption) (*CountResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CountResponse)
+	err := c.cc.Invoke(ctx, TransactionService_GetCountByDateRange_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *transactionServiceClient) GetCountAccountRevenue(ctx context.Context, in *GetAccountRevenueRequest, opts ...grpc.CallOption) (*CountResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CountResponse)
+	err := c.cc.Invoke(ctx, TransactionService_GetCountAccountRevenue_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *transactionServiceClient) GetCountAccountExpenses(ctx context.Context, in *GetAccountExpensesRequest, opts ...grpc.CallOption) (*CountResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CountResponse)
+	err := c.cc.Invoke(ctx, TransactionService_GetCountAccountExpenses_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TransactionServiceServer is the server API for TransactionService service.
 // All implementations must embed UnimplementedTransactionServiceServer
 // for forward compatibility.
@@ -196,6 +244,10 @@ type TransactionServiceServer interface {
 	AddBulk(context.Context, *AddTransactionBulkRequest) (*emptypb.Empty, error)
 	UpdateBulk(context.Context, *UpdateTransactionBulkRequest) (*emptypb.Empty, error)
 	DeleteBulk(context.Context, *DeleteTransactionBulkRequest) (*emptypb.Empty, error)
+	GetCount(context.Context, *emptypb.Empty) (*CountResponse, error)
+	GetCountByDateRange(context.Context, *GetByDateRangeRequest) (*CountResponse, error)
+	GetCountAccountRevenue(context.Context, *GetAccountRevenueRequest) (*CountResponse, error)
+	GetCountAccountExpenses(context.Context, *GetAccountExpensesRequest) (*CountResponse, error)
 	mustEmbedUnimplementedTransactionServiceServer()
 }
 
@@ -241,6 +293,18 @@ func (UnimplementedTransactionServiceServer) UpdateBulk(context.Context, *Update
 }
 func (UnimplementedTransactionServiceServer) DeleteBulk(context.Context, *DeleteTransactionBulkRequest) (*emptypb.Empty, error) {
 	return nil, status.Error(codes.Unimplemented, "method DeleteBulk not implemented")
+}
+func (UnimplementedTransactionServiceServer) GetCount(context.Context, *emptypb.Empty) (*CountResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetCount not implemented")
+}
+func (UnimplementedTransactionServiceServer) GetCountByDateRange(context.Context, *GetByDateRangeRequest) (*CountResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetCountByDateRange not implemented")
+}
+func (UnimplementedTransactionServiceServer) GetCountAccountRevenue(context.Context, *GetAccountRevenueRequest) (*CountResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetCountAccountRevenue not implemented")
+}
+func (UnimplementedTransactionServiceServer) GetCountAccountExpenses(context.Context, *GetAccountExpensesRequest) (*CountResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetCountAccountExpenses not implemented")
 }
 func (UnimplementedTransactionServiceServer) mustEmbedUnimplementedTransactionServiceServer() {}
 func (UnimplementedTransactionServiceServer) testEmbeddedByValue()                            {}
@@ -479,6 +543,78 @@ func _TransactionService_DeleteBulk_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TransactionService_GetCount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(emptypb.Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionServiceServer).GetCount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TransactionService_GetCount_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionServiceServer).GetCount(ctx, req.(*emptypb.Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TransactionService_GetCountByDateRange_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetByDateRangeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionServiceServer).GetCountByDateRange(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TransactionService_GetCountByDateRange_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionServiceServer).GetCountByDateRange(ctx, req.(*GetByDateRangeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TransactionService_GetCountAccountRevenue_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAccountRevenueRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionServiceServer).GetCountAccountRevenue(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TransactionService_GetCountAccountRevenue_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionServiceServer).GetCountAccountRevenue(ctx, req.(*GetAccountRevenueRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TransactionService_GetCountAccountExpenses_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAccountExpensesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionServiceServer).GetCountAccountExpenses(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TransactionService_GetCountAccountExpenses_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionServiceServer).GetCountAccountExpenses(ctx, req.(*GetAccountExpensesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // TransactionService_ServiceDesc is the grpc.ServiceDesc for TransactionService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -533,6 +669,22 @@ var TransactionService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteBulk",
 			Handler:    _TransactionService_DeleteBulk_Handler,
+		},
+		{
+			MethodName: "GetCount",
+			Handler:    _TransactionService_GetCount_Handler,
+		},
+		{
+			MethodName: "GetCountByDateRange",
+			Handler:    _TransactionService_GetCountByDateRange_Handler,
+		},
+		{
+			MethodName: "GetCountAccountRevenue",
+			Handler:    _TransactionService_GetCountAccountRevenue_Handler,
+		},
+		{
+			MethodName: "GetCountAccountExpenses",
+			Handler:    _TransactionService_GetCountAccountExpenses_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

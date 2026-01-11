@@ -671,7 +671,7 @@ const file_customer_address_proto_rawDesc = "" +
 	"\n" +
 	"address_id\x18\x01 \x01(\x05R\taddressId\"w\n" +
 	" DeleteCustomerAddressBulkRequest\x12S\n" +
-	"\x12customer_addresses\x18\x01 \x03(\v2$.protos.DeleteCustomerAddressRequestR\x11customerAddresses2\xd1\x05\n" +
+	"\x12customer_addresses\x18\x01 \x03(\v2$.protos.DeleteCustomerAddressRequestR\x11customerAddresses2\x8c\x06\n" +
 	"\x16CustomerAddressService\x12H\n" +
 	"\x06GetAll\x12\x15.protos.GetAllRequest\x1a'.protos.GetAllCustomerAddressesResponse\x12N\n" +
 	"\aGetById\x12%.protos.GetCustomerAddressByIdRequest\x1a\x1c.protos.CustomerAddressModel\x12[\n" +
@@ -683,7 +683,8 @@ const file_customer_address_proto_rawDesc = "" +
 	"\n" +
 	"UpdateBulk\x12(.protos.UpdateCustomerAddressBulkRequest\x1a\x16.google.protobuf.Empty\x12N\n" +
 	"\n" +
-	"DeleteBulk\x12(.protos.DeleteCustomerAddressBulkRequest\x1a\x16.google.protobuf.EmptyB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
+	"DeleteBulk\x12(.protos.DeleteCustomerAddressBulkRequest\x1a\x16.google.protobuf.Empty\x129\n" +
+	"\bGetCount\x12\x16.google.protobuf.Empty\x1a\x15.protos.CountResponseB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
 
 var (
 	file_customer_address_proto_rawDescOnce sync.Once
@@ -711,6 +712,7 @@ var file_customer_address_proto_goTypes = []any{
 	(*DeleteCustomerAddressBulkRequest)(nil), // 9: protos.DeleteCustomerAddressBulkRequest
 	(*GetAllRequest)(nil),                    // 10: protos.GetAllRequest
 	(*emptypb.Empty)(nil),                    // 11: google.protobuf.Empty
+	(*CountResponse)(nil),                    // 12: protos.CountResponse
 }
 var file_customer_address_proto_depIdxs = []int32{
 	0,  // 0: protos.GetAllCustomerAddressesResponse.customer_addresses:type_name -> protos.CustomerAddressModel
@@ -726,17 +728,19 @@ var file_customer_address_proto_depIdxs = []int32{
 	5,  // 10: protos.CustomerAddressService.AddBulk:input_type -> protos.AddCustomerAddressBulkRequest
 	7,  // 11: protos.CustomerAddressService.UpdateBulk:input_type -> protos.UpdateCustomerAddressBulkRequest
 	9,  // 12: protos.CustomerAddressService.DeleteBulk:input_type -> protos.DeleteCustomerAddressBulkRequest
-	1,  // 13: protos.CustomerAddressService.GetAll:output_type -> protos.GetAllCustomerAddressesResponse
-	0,  // 14: protos.CustomerAddressService.GetById:output_type -> protos.CustomerAddressModel
-	1,  // 15: protos.CustomerAddressService.GetByIds:output_type -> protos.GetAllCustomerAddressesResponse
-	0,  // 16: protos.CustomerAddressService.Add:output_type -> protos.CustomerAddressModel
-	11, // 17: protos.CustomerAddressService.Update:output_type -> google.protobuf.Empty
-	11, // 18: protos.CustomerAddressService.Delete:output_type -> google.protobuf.Empty
-	11, // 19: protos.CustomerAddressService.AddBulk:output_type -> google.protobuf.Empty
-	11, // 20: protos.CustomerAddressService.UpdateBulk:output_type -> google.protobuf.Empty
-	11, // 21: protos.CustomerAddressService.DeleteBulk:output_type -> google.protobuf.Empty
-	13, // [13:22] is the sub-list for method output_type
-	4,  // [4:13] is the sub-list for method input_type
+	11, // 13: protos.CustomerAddressService.GetCount:input_type -> google.protobuf.Empty
+	1,  // 14: protos.CustomerAddressService.GetAll:output_type -> protos.GetAllCustomerAddressesResponse
+	0,  // 15: protos.CustomerAddressService.GetById:output_type -> protos.CustomerAddressModel
+	1,  // 16: protos.CustomerAddressService.GetByIds:output_type -> protos.GetAllCustomerAddressesResponse
+	0,  // 17: protos.CustomerAddressService.Add:output_type -> protos.CustomerAddressModel
+	11, // 18: protos.CustomerAddressService.Update:output_type -> google.protobuf.Empty
+	11, // 19: protos.CustomerAddressService.Delete:output_type -> google.protobuf.Empty
+	11, // 20: protos.CustomerAddressService.AddBulk:output_type -> google.protobuf.Empty
+	11, // 21: protos.CustomerAddressService.UpdateBulk:output_type -> google.protobuf.Empty
+	11, // 22: protos.CustomerAddressService.DeleteBulk:output_type -> google.protobuf.Empty
+	12, // 23: protos.CustomerAddressService.GetCount:output_type -> protos.CountResponse
+	14, // [14:24] is the sub-list for method output_type
+	4,  // [4:14] is the sub-list for method input_type
 	4,  // [4:4] is the sub-list for extension type_name
 	4,  // [4:4] is the sub-list for extension extendee
 	0,  // [0:4] is the sub-list for field type_name

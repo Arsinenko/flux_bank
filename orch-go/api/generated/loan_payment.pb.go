@@ -655,7 +655,7 @@ const file_loan_payment_proto_rawDesc = "" +
 	"\n" +
 	"payment_id\x18\x01 \x01(\x05R\tpaymentId\"\\\n" +
 	"\x1cDeleteLoanPaymentBulkRequest\x12<\n" +
-	"\bpayments\x18\x01 \x03(\v2 .protos.DeleteLoanPaymentRequestR\bpayments2\xf2\x05\n" +
+	"\bpayments\x18\x01 \x03(\v2 .protos.DeleteLoanPaymentRequestR\bpayments2\xad\x06\n" +
 	"\x12LoanPaymentService\x12C\n" +
 	"\x06GetAll\x12\x15.protos.GetAllRequest\x1a\".protos.GetAllLoanPaymentsResponse\x12F\n" +
 	"\aGetById\x12!.protos.GetLoanPaymentByIdRequest\x1a\x18.protos.LoanPaymentModel\x12R\n" +
@@ -668,7 +668,8 @@ const file_loan_payment_proto_rawDesc = "" +
 	"\n" +
 	"UpdateBulk\x12$.protos.UpdateLoanPaymentBulkRequest\x1a\x16.google.protobuf.Empty\x12J\n" +
 	"\n" +
-	"DeleteBulk\x12$.protos.DeleteLoanPaymentBulkRequest\x1a\x16.google.protobuf.EmptyB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
+	"DeleteBulk\x12$.protos.DeleteLoanPaymentBulkRequest\x1a\x16.google.protobuf.Empty\x129\n" +
+	"\bGetCount\x12\x16.google.protobuf.Empty\x1a\x15.protos.CountResponseB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
 
 var (
 	file_loan_payment_proto_rawDescOnce sync.Once
@@ -698,6 +699,7 @@ var file_loan_payment_proto_goTypes = []any{
 	(*DateOnly)(nil),                     // 11: protos.DateOnly
 	(*GetAllRequest)(nil),                // 12: protos.GetAllRequest
 	(*emptypb.Empty)(nil),                // 13: google.protobuf.Empty
+	(*CountResponse)(nil),                // 14: protos.CountResponse
 }
 var file_loan_payment_proto_depIdxs = []int32{
 	11, // 0: protos.LoanPaymentModel.payment_date:type_name -> protos.DateOnly
@@ -717,18 +719,20 @@ var file_loan_payment_proto_depIdxs = []int32{
 	6,  // 14: protos.LoanPaymentService.AddBulk:input_type -> protos.AddLoanPaymentBulkRequest
 	8,  // 15: protos.LoanPaymentService.UpdateBulk:input_type -> protos.UpdateLoanPaymentBulkRequest
 	10, // 16: protos.LoanPaymentService.DeleteBulk:input_type -> protos.DeleteLoanPaymentBulkRequest
-	1,  // 17: protos.LoanPaymentService.GetAll:output_type -> protos.GetAllLoanPaymentsResponse
-	0,  // 18: protos.LoanPaymentService.GetById:output_type -> protos.LoanPaymentModel
-	1,  // 19: protos.LoanPaymentService.GetByIds:output_type -> protos.GetAllLoanPaymentsResponse
-	1,  // 20: protos.LoanPaymentService.GetByLoan:output_type -> protos.GetAllLoanPaymentsResponse
-	0,  // 21: protos.LoanPaymentService.Add:output_type -> protos.LoanPaymentModel
-	13, // 22: protos.LoanPaymentService.Update:output_type -> google.protobuf.Empty
-	13, // 23: protos.LoanPaymentService.Delete:output_type -> google.protobuf.Empty
-	13, // 24: protos.LoanPaymentService.AddBulk:output_type -> google.protobuf.Empty
-	13, // 25: protos.LoanPaymentService.UpdateBulk:output_type -> google.protobuf.Empty
-	13, // 26: protos.LoanPaymentService.DeleteBulk:output_type -> google.protobuf.Empty
-	17, // [17:27] is the sub-list for method output_type
-	7,  // [7:17] is the sub-list for method input_type
+	13, // 17: protos.LoanPaymentService.GetCount:input_type -> google.protobuf.Empty
+	1,  // 18: protos.LoanPaymentService.GetAll:output_type -> protos.GetAllLoanPaymentsResponse
+	0,  // 19: protos.LoanPaymentService.GetById:output_type -> protos.LoanPaymentModel
+	1,  // 20: protos.LoanPaymentService.GetByIds:output_type -> protos.GetAllLoanPaymentsResponse
+	1,  // 21: protos.LoanPaymentService.GetByLoan:output_type -> protos.GetAllLoanPaymentsResponse
+	0,  // 22: protos.LoanPaymentService.Add:output_type -> protos.LoanPaymentModel
+	13, // 23: protos.LoanPaymentService.Update:output_type -> google.protobuf.Empty
+	13, // 24: protos.LoanPaymentService.Delete:output_type -> google.protobuf.Empty
+	13, // 25: protos.LoanPaymentService.AddBulk:output_type -> google.protobuf.Empty
+	13, // 26: protos.LoanPaymentService.UpdateBulk:output_type -> google.protobuf.Empty
+	13, // 27: protos.LoanPaymentService.DeleteBulk:output_type -> google.protobuf.Empty
+	14, // 28: protos.LoanPaymentService.GetCount:output_type -> protos.CountResponse
+	18, // [18:29] is the sub-list for method output_type
+	7,  // [7:18] is the sub-list for method input_type
 	7,  // [7:7] is the sub-list for extension type_name
 	7,  // [7:7] is the sub-list for extension extendee
 	0,  // [0:7] is the sub-list for field type_name

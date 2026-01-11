@@ -29,6 +29,7 @@ const (
 	PaymentTemplateService_AddBulk_FullMethodName    = "/protos.PaymentTemplateService/AddBulk"
 	PaymentTemplateService_UpdateBulk_FullMethodName = "/protos.PaymentTemplateService/UpdateBulk"
 	PaymentTemplateService_DeleteBulk_FullMethodName = "/protos.PaymentTemplateService/DeleteBulk"
+	PaymentTemplateService_GetCount_FullMethodName   = "/protos.PaymentTemplateService/GetCount"
 )
 
 // PaymentTemplateServiceClient is the client API for PaymentTemplateService service.
@@ -44,6 +45,7 @@ type PaymentTemplateServiceClient interface {
 	AddBulk(ctx context.Context, in *AddPaymentTemplateBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	UpdateBulk(ctx context.Context, in *UpdatePaymentTemplateBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	DeleteBulk(ctx context.Context, in *DeletePaymentTemplateBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	GetCount(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*CountResponse, error)
 }
 
 type paymentTemplateServiceClient struct {
@@ -144,6 +146,16 @@ func (c *paymentTemplateServiceClient) DeleteBulk(ctx context.Context, in *Delet
 	return out, nil
 }
 
+func (c *paymentTemplateServiceClient) GetCount(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*CountResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CountResponse)
+	err := c.cc.Invoke(ctx, PaymentTemplateService_GetCount_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // PaymentTemplateServiceServer is the server API for PaymentTemplateService service.
 // All implementations must embed UnimplementedPaymentTemplateServiceServer
 // for forward compatibility.
@@ -157,6 +169,7 @@ type PaymentTemplateServiceServer interface {
 	AddBulk(context.Context, *AddPaymentTemplateBulkRequest) (*emptypb.Empty, error)
 	UpdateBulk(context.Context, *UpdatePaymentTemplateBulkRequest) (*emptypb.Empty, error)
 	DeleteBulk(context.Context, *DeletePaymentTemplateBulkRequest) (*emptypb.Empty, error)
+	GetCount(context.Context, *emptypb.Empty) (*CountResponse, error)
 	mustEmbedUnimplementedPaymentTemplateServiceServer()
 }
 
@@ -193,6 +206,9 @@ func (UnimplementedPaymentTemplateServiceServer) UpdateBulk(context.Context, *Up
 }
 func (UnimplementedPaymentTemplateServiceServer) DeleteBulk(context.Context, *DeletePaymentTemplateBulkRequest) (*emptypb.Empty, error) {
 	return nil, status.Error(codes.Unimplemented, "method DeleteBulk not implemented")
+}
+func (UnimplementedPaymentTemplateServiceServer) GetCount(context.Context, *emptypb.Empty) (*CountResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetCount not implemented")
 }
 func (UnimplementedPaymentTemplateServiceServer) mustEmbedUnimplementedPaymentTemplateServiceServer() {
 }
@@ -378,6 +394,24 @@ func _PaymentTemplateService_DeleteBulk_Handler(srv interface{}, ctx context.Con
 	return interceptor(ctx, in, info, handler)
 }
 
+func _PaymentTemplateService_GetCount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(emptypb.Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PaymentTemplateServiceServer).GetCount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PaymentTemplateService_GetCount_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PaymentTemplateServiceServer).GetCount(ctx, req.(*emptypb.Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // PaymentTemplateService_ServiceDesc is the grpc.ServiceDesc for PaymentTemplateService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -420,6 +454,10 @@ var PaymentTemplateService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteBulk",
 			Handler:    _PaymentTemplateService_DeleteBulk_Handler,
+		},
+		{
+			MethodName: "GetCount",
+			Handler:    _PaymentTemplateService_GetCount_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

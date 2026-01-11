@@ -622,7 +622,7 @@ const file_loan_proto_rawDesc = "" +
 	"\x11DeleteLoanRequest\x12\x17\n" +
 	"\aloan_id\x18\x01 \x01(\x05R\x06loanId\"H\n" +
 	"\x15DeleteLoanBulkRequest\x12/\n" +
-	"\x05loans\x18\x01 \x03(\v2\x19.protos.DeleteLoanRequestR\x05loans2\x8d\x04\n" +
+	"\x05loans\x18\x01 \x03(\v2\x19.protos.DeleteLoanRequestR\x05loans2\xc8\x04\n" +
 	"\vLoanService\x12<\n" +
 	"\x06GetAll\x12\x15.protos.GetAllRequest\x1a\x1b.protos.GetAllLoansResponse\x128\n" +
 	"\aGetById\x12\x1a.protos.GetLoanByIdRequest\x1a\x11.protos.LoanModel\x12D\n" +
@@ -632,7 +632,8 @@ const file_loan_proto_rawDesc = "" +
 	"\x06Update\x12\x19.protos.UpdateLoanRequest\x1a\x16.google.protobuf.Empty\x12;\n" +
 	"\x06Delete\x12\x19.protos.DeleteLoanRequest\x1a\x16.google.protobuf.Empty\x12C\n" +
 	"\n" +
-	"DeleteBulk\x12\x1d.protos.DeleteLoanBulkRequest\x1a\x16.google.protobuf.EmptyB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
+	"DeleteBulk\x12\x1d.protos.DeleteLoanBulkRequest\x1a\x16.google.protobuf.Empty\x129\n" +
+	"\bGetCount\x12\x16.google.protobuf.Empty\x1a\x15.protos.CountResponseB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
 
 var (
 	file_loan_proto_rawDescOnce sync.Once
@@ -660,6 +661,7 @@ var file_loan_proto_goTypes = []any{
 	(*DateOnly)(nil),                  // 9: protos.DateOnly
 	(*GetAllRequest)(nil),             // 10: protos.GetAllRequest
 	(*emptypb.Empty)(nil),             // 11: google.protobuf.Empty
+	(*CountResponse)(nil),             // 12: protos.CountResponse
 }
 var file_loan_proto_depIdxs = []int32{
 	9,  // 0: protos.LoanModel.start_date:type_name -> protos.DateOnly
@@ -678,16 +680,18 @@ var file_loan_proto_depIdxs = []int32{
 	6,  // 13: protos.LoanService.Update:input_type -> protos.UpdateLoanRequest
 	7,  // 14: protos.LoanService.Delete:input_type -> protos.DeleteLoanRequest
 	8,  // 15: protos.LoanService.DeleteBulk:input_type -> protos.DeleteLoanBulkRequest
-	1,  // 16: protos.LoanService.GetAll:output_type -> protos.GetAllLoansResponse
-	0,  // 17: protos.LoanService.GetById:output_type -> protos.LoanModel
-	1,  // 18: protos.LoanService.GetByIds:output_type -> protos.GetAllLoansResponse
-	1,  // 19: protos.LoanService.GetByCustomer:output_type -> protos.GetAllLoansResponse
-	0,  // 20: protos.LoanService.Add:output_type -> protos.LoanModel
-	11, // 21: protos.LoanService.Update:output_type -> google.protobuf.Empty
-	11, // 22: protos.LoanService.Delete:output_type -> google.protobuf.Empty
-	11, // 23: protos.LoanService.DeleteBulk:output_type -> google.protobuf.Empty
-	16, // [16:24] is the sub-list for method output_type
-	8,  // [8:16] is the sub-list for method input_type
+	11, // 16: protos.LoanService.GetCount:input_type -> google.protobuf.Empty
+	1,  // 17: protos.LoanService.GetAll:output_type -> protos.GetAllLoansResponse
+	0,  // 18: protos.LoanService.GetById:output_type -> protos.LoanModel
+	1,  // 19: protos.LoanService.GetByIds:output_type -> protos.GetAllLoansResponse
+	1,  // 20: protos.LoanService.GetByCustomer:output_type -> protos.GetAllLoansResponse
+	0,  // 21: protos.LoanService.Add:output_type -> protos.LoanModel
+	11, // 22: protos.LoanService.Update:output_type -> google.protobuf.Empty
+	11, // 23: protos.LoanService.Delete:output_type -> google.protobuf.Empty
+	11, // 24: protos.LoanService.DeleteBulk:output_type -> google.protobuf.Empty
+	12, // 25: protos.LoanService.GetCount:output_type -> protos.CountResponse
+	17, // [17:26] is the sub-list for method output_type
+	8,  // [8:17] is the sub-list for method input_type
 	8,  // [8:8] is the sub-list for extension type_name
 	8,  // [8:8] is the sub-list for extension extendee
 	0,  // [0:8] is the sub-list for field type_name

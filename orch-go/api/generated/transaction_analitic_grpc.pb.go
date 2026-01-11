@@ -32,7 +32,7 @@ const (
 type TransactionAnalyticServiceClient interface {
 	GetSumOfTransactionsByDateRange(ctx context.Context, in *GetSumOfTransactionsByDateRangeRequest, opts ...grpc.CallOption) (*GetSumOfTransactionsByDateRangeResponse, error)
 	GetAverageOfTransactionsByDateRange(ctx context.Context, in *GetAverageOfTransactionsByDateRangeRequest, opts ...grpc.CallOption) (*GetAverageOfTransactionsByDateRangeResponse, error)
-	GetCountOfTransactionsByDateRange(ctx context.Context, in *GetCountOfTransactionsByDateRangeRequest, opts ...grpc.CallOption) (*GetCountOfTransactionsByDateRangeResponse, error)
+	GetCountOfTransactionsByDateRange(ctx context.Context, in *GetCountOfTransactionsByDateRangeRequest, opts ...grpc.CallOption) (*CountResponse, error)
 	GetMostFrequentTransactionsByDateRange(ctx context.Context, in *GetMostFrequentTransactionsByDateRangeRequest, opts ...grpc.CallOption) (*GetMostFrequentTransactionsByDateRangeResponse, error)
 	GetAnomalousTransactionsByDateRange(ctx context.Context, in *GetAnomalousTransactionsByDateRangeRequest, opts ...grpc.CallOption) (*GetAnomalousTransactionsByDateRangeResponse, error)
 }
@@ -65,9 +65,9 @@ func (c *transactionAnalyticServiceClient) GetAverageOfTransactionsByDateRange(c
 	return out, nil
 }
 
-func (c *transactionAnalyticServiceClient) GetCountOfTransactionsByDateRange(ctx context.Context, in *GetCountOfTransactionsByDateRangeRequest, opts ...grpc.CallOption) (*GetCountOfTransactionsByDateRangeResponse, error) {
+func (c *transactionAnalyticServiceClient) GetCountOfTransactionsByDateRange(ctx context.Context, in *GetCountOfTransactionsByDateRangeRequest, opts ...grpc.CallOption) (*CountResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(GetCountOfTransactionsByDateRangeResponse)
+	out := new(CountResponse)
 	err := c.cc.Invoke(ctx, TransactionAnalyticService_GetCountOfTransactionsByDateRange_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -101,7 +101,7 @@ func (c *transactionAnalyticServiceClient) GetAnomalousTransactionsByDateRange(c
 type TransactionAnalyticServiceServer interface {
 	GetSumOfTransactionsByDateRange(context.Context, *GetSumOfTransactionsByDateRangeRequest) (*GetSumOfTransactionsByDateRangeResponse, error)
 	GetAverageOfTransactionsByDateRange(context.Context, *GetAverageOfTransactionsByDateRangeRequest) (*GetAverageOfTransactionsByDateRangeResponse, error)
-	GetCountOfTransactionsByDateRange(context.Context, *GetCountOfTransactionsByDateRangeRequest) (*GetCountOfTransactionsByDateRangeResponse, error)
+	GetCountOfTransactionsByDateRange(context.Context, *GetCountOfTransactionsByDateRangeRequest) (*CountResponse, error)
 	GetMostFrequentTransactionsByDateRange(context.Context, *GetMostFrequentTransactionsByDateRangeRequest) (*GetMostFrequentTransactionsByDateRangeResponse, error)
 	GetAnomalousTransactionsByDateRange(context.Context, *GetAnomalousTransactionsByDateRangeRequest) (*GetAnomalousTransactionsByDateRangeResponse, error)
 	mustEmbedUnimplementedTransactionAnalyticServiceServer()
@@ -120,7 +120,7 @@ func (UnimplementedTransactionAnalyticServiceServer) GetSumOfTransactionsByDateR
 func (UnimplementedTransactionAnalyticServiceServer) GetAverageOfTransactionsByDateRange(context.Context, *GetAverageOfTransactionsByDateRangeRequest) (*GetAverageOfTransactionsByDateRangeResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetAverageOfTransactionsByDateRange not implemented")
 }
-func (UnimplementedTransactionAnalyticServiceServer) GetCountOfTransactionsByDateRange(context.Context, *GetCountOfTransactionsByDateRangeRequest) (*GetCountOfTransactionsByDateRangeResponse, error) {
+func (UnimplementedTransactionAnalyticServiceServer) GetCountOfTransactionsByDateRange(context.Context, *GetCountOfTransactionsByDateRangeRequest) (*CountResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetCountOfTransactionsByDateRange not implemented")
 }
 func (UnimplementedTransactionAnalyticServiceServer) GetMostFrequentTransactionsByDateRange(context.Context, *GetMostFrequentTransactionsByDateRangeRequest) (*GetMostFrequentTransactionsByDateRangeResponse, error) {

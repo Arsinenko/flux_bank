@@ -625,7 +625,7 @@ const file_exchange_rate_proto_rawDesc = "" +
 	"\x1dUpdateExchangeRateBulkRequest\x12H\n" +
 	"\x0eexchange_rates\x18\x01 \x03(\v2!.protos.UpdateExchangeRateRequestR\rexchangeRates\"i\n" +
 	"\x1dDeleteExchangeRateBulkRequest\x12H\n" +
-	"\x0eexchange_rates\x18\x01 \x03(\v2!.protos.DeleteExchangeRateRequestR\rexchangeRates2\x90\x06\n" +
+	"\x0eexchange_rates\x18\x01 \x03(\v2!.protos.DeleteExchangeRateRequestR\rexchangeRates2\xcb\x06\n" +
 	"\x13ExchangeRateService\x12D\n" +
 	"\x06GetAll\x12\x15.protos.GetAllRequest\x1a#.protos.GetAllExchangeRatesResponse\x12H\n" +
 	"\aGetById\x12\".protos.GetExchangeRateByIdRequest\x1a\x19.protos.ExchangeRateModel\x12T\n" +
@@ -638,7 +638,8 @@ const file_exchange_rate_proto_rawDesc = "" +
 	"\n" +
 	"UpdateBulk\x12%.protos.UpdateExchangeRateBulkRequest\x1a\x16.google.protobuf.Empty\x12K\n" +
 	"\n" +
-	"DeleteBulk\x12%.protos.DeleteExchangeRateBulkRequest\x1a\x16.google.protobuf.EmptyB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
+	"DeleteBulk\x12%.protos.DeleteExchangeRateBulkRequest\x1a\x16.google.protobuf.Empty\x129\n" +
+	"\bGetCount\x12\x16.google.protobuf.Empty\x1a\x15.protos.CountResponseB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
 
 var (
 	file_exchange_rate_proto_rawDescOnce sync.Once
@@ -668,6 +669,7 @@ var file_exchange_rate_proto_goTypes = []any{
 	(*timestamppb.Timestamp)(nil),                // 11: google.protobuf.Timestamp
 	(*GetAllRequest)(nil),                        // 12: protos.GetAllRequest
 	(*emptypb.Empty)(nil),                        // 13: google.protobuf.Empty
+	(*CountResponse)(nil),                        // 14: protos.CountResponse
 }
 var file_exchange_rate_proto_depIdxs = []int32{
 	11, // 0: protos.ExchangeRateModel.updated_at:type_name -> google.protobuf.Timestamp
@@ -685,18 +687,20 @@ var file_exchange_rate_proto_depIdxs = []int32{
 	8,  // 12: protos.ExchangeRateService.AddBulk:input_type -> protos.AddExchangeRateBulkRequest
 	9,  // 13: protos.ExchangeRateService.UpdateBulk:input_type -> protos.UpdateExchangeRateBulkRequest
 	10, // 14: protos.ExchangeRateService.DeleteBulk:input_type -> protos.DeleteExchangeRateBulkRequest
-	1,  // 15: protos.ExchangeRateService.GetAll:output_type -> protos.GetAllExchangeRatesResponse
-	0,  // 16: protos.ExchangeRateService.GetById:output_type -> protos.ExchangeRateModel
-	1,  // 17: protos.ExchangeRateService.GetByIds:output_type -> protos.GetAllExchangeRatesResponse
-	1,  // 18: protos.ExchangeRateService.GetByBaseCurrency:output_type -> protos.GetAllExchangeRatesResponse
-	0,  // 19: protos.ExchangeRateService.Add:output_type -> protos.ExchangeRateModel
-	13, // 20: protos.ExchangeRateService.Update:output_type -> google.protobuf.Empty
-	13, // 21: protos.ExchangeRateService.Delete:output_type -> google.protobuf.Empty
-	13, // 22: protos.ExchangeRateService.AddBulk:output_type -> google.protobuf.Empty
-	13, // 23: protos.ExchangeRateService.UpdateBulk:output_type -> google.protobuf.Empty
-	13, // 24: protos.ExchangeRateService.DeleteBulk:output_type -> google.protobuf.Empty
-	15, // [15:25] is the sub-list for method output_type
-	5,  // [5:15] is the sub-list for method input_type
+	13, // 15: protos.ExchangeRateService.GetCount:input_type -> google.protobuf.Empty
+	1,  // 16: protos.ExchangeRateService.GetAll:output_type -> protos.GetAllExchangeRatesResponse
+	0,  // 17: protos.ExchangeRateService.GetById:output_type -> protos.ExchangeRateModel
+	1,  // 18: protos.ExchangeRateService.GetByIds:output_type -> protos.GetAllExchangeRatesResponse
+	1,  // 19: protos.ExchangeRateService.GetByBaseCurrency:output_type -> protos.GetAllExchangeRatesResponse
+	0,  // 20: protos.ExchangeRateService.Add:output_type -> protos.ExchangeRateModel
+	13, // 21: protos.ExchangeRateService.Update:output_type -> google.protobuf.Empty
+	13, // 22: protos.ExchangeRateService.Delete:output_type -> google.protobuf.Empty
+	13, // 23: protos.ExchangeRateService.AddBulk:output_type -> google.protobuf.Empty
+	13, // 24: protos.ExchangeRateService.UpdateBulk:output_type -> google.protobuf.Empty
+	13, // 25: protos.ExchangeRateService.DeleteBulk:output_type -> google.protobuf.Empty
+	14, // 26: protos.ExchangeRateService.GetCount:output_type -> protos.CountResponse
+	16, // [16:27] is the sub-list for method output_type
+	5,  // [5:16] is the sub-list for method input_type
 	5,  // [5:5] is the sub-list for extension type_name
 	5,  // [5:5] is the sub-list for extension extendee
 	0,  // [0:5] is the sub-list for field type_name

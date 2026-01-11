@@ -243,6 +243,26 @@ func (mr *MockAtmServiceClientMockRecorder) GetByStatus(ctx, in any, opts ...any
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetByStatus", reflect.TypeOf((*MockAtmServiceClient)(nil).GetByStatus), varargs...)
 }
 
+// GetCount mocks base method.
+func (m *MockAtmServiceClient) GetCount(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*protos.CountResponse, error) {
+	m.ctrl.T.Helper()
+	varargs := []any{ctx, in}
+	for _, a := range opts {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "GetCount", varargs...)
+	ret0, _ := ret[0].(*protos.CountResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetCount indicates an expected call of GetCount.
+func (mr *MockAtmServiceClientMockRecorder) GetCount(ctx, in any, opts ...any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]any{ctx, in}, opts...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetCount", reflect.TypeOf((*MockAtmServiceClient)(nil).GetCount), varargs...)
+}
+
 // Update mocks base method.
 func (m *MockAtmServiceClient) Update(ctx context.Context, in *protos.UpdateAtmRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	m.ctrl.T.Helper()

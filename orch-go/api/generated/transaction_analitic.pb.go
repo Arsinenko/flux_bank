@@ -610,7 +610,7 @@ var File_transaction_analitic_proto protoreflect.FileDescriptor
 
 const file_transaction_analitic_proto_rawDesc = "" +
 	"\n" +
-	"\x1atransaction_analitic.proto\x12\x06protos\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x11transaction.proto\"\xc0\x01\n" +
+	"\x1atransaction_analitic.proto\x12\x06protos\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x11transaction.proto\x1a\x12custom_types.proto\"\xc0\x01\n" +
 	"&GetSumOfTransactionsByDateRangeRequest\x12>\n" +
 	"\n" +
 	"start_date\x18\x01 \x01(\v2\x1a.google.protobuf.TimestampH\x00R\tstartDate\x88\x01\x01\x12:\n" +
@@ -659,11 +659,11 @@ const file_transaction_analitic_proto_rawDesc = "" +
 	"\v_start_dateB\v\n" +
 	"\t_end_date\"=\n" +
 	")GetUserSumTransactionsByDateRangeResponse\x12\x10\n" +
-	"\x03sum\x18\x01 \x01(\x05R\x03sum2\xe8\x05\n" +
+	"\x03sum\x18\x01 \x01(\x05R\x03sum2\xcb\x05\n" +
 	"\x1aTransactionAnalyticService\x12\x82\x01\n" +
 	"\x1fGetSumOfTransactionsByDateRange\x12..protos.GetSumOfTransactionsByDateRangeRequest\x1a/.protos.GetSumOfTransactionsByDateRangeResponse\x12\x8e\x01\n" +
-	"#GetAverageOfTransactionsByDateRange\x122.protos.GetAverageOfTransactionsByDateRangeRequest\x1a3.protos.GetAverageOfTransactionsByDateRangeResponse\x12\x88\x01\n" +
-	"!GetCountOfTransactionsByDateRange\x120.protos.GetCountOfTransactionsByDateRangeRequest\x1a1.protos.GetCountOfTransactionsByDateRangeResponse\x12\x97\x01\n" +
+	"#GetAverageOfTransactionsByDateRange\x122.protos.GetAverageOfTransactionsByDateRangeRequest\x1a3.protos.GetAverageOfTransactionsByDateRangeResponse\x12l\n" +
+	"!GetCountOfTransactionsByDateRange\x120.protos.GetCountOfTransactionsByDateRangeRequest\x1a\x15.protos.CountResponse\x12\x97\x01\n" +
 	"&GetMostFrequentTransactionsByDateRange\x125.protos.GetMostFrequentTransactionsByDateRangeRequest\x1a6.protos.GetMostFrequentTransactionsByDateRangeResponse\x12\x8e\x01\n" +
 	"#GetAnomalousTransactionsByDateRange\x122.protos.GetAnomalousTransactionsByDateRangeRequest\x1a3.protos.GetAnomalousTransactionsByDateRangeResponseB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
 
@@ -695,6 +695,7 @@ var file_transaction_analitic_proto_goTypes = []any{
 	(*GetUserSumTransactionsByDateRangeResponse)(nil),      // 11: protos.GetUserSumTransactionsByDateRangeResponse
 	(*timestamppb.Timestamp)(nil),                          // 12: google.protobuf.Timestamp
 	(*TransactionModel)(nil),                               // 13: protos.TransactionModel
+	(*CountResponse)(nil),                                  // 14: protos.CountResponse
 }
 var file_transaction_analitic_proto_depIdxs = []int32{
 	12, // 0: protos.GetSumOfTransactionsByDateRangeRequest.start_date:type_name -> google.protobuf.Timestamp
@@ -718,7 +719,7 @@ var file_transaction_analitic_proto_depIdxs = []int32{
 	8,  // 18: protos.TransactionAnalyticService.GetAnomalousTransactionsByDateRange:input_type -> protos.GetAnomalousTransactionsByDateRangeRequest
 	1,  // 19: protos.TransactionAnalyticService.GetSumOfTransactionsByDateRange:output_type -> protos.GetSumOfTransactionsByDateRangeResponse
 	3,  // 20: protos.TransactionAnalyticService.GetAverageOfTransactionsByDateRange:output_type -> protos.GetAverageOfTransactionsByDateRangeResponse
-	5,  // 21: protos.TransactionAnalyticService.GetCountOfTransactionsByDateRange:output_type -> protos.GetCountOfTransactionsByDateRangeResponse
+	14, // 21: protos.TransactionAnalyticService.GetCountOfTransactionsByDateRange:output_type -> protos.CountResponse
 	7,  // 22: protos.TransactionAnalyticService.GetMostFrequentTransactionsByDateRange:output_type -> protos.GetMostFrequentTransactionsByDateRangeResponse
 	9,  // 23: protos.TransactionAnalyticService.GetAnomalousTransactionsByDateRange:output_type -> protos.GetAnomalousTransactionsByDateRangeResponse
 	19, // [19:24] is the sub-list for method output_type
@@ -734,6 +735,7 @@ func file_transaction_analitic_proto_init() {
 		return
 	}
 	file_transaction_proto_init()
+	file_custom_types_proto_init()
 	file_transaction_analitic_proto_msgTypes[0].OneofWrappers = []any{}
 	file_transaction_analitic_proto_msgTypes[2].OneofWrappers = []any{}
 	file_transaction_analitic_proto_msgTypes[4].OneofWrappers = []any{}

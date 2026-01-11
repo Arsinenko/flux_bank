@@ -183,6 +183,26 @@ func (mr *MockFeeTypeServiceClientMockRecorder) GetByIds(ctx, in any, opts ...an
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetByIds", reflect.TypeOf((*MockFeeTypeServiceClient)(nil).GetByIds), varargs...)
 }
 
+// GetCount mocks base method.
+func (m *MockFeeTypeServiceClient) GetCount(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*protos.CountResponse, error) {
+	m.ctrl.T.Helper()
+	varargs := []any{ctx, in}
+	for _, a := range opts {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "GetCount", varargs...)
+	ret0, _ := ret[0].(*protos.CountResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetCount indicates an expected call of GetCount.
+func (mr *MockFeeTypeServiceClientMockRecorder) GetCount(ctx, in any, opts ...any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]any{ctx, in}, opts...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetCount", reflect.TypeOf((*MockFeeTypeServiceClient)(nil).GetCount), varargs...)
+}
+
 // Update mocks base method.
 func (m *MockFeeTypeServiceClient) Update(ctx context.Context, in *protos.UpdateFeeTypeRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	m.ctrl.T.Helper()

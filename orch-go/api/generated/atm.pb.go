@@ -708,7 +708,7 @@ const file_atm_proto_rawDesc = "" +
 	"\x14UpdateAtmBulkRequest\x12,\n" +
 	"\x04atms\x18\x01 \x03(\v2\x18.protos.UpdateAtmRequestR\x04atms\"D\n" +
 	"\x14DeleteAtmBulkRequest\x12,\n" +
-	"\x04atms\x18\x01 \x03(\v2\x18.protos.DeleteAtmRequestR\x04atms2\xa4\x06\n" +
+	"\x04atms\x18\x01 \x03(\v2\x18.protos.DeleteAtmRequestR\x04atms2\xdf\x06\n" +
 	"\n" +
 	"AtmService\x12;\n" +
 	"\x06GetAll\x12\x15.protos.GetAllRequest\x1a\x1a.protos.GetAllAtmsResponse\x126\n" +
@@ -724,7 +724,8 @@ const file_atm_proto_rawDesc = "" +
 	"\n" +
 	"UpdateBulk\x12\x1c.protos.UpdateAtmBulkRequest\x1a\x16.google.protobuf.Empty\x12B\n" +
 	"\n" +
-	"DeleteBulk\x12\x1c.protos.DeleteAtmBulkRequest\x1a\x16.google.protobuf.EmptyB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
+	"DeleteBulk\x12\x1c.protos.DeleteAtmBulkRequest\x1a\x16.google.protobuf.Empty\x129\n" +
+	"\bGetCount\x12\x16.google.protobuf.Empty\x1a\x15.protos.CountResponseB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
 
 var (
 	file_atm_proto_rawDescOnce sync.Once
@@ -755,6 +756,7 @@ var file_atm_proto_goTypes = []any{
 	(*DeleteAtmBulkRequest)(nil),           // 12: protos.DeleteAtmBulkRequest
 	(*GetAllRequest)(nil),                  // 13: protos.GetAllRequest
 	(*emptypb.Empty)(nil),                  // 14: google.protobuf.Empty
+	(*CountResponse)(nil),                  // 15: protos.CountResponse
 }
 var file_atm_proto_depIdxs = []int32{
 	0,  // 0: protos.GetAllAtmsResponse.atms:type_name -> protos.AtmModel
@@ -773,20 +775,22 @@ var file_atm_proto_depIdxs = []int32{
 	10, // 13: protos.AtmService.AddBulk:input_type -> protos.AddAtmBulkRequest
 	11, // 14: protos.AtmService.UpdateBulk:input_type -> protos.UpdateAtmBulkRequest
 	12, // 15: protos.AtmService.DeleteBulk:input_type -> protos.DeleteAtmBulkRequest
-	4,  // 16: protos.AtmService.GetAll:output_type -> protos.GetAllAtmsResponse
-	0,  // 17: protos.AtmService.GetById:output_type -> protos.AtmModel
-	4,  // 18: protos.AtmService.GetByIds:output_type -> protos.GetAllAtmsResponse
-	4,  // 19: protos.AtmService.GetByStatus:output_type -> protos.GetAllAtmsResponse
-	4,  // 20: protos.AtmService.GetByLocationSubStr:output_type -> protos.GetAllAtmsResponse
-	4,  // 21: protos.AtmService.GetByBranch:output_type -> protos.GetAllAtmsResponse
-	0,  // 22: protos.AtmService.Add:output_type -> protos.AtmModel
-	14, // 23: protos.AtmService.Update:output_type -> google.protobuf.Empty
-	14, // 24: protos.AtmService.Delete:output_type -> google.protobuf.Empty
-	14, // 25: protos.AtmService.AddBulk:output_type -> google.protobuf.Empty
-	14, // 26: protos.AtmService.UpdateBulk:output_type -> google.protobuf.Empty
-	14, // 27: protos.AtmService.DeleteBulk:output_type -> google.protobuf.Empty
-	16, // [16:28] is the sub-list for method output_type
-	4,  // [4:16] is the sub-list for method input_type
+	14, // 16: protos.AtmService.GetCount:input_type -> google.protobuf.Empty
+	4,  // 17: protos.AtmService.GetAll:output_type -> protos.GetAllAtmsResponse
+	0,  // 18: protos.AtmService.GetById:output_type -> protos.AtmModel
+	4,  // 19: protos.AtmService.GetByIds:output_type -> protos.GetAllAtmsResponse
+	4,  // 20: protos.AtmService.GetByStatus:output_type -> protos.GetAllAtmsResponse
+	4,  // 21: protos.AtmService.GetByLocationSubStr:output_type -> protos.GetAllAtmsResponse
+	4,  // 22: protos.AtmService.GetByBranch:output_type -> protos.GetAllAtmsResponse
+	0,  // 23: protos.AtmService.Add:output_type -> protos.AtmModel
+	14, // 24: protos.AtmService.Update:output_type -> google.protobuf.Empty
+	14, // 25: protos.AtmService.Delete:output_type -> google.protobuf.Empty
+	14, // 26: protos.AtmService.AddBulk:output_type -> google.protobuf.Empty
+	14, // 27: protos.AtmService.UpdateBulk:output_type -> google.protobuf.Empty
+	14, // 28: protos.AtmService.DeleteBulk:output_type -> google.protobuf.Empty
+	15, // 29: protos.AtmService.GetCount:output_type -> protos.CountResponse
+	17, // [17:30] is the sub-list for method output_type
+	4,  // [4:17] is the sub-list for method input_type
 	4,  // [4:4] is the sub-list for extension type_name
 	4,  // [4:4] is the sub-list for extension extendee
 	0,  // [0:4] is the sub-list for field type_name

@@ -271,7 +271,7 @@ var File_customer_analytic_proto protoreflect.FileDescriptor
 
 const file_customer_analytic_proto_rawDesc = "" +
 	"\n" +
-	"\x17customer_analytic.proto\x12\x06protos\x1a\x0ecustomer.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1bgoogle/protobuf/empty.proto\"e\n" +
+	"\x17customer_analytic.proto\x12\x06protos\x1a\x0ecustomer.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x12custom_types.proto\"e\n" +
 	"!GetCustomersByBalanceRangeRequest\x12\x1f\n" +
 	"\vmin_balance\x18\x01 \x01(\tR\n" +
 	"minBalance\x12\x1f\n" +
@@ -288,13 +288,16 @@ const file_customer_analytic_proto_rawDesc = "" +
 	"customerId\x127\n" +
 	"\tlife_time\x18\x02 \x01(\v2\x1a.google.protobuf.TimestampR\blifeTime\"q\n" +
 	"\x1cGetCustomersLifeTimeResponse\x12Q\n" +
-	"\x12customer_life_time\x18\x01 \x03(\v2#.protos.GetCustomerLifeTimeResponseR\x10customerLifeTime2\x8d\x04\n" +
+	"\x12customer_life_time\x18\x01 \x03(\v2#.protos.GetCustomerLifeTimeResponseR\x10customerLifeTime2\xa9\x06\n" +
 	"\x17CustomerAnalyticService\x12h\n" +
 	"\x1aGetCustomersByBalanceRange\x12).protos.GetCustomersByBalanceRangeRequest\x1a\x1f.protos.GetAllCustomersResponse\x12\x80\x01\n" +
 	"&GetCustomersByTransactionQuantityRange\x125.protos.GetCustomersByTransactionQuantityRangeRequest\x1a\x1f.protos.GetAllCustomersResponse\x12^\n" +
 	"\x13GetCustomerLifeTime\x12\".protos.GetCustomerLifeTimeRequest\x1a#.protos.GetCustomerLifeTimeResponse\x12T\n" +
 	"\x14GetCustomersLifeTime\x12\x16.google.protobuf.Empty\x1a$.protos.GetCustomersLifeTimeResponse\x12O\n" +
-	"\x14GetInactiveCustomers\x12\x16.google.protobuf.Empty\x1a\x1f.protos.GetAllCustomersResponseB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
+	"\x14GetInactiveCustomers\x12\x16.google.protobuf.Empty\x1a\x1f.protos.GetAllCustomersResponse\x12Z\n" +
+	"\x16GetCountByBalanceRange\x12).protos.GetCustomersByBalanceRangeRequest\x1a\x15.protos.CountResponse\x12r\n" +
+	"\"GetCountByTransactionQuantityRange\x125.protos.GetCustomersByTransactionQuantityRangeRequest\x1a\x15.protos.CountResponse\x12J\n" +
+	"\x19GetCountInactiveCustomers\x12\x16.google.protobuf.Empty\x1a\x15.protos.CountResponseB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
 
 var (
 	file_customer_analytic_proto_rawDescOnce sync.Once
@@ -318,25 +321,32 @@ var file_customer_analytic_proto_goTypes = []any{
 	(*timestamppb.Timestamp)(nil),                         // 5: google.protobuf.Timestamp
 	(*emptypb.Empty)(nil),                                 // 6: google.protobuf.Empty
 	(*GetAllCustomersResponse)(nil),                       // 7: protos.GetAllCustomersResponse
+	(*CountResponse)(nil),                                 // 8: protos.CountResponse
 }
 var file_customer_analytic_proto_depIdxs = []int32{
-	5, // 0: protos.GetCustomerLifeTimeResponse.life_time:type_name -> google.protobuf.Timestamp
-	3, // 1: protos.GetCustomersLifeTimeResponse.customer_life_time:type_name -> protos.GetCustomerLifeTimeResponse
-	0, // 2: protos.CustomerAnalyticService.GetCustomersByBalanceRange:input_type -> protos.GetCustomersByBalanceRangeRequest
-	1, // 3: protos.CustomerAnalyticService.GetCustomersByTransactionQuantityRange:input_type -> protos.GetCustomersByTransactionQuantityRangeRequest
-	2, // 4: protos.CustomerAnalyticService.GetCustomerLifeTime:input_type -> protos.GetCustomerLifeTimeRequest
-	6, // 5: protos.CustomerAnalyticService.GetCustomersLifeTime:input_type -> google.protobuf.Empty
-	6, // 6: protos.CustomerAnalyticService.GetInactiveCustomers:input_type -> google.protobuf.Empty
-	7, // 7: protos.CustomerAnalyticService.GetCustomersByBalanceRange:output_type -> protos.GetAllCustomersResponse
-	7, // 8: protos.CustomerAnalyticService.GetCustomersByTransactionQuantityRange:output_type -> protos.GetAllCustomersResponse
-	3, // 9: protos.CustomerAnalyticService.GetCustomerLifeTime:output_type -> protos.GetCustomerLifeTimeResponse
-	4, // 10: protos.CustomerAnalyticService.GetCustomersLifeTime:output_type -> protos.GetCustomersLifeTimeResponse
-	7, // 11: protos.CustomerAnalyticService.GetInactiveCustomers:output_type -> protos.GetAllCustomersResponse
-	7, // [7:12] is the sub-list for method output_type
-	2, // [2:7] is the sub-list for method input_type
-	2, // [2:2] is the sub-list for extension type_name
-	2, // [2:2] is the sub-list for extension extendee
-	0, // [0:2] is the sub-list for field type_name
+	5,  // 0: protos.GetCustomerLifeTimeResponse.life_time:type_name -> google.protobuf.Timestamp
+	3,  // 1: protos.GetCustomersLifeTimeResponse.customer_life_time:type_name -> protos.GetCustomerLifeTimeResponse
+	0,  // 2: protos.CustomerAnalyticService.GetCustomersByBalanceRange:input_type -> protos.GetCustomersByBalanceRangeRequest
+	1,  // 3: protos.CustomerAnalyticService.GetCustomersByTransactionQuantityRange:input_type -> protos.GetCustomersByTransactionQuantityRangeRequest
+	2,  // 4: protos.CustomerAnalyticService.GetCustomerLifeTime:input_type -> protos.GetCustomerLifeTimeRequest
+	6,  // 5: protos.CustomerAnalyticService.GetCustomersLifeTime:input_type -> google.protobuf.Empty
+	6,  // 6: protos.CustomerAnalyticService.GetInactiveCustomers:input_type -> google.protobuf.Empty
+	0,  // 7: protos.CustomerAnalyticService.GetCountByBalanceRange:input_type -> protos.GetCustomersByBalanceRangeRequest
+	1,  // 8: protos.CustomerAnalyticService.GetCountByTransactionQuantityRange:input_type -> protos.GetCustomersByTransactionQuantityRangeRequest
+	6,  // 9: protos.CustomerAnalyticService.GetCountInactiveCustomers:input_type -> google.protobuf.Empty
+	7,  // 10: protos.CustomerAnalyticService.GetCustomersByBalanceRange:output_type -> protos.GetAllCustomersResponse
+	7,  // 11: protos.CustomerAnalyticService.GetCustomersByTransactionQuantityRange:output_type -> protos.GetAllCustomersResponse
+	3,  // 12: protos.CustomerAnalyticService.GetCustomerLifeTime:output_type -> protos.GetCustomerLifeTimeResponse
+	4,  // 13: protos.CustomerAnalyticService.GetCustomersLifeTime:output_type -> protos.GetCustomersLifeTimeResponse
+	7,  // 14: protos.CustomerAnalyticService.GetInactiveCustomers:output_type -> protos.GetAllCustomersResponse
+	8,  // 15: protos.CustomerAnalyticService.GetCountByBalanceRange:output_type -> protos.CountResponse
+	8,  // 16: protos.CustomerAnalyticService.GetCountByTransactionQuantityRange:output_type -> protos.CountResponse
+	8,  // 17: protos.CustomerAnalyticService.GetCountInactiveCustomers:output_type -> protos.CountResponse
+	10, // [10:18] is the sub-list for method output_type
+	2,  // [2:10] is the sub-list for method input_type
+	2,  // [2:2] is the sub-list for extension type_name
+	2,  // [2:2] is the sub-list for extension extendee
+	0,  // [0:2] is the sub-list for field type_name
 }
 
 func init() { file_customer_analytic_proto_init() }
@@ -345,6 +355,7 @@ func file_customer_analytic_proto_init() {
 		return
 	}
 	file_customer_proto_init()
+	file_custom_types_proto_init()
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{

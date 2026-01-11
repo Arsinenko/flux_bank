@@ -29,6 +29,7 @@ const (
 	TransactionCategoryService_AddBulk_FullMethodName    = "/protos.TransactionCategoryService/AddBulk"
 	TransactionCategoryService_UpdateBulk_FullMethodName = "/protos.TransactionCategoryService/UpdateBulk"
 	TransactionCategoryService_DeleteBulk_FullMethodName = "/protos.TransactionCategoryService/DeleteBulk"
+	TransactionCategoryService_GetCount_FullMethodName   = "/protos.TransactionCategoryService/GetCount"
 )
 
 // TransactionCategoryServiceClient is the client API for TransactionCategoryService service.
@@ -44,6 +45,7 @@ type TransactionCategoryServiceClient interface {
 	AddBulk(ctx context.Context, in *AddTransactionCategoryBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	UpdateBulk(ctx context.Context, in *UpdateTransactionCategoryBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	DeleteBulk(ctx context.Context, in *DeleteTransactionCategoryBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	GetCount(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*CountResponse, error)
 }
 
 type transactionCategoryServiceClient struct {
@@ -144,6 +146,16 @@ func (c *transactionCategoryServiceClient) DeleteBulk(ctx context.Context, in *D
 	return out, nil
 }
 
+func (c *transactionCategoryServiceClient) GetCount(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*CountResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CountResponse)
+	err := c.cc.Invoke(ctx, TransactionCategoryService_GetCount_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TransactionCategoryServiceServer is the server API for TransactionCategoryService service.
 // All implementations must embed UnimplementedTransactionCategoryServiceServer
 // for forward compatibility.
@@ -157,6 +169,7 @@ type TransactionCategoryServiceServer interface {
 	AddBulk(context.Context, *AddTransactionCategoryBulkRequest) (*emptypb.Empty, error)
 	UpdateBulk(context.Context, *UpdateTransactionCategoryBulkRequest) (*emptypb.Empty, error)
 	DeleteBulk(context.Context, *DeleteTransactionCategoryBulkRequest) (*emptypb.Empty, error)
+	GetCount(context.Context, *emptypb.Empty) (*CountResponse, error)
 	mustEmbedUnimplementedTransactionCategoryServiceServer()
 }
 
@@ -193,6 +206,9 @@ func (UnimplementedTransactionCategoryServiceServer) UpdateBulk(context.Context,
 }
 func (UnimplementedTransactionCategoryServiceServer) DeleteBulk(context.Context, *DeleteTransactionCategoryBulkRequest) (*emptypb.Empty, error) {
 	return nil, status.Error(codes.Unimplemented, "method DeleteBulk not implemented")
+}
+func (UnimplementedTransactionCategoryServiceServer) GetCount(context.Context, *emptypb.Empty) (*CountResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetCount not implemented")
 }
 func (UnimplementedTransactionCategoryServiceServer) mustEmbedUnimplementedTransactionCategoryServiceServer() {
 }
@@ -378,6 +394,24 @@ func _TransactionCategoryService_DeleteBulk_Handler(srv interface{}, ctx context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TransactionCategoryService_GetCount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(emptypb.Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionCategoryServiceServer).GetCount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TransactionCategoryService_GetCount_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionCategoryServiceServer).GetCount(ctx, req.(*emptypb.Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // TransactionCategoryService_ServiceDesc is the grpc.ServiceDesc for TransactionCategoryService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -420,6 +454,10 @@ var TransactionCategoryService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteBulk",
 			Handler:    _TransactionCategoryService_DeleteBulk_Handler,
+		},
+		{
+			MethodName: "GetCount",
+			Handler:    _TransactionCategoryService_GetCount_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

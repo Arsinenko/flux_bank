@@ -30,6 +30,7 @@ const (
 	ExchangeRateService_AddBulk_FullMethodName           = "/protos.ExchangeRateService/AddBulk"
 	ExchangeRateService_UpdateBulk_FullMethodName        = "/protos.ExchangeRateService/UpdateBulk"
 	ExchangeRateService_DeleteBulk_FullMethodName        = "/protos.ExchangeRateService/DeleteBulk"
+	ExchangeRateService_GetCount_FullMethodName          = "/protos.ExchangeRateService/GetCount"
 )
 
 // ExchangeRateServiceClient is the client API for ExchangeRateService service.
@@ -46,6 +47,7 @@ type ExchangeRateServiceClient interface {
 	AddBulk(ctx context.Context, in *AddExchangeRateBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	UpdateBulk(ctx context.Context, in *UpdateExchangeRateBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	DeleteBulk(ctx context.Context, in *DeleteExchangeRateBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	GetCount(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*CountResponse, error)
 }
 
 type exchangeRateServiceClient struct {
@@ -156,6 +158,16 @@ func (c *exchangeRateServiceClient) DeleteBulk(ctx context.Context, in *DeleteEx
 	return out, nil
 }
 
+func (c *exchangeRateServiceClient) GetCount(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*CountResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CountResponse)
+	err := c.cc.Invoke(ctx, ExchangeRateService_GetCount_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ExchangeRateServiceServer is the server API for ExchangeRateService service.
 // All implementations must embed UnimplementedExchangeRateServiceServer
 // for forward compatibility.
@@ -170,6 +182,7 @@ type ExchangeRateServiceServer interface {
 	AddBulk(context.Context, *AddExchangeRateBulkRequest) (*emptypb.Empty, error)
 	UpdateBulk(context.Context, *UpdateExchangeRateBulkRequest) (*emptypb.Empty, error)
 	DeleteBulk(context.Context, *DeleteExchangeRateBulkRequest) (*emptypb.Empty, error)
+	GetCount(context.Context, *emptypb.Empty) (*CountResponse, error)
 	mustEmbedUnimplementedExchangeRateServiceServer()
 }
 
@@ -209,6 +222,9 @@ func (UnimplementedExchangeRateServiceServer) UpdateBulk(context.Context, *Updat
 }
 func (UnimplementedExchangeRateServiceServer) DeleteBulk(context.Context, *DeleteExchangeRateBulkRequest) (*emptypb.Empty, error) {
 	return nil, status.Error(codes.Unimplemented, "method DeleteBulk not implemented")
+}
+func (UnimplementedExchangeRateServiceServer) GetCount(context.Context, *emptypb.Empty) (*CountResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetCount not implemented")
 }
 func (UnimplementedExchangeRateServiceServer) mustEmbedUnimplementedExchangeRateServiceServer() {}
 func (UnimplementedExchangeRateServiceServer) testEmbeddedByValue()                             {}
@@ -411,6 +427,24 @@ func _ExchangeRateService_DeleteBulk_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ExchangeRateService_GetCount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(emptypb.Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ExchangeRateServiceServer).GetCount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ExchangeRateService_GetCount_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ExchangeRateServiceServer).GetCount(ctx, req.(*emptypb.Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ExchangeRateService_ServiceDesc is the grpc.ServiceDesc for ExchangeRateService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -457,6 +491,10 @@ var ExchangeRateService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteBulk",
 			Handler:    _ExchangeRateService_DeleteBulk_Handler,
+		},
+		{
+			MethodName: "GetCount",
+			Handler:    _ExchangeRateService_GetCount_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

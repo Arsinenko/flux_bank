@@ -29,6 +29,7 @@ const (
 	FeeTypeService_AddBulk_FullMethodName    = "/protos.FeeTypeService/AddBulk"
 	FeeTypeService_UpdateBulk_FullMethodName = "/protos.FeeTypeService/UpdateBulk"
 	FeeTypeService_DeleteBulk_FullMethodName = "/protos.FeeTypeService/DeleteBulk"
+	FeeTypeService_GetCount_FullMethodName   = "/protos.FeeTypeService/GetCount"
 )
 
 // FeeTypeServiceClient is the client API for FeeTypeService service.
@@ -44,6 +45,7 @@ type FeeTypeServiceClient interface {
 	AddBulk(ctx context.Context, in *AddFeeTypeBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	UpdateBulk(ctx context.Context, in *UpdateFeeTypeBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	DeleteBulk(ctx context.Context, in *DeleteFeeTypeBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	GetCount(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*CountResponse, error)
 }
 
 type feeTypeServiceClient struct {
@@ -144,6 +146,16 @@ func (c *feeTypeServiceClient) DeleteBulk(ctx context.Context, in *DeleteFeeType
 	return out, nil
 }
 
+func (c *feeTypeServiceClient) GetCount(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*CountResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CountResponse)
+	err := c.cc.Invoke(ctx, FeeTypeService_GetCount_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // FeeTypeServiceServer is the server API for FeeTypeService service.
 // All implementations must embed UnimplementedFeeTypeServiceServer
 // for forward compatibility.
@@ -157,6 +169,7 @@ type FeeTypeServiceServer interface {
 	AddBulk(context.Context, *AddFeeTypeBulkRequest) (*emptypb.Empty, error)
 	UpdateBulk(context.Context, *UpdateFeeTypeBulkRequest) (*emptypb.Empty, error)
 	DeleteBulk(context.Context, *DeleteFeeTypeBulkRequest) (*emptypb.Empty, error)
+	GetCount(context.Context, *emptypb.Empty) (*CountResponse, error)
 	mustEmbedUnimplementedFeeTypeServiceServer()
 }
 
@@ -193,6 +206,9 @@ func (UnimplementedFeeTypeServiceServer) UpdateBulk(context.Context, *UpdateFeeT
 }
 func (UnimplementedFeeTypeServiceServer) DeleteBulk(context.Context, *DeleteFeeTypeBulkRequest) (*emptypb.Empty, error) {
 	return nil, status.Error(codes.Unimplemented, "method DeleteBulk not implemented")
+}
+func (UnimplementedFeeTypeServiceServer) GetCount(context.Context, *emptypb.Empty) (*CountResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetCount not implemented")
 }
 func (UnimplementedFeeTypeServiceServer) mustEmbedUnimplementedFeeTypeServiceServer() {}
 func (UnimplementedFeeTypeServiceServer) testEmbeddedByValue()                        {}
@@ -377,6 +393,24 @@ func _FeeTypeService_DeleteBulk_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
+func _FeeTypeService_GetCount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(emptypb.Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FeeTypeServiceServer).GetCount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: FeeTypeService_GetCount_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FeeTypeServiceServer).GetCount(ctx, req.(*emptypb.Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // FeeTypeService_ServiceDesc is the grpc.ServiceDesc for FeeTypeService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -419,6 +453,10 @@ var FeeTypeService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteBulk",
 			Handler:    _FeeTypeService_DeleteBulk_Handler,
+		},
+		{
+			MethodName: "GetCount",
+			Handler:    _FeeTypeService_GetCount_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

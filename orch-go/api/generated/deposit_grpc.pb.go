@@ -30,6 +30,7 @@ const (
 	DepositService_AddBulk_FullMethodName       = "/protos.DepositService/AddBulk"
 	DepositService_UpdateBulk_FullMethodName    = "/protos.DepositService/UpdateBulk"
 	DepositService_DeleteBulk_FullMethodName    = "/protos.DepositService/DeleteBulk"
+	DepositService_GetCount_FullMethodName      = "/protos.DepositService/GetCount"
 )
 
 // DepositServiceClient is the client API for DepositService service.
@@ -46,6 +47,7 @@ type DepositServiceClient interface {
 	AddBulk(ctx context.Context, in *AddDepositBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	UpdateBulk(ctx context.Context, in *UpdateDepositBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	DeleteBulk(ctx context.Context, in *DeleteDepositBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	GetCount(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*CountResponse, error)
 }
 
 type depositServiceClient struct {
@@ -156,6 +158,16 @@ func (c *depositServiceClient) DeleteBulk(ctx context.Context, in *DeleteDeposit
 	return out, nil
 }
 
+func (c *depositServiceClient) GetCount(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*CountResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CountResponse)
+	err := c.cc.Invoke(ctx, DepositService_GetCount_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // DepositServiceServer is the server API for DepositService service.
 // All implementations must embed UnimplementedDepositServiceServer
 // for forward compatibility.
@@ -170,6 +182,7 @@ type DepositServiceServer interface {
 	AddBulk(context.Context, *AddDepositBulkRequest) (*emptypb.Empty, error)
 	UpdateBulk(context.Context, *UpdateDepositBulkRequest) (*emptypb.Empty, error)
 	DeleteBulk(context.Context, *DeleteDepositBulkRequest) (*emptypb.Empty, error)
+	GetCount(context.Context, *emptypb.Empty) (*CountResponse, error)
 	mustEmbedUnimplementedDepositServiceServer()
 }
 
@@ -209,6 +222,9 @@ func (UnimplementedDepositServiceServer) UpdateBulk(context.Context, *UpdateDepo
 }
 func (UnimplementedDepositServiceServer) DeleteBulk(context.Context, *DeleteDepositBulkRequest) (*emptypb.Empty, error) {
 	return nil, status.Error(codes.Unimplemented, "method DeleteBulk not implemented")
+}
+func (UnimplementedDepositServiceServer) GetCount(context.Context, *emptypb.Empty) (*CountResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetCount not implemented")
 }
 func (UnimplementedDepositServiceServer) mustEmbedUnimplementedDepositServiceServer() {}
 func (UnimplementedDepositServiceServer) testEmbeddedByValue()                        {}
@@ -411,6 +427,24 @@ func _DepositService_DeleteBulk_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DepositService_GetCount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(emptypb.Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DepositServiceServer).GetCount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DepositService_GetCount_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DepositServiceServer).GetCount(ctx, req.(*emptypb.Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // DepositService_ServiceDesc is the grpc.ServiceDesc for DepositService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -457,6 +491,10 @@ var DepositService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteBulk",
 			Handler:    _DepositService_DeleteBulk_Handler,
+		},
+		{
+			MethodName: "GetCount",
+			Handler:    _DepositService_GetCount_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

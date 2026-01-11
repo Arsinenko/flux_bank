@@ -747,7 +747,7 @@ const file_transaction_proto_rawDesc = "" +
 	"\x1cUpdateTransactionBulkRequest\x12D\n" +
 	"\ftransactions\x18\x01 \x03(\v2 .protos.UpdateTransactionRequestR\ftransactions\"d\n" +
 	"\x1cDeleteTransactionBulkRequest\x12D\n" +
-	"\ftransactions\x18\x01 \x03(\v2 .protos.DeleteTransactionRequestR\ftransactions2\xa8\a\n" +
+	"\ftransactions\x18\x01 \x03(\v2 .protos.DeleteTransactionRequestR\ftransactions2\xd8\t\n" +
 	"\x12TransactionService\x12C\n" +
 	"\x06GetAll\x12\x15.protos.GetAllRequest\x1a\".protos.GetAllTransactionsResponse\x12F\n" +
 	"\aGetById\x12!.protos.GetTransactionByIdRequest\x1a\x18.protos.TransactionModel\x12R\n" +
@@ -762,7 +762,11 @@ const file_transaction_proto_rawDesc = "" +
 	"\n" +
 	"UpdateBulk\x12$.protos.UpdateTransactionBulkRequest\x1a\x16.google.protobuf.Empty\x12J\n" +
 	"\n" +
-	"DeleteBulk\x12$.protos.DeleteTransactionBulkRequest\x1a\x16.google.protobuf.EmptyB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
+	"DeleteBulk\x12$.protos.DeleteTransactionBulkRequest\x1a\x16.google.protobuf.Empty\x129\n" +
+	"\bGetCount\x12\x16.google.protobuf.Empty\x1a\x15.protos.CountResponse\x12K\n" +
+	"\x13GetCountByDateRange\x12\x1d.protos.GetByDateRangeRequest\x1a\x15.protos.CountResponse\x12Q\n" +
+	"\x16GetCountAccountRevenue\x12 .protos.GetAccountRevenueRequest\x1a\x15.protos.CountResponse\x12S\n" +
+	"\x17GetCountAccountExpenses\x12!.protos.GetAccountExpensesRequest\x1a\x15.protos.CountResponseB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
 
 var (
 	file_transaction_proto_rawDescOnce sync.Once
@@ -794,6 +798,7 @@ var file_transaction_proto_goTypes = []any{
 	(*GetByDateRangeRequest)(nil),        // 13: protos.GetByDateRangeRequest
 	(*GetAllRequest)(nil),                // 14: protos.GetAllRequest
 	(*emptypb.Empty)(nil),                // 15: google.protobuf.Empty
+	(*CountResponse)(nil),                // 16: protos.CountResponse
 }
 var file_transaction_proto_depIdxs = []int32{
 	12, // 0: protos.TransactionModel.created_at:type_name -> google.protobuf.Timestamp
@@ -815,20 +820,28 @@ var file_transaction_proto_depIdxs = []int32{
 	9,  // 16: protos.TransactionService.AddBulk:input_type -> protos.AddTransactionBulkRequest
 	10, // 17: protos.TransactionService.UpdateBulk:input_type -> protos.UpdateTransactionBulkRequest
 	11, // 18: protos.TransactionService.DeleteBulk:input_type -> protos.DeleteTransactionBulkRequest
-	1,  // 19: protos.TransactionService.GetAll:output_type -> protos.GetAllTransactionsResponse
-	0,  // 20: protos.TransactionService.GetById:output_type -> protos.TransactionModel
-	1,  // 21: protos.TransactionService.GetByIds:output_type -> protos.GetAllTransactionsResponse
-	1,  // 22: protos.TransactionService.GetByDateRange:output_type -> protos.GetAllTransactionsResponse
-	1,  // 23: protos.TransactionService.GetAccountRevenue:output_type -> protos.GetAllTransactionsResponse
-	1,  // 24: protos.TransactionService.GetAccountExpenses:output_type -> protos.GetAllTransactionsResponse
-	0,  // 25: protos.TransactionService.Add:output_type -> protos.TransactionModel
-	15, // 26: protos.TransactionService.Update:output_type -> google.protobuf.Empty
-	15, // 27: protos.TransactionService.Delete:output_type -> google.protobuf.Empty
-	15, // 28: protos.TransactionService.AddBulk:output_type -> google.protobuf.Empty
-	15, // 29: protos.TransactionService.UpdateBulk:output_type -> google.protobuf.Empty
-	15, // 30: protos.TransactionService.DeleteBulk:output_type -> google.protobuf.Empty
-	19, // [19:31] is the sub-list for method output_type
-	7,  // [7:19] is the sub-list for method input_type
+	15, // 19: protos.TransactionService.GetCount:input_type -> google.protobuf.Empty
+	13, // 20: protos.TransactionService.GetCountByDateRange:input_type -> protos.GetByDateRangeRequest
+	4,  // 21: protos.TransactionService.GetCountAccountRevenue:input_type -> protos.GetAccountRevenueRequest
+	5,  // 22: protos.TransactionService.GetCountAccountExpenses:input_type -> protos.GetAccountExpensesRequest
+	1,  // 23: protos.TransactionService.GetAll:output_type -> protos.GetAllTransactionsResponse
+	0,  // 24: protos.TransactionService.GetById:output_type -> protos.TransactionModel
+	1,  // 25: protos.TransactionService.GetByIds:output_type -> protos.GetAllTransactionsResponse
+	1,  // 26: protos.TransactionService.GetByDateRange:output_type -> protos.GetAllTransactionsResponse
+	1,  // 27: protos.TransactionService.GetAccountRevenue:output_type -> protos.GetAllTransactionsResponse
+	1,  // 28: protos.TransactionService.GetAccountExpenses:output_type -> protos.GetAllTransactionsResponse
+	0,  // 29: protos.TransactionService.Add:output_type -> protos.TransactionModel
+	15, // 30: protos.TransactionService.Update:output_type -> google.protobuf.Empty
+	15, // 31: protos.TransactionService.Delete:output_type -> google.protobuf.Empty
+	15, // 32: protos.TransactionService.AddBulk:output_type -> google.protobuf.Empty
+	15, // 33: protos.TransactionService.UpdateBulk:output_type -> google.protobuf.Empty
+	15, // 34: protos.TransactionService.DeleteBulk:output_type -> google.protobuf.Empty
+	16, // 35: protos.TransactionService.GetCount:output_type -> protos.CountResponse
+	16, // 36: protos.TransactionService.GetCountByDateRange:output_type -> protos.CountResponse
+	16, // 37: protos.TransactionService.GetCountAccountRevenue:output_type -> protos.CountResponse
+	16, // 38: protos.TransactionService.GetCountAccountExpenses:output_type -> protos.CountResponse
+	23, // [23:39] is the sub-list for method output_type
+	7,  // [7:23] is the sub-list for method input_type
 	7,  // [7:7] is the sub-list for extension type_name
 	7,  // [7:7] is the sub-list for extension extendee
 	0,  // [0:7] is the sub-list for field type_name

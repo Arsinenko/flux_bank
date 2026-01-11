@@ -298,6 +298,50 @@ func (x *AddPaymentTemplateRequest) GetDefaultAmount() string {
 	return ""
 }
 
+type AddPaymentTemplateBulkRequest struct {
+	state         protoimpl.MessageState       `protogen:"open.v1"`
+	Templates     []*AddPaymentTemplateRequest `protobuf:"bytes,1,rep,name=templates,proto3" json:"templates,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AddPaymentTemplateBulkRequest) Reset() {
+	*x = AddPaymentTemplateBulkRequest{}
+	mi := &file_payment_template_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AddPaymentTemplateBulkRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AddPaymentTemplateBulkRequest) ProtoMessage() {}
+
+func (x *AddPaymentTemplateBulkRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_payment_template_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AddPaymentTemplateBulkRequest.ProtoReflect.Descriptor instead.
+func (*AddPaymentTemplateBulkRequest) Descriptor() ([]byte, []int) {
+	return file_payment_template_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *AddPaymentTemplateBulkRequest) GetTemplates() []*AddPaymentTemplateRequest {
+	if x != nil {
+		return x.Templates
+	}
+	return nil
+}
+
 type UpdatePaymentTemplateRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	TemplateId    int32                  `protobuf:"varint,1,opt,name=template_id,json=templateId,proto3" json:"template_id,omitempty"`
@@ -311,7 +355,7 @@ type UpdatePaymentTemplateRequest struct {
 
 func (x *UpdatePaymentTemplateRequest) Reset() {
 	*x = UpdatePaymentTemplateRequest{}
-	mi := &file_payment_template_proto_msgTypes[5]
+	mi := &file_payment_template_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -323,7 +367,7 @@ func (x *UpdatePaymentTemplateRequest) String() string {
 func (*UpdatePaymentTemplateRequest) ProtoMessage() {}
 
 func (x *UpdatePaymentTemplateRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_payment_template_proto_msgTypes[5]
+	mi := &file_payment_template_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -336,7 +380,7 @@ func (x *UpdatePaymentTemplateRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdatePaymentTemplateRequest.ProtoReflect.Descriptor instead.
 func (*UpdatePaymentTemplateRequest) Descriptor() ([]byte, []int) {
-	return file_payment_template_proto_rawDescGZIP(), []int{5}
+	return file_payment_template_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *UpdatePaymentTemplateRequest) GetTemplateId() int32 {
@@ -374,94 +418,6 @@ func (x *UpdatePaymentTemplateRequest) GetDefaultAmount() string {
 	return ""
 }
 
-type DeletePaymentTemplateRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	TemplateId    int32                  `protobuf:"varint,1,opt,name=template_id,json=templateId,proto3" json:"template_id,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *DeletePaymentTemplateRequest) Reset() {
-	*x = DeletePaymentTemplateRequest{}
-	mi := &file_payment_template_proto_msgTypes[6]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *DeletePaymentTemplateRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*DeletePaymentTemplateRequest) ProtoMessage() {}
-
-func (x *DeletePaymentTemplateRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_payment_template_proto_msgTypes[6]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use DeletePaymentTemplateRequest.ProtoReflect.Descriptor instead.
-func (*DeletePaymentTemplateRequest) Descriptor() ([]byte, []int) {
-	return file_payment_template_proto_rawDescGZIP(), []int{6}
-}
-
-func (x *DeletePaymentTemplateRequest) GetTemplateId() int32 {
-	if x != nil {
-		return x.TemplateId
-	}
-	return 0
-}
-
-type AddPaymentTemplateBulkRequest struct {
-	state         protoimpl.MessageState       `protogen:"open.v1"`
-	Templates     []*AddPaymentTemplateRequest `protobuf:"bytes,1,rep,name=templates,proto3" json:"templates,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *AddPaymentTemplateBulkRequest) Reset() {
-	*x = AddPaymentTemplateBulkRequest{}
-	mi := &file_payment_template_proto_msgTypes[7]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *AddPaymentTemplateBulkRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*AddPaymentTemplateBulkRequest) ProtoMessage() {}
-
-func (x *AddPaymentTemplateBulkRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_payment_template_proto_msgTypes[7]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use AddPaymentTemplateBulkRequest.ProtoReflect.Descriptor instead.
-func (*AddPaymentTemplateBulkRequest) Descriptor() ([]byte, []int) {
-	return file_payment_template_proto_rawDescGZIP(), []int{7}
-}
-
-func (x *AddPaymentTemplateBulkRequest) GetTemplates() []*AddPaymentTemplateRequest {
-	if x != nil {
-		return x.Templates
-	}
-	return nil
-}
-
 type UpdatePaymentTemplateBulkRequest struct {
 	state         protoimpl.MessageState          `protogen:"open.v1"`
 	Templates     []*UpdatePaymentTemplateRequest `protobuf:"bytes,1,rep,name=templates,proto3" json:"templates,omitempty"`
@@ -471,7 +427,7 @@ type UpdatePaymentTemplateBulkRequest struct {
 
 func (x *UpdatePaymentTemplateBulkRequest) Reset() {
 	*x = UpdatePaymentTemplateBulkRequest{}
-	mi := &file_payment_template_proto_msgTypes[8]
+	mi := &file_payment_template_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -483,7 +439,7 @@ func (x *UpdatePaymentTemplateBulkRequest) String() string {
 func (*UpdatePaymentTemplateBulkRequest) ProtoMessage() {}
 
 func (x *UpdatePaymentTemplateBulkRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_payment_template_proto_msgTypes[8]
+	mi := &file_payment_template_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -496,7 +452,7 @@ func (x *UpdatePaymentTemplateBulkRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdatePaymentTemplateBulkRequest.ProtoReflect.Descriptor instead.
 func (*UpdatePaymentTemplateBulkRequest) Descriptor() ([]byte, []int) {
-	return file_payment_template_proto_rawDescGZIP(), []int{8}
+	return file_payment_template_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *UpdatePaymentTemplateBulkRequest) GetTemplates() []*UpdatePaymentTemplateRequest {
@@ -504,6 +460,50 @@ func (x *UpdatePaymentTemplateBulkRequest) GetTemplates() []*UpdatePaymentTempla
 		return x.Templates
 	}
 	return nil
+}
+
+type DeletePaymentTemplateRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	TemplateId    int32                  `protobuf:"varint,1,opt,name=template_id,json=templateId,proto3" json:"template_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DeletePaymentTemplateRequest) Reset() {
+	*x = DeletePaymentTemplateRequest{}
+	mi := &file_payment_template_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeletePaymentTemplateRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeletePaymentTemplateRequest) ProtoMessage() {}
+
+func (x *DeletePaymentTemplateRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_payment_template_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeletePaymentTemplateRequest.ProtoReflect.Descriptor instead.
+func (*DeletePaymentTemplateRequest) Descriptor() ([]byte, []int) {
+	return file_payment_template_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *DeletePaymentTemplateRequest) GetTemplateId() int32 {
+	if x != nil {
+		return x.TemplateId
+	}
+	return 0
 }
 
 type DeletePaymentTemplateBulkRequest struct {
@@ -585,7 +585,9 @@ const file_payment_template_proto_rawDesc = "" +
 	"\f_customer_idB\a\n" +
 	"\x05_nameB\x0e\n" +
 	"\f_target_ibanB\x11\n" +
-	"\x0f_default_amount\"\x8c\x02\n" +
+	"\x0f_default_amount\"`\n" +
+	"\x1dAddPaymentTemplateBulkRequest\x12?\n" +
+	"\ttemplates\x18\x01 \x03(\v2!.protos.AddPaymentTemplateRequestR\ttemplates\"\x8c\x02\n" +
 	"\x1cUpdatePaymentTemplateRequest\x12\x1f\n" +
 	"\vtemplate_id\x18\x01 \x01(\x05R\n" +
 	"templateId\x12$\n" +
@@ -598,16 +600,14 @@ const file_payment_template_proto_rawDesc = "" +
 	"\f_customer_idB\a\n" +
 	"\x05_nameB\x0e\n" +
 	"\f_target_ibanB\x11\n" +
-	"\x0f_default_amount\"?\n" +
+	"\x0f_default_amount\"f\n" +
+	" UpdatePaymentTemplateBulkRequest\x12B\n" +
+	"\ttemplates\x18\x01 \x03(\v2$.protos.UpdatePaymentTemplateRequestR\ttemplates\"?\n" +
 	"\x1cDeletePaymentTemplateRequest\x12\x1f\n" +
 	"\vtemplate_id\x18\x01 \x01(\x05R\n" +
-	"templateId\"`\n" +
-	"\x1dAddPaymentTemplateBulkRequest\x12?\n" +
-	"\ttemplates\x18\x01 \x03(\v2!.protos.AddPaymentTemplateRequestR\ttemplates\"f\n" +
-	" UpdatePaymentTemplateBulkRequest\x12B\n" +
-	"\ttemplates\x18\x01 \x03(\v2$.protos.UpdatePaymentTemplateRequestR\ttemplates\"f\n" +
+	"templateId\"f\n" +
 	" DeletePaymentTemplateBulkRequest\x12B\n" +
-	"\ttemplates\x18\x01 \x03(\v2$.protos.DeletePaymentTemplateRequestR\ttemplates2\xcf\x05\n" +
+	"\ttemplates\x18\x01 \x03(\v2$.protos.DeletePaymentTemplateRequestR\ttemplates2\x8a\x06\n" +
 	"\x16PaymentTemplateService\x12G\n" +
 	"\x06GetAll\x12\x15.protos.GetAllRequest\x1a&.protos.GetAllPaymentTemplatesResponse\x12N\n" +
 	"\aGetById\x12%.protos.GetPaymentTemplateByIdRequest\x1a\x1c.protos.PaymentTemplateModel\x12Z\n" +
@@ -619,7 +619,8 @@ const file_payment_template_proto_rawDesc = "" +
 	"\n" +
 	"UpdateBulk\x12(.protos.UpdatePaymentTemplateBulkRequest\x1a\x16.google.protobuf.Empty\x12N\n" +
 	"\n" +
-	"DeleteBulk\x12(.protos.DeletePaymentTemplateBulkRequest\x1a\x16.google.protobuf.EmptyB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
+	"DeleteBulk\x12(.protos.DeletePaymentTemplateBulkRequest\x1a\x16.google.protobuf.Empty\x129\n" +
+	"\bGetCount\x12\x16.google.protobuf.Empty\x1a\x15.protos.CountResponseB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
 
 var (
 	file_payment_template_proto_rawDescOnce sync.Once
@@ -640,39 +641,42 @@ var file_payment_template_proto_goTypes = []any{
 	(*GetPaymentTemplateByIdRequest)(nil),    // 2: protos.GetPaymentTemplateByIdRequest
 	(*GetPaymentTemplateByIdsRequest)(nil),   // 3: protos.GetPaymentTemplateByIdsRequest
 	(*AddPaymentTemplateRequest)(nil),        // 4: protos.AddPaymentTemplateRequest
-	(*UpdatePaymentTemplateRequest)(nil),     // 5: protos.UpdatePaymentTemplateRequest
-	(*DeletePaymentTemplateRequest)(nil),     // 6: protos.DeletePaymentTemplateRequest
-	(*AddPaymentTemplateBulkRequest)(nil),    // 7: protos.AddPaymentTemplateBulkRequest
-	(*UpdatePaymentTemplateBulkRequest)(nil), // 8: protos.UpdatePaymentTemplateBulkRequest
+	(*AddPaymentTemplateBulkRequest)(nil),    // 5: protos.AddPaymentTemplateBulkRequest
+	(*UpdatePaymentTemplateRequest)(nil),     // 6: protos.UpdatePaymentTemplateRequest
+	(*UpdatePaymentTemplateBulkRequest)(nil), // 7: protos.UpdatePaymentTemplateBulkRequest
+	(*DeletePaymentTemplateRequest)(nil),     // 8: protos.DeletePaymentTemplateRequest
 	(*DeletePaymentTemplateBulkRequest)(nil), // 9: protos.DeletePaymentTemplateBulkRequest
 	(*GetAllRequest)(nil),                    // 10: protos.GetAllRequest
 	(*emptypb.Empty)(nil),                    // 11: google.protobuf.Empty
+	(*CountResponse)(nil),                    // 12: protos.CountResponse
 }
 var file_payment_template_proto_depIdxs = []int32{
 	0,  // 0: protos.GetAllPaymentTemplatesResponse.payment_templates:type_name -> protos.PaymentTemplateModel
 	4,  // 1: protos.AddPaymentTemplateBulkRequest.templates:type_name -> protos.AddPaymentTemplateRequest
-	5,  // 2: protos.UpdatePaymentTemplateBulkRequest.templates:type_name -> protos.UpdatePaymentTemplateRequest
-	6,  // 3: protos.DeletePaymentTemplateBulkRequest.templates:type_name -> protos.DeletePaymentTemplateRequest
+	6,  // 2: protos.UpdatePaymentTemplateBulkRequest.templates:type_name -> protos.UpdatePaymentTemplateRequest
+	8,  // 3: protos.DeletePaymentTemplateBulkRequest.templates:type_name -> protos.DeletePaymentTemplateRequest
 	10, // 4: protos.PaymentTemplateService.GetAll:input_type -> protos.GetAllRequest
 	2,  // 5: protos.PaymentTemplateService.GetById:input_type -> protos.GetPaymentTemplateByIdRequest
 	3,  // 6: protos.PaymentTemplateService.GetByIds:input_type -> protos.GetPaymentTemplateByIdsRequest
 	4,  // 7: protos.PaymentTemplateService.Add:input_type -> protos.AddPaymentTemplateRequest
-	5,  // 8: protos.PaymentTemplateService.Update:input_type -> protos.UpdatePaymentTemplateRequest
-	6,  // 9: protos.PaymentTemplateService.Delete:input_type -> protos.DeletePaymentTemplateRequest
-	7,  // 10: protos.PaymentTemplateService.AddBulk:input_type -> protos.AddPaymentTemplateBulkRequest
-	8,  // 11: protos.PaymentTemplateService.UpdateBulk:input_type -> protos.UpdatePaymentTemplateBulkRequest
+	6,  // 8: protos.PaymentTemplateService.Update:input_type -> protos.UpdatePaymentTemplateRequest
+	8,  // 9: protos.PaymentTemplateService.Delete:input_type -> protos.DeletePaymentTemplateRequest
+	5,  // 10: protos.PaymentTemplateService.AddBulk:input_type -> protos.AddPaymentTemplateBulkRequest
+	7,  // 11: protos.PaymentTemplateService.UpdateBulk:input_type -> protos.UpdatePaymentTemplateBulkRequest
 	9,  // 12: protos.PaymentTemplateService.DeleteBulk:input_type -> protos.DeletePaymentTemplateBulkRequest
-	1,  // 13: protos.PaymentTemplateService.GetAll:output_type -> protos.GetAllPaymentTemplatesResponse
-	0,  // 14: protos.PaymentTemplateService.GetById:output_type -> protos.PaymentTemplateModel
-	1,  // 15: protos.PaymentTemplateService.GetByIds:output_type -> protos.GetAllPaymentTemplatesResponse
-	0,  // 16: protos.PaymentTemplateService.Add:output_type -> protos.PaymentTemplateModel
-	11, // 17: protos.PaymentTemplateService.Update:output_type -> google.protobuf.Empty
-	11, // 18: protos.PaymentTemplateService.Delete:output_type -> google.protobuf.Empty
-	11, // 19: protos.PaymentTemplateService.AddBulk:output_type -> google.protobuf.Empty
-	11, // 20: protos.PaymentTemplateService.UpdateBulk:output_type -> google.protobuf.Empty
-	11, // 21: protos.PaymentTemplateService.DeleteBulk:output_type -> google.protobuf.Empty
-	13, // [13:22] is the sub-list for method output_type
-	4,  // [4:13] is the sub-list for method input_type
+	11, // 13: protos.PaymentTemplateService.GetCount:input_type -> google.protobuf.Empty
+	1,  // 14: protos.PaymentTemplateService.GetAll:output_type -> protos.GetAllPaymentTemplatesResponse
+	0,  // 15: protos.PaymentTemplateService.GetById:output_type -> protos.PaymentTemplateModel
+	1,  // 16: protos.PaymentTemplateService.GetByIds:output_type -> protos.GetAllPaymentTemplatesResponse
+	0,  // 17: protos.PaymentTemplateService.Add:output_type -> protos.PaymentTemplateModel
+	11, // 18: protos.PaymentTemplateService.Update:output_type -> google.protobuf.Empty
+	11, // 19: protos.PaymentTemplateService.Delete:output_type -> google.protobuf.Empty
+	11, // 20: protos.PaymentTemplateService.AddBulk:output_type -> google.protobuf.Empty
+	11, // 21: protos.PaymentTemplateService.UpdateBulk:output_type -> google.protobuf.Empty
+	11, // 22: protos.PaymentTemplateService.DeleteBulk:output_type -> google.protobuf.Empty
+	12, // 23: protos.PaymentTemplateService.GetCount:output_type -> protos.CountResponse
+	14, // [14:24] is the sub-list for method output_type
+	4,  // [4:14] is the sub-list for method input_type
 	4,  // [4:4] is the sub-list for extension type_name
 	4,  // [4:4] is the sub-list for extension extendee
 	0,  // [0:4] is the sub-list for field type_name
@@ -687,7 +691,7 @@ func file_payment_template_proto_init() {
 	file_customer_proto_init()
 	file_payment_template_proto_msgTypes[0].OneofWrappers = []any{}
 	file_payment_template_proto_msgTypes[4].OneofWrappers = []any{}
-	file_payment_template_proto_msgTypes[5].OneofWrappers = []any{}
+	file_payment_template_proto_msgTypes[6].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{

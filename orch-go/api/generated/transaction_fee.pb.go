@@ -567,7 +567,7 @@ const file_transaction_fee_proto_rawDesc = "" +
 	"\x1fUpdateTransactionFeeBulkRequest\x12N\n" +
 	"\x10transaction_fees\x18\x01 \x03(\v2#.protos.UpdateTransactionFeeRequestR\x0ftransactionFees\"q\n" +
 	"\x1fDeleteTransactionFeeBulkRequest\x12N\n" +
-	"\x10transaction_fees\x18\x01 \x03(\v2#.protos.DeleteTransactionFeeRequestR\x0ftransactionFees2\xc2\x05\n" +
+	"\x10transaction_fees\x18\x01 \x03(\v2#.protos.DeleteTransactionFeeRequestR\x0ftransactionFees2\xfd\x05\n" +
 	"\x15TransactionFeeService\x12F\n" +
 	"\x06GetAll\x12\x15.protos.GetAllRequest\x1a%.protos.GetAllTransactionFeesResponse\x12L\n" +
 	"\aGetById\x12$.protos.GetTransactionFeeByIdRequest\x1a\x1b.protos.TransactionFeeModel\x12X\n" +
@@ -579,7 +579,8 @@ const file_transaction_fee_proto_rawDesc = "" +
 	"\n" +
 	"UpdateBulk\x12'.protos.UpdateTransactionFeeBulkRequest\x1a\x16.google.protobuf.Empty\x12M\n" +
 	"\n" +
-	"DeleteBulk\x12'.protos.DeleteTransactionFeeBulkRequest\x1a\x16.google.protobuf.EmptyB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
+	"DeleteBulk\x12'.protos.DeleteTransactionFeeBulkRequest\x1a\x16.google.protobuf.Empty\x129\n" +
+	"\bGetCount\x12\x16.google.protobuf.Empty\x1a\x15.protos.CountResponseB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
 
 var (
 	file_transaction_fee_proto_rawDescOnce sync.Once
@@ -607,6 +608,7 @@ var file_transaction_fee_proto_goTypes = []any{
 	(*DeleteTransactionFeeBulkRequest)(nil), // 9: protos.DeleteTransactionFeeBulkRequest
 	(*GetAllRequest)(nil),                   // 10: protos.GetAllRequest
 	(*emptypb.Empty)(nil),                   // 11: google.protobuf.Empty
+	(*CountResponse)(nil),                   // 12: protos.CountResponse
 }
 var file_transaction_fee_proto_depIdxs = []int32{
 	0,  // 0: protos.GetAllTransactionFeesResponse.transaction_fees:type_name -> protos.TransactionFeeModel
@@ -622,17 +624,19 @@ var file_transaction_fee_proto_depIdxs = []int32{
 	7,  // 10: protos.TransactionFeeService.AddBulk:input_type -> protos.AddTransactionFeeBulkRequest
 	8,  // 11: protos.TransactionFeeService.UpdateBulk:input_type -> protos.UpdateTransactionFeeBulkRequest
 	9,  // 12: protos.TransactionFeeService.DeleteBulk:input_type -> protos.DeleteTransactionFeeBulkRequest
-	1,  // 13: protos.TransactionFeeService.GetAll:output_type -> protos.GetAllTransactionFeesResponse
-	0,  // 14: protos.TransactionFeeService.GetById:output_type -> protos.TransactionFeeModel
-	1,  // 15: protos.TransactionFeeService.GetByIds:output_type -> protos.GetAllTransactionFeesResponse
-	0,  // 16: protos.TransactionFeeService.Add:output_type -> protos.TransactionFeeModel
-	11, // 17: protos.TransactionFeeService.Update:output_type -> google.protobuf.Empty
-	11, // 18: protos.TransactionFeeService.Delete:output_type -> google.protobuf.Empty
-	11, // 19: protos.TransactionFeeService.AddBulk:output_type -> google.protobuf.Empty
-	11, // 20: protos.TransactionFeeService.UpdateBulk:output_type -> google.protobuf.Empty
-	11, // 21: protos.TransactionFeeService.DeleteBulk:output_type -> google.protobuf.Empty
-	13, // [13:22] is the sub-list for method output_type
-	4,  // [4:13] is the sub-list for method input_type
+	11, // 13: protos.TransactionFeeService.GetCount:input_type -> google.protobuf.Empty
+	1,  // 14: protos.TransactionFeeService.GetAll:output_type -> protos.GetAllTransactionFeesResponse
+	0,  // 15: protos.TransactionFeeService.GetById:output_type -> protos.TransactionFeeModel
+	1,  // 16: protos.TransactionFeeService.GetByIds:output_type -> protos.GetAllTransactionFeesResponse
+	0,  // 17: protos.TransactionFeeService.Add:output_type -> protos.TransactionFeeModel
+	11, // 18: protos.TransactionFeeService.Update:output_type -> google.protobuf.Empty
+	11, // 19: protos.TransactionFeeService.Delete:output_type -> google.protobuf.Empty
+	11, // 20: protos.TransactionFeeService.AddBulk:output_type -> google.protobuf.Empty
+	11, // 21: protos.TransactionFeeService.UpdateBulk:output_type -> google.protobuf.Empty
+	11, // 22: protos.TransactionFeeService.DeleteBulk:output_type -> google.protobuf.Empty
+	12, // 23: protos.TransactionFeeService.GetCount:output_type -> protos.CountResponse
+	14, // [14:24] is the sub-list for method output_type
+	4,  // [4:14] is the sub-list for method input_type
 	4,  // [4:4] is the sub-list for extension type_name
 	4,  // [4:4] is the sub-list for extension extendee
 	0,  // [0:4] is the sub-list for field type_name

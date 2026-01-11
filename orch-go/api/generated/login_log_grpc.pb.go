@@ -31,6 +31,7 @@ const (
 	LoginLogService_AddBulk_FullMethodName        = "/protos.LoginLogService/AddBulk"
 	LoginLogService_UpdateBulk_FullMethodName     = "/protos.LoginLogService/UpdateBulk"
 	LoginLogService_DeleteBulk_FullMethodName     = "/protos.LoginLogService/DeleteBulk"
+	LoginLogService_GetCount_FullMethodName       = "/protos.LoginLogService/GetCount"
 )
 
 // LoginLogServiceClient is the client API for LoginLogService service.
@@ -48,6 +49,7 @@ type LoginLogServiceClient interface {
 	AddBulk(ctx context.Context, in *AddLoginLogBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	UpdateBulk(ctx context.Context, in *UpdateLoginLogBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	DeleteBulk(ctx context.Context, in *DeleteLoginLogBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	GetCount(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*CountResponse, error)
 }
 
 type loginLogServiceClient struct {
@@ -168,6 +170,16 @@ func (c *loginLogServiceClient) DeleteBulk(ctx context.Context, in *DeleteLoginL
 	return out, nil
 }
 
+func (c *loginLogServiceClient) GetCount(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*CountResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CountResponse)
+	err := c.cc.Invoke(ctx, LoginLogService_GetCount_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // LoginLogServiceServer is the server API for LoginLogService service.
 // All implementations must embed UnimplementedLoginLogServiceServer
 // for forward compatibility.
@@ -183,6 +195,7 @@ type LoginLogServiceServer interface {
 	AddBulk(context.Context, *AddLoginLogBulkRequest) (*emptypb.Empty, error)
 	UpdateBulk(context.Context, *UpdateLoginLogBulkRequest) (*emptypb.Empty, error)
 	DeleteBulk(context.Context, *DeleteLoginLogBulkRequest) (*emptypb.Empty, error)
+	GetCount(context.Context, *emptypb.Empty) (*CountResponse, error)
 	mustEmbedUnimplementedLoginLogServiceServer()
 }
 
@@ -225,6 +238,9 @@ func (UnimplementedLoginLogServiceServer) UpdateBulk(context.Context, *UpdateLog
 }
 func (UnimplementedLoginLogServiceServer) DeleteBulk(context.Context, *DeleteLoginLogBulkRequest) (*emptypb.Empty, error) {
 	return nil, status.Error(codes.Unimplemented, "method DeleteBulk not implemented")
+}
+func (UnimplementedLoginLogServiceServer) GetCount(context.Context, *emptypb.Empty) (*CountResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetCount not implemented")
 }
 func (UnimplementedLoginLogServiceServer) mustEmbedUnimplementedLoginLogServiceServer() {}
 func (UnimplementedLoginLogServiceServer) testEmbeddedByValue()                         {}
@@ -445,6 +461,24 @@ func _LoginLogService_DeleteBulk_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
+func _LoginLogService_GetCount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(emptypb.Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LoginLogServiceServer).GetCount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: LoginLogService_GetCount_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LoginLogServiceServer).GetCount(ctx, req.(*emptypb.Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // LoginLogService_ServiceDesc is the grpc.ServiceDesc for LoginLogService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -495,6 +529,10 @@ var LoginLogService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteBulk",
 			Handler:    _LoginLogService_DeleteBulk_Handler,
+		},
+		{
+			MethodName: "GetCount",
+			Handler:    _LoginLogService_GetCount_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

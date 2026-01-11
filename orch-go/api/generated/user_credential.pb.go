@@ -603,7 +603,7 @@ const file_user_credential_proto_rawDesc = "" +
 	"\vcustomer_id\x18\x01 \x01(\x05R\n" +
 	"customerId\"q\n" +
 	"\x1fDeleteUserCredentialBulkRequest\x12N\n" +
-	"\x10user_credentials\x18\x01 \x03(\v2#.protos.DeleteUserCredentialRequestR\x0fuserCredentials2\x9c\x06\n" +
+	"\x10user_credentials\x18\x01 \x03(\v2#.protos.DeleteUserCredentialRequestR\x0fuserCredentials2\xd7\x06\n" +
 	"\x15UserCredentialService\x12F\n" +
 	"\x06GetAll\x12\x15.protos.GetAllRequest\x1a%.protos.GetAllUserCredentialsResponse\x12L\n" +
 	"\aGetById\x12$.protos.GetUserCredentialByIdRequest\x1a\x1b.protos.UserCredentialModel\x12X\n" +
@@ -616,7 +616,8 @@ const file_user_credential_proto_rawDesc = "" +
 	"\n" +
 	"UpdateBulk\x12'.protos.UpdateUserCredentialBulkRequest\x1a\x16.google.protobuf.Empty\x12M\n" +
 	"\n" +
-	"DeleteBulk\x12'.protos.DeleteUserCredentialBulkRequest\x1a\x16.google.protobuf.EmptyB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
+	"DeleteBulk\x12'.protos.DeleteUserCredentialBulkRequest\x1a\x16.google.protobuf.Empty\x129\n" +
+	"\bGetCount\x12\x16.google.protobuf.Empty\x1a\x15.protos.CountResponseB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
 
 var (
 	file_user_credential_proto_rawDescOnce sync.Once
@@ -646,6 +647,7 @@ var file_user_credential_proto_goTypes = []any{
 	(*timestamppb.Timestamp)(nil),              // 11: google.protobuf.Timestamp
 	(*GetAllRequest)(nil),                      // 12: protos.GetAllRequest
 	(*emptypb.Empty)(nil),                      // 13: google.protobuf.Empty
+	(*CountResponse)(nil),                      // 14: protos.CountResponse
 }
 var file_user_credential_proto_depIdxs = []int32{
 	11, // 0: protos.UserCredentialModel.updated_at:type_name -> google.protobuf.Timestamp
@@ -663,18 +665,20 @@ var file_user_credential_proto_depIdxs = []int32{
 	6,  // 12: protos.UserCredentialService.AddBulk:input_type -> protos.AddUserCredentialBulkRequest
 	8,  // 13: protos.UserCredentialService.UpdateBulk:input_type -> protos.UpdateUserCredentialBulkRequest
 	10, // 14: protos.UserCredentialService.DeleteBulk:input_type -> protos.DeleteUserCredentialBulkRequest
-	1,  // 15: protos.UserCredentialService.GetAll:output_type -> protos.GetAllUserCredentialsResponse
-	0,  // 16: protos.UserCredentialService.GetById:output_type -> protos.UserCredentialModel
-	1,  // 17: protos.UserCredentialService.GetByIds:output_type -> protos.GetAllUserCredentialsResponse
-	0,  // 18: protos.UserCredentialService.GetByUsername:output_type -> protos.UserCredentialModel
-	0,  // 19: protos.UserCredentialService.Add:output_type -> protos.UserCredentialModel
-	13, // 20: protos.UserCredentialService.Update:output_type -> google.protobuf.Empty
-	13, // 21: protos.UserCredentialService.Delete:output_type -> google.protobuf.Empty
-	13, // 22: protos.UserCredentialService.AddBulk:output_type -> google.protobuf.Empty
-	13, // 23: protos.UserCredentialService.UpdateBulk:output_type -> google.protobuf.Empty
-	13, // 24: protos.UserCredentialService.DeleteBulk:output_type -> google.protobuf.Empty
-	15, // [15:25] is the sub-list for method output_type
-	5,  // [5:15] is the sub-list for method input_type
+	13, // 15: protos.UserCredentialService.GetCount:input_type -> google.protobuf.Empty
+	1,  // 16: protos.UserCredentialService.GetAll:output_type -> protos.GetAllUserCredentialsResponse
+	0,  // 17: protos.UserCredentialService.GetById:output_type -> protos.UserCredentialModel
+	1,  // 18: protos.UserCredentialService.GetByIds:output_type -> protos.GetAllUserCredentialsResponse
+	0,  // 19: protos.UserCredentialService.GetByUsername:output_type -> protos.UserCredentialModel
+	0,  // 20: protos.UserCredentialService.Add:output_type -> protos.UserCredentialModel
+	13, // 21: protos.UserCredentialService.Update:output_type -> google.protobuf.Empty
+	13, // 22: protos.UserCredentialService.Delete:output_type -> google.protobuf.Empty
+	13, // 23: protos.UserCredentialService.AddBulk:output_type -> google.protobuf.Empty
+	13, // 24: protos.UserCredentialService.UpdateBulk:output_type -> google.protobuf.Empty
+	13, // 25: protos.UserCredentialService.DeleteBulk:output_type -> google.protobuf.Empty
+	14, // 26: protos.UserCredentialService.GetCount:output_type -> protos.CountResponse
+	16, // [16:27] is the sub-list for method output_type
+	5,  // [5:16] is the sub-list for method input_type
 	5,  // [5:5] is the sub-list for extension type_name
 	5,  // [5:5] is the sub-list for extension extendee
 	0,  // [0:5] is the sub-list for field type_name

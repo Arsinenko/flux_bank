@@ -601,7 +601,7 @@ const file_branch_proto_rawDesc = "" +
 	"\x17UpdateBranchBulkRequest\x127\n" +
 	"\bbranches\x18\x01 \x03(\v2\x1b.protos.UpdateBranchRequestR\bbranches\"R\n" +
 	"\x17DeleteBranchBulkRequest\x127\n" +
-	"\bbranches\x18\x01 \x03(\v2\x1b.protos.DeleteBranchRequestR\bbranches2\xdc\x04\n" +
+	"\bbranches\x18\x01 \x03(\v2\x1b.protos.DeleteBranchRequestR\bbranches2\x97\x05\n" +
 	"\rBranchService\x12?\n" +
 	"\x06GetAll\x12\x15.protos.GetAllRequest\x1a\x1e.protos.GetAllBranchesResponse\x12<\n" +
 	"\aGetById\x12\x1c.protos.GetBranchByIdRequest\x1a\x13.protos.BranchModel\x12I\n" +
@@ -613,7 +613,8 @@ const file_branch_proto_rawDesc = "" +
 	"\n" +
 	"UpdateBulk\x12\x1f.protos.UpdateBranchBulkRequest\x1a\x16.google.protobuf.Empty\x12E\n" +
 	"\n" +
-	"DeleteBulk\x12\x1f.protos.DeleteBranchBulkRequest\x1a\x16.google.protobuf.EmptyB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
+	"DeleteBulk\x12\x1f.protos.DeleteBranchBulkRequest\x1a\x16.google.protobuf.Empty\x129\n" +
+	"\bGetCount\x12\x16.google.protobuf.Empty\x1a\x15.protos.CountResponseB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
 
 var (
 	file_branch_proto_rawDescOnce sync.Once
@@ -641,6 +642,7 @@ var file_branch_proto_goTypes = []any{
 	(*DeleteBranchBulkRequest)(nil), // 9: protos.DeleteBranchBulkRequest
 	(*GetAllRequest)(nil),           // 10: protos.GetAllRequest
 	(*emptypb.Empty)(nil),           // 11: google.protobuf.Empty
+	(*CountResponse)(nil),           // 12: protos.CountResponse
 }
 var file_branch_proto_depIdxs = []int32{
 	0,  // 0: protos.GetAllBranchesResponse.branches:type_name -> protos.BranchModel
@@ -656,17 +658,19 @@ var file_branch_proto_depIdxs = []int32{
 	7,  // 10: protos.BranchService.AddBulk:input_type -> protos.AddBranchBulkRequest
 	8,  // 11: protos.BranchService.UpdateBulk:input_type -> protos.UpdateBranchBulkRequest
 	9,  // 12: protos.BranchService.DeleteBulk:input_type -> protos.DeleteBranchBulkRequest
-	1,  // 13: protos.BranchService.GetAll:output_type -> protos.GetAllBranchesResponse
-	0,  // 14: protos.BranchService.GetById:output_type -> protos.BranchModel
-	1,  // 15: protos.BranchService.GetByIds:output_type -> protos.GetAllBranchesResponse
-	0,  // 16: protos.BranchService.Add:output_type -> protos.BranchModel
-	11, // 17: protos.BranchService.Update:output_type -> google.protobuf.Empty
-	11, // 18: protos.BranchService.Delete:output_type -> google.protobuf.Empty
-	11, // 19: protos.BranchService.AddBulk:output_type -> google.protobuf.Empty
-	11, // 20: protos.BranchService.UpdateBulk:output_type -> google.protobuf.Empty
-	11, // 21: protos.BranchService.DeleteBulk:output_type -> google.protobuf.Empty
-	13, // [13:22] is the sub-list for method output_type
-	4,  // [4:13] is the sub-list for method input_type
+	11, // 13: protos.BranchService.GetCount:input_type -> google.protobuf.Empty
+	1,  // 14: protos.BranchService.GetAll:output_type -> protos.GetAllBranchesResponse
+	0,  // 15: protos.BranchService.GetById:output_type -> protos.BranchModel
+	1,  // 16: protos.BranchService.GetByIds:output_type -> protos.GetAllBranchesResponse
+	0,  // 17: protos.BranchService.Add:output_type -> protos.BranchModel
+	11, // 18: protos.BranchService.Update:output_type -> google.protobuf.Empty
+	11, // 19: protos.BranchService.Delete:output_type -> google.protobuf.Empty
+	11, // 20: protos.BranchService.AddBulk:output_type -> google.protobuf.Empty
+	11, // 21: protos.BranchService.UpdateBulk:output_type -> google.protobuf.Empty
+	11, // 22: protos.BranchService.DeleteBulk:output_type -> google.protobuf.Empty
+	12, // 23: protos.BranchService.GetCount:output_type -> protos.CountResponse
+	14, // [14:24] is the sub-list for method output_type
+	4,  // [4:14] is the sub-list for method input_type
 	4,  // [4:4] is the sub-list for extension type_name
 	4,  // [4:4] is the sub-list for extension extendee
 	0,  // [0:4] is the sub-list for field type_name

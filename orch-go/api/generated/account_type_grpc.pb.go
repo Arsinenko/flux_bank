@@ -29,6 +29,7 @@ const (
 	AccountTypeService_AddBulk_FullMethodName    = "/protos.AccountTypeService/AddBulk"
 	AccountTypeService_UpdateBulk_FullMethodName = "/protos.AccountTypeService/UpdateBulk"
 	AccountTypeService_DeleteBulk_FullMethodName = "/protos.AccountTypeService/DeleteBulk"
+	AccountTypeService_GetCount_FullMethodName   = "/protos.AccountTypeService/GetCount"
 )
 
 // AccountTypeServiceClient is the client API for AccountTypeService service.
@@ -44,6 +45,7 @@ type AccountTypeServiceClient interface {
 	AddBulk(ctx context.Context, in *AddAccountTypeBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	UpdateBulk(ctx context.Context, in *UpdateAccountTypeBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	DeleteBulk(ctx context.Context, in *DeleteAccountTypeBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	GetCount(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*CountResponse, error)
 }
 
 type accountTypeServiceClient struct {
@@ -144,6 +146,16 @@ func (c *accountTypeServiceClient) DeleteBulk(ctx context.Context, in *DeleteAcc
 	return out, nil
 }
 
+func (c *accountTypeServiceClient) GetCount(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*CountResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CountResponse)
+	err := c.cc.Invoke(ctx, AccountTypeService_GetCount_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AccountTypeServiceServer is the server API for AccountTypeService service.
 // All implementations must embed UnimplementedAccountTypeServiceServer
 // for forward compatibility.
@@ -157,6 +169,7 @@ type AccountTypeServiceServer interface {
 	AddBulk(context.Context, *AddAccountTypeBulkRequest) (*emptypb.Empty, error)
 	UpdateBulk(context.Context, *UpdateAccountTypeBulkRequest) (*emptypb.Empty, error)
 	DeleteBulk(context.Context, *DeleteAccountTypeBulkRequest) (*emptypb.Empty, error)
+	GetCount(context.Context, *emptypb.Empty) (*CountResponse, error)
 	mustEmbedUnimplementedAccountTypeServiceServer()
 }
 
@@ -193,6 +206,9 @@ func (UnimplementedAccountTypeServiceServer) UpdateBulk(context.Context, *Update
 }
 func (UnimplementedAccountTypeServiceServer) DeleteBulk(context.Context, *DeleteAccountTypeBulkRequest) (*emptypb.Empty, error) {
 	return nil, status.Error(codes.Unimplemented, "method DeleteBulk not implemented")
+}
+func (UnimplementedAccountTypeServiceServer) GetCount(context.Context, *emptypb.Empty) (*CountResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetCount not implemented")
 }
 func (UnimplementedAccountTypeServiceServer) mustEmbedUnimplementedAccountTypeServiceServer() {}
 func (UnimplementedAccountTypeServiceServer) testEmbeddedByValue()                            {}
@@ -377,6 +393,24 @@ func _AccountTypeService_DeleteBulk_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AccountTypeService_GetCount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(emptypb.Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountTypeServiceServer).GetCount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AccountTypeService_GetCount_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountTypeServiceServer).GetCount(ctx, req.(*emptypb.Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // AccountTypeService_ServiceDesc is the grpc.ServiceDesc for AccountTypeService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -419,6 +453,10 @@ var AccountTypeService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteBulk",
 			Handler:    _AccountTypeService_DeleteBulk_Handler,
+		},
+		{
+			MethodName: "GetCount",
+			Handler:    _AccountTypeService_GetCount_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

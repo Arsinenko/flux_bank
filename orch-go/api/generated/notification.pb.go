@@ -646,7 +646,7 @@ const file_notification_proto_rawDesc = "" +
 	"\x1dUpdateNotificationBulkRequest\x12G\n" +
 	"\rnotifications\x18\x01 \x03(\v2!.protos.UpdateNotificationRequestR\rnotifications\"h\n" +
 	"\x1dDeleteNotificationBulkRequest\x12G\n" +
-	"\rnotifications\x18\x01 \x03(\v2!.protos.DeleteNotificationRequestR\rnotifications2\xdf\x06\n" +
+	"\rnotifications\x18\x01 \x03(\v2!.protos.DeleteNotificationRequestR\rnotifications2\x9a\a\n" +
 	"\x13NotificationService\x12D\n" +
 	"\x06GetAll\x12\x15.protos.GetAllRequest\x1a#.protos.GetAllNotificationsResponse\x12H\n" +
 	"\aGetById\x12\".protos.GetNotificationByIdRequest\x1a\x19.protos.NotificationModel\x12T\n" +
@@ -660,7 +660,8 @@ const file_notification_proto_rawDesc = "" +
 	"\n" +
 	"UpdateBulk\x12%.protos.UpdateNotificationBulkRequest\x1a\x16.google.protobuf.Empty\x12K\n" +
 	"\n" +
-	"DeleteBulk\x12%.protos.DeleteNotificationBulkRequest\x1a\x16.google.protobuf.EmptyB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
+	"DeleteBulk\x12%.protos.DeleteNotificationBulkRequest\x1a\x16.google.protobuf.Empty\x129\n" +
+	"\bGetCount\x12\x16.google.protobuf.Empty\x1a\x15.protos.CountResponseB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
 
 var (
 	file_notification_proto_rawDescOnce sync.Once
@@ -691,6 +692,7 @@ var file_notification_proto_goTypes = []any{
 	(*GetAllRequest)(nil),                     // 12: protos.GetAllRequest
 	(*GetByDateRangeRequest)(nil),             // 13: protos.GetByDateRangeRequest
 	(*emptypb.Empty)(nil),                     // 14: google.protobuf.Empty
+	(*CountResponse)(nil),                     // 15: protos.CountResponse
 }
 var file_notification_proto_depIdxs = []int32{
 	11, // 0: protos.NotificationModel.created_at:type_name -> google.protobuf.Timestamp
@@ -709,19 +711,21 @@ var file_notification_proto_depIdxs = []int32{
 	8,  // 13: protos.NotificationService.AddBulk:input_type -> protos.AddNotificationBulkRequest
 	9,  // 14: protos.NotificationService.UpdateBulk:input_type -> protos.UpdateNotificationBulkRequest
 	10, // 15: protos.NotificationService.DeleteBulk:input_type -> protos.DeleteNotificationBulkRequest
-	1,  // 16: protos.NotificationService.GetAll:output_type -> protos.GetAllNotificationsResponse
-	0,  // 17: protos.NotificationService.GetById:output_type -> protos.NotificationModel
-	1,  // 18: protos.NotificationService.GetByIds:output_type -> protos.GetAllNotificationsResponse
-	1,  // 19: protos.NotificationService.GetByDateRange:output_type -> protos.GetAllNotificationsResponse
-	1,  // 20: protos.NotificationService.GetByCustomer:output_type -> protos.GetAllNotificationsResponse
-	0,  // 21: protos.NotificationService.Add:output_type -> protos.NotificationModel
-	14, // 22: protos.NotificationService.Update:output_type -> google.protobuf.Empty
-	14, // 23: protos.NotificationService.Delete:output_type -> google.protobuf.Empty
-	14, // 24: protos.NotificationService.AddBulk:output_type -> google.protobuf.Empty
-	14, // 25: protos.NotificationService.UpdateBulk:output_type -> google.protobuf.Empty
-	14, // 26: protos.NotificationService.DeleteBulk:output_type -> google.protobuf.Empty
-	16, // [16:27] is the sub-list for method output_type
-	5,  // [5:16] is the sub-list for method input_type
+	14, // 16: protos.NotificationService.GetCount:input_type -> google.protobuf.Empty
+	1,  // 17: protos.NotificationService.GetAll:output_type -> protos.GetAllNotificationsResponse
+	0,  // 18: protos.NotificationService.GetById:output_type -> protos.NotificationModel
+	1,  // 19: protos.NotificationService.GetByIds:output_type -> protos.GetAllNotificationsResponse
+	1,  // 20: protos.NotificationService.GetByDateRange:output_type -> protos.GetAllNotificationsResponse
+	1,  // 21: protos.NotificationService.GetByCustomer:output_type -> protos.GetAllNotificationsResponse
+	0,  // 22: protos.NotificationService.Add:output_type -> protos.NotificationModel
+	14, // 23: protos.NotificationService.Update:output_type -> google.protobuf.Empty
+	14, // 24: protos.NotificationService.Delete:output_type -> google.protobuf.Empty
+	14, // 25: protos.NotificationService.AddBulk:output_type -> google.protobuf.Empty
+	14, // 26: protos.NotificationService.UpdateBulk:output_type -> google.protobuf.Empty
+	14, // 27: protos.NotificationService.DeleteBulk:output_type -> google.protobuf.Empty
+	15, // 28: protos.NotificationService.GetCount:output_type -> protos.CountResponse
+	17, // [17:29] is the sub-list for method output_type
+	5,  // [5:17] is the sub-list for method input_type
 	5,  // [5:5] is the sub-list for extension type_name
 	5,  // [5:5] is the sub-list for extension extendee
 	0,  // [0:5] is the sub-list for field type_name

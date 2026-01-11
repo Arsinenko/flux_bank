@@ -677,7 +677,7 @@ const file_card_proto_rawDesc = "" +
 	"\x15UpdateCardBulkRequest\x12/\n" +
 	"\x05cards\x18\x01 \x03(\v2\x19.protos.UpdateCardRequestR\x05cards\"H\n" +
 	"\x15DeleteCardBulkRequest\x12/\n" +
-	"\x05cards\x18\x01 \x03(\v2\x19.protos.DeleteCardRequestR\x05cards2\x8f\x05\n" +
+	"\x05cards\x18\x01 \x03(\v2\x19.protos.DeleteCardRequestR\x05cards2\xca\x05\n" +
 	"\vCardService\x12<\n" +
 	"\x06GetAll\x12\x15.protos.GetAllRequest\x1a\x1b.protos.GetAllCardsResponse\x128\n" +
 	"\aGetById\x12\x1a.protos.GetCardByIdRequest\x1a\x11.protos.CardModel\x12D\n" +
@@ -690,7 +690,8 @@ const file_card_proto_rawDesc = "" +
 	"\n" +
 	"UpdateBulk\x12\x1d.protos.UpdateCardBulkRequest\x1a\x16.google.protobuf.Empty\x12C\n" +
 	"\n" +
-	"DeleteBulk\x12\x1d.protos.DeleteCardBulkRequest\x1a\x16.google.protobuf.EmptyB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
+	"DeleteBulk\x12\x1d.protos.DeleteCardBulkRequest\x1a\x16.google.protobuf.Empty\x129\n" +
+	"\bGetCount\x12\x16.google.protobuf.Empty\x1a\x15.protos.CountResponseB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
 
 var (
 	file_card_proto_rawDescOnce sync.Once
@@ -720,6 +721,7 @@ var file_card_proto_goTypes = []any{
 	(*timestamppb.Timestamp)(nil),    // 11: google.protobuf.Timestamp
 	(*GetAllRequest)(nil),            // 12: protos.GetAllRequest
 	(*emptypb.Empty)(nil),            // 13: google.protobuf.Empty
+	(*CountResponse)(nil),            // 14: protos.CountResponse
 }
 var file_card_proto_depIdxs = []int32{
 	11, // 0: protos.CardModel.expiry_date:type_name -> google.protobuf.Timestamp
@@ -739,18 +741,20 @@ var file_card_proto_depIdxs = []int32{
 	8,  // 14: protos.CardService.AddBulk:input_type -> protos.AddCardBulkRequest
 	9,  // 15: protos.CardService.UpdateBulk:input_type -> protos.UpdateCardBulkRequest
 	10, // 16: protos.CardService.DeleteBulk:input_type -> protos.DeleteCardBulkRequest
-	1,  // 17: protos.CardService.GetAll:output_type -> protos.GetAllCardsResponse
-	0,  // 18: protos.CardService.GetById:output_type -> protos.CardModel
-	1,  // 19: protos.CardService.GetByIds:output_type -> protos.GetAllCardsResponse
-	1,  // 20: protos.CardService.GetByAccount:output_type -> protos.GetAllCardsResponse
-	0,  // 21: protos.CardService.Add:output_type -> protos.CardModel
-	13, // 22: protos.CardService.Update:output_type -> google.protobuf.Empty
-	13, // 23: protos.CardService.Delete:output_type -> google.protobuf.Empty
-	13, // 24: protos.CardService.AddBulk:output_type -> google.protobuf.Empty
-	13, // 25: protos.CardService.UpdateBulk:output_type -> google.protobuf.Empty
-	13, // 26: protos.CardService.DeleteBulk:output_type -> google.protobuf.Empty
-	17, // [17:27] is the sub-list for method output_type
-	7,  // [7:17] is the sub-list for method input_type
+	13, // 17: protos.CardService.GetCount:input_type -> google.protobuf.Empty
+	1,  // 18: protos.CardService.GetAll:output_type -> protos.GetAllCardsResponse
+	0,  // 19: protos.CardService.GetById:output_type -> protos.CardModel
+	1,  // 20: protos.CardService.GetByIds:output_type -> protos.GetAllCardsResponse
+	1,  // 21: protos.CardService.GetByAccount:output_type -> protos.GetAllCardsResponse
+	0,  // 22: protos.CardService.Add:output_type -> protos.CardModel
+	13, // 23: protos.CardService.Update:output_type -> google.protobuf.Empty
+	13, // 24: protos.CardService.Delete:output_type -> google.protobuf.Empty
+	13, // 25: protos.CardService.AddBulk:output_type -> google.protobuf.Empty
+	13, // 26: protos.CardService.UpdateBulk:output_type -> google.protobuf.Empty
+	13, // 27: protos.CardService.DeleteBulk:output_type -> google.protobuf.Empty
+	14, // 28: protos.CardService.GetCount:output_type -> protos.CountResponse
+	18, // [18:29] is the sub-list for method output_type
+	7,  // [7:18] is the sub-list for method input_type
 	7,  // [7:7] is the sub-list for extension type_name
 	7,  // [7:7] is the sub-list for extension extendee
 	0,  // [0:7] is the sub-list for field type_name

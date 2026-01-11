@@ -20,17 +20,20 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	CustomerService_GetAll_FullMethodName         = "/protos.CustomerService/GetAll"
-	CustomerService_GetById_FullMethodName        = "/protos.CustomerService/GetById"
-	CustomerService_GetByIds_FullMethodName       = "/protos.CustomerService/GetByIds"
-	CustomerService_GetBySubstring_FullMethodName = "/protos.CustomerService/GetBySubstring"
-	CustomerService_GetByDateRange_FullMethodName = "/protos.CustomerService/GetByDateRange"
-	CustomerService_Add_FullMethodName            = "/protos.CustomerService/Add"
-	CustomerService_Update_FullMethodName         = "/protos.CustomerService/Update"
-	CustomerService_Delete_FullMethodName         = "/protos.CustomerService/Delete"
-	CustomerService_AddBulk_FullMethodName        = "/protos.CustomerService/AddBulk"
-	CustomerService_UpdateBulk_FullMethodName     = "/protos.CustomerService/UpdateBulk"
-	CustomerService_DeleteBulk_FullMethodName     = "/protos.CustomerService/DeleteBulk"
+	CustomerService_GetAll_FullMethodName              = "/protos.CustomerService/GetAll"
+	CustomerService_GetById_FullMethodName             = "/protos.CustomerService/GetById"
+	CustomerService_GetByIds_FullMethodName            = "/protos.CustomerService/GetByIds"
+	CustomerService_GetBySubstring_FullMethodName      = "/protos.CustomerService/GetBySubstring"
+	CustomerService_GetByDateRange_FullMethodName      = "/protos.CustomerService/GetByDateRange"
+	CustomerService_Add_FullMethodName                 = "/protos.CustomerService/Add"
+	CustomerService_Update_FullMethodName              = "/protos.CustomerService/Update"
+	CustomerService_Delete_FullMethodName              = "/protos.CustomerService/Delete"
+	CustomerService_AddBulk_FullMethodName             = "/protos.CustomerService/AddBulk"
+	CustomerService_UpdateBulk_FullMethodName          = "/protos.CustomerService/UpdateBulk"
+	CustomerService_DeleteBulk_FullMethodName          = "/protos.CustomerService/DeleteBulk"
+	CustomerService_GetCount_FullMethodName            = "/protos.CustomerService/GetCount"
+	CustomerService_GetCountBySubstring_FullMethodName = "/protos.CustomerService/GetCountBySubstring"
+	CustomerService_GetCountByDateRange_FullMethodName = "/protos.CustomerService/GetCountByDateRange"
 )
 
 // CustomerServiceClient is the client API for CustomerService service.
@@ -48,6 +51,9 @@ type CustomerServiceClient interface {
 	AddBulk(ctx context.Context, in *AddCustomerBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	UpdateBulk(ctx context.Context, in *UpdateCustomerBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	DeleteBulk(ctx context.Context, in *DeleteCustomerBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	GetCount(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*CountResponse, error)
+	GetCountBySubstring(ctx context.Context, in *GetBySubstringRequest, opts ...grpc.CallOption) (*CountResponse, error)
+	GetCountByDateRange(ctx context.Context, in *GetByDateRangeRequest, opts ...grpc.CallOption) (*CountResponse, error)
 }
 
 type customerServiceClient struct {
@@ -168,6 +174,36 @@ func (c *customerServiceClient) DeleteBulk(ctx context.Context, in *DeleteCustom
 	return out, nil
 }
 
+func (c *customerServiceClient) GetCount(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*CountResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CountResponse)
+	err := c.cc.Invoke(ctx, CustomerService_GetCount_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *customerServiceClient) GetCountBySubstring(ctx context.Context, in *GetBySubstringRequest, opts ...grpc.CallOption) (*CountResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CountResponse)
+	err := c.cc.Invoke(ctx, CustomerService_GetCountBySubstring_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *customerServiceClient) GetCountByDateRange(ctx context.Context, in *GetByDateRangeRequest, opts ...grpc.CallOption) (*CountResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CountResponse)
+	err := c.cc.Invoke(ctx, CustomerService_GetCountByDateRange_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CustomerServiceServer is the server API for CustomerService service.
 // All implementations must embed UnimplementedCustomerServiceServer
 // for forward compatibility.
@@ -183,6 +219,9 @@ type CustomerServiceServer interface {
 	AddBulk(context.Context, *AddCustomerBulkRequest) (*emptypb.Empty, error)
 	UpdateBulk(context.Context, *UpdateCustomerBulkRequest) (*emptypb.Empty, error)
 	DeleteBulk(context.Context, *DeleteCustomerBulkRequest) (*emptypb.Empty, error)
+	GetCount(context.Context, *emptypb.Empty) (*CountResponse, error)
+	GetCountBySubstring(context.Context, *GetBySubstringRequest) (*CountResponse, error)
+	GetCountByDateRange(context.Context, *GetByDateRangeRequest) (*CountResponse, error)
 	mustEmbedUnimplementedCustomerServiceServer()
 }
 
@@ -225,6 +264,15 @@ func (UnimplementedCustomerServiceServer) UpdateBulk(context.Context, *UpdateCus
 }
 func (UnimplementedCustomerServiceServer) DeleteBulk(context.Context, *DeleteCustomerBulkRequest) (*emptypb.Empty, error) {
 	return nil, status.Error(codes.Unimplemented, "method DeleteBulk not implemented")
+}
+func (UnimplementedCustomerServiceServer) GetCount(context.Context, *emptypb.Empty) (*CountResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetCount not implemented")
+}
+func (UnimplementedCustomerServiceServer) GetCountBySubstring(context.Context, *GetBySubstringRequest) (*CountResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetCountBySubstring not implemented")
+}
+func (UnimplementedCustomerServiceServer) GetCountByDateRange(context.Context, *GetByDateRangeRequest) (*CountResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetCountByDateRange not implemented")
 }
 func (UnimplementedCustomerServiceServer) mustEmbedUnimplementedCustomerServiceServer() {}
 func (UnimplementedCustomerServiceServer) testEmbeddedByValue()                         {}
@@ -445,6 +493,60 @@ func _CustomerService_DeleteBulk_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
+func _CustomerService_GetCount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(emptypb.Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CustomerServiceServer).GetCount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CustomerService_GetCount_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CustomerServiceServer).GetCount(ctx, req.(*emptypb.Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CustomerService_GetCountBySubstring_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetBySubstringRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CustomerServiceServer).GetCountBySubstring(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CustomerService_GetCountBySubstring_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CustomerServiceServer).GetCountBySubstring(ctx, req.(*GetBySubstringRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CustomerService_GetCountByDateRange_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetByDateRangeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CustomerServiceServer).GetCountByDateRange(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CustomerService_GetCountByDateRange_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CustomerServiceServer).GetCountByDateRange(ctx, req.(*GetByDateRangeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // CustomerService_ServiceDesc is the grpc.ServiceDesc for CustomerService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -495,6 +597,18 @@ var CustomerService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteBulk",
 			Handler:    _CustomerService_DeleteBulk_Handler,
+		},
+		{
+			MethodName: "GetCount",
+			Handler:    _CustomerService_GetCount_Handler,
+		},
+		{
+			MethodName: "GetCountBySubstring",
+			Handler:    _CustomerService_GetCountBySubstring_Handler,
+		},
+		{
+			MethodName: "GetCountByDateRange",
+			Handler:    _CustomerService_GetCountByDateRange_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

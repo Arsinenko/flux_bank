@@ -30,6 +30,7 @@ const (
 	UserCredentialService_AddBulk_FullMethodName       = "/protos.UserCredentialService/AddBulk"
 	UserCredentialService_UpdateBulk_FullMethodName    = "/protos.UserCredentialService/UpdateBulk"
 	UserCredentialService_DeleteBulk_FullMethodName    = "/protos.UserCredentialService/DeleteBulk"
+	UserCredentialService_GetCount_FullMethodName      = "/protos.UserCredentialService/GetCount"
 )
 
 // UserCredentialServiceClient is the client API for UserCredentialService service.
@@ -46,6 +47,7 @@ type UserCredentialServiceClient interface {
 	AddBulk(ctx context.Context, in *AddUserCredentialBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	UpdateBulk(ctx context.Context, in *UpdateUserCredentialBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	DeleteBulk(ctx context.Context, in *DeleteUserCredentialBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	GetCount(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*CountResponse, error)
 }
 
 type userCredentialServiceClient struct {
@@ -156,6 +158,16 @@ func (c *userCredentialServiceClient) DeleteBulk(ctx context.Context, in *Delete
 	return out, nil
 }
 
+func (c *userCredentialServiceClient) GetCount(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*CountResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CountResponse)
+	err := c.cc.Invoke(ctx, UserCredentialService_GetCount_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserCredentialServiceServer is the server API for UserCredentialService service.
 // All implementations must embed UnimplementedUserCredentialServiceServer
 // for forward compatibility.
@@ -170,6 +182,7 @@ type UserCredentialServiceServer interface {
 	AddBulk(context.Context, *AddUserCredentialBulkRequest) (*emptypb.Empty, error)
 	UpdateBulk(context.Context, *UpdateUserCredentialBulkRequest) (*emptypb.Empty, error)
 	DeleteBulk(context.Context, *DeleteUserCredentialBulkRequest) (*emptypb.Empty, error)
+	GetCount(context.Context, *emptypb.Empty) (*CountResponse, error)
 	mustEmbedUnimplementedUserCredentialServiceServer()
 }
 
@@ -209,6 +222,9 @@ func (UnimplementedUserCredentialServiceServer) UpdateBulk(context.Context, *Upd
 }
 func (UnimplementedUserCredentialServiceServer) DeleteBulk(context.Context, *DeleteUserCredentialBulkRequest) (*emptypb.Empty, error) {
 	return nil, status.Error(codes.Unimplemented, "method DeleteBulk not implemented")
+}
+func (UnimplementedUserCredentialServiceServer) GetCount(context.Context, *emptypb.Empty) (*CountResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetCount not implemented")
 }
 func (UnimplementedUserCredentialServiceServer) mustEmbedUnimplementedUserCredentialServiceServer() {}
 func (UnimplementedUserCredentialServiceServer) testEmbeddedByValue()                               {}
@@ -411,6 +427,24 @@ func _UserCredentialService_DeleteBulk_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserCredentialService_GetCount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(emptypb.Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserCredentialServiceServer).GetCount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserCredentialService_GetCount_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserCredentialServiceServer).GetCount(ctx, req.(*emptypb.Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // UserCredentialService_ServiceDesc is the grpc.ServiceDesc for UserCredentialService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -457,6 +491,10 @@ var UserCredentialService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteBulk",
 			Handler:    _UserCredentialService_DeleteBulk_Handler,
+		},
+		{
+			MethodName: "GetCount",
+			Handler:    _UserCredentialService_GetCount_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

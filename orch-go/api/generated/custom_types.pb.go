@@ -202,6 +202,50 @@ func (x *GetByDateRangeRequest) GetPageSize() int32 {
 	return 0
 }
 
+type CountResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Count         int64                  `protobuf:"varint,1,opt,name=count,proto3" json:"count,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CountResponse) Reset() {
+	*x = CountResponse{}
+	mi := &file_custom_types_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CountResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CountResponse) ProtoMessage() {}
+
+func (x *CountResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_custom_types_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CountResponse.ProtoReflect.Descriptor instead.
+func (*CountResponse) Descriptor() ([]byte, []int) {
+	return file_custom_types_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *CountResponse) GetCount() int64 {
+	if x != nil {
+		return x.Count
+	}
+	return 0
+}
+
 var File_custom_types_proto protoreflect.FileDescriptor
 
 const file_custom_types_proto_rawDesc = "" +
@@ -220,7 +264,9 @@ const file_custom_types_proto_rawDesc = "" +
 	"\x05pageN\x18\x03 \x01(\x05H\x00R\x05pageN\x88\x01\x01\x12\x1f\n" +
 	"\bpageSize\x18\x04 \x01(\x05H\x01R\bpageSize\x88\x01\x01B\b\n" +
 	"\x06_pageNB\v\n" +
-	"\t_pageSizeB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
+	"\t_pageSize\"%\n" +
+	"\rCountResponse\x12\x14\n" +
+	"\x05count\x18\x01 \x01(\x03R\x05countB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
 
 var (
 	file_custom_types_proto_rawDescOnce sync.Once
@@ -234,16 +280,17 @@ func file_custom_types_proto_rawDescGZIP() []byte {
 	return file_custom_types_proto_rawDescData
 }
 
-var file_custom_types_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+var file_custom_types_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_custom_types_proto_goTypes = []any{
 	(*GetAllRequest)(nil),         // 0: protos.GetAllRequest
 	(*DateOnly)(nil),              // 1: protos.DateOnly
 	(*GetByDateRangeRequest)(nil), // 2: protos.GetByDateRangeRequest
-	(*timestamppb.Timestamp)(nil), // 3: google.protobuf.Timestamp
+	(*CountResponse)(nil),         // 3: protos.CountResponse
+	(*timestamppb.Timestamp)(nil), // 4: google.protobuf.Timestamp
 }
 var file_custom_types_proto_depIdxs = []int32{
-	3, // 0: protos.GetByDateRangeRequest.fromDate:type_name -> google.protobuf.Timestamp
-	3, // 1: protos.GetByDateRangeRequest.toDate:type_name -> google.protobuf.Timestamp
+	4, // 0: protos.GetByDateRangeRequest.fromDate:type_name -> google.protobuf.Timestamp
+	4, // 1: protos.GetByDateRangeRequest.toDate:type_name -> google.protobuf.Timestamp
 	2, // [2:2] is the sub-list for method output_type
 	2, // [2:2] is the sub-list for method input_type
 	2, // [2:2] is the sub-list for extension type_name
@@ -263,7 +310,7 @@ func file_custom_types_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_custom_types_proto_rawDesc), len(file_custom_types_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   3,
+			NumMessages:   4,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

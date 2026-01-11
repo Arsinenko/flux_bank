@@ -31,6 +31,7 @@ const (
 	NotificationService_AddBulk_FullMethodName        = "/protos.NotificationService/AddBulk"
 	NotificationService_UpdateBulk_FullMethodName     = "/protos.NotificationService/UpdateBulk"
 	NotificationService_DeleteBulk_FullMethodName     = "/protos.NotificationService/DeleteBulk"
+	NotificationService_GetCount_FullMethodName       = "/protos.NotificationService/GetCount"
 )
 
 // NotificationServiceClient is the client API for NotificationService service.
@@ -48,6 +49,7 @@ type NotificationServiceClient interface {
 	AddBulk(ctx context.Context, in *AddNotificationBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	UpdateBulk(ctx context.Context, in *UpdateNotificationBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	DeleteBulk(ctx context.Context, in *DeleteNotificationBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	GetCount(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*CountResponse, error)
 }
 
 type notificationServiceClient struct {
@@ -168,6 +170,16 @@ func (c *notificationServiceClient) DeleteBulk(ctx context.Context, in *DeleteNo
 	return out, nil
 }
 
+func (c *notificationServiceClient) GetCount(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*CountResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CountResponse)
+	err := c.cc.Invoke(ctx, NotificationService_GetCount_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // NotificationServiceServer is the server API for NotificationService service.
 // All implementations must embed UnimplementedNotificationServiceServer
 // for forward compatibility.
@@ -183,6 +195,7 @@ type NotificationServiceServer interface {
 	AddBulk(context.Context, *AddNotificationBulkRequest) (*emptypb.Empty, error)
 	UpdateBulk(context.Context, *UpdateNotificationBulkRequest) (*emptypb.Empty, error)
 	DeleteBulk(context.Context, *DeleteNotificationBulkRequest) (*emptypb.Empty, error)
+	GetCount(context.Context, *emptypb.Empty) (*CountResponse, error)
 	mustEmbedUnimplementedNotificationServiceServer()
 }
 
@@ -225,6 +238,9 @@ func (UnimplementedNotificationServiceServer) UpdateBulk(context.Context, *Updat
 }
 func (UnimplementedNotificationServiceServer) DeleteBulk(context.Context, *DeleteNotificationBulkRequest) (*emptypb.Empty, error) {
 	return nil, status.Error(codes.Unimplemented, "method DeleteBulk not implemented")
+}
+func (UnimplementedNotificationServiceServer) GetCount(context.Context, *emptypb.Empty) (*CountResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetCount not implemented")
 }
 func (UnimplementedNotificationServiceServer) mustEmbedUnimplementedNotificationServiceServer() {}
 func (UnimplementedNotificationServiceServer) testEmbeddedByValue()                             {}
@@ -445,6 +461,24 @@ func _NotificationService_DeleteBulk_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _NotificationService_GetCount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(emptypb.Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(NotificationServiceServer).GetCount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: NotificationService_GetCount_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(NotificationServiceServer).GetCount(ctx, req.(*emptypb.Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // NotificationService_ServiceDesc is the grpc.ServiceDesc for NotificationService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -495,6 +529,10 @@ var NotificationService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteBulk",
 			Handler:    _NotificationService_DeleteBulk_Handler,
+		},
+		{
+			MethodName: "GetCount",
+			Handler:    _NotificationService_GetCount_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

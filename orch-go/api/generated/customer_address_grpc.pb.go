@@ -29,6 +29,7 @@ const (
 	CustomerAddressService_AddBulk_FullMethodName    = "/protos.CustomerAddressService/AddBulk"
 	CustomerAddressService_UpdateBulk_FullMethodName = "/protos.CustomerAddressService/UpdateBulk"
 	CustomerAddressService_DeleteBulk_FullMethodName = "/protos.CustomerAddressService/DeleteBulk"
+	CustomerAddressService_GetCount_FullMethodName   = "/protos.CustomerAddressService/GetCount"
 )
 
 // CustomerAddressServiceClient is the client API for CustomerAddressService service.
@@ -44,6 +45,7 @@ type CustomerAddressServiceClient interface {
 	AddBulk(ctx context.Context, in *AddCustomerAddressBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	UpdateBulk(ctx context.Context, in *UpdateCustomerAddressBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	DeleteBulk(ctx context.Context, in *DeleteCustomerAddressBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	GetCount(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*CountResponse, error)
 }
 
 type customerAddressServiceClient struct {
@@ -144,6 +146,16 @@ func (c *customerAddressServiceClient) DeleteBulk(ctx context.Context, in *Delet
 	return out, nil
 }
 
+func (c *customerAddressServiceClient) GetCount(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*CountResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CountResponse)
+	err := c.cc.Invoke(ctx, CustomerAddressService_GetCount_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CustomerAddressServiceServer is the server API for CustomerAddressService service.
 // All implementations must embed UnimplementedCustomerAddressServiceServer
 // for forward compatibility.
@@ -157,6 +169,7 @@ type CustomerAddressServiceServer interface {
 	AddBulk(context.Context, *AddCustomerAddressBulkRequest) (*emptypb.Empty, error)
 	UpdateBulk(context.Context, *UpdateCustomerAddressBulkRequest) (*emptypb.Empty, error)
 	DeleteBulk(context.Context, *DeleteCustomerAddressBulkRequest) (*emptypb.Empty, error)
+	GetCount(context.Context, *emptypb.Empty) (*CountResponse, error)
 	mustEmbedUnimplementedCustomerAddressServiceServer()
 }
 
@@ -193,6 +206,9 @@ func (UnimplementedCustomerAddressServiceServer) UpdateBulk(context.Context, *Up
 }
 func (UnimplementedCustomerAddressServiceServer) DeleteBulk(context.Context, *DeleteCustomerAddressBulkRequest) (*emptypb.Empty, error) {
 	return nil, status.Error(codes.Unimplemented, "method DeleteBulk not implemented")
+}
+func (UnimplementedCustomerAddressServiceServer) GetCount(context.Context, *emptypb.Empty) (*CountResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetCount not implemented")
 }
 func (UnimplementedCustomerAddressServiceServer) mustEmbedUnimplementedCustomerAddressServiceServer() {
 }
@@ -378,6 +394,24 @@ func _CustomerAddressService_DeleteBulk_Handler(srv interface{}, ctx context.Con
 	return interceptor(ctx, in, info, handler)
 }
 
+func _CustomerAddressService_GetCount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(emptypb.Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CustomerAddressServiceServer).GetCount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CustomerAddressService_GetCount_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CustomerAddressServiceServer).GetCount(ctx, req.(*emptypb.Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // CustomerAddressService_ServiceDesc is the grpc.ServiceDesc for CustomerAddressService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -420,6 +454,10 @@ var CustomerAddressService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteBulk",
 			Handler:    _CustomerAddressService_DeleteBulk_Handler,
+		},
+		{
+			MethodName: "GetCount",
+			Handler:    _CustomerAddressService_GetCount_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

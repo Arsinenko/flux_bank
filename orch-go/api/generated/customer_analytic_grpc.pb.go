@@ -25,6 +25,9 @@ const (
 	CustomerAnalyticService_GetCustomerLifeTime_FullMethodName                    = "/protos.CustomerAnalyticService/GetCustomerLifeTime"
 	CustomerAnalyticService_GetCustomersLifeTime_FullMethodName                   = "/protos.CustomerAnalyticService/GetCustomersLifeTime"
 	CustomerAnalyticService_GetInactiveCustomers_FullMethodName                   = "/protos.CustomerAnalyticService/GetInactiveCustomers"
+	CustomerAnalyticService_GetCountByBalanceRange_FullMethodName                 = "/protos.CustomerAnalyticService/GetCountByBalanceRange"
+	CustomerAnalyticService_GetCountByTransactionQuantityRange_FullMethodName     = "/protos.CustomerAnalyticService/GetCountByTransactionQuantityRange"
+	CustomerAnalyticService_GetCountInactiveCustomers_FullMethodName              = "/protos.CustomerAnalyticService/GetCountInactiveCustomers"
 )
 
 // CustomerAnalyticServiceClient is the client API for CustomerAnalyticService service.
@@ -36,6 +39,9 @@ type CustomerAnalyticServiceClient interface {
 	GetCustomerLifeTime(ctx context.Context, in *GetCustomerLifeTimeRequest, opts ...grpc.CallOption) (*GetCustomerLifeTimeResponse, error)
 	GetCustomersLifeTime(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*GetCustomersLifeTimeResponse, error)
 	GetInactiveCustomers(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*GetAllCustomersResponse, error)
+	GetCountByBalanceRange(ctx context.Context, in *GetCustomersByBalanceRangeRequest, opts ...grpc.CallOption) (*CountResponse, error)
+	GetCountByTransactionQuantityRange(ctx context.Context, in *GetCustomersByTransactionQuantityRangeRequest, opts ...grpc.CallOption) (*CountResponse, error)
+	GetCountInactiveCustomers(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*CountResponse, error)
 }
 
 type customerAnalyticServiceClient struct {
@@ -96,6 +102,36 @@ func (c *customerAnalyticServiceClient) GetInactiveCustomers(ctx context.Context
 	return out, nil
 }
 
+func (c *customerAnalyticServiceClient) GetCountByBalanceRange(ctx context.Context, in *GetCustomersByBalanceRangeRequest, opts ...grpc.CallOption) (*CountResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CountResponse)
+	err := c.cc.Invoke(ctx, CustomerAnalyticService_GetCountByBalanceRange_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *customerAnalyticServiceClient) GetCountByTransactionQuantityRange(ctx context.Context, in *GetCustomersByTransactionQuantityRangeRequest, opts ...grpc.CallOption) (*CountResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CountResponse)
+	err := c.cc.Invoke(ctx, CustomerAnalyticService_GetCountByTransactionQuantityRange_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *customerAnalyticServiceClient) GetCountInactiveCustomers(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*CountResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CountResponse)
+	err := c.cc.Invoke(ctx, CustomerAnalyticService_GetCountInactiveCustomers_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CustomerAnalyticServiceServer is the server API for CustomerAnalyticService service.
 // All implementations must embed UnimplementedCustomerAnalyticServiceServer
 // for forward compatibility.
@@ -105,6 +141,9 @@ type CustomerAnalyticServiceServer interface {
 	GetCustomerLifeTime(context.Context, *GetCustomerLifeTimeRequest) (*GetCustomerLifeTimeResponse, error)
 	GetCustomersLifeTime(context.Context, *emptypb.Empty) (*GetCustomersLifeTimeResponse, error)
 	GetInactiveCustomers(context.Context, *emptypb.Empty) (*GetAllCustomersResponse, error)
+	GetCountByBalanceRange(context.Context, *GetCustomersByBalanceRangeRequest) (*CountResponse, error)
+	GetCountByTransactionQuantityRange(context.Context, *GetCustomersByTransactionQuantityRangeRequest) (*CountResponse, error)
+	GetCountInactiveCustomers(context.Context, *emptypb.Empty) (*CountResponse, error)
 	mustEmbedUnimplementedCustomerAnalyticServiceServer()
 }
 
@@ -129,6 +168,15 @@ func (UnimplementedCustomerAnalyticServiceServer) GetCustomersLifeTime(context.C
 }
 func (UnimplementedCustomerAnalyticServiceServer) GetInactiveCustomers(context.Context, *emptypb.Empty) (*GetAllCustomersResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetInactiveCustomers not implemented")
+}
+func (UnimplementedCustomerAnalyticServiceServer) GetCountByBalanceRange(context.Context, *GetCustomersByBalanceRangeRequest) (*CountResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetCountByBalanceRange not implemented")
+}
+func (UnimplementedCustomerAnalyticServiceServer) GetCountByTransactionQuantityRange(context.Context, *GetCustomersByTransactionQuantityRangeRequest) (*CountResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetCountByTransactionQuantityRange not implemented")
+}
+func (UnimplementedCustomerAnalyticServiceServer) GetCountInactiveCustomers(context.Context, *emptypb.Empty) (*CountResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetCountInactiveCustomers not implemented")
 }
 func (UnimplementedCustomerAnalyticServiceServer) mustEmbedUnimplementedCustomerAnalyticServiceServer() {
 }
@@ -242,6 +290,60 @@ func _CustomerAnalyticService_GetInactiveCustomers_Handler(srv interface{}, ctx 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _CustomerAnalyticService_GetCountByBalanceRange_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetCustomersByBalanceRangeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CustomerAnalyticServiceServer).GetCountByBalanceRange(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CustomerAnalyticService_GetCountByBalanceRange_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CustomerAnalyticServiceServer).GetCountByBalanceRange(ctx, req.(*GetCustomersByBalanceRangeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CustomerAnalyticService_GetCountByTransactionQuantityRange_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetCustomersByTransactionQuantityRangeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CustomerAnalyticServiceServer).GetCountByTransactionQuantityRange(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CustomerAnalyticService_GetCountByTransactionQuantityRange_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CustomerAnalyticServiceServer).GetCountByTransactionQuantityRange(ctx, req.(*GetCustomersByTransactionQuantityRangeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CustomerAnalyticService_GetCountInactiveCustomers_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(emptypb.Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CustomerAnalyticServiceServer).GetCountInactiveCustomers(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CustomerAnalyticService_GetCountInactiveCustomers_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CustomerAnalyticServiceServer).GetCountInactiveCustomers(ctx, req.(*emptypb.Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // CustomerAnalyticService_ServiceDesc is the grpc.ServiceDesc for CustomerAnalyticService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -268,6 +370,18 @@ var CustomerAnalyticService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetInactiveCustomers",
 			Handler:    _CustomerAnalyticService_GetInactiveCustomers_Handler,
+		},
+		{
+			MethodName: "GetCountByBalanceRange",
+			Handler:    _CustomerAnalyticService_GetCountByBalanceRange_Handler,
+		},
+		{
+			MethodName: "GetCountByTransactionQuantityRange",
+			Handler:    _CustomerAnalyticService_GetCountByTransactionQuantityRange_Handler,
+		},
+		{
+			MethodName: "GetCountInactiveCustomers",
+			Handler:    _CustomerAnalyticService_GetCountInactiveCustomers_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

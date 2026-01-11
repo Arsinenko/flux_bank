@@ -715,7 +715,7 @@ const file_deposit_proto_rawDesc = "" +
 	"\x18UpdateDepositBulkRequest\x128\n" +
 	"\bdeposits\x18\x01 \x03(\v2\x1c.protos.UpdateDepositRequestR\bdeposits\"T\n" +
 	"\x18DeleteDepositBulkRequest\x128\n" +
-	"\bdeposits\x18\x01 \x03(\v2\x1c.protos.DeleteDepositRequestR\bdeposits2\xbe\x05\n" +
+	"\bdeposits\x18\x01 \x03(\v2\x1c.protos.DeleteDepositRequestR\bdeposits2\xf9\x05\n" +
 	"\x0eDepositService\x12?\n" +
 	"\x06GetAll\x12\x15.protos.GetAllRequest\x1a\x1e.protos.GetAllDepositsResponse\x12>\n" +
 	"\aGetById\x12\x1d.protos.GetDepositByIdRequest\x1a\x14.protos.DepositModel\x12J\n" +
@@ -728,7 +728,8 @@ const file_deposit_proto_rawDesc = "" +
 	"\n" +
 	"UpdateBulk\x12 .protos.UpdateDepositBulkRequest\x1a\x16.google.protobuf.Empty\x12F\n" +
 	"\n" +
-	"DeleteBulk\x12 .protos.DeleteDepositBulkRequest\x1a\x16.google.protobuf.EmptyB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
+	"DeleteBulk\x12 .protos.DeleteDepositBulkRequest\x1a\x16.google.protobuf.Empty\x129\n" +
+	"\bGetCount\x12\x16.google.protobuf.Empty\x1a\x15.protos.CountResponseB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
 
 var (
 	file_deposit_proto_rawDescOnce sync.Once
@@ -758,6 +759,7 @@ var file_deposit_proto_goTypes = []any{
 	(*DateOnly)(nil),                     // 11: protos.DateOnly
 	(*GetAllRequest)(nil),                // 12: protos.GetAllRequest
 	(*emptypb.Empty)(nil),                // 13: google.protobuf.Empty
+	(*CountResponse)(nil),                // 14: protos.CountResponse
 }
 var file_deposit_proto_depIdxs = []int32{
 	11, // 0: protos.DepositModel.start_date:type_name -> protos.DateOnly
@@ -780,18 +782,20 @@ var file_deposit_proto_depIdxs = []int32{
 	8,  // 17: protos.DepositService.AddBulk:input_type -> protos.AddDepositBulkRequest
 	9,  // 18: protos.DepositService.UpdateBulk:input_type -> protos.UpdateDepositBulkRequest
 	10, // 19: protos.DepositService.DeleteBulk:input_type -> protos.DeleteDepositBulkRequest
-	1,  // 20: protos.DepositService.GetAll:output_type -> protos.GetAllDepositsResponse
-	0,  // 21: protos.DepositService.GetById:output_type -> protos.DepositModel
-	1,  // 22: protos.DepositService.GetByIds:output_type -> protos.GetAllDepositsResponse
-	1,  // 23: protos.DepositService.GetByCustomer:output_type -> protos.GetAllDepositsResponse
-	0,  // 24: protos.DepositService.Add:output_type -> protos.DepositModel
-	13, // 25: protos.DepositService.Update:output_type -> google.protobuf.Empty
-	13, // 26: protos.DepositService.Delete:output_type -> google.protobuf.Empty
-	13, // 27: protos.DepositService.AddBulk:output_type -> google.protobuf.Empty
-	13, // 28: protos.DepositService.UpdateBulk:output_type -> google.protobuf.Empty
-	13, // 29: protos.DepositService.DeleteBulk:output_type -> google.protobuf.Empty
-	20, // [20:30] is the sub-list for method output_type
-	10, // [10:20] is the sub-list for method input_type
+	13, // 20: protos.DepositService.GetCount:input_type -> google.protobuf.Empty
+	1,  // 21: protos.DepositService.GetAll:output_type -> protos.GetAllDepositsResponse
+	0,  // 22: protos.DepositService.GetById:output_type -> protos.DepositModel
+	1,  // 23: protos.DepositService.GetByIds:output_type -> protos.GetAllDepositsResponse
+	1,  // 24: protos.DepositService.GetByCustomer:output_type -> protos.GetAllDepositsResponse
+	0,  // 25: protos.DepositService.Add:output_type -> protos.DepositModel
+	13, // 26: protos.DepositService.Update:output_type -> google.protobuf.Empty
+	13, // 27: protos.DepositService.Delete:output_type -> google.protobuf.Empty
+	13, // 28: protos.DepositService.AddBulk:output_type -> google.protobuf.Empty
+	13, // 29: protos.DepositService.UpdateBulk:output_type -> google.protobuf.Empty
+	13, // 30: protos.DepositService.DeleteBulk:output_type -> google.protobuf.Empty
+	14, // 31: protos.DepositService.GetCount:output_type -> protos.CountResponse
+	21, // [21:32] is the sub-list for method output_type
+	10, // [10:21] is the sub-list for method input_type
 	10, // [10:10] is the sub-list for extension type_name
 	10, // [10:10] is the sub-list for extension extendee
 	0,  // [0:10] is the sub-list for field type_name
