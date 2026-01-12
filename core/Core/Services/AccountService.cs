@@ -155,4 +155,22 @@ public class AccountService(IAccountRepository accountRepository, IMapper mapper
             Count = count
         };
     }
+
+    public override async Task<CountResponse> GetCountByStatus(GetAccountsByStatusRequest request, ServerCallContext context)
+    {
+        var count = await accountRepository.GetCountByStatusAsync(request.Status);
+        return new CountResponse()
+        {
+            Count = count
+        };
+    }
+
+    public override async Task<TotalBalanceResponse> GetTotalBalance(Empty request, ServerCallContext context)
+    {
+        var balance = await accountRepository.GetTotalBalanceAsync();
+        return new TotalBalanceResponse()
+        {
+            TotalBalance = balance.ToString()
+        };
+    }
 }

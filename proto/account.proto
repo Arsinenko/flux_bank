@@ -25,8 +25,14 @@ service AccountService {
   rpc UpdateBulk (UpdateAccountBulkRequest) returns (google.protobuf.Empty);
   rpc DeleteBulk (DeleteAccountBulkRequest) returns (google.protobuf.Empty);
   rpc GetCount (google.protobuf.Empty) returns (CountResponse);
+  rpc GetCountByStatus (GetAccountsByStatusRequest) returns (CountResponse);
   rpc GetCountByDateRange (GetByDateRangeRequest) returns (CountResponse);
   rpc GetCountByCustomerId (GetAccountByCustomerIdRequest) returns (CountResponse);
+  rpc GetTotalBalance (google.protobuf.Empty) returns (TotalBalanceResponse);
+}
+
+message TotalBalanceResponse {
+  string total_balance = 1;
 }
 
 message AccountModel {
@@ -86,4 +92,8 @@ message UpdateAccountBulkRequest {
 
 message DeleteAccountBulkRequest {
   repeated DeleteAccountRequest accounts = 1;
+}
+
+message GetAccountsByStatusRequest{
+  bool status = 1;
 }

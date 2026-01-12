@@ -23,6 +23,7 @@ service CardService {
   rpc UpdateBulk (UpdateCardBulkRequest) returns (google.protobuf.Empty); 
   rpc DeleteBulk (DeleteCardBulkRequest) returns (google.protobuf.Empty);
   rpc GetCount (google.protobuf.Empty) returns (CountResponse);
+  rpc GetCountByStatus(GetCardCountByStatus) returns (CountResponse);
 }
 
 message CardModel {
@@ -81,4 +82,8 @@ message UpdateCardBulkRequest {
 
 message DeleteCardBulkRequest {
   repeated DeleteCardRequest cards = 1;
+}
+
+message GetCardCountByStatus {
+  string status = 1;
 }

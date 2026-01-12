@@ -123,5 +123,14 @@ public class CardService(ICardRepository repository, IMapper mapper) : Core.Card
             Count = count
         };
     }
+
+    public override async Task<CountResponse> GetCountByStatus(GetCardCountByStatus request, ServerCallContext context)
+    {
+        var count = await repository.GetCountByStatusAsync(request.Status);
+        return new CountResponse()
+        {
+            Count = count
+        };
+    }
 }
      

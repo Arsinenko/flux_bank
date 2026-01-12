@@ -30,6 +30,7 @@ service TransactionService {
   rpc GetCountAccountExpenses (GetAccountExpensesRequest) returns (CountResponse);
 }
 
+
 message TransactionModel {
   int32 transaction_id = 1;
   optional int32 source_account = 2;
