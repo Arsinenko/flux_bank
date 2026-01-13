@@ -22,3 +22,11 @@ class AtmRepositoryAbc(ABC):
     @abstractmethod
     async def get_by_branch(self, branch_id: int) -> List[Atm]:
         pass
+
+    @abstractmethod
+    async def get_count(self) -> int:
+        pass
+
+    @abstractmethod
+    async def get_count_by_status(self, status: str) -> int:
+        pass

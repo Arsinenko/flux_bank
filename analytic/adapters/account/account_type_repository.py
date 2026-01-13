@@ -1,6 +1,7 @@
 from typing import List
 
 import grpc.aio
+from google.protobuf.empty_pb2 import Empty
 
 from adapters.base_grpc_repository import BaseGrpcRepository
 from api.generated.account_type_pb2 import *
@@ -11,6 +12,15 @@ from domain.account.account_type_repo import AccountTypeRepositoryAbc
 
 
 class AccountTypeRepository(AccountTypeRepositoryAbc, BaseGrpcRepository):
+    async def get_by_ids(self, ids: List[int]) -> List[AccountType]:
+        result = await self._execute(self.stub.GetByIds(GetAccountTypeByIdsRequest(type_ids=ids)))
+        return [self.to_domain(model) for model in result.account_types]
+
+    async def get_count(self) -> int:
+        result = await self._execute(self.stub.GetCount(Empty()))
+        return result.count
+
+
     def __init__(self, target: str):
         super().__init__(target)
         self.stub = AccountTypeServiceStub(channel=self.chanel)

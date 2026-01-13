@@ -12,3 +12,12 @@ class BranchRepositoryAbc(ABC):
     @abstractmethod
     async def get_by_id(self, branch_id: int) ->Branch | None:
         pass
+    
+    @abstractmethod
+    async def get_by_ids(self, ids: List[int]) -> List[Branch]:
+        pass
+
+    @abstractmethod
+    async def get_count(self) -> int:
+        pass
+    

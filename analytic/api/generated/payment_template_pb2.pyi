@@ -135,6 +135,22 @@ class AddPaymentTemplateRequest(google.protobuf.message.Message):
 Global___AddPaymentTemplateRequest: typing_extensions.TypeAlias = AddPaymentTemplateRequest
 
 @typing.final
+class AddPaymentTemplateBulkRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    TEMPLATES_FIELD_NUMBER: builtins.int
+    @property
+    def templates(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___AddPaymentTemplateRequest]: ...
+    def __init__(
+        self,
+        *,
+        templates: collections.abc.Iterable[Global___AddPaymentTemplateRequest] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["templates", b"templates"]) -> None: ...
+
+Global___AddPaymentTemplateBulkRequest: typing_extensions.TypeAlias = AddPaymentTemplateBulkRequest
+
+@typing.final
 class UpdatePaymentTemplateRequest(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -171,37 +187,6 @@ class UpdatePaymentTemplateRequest(google.protobuf.message.Message):
 Global___UpdatePaymentTemplateRequest: typing_extensions.TypeAlias = UpdatePaymentTemplateRequest
 
 @typing.final
-class DeletePaymentTemplateRequest(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
-
-    TEMPLATE_ID_FIELD_NUMBER: builtins.int
-    template_id: builtins.int
-    def __init__(
-        self,
-        *,
-        template_id: builtins.int = ...,
-    ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["template_id", b"template_id"]) -> None: ...
-
-Global___DeletePaymentTemplateRequest: typing_extensions.TypeAlias = DeletePaymentTemplateRequest
-
-@typing.final
-class AddPaymentTemplateBulkRequest(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
-
-    TEMPLATES_FIELD_NUMBER: builtins.int
-    @property
-    def templates(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[Global___AddPaymentTemplateRequest]: ...
-    def __init__(
-        self,
-        *,
-        templates: collections.abc.Iterable[Global___AddPaymentTemplateRequest] | None = ...,
-    ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["templates", b"templates"]) -> None: ...
-
-Global___AddPaymentTemplateBulkRequest: typing_extensions.TypeAlias = AddPaymentTemplateBulkRequest
-
-@typing.final
 class UpdatePaymentTemplateBulkRequest(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -216,6 +201,21 @@ class UpdatePaymentTemplateBulkRequest(google.protobuf.message.Message):
     def ClearField(self, field_name: typing.Literal["templates", b"templates"]) -> None: ...
 
 Global___UpdatePaymentTemplateBulkRequest: typing_extensions.TypeAlias = UpdatePaymentTemplateBulkRequest
+
+@typing.final
+class DeletePaymentTemplateRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    TEMPLATE_ID_FIELD_NUMBER: builtins.int
+    template_id: builtins.int
+    def __init__(
+        self,
+        *,
+        template_id: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["template_id", b"template_id"]) -> None: ...
+
+Global___DeletePaymentTemplateRequest: typing_extensions.TypeAlias = DeletePaymentTemplateRequest
 
 @typing.final
 class DeletePaymentTemplateBulkRequest(google.protobuf.message.Message):

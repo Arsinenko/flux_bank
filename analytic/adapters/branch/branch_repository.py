@@ -1,6 +1,6 @@
 from typing import List
 
-import grpc.aio
+from google.protobuf.empty_pb2 import Empty
 
 from adapters.base_grpc_repository import BaseGrpcRepository
 from api.generated.branch_pb2 import *
@@ -29,6 +29,17 @@ class BranchRepository(BranchRepositoryAbc, BaseGrpcRepository):
     def response_to_list(response: GetAllBranchesResponse) -> List[Branch]:
         return [BranchRepository.to_domain(model) for model in response.branches]
 
+    async def get_by_ids(self, ids: List[int]) -> List[Branch]:
+        request = GetBranchByIdsRequest(branch_ids=ids)
+        result = await self._execute(self.stub.GetByIds(request))
+        if result:
+            return self.response_to_list(result)
+        return []
+
+    async def get_count(self) -> int:
+        result = await self._execute(self.stub.GetCount(Empty()))
+        return result.count
+
     async def get_all(self, page_n: int, page_size: int) -> List[Branch]:
         request = GetAllRequest(pageN=page_n, pageSize=page_size)
         result = await self._execute(self.stub.GetAll(request))
@@ -42,3 +53,4 @@ class BranchRepository(BranchRepositoryAbc, BaseGrpcRepository):
         if result:
             return self.to_domain(result)
         return None
+    

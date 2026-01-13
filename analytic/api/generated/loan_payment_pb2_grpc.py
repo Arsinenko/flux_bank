@@ -86,6 +86,11 @@ class LoanPaymentServiceStub(object):
                 request_serializer=loan__payment__pb2.DeleteLoanPaymentBulkRequest.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 _registered_method=True)
+        self.GetCount = channel.unary_unary(
+                '/protos.LoanPaymentService/GetCount',
+                request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+                response_deserializer=custom__types__pb2.CountResponse.FromString,
+                _registered_method=True)
 
 
 class LoanPaymentServiceServicer(object):
@@ -151,6 +156,12 @@ class LoanPaymentServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetCount(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_LoanPaymentServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -203,6 +214,11 @@ def add_LoanPaymentServiceServicer_to_server(servicer, server):
                     servicer.DeleteBulk,
                     request_deserializer=loan__payment__pb2.DeleteLoanPaymentBulkRequest.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'GetCount': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetCount,
+                    request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                    response_serializer=custom__types__pb2.CountResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -475,6 +491,33 @@ class LoanPaymentService(object):
             '/protos.LoanPaymentService/DeleteBulk',
             loan__payment__pb2.DeleteLoanPaymentBulkRequest.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetCount(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.LoanPaymentService/GetCount',
+            google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            custom__types__pb2.CountResponse.FromString,
             options,
             channel_credentials,
             insecure,

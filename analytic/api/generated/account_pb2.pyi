@@ -20,6 +20,21 @@ else:
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
 @typing.final
+class TotalBalanceResponse(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    TOTAL_BALANCE_FIELD_NUMBER: builtins.int
+    total_balance: builtins.str
+    def __init__(
+        self,
+        *,
+        total_balance: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["total_balance", b"total_balance"]) -> None: ...
+
+Global___TotalBalanceResponse: typing_extensions.TypeAlias = TotalBalanceResponse
+
+@typing.final
 class AccountModel(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -263,3 +278,18 @@ class DeleteAccountBulkRequest(google.protobuf.message.Message):
     def ClearField(self, field_name: typing.Literal["accounts", b"accounts"]) -> None: ...
 
 Global___DeleteAccountBulkRequest: typing_extensions.TypeAlias = DeleteAccountBulkRequest
+
+@typing.final
+class GetAccountsByStatusRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    STATUS_FIELD_NUMBER: builtins.int
+    status: builtins.bool
+    def __init__(
+        self,
+        *,
+        status: builtins.bool = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["status", b"status"]) -> None: ...
+
+Global___GetAccountsByStatusRequest: typing_extensions.TypeAlias = GetAccountsByStatusRequest

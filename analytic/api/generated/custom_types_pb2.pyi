@@ -86,3 +86,18 @@ class GetByDateRangeRequest(google.protobuf.message.Message):
     def WhichOneof(self, oneof_group: typing.Literal["_pageSize", b"_pageSize"]) -> typing.Literal["pageSize"] | None: ...
 
 Global___GetByDateRangeRequest: typing_extensions.TypeAlias = GetByDateRangeRequest
+
+@typing.final
+class CountResponse(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    COUNT_FIELD_NUMBER: builtins.int
+    count: builtins.int
+    def __init__(
+        self,
+        *,
+        count: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["count", b"count"]) -> None: ...
+
+Global___CountResponse: typing_extensions.TypeAlias = CountResponse

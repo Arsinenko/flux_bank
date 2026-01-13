@@ -2,6 +2,7 @@ from decimal import Decimal
 from typing import List
 
 import grpc
+from google.protobuf.empty_pb2 import Empty
 
 from adapters.base_grpc_repository import BaseGrpcRepository
 from api.generated.custom_types_pb2 import GetAllRequest
@@ -31,6 +32,23 @@ class DepositRepository(DepositRepositoryAbc, BaseGrpcRepository):
     @staticmethod
     def response_to_list(response: GetAllDepositsResponse) -> List[Deposit]:
         return [DepositRepository.to_domain(model) for model in response.deposits]
+
+    async def get_by_ids(self, ids: List[int]):
+        request = GetDepositByIdsRequest(deposit_ids=ids)
+        result = await self._execute(self.stub.GetByIds(request))
+        if result:
+            return self.response_to_list(result)
+        return []
+
+
+    async def get_count(self) -> int:
+        result = await self._execute(self.stub.GetCount(Empty()))
+        return result.count
+
+    async def get_count_by_status(self, status: str):
+        result = await self._execute(self.stub.GetCountByStatus(GetDepositCountByStatusRequest(status=status)))
+        return result.count
+
 
     async def get_all(self, page_n: int, page_size: int) -> List[Deposit]:
         request = GetAllRequest(pageN=page_n, pageSize=page_size)

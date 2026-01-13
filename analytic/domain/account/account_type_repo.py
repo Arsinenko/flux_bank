@@ -11,3 +11,11 @@ class AccountTypeRepositoryAbc(ABC):
     @abstractmethod
     async def get_by_id(self, type_id: int) -> AccountType:
         pass
+
+    @abstractmethod
+    async def get_by_ids(self, ids: List[int]) -> List[AccountType]:
+        pass
+
+    @abstractmethod
+    async def get_count(self) -> int:
+        pass

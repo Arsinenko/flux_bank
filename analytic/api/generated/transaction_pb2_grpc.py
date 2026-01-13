@@ -96,6 +96,31 @@ class TransactionServiceStub(object):
                 request_serializer=transaction__pb2.DeleteTransactionBulkRequest.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 _registered_method=True)
+        self.GetCount = channel.unary_unary(
+                '/protos.TransactionService/GetCount',
+                request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+                response_deserializer=custom__types__pb2.CountResponse.FromString,
+                _registered_method=True)
+        self.GetCountByDateRange = channel.unary_unary(
+                '/protos.TransactionService/GetCountByDateRange',
+                request_serializer=custom__types__pb2.GetByDateRangeRequest.SerializeToString,
+                response_deserializer=custom__types__pb2.CountResponse.FromString,
+                _registered_method=True)
+        self.GetCountAccountRevenue = channel.unary_unary(
+                '/protos.TransactionService/GetCountAccountRevenue',
+                request_serializer=transaction__pb2.GetAccountRevenueRequest.SerializeToString,
+                response_deserializer=custom__types__pb2.CountResponse.FromString,
+                _registered_method=True)
+        self.GetCountAccountExpenses = channel.unary_unary(
+                '/protos.TransactionService/GetCountAccountExpenses',
+                request_serializer=transaction__pb2.GetAccountExpensesRequest.SerializeToString,
+                response_deserializer=custom__types__pb2.CountResponse.FromString,
+                _registered_method=True)
+        self.GetTotalAmount = channel.unary_unary(
+                '/protos.TransactionService/GetTotalAmount',
+                request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+                response_deserializer=transaction__pb2.TotalAmountResponse.FromString,
+                _registered_method=True)
 
 
 class TransactionServiceServicer(object):
@@ -173,6 +198,36 @@ class TransactionServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetCount(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetCountByDateRange(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetCountAccountRevenue(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetCountAccountExpenses(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetTotalAmount(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_TransactionServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -235,6 +290,31 @@ def add_TransactionServiceServicer_to_server(servicer, server):
                     servicer.DeleteBulk,
                     request_deserializer=transaction__pb2.DeleteTransactionBulkRequest.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'GetCount': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetCount,
+                    request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                    response_serializer=custom__types__pb2.CountResponse.SerializeToString,
+            ),
+            'GetCountByDateRange': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetCountByDateRange,
+                    request_deserializer=custom__types__pb2.GetByDateRangeRequest.FromString,
+                    response_serializer=custom__types__pb2.CountResponse.SerializeToString,
+            ),
+            'GetCountAccountRevenue': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetCountAccountRevenue,
+                    request_deserializer=transaction__pb2.GetAccountRevenueRequest.FromString,
+                    response_serializer=custom__types__pb2.CountResponse.SerializeToString,
+            ),
+            'GetCountAccountExpenses': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetCountAccountExpenses,
+                    request_deserializer=transaction__pb2.GetAccountExpensesRequest.FromString,
+                    response_serializer=custom__types__pb2.CountResponse.SerializeToString,
+            ),
+            'GetTotalAmount': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetTotalAmount,
+                    request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                    response_serializer=transaction__pb2.TotalAmountResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -561,6 +641,141 @@ class TransactionService(object):
             '/protos.TransactionService/DeleteBulk',
             transaction__pb2.DeleteTransactionBulkRequest.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetCount(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.TransactionService/GetCount',
+            google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            custom__types__pb2.CountResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetCountByDateRange(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.TransactionService/GetCountByDateRange',
+            custom__types__pb2.GetByDateRangeRequest.SerializeToString,
+            custom__types__pb2.CountResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetCountAccountRevenue(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.TransactionService/GetCountAccountRevenue',
+            transaction__pb2.GetAccountRevenueRequest.SerializeToString,
+            custom__types__pb2.CountResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetCountAccountExpenses(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.TransactionService/GetCountAccountExpenses',
+            transaction__pb2.GetAccountExpensesRequest.SerializeToString,
+            custom__types__pb2.CountResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetTotalAmount(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.TransactionService/GetTotalAmount',
+            google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            transaction__pb2.TotalAmountResponse.FromString,
             options,
             channel_credentials,
             insecure,

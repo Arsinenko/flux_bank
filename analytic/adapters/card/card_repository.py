@@ -1,6 +1,7 @@
 from typing import List
 
 import grpc
+from google.protobuf.empty_pb2 import Empty
 
 from adapters.base_grpc_repository import BaseGrpcRepository
 from api.generated.card_pb2 import *
@@ -30,6 +31,14 @@ class CardRepository(CardRepositoryAbc, BaseGrpcRepository):
     def response_to_list(response: GetAllCardsResponse) -> List[Card]:
         return [CardRepository.to_domain(model) for model in response.cards]
 
+    async def get_count(self) -> int:
+        result = await self._execute(self.stub.GetCount(Empty()))
+        return result.count
+
+    async def get_count_by_status(self, status: str):
+        result = await self._execute(self.stub.GetCountByStatus(GetCardCountByStatus(status=status)))
+        return result.count
+
     async def get_all(self, page_n: int, page_size: int) -> List[Card]:
         request = GetAllRequest(pageN=page_n, pageSize=page_size)
         result = await self._execute(self.stub.GetAll(request))
@@ -47,7 +56,7 @@ class CardRepository(CardRepositoryAbc, BaseGrpcRepository):
 
     async def get_by_account_id(self, account_id: int) -> List[Card]:
         request = GetCardsByAccountRequest(account_id=account_id)
-        result = await self._execute(self.stub.GetByAccountId(request))
+        result = await self._execute(self.stub.GetByAccount(request))
         if result:
             return self.response_to_list(result)
         return []

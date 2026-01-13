@@ -21,6 +21,21 @@ else:
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
 @typing.final
+class TotalAmountResponse(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    TOTAL_AMOUNT_FIELD_NUMBER: builtins.int
+    total_amount: builtins.str
+    def __init__(
+        self,
+        *,
+        total_amount: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["total_amount", b"total_amount"]) -> None: ...
+
+Global___TotalAmountResponse: typing_extensions.TypeAlias = TotalAmountResponse
+
+@typing.final
 class TransactionModel(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 

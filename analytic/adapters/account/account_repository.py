@@ -1,13 +1,16 @@
+import decimal
 from datetime import datetime
 from typing import List
 
 import grpc.aio
+from decorator import EMPTY
+from google.protobuf.empty_pb2 import Empty
 
 from adapters.base_grpc_repository import BaseGrpcRepository
 from api.generated import account_pb2
-from api.generated.account_pb2 import AccountModel
+from api.generated.account_pb2 import *
 from api.generated.account_pb2_grpc import AccountServiceStub
-from api.generated.custom_types_pb2 import GetAllRequest, GetByDateRangeRequest
+from api.generated.custom_types_pb2 import GetAllRequest, GetByDateRangeRequest, CountResponse
 from domain.account.account import Account
 from domain.account.account_repo import AccountRepositoryAbc
 
@@ -39,8 +42,6 @@ class AccountRepository(AccountRepositoryAbc, BaseGrpcRepository):
         result = await self._execute(self.stub.GetAll(request))
         return self.response_to_list(result)
 
-
-
     async def get_by_id(self, account_id: int) -> Account | None:
         request = account_pb2.GetAccountByIdRequest(account_id=account_id)
         result: AccountModel = await self._execute(self.stub.GetById(request))
@@ -63,3 +64,34 @@ class AccountRepository(AccountRepositoryAbc, BaseGrpcRepository):
         )
         result = await self._execute(self.stub.GetByDateRange(request))
         return self.response_to_list(result)
+
+    async def get_count_by_customer_id(self, customer_id: int) -> int:
+        request = GetAccountByCustomerIdRequest(customer_id=customer_id)
+        result = await self._execute(self.stub.GetCountByCustomerId(request))
+        return result.count
+
+    async def get_by_ids(self, ids: List[int]) -> List[Account]:
+        request = GetAccountByIdsRequest(account_ids=ids)
+        result = await self._execute(self.stub.GetByIds(request))
+        return self.response_to_list(result)
+
+    async def get_count(self) -> int:
+        result = await self._execute(self.stub.GetCount(Empty()))
+        return result.count
+
+    async def get_total_balance(self) -> decimal.Decimal:
+        result: account_pb2.TotalBalanceResponse = await self._execute(self.stub.GetTotalBalance(Empty()))
+        return decimal.Decimal(result.total_balance)
+
+    async def get_count_by_date_range(self, from_date: datetime, to_date: datetime) -> int:
+        request = GetByDateRangeRequest(
+            fromDate=from_date,
+            toDate=to_date
+        )
+        result: CountResponse = await self._execute(self.stub.GetCountByDateRange(request))
+        return result.count
+
+    async def get_count_by_status(self, status: bool) -> int:
+        request = GetAccountsByStatusRequest(status=status)
+        result = await self._execute(self.stub.GetCountByStatus(request))
+        return result.count

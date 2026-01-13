@@ -3,6 +3,7 @@ from decimal import Decimal
 from typing import List
 
 import grpc
+from google.protobuf.empty_pb2 import Empty
 
 from adapters.base_grpc_repository import BaseGrpcRepository
 from api.generated.custom_types_pb2 import GetAllRequest, GetByDateRangeRequest
@@ -16,6 +17,7 @@ class TransactionRepository(TransactionRepositoryAbc, BaseGrpcRepository):
     def __init__(self, target: str):
         super().__init__(target)
         self.stub = TransactionServiceStub(channel=self.chanel)
+
 
     @staticmethod
     def to_domain(model: TransactionModel) -> Transaction:
@@ -40,6 +42,70 @@ class TransactionRepository(TransactionRepositoryAbc, BaseGrpcRepository):
             return self.response_to_list(result)
         return []
 
+    async def get_by_ids(self, ids: List[int]) -> List[Transaction]:
+        request = GetTransactionByIdsRequest(transaction_ids=ids)
+        result = await self._execute(self.stub.GetByIds(request))
+        if result:
+            return self.response_to_list(result)
+        return []
+
+
+    async def get_revenue(self, account_id) -> List[Transaction]:
+        request = GetAccountRevenueRequest(target_account=account_id)
+        result = await self._execute(self.stub.GetAccountRevenue(request))
+        if result:
+            return self.response_to_list(result)
+        return []
+
+
+    async def get_account_expenses(self, account_id) -> List[Transaction]:
+        request = GetAccountExpensesRequest(source_account=account_id)
+        result = await self._execute(self.stub.GetAccountExpenses(request))
+        if result:
+            return self.response_to_list(result)
+        return []
+
+
+    async def get_count(self) -> int:
+        result = await self._execute(self.stub.GetCount(Empty()))
+        return result.count
+
+
+    async def get_count_by_date_range(self, start_date: datetime, end_date: datetime) -> int:
+        request = GetByDateRangeRequest(fromDate=start_date, toDate=end_date)
+        result = await self._execute(self.stub.GetCountByDateRange(request))
+        return result.count
+
+
+    async def get_count_revenue(self, account: int, start_date: datetime = None, end_date: datetime = None) -> int:
+        request = GetAccountRevenueRequest(target_account=account)
+        if start_date and end_date:
+            request.date_range.CopyFrom(
+                GetByDateRangeRequest(
+                    fromDate=start_date,
+                    toDate=end_date
+                )
+            )
+        result = await self._execute(self.stub.GetCountAccountRevenue(request))
+        return result.count
+
+
+    async def get_count_expenses(self, account: int, start_date: datetime = None, end_date: datetime = None) -> int:
+        request = GetAccountExpensesRequest(source_account=account)
+        if start_date and end_date:
+            request.date_range.CopyFrom(
+                GetByDateRangeRequest(
+                    fromDate=start_date,
+                    toDate=end_date
+                )
+            )
+        result = await self._execute(self.stub.GetCountAccountExpenses(request))
+        return result.count
+
+    async def get_total_amount(self) -> Decimal:
+        result = await self._execute(self.stub.GetTotalAmount(Empty()))
+        return Decimal(result.total_amount)
+
     async def get_by_id(self, transaction_id: int) -> Transaction | None:
         request = GetTransactionByIdRequest(transaction_id=transaction_id)
         result = await self._execute(self.stub.GetById(request))
@@ -48,7 +114,7 @@ class TransactionRepository(TransactionRepositoryAbc, BaseGrpcRepository):
         return None
 
     async def get_by_date_range(self, start_date: datetime, end_date: datetime) -> List[Transaction]:
-        request = GetByDateRangeRequest(startDate=start_date, endDate=end_date)
+        request = GetByDateRangeRequest(fromDate=start_date, toDate=end_date)
         result = await self._execute(self.stub.GetByDateRange(request))
         if result:
             return self.response_to_list(result)

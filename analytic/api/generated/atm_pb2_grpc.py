@@ -96,6 +96,16 @@ class AtmServiceStub(object):
                 request_serializer=atm__pb2.DeleteAtmBulkRequest.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 _registered_method=True)
+        self.GetCount = channel.unary_unary(
+                '/protos.AtmService/GetCount',
+                request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+                response_deserializer=custom__types__pb2.CountResponse.FromString,
+                _registered_method=True)
+        self.GetCountByStatus = channel.unary_unary(
+                '/protos.AtmService/GetCountByStatus',
+                request_serializer=atm__pb2.GetAtmsByStatusRequest.SerializeToString,
+                response_deserializer=custom__types__pb2.CountResponse.FromString,
+                _registered_method=True)
 
 
 class AtmServiceServicer(object):
@@ -173,6 +183,18 @@ class AtmServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetCount(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetCountByStatus(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_AtmServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -235,6 +257,16 @@ def add_AtmServiceServicer_to_server(servicer, server):
                     servicer.DeleteBulk,
                     request_deserializer=atm__pb2.DeleteAtmBulkRequest.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'GetCount': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetCount,
+                    request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                    response_serializer=custom__types__pb2.CountResponse.SerializeToString,
+            ),
+            'GetCountByStatus': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetCountByStatus,
+                    request_deserializer=atm__pb2.GetAtmsByStatusRequest.FromString,
+                    response_serializer=custom__types__pb2.CountResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -561,6 +593,60 @@ class AtmService(object):
             '/protos.AtmService/DeleteBulk',
             atm__pb2.DeleteAtmBulkRequest.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetCount(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.AtmService/GetCount',
+            google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            custom__types__pb2.CountResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetCountByStatus(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.AtmService/GetCountByStatus',
+            atm__pb2.GetAtmsByStatusRequest.SerializeToString,
+            custom__types__pb2.CountResponse.FromString,
             options,
             channel_credentials,
             insecure,

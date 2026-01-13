@@ -1,6 +1,7 @@
 from typing import List
 
 import grpc.aio
+from google.protobuf.empty_pb2 import Empty
 
 from adapters.base_grpc_repository import BaseGrpcRepository
 from api.generated.atm_pb2 import *
@@ -27,6 +28,14 @@ class AtmRepository(AtmRepositoryAbc, BaseGrpcRepository):
     @staticmethod
     def response_to_list(self, response: GetAllAtmsResponse) -> List[Atm]:
         return [self.to_domain(model) for model in response.atms]
+
+    async def get_count(self) -> int:
+        result = await self._execute(self.stub.GetCount(Empty()))
+        return result.count
+
+    async def get_count_by_status(self, status: str) -> int:
+        result = await self._execute(self.stub.GetCountByStatus(GetAtmsByStatusRequest(status=status)))
+        return result.count
 
     async def get_all(self, page_n: int, page_size: int) -> List[Atm]:
         request = GetAllRequest(pageN=page_n, pageSize=page_size)

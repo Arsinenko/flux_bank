@@ -250,3 +250,18 @@ class DeleteCardBulkRequest(google.protobuf.message.Message):
     def ClearField(self, field_name: typing.Literal["cards", b"cards"]) -> None: ...
 
 Global___DeleteCardBulkRequest: typing_extensions.TypeAlias = DeleteCardBulkRequest
+
+@typing.final
+class GetCardCountByStatus(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    STATUS_FIELD_NUMBER: builtins.int
+    status: builtins.str
+    def __init__(
+        self,
+        *,
+        status: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["status", b"status"]) -> None: ...
+
+Global___GetCardCountByStatus: typing_extensions.TypeAlias = GetCardCountByStatus

@@ -20,6 +20,21 @@ else:
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
 @typing.final
+class GetLoanCountByStatusRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    STATUS_FIELD_NUMBER: builtins.int
+    status: builtins.str
+    def __init__(
+        self,
+        *,
+        status: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["status", b"status"]) -> None: ...
+
+Global___GetLoanCountByStatusRequest: typing_extensions.TypeAlias = GetLoanCountByStatusRequest
+
+@typing.final
 class LoanModel(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 

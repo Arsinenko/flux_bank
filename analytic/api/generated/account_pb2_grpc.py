@@ -91,6 +91,31 @@ class AccountServiceStub(object):
                 request_serializer=account__pb2.DeleteAccountBulkRequest.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 _registered_method=True)
+        self.GetCount = channel.unary_unary(
+                '/protos.AccountService/GetCount',
+                request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+                response_deserializer=custom__types__pb2.CountResponse.FromString,
+                _registered_method=True)
+        self.GetCountByStatus = channel.unary_unary(
+                '/protos.AccountService/GetCountByStatus',
+                request_serializer=account__pb2.GetAccountsByStatusRequest.SerializeToString,
+                response_deserializer=custom__types__pb2.CountResponse.FromString,
+                _registered_method=True)
+        self.GetCountByDateRange = channel.unary_unary(
+                '/protos.AccountService/GetCountByDateRange',
+                request_serializer=custom__types__pb2.GetByDateRangeRequest.SerializeToString,
+                response_deserializer=custom__types__pb2.CountResponse.FromString,
+                _registered_method=True)
+        self.GetCountByCustomerId = channel.unary_unary(
+                '/protos.AccountService/GetCountByCustomerId',
+                request_serializer=account__pb2.GetAccountByCustomerIdRequest.SerializeToString,
+                response_deserializer=custom__types__pb2.CountResponse.FromString,
+                _registered_method=True)
+        self.GetTotalBalance = channel.unary_unary(
+                '/protos.AccountService/GetTotalBalance',
+                request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+                response_deserializer=account__pb2.TotalBalanceResponse.FromString,
+                _registered_method=True)
 
 
 class AccountServiceServicer(object):
@@ -162,6 +187,36 @@ class AccountServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetCount(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetCountByStatus(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetCountByDateRange(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetCountByCustomerId(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetTotalBalance(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_AccountServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -219,6 +274,31 @@ def add_AccountServiceServicer_to_server(servicer, server):
                     servicer.DeleteBulk,
                     request_deserializer=account__pb2.DeleteAccountBulkRequest.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'GetCount': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetCount,
+                    request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                    response_serializer=custom__types__pb2.CountResponse.SerializeToString,
+            ),
+            'GetCountByStatus': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetCountByStatus,
+                    request_deserializer=account__pb2.GetAccountsByStatusRequest.FromString,
+                    response_serializer=custom__types__pb2.CountResponse.SerializeToString,
+            ),
+            'GetCountByDateRange': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetCountByDateRange,
+                    request_deserializer=custom__types__pb2.GetByDateRangeRequest.FromString,
+                    response_serializer=custom__types__pb2.CountResponse.SerializeToString,
+            ),
+            'GetCountByCustomerId': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetCountByCustomerId,
+                    request_deserializer=account__pb2.GetAccountByCustomerIdRequest.FromString,
+                    response_serializer=custom__types__pb2.CountResponse.SerializeToString,
+            ),
+            'GetTotalBalance': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetTotalBalance,
+                    request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                    response_serializer=account__pb2.TotalBalanceResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -518,6 +598,141 @@ class AccountService(object):
             '/protos.AccountService/DeleteBulk',
             account__pb2.DeleteAccountBulkRequest.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetCount(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.AccountService/GetCount',
+            google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            custom__types__pb2.CountResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetCountByStatus(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.AccountService/GetCountByStatus',
+            account__pb2.GetAccountsByStatusRequest.SerializeToString,
+            custom__types__pb2.CountResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetCountByDateRange(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.AccountService/GetCountByDateRange',
+            custom__types__pb2.GetByDateRangeRequest.SerializeToString,
+            custom__types__pb2.CountResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetCountByCustomerId(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.AccountService/GetCountByCustomerId',
+            account__pb2.GetAccountByCustomerIdRequest.SerializeToString,
+            custom__types__pb2.CountResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetTotalBalance(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.AccountService/GetTotalBalance',
+            google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            account__pb2.TotalBalanceResponse.FromString,
             options,
             channel_credentials,
             insecure,

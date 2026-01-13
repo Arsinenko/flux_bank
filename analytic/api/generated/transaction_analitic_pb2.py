@@ -24,9 +24,10 @@ _sym_db = _symbol_database.Default()
 
 from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
 import transaction_pb2 as transaction__pb2
+import custom_types_pb2 as custom__types__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1atransaction_analitic.proto\x12\x06protos\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x11transaction.proto\"\xac\x01\n&GetSumOfTransactionsByDateRangeRequest\x12\x33\n\nstart_date\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.TimestampH\x00\x88\x01\x01\x12\x31\n\x08\x65nd_date\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.TimestampH\x01\x88\x01\x01\x42\r\n\x0b_start_dateB\x0b\n\t_end_date\"6\n\'GetSumOfTransactionsByDateRangeResponse\x12\x0b\n\x03sum\x18\x01 \x01(\t\"\xb0\x01\n*GetAverageOfTransactionsByDateRangeRequest\x12\x33\n\nstart_date\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.TimestampH\x00\x88\x01\x01\x12\x31\n\x08\x65nd_date\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.TimestampH\x01\x88\x01\x01\x42\r\n\x0b_start_dateB\x0b\n\t_end_date\">\n+GetAverageOfTransactionsByDateRangeResponse\x12\x0f\n\x07\x61verage\x18\x01 \x01(\t\"\xae\x01\n(GetCountOfTransactionsByDateRangeRequest\x12\x33\n\nstart_date\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.TimestampH\x00\x88\x01\x01\x12\x31\n\x08\x65nd_date\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.TimestampH\x01\x88\x01\x01\x42\r\n\x0b_start_dateB\x0b\n\t_end_date\":\n)GetCountOfTransactionsByDateRangeResponse\x12\r\n\x05\x63ount\x18\x01 \x01(\x05\"\xb3\x01\n-GetMostFrequentTransactionsByDateRangeRequest\x12\x33\n\nstart_date\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.TimestampH\x00\x88\x01\x01\x12\x31\n\x08\x65nd_date\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.TimestampH\x01\x88\x01\x01\x42\r\n\x0b_start_dateB\x0b\n\t_end_date\"`\n.GetMostFrequentTransactionsByDateRangeResponse\x12.\n\x0ctransactions\x18\x01 \x03(\x0b\x32\x18.protos.TransactionModel\"\xb0\x01\n*GetAnomalousTransactionsByDateRangeRequest\x12\x33\n\nstart_date\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.TimestampH\x00\x88\x01\x01\x12\x31\n\x08\x65nd_date\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.TimestampH\x01\x88\x01\x01\x42\r\n\x0b_start_dateB\x0b\n\t_end_date\"]\n+GetAnomalousTransactionsByDateRangeResponse\x12.\n\x0ctransactions\x18\x01 \x03(\x0b\x32\x18.protos.TransactionModel\"\xbf\x01\n(GetUserSumTransactionsByDateRangeRequest\x12\x33\n\nstart_date\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.TimestampH\x00\x88\x01\x01\x12\x31\n\x08\x65nd_date\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.TimestampH\x01\x88\x01\x01\x12\x0f\n\x07user_id\x18\x03 \x01(\x05\x42\r\n\x0b_start_dateB\x0b\n\t_end_date\"8\n)GetUserSumTransactionsByDateRangeResponse\x12\x0b\n\x03sum\x18\x01 \x01(\x05\x32\xe8\x05\n\x1aTransactionAnalyticService\x12\x82\x01\n\x1fGetSumOfTransactionsByDateRange\x12..protos.GetSumOfTransactionsByDateRangeRequest\x1a/.protos.GetSumOfTransactionsByDateRangeResponse\x12\x8e\x01\n#GetAverageOfTransactionsByDateRange\x12\x32.protos.GetAverageOfTransactionsByDateRangeRequest\x1a\x33.protos.GetAverageOfTransactionsByDateRangeResponse\x12\x88\x01\n!GetCountOfTransactionsByDateRange\x12\x30.protos.GetCountOfTransactionsByDateRangeRequest\x1a\x31.protos.GetCountOfTransactionsByDateRangeResponse\x12\x97\x01\n&GetMostFrequentTransactionsByDateRange\x12\x35.protos.GetMostFrequentTransactionsByDateRangeRequest\x1a\x36.protos.GetMostFrequentTransactionsByDateRangeResponse\x12\x8e\x01\n#GetAnomalousTransactionsByDateRange\x12\x32.protos.GetAnomalousTransactionsByDateRangeRequest\x1a\x33.protos.GetAnomalousTransactionsByDateRangeResponseB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04\x43oreb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1atransaction_analitic.proto\x12\x06protos\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x11transaction.proto\x1a\x12\x63ustom_types.proto\"\xac\x01\n&GetSumOfTransactionsByDateRangeRequest\x12\x33\n\nstart_date\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.TimestampH\x00\x88\x01\x01\x12\x31\n\x08\x65nd_date\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.TimestampH\x01\x88\x01\x01\x42\r\n\x0b_start_dateB\x0b\n\t_end_date\"6\n\'GetSumOfTransactionsByDateRangeResponse\x12\x0b\n\x03sum\x18\x01 \x01(\t\"\xb0\x01\n*GetAverageOfTransactionsByDateRangeRequest\x12\x33\n\nstart_date\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.TimestampH\x00\x88\x01\x01\x12\x31\n\x08\x65nd_date\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.TimestampH\x01\x88\x01\x01\x42\r\n\x0b_start_dateB\x0b\n\t_end_date\">\n+GetAverageOfTransactionsByDateRangeResponse\x12\x0f\n\x07\x61verage\x18\x01 \x01(\t\"\xae\x01\n(GetCountOfTransactionsByDateRangeRequest\x12\x33\n\nstart_date\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.TimestampH\x00\x88\x01\x01\x12\x31\n\x08\x65nd_date\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.TimestampH\x01\x88\x01\x01\x42\r\n\x0b_start_dateB\x0b\n\t_end_date\":\n)GetCountOfTransactionsByDateRangeResponse\x12\r\n\x05\x63ount\x18\x01 \x01(\x05\"\xb3\x01\n-GetMostFrequentTransactionsByDateRangeRequest\x12\x33\n\nstart_date\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.TimestampH\x00\x88\x01\x01\x12\x31\n\x08\x65nd_date\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.TimestampH\x01\x88\x01\x01\x42\r\n\x0b_start_dateB\x0b\n\t_end_date\"`\n.GetMostFrequentTransactionsByDateRangeResponse\x12.\n\x0ctransactions\x18\x01 \x03(\x0b\x32\x18.protos.TransactionModel\"\xb0\x01\n*GetAnomalousTransactionsByDateRangeRequest\x12\x33\n\nstart_date\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.TimestampH\x00\x88\x01\x01\x12\x31\n\x08\x65nd_date\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.TimestampH\x01\x88\x01\x01\x42\r\n\x0b_start_dateB\x0b\n\t_end_date\"]\n+GetAnomalousTransactionsByDateRangeResponse\x12.\n\x0ctransactions\x18\x01 \x03(\x0b\x32\x18.protos.TransactionModel\"\xbf\x01\n(GetUserSumTransactionsByDateRangeRequest\x12\x33\n\nstart_date\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.TimestampH\x00\x88\x01\x01\x12\x31\n\x08\x65nd_date\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.TimestampH\x01\x88\x01\x01\x12\x0f\n\x07user_id\x18\x03 \x01(\x05\x42\r\n\x0b_start_dateB\x0b\n\t_end_date\"8\n)GetUserSumTransactionsByDateRangeResponse\x12\x0b\n\x03sum\x18\x01 \x01(\x05\x32\xcb\x05\n\x1aTransactionAnalyticService\x12\x82\x01\n\x1fGetSumOfTransactionsByDateRange\x12..protos.GetSumOfTransactionsByDateRangeRequest\x1a/.protos.GetSumOfTransactionsByDateRangeResponse\x12\x8e\x01\n#GetAverageOfTransactionsByDateRange\x12\x32.protos.GetAverageOfTransactionsByDateRangeRequest\x1a\x33.protos.GetAverageOfTransactionsByDateRangeResponse\x12l\n!GetCountOfTransactionsByDateRange\x12\x30.protos.GetCountOfTransactionsByDateRangeRequest\x1a\x15.protos.CountResponse\x12\x97\x01\n&GetMostFrequentTransactionsByDateRange\x12\x35.protos.GetMostFrequentTransactionsByDateRangeRequest\x1a\x36.protos.GetMostFrequentTransactionsByDateRangeResponse\x12\x8e\x01\n#GetAnomalousTransactionsByDateRange\x12\x32.protos.GetAnomalousTransactionsByDateRangeRequest\x1a\x33.protos.GetAnomalousTransactionsByDateRangeResponseB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04\x43oreb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -34,30 +35,30 @@ _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'transaction_analitic_pb2', 
 if not _descriptor._USE_C_DESCRIPTORS:
   _globals['DESCRIPTOR']._loaded_options = None
   _globals['DESCRIPTOR']._serialized_options = b'Z\031orch-go/gen/protos;protos\252\002\004Core'
-  _globals['_GETSUMOFTRANSACTIONSBYDATERANGEREQUEST']._serialized_start=91
-  _globals['_GETSUMOFTRANSACTIONSBYDATERANGEREQUEST']._serialized_end=263
-  _globals['_GETSUMOFTRANSACTIONSBYDATERANGERESPONSE']._serialized_start=265
-  _globals['_GETSUMOFTRANSACTIONSBYDATERANGERESPONSE']._serialized_end=319
-  _globals['_GETAVERAGEOFTRANSACTIONSBYDATERANGEREQUEST']._serialized_start=322
-  _globals['_GETAVERAGEOFTRANSACTIONSBYDATERANGEREQUEST']._serialized_end=498
-  _globals['_GETAVERAGEOFTRANSACTIONSBYDATERANGERESPONSE']._serialized_start=500
-  _globals['_GETAVERAGEOFTRANSACTIONSBYDATERANGERESPONSE']._serialized_end=562
-  _globals['_GETCOUNTOFTRANSACTIONSBYDATERANGEREQUEST']._serialized_start=565
-  _globals['_GETCOUNTOFTRANSACTIONSBYDATERANGEREQUEST']._serialized_end=739
-  _globals['_GETCOUNTOFTRANSACTIONSBYDATERANGERESPONSE']._serialized_start=741
-  _globals['_GETCOUNTOFTRANSACTIONSBYDATERANGERESPONSE']._serialized_end=799
-  _globals['_GETMOSTFREQUENTTRANSACTIONSBYDATERANGEREQUEST']._serialized_start=802
-  _globals['_GETMOSTFREQUENTTRANSACTIONSBYDATERANGEREQUEST']._serialized_end=981
-  _globals['_GETMOSTFREQUENTTRANSACTIONSBYDATERANGERESPONSE']._serialized_start=983
-  _globals['_GETMOSTFREQUENTTRANSACTIONSBYDATERANGERESPONSE']._serialized_end=1079
-  _globals['_GETANOMALOUSTRANSACTIONSBYDATERANGEREQUEST']._serialized_start=1082
-  _globals['_GETANOMALOUSTRANSACTIONSBYDATERANGEREQUEST']._serialized_end=1258
-  _globals['_GETANOMALOUSTRANSACTIONSBYDATERANGERESPONSE']._serialized_start=1260
-  _globals['_GETANOMALOUSTRANSACTIONSBYDATERANGERESPONSE']._serialized_end=1353
-  _globals['_GETUSERSUMTRANSACTIONSBYDATERANGEREQUEST']._serialized_start=1356
-  _globals['_GETUSERSUMTRANSACTIONSBYDATERANGEREQUEST']._serialized_end=1547
-  _globals['_GETUSERSUMTRANSACTIONSBYDATERANGERESPONSE']._serialized_start=1549
-  _globals['_GETUSERSUMTRANSACTIONSBYDATERANGERESPONSE']._serialized_end=1605
-  _globals['_TRANSACTIONANALYTICSERVICE']._serialized_start=1608
-  _globals['_TRANSACTIONANALYTICSERVICE']._serialized_end=2352
+  _globals['_GETSUMOFTRANSACTIONSBYDATERANGEREQUEST']._serialized_start=111
+  _globals['_GETSUMOFTRANSACTIONSBYDATERANGEREQUEST']._serialized_end=283
+  _globals['_GETSUMOFTRANSACTIONSBYDATERANGERESPONSE']._serialized_start=285
+  _globals['_GETSUMOFTRANSACTIONSBYDATERANGERESPONSE']._serialized_end=339
+  _globals['_GETAVERAGEOFTRANSACTIONSBYDATERANGEREQUEST']._serialized_start=342
+  _globals['_GETAVERAGEOFTRANSACTIONSBYDATERANGEREQUEST']._serialized_end=518
+  _globals['_GETAVERAGEOFTRANSACTIONSBYDATERANGERESPONSE']._serialized_start=520
+  _globals['_GETAVERAGEOFTRANSACTIONSBYDATERANGERESPONSE']._serialized_end=582
+  _globals['_GETCOUNTOFTRANSACTIONSBYDATERANGEREQUEST']._serialized_start=585
+  _globals['_GETCOUNTOFTRANSACTIONSBYDATERANGEREQUEST']._serialized_end=759
+  _globals['_GETCOUNTOFTRANSACTIONSBYDATERANGERESPONSE']._serialized_start=761
+  _globals['_GETCOUNTOFTRANSACTIONSBYDATERANGERESPONSE']._serialized_end=819
+  _globals['_GETMOSTFREQUENTTRANSACTIONSBYDATERANGEREQUEST']._serialized_start=822
+  _globals['_GETMOSTFREQUENTTRANSACTIONSBYDATERANGEREQUEST']._serialized_end=1001
+  _globals['_GETMOSTFREQUENTTRANSACTIONSBYDATERANGERESPONSE']._serialized_start=1003
+  _globals['_GETMOSTFREQUENTTRANSACTIONSBYDATERANGERESPONSE']._serialized_end=1099
+  _globals['_GETANOMALOUSTRANSACTIONSBYDATERANGEREQUEST']._serialized_start=1102
+  _globals['_GETANOMALOUSTRANSACTIONSBYDATERANGEREQUEST']._serialized_end=1278
+  _globals['_GETANOMALOUSTRANSACTIONSBYDATERANGERESPONSE']._serialized_start=1280
+  _globals['_GETANOMALOUSTRANSACTIONSBYDATERANGERESPONSE']._serialized_end=1373
+  _globals['_GETUSERSUMTRANSACTIONSBYDATERANGEREQUEST']._serialized_start=1376
+  _globals['_GETUSERSUMTRANSACTIONSBYDATERANGEREQUEST']._serialized_end=1567
+  _globals['_GETUSERSUMTRANSACTIONSBYDATERANGERESPONSE']._serialized_start=1569
+  _globals['_GETUSERSUMTRANSACTIONSBYDATERANGERESPONSE']._serialized_end=1625
+  _globals['_TRANSACTIONANALYTICSERVICE']._serialized_start=1628
+  _globals['_TRANSACTIONANALYTICSERVICE']._serialized_end=2343
 # @@protoc_insertion_point(module_scope)

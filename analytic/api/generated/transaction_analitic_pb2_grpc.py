@@ -3,6 +3,7 @@
 import grpc
 import warnings
 
+import custom_types_pb2 as custom__types__pb2
 import transaction_analitic_pb2 as transaction__analitic__pb2
 
 GRPC_GENERATED_VERSION = '1.76.0'
@@ -47,7 +48,7 @@ class TransactionAnalyticServiceStub(object):
         self.GetCountOfTransactionsByDateRange = channel.unary_unary(
                 '/protos.TransactionAnalyticService/GetCountOfTransactionsByDateRange',
                 request_serializer=transaction__analitic__pb2.GetCountOfTransactionsByDateRangeRequest.SerializeToString,
-                response_deserializer=transaction__analitic__pb2.GetCountOfTransactionsByDateRangeResponse.FromString,
+                response_deserializer=custom__types__pb2.CountResponse.FromString,
                 _registered_method=True)
         self.GetMostFrequentTransactionsByDateRange = channel.unary_unary(
                 '/protos.TransactionAnalyticService/GetMostFrequentTransactionsByDateRange',
@@ -110,7 +111,7 @@ def add_TransactionAnalyticServiceServicer_to_server(servicer, server):
             'GetCountOfTransactionsByDateRange': grpc.unary_unary_rpc_method_handler(
                     servicer.GetCountOfTransactionsByDateRange,
                     request_deserializer=transaction__analitic__pb2.GetCountOfTransactionsByDateRangeRequest.FromString,
-                    response_serializer=transaction__analitic__pb2.GetCountOfTransactionsByDateRangeResponse.SerializeToString,
+                    response_serializer=custom__types__pb2.CountResponse.SerializeToString,
             ),
             'GetMostFrequentTransactionsByDateRange': grpc.unary_unary_rpc_method_handler(
                     servicer.GetMostFrequentTransactionsByDateRange,
@@ -203,7 +204,7 @@ class TransactionAnalyticService(object):
             target,
             '/protos.TransactionAnalyticService/GetCountOfTransactionsByDateRange',
             transaction__analitic__pb2.GetCountOfTransactionsByDateRangeRequest.SerializeToString,
-            transaction__analitic__pb2.GetCountOfTransactionsByDateRangeResponse.FromString,
+            custom__types__pb2.CountResponse.FromString,
             options,
             channel_credentials,
             insecure,
