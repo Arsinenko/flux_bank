@@ -41,6 +41,12 @@ public class TransactionRepository : GenericRepository<Transaction, int>, ITrans
     }
 
 
+    public async Task<decimal> GetTotalAmountAsync()
+    {
+        return await DbSet.SumAsync(t => t.Amount);
+    }
+
+
     private IQueryable<Transaction> TransactionsPaged(DateTime? from, DateTime? to, int? pageN, int? pageSize, IQueryable<Transaction> query)
     {
         if (from.HasValue && to.HasValue)

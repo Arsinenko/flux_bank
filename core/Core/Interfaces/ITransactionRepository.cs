@@ -12,4 +12,6 @@ public interface ITransactionRepository : IGenericRepository<Transaction, int>
         int? pageSize);
 
     Task<int> GetCountExpensesAsync(int accountId, DateTime? from, DateTime? to);
+
+    Task<decimal> GetTotalAmountAsync();
 }

@@ -7,10 +7,10 @@ using Grpc.Core;
 
 namespace Core.Services;
 
-public class LoanService(ILoanRepository loanRepository, IMapper mapper)
+public class LoanService(ILoanRepository loanRepository, IMapper mapper, ICacheService cacheService, IStatsService statsService)
     : Core.LoanService.LoanServiceBase
 {
-    public override async Task<GetAllLoansResponse>GetAll( GetAllRequest request, ServerCallContext context)
+    public override async Task<GetAllLoansResponse> GetAll(GetAllRequest request, ServerCallContext context)
     {
         var loans = await loanRepository.GetAllAsync(request.PageN, request.PageSize);
 
@@ -25,6 +25,7 @@ public class LoanService(ILoanRepository loanRepository, IMapper mapper)
         var loan = mapper.Map<Loan>(request);
 
         await loanRepository.AddAsync(loan);
+        cacheService.Remove("BankStats");
 
         return mapper.Map<LoanModel>(loan);
     }
@@ -49,6 +50,7 @@ public class LoanService(ILoanRepository loanRepository, IMapper mapper)
         mapper.Map(request, loan);
 
         await loanRepository.UpdateAsync(loan);
+        cacheService.Remove("BankStats");
 
         return new Empty();
     }
@@ -56,6 +58,7 @@ public class LoanService(ILoanRepository loanRepository, IMapper mapper)
     public override async Task<Empty> Delete(DeleteLoanRequest request, ServerCallContext context)
     {
         await loanRepository.DeleteAsync(request.LoanId);
+        cacheService.Remove("BankStats");
         return new Empty();
     }
 
@@ -66,7 +69,7 @@ public class LoanService(ILoanRepository loanRepository, IMapper mapper)
         {
             throw new ValidationException("No loans to delete");
         }
-        
+
         var loans = await loanRepository.GetByIdsAsync(ids);
         var foundLoans = loans.Where(l => l != null).ToList();
         if (foundLoans.Count != ids.Count)
@@ -74,6 +77,7 @@ public class LoanService(ILoanRepository loanRepository, IMapper mapper)
             throw new ValidationException("Some loans not found");
         }
         await loanRepository.DeleteRangeAsync(foundLoans!);
+        cacheService.Remove("BankStats");
         return new Empty();
     }
 
@@ -98,6 +102,23 @@ public class LoanService(ILoanRepository loanRepository, IMapper mapper)
     public override async Task<CountResponse> GetCount(Empty request, ServerCallContext context)
     {
         var count = await loanRepository.GetCountAsync();
+        return new CountResponse()
+        {
+            Count = count
+        };
+    }
+
+    public override async Task<CountResponse> GetCountByStatus(GetLoanCountByStatusRequest request, ServerCallContext context)
+    {
+        if (request.Status == "active")
+        {
+            var stats = await statsService.GetStatsAsync();
+            return new CountResponse()
+            {
+                Count = stats.ActiveLoanCount
+            };
+        }
+        var count = await loanRepository.GetCountByStatus(request.Status);
         return new CountResponse()
         {
             Count = count

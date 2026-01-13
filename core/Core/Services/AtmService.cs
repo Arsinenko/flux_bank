@@ -8,16 +8,17 @@ using Grpc.Core;
 
 namespace Core.Services;
 
-public class AtmService(IAtmRepository atmRepository, IMapper mapper) : Core.AtmService.AtmServiceBase
+public class AtmService(IAtmRepository atmRepository, IMapper mapper, ICacheService cacheService, IStatsService statsService) : Core.AtmService.AtmServiceBase
 {
     public override async Task<AtmModel> Add(AddAtmRequest request, ServerCallContext context)
     {
         var atm = mapper.Map<Atm>(request);
         await atmRepository.AddAsync(atm);
+        cacheService.Remove("BankStats");
         return mapper.Map<AtmModel>(atm);
     }
 
-    public override async Task<GetAllAtmsResponse>GetAll( GetAllRequest request, ServerCallContext context)
+    public override async Task<GetAllAtmsResponse> GetAll(GetAllRequest request, ServerCallContext context)
     {
         var atms = await atmRepository.GetAllAsync(request.PageN, request.PageSize);
         return new GetAllAtmsResponse
@@ -35,6 +36,7 @@ public class AtmService(IAtmRepository atmRepository, IMapper mapper) : Core.Atm
         }
         mapper.Map(request, atm);
         await atmRepository.UpdateAsync(atm);
+        cacheService.Remove("BankStats");
         return new Empty();
     }
 
@@ -46,9 +48,10 @@ public class AtmService(IAtmRepository atmRepository, IMapper mapper) : Core.Atm
             throw new NotFoundException("ATM not found");
         }
         await atmRepository.DeleteAsync(request.AtmId);
+        cacheService.Remove("BankStats");
         return new Empty();
     }
-    
+
     public override async Task<AtmModel> GetById(GetAtmByIdRequest request, ServerCallContext context)
     {
         var atm = await atmRepository.GetByIdAsync(request.AtmId);
@@ -63,6 +66,7 @@ public class AtmService(IAtmRepository atmRepository, IMapper mapper) : Core.Atm
     {
         var atms = request.Atms.Select(mapper.Map<Atm>).ToList();
         await atmRepository.AddRangeAsync(atms);
+        cacheService.Remove("BankStats");
         return new Empty();
     }
 
@@ -80,6 +84,7 @@ public class AtmService(IAtmRepository atmRepository, IMapper mapper) : Core.Atm
             throw new ValidationException("Some ATMs not found");
         }
         await atmRepository.DeleteRangeAsync(foundAtms!);
+        cacheService.Remove("BankStats");
         return new Empty();
     }
 
@@ -91,7 +96,8 @@ public class AtmService(IAtmRepository atmRepository, IMapper mapper) : Core.Atm
             throw new ValidationException("No ATMs to update");
         }
         await atmRepository.UpdateRangeAsync(atms);
-        return new Empty(); 
+        cacheService.Remove("BankStats");
+        return new Empty();
     }
 
     public override async Task<GetAllAtmsResponse> GetByBranch(GetAtmsByBranchRequest request, ServerCallContext context)
@@ -132,10 +138,10 @@ public class AtmService(IAtmRepository atmRepository, IMapper mapper) : Core.Atm
 
     public override async Task<CountResponse> GetCount(Empty request, ServerCallContext context)
     {
-        var count = await atmRepository.GetCountAsync();
+        var stats = await statsService.GetStatsAsync();
         return new CountResponse()
         {
-            Count = count
+            Count = stats.ActiveAtmCount + stats.InactiveAtmCount
         };
     }
 }

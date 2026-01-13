@@ -8,10 +8,10 @@ using Core.Exceptions;
 
 namespace Core.Services;
 
-public class TransactionService(ITransactionRepository transactionRepository, IMapper mapper)
+public class TransactionService(ITransactionRepository transactionRepository, IMapper mapper, ICacheService cacheService, IStatsService statsService)
     : Core.TransactionService.TransactionServiceBase
 {
-    public override async Task<GetAllTransactionsResponse>GetAll( GetAllRequest request, ServerCallContext context)
+    public override async Task<GetAllTransactionsResponse> GetAll(GetAllRequest request, ServerCallContext context)
     {
         var transactions = await transactionRepository.GetAllAsync(request.PageN, request.PageSize);
 
@@ -26,6 +26,7 @@ public class TransactionService(ITransactionRepository transactionRepository, IM
         var transaction = mapper.Map<Transaction>(request);
 
         await transactionRepository.AddAsync(transaction);
+        cacheService.Remove("BankStats");
 
         return mapper.Map<TransactionModel>(transaction);
     }
@@ -50,6 +51,7 @@ public class TransactionService(ITransactionRepository transactionRepository, IM
         mapper.Map(request, transaction);
 
         await transactionRepository.UpdateAsync(transaction);
+        cacheService.Remove("BankStats");
 
         return new Empty();
     }
@@ -57,6 +59,7 @@ public class TransactionService(ITransactionRepository transactionRepository, IM
     public override async Task<Empty> Delete(DeleteTransactionRequest request, ServerCallContext context)
     {
         await transactionRepository.DeleteAsync(request.TransactionId);
+        cacheService.Remove("BankStats");
         return new Empty();
     }
 
@@ -69,6 +72,7 @@ public class TransactionService(ITransactionRepository transactionRepository, IM
         }
         var transactions = await transactionRepository.GetByIdsAsync(ids);
         await transactionRepository.DeleteRangeAsync(transactions.Where(t => t is not null)!);
+        cacheService.Remove("BankStats");
         return new Empty();
     }
 
@@ -87,6 +91,7 @@ public class TransactionService(ITransactionRepository transactionRepository, IM
     {
         var transactions = request.Transactions.Select(mapper.Map<Transaction>).ToList();
         await transactionRepository.AddRangeAsync(transactions);
+        cacheService.Remove("BankStats");
         return new Empty();
     }
 
@@ -162,6 +167,15 @@ public class TransactionService(ITransactionRepository transactionRepository, IM
         return new CountResponse()
         {
             Count = count
+        };
+    }
+
+    public override async Task<TotalAmountResponse> GetTotalAmount(Empty request, ServerCallContext context)
+    {
+        var stats = await statsService.GetStatsAsync();
+        return new TotalAmountResponse()
+        {
+            TotalAmount = stats.TotalTransactionSum.ToString()
         };
     }
 }

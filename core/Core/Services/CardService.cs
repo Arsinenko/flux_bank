@@ -7,13 +7,14 @@ using Grpc.Core;
 
 namespace Core.Services;
 
-public class CardService(ICardRepository repository, IMapper mapper) : Core.CardService.CardServiceBase
+public class CardService(ICardRepository repository, IMapper mapper, ICacheService cacheService, IStatsService statsService) : Core.CardService.CardServiceBase
 {
     public override async Task<CardModel> Add(AddCardRequest request, ServerCallContext context)
     {
-       var card = mapper.Map<Card>(request);
-       await repository.AddAsync(card);
-       return mapper.Map<CardModel>(card);
+        var card = mapper.Map<Card>(request);
+        await repository.AddAsync(card);
+        cacheService.Remove("BankStats");
+        return mapper.Map<CardModel>(card);
     }
 
     public override async Task<GetAllCardsResponse> GetAll(GetAllRequest request, ServerCallContext context)
@@ -33,6 +34,7 @@ public class CardService(ICardRepository repository, IMapper mapper) : Core.Card
             throw new NotFoundException("Card not found");
         }
         await repository.DeleteAsync(card.CardId);
+        cacheService.Remove("BankStats");
         return new Empty();
     }
 
@@ -47,6 +49,7 @@ public class CardService(ICardRepository repository, IMapper mapper) : Core.Card
         mapper.Map(request, card);
 
         await repository.UpdateAsync(card);
+        cacheService.Remove("BankStats");
 
         return new Empty();
     }
@@ -76,6 +79,7 @@ public class CardService(ICardRepository repository, IMapper mapper) : Core.Card
             throw new ValidationException("Some cards not found");
         }
         await repository.DeleteRangeAsync(foundCards!);
+        cacheService.Remove("BankStats");
         return new Empty();
     }
 
@@ -87,6 +91,7 @@ public class CardService(ICardRepository repository, IMapper mapper) : Core.Card
             throw new ValidationException("No cards to update");
         }
         await repository.UpdateRangeAsync(cards);
+        cacheService.Remove("BankStats");
         return new Empty();
     }
 
@@ -94,6 +99,7 @@ public class CardService(ICardRepository repository, IMapper mapper) : Core.Card
     {
         var cards = request.Cards.Select(mapper.Map<Card>).ToList();
         await repository.AddRangeAsync(cards);
+        cacheService.Remove("BankStats");
         return new Empty();
     }
 
@@ -126,6 +132,14 @@ public class CardService(ICardRepository repository, IMapper mapper) : Core.Card
 
     public override async Task<CountResponse> GetCountByStatus(GetCardCountByStatus request, ServerCallContext context)
     {
+        if (request.Status == "active")
+        {
+            var stats = await statsService.GetStatsAsync();
+            return new CountResponse()
+            {
+                Count = stats.ActiveCardCount
+            };
+        }
         var count = await repository.GetCountByStatusAsync(request.Status);
         return new CountResponse()
         {
@@ -133,4 +147,3 @@ public class CardService(ICardRepository repository, IMapper mapper) : Core.Card
         };
     }
 }
-     

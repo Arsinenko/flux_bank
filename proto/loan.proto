@@ -20,6 +20,11 @@ service LoanService {
   rpc Delete (DeleteLoanRequest) returns (google.protobuf.Empty);
   rpc DeleteBulk (DeleteLoanBulkRequest) returns (google.protobuf.Empty);
   rpc GetCount (google.protobuf.Empty) returns (CountResponse);
+  rpc GetCountByStatus (GetLoanCountByStatusRequest) returns (CountResponse);
+}
+
+message GetLoanCountByStatusRequest {
+  string status = 1;
 }
 
 message LoanModel {

@@ -22,7 +22,13 @@ service DepositService {
   rpc UpdateBulk (UpdateDepositBulkRequest) returns (google.protobuf.Empty);
   rpc DeleteBulk (DeleteDepositBulkRequest) returns (google.protobuf.Empty);
   rpc GetCount (google.protobuf.Empty) returns (CountResponse);
+  rpc GetCountByStatus (GetDepositCountByStatusRequest) returns (CountResponse);
 }
+
+message GetDepositCountByStatusRequest {
+  string status = 1;
+}
+
 
 message DepositModel {
   int32 deposit_id = 1;

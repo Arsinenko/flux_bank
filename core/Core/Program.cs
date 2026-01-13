@@ -4,6 +4,7 @@ using Core.Exceptions;
 using Core.Interfaces;
 using Core.Mappings;
 using Core.Repositories;
+using Core.Services;
 using Microsoft.EntityFrameworkCore;
 
 using AccountService = Core.Services.AccountService;
@@ -37,6 +38,10 @@ builder.Services.AddAutoMapper(typeof(ProtoMappingProfile));
 
 builder.Services.AddDbContext<MyDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddMemoryCache();
+builder.Services.AddSingleton<ICacheService, CacheService>();
+builder.Services.AddScoped<IStatsService, StatsService>();
 
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 builder.Services.AddScoped<IAccountTypeRepository, AccountTypeRepository>();

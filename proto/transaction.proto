@@ -28,6 +28,11 @@ service TransactionService {
   rpc GetCountByDateRange (GetByDateRangeRequest) returns (CountResponse);
   rpc GetCountAccountRevenue (GetAccountRevenueRequest) returns (CountResponse);
   rpc GetCountAccountExpenses (GetAccountExpensesRequest) returns (CountResponse);
+  rpc GetTotalAmount (google.protobuf.Empty) returns (TotalAmountResponse);
+}
+
+message TotalAmountResponse {
+  string total_amount = 1;
 }
 
 

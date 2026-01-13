@@ -8,12 +8,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Core.Services;
 
-public class AccountService(IAccountRepository accountRepository, IMapper mapper)
+public class AccountService(IAccountRepository accountRepository, IMapper mapper, ICacheService cacheService, IStatsService statsService)
     : Core.AccountService.AccountServiceBase
 {
     public override async Task<GetAllAccountsResponse> GetAll(GetAllRequest request, ServerCallContext context)
     {
-        
+
         var accounts = await accountRepository.GetAllAsync(request.PageN, request.PageSize);
 
         return new GetAllAccountsResponse
@@ -28,6 +28,7 @@ public class AccountService(IAccountRepository accountRepository, IMapper mapper
         var account = mapper.Map<Account>(request);
 
         await accountRepository.AddAsync(account);
+        cacheService.Remove("BankStats");
 
         return mapper.Map<AccountModel>(account);
     }
@@ -53,6 +54,7 @@ public class AccountService(IAccountRepository accountRepository, IMapper mapper
         mapper.Map(request, account);
 
         await accountRepository.UpdateAsync(account);
+        cacheService.Remove("BankStats");
 
         return new Empty();
     }
@@ -68,6 +70,7 @@ public class AccountService(IAccountRepository accountRepository, IMapper mapper
     public override async Task<Empty> Delete(DeleteAccountRequest request, ServerCallContext context)
     {
         await accountRepository.DeleteAsync(request.AccountId);
+        cacheService.Remove("BankStats");
         return new Empty();
     }
 
@@ -80,6 +83,7 @@ public class AccountService(IAccountRepository accountRepository, IMapper mapper
             throw new ValidationException("One or more accounts not found");
         }
         await accountRepository.DeleteRangeAsync(accounts!);
+        cacheService.Remove("BankStats");
         return new Empty();
     }
 
@@ -100,6 +104,7 @@ public class AccountService(IAccountRepository accountRepository, IMapper mapper
             throw new ValidationException("No accounts found");
         }
         await accountRepository.UpdateRangeAsync(accounts);
+        cacheService.Remove("BankStats");
         return new Empty();
     }
 
@@ -126,6 +131,7 @@ public class AccountService(IAccountRepository accountRepository, IMapper mapper
     {
         var accounts = request.Accounts.Select(mapper.Map<Account>).ToList();
         await accountRepository.AddRangeAsync(accounts);
+        cacheService.Remove("BankStats");
         return new Empty();
     }
 
@@ -158,6 +164,14 @@ public class AccountService(IAccountRepository accountRepository, IMapper mapper
 
     public override async Task<CountResponse> GetCountByStatus(GetAccountsByStatusRequest request, ServerCallContext context)
     {
+        if (request.Status)
+        {
+            var stats = await statsService.GetStatsAsync();
+            return new CountResponse()
+            {
+                Count = stats.ActiveAccountCount
+            };
+        }
         var count = await accountRepository.GetCountByStatusAsync(request.Status);
         return new CountResponse()
         {
@@ -167,10 +181,10 @@ public class AccountService(IAccountRepository accountRepository, IMapper mapper
 
     public override async Task<TotalBalanceResponse> GetTotalBalance(Empty request, ServerCallContext context)
     {
-        var balance = await accountRepository.GetTotalBalanceAsync();
+        var stats = await statsService.GetStatsAsync();
         return new TotalBalanceResponse()
         {
-            TotalBalance = balance.ToString()
+            TotalBalance = stats.TotalBalance.ToString()
         };
     }
 }

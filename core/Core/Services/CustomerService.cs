@@ -7,12 +7,13 @@ using Grpc.Core;
 
 namespace Core.Services;
 
-public class CustomerService(ICustomerRepository repository, IMapper mapper) : Core.CustomerService.CustomerServiceBase
+public class CustomerService(ICustomerRepository repository, IMapper mapper, ICacheService cacheService, IStatsService statsService) : Core.CustomerService.CustomerServiceBase
 {
     public override async Task<CustomerModel> Add(AddCustomerRequest request, ServerCallContext context)
     {
         var customer = mapper.Map<Customer>(request);
         await repository.AddAsync(customer);
+        cacheService.Remove("BankStats");
         return mapper.Map<CustomerModel>(customer);
     }
 
@@ -24,10 +25,11 @@ public class CustomerService(ICustomerRepository repository, IMapper mapper) : C
             throw new NotFoundException("Customer not found");
         }
         await repository.DeleteAsync(request.CustomerId);
+        cacheService.Remove("BankStats");
         return new Empty();
     }
 
-    public override async Task<GetAllCustomersResponse>GetAll( GetAllRequest request, ServerCallContext context)
+    public override async Task<GetAllCustomersResponse> GetAll(GetAllRequest request, ServerCallContext context)
     {
         var result = await repository.GetAllAsync(request.PageN, request.PageSize);
         return new GetAllCustomersResponse()
@@ -85,6 +87,7 @@ public class CustomerService(ICustomerRepository repository, IMapper mapper) : C
             throw new ValidationException("Some customers not found");
         }
         await repository.DeleteRangeAsync(foundCustomers!);
+        cacheService.Remove("BankStats");
         return new Empty();
     }
 
@@ -111,10 +114,10 @@ public class CustomerService(ICustomerRepository repository, IMapper mapper) : C
 
     public override async Task<CountResponse> GetCount(Empty request, ServerCallContext context)
     {
-        var count = await repository.GetCountAsync();
+        var stats = await statsService.GetStatsAsync();
         return new CountResponse()
         {
-            Count = count
+            Count = stats.CustomerCount
         };
     }
 
@@ -140,6 +143,7 @@ public class CustomerService(ICustomerRepository repository, IMapper mapper) : C
     {
         var customers = request.Customers.Select(mapper.Map<Customer>).ToList();
         await repository.AddRangeAsync(customers);
+        cacheService.Remove("BankStats");
         return new Empty();
     }
 }
