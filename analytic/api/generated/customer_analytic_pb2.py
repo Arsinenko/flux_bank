@@ -26,9 +26,15 @@ import customer_pb2 as customer__pb2
 from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
 from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 import custom_types_pb2 as custom__types__pb2
+import account_pb2 as account__pb2
+import card_pb2 as card__pb2
+import transaction_pb2 as transaction__pb2
+import loan_pb2 as loan__pb2
+import deposit_pb2 as deposit__pb2
+import login_log_pb2 as login__log__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x17\x63ustomer_analytic.proto\x12\x06protos\x1a\x0e\x63ustomer.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x12\x63ustom_types.proto\"M\n!GetCustomersByBalanceRangeRequest\x12\x13\n\x0bmin_balance\x18\x01 \x01(\t\x12\x13\n\x0bmax_balance\x18\x02 \x01(\t\"[\n-GetCustomersByTransactionQuantityRangeRequest\x12\x14\n\x0cmin_quantity\x18\x01 \x01(\x05\x12\x14\n\x0cmax_quantity\x18\x02 \x01(\x05\"1\n\x1aGetCustomerLifeTimeRequest\x12\x13\n\x0b\x63ustomer_id\x18\x01 \x01(\x05\"a\n\x1bGetCustomerLifeTimeResponse\x12\x13\n\x0b\x63ustomer_id\x18\x01 \x01(\x05\x12-\n\tlife_time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"_\n\x1cGetCustomersLifeTimeResponse\x12?\n\x12\x63ustomer_life_time\x18\x01 \x03(\x0b\x32#.protos.GetCustomerLifeTimeResponse2\xa9\x06\n\x17\x43ustomerAnalyticService\x12h\n\x1aGetCustomersByBalanceRange\x12).protos.GetCustomersByBalanceRangeRequest\x1a\x1f.protos.GetAllCustomersResponse\x12\x80\x01\n&GetCustomersByTransactionQuantityRange\x12\x35.protos.GetCustomersByTransactionQuantityRangeRequest\x1a\x1f.protos.GetAllCustomersResponse\x12^\n\x13GetCustomerLifeTime\x12\".protos.GetCustomerLifeTimeRequest\x1a#.protos.GetCustomerLifeTimeResponse\x12T\n\x14GetCustomersLifeTime\x12\x16.google.protobuf.Empty\x1a$.protos.GetCustomersLifeTimeResponse\x12O\n\x14GetInactiveCustomers\x12\x16.google.protobuf.Empty\x1a\x1f.protos.GetAllCustomersResponse\x12Z\n\x16GetCountByBalanceRange\x12).protos.GetCustomersByBalanceRangeRequest\x1a\x15.protos.CountResponse\x12r\n\"GetCountByTransactionQuantityRange\x12\x35.protos.GetCustomersByTransactionQuantityRangeRequest\x1a\x15.protos.CountResponse\x12J\n\x19GetCountInactiveCustomers\x12\x16.google.protobuf.Empty\x1a\x15.protos.CountResponseB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04\x43oreb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x17\x63ustomer_analytic.proto\x12\x06protos\x1a\x0e\x63ustomer.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x12\x63ustom_types.proto\x1a\raccount.proto\x1a\ncard.proto\x1a\x11transaction.proto\x1a\nloan.proto\x1a\rdeposit.proto\x1a\x0flogin_log.proto\"M\n!GetCustomersByBalanceRangeRequest\x12\x13\n\x0bmin_balance\x18\x01 \x01(\t\x12\x13\n\x0bmax_balance\x18\x02 \x01(\t\"[\n-GetCustomersByTransactionQuantityRangeRequest\x12\x14\n\x0cmin_quantity\x18\x01 \x01(\x05\x12\x14\n\x0cmax_quantity\x18\x02 \x01(\x05\"1\n\x1aGetCustomerLifeTimeRequest\x12\x13\n\x0b\x63ustomer_id\x18\x01 \x01(\x05\"a\n\x1bGetCustomerLifeTimeResponse\x12\x13\n\x0b\x63ustomer_id\x18\x01 \x01(\x05\x12-\n\tlife_time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"_\n\x1cGetCustomersLifeTimeResponse\x12?\n\x12\x63ustomer_life_time\x18\x01 \x03(\x0b\x32#.protos.GetCustomerLifeTimeResponse\"\x94\x02\n\x19GetCustomerDetailsRequest\x12\x13\n\x0b\x63ustomer_id\x18\x01 \x01(\x05\x12 \n\x13transactions_page_n\x18\x02 \x01(\x05H\x00\x88\x01\x01\x12#\n\x16transactions_page_size\x18\x03 \x01(\x05H\x01\x88\x01\x01\x12\x1c\n\x0f\x61\x63tivity_page_n\x18\x04 \x01(\x05H\x02\x88\x01\x01\x12\x1f\n\x12\x61\x63tivity_page_size\x18\x05 \x01(\x05H\x03\x88\x01\x01\x42\x16\n\x14_transactions_page_nB\x19\n\x17_transactions_page_sizeB\x12\n\x10_activity_page_nB\x15\n\x13_activity_page_size\"\xaf\x03\n\x17\x43ustomerDetailsResponse\x12\'\n\x08\x63ustomer\x18\x01 \x01(\x0b\x32\x15.protos.CustomerModel\x12&\n\x08\x61\x63\x63ounts\x18\x02 \x03(\x0b\x32\x14.protos.AccountModel\x12 \n\x05\x63\x61rds\x18\x03 \x03(\x0b\x32\x11.protos.CardModel\x12.\n\x0ctransactions\x18\x04 \x03(\x0b\x32\x18.protos.TransactionModel\x12 \n\x05loans\x18\x05 \x03(\x0b\x32\x11.protos.LoanModel\x12&\n\x08\x64\x65posits\x18\x06 \x03(\x0b\x32\x14.protos.DepositModel\x12\'\n\x08\x61\x63tivity\x18\x07 \x03(\x0b\x32\x15.protos.LoginLogModel\x12%\n\x18transactions_total_count\x18\x08 \x01(\x05H\x00\x88\x01\x01\x12!\n\x14\x61\x63tivity_total_count\x18\t \x01(\x05H\x01\x88\x01\x01\x42\x1b\n\x19_transactions_total_countB\x17\n\x15_activity_total_count2\x83\x07\n\x17\x43ustomerAnalyticService\x12h\n\x1aGetCustomersByBalanceRange\x12).protos.GetCustomersByBalanceRangeRequest\x1a\x1f.protos.GetAllCustomersResponse\x12\x80\x01\n&GetCustomersByTransactionQuantityRange\x12\x35.protos.GetCustomersByTransactionQuantityRangeRequest\x1a\x1f.protos.GetAllCustomersResponse\x12^\n\x13GetCustomerLifeTime\x12\".protos.GetCustomerLifeTimeRequest\x1a#.protos.GetCustomerLifeTimeResponse\x12T\n\x14GetCustomersLifeTime\x12\x16.google.protobuf.Empty\x1a$.protos.GetCustomersLifeTimeResponse\x12O\n\x14GetInactiveCustomers\x12\x16.google.protobuf.Empty\x1a\x1f.protos.GetAllCustomersResponse\x12Z\n\x16GetCountByBalanceRange\x12).protos.GetCustomersByBalanceRangeRequest\x1a\x15.protos.CountResponse\x12r\n\"GetCountByTransactionQuantityRange\x12\x35.protos.GetCustomersByTransactionQuantityRangeRequest\x1a\x15.protos.CountResponse\x12J\n\x19GetCountInactiveCustomers\x12\x16.google.protobuf.Empty\x1a\x15.protos.CountResponse\x12X\n\x12GetCustomerDetails\x12!.protos.GetCustomerDetailsRequest\x1a\x1f.protos.CustomerDetailsResponseB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04\x43oreb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -36,16 +42,20 @@ _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'customer_analytic_pb2', _gl
 if not _descriptor._USE_C_DESCRIPTORS:
   _globals['DESCRIPTOR']._loaded_options = None
   _globals['DESCRIPTOR']._serialized_options = b'Z\031orch-go/gen/protos;protos\252\002\004Core'
-  _globals['_GETCUSTOMERSBYBALANCERANGEREQUEST']._serialized_start=133
-  _globals['_GETCUSTOMERSBYBALANCERANGEREQUEST']._serialized_end=210
-  _globals['_GETCUSTOMERSBYTRANSACTIONQUANTITYRANGEREQUEST']._serialized_start=212
-  _globals['_GETCUSTOMERSBYTRANSACTIONQUANTITYRANGEREQUEST']._serialized_end=303
-  _globals['_GETCUSTOMERLIFETIMEREQUEST']._serialized_start=305
-  _globals['_GETCUSTOMERLIFETIMEREQUEST']._serialized_end=354
-  _globals['_GETCUSTOMERLIFETIMERESPONSE']._serialized_start=356
-  _globals['_GETCUSTOMERLIFETIMERESPONSE']._serialized_end=453
-  _globals['_GETCUSTOMERSLIFETIMERESPONSE']._serialized_start=455
-  _globals['_GETCUSTOMERSLIFETIMERESPONSE']._serialized_end=550
-  _globals['_CUSTOMERANALYTICSERVICE']._serialized_start=553
-  _globals['_CUSTOMERANALYTICSERVICE']._serialized_end=1362
+  _globals['_GETCUSTOMERSBYBALANCERANGEREQUEST']._serialized_start=223
+  _globals['_GETCUSTOMERSBYBALANCERANGEREQUEST']._serialized_end=300
+  _globals['_GETCUSTOMERSBYTRANSACTIONQUANTITYRANGEREQUEST']._serialized_start=302
+  _globals['_GETCUSTOMERSBYTRANSACTIONQUANTITYRANGEREQUEST']._serialized_end=393
+  _globals['_GETCUSTOMERLIFETIMEREQUEST']._serialized_start=395
+  _globals['_GETCUSTOMERLIFETIMEREQUEST']._serialized_end=444
+  _globals['_GETCUSTOMERLIFETIMERESPONSE']._serialized_start=446
+  _globals['_GETCUSTOMERLIFETIMERESPONSE']._serialized_end=543
+  _globals['_GETCUSTOMERSLIFETIMERESPONSE']._serialized_start=545
+  _globals['_GETCUSTOMERSLIFETIMERESPONSE']._serialized_end=640
+  _globals['_GETCUSTOMERDETAILSREQUEST']._serialized_start=643
+  _globals['_GETCUSTOMERDETAILSREQUEST']._serialized_end=919
+  _globals['_CUSTOMERDETAILSRESPONSE']._serialized_start=922
+  _globals['_CUSTOMERDETAILSRESPONSE']._serialized_end=1353
+  _globals['_CUSTOMERANALYTICSERVICE']._serialized_start=1356
+  _globals['_CUSTOMERANALYTICSERVICE']._serialized_end=2255
 # @@protoc_insertion_point(module_scope)

@@ -3,13 +3,20 @@
 isort:skip_file
 """
 
+import account_pb2
 import builtins
+import card_pb2
 import collections.abc
+import customer_pb2
+import deposit_pb2
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.message
 import google.protobuf.timestamp_pb2
+import loan_pb2
+import login_log_pb2
 import sys
+import transaction_pb2
 import typing
 
 if sys.version_info >= (3, 10):
@@ -105,3 +112,90 @@ class GetCustomersLifeTimeResponse(google.protobuf.message.Message):
     def ClearField(self, field_name: typing.Literal["customer_life_time", b"customer_life_time"]) -> None: ...
 
 Global___GetCustomersLifeTimeResponse: typing_extensions.TypeAlias = GetCustomersLifeTimeResponse
+
+@typing.final
+class GetCustomerDetailsRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CUSTOMER_ID_FIELD_NUMBER: builtins.int
+    TRANSACTIONS_PAGE_N_FIELD_NUMBER: builtins.int
+    TRANSACTIONS_PAGE_SIZE_FIELD_NUMBER: builtins.int
+    ACTIVITY_PAGE_N_FIELD_NUMBER: builtins.int
+    ACTIVITY_PAGE_SIZE_FIELD_NUMBER: builtins.int
+    customer_id: builtins.int
+    transactions_page_n: builtins.int
+    transactions_page_size: builtins.int
+    activity_page_n: builtins.int
+    activity_page_size: builtins.int
+    def __init__(
+        self,
+        *,
+        customer_id: builtins.int = ...,
+        transactions_page_n: builtins.int | None = ...,
+        transactions_page_size: builtins.int | None = ...,
+        activity_page_n: builtins.int | None = ...,
+        activity_page_size: builtins.int | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["_activity_page_n", b"_activity_page_n", "_activity_page_size", b"_activity_page_size", "_transactions_page_n", b"_transactions_page_n", "_transactions_page_size", b"_transactions_page_size", "activity_page_n", b"activity_page_n", "activity_page_size", b"activity_page_size", "transactions_page_n", b"transactions_page_n", "transactions_page_size", b"transactions_page_size"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_activity_page_n", b"_activity_page_n", "_activity_page_size", b"_activity_page_size", "_transactions_page_n", b"_transactions_page_n", "_transactions_page_size", b"_transactions_page_size", "activity_page_n", b"activity_page_n", "activity_page_size", b"activity_page_size", "customer_id", b"customer_id", "transactions_page_n", b"transactions_page_n", "transactions_page_size", b"transactions_page_size"]) -> None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_activity_page_n", b"_activity_page_n"]) -> typing.Literal["activity_page_n"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_activity_page_size", b"_activity_page_size"]) -> typing.Literal["activity_page_size"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_transactions_page_n", b"_transactions_page_n"]) -> typing.Literal["transactions_page_n"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_transactions_page_size", b"_transactions_page_size"]) -> typing.Literal["transactions_page_size"] | None: ...
+
+Global___GetCustomerDetailsRequest: typing_extensions.TypeAlias = GetCustomerDetailsRequest
+
+@typing.final
+class CustomerDetailsResponse(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CUSTOMER_FIELD_NUMBER: builtins.int
+    ACCOUNTS_FIELD_NUMBER: builtins.int
+    CARDS_FIELD_NUMBER: builtins.int
+    TRANSACTIONS_FIELD_NUMBER: builtins.int
+    LOANS_FIELD_NUMBER: builtins.int
+    DEPOSITS_FIELD_NUMBER: builtins.int
+    ACTIVITY_FIELD_NUMBER: builtins.int
+    TRANSACTIONS_TOTAL_COUNT_FIELD_NUMBER: builtins.int
+    ACTIVITY_TOTAL_COUNT_FIELD_NUMBER: builtins.int
+    transactions_total_count: builtins.int
+    activity_total_count: builtins.int
+    @property
+    def customer(self) -> customer_pb2.CustomerModel: ...
+    @property
+    def accounts(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[account_pb2.AccountModel]: ...
+    @property
+    def cards(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[card_pb2.CardModel]: ...
+    @property
+    def transactions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[transaction_pb2.TransactionModel]: ...
+    @property
+    def loans(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[loan_pb2.LoanModel]: ...
+    @property
+    def deposits(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[deposit_pb2.DepositModel]: ...
+    @property
+    def activity(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[login_log_pb2.LoginLogModel]: ...
+    def __init__(
+        self,
+        *,
+        customer: customer_pb2.CustomerModel | None = ...,
+        accounts: collections.abc.Iterable[account_pb2.AccountModel] | None = ...,
+        cards: collections.abc.Iterable[card_pb2.CardModel] | None = ...,
+        transactions: collections.abc.Iterable[transaction_pb2.TransactionModel] | None = ...,
+        loans: collections.abc.Iterable[loan_pb2.LoanModel] | None = ...,
+        deposits: collections.abc.Iterable[deposit_pb2.DepositModel] | None = ...,
+        activity: collections.abc.Iterable[login_log_pb2.LoginLogModel] | None = ...,
+        transactions_total_count: builtins.int | None = ...,
+        activity_total_count: builtins.int | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["_activity_total_count", b"_activity_total_count", "_transactions_total_count", b"_transactions_total_count", "activity_total_count", b"activity_total_count", "customer", b"customer", "transactions_total_count", b"transactions_total_count"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_activity_total_count", b"_activity_total_count", "_transactions_total_count", b"_transactions_total_count", "accounts", b"accounts", "activity", b"activity", "activity_total_count", b"activity_total_count", "cards", b"cards", "customer", b"customer", "deposits", b"deposits", "loans", b"loans", "transactions", b"transactions", "transactions_total_count", b"transactions_total_count"]) -> None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_activity_total_count", b"_activity_total_count"]) -> typing.Literal["activity_total_count"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_transactions_total_count", b"_transactions_total_count"]) -> typing.Literal["transactions_total_count"] | None: ...
+
+Global___CustomerDetailsResponse: typing_extensions.TypeAlias = CustomerDetailsResponse

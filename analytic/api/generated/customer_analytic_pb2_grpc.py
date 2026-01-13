@@ -77,6 +77,11 @@ class CustomerAnalyticServiceStub(object):
                 request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
                 response_deserializer=custom__types__pb2.CountResponse.FromString,
                 _registered_method=True)
+        self.GetCustomerDetails = channel.unary_unary(
+                '/protos.CustomerAnalyticService/GetCustomerDetails',
+                request_serializer=customer__analytic__pb2.GetCustomerDetailsRequest.SerializeToString,
+                response_deserializer=customer__analytic__pb2.CustomerDetailsResponse.FromString,
+                _registered_method=True)
 
 
 class CustomerAnalyticServiceServicer(object):
@@ -130,6 +135,12 @@ class CustomerAnalyticServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetCustomerDetails(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_CustomerAnalyticServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -172,6 +183,11 @@ def add_CustomerAnalyticServiceServicer_to_server(servicer, server):
                     servicer.GetCountInactiveCustomers,
                     request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                     response_serializer=custom__types__pb2.CountResponse.SerializeToString,
+            ),
+            'GetCustomerDetails': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetCustomerDetails,
+                    request_deserializer=customer__analytic__pb2.GetCustomerDetailsRequest.FromString,
+                    response_serializer=customer__analytic__pb2.CustomerDetailsResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -390,6 +406,33 @@ class CustomerAnalyticService(object):
             '/protos.CustomerAnalyticService/GetCountInactiveCustomers',
             google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             custom__types__pb2.CountResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetCustomerDetails(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.CustomerAnalyticService/GetCustomerDetails',
+            customer__analytic__pb2.GetCustomerDetailsRequest.SerializeToString,
+            customer__analytic__pb2.CustomerDetailsResponse.FromString,
             options,
             channel_credentials,
             insecure,

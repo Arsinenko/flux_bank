@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package protos;
+option go_package = "orch-go/gen/protos;protos";
+option csharp_namespace = "Core";
+
+import "google/protobuf/empty.proto";
+
+
+service GeneralAnalyticService {
+    rpc GetGeneralCounts (google.protobuf.Empty) returns (GeneralCountsResponse);
+}
+
+message GeneralCountsResponse {
+    int32 total_customers = 1;
+    int32 total_active_accounts = 2;
+    int32 total_active_cards = 3;
+    int32 total_accounts_balance = 4;
+    int32 total_active_loans = 5;
+    int32 total_active_deposits = 6;
+    int32 total_transactions_count = 7;
+    string total_transactions_amount = 8;
+}
