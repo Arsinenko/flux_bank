@@ -1,11 +1,5 @@
 ﻿import asyncio
 
-from adapters.account.account_repository import AccountRepository
-from adapters.card.card_repository import CardRepository
-from adapters.customer.customer_repository import CustomerRepository
-from adapters.deposit.deposit_repository import DepositRepository
-from adapters.loan.loan_repository import LoanRepository
-from adapters.transaction.transaction_repository import TransactionRepository
 from api.generated.general_analytic_pb2 import GeneralCountsResponse
 from api.generated.general_analytic_pb2_grpc import GeneralAnalyticServiceServicer
 from domain.account.account_repo import AccountRepositoryAbc
@@ -17,16 +11,17 @@ from domain.transaction.transaction_repo import TransactionRepositoryAbc
 
 
 class GeneralAnalyticService(GeneralAnalyticServiceServicer):
-    def __init__(self, target: str):
-        self.account_repo: AccountRepositoryAbc = AccountRepository(target)
-        self.transaction_repo: TransactionRepositoryAbc = TransactionRepository(target)
-        self.card_repo: CardRepositoryAbc = CardRepository(target)
-        self.loan_repo: LoanRepositoryAbc = LoanRepository(target)
-        self.deposit_repo: DepositRepositoryAbc = DepositRepository(target)
-        self.customer_repo: CustomerRepositoryAbc = CustomerRepository(target)
+    def __init__(self, account_repo: AccountRepositoryAbc, transaction_repo: TransactionRepositoryAbc,
+                 card_repo: CardRepositoryAbc, loan_repo: LoanRepositoryAbc, deposit_repo: DepositRepositoryAbc,
+                 customer_repo: CustomerRepositoryAbc):
+        self.account_repo = account_repo
+        self.transaction_repo = transaction_repo
+        self.card_repo = card_repo
+        self.loan_repo = loan_repo
+        self.deposit_repo = deposit_repo
+        self.customer_repo = customer_repo
 
     async def GetGeneralCounts(self, request, context):
-        # Вместо распаковки сразу, можно сделать так:
         tasks = [
             self.customer_repo.get_count(),
             self.account_repo.get_count_by_status(status=True),

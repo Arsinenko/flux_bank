@@ -26,6 +26,15 @@ class TransactionFeeRepository(TransactionFeeRepositoryAbc, BaseGrpcRepository):
         )
 
     @staticmethod
+    def to_model(domain: TransactionFee) -> TransactionFeeModel:
+        return TransactionFeeModel(
+            id=domain.id,
+            transaction_id=domain.transaction_id,
+            fee_id=domain.fee_id,
+            amount=str(domain.amount) if domain.amount is not None else None
+        )
+
+    @staticmethod
     def response_to_list(response: GetAllTransactionFeesResponse) -> List[TransactionFee]:
         return [TransactionFeeRepository.to_domain(model) for model in response.transaction_fees]
 

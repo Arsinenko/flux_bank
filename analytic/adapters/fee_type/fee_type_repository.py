@@ -10,33 +10,24 @@ from domain.fee_type.fee_type import FeeType
 from domain.fee_type.fee_type_repo import FeeTypeRepositoryAbc
 
 
+from mappers.fee_type_mapper import FeeTypeMapper
+
+
 class FeeTypeRepository(FeeTypeRepositoryAbc, BaseGrpcRepository):
     def __init__(self, target: str):
         super().__init__(target)
         self.stub = FeeTypeServiceStub(channel=self.chanel)
 
-    @staticmethod
-    def to_domain(model: FeeTypeModel) -> FeeType:
-        return FeeType(
-            fee_id=model.fee_id,
-            name=model.name if model.HasField("name") else None,
-            description=model.description if model.HasField("description") else None
-        )
-
-    @staticmethod
-    def response_to_list(response: GetAllFeeTypesResponse) -> List[FeeType]:
-        return [FeeTypeRepository.to_domain(model) for model in response.fee_types]
-
     async def get_all(self, page_n: int, page_size: int) -> List[FeeType]:
         request = GetAllRequest(pageN=page_n, pageSize=page_size)
         result = await self._execute(self.stub.GetAll(request))
         if result:
-            return self.response_to_list(result)
+            return FeeTypeMapper.to_domain_list(result.fee_types)
         return []
 
     async def get_by_id(self, fee_id: int) -> FeeType | None:
         request = GetFeeTypeByIdRequest(fee_id=fee_id)
         result = await self._execute(self.stub.GetById(request))
         if result:
-            return self.to_domain(result)
+            return FeeTypeMapper.to_domain(result)
         return None

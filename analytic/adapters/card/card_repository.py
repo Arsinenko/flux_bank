@@ -11,25 +11,13 @@ from domain.card.card import Card
 from domain.card.card_repo import CardRepositoryAbc
 
 
+from mappers.card_mapper import CardMapper
+
+
 class CardRepository(CardRepositoryAbc, BaseGrpcRepository):
     def __init__(self, target: str):
         super().__init__(target)
         self.stub = CardServiceStub(channel=self.chanel)
-
-    @staticmethod
-    def to_domain(model: CardModel) -> Card:
-        return Card(
-            card_id=model.card_id,
-            account_id=model.account_id,
-            card_number=model.card_number,
-            cvv=model.cvv,
-            expiry_date=model.expiry_date.ToDatetime() if model.HasField("expiry_date") else None,
-            status=model.status
-        )
-
-    @staticmethod
-    def response_to_list(response: GetAllCardsResponse) -> List[Card]:
-        return [CardRepository.to_domain(model) for model in response.cards]
 
     async def get_count(self) -> int:
         result = await self._execute(self.stub.GetCount(Empty()))
@@ -43,14 +31,14 @@ class CardRepository(CardRepositoryAbc, BaseGrpcRepository):
         request = GetAllRequest(pageN=page_n, pageSize=page_size)
         result = await self._execute(self.stub.GetAll(request))
         if result:
-            return self.response_to_list(result)
+            return CardMapper.to_domain_list(result.cards)
         return []
 
     async def get_by_id(self, branch_id: int) -> Card | None:
         request = GetCardByIdRequest(card_id=branch_id)
         result = await self._execute(self.stub.GetById(request))
         if result:
-            return self.to_domain(result)
+            return CardMapper.to_domain(result)
         return None
 
 
@@ -58,5 +46,5 @@ class CardRepository(CardRepositoryAbc, BaseGrpcRepository):
         request = GetCardsByAccountRequest(account_id=account_id)
         result = await self._execute(self.stub.GetByAccount(request))
         if result:
-            return self.response_to_list(result)
+            return CardMapper.to_domain_list(result.cards)
         return []

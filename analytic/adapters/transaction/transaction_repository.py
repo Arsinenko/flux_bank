@@ -13,40 +13,26 @@ from domain.transaction.transaction import Transaction
 from domain.transaction.transaction_repo import TransactionRepositoryAbc
 
 
+from mappers.transaction_mapper import TransactionMapper
+
+
 class TransactionRepository(TransactionRepositoryAbc, BaseGrpcRepository):
     def __init__(self, target: str):
         super().__init__(target)
         self.stub = TransactionServiceStub(channel=self.chanel)
 
-
-    @staticmethod
-    def to_domain(model: TransactionModel) -> Transaction:
-        return Transaction(
-            transaction_id=model.transaction_id,
-            source_account=model.source_account if model.HasField("source_account") else None,
-            target_account=model.target_account if model.HasField("target_account") else None,
-            amount=Decimal(model.amount),
-            currency=model.currency,
-            created_at=model.created_at.ToDatetime() if model.HasField("created_at") else None,
-            status=model.status if model.HasField("status") else None
-        )
-
-    @staticmethod
-    def response_to_list(response: GetAllTransactionsResponse) -> List[Transaction]:
-        return [TransactionRepository.to_domain(model) for model in response.transactions]
-
     async def get_all(self, page_n: int, page_size: int) -> List[Transaction]:
         request = GetAllRequest(pageN=page_n, pageSize=page_size)
         result = await self._execute(self.stub.GetAll(request))
         if result:
-            return self.response_to_list(result)
+            return TransactionMapper.to_domain_list(result.transactions)
         return []
 
     async def get_by_ids(self, ids: List[int]) -> List[Transaction]:
         request = GetTransactionByIdsRequest(transaction_ids=ids)
         result = await self._execute(self.stub.GetByIds(request))
         if result:
-            return self.response_to_list(result)
+            return TransactionMapper.to_domain_list(result.transactions)
         return []
 
 
@@ -54,7 +40,7 @@ class TransactionRepository(TransactionRepositoryAbc, BaseGrpcRepository):
         request = GetAccountRevenueRequest(target_account=account_id)
         result = await self._execute(self.stub.GetAccountRevenue(request))
         if result:
-            return self.response_to_list(result)
+            return TransactionMapper.to_domain_list(result.transactions)
         return []
 
 
@@ -62,7 +48,7 @@ class TransactionRepository(TransactionRepositoryAbc, BaseGrpcRepository):
         request = GetAccountExpensesRequest(source_account=account_id)
         result = await self._execute(self.stub.GetAccountExpenses(request))
         if result:
-            return self.response_to_list(result)
+            return TransactionMapper.to_domain_list(result.transactions)
         return []
 
 
@@ -110,12 +96,12 @@ class TransactionRepository(TransactionRepositoryAbc, BaseGrpcRepository):
         request = GetTransactionByIdRequest(transaction_id=transaction_id)
         result = await self._execute(self.stub.GetById(request))
         if result:
-            return self.to_domain(result)
+            return TransactionMapper.to_domain(result)
         return None
 
     async def get_by_date_range(self, start_date: datetime, end_date: datetime) -> List[Transaction]:
         request = GetByDateRangeRequest(fromDate=start_date, toDate=end_date)
         result = await self._execute(self.stub.GetByDateRange(request))
         if result:
-            return self.response_to_list(result)
+            return TransactionMapper.to_domain_list(result.transactions)
         return []

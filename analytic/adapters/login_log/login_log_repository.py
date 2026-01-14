@@ -11,44 +11,33 @@ from typing import List
 from domain.login_log.login_log import LoginLog
 
 
+from mappers.login_log_mapper import LoginLogMapper
+
+
 class LoginLogRepository(LoginLogRepositoryAbc, BaseGrpcRepository):
     def __init__(self, target: str):
         super().__init__(target)
         self.stub = LoginLogServiceStub(self.chanel)
 
-    @staticmethod
-    def to_domain(model: LoginLogModel) -> LoginLog:
-        return LoginLog(
-            log_id=model.log_id,
-            customer_id=model.customer_id if model.HasField("customer_id") else None,
-            login_time=model.login_time.ToDatetime() if model.HasField("login_time") else None,
-            ip_address=model.ip_address if model.HasField("ip_address") else None,
-            device_info=model.device_info if model.HasField("device_info") else None
-        )
-
-    @staticmethod
-    def response_to_list(response: GetAllLoginLogsResponse) -> List[LoginLog]:
-        return [LoginLogRepository.to_domain(model) for model in response.login_logs]
-
     async def get_all(self, page_n: int, page_size: int) -> List[LoginLog]:
         request = GetAllRequest(pageN=page_n, pageSize=page_size)
         result = await self._execute(self.stub.GetAll(request))
         if result:
-            return self.response_to_list(result)
+            return LoginLogMapper.to_domain_list(result.login_logs)
         return []
 
     async def get_by_id(self, log_id: int) -> LoginLog | None:
         request = GetLoginLogByIdRequest(log_id=log_id)
         result = await self._execute(self.stub.GetById(request))
         if result:
-            return self.to_domain(result)
+            return LoginLogMapper.to_domain(result)
         return None
 
     async def get_by_customer(self, customer_id: int) -> List[LoginLog]:
         request = GetLoginLogsByCustomerRequest(customer_id=customer_id)
         result = await self._execute(self.stub.GetByCustomer(request))
         if result:
-            return self.response_to_list(result)
+            return LoginLogMapper.to_domain_list(result.login_logs)
         return []
 
     async def get_in_time_range(self, start_time: datetime, end_time: datetime) -> List[LoginLog]:
@@ -58,5 +47,5 @@ class LoginLogRepository(LoginLogRepositoryAbc, BaseGrpcRepository):
         )
         result = await self._execute(self.stub.GetInTimeRange(request))
         if result:
-            return self.response_to_list(result)
+            return LoginLogMapper.to_domain_list(result.login_logs)
         return []

@@ -23,6 +23,13 @@ class TransactionCategoryRepository(TransactionCategoryRepositoryAbc, BaseGrpcRe
         )
 
     @staticmethod
+    def to_model(domain: TransactionCategory) -> TransactionCategoryModel:
+        return TransactionCategoryModel(
+            category_id=domain.category_id,
+            name=domain.name
+        )
+
+    @staticmethod
     def response_to_list(response: GetAllTransactionCategoriesResponse) -> List[TransactionCategory]:
         return [TransactionCategoryRepository.to_domain(model) for model in response.transaction_categories]
 

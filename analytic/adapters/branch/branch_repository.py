@@ -10,30 +10,19 @@ from domain.branch.branch import Branch
 from domain.branch.branch_repo import BranchRepositoryAbc
 
 
+from mappers.branch_mapper import BranchMapper
+
+
 class BranchRepository(BranchRepositoryAbc, BaseGrpcRepository):
     def __init__(self, target: str):
         super().__init__(target)
         self.stub = BranchServiceStub(channel=self.chanel)
 
-    @staticmethod
-    def to_domain(model: BranchModel) -> Branch:
-        return Branch(
-            branch_id=model.branch_id,
-            name=model.name,
-            city=model.city,
-            address=model.address,
-            phone=model.phone
-        )
-
-    @staticmethod
-    def response_to_list(response: GetAllBranchesResponse) -> List[Branch]:
-        return [BranchRepository.to_domain(model) for model in response.branches]
-
     async def get_by_ids(self, ids: List[int]) -> List[Branch]:
         request = GetBranchByIdsRequest(branch_ids=ids)
         result = await self._execute(self.stub.GetByIds(request))
         if result:
-            return self.response_to_list(result)
+            return BranchMapper.to_domain_list(result.branches)
         return []
 
     async def get_count(self) -> int:
@@ -44,13 +33,13 @@ class BranchRepository(BranchRepositoryAbc, BaseGrpcRepository):
         request = GetAllRequest(pageN=page_n, pageSize=page_size)
         result = await self._execute(self.stub.GetAll(request))
         if result:
-            return self.response_to_list(result)
+            return BranchMapper.to_domain_list(result.branches)
         return []
 
     async def get_by_id(self, branch_id: int) -> Branch | None:
         request = GetBranchByIdRequest(branch_id=branch_id)
         result = await self._execute(self.stub.GetById(request))
         if result:
-            return self.to_domain(result)
+            return BranchMapper.to_domain(result)
         return None
     

@@ -28,6 +28,18 @@ class CustomerAddressRepository(CustomerAddressRepositoryAbc, BaseGrpcRepository
         )
 
     @staticmethod
+    def to_model(domain: CustomerAddress) -> CustomerAddressModel:
+        return CustomerAddressModel(
+            address_id=domain.address_id,
+            customer_id=domain.customer_id,
+            country=domain.country,
+            city=domain.city,
+            street=domain.street,
+            zip_code=domain.zip_code,
+            is_primary=domain.is_primary
+        )
+
+    @staticmethod
     def response_to_list(response: GetAllCustomerAddressesResponse) -> List[CustomerAddress]:
         return [CustomerAddressRepository.to_domain(model) for model in response.customer_addresses]
 

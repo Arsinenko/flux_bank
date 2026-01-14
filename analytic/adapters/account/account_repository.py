@@ -15,45 +15,31 @@ from domain.account.account import Account
 from domain.account.account_repo import AccountRepositoryAbc
 
 
+from mappers.account_mapper import AccountMapper
+
+
 class AccountRepository(AccountRepositoryAbc, BaseGrpcRepository):
     def __init__(self, target: str):
         super().__init__(target)
         self.stub = AccountServiceStub(self.chanel)
 
-
-    @staticmethod
-    def to_domain(self, model) -> Account:
-        return Account(
-            account_id=model.account_id,
-            customer_id=model.customer_id,
-            type_id=model.type_id,
-            is_active=model.status,
-            created_at=model.created_at.ToDatetime(),
-            balance=model.balance,
-            iban=model.iban
-        )
-    @staticmethod
-    def response_to_list(self, response: account_pb2.GetAllAccountsResponse) ->List[Account]:
-        return [self.to_domain(model) for model in response.accounts]
-
-
     async def get_all(self, page_n: int, page_size: int) -> List[Account]:
         request = GetAllRequest(pageN=page_n, pageSize=page_size)
         result = await self._execute(self.stub.GetAll(request))
-        return self.response_to_list(result)
+        return AccountMapper.to_domain_list(result.accounts)
 
     async def get_by_id(self, account_id: int) -> Account | None:
         request = account_pb2.GetAccountByIdRequest(account_id=account_id)
         result: AccountModel = await self._execute(self.stub.GetById(request))
         if result:
-            return self.to_domain(result)
+            return AccountMapper.to_domain(result)
         return None
 
 
     async def get_by_customer_id(self, customer_id: int) -> List[Account]:
         request = account_pb2.GetAccountByCustomerIdRequest(customer_id=customer_id)
         result = await self._execute(self.stub.GetByCustomerId(request))
-        return self.response_to_list(result)
+        return AccountMapper.to_domain_list(result.accounts)
 
     async def get_by_date_range(self, from_date, to_date, page_n: int, page_size: int) -> List[Account]:
         request = GetByDateRangeRequest(
@@ -63,7 +49,7 @@ class AccountRepository(AccountRepositoryAbc, BaseGrpcRepository):
             pageSize=page_size
         )
         result = await self._execute(self.stub.GetByDateRange(request))
-        return self.response_to_list(result)
+        return AccountMapper.to_domain_list(result.accounts)
 
     async def get_count_by_customer_id(self, customer_id: int) -> int:
         request = GetAccountByCustomerIdRequest(customer_id=customer_id)
@@ -73,7 +59,7 @@ class AccountRepository(AccountRepositoryAbc, BaseGrpcRepository):
     async def get_by_ids(self, ids: List[int]) -> List[Account]:
         request = GetAccountByIdsRequest(account_ids=ids)
         result = await self._execute(self.stub.GetByIds(request))
-        return self.response_to_list(result)
+        return AccountMapper.to_domain_list(result.accounts)
 
     async def get_count(self) -> int:
         result = await self._execute(self.stub.GetCount(Empty()))

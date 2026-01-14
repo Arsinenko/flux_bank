@@ -27,6 +27,18 @@ class LoanPaymentRepository(LoanPaymentRepositoryAbc, BaseGrpcRepository):
         )
 
     @staticmethod
+    def to_model(domain: LoanPayment) -> LoanPaymentModel:
+        model = LoanPaymentModel(
+            payment_id=domain.payment_id,
+            loan_id=domain.loan_id,
+            amount=str(domain.amount) if domain.amount is not None else None,
+            is_paid=domain.is_paid
+        )
+        if domain.payment_date:
+            model.payment_date.FromDatetime(domain.payment_date)
+        return model
+
+    @staticmethod
     def response_to_list(response: GetAllLoanPaymentsResponse) -> List[LoanPayment]:
         return [LoanPaymentRepository.to_domain(model) for model in response.loan_payments]
 

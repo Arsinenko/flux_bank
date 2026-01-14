@@ -32,6 +32,14 @@ class AccountTypeRepository(AccountTypeRepositoryAbc, BaseGrpcRepository):
             name=model.name,
             description=model.description
         )
+
+    @staticmethod
+    def to_model(domain: AccountType) -> AccountTypeModel:
+        return AccountTypeModel(
+            type_id=domain.type_id,
+            name=domain.name,
+            description=domain.description
+        )
     async def get_all(self, page_n: int, page_size: int) -> List[AccountType]:
         request = GetAllRequest(pageN=page_n, pageSize=page_size)
         result = await self._execute(self.stub.GetAll(request))

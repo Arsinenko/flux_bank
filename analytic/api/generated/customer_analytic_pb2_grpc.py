@@ -37,11 +37,6 @@ class CustomerAnalyticServiceStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.GetCustomersByBalanceRange = channel.unary_unary(
-                '/protos.CustomerAnalyticService/GetCustomersByBalanceRange',
-                request_serializer=customer__analytic__pb2.GetCustomersByBalanceRangeRequest.SerializeToString,
-                response_deserializer=customer__pb2.GetAllCustomersResponse.FromString,
-                _registered_method=True)
         self.GetCustomersByTransactionQuantityRange = channel.unary_unary(
                 '/protos.CustomerAnalyticService/GetCustomersByTransactionQuantityRange',
                 request_serializer=customer__analytic__pb2.GetCustomersByTransactionQuantityRangeRequest.SerializeToString,
@@ -61,11 +56,6 @@ class CustomerAnalyticServiceStub(object):
                 '/protos.CustomerAnalyticService/GetInactiveCustomers',
                 request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
                 response_deserializer=customer__pb2.GetAllCustomersResponse.FromString,
-                _registered_method=True)
-        self.GetCountByBalanceRange = channel.unary_unary(
-                '/protos.CustomerAnalyticService/GetCountByBalanceRange',
-                request_serializer=customer__analytic__pb2.GetCustomersByBalanceRangeRequest.SerializeToString,
-                response_deserializer=custom__types__pb2.CountResponse.FromString,
                 _registered_method=True)
         self.GetCountByTransactionQuantityRange = channel.unary_unary(
                 '/protos.CustomerAnalyticService/GetCountByTransactionQuantityRange',
@@ -87,12 +77,6 @@ class CustomerAnalyticServiceStub(object):
 class CustomerAnalyticServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
 
-    def GetCustomersByBalanceRange(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
     def GetCustomersByTransactionQuantityRange(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -112,12 +96,6 @@ class CustomerAnalyticServiceServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def GetInactiveCustomers(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def GetCountByBalanceRange(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -144,11 +122,6 @@ class CustomerAnalyticServiceServicer(object):
 
 def add_CustomerAnalyticServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'GetCustomersByBalanceRange': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetCustomersByBalanceRange,
-                    request_deserializer=customer__analytic__pb2.GetCustomersByBalanceRangeRequest.FromString,
-                    response_serializer=customer__pb2.GetAllCustomersResponse.SerializeToString,
-            ),
             'GetCustomersByTransactionQuantityRange': grpc.unary_unary_rpc_method_handler(
                     servicer.GetCustomersByTransactionQuantityRange,
                     request_deserializer=customer__analytic__pb2.GetCustomersByTransactionQuantityRangeRequest.FromString,
@@ -168,11 +141,6 @@ def add_CustomerAnalyticServiceServicer_to_server(servicer, server):
                     servicer.GetInactiveCustomers,
                     request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                     response_serializer=customer__pb2.GetAllCustomersResponse.SerializeToString,
-            ),
-            'GetCountByBalanceRange': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetCountByBalanceRange,
-                    request_deserializer=customer__analytic__pb2.GetCustomersByBalanceRangeRequest.FromString,
-                    response_serializer=custom__types__pb2.CountResponse.SerializeToString,
             ),
             'GetCountByTransactionQuantityRange': grpc.unary_unary_rpc_method_handler(
                     servicer.GetCountByTransactionQuantityRange,
@@ -199,33 +167,6 @@ def add_CustomerAnalyticServiceServicer_to_server(servicer, server):
  # This class is part of an EXPERIMENTAL API.
 class CustomerAnalyticService(object):
     """Missing associated documentation comment in .proto file."""
-
-    @staticmethod
-    def GetCustomersByBalanceRange(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(
-            request,
-            target,
-            '/protos.CustomerAnalyticService/GetCustomersByBalanceRange',
-            customer__analytic__pb2.GetCustomersByBalanceRangeRequest.SerializeToString,
-            customer__pb2.GetAllCustomersResponse.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-            _registered_method=True)
 
     @staticmethod
     def GetCustomersByTransactionQuantityRange(request,
@@ -325,33 +266,6 @@ class CustomerAnalyticService(object):
             '/protos.CustomerAnalyticService/GetInactiveCustomers',
             google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             customer__pb2.GetAllCustomersResponse.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-            _registered_method=True)
-
-    @staticmethod
-    def GetCountByBalanceRange(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(
-            request,
-            target,
-            '/protos.CustomerAnalyticService/GetCountByBalanceRange',
-            customer__analytic__pb2.GetCustomersByBalanceRangeRequest.SerializeToString,
-            custom__types__pb2.CountResponse.FromString,
             options,
             channel_credentials,
             insecure,

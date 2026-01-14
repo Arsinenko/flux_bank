@@ -17,22 +17,17 @@ import "login_log.proto";
 
 
 service CustomerAnalyticService {
-  rpc GetCustomersByBalanceRange (GetCustomersByBalanceRangeRequest) returns (GetAllCustomersResponse);
   rpc GetCustomersByTransactionQuantityRange (GetCustomersByTransactionQuantityRangeRequest) returns (GetAllCustomersResponse);
   rpc GetCustomerLifeTime (GetCustomerLifeTimeRequest) returns (GetCustomerLifeTimeResponse);
   rpc GetCustomersLifeTime (google.protobuf.Empty) returns (GetCustomersLifeTimeResponse);
   rpc GetInactiveCustomers (google.protobuf.Empty) returns (GetAllCustomersResponse);
-  rpc GetCountByBalanceRange (GetCustomersByBalanceRangeRequest) returns (CountResponse);
   rpc GetCountByTransactionQuantityRange (GetCustomersByTransactionQuantityRangeRequest) returns (CountResponse);
   rpc GetCountInactiveCustomers (google.protobuf.Empty) returns (CountResponse);
   rpc GetCustomerDetails (GetCustomerDetailsRequest) returns (CustomerDetailsResponse);
 }
 
 
-message GetCustomersByBalanceRangeRequest {
-  string min_balance = 1;
-  string max_balance = 2;
-}
+
 
 message GetCustomersByTransactionQuantityRangeRequest{
   int32 min_quantity = 1;
@@ -54,21 +49,13 @@ message GetCustomersLifeTimeResponse {
 
 message GetCustomerDetailsRequest {
   int32 customer_id = 1;
-  optional int32 transactions_page_n = 2;
-  optional int32 transactions_page_size = 3;
-  optional int32 activity_page_n = 4;
-  optional int32 activity_page_size = 5;
 }
 
 message CustomerDetailsResponse {
   CustomerModel customer = 1;
   repeated AccountModel accounts = 2;
   repeated CardModel cards = 3;
-  repeated TransactionModel transactions = 4;
-  repeated LoanModel loans = 5;
-  repeated DepositModel deposits = 6;
-  repeated LoginLogModel activity = 7;
-  
-  optional int32 transactions_total_count = 8;
-  optional int32 activity_total_count = 9;
+  repeated LoanModel loans = 4;
+  repeated DepositModel deposits = 5;
+  repeated LoginLogModel activity = 6;
 }

@@ -11,23 +11,13 @@ from domain.atm.atm import Atm
 from domain.atm.atm_repo import AtmRepositoryAbc
 
 
+from mappers.atm_mapper import AtmMapper
+
+
 class AtmRepository(AtmRepositoryAbc, BaseGrpcRepository):
     def __init__(self, target: str):
         super().__init__(target)
         self.stub = AtmServiceStub(channel=self.chanel)
-
-    @staticmethod
-    def to_domain(model: AtmModel) -> Atm:
-        return Atm(
-            atm_id=model.atm_id,
-            location=model.location,
-            status=model.status,
-            branch_id=model.branch_id
-        )
-
-    @staticmethod
-    def response_to_list(self, response: GetAllAtmsResponse) -> List[Atm]:
-        return [self.to_domain(model) for model in response.atms]
 
     async def get_count(self) -> int:
         result = await self._execute(self.stub.GetCount(Empty()))
@@ -41,21 +31,21 @@ class AtmRepository(AtmRepositoryAbc, BaseGrpcRepository):
         request = GetAllRequest(pageN=page_n, pageSize=page_size)
         result = await self._execute(self.stub.GetAll(request))
         if result:
-            return self.response_to_list(result)
+            return AtmMapper.to_domain_list(result.atms)
         return []
 
     async def get_by_id(self, atm_id: int) -> Atm | None:
         request = GetAtmByIdRequest(atm_id=atm_id)
         result = await self._execute(self.stub.GetById(request))
         if result:
-            return self.to_domain(result)
+            return AtmMapper.to_domain(result)
         return None
 
     async def get_by_status(self, status: str) -> List[Atm]:
         request = GetAtmsByStatusRequest(status=status)
         result = await self._execute(self.stub.GetByStatus(request))
         if result:
-            return self.response_to_list(result)
+            return AtmMapper.to_domain_list(result.atms)
         return []
 
 
@@ -63,7 +53,7 @@ class AtmRepository(AtmRepositoryAbc, BaseGrpcRepository):
         request = GetAtmsByLocationSubStrRequest(sub_str=sub_str)
         result = await self._execute(self.stub.GetByLocationSubStr(request))
         if result:
-            return self.response_to_list(result)
+            return AtmMapper.to_domain_list(result.atms)
         return []
 
 
@@ -71,5 +61,5 @@ class AtmRepository(AtmRepositoryAbc, BaseGrpcRepository):
         request = GetAtmsByBranchRequest(branch_id=branch_id)
         result = await self._execute(self.stub.GetByBranch(request))
         if result:
-            return self.response_to_list(result)
+            return AtmMapper.to_domain_list(result.atms)
         return []
