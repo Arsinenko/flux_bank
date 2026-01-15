@@ -29,6 +29,11 @@ service AccountService {
   rpc GetCountByDateRange (GetByDateRangeRequest) returns (CountResponse);
   rpc GetCountByCustomerId (GetAccountByCustomerIdRequest) returns (CountResponse);
   rpc GetTotalBalance (google.protobuf.Empty) returns (TotalBalanceResponse);
+  rpc GetTotalBalanceByAccountType (GetTotalBalanceByAccountTypeRequest) returns (TotalBalanceResponse);
+}
+
+message GetTotalBalanceByAccountTypeRequest {
+  int32 account_type_id = 1;
 }
 
 message TotalBalanceResponse {

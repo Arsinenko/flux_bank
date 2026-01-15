@@ -5,5 +5,5 @@ option go_package = "orch-go/gen/protos;protos";
 option csharp_namespace = "Core";
 
 service AccountAnalyticService{
-
+    
 }

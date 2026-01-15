@@ -11,7 +11,7 @@ public class CustomerRepository : GenericRepository<Customer, int>, ICustomerRep
     {
     }
 
-    public async Task<IEnumerable<Customer>> GetBySubstring(string subStr, int? pageN, int? pageSize, string order,
+    public async Task<IEnumerable<Customer>> GetBySubstringAsync(string subStr, int? pageN, int? pageSize, string order,
         bool desc = false)
     {
         var query = DbSet.Where(c =>
@@ -36,13 +36,5 @@ public class CustomerRepository : GenericRepository<Customer, int>, ICustomerRep
 
         return await query.ToListAsync();
 
-
-    }
-
-    public async Task<int> GetCountBySubstring(string subStr)
-    {
-        return await DbSet.Where(c => c.FirstName.Contains(subStr) || c.LastName.Contains(subStr) ||
-                               c.Email.Contains(subStr) ||
-                               c.Phone.Contains(subStr)).CountAsync();
     }
 }

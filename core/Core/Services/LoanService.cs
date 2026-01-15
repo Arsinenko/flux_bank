@@ -118,7 +118,7 @@ public class LoanService(ILoanRepository loanRepository, IMapper mapper, ICacheS
                 Count = stats.ActiveLoanCount
             };
         }
-        var count = await loanRepository.GetCountByStatus(request.Status);
+        var count = await loanRepository.GetCountAsync(l => l.Status == request.Status);
         return new CountResponse()
         {
             Count = count

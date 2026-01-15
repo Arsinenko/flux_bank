@@ -15,14 +15,4 @@ public class AccountRepository : GenericRepository<Account, int>, IAccountReposi
     {
         return FindAsync(account => account.CustomerId == customerId);
     }
-
-    public async Task<int> GetCountByStatusAsync(bool status)
-    {
-        return await DbSet.Where(a => a.IsActive == status).CountAsync();
-    }
-
-    public async Task<decimal?> GetTotalBalanceAsync()
-    {
-        return await DbSet.Select(a => a.Balance).SumAsync();
-    }
 }

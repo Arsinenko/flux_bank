@@ -137,7 +137,7 @@ public class DepositService(IDepositRepository depositRepository, IMapper mapper
                 Count = stats.ActiveDepositCount
             };
         }
-        var count = await depositRepository.GetCountByStatus(request.Status);
+        var count = await depositRepository.GetCountAsync(d => d.Status == request.Status);
         return new CountResponse()
         {
             Count = count

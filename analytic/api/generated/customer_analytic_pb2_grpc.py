@@ -54,7 +54,7 @@ class CustomerAnalyticServiceStub(object):
                 _registered_method=True)
         self.GetInactiveCustomers = channel.unary_unary(
                 '/protos.CustomerAnalyticService/GetInactiveCustomers',
-                request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+                request_serializer=custom__types__pb2.GetAllRequest.SerializeToString,
                 response_deserializer=customer__pb2.GetAllCustomersResponse.FromString,
                 _registered_method=True)
         self.GetCountByTransactionQuantityRange = channel.unary_unary(
@@ -139,7 +139,7 @@ def add_CustomerAnalyticServiceServicer_to_server(servicer, server):
             ),
             'GetInactiveCustomers': grpc.unary_unary_rpc_method_handler(
                     servicer.GetInactiveCustomers,
-                    request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                    request_deserializer=custom__types__pb2.GetAllRequest.FromString,
                     response_serializer=customer__pb2.GetAllCustomersResponse.SerializeToString,
             ),
             'GetCountByTransactionQuantityRange': grpc.unary_unary_rpc_method_handler(
@@ -264,7 +264,7 @@ class CustomerAnalyticService(object):
             request,
             target,
             '/protos.CustomerAnalyticService/GetInactiveCustomers',
-            google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            custom__types__pb2.GetAllRequest.SerializeToString,
             customer__pb2.GetAllCustomersResponse.FromString,
             options,
             channel_credentials,

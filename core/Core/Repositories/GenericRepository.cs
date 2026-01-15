@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Core.Repositories;
 
-public class GenericRepository<TEntity, TId> 
+public class GenericRepository<TEntity, TId>
     : IGenericRepository<TEntity, TId>
     where TEntity : class
 {
@@ -22,14 +22,14 @@ public class GenericRepository<TEntity, TId>
     public virtual async Task<IEnumerable<TEntity>> GetAllAsync(int? pageN, int? pageSize)
     {
         IQueryable<TEntity> query = DbSet;
-        
+
         if (pageN != 0 && pageSize != 0)
         {
             if (pageN <= 0 || pageSize <= 0) throw new ArgumentException("pageN and pageSize must be greater than 0");
             var keyName = GetEntityKey();
             query = query.OrderBy(e => EF.Property<TId>(e, keyName)).Skip((pageN.Value - 1) * pageSize.Value).Take(pageSize.Value);
         }
-        
+
         return await query.ToListAsync();
     }
 
@@ -38,14 +38,16 @@ public class GenericRepository<TEntity, TId>
         return await DbSet.FindAsync(id);
     }
 
-    public async Task<int> GetCountAsync()
+    public virtual async Task<int> GetCountAsync(Expression<Func<TEntity, bool>>? predicate = null)
     {
-        return await DbSet.CountAsync();
+        return predicate != null
+            ? await DbSet.CountAsync(predicate)
+            : await DbSet.CountAsync();
     }
 
     public async Task<int> GetCountByDateRangeAsync(DateTime fromDate, DateTime ToDate)
     {
-        return await DbSet.Where(e => 
+        return await DbSet.Where(e =>
             EF.Property<DateTime>(e, "CreatedAt") >= fromDate && EF.Property<DateTime>(e, "CreatedAt") <= ToDate).CountAsync();
     }
 
@@ -95,11 +97,22 @@ public class GenericRepository<TEntity, TId>
         await Context.SaveChangesAsync();
     }
 
-    public virtual async Task<IEnumerable<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate)
+    public virtual async Task<IEnumerable<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate, int? pageN = null, int? pageSize = null)
     {
-        return await DbSet.Where(predicate).ToListAsync();
+        IQueryable<TEntity> query = DbSet.Where(predicate);
+        if (pageN.HasValue && pageSize.HasValue)
+        {
+            if (pageN <= 0 || pageSize <= 0) throw new ArgumentException("pageN and pageSize must be greater than 0");
+            var keyName = GetEntityKey();
+            query = query.OrderBy(e => EF.Property<TId>(e, keyName)).Skip((pageN.Value - 1) * pageSize.Value).Take(pageSize.Value);
+        }
+        return await query.ToListAsync();
     }
 
+    public virtual async Task<decimal> GetSumAsync(Expression<Func<TEntity, bool>> predicate, string propertyName)
+    {
+        return await DbSet.Where(predicate).SumAsync(e => EF.Property<decimal>(e, propertyName));
+    }
 
 
     public virtual async Task AddRangeAsync(IEnumerable<TEntity> entities)
@@ -125,7 +138,7 @@ public class GenericRepository<TEntity, TId>
         var entityType = Context.Model.FindEntityType(typeof(TEntity));
         if (entityType == null)
             throw new InvalidOperationException($"Entity type '{typeof(TEntity).Name}' not found in the model.");
-    
+
         var primaryKey = entityType.FindPrimaryKey();
         if (primaryKey == null)
             throw new InvalidOperationException($"Primary key not found for entity type '{typeof(TEntity).Name}'.");

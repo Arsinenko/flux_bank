@@ -11,8 +11,4 @@ public class LoanRepository : GenericRepository<Loan, int>, ILoanRepository
     {
     }
 
-    public async Task<int> GetCountByStatus(string status)
-    {
-        return await DbSet.Where(l => l.Status == status).CountAsync();
-    }
 }

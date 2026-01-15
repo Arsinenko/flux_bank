@@ -1,12 +1,13 @@
 ﻿import asyncio
 from typing import List
 
+from api.generated.custom_types_pb2 import GetAllRequest
 from mappers.account_mapper import AccountMapper
 from mappers.card_mapper import CardMapper
 from mappers.customer_mapper import CustomerMapper
 from mappers.deposit_mapper import DepositMapper
 from mappers.loan_mapper import LoanMapper
-from api.generated.customer_analytic_pb2 import GetCustomerDetailsRequest, CustomerDetailsResponse
+from api.generated.customer_analytic_pb2 import GetCustomerDetailsRequest, CustomerDetailsResponse, GetAllCustomersResponse
 from api.generated.customer_analytic_pb2_grpc import CustomerAnalyticServiceServicer
 from domain.account.account import Account
 from domain.account.account_repo import AccountRepositoryAbc
@@ -76,4 +77,21 @@ class CustomerAnalyticService(CustomerAnalyticServiceServicer):
             cards=CardMapper.to_model_list(cards),
             loans=LoanMapper.to_model_list(loans),
             deposits=DepositMapper.to_model_list(deposits),
+        )
+
+    async def GetInactiveCustomers(self, request: GetAllRequest, context):
+        # By default, we search for customers inactive for more than 2 months
+        from datetime import datetime
+        from dateutil.relativedelta import relativedelta
+        
+        threshold = datetime.now() - relativedelta(months=2)
+        
+        inactive_customers = await self.customer_repo.get_inactive(
+            threshold=threshold,
+            page_n=request.pageN,
+            page_size=request.pageSize
+        )
+        
+        return GetAllCustomersResponse(
+            customers=CustomerMapper.to_model_list(inactive_customers)
         )

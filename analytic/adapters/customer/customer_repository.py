@@ -67,3 +67,14 @@ class CustomerRepository(CustomerRepositoryAbc, BaseGrpcRepository):
         if result:
             return CustomerMapper.to_domain(result)
         return None
+
+    async def get_inactive(self, threshold: datetime, page_n: int, page_size: int) -> List[Customer]:
+        request = GetInactiveCustomersRequest(
+            threshold_time=CustomerMapper.to_timestamp(threshold),
+            page_n=page_n,
+            page_size=page_size
+        )
+        result = await self._execute(self.stub.GetInactive(request))
+        if result:
+            return CustomerMapper.to_domain_list(result.customers)
+        return []

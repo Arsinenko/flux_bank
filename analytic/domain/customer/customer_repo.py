@@ -37,3 +37,6 @@ class CustomerRepositoryAbc(ABC):
     @abstractmethod
     async def get_count_by_date_range(self, from_date: datetime, to_date: datetime) -> int:
         pass
+    @abstractmethod
+    async def get_inactive(self, threshold: datetime, page_n: int, page_size: int) -> List[Customer]:
+        pass

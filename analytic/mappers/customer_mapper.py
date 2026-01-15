@@ -1,6 +1,7 @@
 from typing import List
 from api.generated.customer_pb2 import CustomerModel
 from domain.customer.customer import Customer
+from google.protobuf.timestamp_pb2 import Timestamp
 
 class CustomerMapper:
     @staticmethod
@@ -37,3 +38,9 @@ class CustomerMapper:
     @staticmethod
     def to_model_list(domains: List[Customer]) -> List[CustomerModel]:
         return [CustomerMapper.to_model(domain) for domain in domains]
+
+    @staticmethod
+    def to_timestamp(dt) -> Timestamp:
+        ts = Timestamp()
+        ts.FromDatetime(dt)
+        return ts

@@ -10,9 +10,4 @@ public class DepositRepository : GenericRepository<Deposit, int>, IDepositReposi
     public DepositRepository(MyDbContext context) : base(context)
     {
     }
-
-    public async Task<int> GetCountByStatus(string status)
-    {
-        return await DbSet.Where(d => d.Status == status).CountAsync();
-    }
 }

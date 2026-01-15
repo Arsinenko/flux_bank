@@ -106,6 +106,11 @@ class CustomerServiceStub(object):
                 request_serializer=custom__types__pb2.GetByDateRangeRequest.SerializeToString,
                 response_deserializer=custom__types__pb2.CountResponse.FromString,
                 _registered_method=True)
+        self.GetInactive = channel.unary_unary(
+                '/protos.CustomerService/GetInactive',
+                request_serializer=customer__pb2.GetInactiveCustomersRequest.SerializeToString,
+                response_deserializer=customer__pb2.GetAllCustomersResponse.FromString,
+                _registered_method=True)
 
 
 class CustomerServiceServicer(object):
@@ -195,6 +200,12 @@ class CustomerServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetInactive(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_CustomerServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -267,6 +278,11 @@ def add_CustomerServiceServicer_to_server(servicer, server):
                     servicer.GetCountByDateRange,
                     request_deserializer=custom__types__pb2.GetByDateRangeRequest.FromString,
                     response_serializer=custom__types__pb2.CountResponse.SerializeToString,
+            ),
+            'GetInactive': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetInactive,
+                    request_deserializer=customer__pb2.GetInactiveCustomersRequest.FromString,
+                    response_serializer=customer__pb2.GetAllCustomersResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -647,6 +663,33 @@ class CustomerService(object):
             '/protos.CustomerService/GetCountByDateRange',
             custom__types__pb2.GetByDateRangeRequest.SerializeToString,
             custom__types__pb2.CountResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetInactive(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.CustomerService/GetInactive',
+            customer__pb2.GetInactiveCustomersRequest.SerializeToString,
+            customer__pb2.GetAllCustomersResponse.FromString,
             options,
             channel_credentials,
             insecure,

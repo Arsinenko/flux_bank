@@ -172,7 +172,7 @@ public class AccountService(IAccountRepository accountRepository, IMapper mapper
                 Count = stats.ActiveAccountCount
             };
         }
-        var count = await accountRepository.GetCountByStatusAsync(request.Status);
+        var count = await accountRepository.GetCountAsync(a => a.IsActive == request.Status);
         return new CountResponse()
         {
             Count = count

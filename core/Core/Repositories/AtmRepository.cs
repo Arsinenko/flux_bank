@@ -11,8 +11,4 @@ public class AtmRepository : GenericRepository<Atm, int>, IAtmRepository
     {
     }
 
-    public async Task<int> GetCountByStatusAsync(string status)
-    {
-        return await DbSet.Where(a => a.Status == status).CountAsync();
-    }
 }

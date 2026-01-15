@@ -25,6 +25,7 @@ service CustomerService {
   rpc GetCount (google.protobuf.Empty) returns (CountResponse);
   rpc GetCountBySubstring (GetBySubstringRequest) returns (CountResponse);
   rpc GetCountByDateRange (GetByDateRangeRequest) returns (CountResponse);
+  rpc GetInactive (GetInactiveCustomersRequest) returns (GetAllCustomersResponse);
 }
 
 message CustomerModel {
@@ -88,4 +89,10 @@ message UpdateCustomerBulkRequest {
 
 message DeleteCustomerBulkRequest {
   repeated DeleteCustomerRequest customers = 1;
+}
+
+message GetInactiveCustomersRequest {
+  google.protobuf.Timestamp threshold_time = 1;
+  optional int32 page_n = 2;
+  optional int32 page_size = 3;
 }

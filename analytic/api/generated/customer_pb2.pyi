@@ -274,3 +274,30 @@ class DeleteCustomerBulkRequest(google.protobuf.message.Message):
     def ClearField(self, field_name: typing.Literal["customers", b"customers"]) -> None: ...
 
 Global___DeleteCustomerBulkRequest: typing_extensions.TypeAlias = DeleteCustomerBulkRequest
+
+@typing.final
+class GetInactiveCustomersRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    THRESHOLD_TIME_FIELD_NUMBER: builtins.int
+    PAGE_N_FIELD_NUMBER: builtins.int
+    PAGE_SIZE_FIELD_NUMBER: builtins.int
+    page_n: builtins.int
+    page_size: builtins.int
+    @property
+    def threshold_time(self) -> google.protobuf.timestamp_pb2.Timestamp: ...
+    def __init__(
+        self,
+        *,
+        threshold_time: google.protobuf.timestamp_pb2.Timestamp | None = ...,
+        page_n: builtins.int | None = ...,
+        page_size: builtins.int | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["_page_n", b"_page_n", "_page_size", b"_page_size", "page_n", b"page_n", "page_size", b"page_size", "threshold_time", b"threshold_time"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["_page_n", b"_page_n", "_page_size", b"_page_size", "page_n", b"page_n", "page_size", b"page_size", "threshold_time", b"threshold_time"]) -> None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_page_n", b"_page_n"]) -> typing.Literal["page_n"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["_page_size", b"_page_size"]) -> typing.Literal["page_size"] | None: ...
+
+Global___GetInactiveCustomersRequest: typing_extensions.TypeAlias = GetInactiveCustomersRequest

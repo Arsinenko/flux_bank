@@ -52,14 +52,14 @@ public class StatsService : IStatsService
         var stats = new BankStatsDto
         {
             CustomerCount = await _customerRepository.GetCountAsync(),
-            ActiveAccountCount = await _accountRepository.GetCountByStatusAsync(true),
-            ActiveCardCount = await _cardRepository.GetCountByStatusAsync("active"),
-            TotalBalance = await _accountRepository.GetTotalBalanceAsync() ?? 0,
-            TotalTransactionSum = await _transactionRepository.GetTotalAmountAsync(),
-            ActiveAtmCount = await _atmRepository.GetCountByStatusAsync("active"),
-            InactiveAtmCount = await _atmRepository.GetCountByStatusAsync("inactive"),
-            ActiveLoanCount = await _loanRepository.GetCountByStatus("active"),
-            ActiveDepositCount = await _depositRepository.GetCountByStatus("active"),
+            ActiveAccountCount = await _accountRepository.GetCountAsync(a => a.IsActive),
+            ActiveCardCount = await _cardRepository.GetCountAsync(c => c.Status == "active"),
+            TotalBalance = await _accountRepository.GetSumAsync(a => a.Balance.HasValue, "Balance"),
+            TotalTransactionSum = await _transactionRepository.GetSumAsync(_ => true, "Amount"),
+            ActiveAtmCount = await _atmRepository.GetCountAsync(a => a.Status == "active"),
+            InactiveAtmCount = await _atmRepository.GetCountAsync(a => a.Status == "inactive"),
+            ActiveLoanCount = await _loanRepository.GetCountAsync(l => l.Status == "active"),
+            ActiveDepositCount = await _depositRepository.GetCountAsync(d => d.Status == "active"),
         };
 
         _cacheService.Set(StatsCacheKey, stats, TimeSpan.FromMinutes(5));

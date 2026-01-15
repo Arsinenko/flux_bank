@@ -47,7 +47,7 @@ public class CustomerService(ICustomerRepository repository, IMapper mapper, ICa
 
     public override async Task<GetAllCustomersResponse> GetBySubstring(GetBySubstringRequest request, ServerCallContext context)
     {
-        var customers = await repository.GetBySubstring(request.SubStr, request.PageN, request.PageSize, request.Order,
+        var customers = await repository.GetBySubstringAsync(request.SubStr, request.PageN, request.PageSize, request.Order,
             request.Desc);
         return new GetAllCustomersResponse()
         {
@@ -123,7 +123,7 @@ public class CustomerService(ICustomerRepository repository, IMapper mapper, ICa
 
     public override async Task<CountResponse> GetCountByDateRange(GetByDateRangeRequest request, ServerCallContext context)
     {
-        var count = await repository.GetCountByDateRangeAsync(request.FromDate.ToDateTime(), request.ToDate.ToDateTime());
+        var count = await repository.GetCountAsync(c => c.CreatedAt >= request.FromDate.ToDateTime() && c.CreatedAt <= request.ToDate.ToDateTime());
         return new CountResponse()
         {
             Count = count
@@ -132,7 +132,9 @@ public class CustomerService(ICustomerRepository repository, IMapper mapper, ICa
 
     public override async Task<CountResponse> GetCountBySubstring(GetBySubstringRequest request, ServerCallContext context)
     {
-        var count = await repository.GetCountBySubstring(request.SubStr);
+        var count = await repository.GetCountAsync(c => c.FirstName.Contains(request.SubStr) || c.LastName.Contains(request.SubStr) ||
+                                                        c.Email.Contains(request.SubStr) ||
+                                                        c.Phone.Contains(request.SubStr));
         return new CountResponse()
         {
             Count = count
@@ -145,5 +147,15 @@ public class CustomerService(ICustomerRepository repository, IMapper mapper, ICa
         await repository.AddRangeAsync(customers);
         cacheService.Remove("BankStats");
         return new Empty();
+    }
+
+    public override async Task<GetAllCustomersResponse> GetInactive(GetInactiveCustomersRequest request, ServerCallContext context)
+    {
+        var threshold = request.ThresholdTime.ToDateTime();
+        var result = await repository.FindAsync(c => !c.LoginLogs.Any(l => l.LoginTime > threshold), request.PageN, request.PageSize);
+        return new GetAllCustomersResponse()
+        {
+            Customers = { mapper.Map<IEnumerable<CustomerModel>>(result) }
+        };
     }
 }

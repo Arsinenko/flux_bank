@@ -20,13 +20,11 @@ service CustomerAnalyticService {
   rpc GetCustomersByTransactionQuantityRange (GetCustomersByTransactionQuantityRangeRequest) returns (GetAllCustomersResponse);
   rpc GetCustomerLifeTime (GetCustomerLifeTimeRequest) returns (GetCustomerLifeTimeResponse);
   rpc GetCustomersLifeTime (google.protobuf.Empty) returns (GetCustomersLifeTimeResponse);
-  rpc GetInactiveCustomers (google.protobuf.Empty) returns (GetAllCustomersResponse);
+  rpc GetInactiveCustomers (GetAllRequest) returns (GetAllCustomersResponse);
   rpc GetCountByTransactionQuantityRange (GetCustomersByTransactionQuantityRangeRequest) returns (CountResponse);
   rpc GetCountInactiveCustomers (google.protobuf.Empty) returns (CountResponse);
   rpc GetCustomerDetails (GetCustomerDetailsRequest) returns (CustomerDetailsResponse);
 }
-
-
 
 
 message GetCustomersByTransactionQuantityRangeRequest{

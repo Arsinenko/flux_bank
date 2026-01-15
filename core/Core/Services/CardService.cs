@@ -140,7 +140,7 @@ public class CardService(ICardRepository repository, IMapper mapper, ICacheServi
                 Count = stats.ActiveCardCount
             };
         }
-        var count = await repository.GetCountByStatusAsync(request.Status);
+        var count = await repository.GetCountAsync(c => c.Status == request.Status);
         return new CountResponse()
         {
             Count = count

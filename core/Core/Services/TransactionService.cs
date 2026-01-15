@@ -142,8 +142,9 @@ public class TransactionService(ITransactionRepository transactionRepository, IM
 
     public override async Task<CountResponse> GetCountAccountExpenses(GetAccountExpensesRequest request, ServerCallContext context)
     {
-        var count = await transactionRepository.GetCountExpensesAsync(request.SourceAccount,
-            request.DateRange.FromDate.ToDateTime(), request.DateRange.ToDate.ToDateTime());
+        var from = request.DateRange.FromDate.ToDateTime();
+        var to = request.DateRange.ToDate.ToDateTime();
+        var count = await transactionRepository.GetCountAsync(t => t.SourceAccount == request.SourceAccount && t.CreatedAt >= from && t.CreatedAt <= to);
         return new CountResponse()
         {
             Count = count
@@ -152,8 +153,9 @@ public class TransactionService(ITransactionRepository transactionRepository, IM
 
     public override async Task<CountResponse> GetCountAccountRevenue(GetAccountRevenueRequest request, ServerCallContext context)
     {
-        var count = await transactionRepository.GetCountRevenuesAsync(request.TargetAccount,
-            request.DateRange.FromDate.ToDateTime(), request.DateRange.FromDate.ToDateTime());
+        var from = request.DateRange.FromDate.ToDateTime();
+        var to = request.DateRange.ToDate.ToDateTime();
+        var count = await transactionRepository.GetCountAsync(t => t.TargetAccount == request.TargetAccount && t.CreatedAt >= from && t.CreatedAt <= to);
         return new CountResponse()
         {
             Count = count
