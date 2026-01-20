@@ -3,7 +3,7 @@ package transaction
 import "context"
 
 type TransactionRepository interface {
-	GetAll(ctx context.Context) ([]*Transaction, error)
+	GetAll(ctx context.Context, pageN, pageSize int32, orderBy string, isDesc bool) ([]*Transaction, error)
 	GetById(ctx context.Context, id int32) (*Transaction, error)
 	GetByDateRange(ctx context.Context, request GetByDateRange) ([]*Transaction, error)
 	GetRevenue(ctx context.Context, accountId int32, request GetByDateRange) ([]*Transaction, error)
@@ -17,7 +17,7 @@ type TransactionRepository interface {
 }
 
 type TransactionCategoryRepository interface {
-	GetAll(ctx context.Context) ([]*TransactionCategory, error)
+	GetAll(ctx context.Context, pageN, pageSize int32, orderBy string, isDesc bool) ([]*TransactionCategory, error)
 	GetById(ctx context.Context, id int32) (*TransactionCategory, error)
 	Add(ctx context.Context, transactionCategory *TransactionCategory) (*TransactionCategory, error)
 	Update(ctx context.Context, transactionCategory *TransactionCategory) error
@@ -28,7 +28,7 @@ type TransactionCategoryRepository interface {
 }
 
 type TransactionFeeRepository interface {
-	GetAll(ctx context.Context) ([]*TransactionFee, error)
+	GetAll(ctx context.Context, pageN, pageSize int32, orderBy string, isDesc bool) ([]*TransactionFee, error)
 	GetById(ctx context.Context, id int32) (*TransactionFee, error)
 	Add(ctx context.Context, transactionFee *TransactionFee) (*TransactionFee, error)
 	Update(ctx context.Context, transactionFee *TransactionFee) error

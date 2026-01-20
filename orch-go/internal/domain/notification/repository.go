@@ -3,7 +3,7 @@ package notification
 import "context"
 
 type Repository interface {
-	GetAll(ctx context.Context, pageN, pageSize int32) ([]*Notification, error)
+	GetAll(ctx context.Context, pageN, pageSize int32, orderBy string, isDesc bool) ([]*Notification, error)
 	GetById(ctx context.Context, id int32) (*Notification, error)
 	GetByDateRange(ctx context.Context, request GetByDateRangeRequest) ([]*Notification, error)
 	GetByCustomer(ctx context.Context, customerId int32, isRead bool) ([]*Notification, error)

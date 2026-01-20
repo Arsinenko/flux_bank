@@ -5,6 +5,8 @@ import (
 	"fmt"
 	pb "orch-go/api/generated"
 	"orch-go/internal/domain/account"
+
+	"google.golang.org/protobuf/types/known/wrapperspb"
 )
 
 type AccountTypeRepository struct {
@@ -17,10 +19,12 @@ func NewAccountTypeRepository(client pb.AccountTypeServiceClient) AccountTypeRep
 	}
 }
 
-func (a AccountTypeRepository) GetAll(ctx context.Context, pageN, pageSize int32) ([]account.AccountType, error) {
+func (a AccountTypeRepository) GetAll(ctx context.Context, pageN, pageSize int32, orderBy string, isDesc bool) ([]account.AccountType, error) {
 	req := pb.GetAllRequest{
 		PageN:    pageN,
 		PageSize: pageSize,
+		OrderBy:  &wrapperspb.StringValue{Value: orderBy},
+		IsDesc:   &wrapperspb.BoolValue{Value: isDesc},
 	}
 	resp, err := a.client.GetAll(ctx, &req)
 	if err != nil {

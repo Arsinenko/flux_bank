@@ -34,6 +34,7 @@ const (
 	CustomerService_GetCount_FullMethodName            = "/protos.CustomerService/GetCount"
 	CustomerService_GetCountBySubstring_FullMethodName = "/protos.CustomerService/GetCountBySubstring"
 	CustomerService_GetCountByDateRange_FullMethodName = "/protos.CustomerService/GetCountByDateRange"
+	CustomerService_GetInactive_FullMethodName         = "/protos.CustomerService/GetInactive"
 )
 
 // CustomerServiceClient is the client API for CustomerService service.
@@ -54,6 +55,7 @@ type CustomerServiceClient interface {
 	GetCount(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*CountResponse, error)
 	GetCountBySubstring(ctx context.Context, in *GetBySubstringRequest, opts ...grpc.CallOption) (*CountResponse, error)
 	GetCountByDateRange(ctx context.Context, in *GetByDateRangeRequest, opts ...grpc.CallOption) (*CountResponse, error)
+	GetInactive(ctx context.Context, in *GetInactiveCustomersRequest, opts ...grpc.CallOption) (*GetAllCustomersResponse, error)
 }
 
 type customerServiceClient struct {
@@ -204,6 +206,16 @@ func (c *customerServiceClient) GetCountByDateRange(ctx context.Context, in *Get
 	return out, nil
 }
 
+func (c *customerServiceClient) GetInactive(ctx context.Context, in *GetInactiveCustomersRequest, opts ...grpc.CallOption) (*GetAllCustomersResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetAllCustomersResponse)
+	err := c.cc.Invoke(ctx, CustomerService_GetInactive_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CustomerServiceServer is the server API for CustomerService service.
 // All implementations must embed UnimplementedCustomerServiceServer
 // for forward compatibility.
@@ -222,6 +234,7 @@ type CustomerServiceServer interface {
 	GetCount(context.Context, *emptypb.Empty) (*CountResponse, error)
 	GetCountBySubstring(context.Context, *GetBySubstringRequest) (*CountResponse, error)
 	GetCountByDateRange(context.Context, *GetByDateRangeRequest) (*CountResponse, error)
+	GetInactive(context.Context, *GetInactiveCustomersRequest) (*GetAllCustomersResponse, error)
 	mustEmbedUnimplementedCustomerServiceServer()
 }
 
@@ -273,6 +286,9 @@ func (UnimplementedCustomerServiceServer) GetCountBySubstring(context.Context, *
 }
 func (UnimplementedCustomerServiceServer) GetCountByDateRange(context.Context, *GetByDateRangeRequest) (*CountResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetCountByDateRange not implemented")
+}
+func (UnimplementedCustomerServiceServer) GetInactive(context.Context, *GetInactiveCustomersRequest) (*GetAllCustomersResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetInactive not implemented")
 }
 func (UnimplementedCustomerServiceServer) mustEmbedUnimplementedCustomerServiceServer() {}
 func (UnimplementedCustomerServiceServer) testEmbeddedByValue()                         {}
@@ -547,6 +563,24 @@ func _CustomerService_GetCountByDateRange_Handler(srv interface{}, ctx context.C
 	return interceptor(ctx, in, info, handler)
 }
 
+func _CustomerService_GetInactive_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetInactiveCustomersRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CustomerServiceServer).GetInactive(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CustomerService_GetInactive_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CustomerServiceServer).GetInactive(ctx, req.(*GetInactiveCustomersRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // CustomerService_ServiceDesc is the grpc.ServiceDesc for CustomerService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -609,6 +643,10 @@ var CustomerService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetCountByDateRange",
 			Handler:    _CustomerService_GetCountByDateRange_Handler,
+		},
+		{
+			MethodName: "GetInactive",
+			Handler:    _CustomerService_GetInactive_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

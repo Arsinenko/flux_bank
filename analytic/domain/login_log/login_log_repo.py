@@ -5,7 +5,7 @@ from datetime import datetime
 from domain.login_log.login_log import LoginLog
 class LoginLogRepositoryAbc(ABC):
     @abstractmethod
-    async def get_all(self, page_n: int, page_size: int) -> List[LoginLog]:
+    async def get_all(self, page_n: int, page_size: int, order_by: str = None, is_desc: bool = False) -> List[LoginLog]:
         pass
 
     @abstractmethod

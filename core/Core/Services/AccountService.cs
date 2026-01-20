@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Globalization;
+using AutoMapper;
 using Core.Exceptions;
 using Core.Interfaces;
 using Core.Models;
@@ -14,7 +15,7 @@ public class AccountService(IAccountRepository accountRepository, IMapper mapper
     public override async Task<GetAllAccountsResponse> GetAll(GetAllRequest request, ServerCallContext context)
     {
 
-        var accounts = await accountRepository.GetAllAsync(request.PageN, request.PageSize);
+        var accounts = await accountRepository.GetAllAsync(request.PageN, request.PageSize, request.OrderBy, request.IsDesc ?? false);
 
         return new GetAllAccountsResponse
         {
@@ -185,6 +186,29 @@ public class AccountService(IAccountRepository accountRepository, IMapper mapper
         return new TotalBalanceResponse()
         {
             TotalBalance = stats.TotalBalance.ToString()
+        };
+    }
+
+    public override async Task<TotalBalanceResponse> GetTotalBalanceByAccountType(GetTotalBalanceByAccountTypeRequest request, ServerCallContext context)
+    {
+        var balance =
+            await accountRepository.GetSumAsync(a => a.TypeId == request.AccountTypeId, nameof(Account.Balance));
+        return new TotalBalanceResponse()
+        {
+            TotalBalance = balance.ToString(CultureInfo.InvariantCulture)
+        };
+    }
+
+    public override async Task<TotalBalanceResponse> GetAvgBalance(GetAvgBalanceRequest request, ServerCallContext context)
+    {
+        var average = await accountRepository.GetAvgAsync(a =>
+            (!request.AccountTypeId.HasValue || a.TypeId == request.AccountTypeId.Value) &&
+            (!request.IsActive.HasValue || a.IsActive == request.IsActive.Value),
+            nameof(Account.Balance));
+
+        return new TotalBalanceResponse
+        {
+            TotalBalance = average.ToString(CultureInfo.InvariantCulture)
         };
     }
 }

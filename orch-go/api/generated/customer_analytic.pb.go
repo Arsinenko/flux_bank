@@ -23,58 +23,6 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type GetCustomersByBalanceRangeRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	MinBalance    string                 `protobuf:"bytes,1,opt,name=min_balance,json=minBalance,proto3" json:"min_balance,omitempty"`
-	MaxBalance    string                 `protobuf:"bytes,2,opt,name=max_balance,json=maxBalance,proto3" json:"max_balance,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *GetCustomersByBalanceRangeRequest) Reset() {
-	*x = GetCustomersByBalanceRangeRequest{}
-	mi := &file_customer_analytic_proto_msgTypes[0]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *GetCustomersByBalanceRangeRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*GetCustomersByBalanceRangeRequest) ProtoMessage() {}
-
-func (x *GetCustomersByBalanceRangeRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_customer_analytic_proto_msgTypes[0]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use GetCustomersByBalanceRangeRequest.ProtoReflect.Descriptor instead.
-func (*GetCustomersByBalanceRangeRequest) Descriptor() ([]byte, []int) {
-	return file_customer_analytic_proto_rawDescGZIP(), []int{0}
-}
-
-func (x *GetCustomersByBalanceRangeRequest) GetMinBalance() string {
-	if x != nil {
-		return x.MinBalance
-	}
-	return ""
-}
-
-func (x *GetCustomersByBalanceRangeRequest) GetMaxBalance() string {
-	if x != nil {
-		return x.MaxBalance
-	}
-	return ""
-}
-
 type GetCustomersByTransactionQuantityRangeRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	MinQuantity   int32                  `protobuf:"varint,1,opt,name=min_quantity,json=minQuantity,proto3" json:"min_quantity,omitempty"`
@@ -85,7 +33,7 @@ type GetCustomersByTransactionQuantityRangeRequest struct {
 
 func (x *GetCustomersByTransactionQuantityRangeRequest) Reset() {
 	*x = GetCustomersByTransactionQuantityRangeRequest{}
-	mi := &file_customer_analytic_proto_msgTypes[1]
+	mi := &file_customer_analytic_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -97,7 +45,7 @@ func (x *GetCustomersByTransactionQuantityRangeRequest) String() string {
 func (*GetCustomersByTransactionQuantityRangeRequest) ProtoMessage() {}
 
 func (x *GetCustomersByTransactionQuantityRangeRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_customer_analytic_proto_msgTypes[1]
+	mi := &file_customer_analytic_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -110,7 +58,7 @@ func (x *GetCustomersByTransactionQuantityRangeRequest) ProtoReflect() protorefl
 
 // Deprecated: Use GetCustomersByTransactionQuantityRangeRequest.ProtoReflect.Descriptor instead.
 func (*GetCustomersByTransactionQuantityRangeRequest) Descriptor() ([]byte, []int) {
-	return file_customer_analytic_proto_rawDescGZIP(), []int{1}
+	return file_customer_analytic_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *GetCustomersByTransactionQuantityRangeRequest) GetMinQuantity() int32 {
@@ -136,7 +84,7 @@ type GetCustomerLifeTimeRequest struct {
 
 func (x *GetCustomerLifeTimeRequest) Reset() {
 	*x = GetCustomerLifeTimeRequest{}
-	mi := &file_customer_analytic_proto_msgTypes[2]
+	mi := &file_customer_analytic_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -148,7 +96,7 @@ func (x *GetCustomerLifeTimeRequest) String() string {
 func (*GetCustomerLifeTimeRequest) ProtoMessage() {}
 
 func (x *GetCustomerLifeTimeRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_customer_analytic_proto_msgTypes[2]
+	mi := &file_customer_analytic_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -161,7 +109,7 @@ func (x *GetCustomerLifeTimeRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetCustomerLifeTimeRequest.ProtoReflect.Descriptor instead.
 func (*GetCustomerLifeTimeRequest) Descriptor() ([]byte, []int) {
-	return file_customer_analytic_proto_rawDescGZIP(), []int{2}
+	return file_customer_analytic_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *GetCustomerLifeTimeRequest) GetCustomerId() int32 {
@@ -181,7 +129,7 @@ type GetCustomerLifeTimeResponse struct {
 
 func (x *GetCustomerLifeTimeResponse) Reset() {
 	*x = GetCustomerLifeTimeResponse{}
-	mi := &file_customer_analytic_proto_msgTypes[3]
+	mi := &file_customer_analytic_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -193,7 +141,7 @@ func (x *GetCustomerLifeTimeResponse) String() string {
 func (*GetCustomerLifeTimeResponse) ProtoMessage() {}
 
 func (x *GetCustomerLifeTimeResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_customer_analytic_proto_msgTypes[3]
+	mi := &file_customer_analytic_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -206,7 +154,7 @@ func (x *GetCustomerLifeTimeResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetCustomerLifeTimeResponse.ProtoReflect.Descriptor instead.
 func (*GetCustomerLifeTimeResponse) Descriptor() ([]byte, []int) {
-	return file_customer_analytic_proto_rawDescGZIP(), []int{3}
+	return file_customer_analytic_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *GetCustomerLifeTimeResponse) GetCustomerId() int32 {
@@ -232,7 +180,7 @@ type GetCustomersLifeTimeResponse struct {
 
 func (x *GetCustomersLifeTimeResponse) Reset() {
 	*x = GetCustomersLifeTimeResponse{}
-	mi := &file_customer_analytic_proto_msgTypes[4]
+	mi := &file_customer_analytic_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -244,7 +192,7 @@ func (x *GetCustomersLifeTimeResponse) String() string {
 func (*GetCustomersLifeTimeResponse) ProtoMessage() {}
 
 func (x *GetCustomersLifeTimeResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_customer_analytic_proto_msgTypes[4]
+	mi := &file_customer_analytic_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -257,7 +205,7 @@ func (x *GetCustomersLifeTimeResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetCustomersLifeTimeResponse.ProtoReflect.Descriptor instead.
 func (*GetCustomersLifeTimeResponse) Descriptor() ([]byte, []int) {
-	return file_customer_analytic_proto_rawDescGZIP(), []int{4}
+	return file_customer_analytic_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *GetCustomersLifeTimeResponse) GetCustomerLifeTime() []*GetCustomerLifeTimeResponse {
@@ -267,16 +215,141 @@ func (x *GetCustomersLifeTimeResponse) GetCustomerLifeTime() []*GetCustomerLifeT
 	return nil
 }
 
+type GetCustomerDetailsRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	CustomerId    int32                  `protobuf:"varint,1,opt,name=customer_id,json=customerId,proto3" json:"customer_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetCustomerDetailsRequest) Reset() {
+	*x = GetCustomerDetailsRequest{}
+	mi := &file_customer_analytic_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetCustomerDetailsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetCustomerDetailsRequest) ProtoMessage() {}
+
+func (x *GetCustomerDetailsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_customer_analytic_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetCustomerDetailsRequest.ProtoReflect.Descriptor instead.
+func (*GetCustomerDetailsRequest) Descriptor() ([]byte, []int) {
+	return file_customer_analytic_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *GetCustomerDetailsRequest) GetCustomerId() int32 {
+	if x != nil {
+		return x.CustomerId
+	}
+	return 0
+}
+
+type CustomerDetailsResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Customer      *CustomerModel         `protobuf:"bytes,1,opt,name=customer,proto3" json:"customer,omitempty"`
+	Accounts      []*AccountModel        `protobuf:"bytes,2,rep,name=accounts,proto3" json:"accounts,omitempty"`
+	Cards         []*CardModel           `protobuf:"bytes,3,rep,name=cards,proto3" json:"cards,omitempty"`
+	Loans         []*LoanModel           `protobuf:"bytes,4,rep,name=loans,proto3" json:"loans,omitempty"`
+	Deposits      []*DepositModel        `protobuf:"bytes,5,rep,name=deposits,proto3" json:"deposits,omitempty"`
+	Activity      []*LoginLogModel       `protobuf:"bytes,6,rep,name=activity,proto3" json:"activity,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CustomerDetailsResponse) Reset() {
+	*x = CustomerDetailsResponse{}
+	mi := &file_customer_analytic_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CustomerDetailsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CustomerDetailsResponse) ProtoMessage() {}
+
+func (x *CustomerDetailsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_customer_analytic_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CustomerDetailsResponse.ProtoReflect.Descriptor instead.
+func (*CustomerDetailsResponse) Descriptor() ([]byte, []int) {
+	return file_customer_analytic_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *CustomerDetailsResponse) GetCustomer() *CustomerModel {
+	if x != nil {
+		return x.Customer
+	}
+	return nil
+}
+
+func (x *CustomerDetailsResponse) GetAccounts() []*AccountModel {
+	if x != nil {
+		return x.Accounts
+	}
+	return nil
+}
+
+func (x *CustomerDetailsResponse) GetCards() []*CardModel {
+	if x != nil {
+		return x.Cards
+	}
+	return nil
+}
+
+func (x *CustomerDetailsResponse) GetLoans() []*LoanModel {
+	if x != nil {
+		return x.Loans
+	}
+	return nil
+}
+
+func (x *CustomerDetailsResponse) GetDeposits() []*DepositModel {
+	if x != nil {
+		return x.Deposits
+	}
+	return nil
+}
+
+func (x *CustomerDetailsResponse) GetActivity() []*LoginLogModel {
+	if x != nil {
+		return x.Activity
+	}
+	return nil
+}
+
 var File_customer_analytic_proto protoreflect.FileDescriptor
 
 const file_customer_analytic_proto_rawDesc = "" +
 	"\n" +
-	"\x17customer_analytic.proto\x12\x06protos\x1a\x0ecustomer.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x12custom_types.proto\"e\n" +
-	"!GetCustomersByBalanceRangeRequest\x12\x1f\n" +
-	"\vmin_balance\x18\x01 \x01(\tR\n" +
-	"minBalance\x12\x1f\n" +
-	"\vmax_balance\x18\x02 \x01(\tR\n" +
-	"maxBalance\"u\n" +
+	"\x17customer_analytic.proto\x12\x06protos\x1a\x0ecustomer.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x12custom_types.proto\x1a\raccount.proto\x1a\n" +
+	"card.proto\x1a\x11transaction.proto\x1a\n" +
+	"loan.proto\x1a\rdeposit.proto\x1a\x0flogin_log.proto\"u\n" +
 	"-GetCustomersByTransactionQuantityRangeRequest\x12!\n" +
 	"\fmin_quantity\x18\x01 \x01(\x05R\vminQuantity\x12!\n" +
 	"\fmax_quantity\x18\x02 \x01(\x05R\vmaxQuantity\"=\n" +
@@ -288,16 +361,25 @@ const file_customer_analytic_proto_rawDesc = "" +
 	"customerId\x127\n" +
 	"\tlife_time\x18\x02 \x01(\v2\x1a.google.protobuf.TimestampR\blifeTime\"q\n" +
 	"\x1cGetCustomersLifeTimeResponse\x12Q\n" +
-	"\x12customer_life_time\x18\x01 \x03(\v2#.protos.GetCustomerLifeTimeResponseR\x10customerLifeTime2\xa9\x06\n" +
-	"\x17CustomerAnalyticService\x12h\n" +
-	"\x1aGetCustomersByBalanceRange\x12).protos.GetCustomersByBalanceRangeRequest\x1a\x1f.protos.GetAllCustomersResponse\x12\x80\x01\n" +
+	"\x12customer_life_time\x18\x01 \x03(\v2#.protos.GetCustomerLifeTimeResponseR\x10customerLifeTime\"<\n" +
+	"\x19GetCustomerDetailsRequest\x12\x1f\n" +
+	"\vcustomer_id\x18\x01 \x01(\x05R\n" +
+	"customerId\"\xb5\x02\n" +
+	"\x17CustomerDetailsResponse\x121\n" +
+	"\bcustomer\x18\x01 \x01(\v2\x15.protos.CustomerModelR\bcustomer\x120\n" +
+	"\baccounts\x18\x02 \x03(\v2\x14.protos.AccountModelR\baccounts\x12'\n" +
+	"\x05cards\x18\x03 \x03(\v2\x11.protos.CardModelR\x05cards\x12'\n" +
+	"\x05loans\x18\x04 \x03(\v2\x11.protos.LoanModelR\x05loans\x120\n" +
+	"\bdeposits\x18\x05 \x03(\v2\x14.protos.DepositModelR\bdeposits\x121\n" +
+	"\bactivity\x18\x06 \x03(\v2\x15.protos.LoginLogModelR\bactivity2\xbc\x05\n" +
+	"\x17CustomerAnalyticService\x12\x80\x01\n" +
 	"&GetCustomersByTransactionQuantityRange\x125.protos.GetCustomersByTransactionQuantityRangeRequest\x1a\x1f.protos.GetAllCustomersResponse\x12^\n" +
 	"\x13GetCustomerLifeTime\x12\".protos.GetCustomerLifeTimeRequest\x1a#.protos.GetCustomerLifeTimeResponse\x12T\n" +
-	"\x14GetCustomersLifeTime\x12\x16.google.protobuf.Empty\x1a$.protos.GetCustomersLifeTimeResponse\x12O\n" +
-	"\x14GetInactiveCustomers\x12\x16.google.protobuf.Empty\x1a\x1f.protos.GetAllCustomersResponse\x12Z\n" +
-	"\x16GetCountByBalanceRange\x12).protos.GetCustomersByBalanceRangeRequest\x1a\x15.protos.CountResponse\x12r\n" +
+	"\x14GetCustomersLifeTime\x12\x16.google.protobuf.Empty\x1a$.protos.GetCustomersLifeTimeResponse\x12N\n" +
+	"\x14GetInactiveCustomers\x12\x15.protos.GetAllRequest\x1a\x1f.protos.GetAllCustomersResponse\x12r\n" +
 	"\"GetCountByTransactionQuantityRange\x125.protos.GetCustomersByTransactionQuantityRangeRequest\x1a\x15.protos.CountResponse\x12J\n" +
-	"\x19GetCountInactiveCustomers\x12\x16.google.protobuf.Empty\x1a\x15.protos.CountResponseB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
+	"\x19GetCountInactiveCustomers\x12\x16.google.protobuf.Empty\x1a\x15.protos.CountResponse\x12X\n" +
+	"\x12GetCustomerDetails\x12!.protos.GetCustomerDetailsRequest\x1a\x1f.protos.CustomerDetailsResponseB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
 
 var (
 	file_customer_analytic_proto_rawDescOnce sync.Once
@@ -311,42 +393,54 @@ func file_customer_analytic_proto_rawDescGZIP() []byte {
 	return file_customer_analytic_proto_rawDescData
 }
 
-var file_customer_analytic_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
+var file_customer_analytic_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
 var file_customer_analytic_proto_goTypes = []any{
-	(*GetCustomersByBalanceRangeRequest)(nil),             // 0: protos.GetCustomersByBalanceRangeRequest
-	(*GetCustomersByTransactionQuantityRangeRequest)(nil), // 1: protos.GetCustomersByTransactionQuantityRangeRequest
-	(*GetCustomerLifeTimeRequest)(nil),                    // 2: protos.GetCustomerLifeTimeRequest
-	(*GetCustomerLifeTimeResponse)(nil),                   // 3: protos.GetCustomerLifeTimeResponse
-	(*GetCustomersLifeTimeResponse)(nil),                  // 4: protos.GetCustomersLifeTimeResponse
-	(*timestamppb.Timestamp)(nil),                         // 5: google.protobuf.Timestamp
-	(*emptypb.Empty)(nil),                                 // 6: google.protobuf.Empty
-	(*GetAllCustomersResponse)(nil),                       // 7: protos.GetAllCustomersResponse
-	(*CountResponse)(nil),                                 // 8: protos.CountResponse
+	(*GetCustomersByTransactionQuantityRangeRequest)(nil), // 0: protos.GetCustomersByTransactionQuantityRangeRequest
+	(*GetCustomerLifeTimeRequest)(nil),                    // 1: protos.GetCustomerLifeTimeRequest
+	(*GetCustomerLifeTimeResponse)(nil),                   // 2: protos.GetCustomerLifeTimeResponse
+	(*GetCustomersLifeTimeResponse)(nil),                  // 3: protos.GetCustomersLifeTimeResponse
+	(*GetCustomerDetailsRequest)(nil),                     // 4: protos.GetCustomerDetailsRequest
+	(*CustomerDetailsResponse)(nil),                       // 5: protos.CustomerDetailsResponse
+	(*timestamppb.Timestamp)(nil),                         // 6: google.protobuf.Timestamp
+	(*CustomerModel)(nil),                                 // 7: protos.CustomerModel
+	(*AccountModel)(nil),                                  // 8: protos.AccountModel
+	(*CardModel)(nil),                                     // 9: protos.CardModel
+	(*LoanModel)(nil),                                     // 10: protos.LoanModel
+	(*DepositModel)(nil),                                  // 11: protos.DepositModel
+	(*LoginLogModel)(nil),                                 // 12: protos.LoginLogModel
+	(*emptypb.Empty)(nil),                                 // 13: google.protobuf.Empty
+	(*GetAllRequest)(nil),                                 // 14: protos.GetAllRequest
+	(*GetAllCustomersResponse)(nil),                       // 15: protos.GetAllCustomersResponse
+	(*CountResponse)(nil),                                 // 16: protos.CountResponse
 }
 var file_customer_analytic_proto_depIdxs = []int32{
-	5,  // 0: protos.GetCustomerLifeTimeResponse.life_time:type_name -> google.protobuf.Timestamp
-	3,  // 1: protos.GetCustomersLifeTimeResponse.customer_life_time:type_name -> protos.GetCustomerLifeTimeResponse
-	0,  // 2: protos.CustomerAnalyticService.GetCustomersByBalanceRange:input_type -> protos.GetCustomersByBalanceRangeRequest
-	1,  // 3: protos.CustomerAnalyticService.GetCustomersByTransactionQuantityRange:input_type -> protos.GetCustomersByTransactionQuantityRangeRequest
-	2,  // 4: protos.CustomerAnalyticService.GetCustomerLifeTime:input_type -> protos.GetCustomerLifeTimeRequest
-	6,  // 5: protos.CustomerAnalyticService.GetCustomersLifeTime:input_type -> google.protobuf.Empty
-	6,  // 6: protos.CustomerAnalyticService.GetInactiveCustomers:input_type -> google.protobuf.Empty
-	0,  // 7: protos.CustomerAnalyticService.GetCountByBalanceRange:input_type -> protos.GetCustomersByBalanceRangeRequest
-	1,  // 8: protos.CustomerAnalyticService.GetCountByTransactionQuantityRange:input_type -> protos.GetCustomersByTransactionQuantityRangeRequest
-	6,  // 9: protos.CustomerAnalyticService.GetCountInactiveCustomers:input_type -> google.protobuf.Empty
-	7,  // 10: protos.CustomerAnalyticService.GetCustomersByBalanceRange:output_type -> protos.GetAllCustomersResponse
-	7,  // 11: protos.CustomerAnalyticService.GetCustomersByTransactionQuantityRange:output_type -> protos.GetAllCustomersResponse
-	3,  // 12: protos.CustomerAnalyticService.GetCustomerLifeTime:output_type -> protos.GetCustomerLifeTimeResponse
-	4,  // 13: protos.CustomerAnalyticService.GetCustomersLifeTime:output_type -> protos.GetCustomersLifeTimeResponse
-	7,  // 14: protos.CustomerAnalyticService.GetInactiveCustomers:output_type -> protos.GetAllCustomersResponse
-	8,  // 15: protos.CustomerAnalyticService.GetCountByBalanceRange:output_type -> protos.CountResponse
-	8,  // 16: protos.CustomerAnalyticService.GetCountByTransactionQuantityRange:output_type -> protos.CountResponse
-	8,  // 17: protos.CustomerAnalyticService.GetCountInactiveCustomers:output_type -> protos.CountResponse
-	10, // [10:18] is the sub-list for method output_type
-	2,  // [2:10] is the sub-list for method input_type
-	2,  // [2:2] is the sub-list for extension type_name
-	2,  // [2:2] is the sub-list for extension extendee
-	0,  // [0:2] is the sub-list for field type_name
+	6,  // 0: protos.GetCustomerLifeTimeResponse.life_time:type_name -> google.protobuf.Timestamp
+	2,  // 1: protos.GetCustomersLifeTimeResponse.customer_life_time:type_name -> protos.GetCustomerLifeTimeResponse
+	7,  // 2: protos.CustomerDetailsResponse.customer:type_name -> protos.CustomerModel
+	8,  // 3: protos.CustomerDetailsResponse.accounts:type_name -> protos.AccountModel
+	9,  // 4: protos.CustomerDetailsResponse.cards:type_name -> protos.CardModel
+	10, // 5: protos.CustomerDetailsResponse.loans:type_name -> protos.LoanModel
+	11, // 6: protos.CustomerDetailsResponse.deposits:type_name -> protos.DepositModel
+	12, // 7: protos.CustomerDetailsResponse.activity:type_name -> protos.LoginLogModel
+	0,  // 8: protos.CustomerAnalyticService.GetCustomersByTransactionQuantityRange:input_type -> protos.GetCustomersByTransactionQuantityRangeRequest
+	1,  // 9: protos.CustomerAnalyticService.GetCustomerLifeTime:input_type -> protos.GetCustomerLifeTimeRequest
+	13, // 10: protos.CustomerAnalyticService.GetCustomersLifeTime:input_type -> google.protobuf.Empty
+	14, // 11: protos.CustomerAnalyticService.GetInactiveCustomers:input_type -> protos.GetAllRequest
+	0,  // 12: protos.CustomerAnalyticService.GetCountByTransactionQuantityRange:input_type -> protos.GetCustomersByTransactionQuantityRangeRequest
+	13, // 13: protos.CustomerAnalyticService.GetCountInactiveCustomers:input_type -> google.protobuf.Empty
+	4,  // 14: protos.CustomerAnalyticService.GetCustomerDetails:input_type -> protos.GetCustomerDetailsRequest
+	15, // 15: protos.CustomerAnalyticService.GetCustomersByTransactionQuantityRange:output_type -> protos.GetAllCustomersResponse
+	2,  // 16: protos.CustomerAnalyticService.GetCustomerLifeTime:output_type -> protos.GetCustomerLifeTimeResponse
+	3,  // 17: protos.CustomerAnalyticService.GetCustomersLifeTime:output_type -> protos.GetCustomersLifeTimeResponse
+	15, // 18: protos.CustomerAnalyticService.GetInactiveCustomers:output_type -> protos.GetAllCustomersResponse
+	16, // 19: protos.CustomerAnalyticService.GetCountByTransactionQuantityRange:output_type -> protos.CountResponse
+	16, // 20: protos.CustomerAnalyticService.GetCountInactiveCustomers:output_type -> protos.CountResponse
+	5,  // 21: protos.CustomerAnalyticService.GetCustomerDetails:output_type -> protos.CustomerDetailsResponse
+	15, // [15:22] is the sub-list for method output_type
+	8,  // [8:15] is the sub-list for method input_type
+	8,  // [8:8] is the sub-list for extension type_name
+	8,  // [8:8] is the sub-list for extension extendee
+	0,  // [0:8] is the sub-list for field type_name
 }
 
 func init() { file_customer_analytic_proto_init() }
@@ -356,13 +450,19 @@ func file_customer_analytic_proto_init() {
 	}
 	file_customer_proto_init()
 	file_custom_types_proto_init()
+	file_account_proto_init()
+	file_card_proto_init()
+	file_transaction_proto_init()
+	file_loan_proto_init()
+	file_deposit_proto_init()
+	file_login_log_proto_init()
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_customer_analytic_proto_rawDesc), len(file_customer_analytic_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   5,
+			NumMessages:   6,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

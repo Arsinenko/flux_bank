@@ -11,20 +11,20 @@ public class AccountTypeService(IAccountTypeRepository accountTypeRepository, IM
 {
     public override async Task<AccountTypeModel> Add(AddAccountTypeRequest request, ServerCallContext context)
     {
-       var accountType = mapper.Map<AccountType>(request);
-       await accountTypeRepository.AddAsync(accountType);
-       return mapper.Map<AccountTypeModel>(accountType);
+        var accountType = mapper.Map<AccountType>(request);
+        await accountTypeRepository.AddAsync(accountType);
+        return mapper.Map<AccountTypeModel>(accountType);
     }
 
-    public override async Task<GetAllAccountTypesResponse>GetAll( GetAllRequest request, ServerCallContext context)
+    public override async Task<GetAllAccountTypesResponse> GetAll(GetAllRequest request, ServerCallContext context)
     {
-        var accountTypes = await accountTypeRepository.GetAllAsync(request.PageN, request.PageSize);
+        var accountTypes = await accountTypeRepository.GetAllAsync(request.PageN, request.PageSize, request.OrderBy, request.IsDesc ?? false);
         return new GetAllAccountTypesResponse
         {
             AccountTypes = { mapper.Map<IEnumerable<AccountTypeModel>>(accountTypes) }
-        };  
+        };
     }
-    
+
     public override async Task<AccountTypeModel> GetById(GetAccountTypeByIdRequest request, ServerCallContext context)
     {
         var accountType = await accountTypeRepository.GetByIdAsync(request.TypeId);

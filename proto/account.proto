@@ -8,6 +8,7 @@ option csharp_namespace = "Core";
 
 import "custom_types.proto";
 import "google/protobuf/empty.proto";
+import "google/protobuf/wrappers.proto";
 import "google/protobuf/timestamp.proto";
 import "customer.proto";
 import "account_type.proto";
@@ -30,6 +31,12 @@ service AccountService {
   rpc GetCountByCustomerId (GetAccountByCustomerIdRequest) returns (CountResponse);
   rpc GetTotalBalance (google.protobuf.Empty) returns (TotalBalanceResponse);
   rpc GetTotalBalanceByAccountType (GetTotalBalanceByAccountTypeRequest) returns (TotalBalanceResponse);
+  rpc GetAvgBalance(GetAvgBalanceRequest) returns (TotalBalanceResponse);
+}
+
+message GetAvgBalanceRequest {
+  google.protobuf.Int32Value account_type_id = 1;
+  google.protobuf.BoolValue is_active = 2;
 }
 
 message GetTotalBalanceByAccountTypeRequest {

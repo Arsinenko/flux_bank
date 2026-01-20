@@ -5,6 +5,7 @@ import grpc
 
 from adapters.base_grpc_repository import BaseGrpcRepository
 from api.generated.custom_types_pb2 import GetAllRequest
+from google.protobuf.wrappers_pb2 import StringValue, BoolValue
 from api.generated.loan_payment_pb2 import *
 from api.generated.loan_payment_pb2_grpc import LoanPaymentServiceStub
 from domain.loan.loan_payment import LoanPayment
@@ -42,8 +43,13 @@ class LoanPaymentRepository(LoanPaymentRepositoryAbc, BaseGrpcRepository):
     def response_to_list(response: GetAllLoanPaymentsResponse) -> List[LoanPayment]:
         return [LoanPaymentRepository.to_domain(model) for model in response.loan_payments]
 
-    async def get_all(self, page_n: int, page_size: int) -> List[LoanPayment]:
-        request = GetAllRequest(pageN=page_n, pageSize=page_size)
+    async def get_all(self, page_n: int, page_size: int, order_by: str = None, is_desc: bool = False) -> List[LoanPayment]:
+        request = GetAllRequest(
+            pageN=page_n,
+            pageSize=page_size,
+            order_by=StringValue(value=order_by) if order_by else None,
+            is_desc=BoolValue(value=is_desc)
+        )
         result = await self._execute(self.stub.GetAll(request))
         if result:
             return self.response_to_list(result)

@@ -14,7 +14,7 @@ public class CustomerAddressService(ICustomerAddressRepository repository, IMapp
     {
         var address = mapper.Map<CustomerAddress>(request);
         await repository.AddAsync(address);
-        return mapper.Map<CustomerAddressModel>(address); 
+        return mapper.Map<CustomerAddressModel>(address);
     }
 
     public override async Task<Empty> Delete(DeleteCustomerAddressRequest request, ServerCallContext context)
@@ -28,9 +28,9 @@ public class CustomerAddressService(ICustomerAddressRepository repository, IMapp
         return new Empty();
     }
 
-    public override async Task<GetAllCustomerAddressesResponse>GetAll( GetAllRequest request, ServerCallContext context)
+    public override async Task<GetAllCustomerAddressesResponse> GetAll(GetAllRequest request, ServerCallContext context)
     {
-        var result = await repository.GetAllAsync(request.PageN, request.PageSize);
+        var result = await repository.GetAllAsync(request.PageN, request.PageSize, request.OrderBy, request.IsDesc ?? false);
         return new GetAllCustomerAddressesResponse()
         {
             CustomerAddresses = { mapper.Map<IEnumerable<CustomerAddressModel>>(result) }

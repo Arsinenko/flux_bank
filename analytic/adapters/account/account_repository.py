@@ -10,7 +10,9 @@ from adapters.base_grpc_repository import BaseGrpcRepository
 from api.generated import account_pb2
 from api.generated.account_pb2 import *
 from api.generated.account_pb2_grpc import AccountServiceStub
-from api.generated.custom_types_pb2 import GetAllRequest, GetByDateRangeRequest, CountResponse
+from google.protobuf.wrappers_pb2 import StringValue, BoolValue
+
+from api.generated.custom_types_pb2 import GetAllRequest
 from domain.account.account import Account
 from domain.account.account_repo import AccountRepositoryAbc
 
@@ -23,8 +25,27 @@ class AccountRepository(AccountRepositoryAbc, BaseGrpcRepository):
         super().__init__(target)
         self.stub = AccountServiceStub(self.chanel)
 
-    async def get_all(self, page_n: int, page_size: int) -> List[Account]:
-        request = GetAllRequest(pageN=page_n, pageSize=page_size)
+    async def get_avg_balance(self, type_id: int = None, status: bool = None) -> decimal.Decimal:
+        request = GetAvgBalanceRequest(
+            account_type_id=type_id,
+            is_active=status
+        )
+        result = await self._execute(self.stub.GetAvgBalance(request))
+        return decimal.Decimal(result.total_balance)
+
+    async def get_total_balance_by_type(self, type_id: int) -> decimal.Decimal:
+        request = GetTotalBalanceByAccountTypeRequest(account_type_id=type_id)
+        result = await self._execute(self.stub.GetTotalBalanceByAccountType(request))
+        return decimal.Decimal(result.total_balance)
+
+
+    async def get_all(self, page_n: int, page_size: int, order_by: str = None, is_desc: bool = False) -> List[Account]:
+        request = GetAllRequest(
+            pageN=page_n,
+            pageSize=page_size,
+            order_by=StringValue(value=order_by) if order_by else None,
+            is_desc=BoolValue(value=is_desc)
+        )
         result = await self._execute(self.stub.GetAll(request))
         return AccountMapper.to_domain_list(result.accounts)
 

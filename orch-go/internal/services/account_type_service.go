@@ -18,8 +18,8 @@ func (s *AccountTypeService) GetAccountTypeById(ctx context.Context, id int32) (
 	return s.repo.GetById(ctx, id)
 }
 
-func (s *AccountTypeService) GetAllAccountTypes(ctx context.Context, pageN, pageSize int32) ([]account.AccountType, error) {
-	return s.repo.GetAll(ctx, pageN, pageSize)
+func (s *AccountTypeService) GetAllAccountTypes(ctx context.Context, pageN, pageSize int32, orderBy string, isDesc bool) ([]account.AccountType, error) {
+	return s.repo.GetAll(ctx, pageN, pageSize, orderBy, isDesc)
 }
 
 func (s *AccountTypeService) CreateAccountType(ctx context.Context, at *account.AccountType) (*account.AccountType, error) {

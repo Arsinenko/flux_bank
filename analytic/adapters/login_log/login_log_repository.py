@@ -3,6 +3,7 @@ from datetime import datetime
 import grpc.aio
 
 from adapters.base_grpc_repository import BaseGrpcRepository
+from google.protobuf.wrappers_pb2 import StringValue, BoolValue
 from api.generated.custom_types_pb2 import GetAllRequest
 from api.generated.login_log_pb2 import *
 from api.generated.login_log_pb2_grpc import LoginLogServiceStub
@@ -19,8 +20,13 @@ class LoginLogRepository(LoginLogRepositoryAbc, BaseGrpcRepository):
         super().__init__(target)
         self.stub = LoginLogServiceStub(self.chanel)
 
-    async def get_all(self, page_n: int, page_size: int) -> List[LoginLog]:
-        request = GetAllRequest(pageN=page_n, pageSize=page_size)
+    async def get_all(self, page_n: int, page_size: int, order_by: str = None, is_desc: bool = False) -> List[LoginLog]:
+        request = GetAllRequest(
+            pageN=page_n,
+            pageSize=page_size,
+            order_by=StringValue(value=order_by) if order_by else None,
+            is_desc=BoolValue(value=is_desc)
+        )
         result = await self._execute(self.stub.GetAll(request))
         if result:
             return LoginLogMapper.to_domain_list(result.login_logs)

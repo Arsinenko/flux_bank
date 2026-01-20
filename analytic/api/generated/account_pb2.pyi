@@ -9,6 +9,7 @@ import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.message
 import google.protobuf.timestamp_pb2
+import google.protobuf.wrappers_pb2
 import sys
 import typing
 
@@ -18,6 +19,42 @@ else:
     import typing_extensions
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+
+@typing.final
+class GetAvgBalanceRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ACCOUNT_TYPE_ID_FIELD_NUMBER: builtins.int
+    IS_ACTIVE_FIELD_NUMBER: builtins.int
+    @property
+    def account_type_id(self) -> google.protobuf.wrappers_pb2.Int32Value: ...
+    @property
+    def is_active(self) -> google.protobuf.wrappers_pb2.BoolValue: ...
+    def __init__(
+        self,
+        *,
+        account_type_id: google.protobuf.wrappers_pb2.Int32Value | None = ...,
+        is_active: google.protobuf.wrappers_pb2.BoolValue | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["account_type_id", b"account_type_id", "is_active", b"is_active"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["account_type_id", b"account_type_id", "is_active", b"is_active"]) -> None: ...
+
+Global___GetAvgBalanceRequest: typing_extensions.TypeAlias = GetAvgBalanceRequest
+
+@typing.final
+class GetTotalBalanceByAccountTypeRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ACCOUNT_TYPE_ID_FIELD_NUMBER: builtins.int
+    account_type_id: builtins.int
+    def __init__(
+        self,
+        *,
+        account_type_id: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["account_type_id", b"account_type_id"]) -> None: ...
+
+Global___GetTotalBalanceByAccountTypeRequest: typing_extensions.TypeAlias = GetTotalBalanceByAccountTypeRequest
 
 @typing.final
 class TotalBalanceResponse(google.protobuf.message.Message):

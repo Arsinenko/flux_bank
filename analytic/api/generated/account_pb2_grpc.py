@@ -116,6 +116,16 @@ class AccountServiceStub(object):
                 request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
                 response_deserializer=account__pb2.TotalBalanceResponse.FromString,
                 _registered_method=True)
+        self.GetTotalBalanceByAccountType = channel.unary_unary(
+                '/protos.AccountService/GetTotalBalanceByAccountType',
+                request_serializer=account__pb2.GetTotalBalanceByAccountTypeRequest.SerializeToString,
+                response_deserializer=account__pb2.TotalBalanceResponse.FromString,
+                _registered_method=True)
+        self.GetAvgBalance = channel.unary_unary(
+                '/protos.AccountService/GetAvgBalance',
+                request_serializer=account__pb2.GetAvgBalanceRequest.SerializeToString,
+                response_deserializer=account__pb2.TotalBalanceResponse.FromString,
+                _registered_method=True)
 
 
 class AccountServiceServicer(object):
@@ -217,6 +227,18 @@ class AccountServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetTotalBalanceByAccountType(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetAvgBalance(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_AccountServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -298,6 +320,16 @@ def add_AccountServiceServicer_to_server(servicer, server):
             'GetTotalBalance': grpc.unary_unary_rpc_method_handler(
                     servicer.GetTotalBalance,
                     request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                    response_serializer=account__pb2.TotalBalanceResponse.SerializeToString,
+            ),
+            'GetTotalBalanceByAccountType': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetTotalBalanceByAccountType,
+                    request_deserializer=account__pb2.GetTotalBalanceByAccountTypeRequest.FromString,
+                    response_serializer=account__pb2.TotalBalanceResponse.SerializeToString,
+            ),
+            'GetAvgBalance': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetAvgBalance,
+                    request_deserializer=account__pb2.GetAvgBalanceRequest.FromString,
                     response_serializer=account__pb2.TotalBalanceResponse.SerializeToString,
             ),
     }
@@ -732,6 +764,60 @@ class AccountService(object):
             target,
             '/protos.AccountService/GetTotalBalance',
             google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            account__pb2.TotalBalanceResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetTotalBalanceByAccountType(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.AccountService/GetTotalBalanceByAccountType',
+            account__pb2.GetTotalBalanceByAccountTypeRequest.SerializeToString,
+            account__pb2.TotalBalanceResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetAvgBalance(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.AccountService/GetAvgBalance',
+            account__pb2.GetAvgBalanceRequest.SerializeToString,
             account__pb2.TotalBalanceResponse.FromString,
             options,
             channel_credentials,

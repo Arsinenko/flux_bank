@@ -5,7 +5,7 @@ import (
 )
 
 type Repository interface {
-	GetAll(ctx context.Context, pageN, pageSize int32) ([]Customer, error)
+	GetAll(ctx context.Context, pageN, pageSize int32, orderBy string, isDesc bool) ([]Customer, error)
 	GetById(ctx context.Context, id int32) (*Customer, error)
 	GetBySubstring(ctx context.Context, request GetBySubStrRequest) ([]Customer, error)
 	GetByDateRange(ctx context.Context, request GetByDateRangeRequest) ([]Customer, error)

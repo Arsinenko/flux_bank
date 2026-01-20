@@ -9,6 +9,9 @@ package protos
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	_ "google.golang.org/protobuf/types/known/emptypb"
+	_ "google.golang.org/protobuf/types/known/timestamppb"
+	_ "google.golang.org/protobuf/types/known/wrapperspb"
 	reflect "reflect"
 	unsafe "unsafe"
 )
@@ -24,13 +27,23 @@ var File_account_analytic_proto protoreflect.FileDescriptor
 
 const file_account_analytic_proto_rawDesc = "" +
 	"\n" +
-	"\x16account_analytic.proto\x12\x06protos2\x18\n" +
-	"\x16AccountAnalyticServiceB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
+	"\x16account_analytic.proto\x12\x06protos\x1a\raccount.proto\x1a\x12custom_types.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1egoogle/protobuf/wrappers.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x0ecustomer.proto\x1a\x12account_type.proto2\xde\x01\n" +
+	"\x16AccountAnalyticService\x12p\n" +
+	"#ProcessGetTotalBalanceByAccountType\x12+.protos.GetTotalBalanceByAccountTypeRequest\x1a\x1c.protos.TotalBalanceResponse\x12R\n" +
+	"\x14ProcessGetAvgBalance\x12\x1c.protos.GetAvgBalanceRequest\x1a\x1c.protos.TotalBalanceResponseB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
 
-var file_account_analytic_proto_goTypes = []any{}
+var file_account_analytic_proto_goTypes = []any{
+	(*GetTotalBalanceByAccountTypeRequest)(nil), // 0: protos.GetTotalBalanceByAccountTypeRequest
+	(*GetAvgBalanceRequest)(nil),                // 1: protos.GetAvgBalanceRequest
+	(*TotalBalanceResponse)(nil),                // 2: protos.TotalBalanceResponse
+}
 var file_account_analytic_proto_depIdxs = []int32{
-	0, // [0:0] is the sub-list for method output_type
-	0, // [0:0] is the sub-list for method input_type
+	0, // 0: protos.AccountAnalyticService.ProcessGetTotalBalanceByAccountType:input_type -> protos.GetTotalBalanceByAccountTypeRequest
+	1, // 1: protos.AccountAnalyticService.ProcessGetAvgBalance:input_type -> protos.GetAvgBalanceRequest
+	2, // 2: protos.AccountAnalyticService.ProcessGetTotalBalanceByAccountType:output_type -> protos.TotalBalanceResponse
+	2, // 3: protos.AccountAnalyticService.ProcessGetAvgBalance:output_type -> protos.TotalBalanceResponse
+	2, // [2:4] is the sub-list for method output_type
+	0, // [0:2] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name
@@ -41,6 +54,10 @@ func file_account_analytic_proto_init() {
 	if File_account_analytic_proto != nil {
 		return
 	}
+	file_account_proto_init()
+	file_custom_types_proto_init()
+	file_customer_proto_init()
+	file_account_type_proto_init()
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{

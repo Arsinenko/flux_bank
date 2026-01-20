@@ -6,7 +6,7 @@ from domain.loan.loan_payment import LoanPayment
 
 class LoanPaymentRepositoryAbc(ABC):
     @abstractmethod
-    async def get_all(self, page_n: int, page_size: int) -> List[LoanPayment]:
+    async def get_all(self, page_n: int, page_size: int, order_by: str = None, is_desc: bool = False) -> List[LoanPayment]:
         pass
 
     @abstractmethod

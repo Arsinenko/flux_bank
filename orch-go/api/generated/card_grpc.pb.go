@@ -20,17 +20,18 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	CardService_GetAll_FullMethodName       = "/protos.CardService/GetAll"
-	CardService_GetById_FullMethodName      = "/protos.CardService/GetById"
-	CardService_GetByIds_FullMethodName     = "/protos.CardService/GetByIds"
-	CardService_GetByAccount_FullMethodName = "/protos.CardService/GetByAccount"
-	CardService_Add_FullMethodName          = "/protos.CardService/Add"
-	CardService_Update_FullMethodName       = "/protos.CardService/Update"
-	CardService_Delete_FullMethodName       = "/protos.CardService/Delete"
-	CardService_AddBulk_FullMethodName      = "/protos.CardService/AddBulk"
-	CardService_UpdateBulk_FullMethodName   = "/protos.CardService/UpdateBulk"
-	CardService_DeleteBulk_FullMethodName   = "/protos.CardService/DeleteBulk"
-	CardService_GetCount_FullMethodName     = "/protos.CardService/GetCount"
+	CardService_GetAll_FullMethodName           = "/protos.CardService/GetAll"
+	CardService_GetById_FullMethodName          = "/protos.CardService/GetById"
+	CardService_GetByIds_FullMethodName         = "/protos.CardService/GetByIds"
+	CardService_GetByAccount_FullMethodName     = "/protos.CardService/GetByAccount"
+	CardService_Add_FullMethodName              = "/protos.CardService/Add"
+	CardService_Update_FullMethodName           = "/protos.CardService/Update"
+	CardService_Delete_FullMethodName           = "/protos.CardService/Delete"
+	CardService_AddBulk_FullMethodName          = "/protos.CardService/AddBulk"
+	CardService_UpdateBulk_FullMethodName       = "/protos.CardService/UpdateBulk"
+	CardService_DeleteBulk_FullMethodName       = "/protos.CardService/DeleteBulk"
+	CardService_GetCount_FullMethodName         = "/protos.CardService/GetCount"
+	CardService_GetCountByStatus_FullMethodName = "/protos.CardService/GetCountByStatus"
 )
 
 // CardServiceClient is the client API for CardService service.
@@ -48,6 +49,7 @@ type CardServiceClient interface {
 	UpdateBulk(ctx context.Context, in *UpdateCardBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	DeleteBulk(ctx context.Context, in *DeleteCardBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	GetCount(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*CountResponse, error)
+	GetCountByStatus(ctx context.Context, in *GetCardCountByStatus, opts ...grpc.CallOption) (*CountResponse, error)
 }
 
 type cardServiceClient struct {
@@ -168,6 +170,16 @@ func (c *cardServiceClient) GetCount(ctx context.Context, in *emptypb.Empty, opt
 	return out, nil
 }
 
+func (c *cardServiceClient) GetCountByStatus(ctx context.Context, in *GetCardCountByStatus, opts ...grpc.CallOption) (*CountResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CountResponse)
+	err := c.cc.Invoke(ctx, CardService_GetCountByStatus_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CardServiceServer is the server API for CardService service.
 // All implementations must embed UnimplementedCardServiceServer
 // for forward compatibility.
@@ -183,6 +195,7 @@ type CardServiceServer interface {
 	UpdateBulk(context.Context, *UpdateCardBulkRequest) (*emptypb.Empty, error)
 	DeleteBulk(context.Context, *DeleteCardBulkRequest) (*emptypb.Empty, error)
 	GetCount(context.Context, *emptypb.Empty) (*CountResponse, error)
+	GetCountByStatus(context.Context, *GetCardCountByStatus) (*CountResponse, error)
 	mustEmbedUnimplementedCardServiceServer()
 }
 
@@ -225,6 +238,9 @@ func (UnimplementedCardServiceServer) DeleteBulk(context.Context, *DeleteCardBul
 }
 func (UnimplementedCardServiceServer) GetCount(context.Context, *emptypb.Empty) (*CountResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetCount not implemented")
+}
+func (UnimplementedCardServiceServer) GetCountByStatus(context.Context, *GetCardCountByStatus) (*CountResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetCountByStatus not implemented")
 }
 func (UnimplementedCardServiceServer) mustEmbedUnimplementedCardServiceServer() {}
 func (UnimplementedCardServiceServer) testEmbeddedByValue()                     {}
@@ -445,6 +461,24 @@ func _CardService_GetCount_Handler(srv interface{}, ctx context.Context, dec fun
 	return interceptor(ctx, in, info, handler)
 }
 
+func _CardService_GetCountByStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetCardCountByStatus)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CardServiceServer).GetCountByStatus(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CardService_GetCountByStatus_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CardServiceServer).GetCountByStatus(ctx, req.(*GetCardCountByStatus))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // CardService_ServiceDesc is the grpc.ServiceDesc for CardService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -495,6 +529,10 @@ var CardService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetCount",
 			Handler:    _CardService_GetCount_Handler,
+		},
+		{
+			MethodName: "GetCountByStatus",
+			Handler:    _CardService_GetCountByStatus_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -3,7 +3,7 @@ package loan
 import "context"
 
 type LoanRepository interface {
-	GetAll(ctx context.Context, pageN, pageSize int32) ([]*Loan, error)
+	GetAll(ctx context.Context, pageN, pageSize int32, orderBy string, isDesc bool) ([]*Loan, error)
 	GetById(ctx context.Context, id int32) (*Loan, error)
 	GetByCustomer(ctx context.Context, customerId int32) ([]*Loan, error)
 	Add(ctx context.Context, loan *Loan) (*Loan, error)
@@ -13,7 +13,7 @@ type LoanRepository interface {
 }
 
 type LoanPaymentRepository interface {
-	GetAll(ctx context.Context) ([]*LoanPayment, error)
+	GetAll(ctx context.Context, pageN, pageSize int32, orderBy string, isDesc bool) ([]*LoanPayment, error)
 	GetById(ctx context.Context, id int32) (*LoanPayment, error)
 	GetByLoan(ctx context.Context, loanId int32) ([]*LoanPayment, error)
 	Add(ctx context.Context, loanPayment *LoanPayment) (*LoanPayment, error)

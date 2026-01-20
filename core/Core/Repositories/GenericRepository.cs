@@ -19,15 +19,26 @@ public class GenericRepository<TEntity, TId>
         DbSet = context.Set<TEntity>();
     }
 
-    public virtual async Task<IEnumerable<TEntity>> GetAllAsync(int? pageN, int? pageSize)
+    public virtual async Task<IEnumerable<TEntity>> GetAllAsync(int? pageN, int? pageSize, string? orderBy = null, bool isDesc = false)
     {
         IQueryable<TEntity> query = DbSet;
+
+        if (!string.IsNullOrEmpty(orderBy))
+        {
+            query = isDesc
+                ? query.OrderByDescending(e => EF.Property<object>(e, orderBy))
+                : query.OrderBy(e => EF.Property<object>(e, orderBy));
+        }
+        else if (pageN != 0 && pageSize != 0)
+        {
+            var keyName = GetEntityKey();
+            query = query.OrderBy(e => EF.Property<object>(e, keyName));
+        }
 
         if (pageN != 0 && pageSize != 0)
         {
             if (pageN <= 0 || pageSize <= 0) throw new ArgumentException("pageN and pageSize must be greater than 0");
-            var keyName = GetEntityKey();
-            query = query.OrderBy(e => EF.Property<TId>(e, keyName)).Skip((pageN.Value - 1) * pageSize.Value).Take(pageSize.Value);
+            query = query.Skip((pageN.Value - 1) * pageSize.Value).Take(pageSize.Value);
         }
 
         return await query.ToListAsync();
@@ -112,6 +123,17 @@ public class GenericRepository<TEntity, TId>
     public virtual async Task<decimal> GetSumAsync(Expression<Func<TEntity, bool>> predicate, string propertyName)
     {
         return await DbSet.Where(predicate).SumAsync(e => EF.Property<decimal>(e, propertyName));
+    }
+
+    public async Task<decimal> GetAvgAsync(Expression<Func<TEntity, bool>>? predicate, string propertyName)
+    {
+        IQueryable<TEntity> query = DbSet;
+        if (predicate != null)
+        {
+            query = query.Where(predicate);
+        }
+
+        return await query.AverageAsync(e => EF.Property<decimal>(e, propertyName));
     }
 
 

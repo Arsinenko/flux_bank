@@ -27,8 +27,8 @@ func (s *LoginLogService) GetLoginLogsInTimeRange(ctx context.Context, startTime
 	return s.repo.GetInTimeRange(ctx, startTime, endTime)
 }
 
-func (s *LoginLogService) GetAllLoginLogs(ctx context.Context, pageN, pageSize int32) ([]*login_log.LoginLog, error) {
-	return s.repo.GetAll(ctx, pageN, pageSize)
+func (s *LoginLogService) GetAllLoginLogs(ctx context.Context, pageN, pageSize int32, orderBy string, isDesc bool) ([]*login_log.LoginLog, error) {
+	return s.repo.GetAll(ctx, pageN, pageSize, orderBy, isDesc)
 }
 
 func (s *LoginLogService) CreateLoginLog(ctx context.Context, log *login_log.LoginLog) (*login_log.LoginLog, error) {

@@ -1,9 +1,19 @@
 syntax = "proto3";
 
 package protos;
+import "account.proto";
 option go_package = "orch-go/gen/protos;protos";
 option csharp_namespace = "Core";
 
+
+import "custom_types.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/timestamp.proto";
+import "customer.proto";
+import "account_type.proto";
+
 service AccountAnalyticService{
-    
+    rpc ProcessGetTotalBalanceByAccountType (GetTotalBalanceByAccountTypeRequest) returns (TotalBalanceResponse);
+    rpc ProcessGetAvgBalance(GetAvgBalanceRequest) returns (TotalBalanceResponse);
 }

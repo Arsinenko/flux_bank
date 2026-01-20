@@ -8,7 +8,7 @@ from domain.transaction.transaction import Transaction
 
 class TransactionRepositoryAbc(ABC):
     @abstractmethod
-    async def get_all(self, page_n: int, page_size: int) -> List[Transaction]:
+    async def get_all(self, page_n: int, page_size: int, order_by: str = None, is_desc: bool = False) -> List[Transaction]:
         pass
 
     @abstractmethod

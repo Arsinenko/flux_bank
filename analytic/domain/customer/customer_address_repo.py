@@ -6,7 +6,7 @@ from domain.customer.customer_address import CustomerAddress
 
 class CustomerAddressRepositoryAbc(ABC):
     @abstractmethod
-    async def get_all(self, page_n: int, page_size: int) -> List[CustomerAddress]:
+    async def get_all(self, page_n: int, page_size: int, order_by: str = None, is_desc: bool = False) -> List[CustomerAddress]:
         pass
 
     @abstractmethod

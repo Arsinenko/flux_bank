@@ -6,7 +6,7 @@ from domain.deposit.deposit import Deposit
 
 class DepositRepositoryAbc(ABC):
     @abstractmethod
-    async def get_all(self, page_n: int, page_size: int) -> List[Deposit]:
+    async def get_all(self, page_n: int, page_size: int, order_by: str = None, is_desc: bool = False) -> List[Deposit]:
         pass
 
     @abstractmethod

@@ -19,7 +19,7 @@ public class CardService(ICardRepository repository, IMapper mapper, ICacheServi
 
     public override async Task<GetAllCardsResponse> GetAll(GetAllRequest request, ServerCallContext context)
     {
-        var cards = await repository.GetAllAsync(request.PageN, request.PageSize);
+        var cards = await repository.GetAllAsync(request.PageN, request.PageSize, request.OrderBy, request.IsDesc ?? false);
         return new GetAllCardsResponse
         {
             Cards = { mapper.Map<IEnumerable<CardModel>>(cards) }

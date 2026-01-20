@@ -6,7 +6,7 @@ from domain.transaction.transaction_category import TransactionCategory
 
 class TransactionCategoryRepositoryAbc(ABC):
     @abstractmethod
-    async def get_all(self, page_n: int, page_size: int) -> List[TransactionCategory]:
+    async def get_all(self, page_n: int, page_size: int, order_by: str = None, is_desc: bool = False) -> List[TransactionCategory]:
         pass
 
     @abstractmethod

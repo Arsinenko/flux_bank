@@ -7,7 +7,7 @@ from domain.customer.customer import Customer
 
 class CustomerRepositoryAbc(ABC):
     @abstractmethod
-    async def get_all(self, page_n: int, page_size: int) -> List[Customer]:
+    async def get_all(self, page_n: int, page_size: int, order_by: str = None, is_desc: bool = False) -> List[Customer]:
         pass
 
     @abstractmethod

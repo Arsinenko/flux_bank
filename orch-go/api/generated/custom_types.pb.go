@@ -10,6 +10,7 @@ import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
+	wrapperspb "google.golang.org/protobuf/types/known/wrapperspb"
 	reflect "reflect"
 	sync "sync"
 	unsafe "unsafe"
@@ -23,9 +24,11 @@ const (
 )
 
 type GetAllRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	PageN         int32                  `protobuf:"varint,1,opt,name=pageN,proto3" json:"pageN,omitempty"`
-	PageSize      int32                  `protobuf:"varint,2,opt,name=pageSize,proto3" json:"pageSize,omitempty"`
+	state         protoimpl.MessageState  `protogen:"open.v1"`
+	PageN         int32                   `protobuf:"varint,1,opt,name=pageN,proto3" json:"pageN,omitempty"`
+	PageSize      int32                   `protobuf:"varint,2,opt,name=pageSize,proto3" json:"pageSize,omitempty"`
+	OrderBy       *wrapperspb.StringValue `protobuf:"bytes,3,opt,name=order_by,json=orderBy,proto3" json:"order_by,omitempty"`
+	IsDesc        *wrapperspb.BoolValue   `protobuf:"bytes,4,opt,name=is_desc,json=isDesc,proto3" json:"is_desc,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -72,6 +75,20 @@ func (x *GetAllRequest) GetPageSize() int32 {
 		return x.PageSize
 	}
 	return 0
+}
+
+func (x *GetAllRequest) GetOrderBy() *wrapperspb.StringValue {
+	if x != nil {
+		return x.OrderBy
+	}
+	return nil
+}
+
+func (x *GetAllRequest) GetIsDesc() *wrapperspb.BoolValue {
+	if x != nil {
+		return x.IsDesc
+	}
+	return nil
 }
 
 type DateOnly struct {
@@ -250,10 +267,12 @@ var File_custom_types_proto protoreflect.FileDescriptor
 
 const file_custom_types_proto_rawDesc = "" +
 	"\n" +
-	"\x12custom_types.proto\x12\x06protos\x1a\x1fgoogle/protobuf/timestamp.proto\"A\n" +
+	"\x12custom_types.proto\x12\x06protos\x1a\x1egoogle/protobuf/wrappers.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\xaf\x01\n" +
 	"\rGetAllRequest\x12\x14\n" +
 	"\x05pageN\x18\x01 \x01(\x05R\x05pageN\x12\x1a\n" +
-	"\bpageSize\x18\x02 \x01(\x05R\bpageSize\"F\n" +
+	"\bpageSize\x18\x02 \x01(\x05R\bpageSize\x127\n" +
+	"\border_by\x18\x03 \x01(\v2\x1c.google.protobuf.StringValueR\aorderBy\x123\n" +
+	"\ais_desc\x18\x04 \x01(\v2\x1a.google.protobuf.BoolValueR\x06isDesc\"F\n" +
 	"\bDateOnly\x12\x12\n" +
 	"\x04year\x18\x01 \x01(\x05R\x04year\x12\x14\n" +
 	"\x05month\x18\x02 \x01(\x05R\x05month\x12\x10\n" +
@@ -282,20 +301,24 @@ func file_custom_types_proto_rawDescGZIP() []byte {
 
 var file_custom_types_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_custom_types_proto_goTypes = []any{
-	(*GetAllRequest)(nil),         // 0: protos.GetAllRequest
-	(*DateOnly)(nil),              // 1: protos.DateOnly
-	(*GetByDateRangeRequest)(nil), // 2: protos.GetByDateRangeRequest
-	(*CountResponse)(nil),         // 3: protos.CountResponse
-	(*timestamppb.Timestamp)(nil), // 4: google.protobuf.Timestamp
+	(*GetAllRequest)(nil),          // 0: protos.GetAllRequest
+	(*DateOnly)(nil),               // 1: protos.DateOnly
+	(*GetByDateRangeRequest)(nil),  // 2: protos.GetByDateRangeRequest
+	(*CountResponse)(nil),          // 3: protos.CountResponse
+	(*wrapperspb.StringValue)(nil), // 4: google.protobuf.StringValue
+	(*wrapperspb.BoolValue)(nil),   // 5: google.protobuf.BoolValue
+	(*timestamppb.Timestamp)(nil),  // 6: google.protobuf.Timestamp
 }
 var file_custom_types_proto_depIdxs = []int32{
-	4, // 0: protos.GetByDateRangeRequest.fromDate:type_name -> google.protobuf.Timestamp
-	4, // 1: protos.GetByDateRangeRequest.toDate:type_name -> google.protobuf.Timestamp
-	2, // [2:2] is the sub-list for method output_type
-	2, // [2:2] is the sub-list for method input_type
-	2, // [2:2] is the sub-list for extension type_name
-	2, // [2:2] is the sub-list for extension extendee
-	0, // [0:2] is the sub-list for field type_name
+	4, // 0: protos.GetAllRequest.order_by:type_name -> google.protobuf.StringValue
+	5, // 1: protos.GetAllRequest.is_desc:type_name -> google.protobuf.BoolValue
+	6, // 2: protos.GetByDateRangeRequest.fromDate:type_name -> google.protobuf.Timestamp
+	6, // 3: protos.GetByDateRangeRequest.toDate:type_name -> google.protobuf.Timestamp
+	4, // [4:4] is the sub-list for method output_type
+	4, // [4:4] is the sub-list for method input_type
+	4, // [4:4] is the sub-list for extension type_name
+	4, // [4:4] is the sub-list for extension extendee
+	0, // [0:4] is the sub-list for field type_name
 }
 
 func init() { file_custom_types_proto_init() }

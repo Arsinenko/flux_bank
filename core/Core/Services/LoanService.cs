@@ -12,7 +12,7 @@ public class LoanService(ILoanRepository loanRepository, IMapper mapper, ICacheS
 {
     public override async Task<GetAllLoansResponse> GetAll(GetAllRequest request, ServerCallContext context)
     {
-        var loans = await loanRepository.GetAllAsync(request.PageN, request.PageSize);
+        var loans = await loanRepository.GetAllAsync(request.PageN, request.PageSize, request.OrderBy, request.IsDesc ?? false);
 
         return new GetAllLoansResponse
         {

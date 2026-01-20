@@ -15,7 +15,6 @@ import "loan.proto";
 import "deposit.proto";
 import "login_log.proto";
 
-
 service CustomerAnalyticService {
   rpc GetCustomersByTransactionQuantityRange (GetCustomersByTransactionQuantityRangeRequest) returns (GetAllCustomersResponse);
   rpc GetCustomerLifeTime (GetCustomerLifeTimeRequest) returns (GetCustomerLifeTimeResponse);
@@ -25,7 +24,6 @@ service CustomerAnalyticService {
   rpc GetCountInactiveCustomers (google.protobuf.Empty) returns (CountResponse);
   rpc GetCustomerDetails (GetCustomerDetailsRequest) returns (CustomerDetailsResponse);
 }
-
 
 message GetCustomersByTransactionQuantityRangeRequest{
   int32 min_quantity = 1;
@@ -37,8 +35,8 @@ message GetCustomerLifeTimeRequest {
 }
 
 message GetCustomerLifeTimeResponse {
-  int32 customer_id = 1;
-  google.protobuf.Timestamp life_time = 2;
+  int32                     customer_id = 1;
+  google.protobuf.Timestamp life_time   = 2;
 }
 
 message GetCustomersLifeTimeResponse {
@@ -50,10 +48,10 @@ message GetCustomerDetailsRequest {
 }
 
 message CustomerDetailsResponse {
-  CustomerModel customer = 1;
-  repeated AccountModel accounts = 2;
-  repeated CardModel cards = 3;
-  repeated LoanModel loans = 4;
-  repeated DepositModel deposits = 5;
+  CustomerModel          customer = 1;
+  repeated AccountModel  accounts = 2;
+  repeated CardModel     cards    = 3;
+  repeated LoanModel     loans    = 4;
+  repeated DepositModel  deposits = 5;
   repeated LoginLogModel activity = 6;
 }

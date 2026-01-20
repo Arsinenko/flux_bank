@@ -10,9 +10,9 @@ namespace Core.Services;
 public class ExchangeRateService(IExchangeRateRepository exchangeRateRepository, IMapper mapper)
     : Core.ExchangeRateService.ExchangeRateServiceBase
 {
-    public override async Task<GetAllExchangeRatesResponse>GetAll( GetAllRequest request, ServerCallContext context)
+    public override async Task<GetAllExchangeRatesResponse> GetAll(GetAllRequest request, ServerCallContext context)
     {
-        var exchangeRates = await exchangeRateRepository.GetAllAsync(request.PageN, request.PageSize);
+        var exchangeRates = await exchangeRateRepository.GetAllAsync(request.PageN, request.PageSize, request.OrderBy, request.IsDesc ?? false);
 
         return new GetAllExchangeRatesResponse
         {
@@ -120,5 +120,5 @@ public class ExchangeRateService(IExchangeRateRepository exchangeRateRepository,
             Count = count
         };
     }
-    
+
 }

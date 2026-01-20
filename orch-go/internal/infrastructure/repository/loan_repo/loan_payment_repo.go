@@ -5,6 +5,8 @@ import (
 	"fmt"
 	pb "orch-go/api/generated"
 	"orch-go/internal/domain/loan"
+
+	"google.golang.org/protobuf/types/known/wrapperspb"
 )
 
 type LoanPaymentRepository struct {
@@ -31,10 +33,12 @@ func NewLoanPaymentRepository(client pb.LoanPaymentServiceClient) LoanPaymentRep
 	}
 }
 
-func (r LoanPaymentRepository) GetAll(ctx context.Context, pageN, pageSize int32) ([]*loan.LoanPayment, error) {
+func (r LoanPaymentRepository) GetAll(ctx context.Context, pageN, pageSize int32, orderBy string, isDesc bool) ([]*loan.LoanPayment, error) {
 	resp, err := r.client.GetAll(ctx, &pb.GetAllRequest{
 		PageN:    pageN,
 		PageSize: pageSize,
+		OrderBy:  &wrapperspb.StringValue{Value: orderBy},
+		IsDesc:   &wrapperspb.BoolValue{Value: isDesc},
 	})
 	if err != nil {
 		return nil, fmt.Errorf("loan_payment_repo.GetAll: %w", err)

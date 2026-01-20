@@ -22,8 +22,8 @@ func (s *DepositService) GetDepositsByCustomer(ctx context.Context, customerId i
 	return s.repo.GetByCustomer(ctx, customerId)
 }
 
-func (s *DepositService) GetAllDeposits(ctx context.Context, pageN, pageSize int32) ([]*deposit.Deposit, error) {
-	return s.repo.GetAll(ctx, pageN, pageSize)
+func (s *DepositService) GetAllDeposits(ctx context.Context, pageN, pageSize int32, orderBy string, isDesc bool) ([]*deposit.Deposit, error) {
+	return s.repo.GetAll(ctx, pageN, pageSize, orderBy, isDesc)
 }
 
 func (s *DepositService) CreateDeposit(ctx context.Context, deposit *deposit.Deposit) (*deposit.Deposit, error) {

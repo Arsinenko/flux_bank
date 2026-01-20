@@ -10,9 +10,9 @@ namespace Core.Services;
 public class TransactionFeeService(ITransactionFeeRepository transactionFeeRepository, IMapper mapper)
     : Core.TransactionFeeService.TransactionFeeServiceBase
 {
-    public override async Task<GetAllTransactionFeesResponse>GetAll( GetAllRequest request, ServerCallContext context)
+    public override async Task<GetAllTransactionFeesResponse> GetAll(GetAllRequest request, ServerCallContext context)
     {
-        var transactionFees = await transactionFeeRepository.GetAllAsync(request.PageN, request.PageSize);
+        var transactionFees = await transactionFeeRepository.GetAllAsync(request.PageN, request.PageSize, request.OrderBy, request.IsDesc ?? false);
 
         return new GetAllTransactionFeesResponse
         {
@@ -109,7 +109,7 @@ public class TransactionFeeService(ITransactionFeeRepository transactionFeeRepos
         {
             throw new ValidationException("No transaction fees to update");
         }
-        
+
         await transactionFeeRepository.UpdateRangeAsync(transactionFees);
         return new Empty();
     }

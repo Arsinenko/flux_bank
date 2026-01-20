@@ -3,6 +3,7 @@
 import grpc
 import warnings
 
+import account_pb2 as account__pb2
 
 GRPC_GENERATED_VERSION = '1.76.0'
 GRPC_VERSION = grpc.__version__
@@ -33,14 +34,46 @@ class AccountAnalyticServiceStub(object):
         Args:
             channel: A grpc.Channel.
         """
+        self.ProcessGetTotalBalanceByAccountType = channel.unary_unary(
+                '/protos.AccountAnalyticService/ProcessGetTotalBalanceByAccountType',
+                request_serializer=account__pb2.GetTotalBalanceByAccountTypeRequest.SerializeToString,
+                response_deserializer=account__pb2.TotalBalanceResponse.FromString,
+                _registered_method=True)
+        self.ProcessGetAvgBalance = channel.unary_unary(
+                '/protos.AccountAnalyticService/ProcessGetAvgBalance',
+                request_serializer=account__pb2.GetAvgBalanceRequest.SerializeToString,
+                response_deserializer=account__pb2.TotalBalanceResponse.FromString,
+                _registered_method=True)
 
 
 class AccountAnalyticServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
 
+    def ProcessGetTotalBalanceByAccountType(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ProcessGetAvgBalance(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_AccountAnalyticServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
+            'ProcessGetTotalBalanceByAccountType': grpc.unary_unary_rpc_method_handler(
+                    servicer.ProcessGetTotalBalanceByAccountType,
+                    request_deserializer=account__pb2.GetTotalBalanceByAccountTypeRequest.FromString,
+                    response_serializer=account__pb2.TotalBalanceResponse.SerializeToString,
+            ),
+            'ProcessGetAvgBalance': grpc.unary_unary_rpc_method_handler(
+                    servicer.ProcessGetAvgBalance,
+                    request_deserializer=account__pb2.GetAvgBalanceRequest.FromString,
+                    response_serializer=account__pb2.TotalBalanceResponse.SerializeToString,
+            ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
             'protos.AccountAnalyticService', rpc_method_handlers)
@@ -51,3 +84,57 @@ def add_AccountAnalyticServiceServicer_to_server(servicer, server):
  # This class is part of an EXPERIMENTAL API.
 class AccountAnalyticService(object):
     """Missing associated documentation comment in .proto file."""
+
+    @staticmethod
+    def ProcessGetTotalBalanceByAccountType(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.AccountAnalyticService/ProcessGetTotalBalanceByAccountType',
+            account__pb2.GetTotalBalanceByAccountTypeRequest.SerializeToString,
+            account__pb2.TotalBalanceResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ProcessGetAvgBalance(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.AccountAnalyticService/ProcessGetAvgBalance',
+            account__pb2.GetAvgBalanceRequest.SerializeToString,
+            account__pb2.TotalBalanceResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)

@@ -5,6 +5,8 @@ import (
 	"fmt"
 	pb "orch-go/api/generated"
 	"orch-go/internal/domain/payment_template"
+
+	"google.golang.org/protobuf/types/known/wrapperspb"
 )
 
 type Repository struct {
@@ -15,10 +17,12 @@ func NewRepository(client pb.PaymentTemplateServiceClient) Repository {
 	return Repository{client: client}
 }
 
-func (r Repository) GetAll(ctx context.Context, pageN, pageSize int32) ([]*payment_template.PaymentTemplate, error) {
+func (r Repository) GetAll(ctx context.Context, pageN, pageSize int32, orderBy string, isDesc bool) ([]*payment_template.PaymentTemplate, error) {
 	resp, err := r.client.GetAll(ctx, &pb.GetAllRequest{
 		PageN:    pageN,
 		PageSize: pageSize,
+		OrderBy:  &wrapperspb.StringValue{Value: orderBy},
+		IsDesc:   &wrapperspb.BoolValue{Value: isDesc},
 	})
 	if err != nil {
 		return nil, err

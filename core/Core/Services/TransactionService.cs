@@ -13,7 +13,7 @@ public class TransactionService(ITransactionRepository transactionRepository, IM
 {
     public override async Task<GetAllTransactionsResponse> GetAll(GetAllRequest request, ServerCallContext context)
     {
-        var transactions = await transactionRepository.GetAllAsync(request.PageN, request.PageSize);
+        var transactions = await transactionRepository.GetAllAsync(request.PageN, request.PageSize, request.OrderBy, request.IsDesc ?? false);
 
         return new GetAllTransactionsResponse
         {

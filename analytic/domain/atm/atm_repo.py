@@ -6,7 +6,7 @@ from domain.atm.atm import Atm
 
 class AtmRepositoryAbc(ABC):
     @abstractmethod
-    async def get_all(self, page_n: int, page_size: int) -> List[Atm]:
+    async def get_all(self, page_n: int, page_size: int, order_by: str = None, is_desc: bool = False) -> List[Atm]:
         pass
     @abstractmethod
     async def get_by_id(self, atm_id: int) -> Atm:

@@ -708,7 +708,7 @@ const file_atm_proto_rawDesc = "" +
 	"\x14UpdateAtmBulkRequest\x12,\n" +
 	"\x04atms\x18\x01 \x03(\v2\x18.protos.UpdateAtmRequestR\x04atms\"D\n" +
 	"\x14DeleteAtmBulkRequest\x12,\n" +
-	"\x04atms\x18\x01 \x03(\v2\x18.protos.DeleteAtmRequestR\x04atms2\xdf\x06\n" +
+	"\x04atms\x18\x01 \x03(\v2\x18.protos.DeleteAtmRequestR\x04atms2\xaa\a\n" +
 	"\n" +
 	"AtmService\x12;\n" +
 	"\x06GetAll\x12\x15.protos.GetAllRequest\x1a\x1a.protos.GetAllAtmsResponse\x126\n" +
@@ -725,7 +725,8 @@ const file_atm_proto_rawDesc = "" +
 	"UpdateBulk\x12\x1c.protos.UpdateAtmBulkRequest\x1a\x16.google.protobuf.Empty\x12B\n" +
 	"\n" +
 	"DeleteBulk\x12\x1c.protos.DeleteAtmBulkRequest\x1a\x16.google.protobuf.Empty\x129\n" +
-	"\bGetCount\x12\x16.google.protobuf.Empty\x1a\x15.protos.CountResponseB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
+	"\bGetCount\x12\x16.google.protobuf.Empty\x1a\x15.protos.CountResponse\x12I\n" +
+	"\x10GetCountByStatus\x12\x1e.protos.GetAtmsByStatusRequest\x1a\x15.protos.CountResponseB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
 
 var (
 	file_atm_proto_rawDescOnce sync.Once
@@ -776,21 +777,23 @@ var file_atm_proto_depIdxs = []int32{
 	11, // 14: protos.AtmService.UpdateBulk:input_type -> protos.UpdateAtmBulkRequest
 	12, // 15: protos.AtmService.DeleteBulk:input_type -> protos.DeleteAtmBulkRequest
 	14, // 16: protos.AtmService.GetCount:input_type -> google.protobuf.Empty
-	4,  // 17: protos.AtmService.GetAll:output_type -> protos.GetAllAtmsResponse
-	0,  // 18: protos.AtmService.GetById:output_type -> protos.AtmModel
-	4,  // 19: protos.AtmService.GetByIds:output_type -> protos.GetAllAtmsResponse
-	4,  // 20: protos.AtmService.GetByStatus:output_type -> protos.GetAllAtmsResponse
-	4,  // 21: protos.AtmService.GetByLocationSubStr:output_type -> protos.GetAllAtmsResponse
-	4,  // 22: protos.AtmService.GetByBranch:output_type -> protos.GetAllAtmsResponse
-	0,  // 23: protos.AtmService.Add:output_type -> protos.AtmModel
-	14, // 24: protos.AtmService.Update:output_type -> google.protobuf.Empty
-	14, // 25: protos.AtmService.Delete:output_type -> google.protobuf.Empty
-	14, // 26: protos.AtmService.AddBulk:output_type -> google.protobuf.Empty
-	14, // 27: protos.AtmService.UpdateBulk:output_type -> google.protobuf.Empty
-	14, // 28: protos.AtmService.DeleteBulk:output_type -> google.protobuf.Empty
-	15, // 29: protos.AtmService.GetCount:output_type -> protos.CountResponse
-	17, // [17:30] is the sub-list for method output_type
-	4,  // [4:17] is the sub-list for method input_type
+	1,  // 17: protos.AtmService.GetCountByStatus:input_type -> protos.GetAtmsByStatusRequest
+	4,  // 18: protos.AtmService.GetAll:output_type -> protos.GetAllAtmsResponse
+	0,  // 19: protos.AtmService.GetById:output_type -> protos.AtmModel
+	4,  // 20: protos.AtmService.GetByIds:output_type -> protos.GetAllAtmsResponse
+	4,  // 21: protos.AtmService.GetByStatus:output_type -> protos.GetAllAtmsResponse
+	4,  // 22: protos.AtmService.GetByLocationSubStr:output_type -> protos.GetAllAtmsResponse
+	4,  // 23: protos.AtmService.GetByBranch:output_type -> protos.GetAllAtmsResponse
+	0,  // 24: protos.AtmService.Add:output_type -> protos.AtmModel
+	14, // 25: protos.AtmService.Update:output_type -> google.protobuf.Empty
+	14, // 26: protos.AtmService.Delete:output_type -> google.protobuf.Empty
+	14, // 27: protos.AtmService.AddBulk:output_type -> google.protobuf.Empty
+	14, // 28: protos.AtmService.UpdateBulk:output_type -> google.protobuf.Empty
+	14, // 29: protos.AtmService.DeleteBulk:output_type -> google.protobuf.Empty
+	15, // 30: protos.AtmService.GetCount:output_type -> protos.CountResponse
+	15, // 31: protos.AtmService.GetCountByStatus:output_type -> protos.CountResponse
+	18, // [18:32] is the sub-list for method output_type
+	4,  // [4:18] is the sub-list for method input_type
 	4,  // [4:4] is the sub-list for extension type_name
 	4,  // [4:4] is the sub-list for extension extendee
 	0,  // [0:4] is the sub-list for field type_name

@@ -10,9 +10,9 @@ namespace Core.Services;
 public class FeeTypeService(IFeeTypeRepository feeTypeRepository, IMapper mapper)
     : Core.FeeTypeService.FeeTypeServiceBase
 {
-    public override async Task<GetAllFeeTypesResponse>GetAll( GetAllRequest request, ServerCallContext context)
+    public override async Task<GetAllFeeTypesResponse> GetAll(GetAllRequest request, ServerCallContext context)
     {
-        var feeTypes = await feeTypeRepository.GetAllAsync(request.PageN, request.PageSize);
+        var feeTypes = await feeTypeRepository.GetAllAsync(request.PageN, request.PageSize, request.OrderBy, request.IsDesc ?? false);
 
         return new GetAllFeeTypesResponse
         {
@@ -58,7 +58,7 @@ public class FeeTypeService(IFeeTypeRepository feeTypeRepository, IMapper mapper
         await feeTypeRepository.DeleteAsync(request.FeeId);
         return new Empty();
     }
-    
+
     public override async Task<Empty> DeleteBulk(DeleteFeeTypeBulkRequest request, ServerCallContext context)
     {
         var ids = request.FeeTypes.Select(f => f.FeeId).ToList();

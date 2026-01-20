@@ -30,8 +30,8 @@ func (s *AtmService) GetAtmsByBranch(ctx context.Context, branchId int32) ([]*at
 	return s.repo.GetByBranch(ctx, branchId)
 }
 
-func (s *AtmService) GetAllAtms(ctx context.Context) ([]*atm.Atm, error) {
-	return s.repo.GetAll(ctx)
+func (s *AtmService) GetAllAtms(ctx context.Context, pageN, pageSize int32, orderBy string, isDesc bool) ([]*atm.Atm, error) {
+	return s.repo.GetAll(ctx, pageN, pageSize, orderBy, isDesc)
 }
 
 func (s *AtmService) CreateAtm(ctx context.Context, atm *atm.Atm) (*atm.Atm, error) {

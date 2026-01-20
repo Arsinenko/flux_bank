@@ -20,20 +20,24 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	AccountService_GetAll_FullMethodName               = "/protos.AccountService/GetAll"
-	AccountService_GetById_FullMethodName              = "/protos.AccountService/GetById"
-	AccountService_GetByIds_FullMethodName             = "/protos.AccountService/GetByIds"
-	AccountService_GetByCustomerId_FullMethodName      = "/protos.AccountService/GetByCustomerId"
-	AccountService_GetByDateRange_FullMethodName       = "/protos.AccountService/GetByDateRange"
-	AccountService_Add_FullMethodName                  = "/protos.AccountService/Add"
-	AccountService_Update_FullMethodName               = "/protos.AccountService/Update"
-	AccountService_Delete_FullMethodName               = "/protos.AccountService/Delete"
-	AccountService_AddBulk_FullMethodName              = "/protos.AccountService/AddBulk"
-	AccountService_UpdateBulk_FullMethodName           = "/protos.AccountService/UpdateBulk"
-	AccountService_DeleteBulk_FullMethodName           = "/protos.AccountService/DeleteBulk"
-	AccountService_GetCount_FullMethodName             = "/protos.AccountService/GetCount"
-	AccountService_GetCountByDateRange_FullMethodName  = "/protos.AccountService/GetCountByDateRange"
-	AccountService_GetCountByCustomerId_FullMethodName = "/protos.AccountService/GetCountByCustomerId"
+	AccountService_GetAll_FullMethodName                       = "/protos.AccountService/GetAll"
+	AccountService_GetById_FullMethodName                      = "/protos.AccountService/GetById"
+	AccountService_GetByIds_FullMethodName                     = "/protos.AccountService/GetByIds"
+	AccountService_GetByCustomerId_FullMethodName              = "/protos.AccountService/GetByCustomerId"
+	AccountService_GetByDateRange_FullMethodName               = "/protos.AccountService/GetByDateRange"
+	AccountService_Add_FullMethodName                          = "/protos.AccountService/Add"
+	AccountService_Update_FullMethodName                       = "/protos.AccountService/Update"
+	AccountService_Delete_FullMethodName                       = "/protos.AccountService/Delete"
+	AccountService_AddBulk_FullMethodName                      = "/protos.AccountService/AddBulk"
+	AccountService_UpdateBulk_FullMethodName                   = "/protos.AccountService/UpdateBulk"
+	AccountService_DeleteBulk_FullMethodName                   = "/protos.AccountService/DeleteBulk"
+	AccountService_GetCount_FullMethodName                     = "/protos.AccountService/GetCount"
+	AccountService_GetCountByStatus_FullMethodName             = "/protos.AccountService/GetCountByStatus"
+	AccountService_GetCountByDateRange_FullMethodName          = "/protos.AccountService/GetCountByDateRange"
+	AccountService_GetCountByCustomerId_FullMethodName         = "/protos.AccountService/GetCountByCustomerId"
+	AccountService_GetTotalBalance_FullMethodName              = "/protos.AccountService/GetTotalBalance"
+	AccountService_GetTotalBalanceByAccountType_FullMethodName = "/protos.AccountService/GetTotalBalanceByAccountType"
+	AccountService_GetAvgBalance_FullMethodName                = "/protos.AccountService/GetAvgBalance"
 )
 
 // AccountServiceClient is the client API for AccountService service.
@@ -52,8 +56,12 @@ type AccountServiceClient interface {
 	UpdateBulk(ctx context.Context, in *UpdateAccountBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	DeleteBulk(ctx context.Context, in *DeleteAccountBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	GetCount(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*CountResponse, error)
+	GetCountByStatus(ctx context.Context, in *GetAccountsByStatusRequest, opts ...grpc.CallOption) (*CountResponse, error)
 	GetCountByDateRange(ctx context.Context, in *GetByDateRangeRequest, opts ...grpc.CallOption) (*CountResponse, error)
 	GetCountByCustomerId(ctx context.Context, in *GetAccountByCustomerIdRequest, opts ...grpc.CallOption) (*CountResponse, error)
+	GetTotalBalance(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*TotalBalanceResponse, error)
+	GetTotalBalanceByAccountType(ctx context.Context, in *GetTotalBalanceByAccountTypeRequest, opts ...grpc.CallOption) (*TotalBalanceResponse, error)
+	GetAvgBalance(ctx context.Context, in *GetAvgBalanceRequest, opts ...grpc.CallOption) (*TotalBalanceResponse, error)
 }
 
 type accountServiceClient struct {
@@ -184,6 +192,16 @@ func (c *accountServiceClient) GetCount(ctx context.Context, in *emptypb.Empty, 
 	return out, nil
 }
 
+func (c *accountServiceClient) GetCountByStatus(ctx context.Context, in *GetAccountsByStatusRequest, opts ...grpc.CallOption) (*CountResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CountResponse)
+	err := c.cc.Invoke(ctx, AccountService_GetCountByStatus_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *accountServiceClient) GetCountByDateRange(ctx context.Context, in *GetByDateRangeRequest, opts ...grpc.CallOption) (*CountResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(CountResponse)
@@ -198,6 +216,36 @@ func (c *accountServiceClient) GetCountByCustomerId(ctx context.Context, in *Get
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(CountResponse)
 	err := c.cc.Invoke(ctx, AccountService_GetCountByCustomerId_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *accountServiceClient) GetTotalBalance(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*TotalBalanceResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(TotalBalanceResponse)
+	err := c.cc.Invoke(ctx, AccountService_GetTotalBalance_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *accountServiceClient) GetTotalBalanceByAccountType(ctx context.Context, in *GetTotalBalanceByAccountTypeRequest, opts ...grpc.CallOption) (*TotalBalanceResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(TotalBalanceResponse)
+	err := c.cc.Invoke(ctx, AccountService_GetTotalBalanceByAccountType_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *accountServiceClient) GetAvgBalance(ctx context.Context, in *GetAvgBalanceRequest, opts ...grpc.CallOption) (*TotalBalanceResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(TotalBalanceResponse)
+	err := c.cc.Invoke(ctx, AccountService_GetAvgBalance_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -220,8 +268,12 @@ type AccountServiceServer interface {
 	UpdateBulk(context.Context, *UpdateAccountBulkRequest) (*emptypb.Empty, error)
 	DeleteBulk(context.Context, *DeleteAccountBulkRequest) (*emptypb.Empty, error)
 	GetCount(context.Context, *emptypb.Empty) (*CountResponse, error)
+	GetCountByStatus(context.Context, *GetAccountsByStatusRequest) (*CountResponse, error)
 	GetCountByDateRange(context.Context, *GetByDateRangeRequest) (*CountResponse, error)
 	GetCountByCustomerId(context.Context, *GetAccountByCustomerIdRequest) (*CountResponse, error)
+	GetTotalBalance(context.Context, *emptypb.Empty) (*TotalBalanceResponse, error)
+	GetTotalBalanceByAccountType(context.Context, *GetTotalBalanceByAccountTypeRequest) (*TotalBalanceResponse, error)
+	GetAvgBalance(context.Context, *GetAvgBalanceRequest) (*TotalBalanceResponse, error)
 	mustEmbedUnimplementedAccountServiceServer()
 }
 
@@ -268,11 +320,23 @@ func (UnimplementedAccountServiceServer) DeleteBulk(context.Context, *DeleteAcco
 func (UnimplementedAccountServiceServer) GetCount(context.Context, *emptypb.Empty) (*CountResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetCount not implemented")
 }
+func (UnimplementedAccountServiceServer) GetCountByStatus(context.Context, *GetAccountsByStatusRequest) (*CountResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetCountByStatus not implemented")
+}
 func (UnimplementedAccountServiceServer) GetCountByDateRange(context.Context, *GetByDateRangeRequest) (*CountResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetCountByDateRange not implemented")
 }
 func (UnimplementedAccountServiceServer) GetCountByCustomerId(context.Context, *GetAccountByCustomerIdRequest) (*CountResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetCountByCustomerId not implemented")
+}
+func (UnimplementedAccountServiceServer) GetTotalBalance(context.Context, *emptypb.Empty) (*TotalBalanceResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetTotalBalance not implemented")
+}
+func (UnimplementedAccountServiceServer) GetTotalBalanceByAccountType(context.Context, *GetTotalBalanceByAccountTypeRequest) (*TotalBalanceResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetTotalBalanceByAccountType not implemented")
+}
+func (UnimplementedAccountServiceServer) GetAvgBalance(context.Context, *GetAvgBalanceRequest) (*TotalBalanceResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetAvgBalance not implemented")
 }
 func (UnimplementedAccountServiceServer) mustEmbedUnimplementedAccountServiceServer() {}
 func (UnimplementedAccountServiceServer) testEmbeddedByValue()                        {}
@@ -511,6 +575,24 @@ func _AccountService_GetCount_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AccountService_GetCountByStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAccountsByStatusRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountServiceServer).GetCountByStatus(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AccountService_GetCountByStatus_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountServiceServer).GetCountByStatus(ctx, req.(*GetAccountsByStatusRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _AccountService_GetCountByDateRange_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetByDateRangeRequest)
 	if err := dec(in); err != nil {
@@ -543,6 +625,60 @@ func _AccountService_GetCountByCustomerId_Handler(srv interface{}, ctx context.C
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(AccountServiceServer).GetCountByCustomerId(ctx, req.(*GetAccountByCustomerIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AccountService_GetTotalBalance_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(emptypb.Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountServiceServer).GetTotalBalance(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AccountService_GetTotalBalance_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountServiceServer).GetTotalBalance(ctx, req.(*emptypb.Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AccountService_GetTotalBalanceByAccountType_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetTotalBalanceByAccountTypeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountServiceServer).GetTotalBalanceByAccountType(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AccountService_GetTotalBalanceByAccountType_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountServiceServer).GetTotalBalanceByAccountType(ctx, req.(*GetTotalBalanceByAccountTypeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AccountService_GetAvgBalance_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAvgBalanceRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountServiceServer).GetAvgBalance(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AccountService_GetAvgBalance_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountServiceServer).GetAvgBalance(ctx, req.(*GetAvgBalanceRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -603,12 +739,28 @@ var AccountService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _AccountService_GetCount_Handler,
 		},
 		{
+			MethodName: "GetCountByStatus",
+			Handler:    _AccountService_GetCountByStatus_Handler,
+		},
+		{
 			MethodName: "GetCountByDateRange",
 			Handler:    _AccountService_GetCountByDateRange_Handler,
 		},
 		{
 			MethodName: "GetCountByCustomerId",
 			Handler:    _AccountService_GetCountByCustomerId_Handler,
+		},
+		{
+			MethodName: "GetTotalBalance",
+			Handler:    _AccountService_GetTotalBalance_Handler,
+		},
+		{
+			MethodName: "GetTotalBalanceByAccountType",
+			Handler:    _AccountService_GetTotalBalanceByAccountType_Handler,
+		},
+		{
+			MethodName: "GetAvgBalance",
+			Handler:    _AccountService_GetAvgBalance_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

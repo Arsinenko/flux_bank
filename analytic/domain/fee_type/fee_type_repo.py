@@ -6,7 +6,7 @@ from domain.fee_type.fee_type import FeeType
 
 class FeeTypeRepositoryAbc(ABC):
     @abstractmethod
-    async def get_all(self, page_n: int, page_size: int) -> List[FeeType]:
+    async def get_all(self, page_n: int, page_size: int, order_by: str = None, is_desc: bool = False) -> List[FeeType]:
         pass
 
     @abstractmethod

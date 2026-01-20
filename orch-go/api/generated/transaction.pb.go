@@ -23,6 +23,50 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+type TotalAmountResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	TotalAmount   string                 `protobuf:"bytes,1,opt,name=total_amount,json=totalAmount,proto3" json:"total_amount,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *TotalAmountResponse) Reset() {
+	*x = TotalAmountResponse{}
+	mi := &file_transaction_proto_msgTypes[0]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *TotalAmountResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*TotalAmountResponse) ProtoMessage() {}
+
+func (x *TotalAmountResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_transaction_proto_msgTypes[0]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use TotalAmountResponse.ProtoReflect.Descriptor instead.
+func (*TotalAmountResponse) Descriptor() ([]byte, []int) {
+	return file_transaction_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *TotalAmountResponse) GetTotalAmount() string {
+	if x != nil {
+		return x.TotalAmount
+	}
+	return ""
+}
+
 type TransactionModel struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	TransactionId int32                  `protobuf:"varint,1,opt,name=transaction_id,json=transactionId,proto3" json:"transaction_id,omitempty"`
@@ -38,7 +82,7 @@ type TransactionModel struct {
 
 func (x *TransactionModel) Reset() {
 	*x = TransactionModel{}
-	mi := &file_transaction_proto_msgTypes[0]
+	mi := &file_transaction_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -50,7 +94,7 @@ func (x *TransactionModel) String() string {
 func (*TransactionModel) ProtoMessage() {}
 
 func (x *TransactionModel) ProtoReflect() protoreflect.Message {
-	mi := &file_transaction_proto_msgTypes[0]
+	mi := &file_transaction_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -63,7 +107,7 @@ func (x *TransactionModel) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TransactionModel.ProtoReflect.Descriptor instead.
 func (*TransactionModel) Descriptor() ([]byte, []int) {
-	return file_transaction_proto_rawDescGZIP(), []int{0}
+	return file_transaction_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *TransactionModel) GetTransactionId() int32 {
@@ -124,7 +168,7 @@ type GetAllTransactionsResponse struct {
 
 func (x *GetAllTransactionsResponse) Reset() {
 	*x = GetAllTransactionsResponse{}
-	mi := &file_transaction_proto_msgTypes[1]
+	mi := &file_transaction_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -136,7 +180,7 @@ func (x *GetAllTransactionsResponse) String() string {
 func (*GetAllTransactionsResponse) ProtoMessage() {}
 
 func (x *GetAllTransactionsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_transaction_proto_msgTypes[1]
+	mi := &file_transaction_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -149,7 +193,7 @@ func (x *GetAllTransactionsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetAllTransactionsResponse.ProtoReflect.Descriptor instead.
 func (*GetAllTransactionsResponse) Descriptor() ([]byte, []int) {
-	return file_transaction_proto_rawDescGZIP(), []int{1}
+	return file_transaction_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *GetAllTransactionsResponse) GetTransactions() []*TransactionModel {
@@ -168,7 +212,7 @@ type GetTransactionByIdRequest struct {
 
 func (x *GetTransactionByIdRequest) Reset() {
 	*x = GetTransactionByIdRequest{}
-	mi := &file_transaction_proto_msgTypes[2]
+	mi := &file_transaction_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -180,7 +224,7 @@ func (x *GetTransactionByIdRequest) String() string {
 func (*GetTransactionByIdRequest) ProtoMessage() {}
 
 func (x *GetTransactionByIdRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_transaction_proto_msgTypes[2]
+	mi := &file_transaction_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -193,7 +237,7 @@ func (x *GetTransactionByIdRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetTransactionByIdRequest.ProtoReflect.Descriptor instead.
 func (*GetTransactionByIdRequest) Descriptor() ([]byte, []int) {
-	return file_transaction_proto_rawDescGZIP(), []int{2}
+	return file_transaction_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *GetTransactionByIdRequest) GetTransactionId() int32 {
@@ -212,7 +256,7 @@ type GetTransactionByIdsRequest struct {
 
 func (x *GetTransactionByIdsRequest) Reset() {
 	*x = GetTransactionByIdsRequest{}
-	mi := &file_transaction_proto_msgTypes[3]
+	mi := &file_transaction_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -224,7 +268,7 @@ func (x *GetTransactionByIdsRequest) String() string {
 func (*GetTransactionByIdsRequest) ProtoMessage() {}
 
 func (x *GetTransactionByIdsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_transaction_proto_msgTypes[3]
+	mi := &file_transaction_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -237,7 +281,7 @@ func (x *GetTransactionByIdsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetTransactionByIdsRequest.ProtoReflect.Descriptor instead.
 func (*GetTransactionByIdsRequest) Descriptor() ([]byte, []int) {
-	return file_transaction_proto_rawDescGZIP(), []int{3}
+	return file_transaction_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *GetTransactionByIdsRequest) GetTransactionIds() []int32 {
@@ -257,7 +301,7 @@ type GetAccountRevenueRequest struct {
 
 func (x *GetAccountRevenueRequest) Reset() {
 	*x = GetAccountRevenueRequest{}
-	mi := &file_transaction_proto_msgTypes[4]
+	mi := &file_transaction_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -269,7 +313,7 @@ func (x *GetAccountRevenueRequest) String() string {
 func (*GetAccountRevenueRequest) ProtoMessage() {}
 
 func (x *GetAccountRevenueRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_transaction_proto_msgTypes[4]
+	mi := &file_transaction_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -282,7 +326,7 @@ func (x *GetAccountRevenueRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetAccountRevenueRequest.ProtoReflect.Descriptor instead.
 func (*GetAccountRevenueRequest) Descriptor() ([]byte, []int) {
-	return file_transaction_proto_rawDescGZIP(), []int{4}
+	return file_transaction_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *GetAccountRevenueRequest) GetTargetAccount() int32 {
@@ -309,7 +353,7 @@ type GetAccountExpensesRequest struct {
 
 func (x *GetAccountExpensesRequest) Reset() {
 	*x = GetAccountExpensesRequest{}
-	mi := &file_transaction_proto_msgTypes[5]
+	mi := &file_transaction_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -321,7 +365,7 @@ func (x *GetAccountExpensesRequest) String() string {
 func (*GetAccountExpensesRequest) ProtoMessage() {}
 
 func (x *GetAccountExpensesRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_transaction_proto_msgTypes[5]
+	mi := &file_transaction_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -334,7 +378,7 @@ func (x *GetAccountExpensesRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetAccountExpensesRequest.ProtoReflect.Descriptor instead.
 func (*GetAccountExpensesRequest) Descriptor() ([]byte, []int) {
-	return file_transaction_proto_rawDescGZIP(), []int{5}
+	return file_transaction_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *GetAccountExpensesRequest) GetSourceAccount() int32 {
@@ -364,7 +408,7 @@ type AddTransactionRequest struct {
 
 func (x *AddTransactionRequest) Reset() {
 	*x = AddTransactionRequest{}
-	mi := &file_transaction_proto_msgTypes[6]
+	mi := &file_transaction_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -376,7 +420,7 @@ func (x *AddTransactionRequest) String() string {
 func (*AddTransactionRequest) ProtoMessage() {}
 
 func (x *AddTransactionRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_transaction_proto_msgTypes[6]
+	mi := &file_transaction_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -389,7 +433,7 @@ func (x *AddTransactionRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AddTransactionRequest.ProtoReflect.Descriptor instead.
 func (*AddTransactionRequest) Descriptor() ([]byte, []int) {
-	return file_transaction_proto_rawDescGZIP(), []int{6}
+	return file_transaction_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *AddTransactionRequest) GetSourceAccount() int32 {
@@ -441,7 +485,7 @@ type UpdateTransactionRequest struct {
 
 func (x *UpdateTransactionRequest) Reset() {
 	*x = UpdateTransactionRequest{}
-	mi := &file_transaction_proto_msgTypes[7]
+	mi := &file_transaction_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -453,7 +497,7 @@ func (x *UpdateTransactionRequest) String() string {
 func (*UpdateTransactionRequest) ProtoMessage() {}
 
 func (x *UpdateTransactionRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_transaction_proto_msgTypes[7]
+	mi := &file_transaction_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -466,7 +510,7 @@ func (x *UpdateTransactionRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateTransactionRequest.ProtoReflect.Descriptor instead.
 func (*UpdateTransactionRequest) Descriptor() ([]byte, []int) {
-	return file_transaction_proto_rawDescGZIP(), []int{7}
+	return file_transaction_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *UpdateTransactionRequest) GetTransactionId() int32 {
@@ -520,7 +564,7 @@ type DeleteTransactionRequest struct {
 
 func (x *DeleteTransactionRequest) Reset() {
 	*x = DeleteTransactionRequest{}
-	mi := &file_transaction_proto_msgTypes[8]
+	mi := &file_transaction_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -532,7 +576,7 @@ func (x *DeleteTransactionRequest) String() string {
 func (*DeleteTransactionRequest) ProtoMessage() {}
 
 func (x *DeleteTransactionRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_transaction_proto_msgTypes[8]
+	mi := &file_transaction_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -545,7 +589,7 @@ func (x *DeleteTransactionRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteTransactionRequest.ProtoReflect.Descriptor instead.
 func (*DeleteTransactionRequest) Descriptor() ([]byte, []int) {
-	return file_transaction_proto_rawDescGZIP(), []int{8}
+	return file_transaction_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *DeleteTransactionRequest) GetTransactionId() int32 {
@@ -564,7 +608,7 @@ type AddTransactionBulkRequest struct {
 
 func (x *AddTransactionBulkRequest) Reset() {
 	*x = AddTransactionBulkRequest{}
-	mi := &file_transaction_proto_msgTypes[9]
+	mi := &file_transaction_proto_msgTypes[10]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -576,7 +620,7 @@ func (x *AddTransactionBulkRequest) String() string {
 func (*AddTransactionBulkRequest) ProtoMessage() {}
 
 func (x *AddTransactionBulkRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_transaction_proto_msgTypes[9]
+	mi := &file_transaction_proto_msgTypes[10]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -589,7 +633,7 @@ func (x *AddTransactionBulkRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AddTransactionBulkRequest.ProtoReflect.Descriptor instead.
 func (*AddTransactionBulkRequest) Descriptor() ([]byte, []int) {
-	return file_transaction_proto_rawDescGZIP(), []int{9}
+	return file_transaction_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *AddTransactionBulkRequest) GetTransactions() []*AddTransactionRequest {
@@ -608,7 +652,7 @@ type UpdateTransactionBulkRequest struct {
 
 func (x *UpdateTransactionBulkRequest) Reset() {
 	*x = UpdateTransactionBulkRequest{}
-	mi := &file_transaction_proto_msgTypes[10]
+	mi := &file_transaction_proto_msgTypes[11]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -620,7 +664,7 @@ func (x *UpdateTransactionBulkRequest) String() string {
 func (*UpdateTransactionBulkRequest) ProtoMessage() {}
 
 func (x *UpdateTransactionBulkRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_transaction_proto_msgTypes[10]
+	mi := &file_transaction_proto_msgTypes[11]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -633,7 +677,7 @@ func (x *UpdateTransactionBulkRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateTransactionBulkRequest.ProtoReflect.Descriptor instead.
 func (*UpdateTransactionBulkRequest) Descriptor() ([]byte, []int) {
-	return file_transaction_proto_rawDescGZIP(), []int{10}
+	return file_transaction_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *UpdateTransactionBulkRequest) GetTransactions() []*UpdateTransactionRequest {
@@ -652,7 +696,7 @@ type DeleteTransactionBulkRequest struct {
 
 func (x *DeleteTransactionBulkRequest) Reset() {
 	*x = DeleteTransactionBulkRequest{}
-	mi := &file_transaction_proto_msgTypes[11]
+	mi := &file_transaction_proto_msgTypes[12]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -664,7 +708,7 @@ func (x *DeleteTransactionBulkRequest) String() string {
 func (*DeleteTransactionBulkRequest) ProtoMessage() {}
 
 func (x *DeleteTransactionBulkRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_transaction_proto_msgTypes[11]
+	mi := &file_transaction_proto_msgTypes[12]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -677,7 +721,7 @@ func (x *DeleteTransactionBulkRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteTransactionBulkRequest.ProtoReflect.Descriptor instead.
 func (*DeleteTransactionBulkRequest) Descriptor() ([]byte, []int) {
-	return file_transaction_proto_rawDescGZIP(), []int{11}
+	return file_transaction_proto_rawDescGZIP(), []int{12}
 }
 
 func (x *DeleteTransactionBulkRequest) GetTransactions() []*DeleteTransactionRequest {
@@ -691,7 +735,9 @@ var File_transaction_proto protoreflect.FileDescriptor
 
 const file_transaction_proto_rawDesc = "" +
 	"\n" +
-	"\x11transaction.proto\x12\x06protos\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\raccount.proto\x1a\x12custom_types.proto\"\xe2\x02\n" +
+	"\x11transaction.proto\x12\x06protos\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\raccount.proto\x1a\x12custom_types.proto\"8\n" +
+	"\x13TotalAmountResponse\x12!\n" +
+	"\ftotal_amount\x18\x01 \x01(\tR\vtotalAmount\"\xe2\x02\n" +
 	"\x10TransactionModel\x12%\n" +
 	"\x0etransaction_id\x18\x01 \x01(\x05R\rtransactionId\x12*\n" +
 	"\x0esource_account\x18\x02 \x01(\x05H\x00R\rsourceAccount\x88\x01\x01\x12*\n" +
@@ -747,7 +793,8 @@ const file_transaction_proto_rawDesc = "" +
 	"\x1cUpdateTransactionBulkRequest\x12D\n" +
 	"\ftransactions\x18\x01 \x03(\v2 .protos.UpdateTransactionRequestR\ftransactions\"d\n" +
 	"\x1cDeleteTransactionBulkRequest\x12D\n" +
-	"\ftransactions\x18\x01 \x03(\v2 .protos.DeleteTransactionRequestR\ftransactions2\xd8\t\n" +
+	"\ftransactions\x18\x01 \x03(\v2 .protos.DeleteTransactionRequestR\ftransactions2\x9f\n" +
+	"\n" +
 	"\x12TransactionService\x12C\n" +
 	"\x06GetAll\x12\x15.protos.GetAllRequest\x1a\".protos.GetAllTransactionsResponse\x12F\n" +
 	"\aGetById\x12!.protos.GetTransactionByIdRequest\x1a\x18.protos.TransactionModel\x12R\n" +
@@ -766,7 +813,8 @@ const file_transaction_proto_rawDesc = "" +
 	"\bGetCount\x12\x16.google.protobuf.Empty\x1a\x15.protos.CountResponse\x12K\n" +
 	"\x13GetCountByDateRange\x12\x1d.protos.GetByDateRangeRequest\x1a\x15.protos.CountResponse\x12Q\n" +
 	"\x16GetCountAccountRevenue\x12 .protos.GetAccountRevenueRequest\x1a\x15.protos.CountResponse\x12S\n" +
-	"\x17GetCountAccountExpenses\x12!.protos.GetAccountExpensesRequest\x1a\x15.protos.CountResponseB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
+	"\x17GetCountAccountExpenses\x12!.protos.GetAccountExpensesRequest\x1a\x15.protos.CountResponse\x12E\n" +
+	"\x0eGetTotalAmount\x12\x16.google.protobuf.Empty\x1a\x1b.protos.TotalAmountResponseB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
 
 var (
 	file_transaction_proto_rawDescOnce sync.Once
@@ -780,68 +828,71 @@ func file_transaction_proto_rawDescGZIP() []byte {
 	return file_transaction_proto_rawDescData
 }
 
-var file_transaction_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
+var file_transaction_proto_msgTypes = make([]protoimpl.MessageInfo, 13)
 var file_transaction_proto_goTypes = []any{
-	(*TransactionModel)(nil),             // 0: protos.TransactionModel
-	(*GetAllTransactionsResponse)(nil),   // 1: protos.GetAllTransactionsResponse
-	(*GetTransactionByIdRequest)(nil),    // 2: protos.GetTransactionByIdRequest
-	(*GetTransactionByIdsRequest)(nil),   // 3: protos.GetTransactionByIdsRequest
-	(*GetAccountRevenueRequest)(nil),     // 4: protos.GetAccountRevenueRequest
-	(*GetAccountExpensesRequest)(nil),    // 5: protos.GetAccountExpensesRequest
-	(*AddTransactionRequest)(nil),        // 6: protos.AddTransactionRequest
-	(*UpdateTransactionRequest)(nil),     // 7: protos.UpdateTransactionRequest
-	(*DeleteTransactionRequest)(nil),     // 8: protos.DeleteTransactionRequest
-	(*AddTransactionBulkRequest)(nil),    // 9: protos.AddTransactionBulkRequest
-	(*UpdateTransactionBulkRequest)(nil), // 10: protos.UpdateTransactionBulkRequest
-	(*DeleteTransactionBulkRequest)(nil), // 11: protos.DeleteTransactionBulkRequest
-	(*timestamppb.Timestamp)(nil),        // 12: google.protobuf.Timestamp
-	(*GetByDateRangeRequest)(nil),        // 13: protos.GetByDateRangeRequest
-	(*GetAllRequest)(nil),                // 14: protos.GetAllRequest
-	(*emptypb.Empty)(nil),                // 15: google.protobuf.Empty
-	(*CountResponse)(nil),                // 16: protos.CountResponse
+	(*TotalAmountResponse)(nil),          // 0: protos.TotalAmountResponse
+	(*TransactionModel)(nil),             // 1: protos.TransactionModel
+	(*GetAllTransactionsResponse)(nil),   // 2: protos.GetAllTransactionsResponse
+	(*GetTransactionByIdRequest)(nil),    // 3: protos.GetTransactionByIdRequest
+	(*GetTransactionByIdsRequest)(nil),   // 4: protos.GetTransactionByIdsRequest
+	(*GetAccountRevenueRequest)(nil),     // 5: protos.GetAccountRevenueRequest
+	(*GetAccountExpensesRequest)(nil),    // 6: protos.GetAccountExpensesRequest
+	(*AddTransactionRequest)(nil),        // 7: protos.AddTransactionRequest
+	(*UpdateTransactionRequest)(nil),     // 8: protos.UpdateTransactionRequest
+	(*DeleteTransactionRequest)(nil),     // 9: protos.DeleteTransactionRequest
+	(*AddTransactionBulkRequest)(nil),    // 10: protos.AddTransactionBulkRequest
+	(*UpdateTransactionBulkRequest)(nil), // 11: protos.UpdateTransactionBulkRequest
+	(*DeleteTransactionBulkRequest)(nil), // 12: protos.DeleteTransactionBulkRequest
+	(*timestamppb.Timestamp)(nil),        // 13: google.protobuf.Timestamp
+	(*GetByDateRangeRequest)(nil),        // 14: protos.GetByDateRangeRequest
+	(*GetAllRequest)(nil),                // 15: protos.GetAllRequest
+	(*emptypb.Empty)(nil),                // 16: google.protobuf.Empty
+	(*CountResponse)(nil),                // 17: protos.CountResponse
 }
 var file_transaction_proto_depIdxs = []int32{
-	12, // 0: protos.TransactionModel.created_at:type_name -> google.protobuf.Timestamp
-	0,  // 1: protos.GetAllTransactionsResponse.transactions:type_name -> protos.TransactionModel
-	13, // 2: protos.GetAccountRevenueRequest.date_range:type_name -> protos.GetByDateRangeRequest
-	13, // 3: protos.GetAccountExpensesRequest.date_range:type_name -> protos.GetByDateRangeRequest
-	6,  // 4: protos.AddTransactionBulkRequest.transactions:type_name -> protos.AddTransactionRequest
-	7,  // 5: protos.UpdateTransactionBulkRequest.transactions:type_name -> protos.UpdateTransactionRequest
-	8,  // 6: protos.DeleteTransactionBulkRequest.transactions:type_name -> protos.DeleteTransactionRequest
-	14, // 7: protos.TransactionService.GetAll:input_type -> protos.GetAllRequest
-	2,  // 8: protos.TransactionService.GetById:input_type -> protos.GetTransactionByIdRequest
-	3,  // 9: protos.TransactionService.GetByIds:input_type -> protos.GetTransactionByIdsRequest
-	13, // 10: protos.TransactionService.GetByDateRange:input_type -> protos.GetByDateRangeRequest
-	4,  // 11: protos.TransactionService.GetAccountRevenue:input_type -> protos.GetAccountRevenueRequest
-	5,  // 12: protos.TransactionService.GetAccountExpenses:input_type -> protos.GetAccountExpensesRequest
-	6,  // 13: protos.TransactionService.Add:input_type -> protos.AddTransactionRequest
-	7,  // 14: protos.TransactionService.Update:input_type -> protos.UpdateTransactionRequest
-	8,  // 15: protos.TransactionService.Delete:input_type -> protos.DeleteTransactionRequest
-	9,  // 16: protos.TransactionService.AddBulk:input_type -> protos.AddTransactionBulkRequest
-	10, // 17: protos.TransactionService.UpdateBulk:input_type -> protos.UpdateTransactionBulkRequest
-	11, // 18: protos.TransactionService.DeleteBulk:input_type -> protos.DeleteTransactionBulkRequest
-	15, // 19: protos.TransactionService.GetCount:input_type -> google.protobuf.Empty
-	13, // 20: protos.TransactionService.GetCountByDateRange:input_type -> protos.GetByDateRangeRequest
-	4,  // 21: protos.TransactionService.GetCountAccountRevenue:input_type -> protos.GetAccountRevenueRequest
-	5,  // 22: protos.TransactionService.GetCountAccountExpenses:input_type -> protos.GetAccountExpensesRequest
-	1,  // 23: protos.TransactionService.GetAll:output_type -> protos.GetAllTransactionsResponse
-	0,  // 24: protos.TransactionService.GetById:output_type -> protos.TransactionModel
-	1,  // 25: protos.TransactionService.GetByIds:output_type -> protos.GetAllTransactionsResponse
-	1,  // 26: protos.TransactionService.GetByDateRange:output_type -> protos.GetAllTransactionsResponse
-	1,  // 27: protos.TransactionService.GetAccountRevenue:output_type -> protos.GetAllTransactionsResponse
-	1,  // 28: protos.TransactionService.GetAccountExpenses:output_type -> protos.GetAllTransactionsResponse
-	0,  // 29: protos.TransactionService.Add:output_type -> protos.TransactionModel
-	15, // 30: protos.TransactionService.Update:output_type -> google.protobuf.Empty
-	15, // 31: protos.TransactionService.Delete:output_type -> google.protobuf.Empty
-	15, // 32: protos.TransactionService.AddBulk:output_type -> google.protobuf.Empty
-	15, // 33: protos.TransactionService.UpdateBulk:output_type -> google.protobuf.Empty
-	15, // 34: protos.TransactionService.DeleteBulk:output_type -> google.protobuf.Empty
-	16, // 35: protos.TransactionService.GetCount:output_type -> protos.CountResponse
-	16, // 36: protos.TransactionService.GetCountByDateRange:output_type -> protos.CountResponse
-	16, // 37: protos.TransactionService.GetCountAccountRevenue:output_type -> protos.CountResponse
-	16, // 38: protos.TransactionService.GetCountAccountExpenses:output_type -> protos.CountResponse
-	23, // [23:39] is the sub-list for method output_type
-	7,  // [7:23] is the sub-list for method input_type
+	13, // 0: protos.TransactionModel.created_at:type_name -> google.protobuf.Timestamp
+	1,  // 1: protos.GetAllTransactionsResponse.transactions:type_name -> protos.TransactionModel
+	14, // 2: protos.GetAccountRevenueRequest.date_range:type_name -> protos.GetByDateRangeRequest
+	14, // 3: protos.GetAccountExpensesRequest.date_range:type_name -> protos.GetByDateRangeRequest
+	7,  // 4: protos.AddTransactionBulkRequest.transactions:type_name -> protos.AddTransactionRequest
+	8,  // 5: protos.UpdateTransactionBulkRequest.transactions:type_name -> protos.UpdateTransactionRequest
+	9,  // 6: protos.DeleteTransactionBulkRequest.transactions:type_name -> protos.DeleteTransactionRequest
+	15, // 7: protos.TransactionService.GetAll:input_type -> protos.GetAllRequest
+	3,  // 8: protos.TransactionService.GetById:input_type -> protos.GetTransactionByIdRequest
+	4,  // 9: protos.TransactionService.GetByIds:input_type -> protos.GetTransactionByIdsRequest
+	14, // 10: protos.TransactionService.GetByDateRange:input_type -> protos.GetByDateRangeRequest
+	5,  // 11: protos.TransactionService.GetAccountRevenue:input_type -> protos.GetAccountRevenueRequest
+	6,  // 12: protos.TransactionService.GetAccountExpenses:input_type -> protos.GetAccountExpensesRequest
+	7,  // 13: protos.TransactionService.Add:input_type -> protos.AddTransactionRequest
+	8,  // 14: protos.TransactionService.Update:input_type -> protos.UpdateTransactionRequest
+	9,  // 15: protos.TransactionService.Delete:input_type -> protos.DeleteTransactionRequest
+	10, // 16: protos.TransactionService.AddBulk:input_type -> protos.AddTransactionBulkRequest
+	11, // 17: protos.TransactionService.UpdateBulk:input_type -> protos.UpdateTransactionBulkRequest
+	12, // 18: protos.TransactionService.DeleteBulk:input_type -> protos.DeleteTransactionBulkRequest
+	16, // 19: protos.TransactionService.GetCount:input_type -> google.protobuf.Empty
+	14, // 20: protos.TransactionService.GetCountByDateRange:input_type -> protos.GetByDateRangeRequest
+	5,  // 21: protos.TransactionService.GetCountAccountRevenue:input_type -> protos.GetAccountRevenueRequest
+	6,  // 22: protos.TransactionService.GetCountAccountExpenses:input_type -> protos.GetAccountExpensesRequest
+	16, // 23: protos.TransactionService.GetTotalAmount:input_type -> google.protobuf.Empty
+	2,  // 24: protos.TransactionService.GetAll:output_type -> protos.GetAllTransactionsResponse
+	1,  // 25: protos.TransactionService.GetById:output_type -> protos.TransactionModel
+	2,  // 26: protos.TransactionService.GetByIds:output_type -> protos.GetAllTransactionsResponse
+	2,  // 27: protos.TransactionService.GetByDateRange:output_type -> protos.GetAllTransactionsResponse
+	2,  // 28: protos.TransactionService.GetAccountRevenue:output_type -> protos.GetAllTransactionsResponse
+	2,  // 29: protos.TransactionService.GetAccountExpenses:output_type -> protos.GetAllTransactionsResponse
+	1,  // 30: protos.TransactionService.Add:output_type -> protos.TransactionModel
+	16, // 31: protos.TransactionService.Update:output_type -> google.protobuf.Empty
+	16, // 32: protos.TransactionService.Delete:output_type -> google.protobuf.Empty
+	16, // 33: protos.TransactionService.AddBulk:output_type -> google.protobuf.Empty
+	16, // 34: protos.TransactionService.UpdateBulk:output_type -> google.protobuf.Empty
+	16, // 35: protos.TransactionService.DeleteBulk:output_type -> google.protobuf.Empty
+	17, // 36: protos.TransactionService.GetCount:output_type -> protos.CountResponse
+	17, // 37: protos.TransactionService.GetCountByDateRange:output_type -> protos.CountResponse
+	17, // 38: protos.TransactionService.GetCountAccountRevenue:output_type -> protos.CountResponse
+	17, // 39: protos.TransactionService.GetCountAccountExpenses:output_type -> protos.CountResponse
+	0,  // 40: protos.TransactionService.GetTotalAmount:output_type -> protos.TotalAmountResponse
+	24, // [24:41] is the sub-list for method output_type
+	7,  // [7:24] is the sub-list for method input_type
 	7,  // [7:7] is the sub-list for extension type_name
 	7,  // [7:7] is the sub-list for extension extendee
 	0,  // [0:7] is the sub-list for field type_name
@@ -854,18 +905,18 @@ func file_transaction_proto_init() {
 	}
 	file_account_proto_init()
 	file_custom_types_proto_init()
-	file_transaction_proto_msgTypes[0].OneofWrappers = []any{}
-	file_transaction_proto_msgTypes[4].OneofWrappers = []any{}
+	file_transaction_proto_msgTypes[1].OneofWrappers = []any{}
 	file_transaction_proto_msgTypes[5].OneofWrappers = []any{}
 	file_transaction_proto_msgTypes[6].OneofWrappers = []any{}
 	file_transaction_proto_msgTypes[7].OneofWrappers = []any{}
+	file_transaction_proto_msgTypes[8].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_transaction_proto_rawDesc), len(file_transaction_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   12,
+			NumMessages:   13,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

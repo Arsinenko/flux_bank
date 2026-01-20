@@ -5,6 +5,8 @@ import (
 	"fmt"
 	pb "orch-go/api/generated"
 	"orch-go/internal/domain/user_credential"
+
+	"google.golang.org/protobuf/types/known/wrapperspb"
 )
 
 type Repository struct {
@@ -23,10 +25,12 @@ func NewRepository(client pb.UserCredentialServiceClient) Repository {
 	return Repository{client: client}
 }
 
-func (r Repository) GetAll(ctx context.Context, pageN, pageSize int32) ([]*user_credential.UserCredential, error) {
+func (r Repository) GetAll(ctx context.Context, pageN, pageSize int32, orderBy string, isDesc bool) ([]*user_credential.UserCredential, error) {
 	resp, err := r.client.GetAll(ctx, &pb.GetAllRequest{
 		PageN:    pageN,
 		PageSize: pageSize,
+		OrderBy:  &wrapperspb.StringValue{Value: orderBy},
+		IsDesc:   &wrapperspb.BoolValue{Value: isDesc},
 	})
 	if err != nil {
 		return nil, fmt.Errorf("user_credential_repo.GetAll: %w", err)

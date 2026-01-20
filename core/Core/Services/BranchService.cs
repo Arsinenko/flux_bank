@@ -19,7 +19,7 @@ public class BranchService(IBranchRepository branchRepository, IMapper mapper) :
 
     public override async Task<GetAllBranchesResponse> GetAll(GetAllRequest request, ServerCallContext context)
     {
-        var branches = await branchRepository.GetAllAsync(request.PageN, request.PageSize);
+        var branches = await branchRepository.GetAllAsync(request.PageN, request.PageSize, request.OrderBy, request.IsDesc ?? false);
         return new GetAllBranchesResponse()
         {
             Branches = { mapper.Map<IEnumerable<BranchModel>>(branches) }

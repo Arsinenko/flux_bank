@@ -5,6 +5,8 @@ import (
 	"fmt"
 	pb "orch-go/api/generated"
 	"orch-go/internal/domain/exchange_rate"
+
+	"google.golang.org/protobuf/types/known/wrapperspb"
 )
 
 type Repository struct {
@@ -31,10 +33,12 @@ func NewRepository(client pb.ExchangeRateServiceClient) Repository {
 	}
 }
 
-func (r Repository) GetAll(ctx context.Context, pageN, pageSize int32) ([]*exchange_rate.ExchangeRate, error) {
+func (r Repository) GetAll(ctx context.Context, pageN, pageSize int32, orderBy string, isDesc bool) ([]*exchange_rate.ExchangeRate, error) {
 	resp, err := r.client.GetAll(ctx, &pb.GetAllRequest{
 		PageN:    pageN,
 		PageSize: pageSize,
+		OrderBy:  &wrapperspb.StringValue{Value: orderBy},
+		IsDesc:   &wrapperspb.BoolValue{Value: isDesc},
 	})
 	if err != nil {
 		return nil, fmt.Errorf("exchange_rate_repo.GetAll: %w", err)

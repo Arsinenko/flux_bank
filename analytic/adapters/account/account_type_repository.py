@@ -5,8 +5,8 @@ from google.protobuf.empty_pb2 import Empty
 
 from adapters.base_grpc_repository import BaseGrpcRepository
 from api.generated.account_type_pb2 import *
-from api.generated.account_type_pb2_grpc import AccountTypeServiceStub
-from api.generated.custom_types_pb2 import GetAllRequest
+from google.protobuf.wrappers_pb2 import StringValue, BoolValue
+from api.generated.account_type_pb2 import *
 from domain.account.account_type import AccountType
 from domain.account.account_type_repo import AccountTypeRepositoryAbc
 
@@ -40,8 +40,13 @@ class AccountTypeRepository(AccountTypeRepositoryAbc, BaseGrpcRepository):
             name=domain.name,
             description=domain.description
         )
-    async def get_all(self, page_n: int, page_size: int) -> List[AccountType]:
-        request = GetAllRequest(pageN=page_n, pageSize=page_size)
+    async def get_all(self, page_n: int, page_size: int, order_by: str = None, is_desc: bool = False) -> List[AccountType]:
+        request = GetAllRequest(
+            pageN=page_n,
+            pageSize=page_size,
+            order_by=StringValue(value=order_by) if order_by else None,
+            is_desc=BoolValue(value=is_desc)
+        )
         result = await self._execute(self.stub.GetAll(request))
         return [self.to_domain(model) for model in result.account_types]
 

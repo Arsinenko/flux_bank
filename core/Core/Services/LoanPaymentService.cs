@@ -10,9 +10,9 @@ namespace Core.Services;
 public class LoanPaymentService(ILoanPaymentRepository loanPaymentRepository, IMapper mapper)
     : Core.LoanPaymentService.LoanPaymentServiceBase
 {
-    public override async Task<GetAllLoanPaymentsResponse>GetAll( GetAllRequest request, ServerCallContext context)
+    public override async Task<GetAllLoanPaymentsResponse> GetAll(GetAllRequest request, ServerCallContext context)
     {
-        var loanPayments = await loanPaymentRepository.GetAllAsync(request.PageN, request.PageSize);
+        var loanPayments = await loanPaymentRepository.GetAllAsync(request.PageN, request.PageSize, request.OrderBy, request.IsDesc ?? false);
 
         return new GetAllLoanPaymentsResponse
         {
@@ -119,5 +119,5 @@ public class LoanPaymentService(ILoanPaymentRepository loanPaymentRepository, IM
             Count = count
         };
     }
-    
+
 }

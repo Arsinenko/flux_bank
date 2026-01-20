@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"google.golang.org/protobuf/types/known/timestamppb"
+	"google.golang.org/protobuf/types/known/wrapperspb"
 )
 
 type Repository struct {
@@ -49,10 +50,12 @@ func NewRepository(client pb.LoginLogServiceClient) Repository {
 	return Repository{client: client}
 }
 
-func (l Repository) GetAll(ctx context.Context, pageN, pageSize int32) ([]*login_log.LoginLog, error) {
+func (l Repository) GetAll(ctx context.Context, pageN, pageSize int32, orderBy string, isDesc bool) ([]*login_log.LoginLog, error) {
 	resp, err := l.client.GetAll(ctx, &pb.GetAllRequest{
 		PageN:    pageN,
 		PageSize: pageSize,
+		OrderBy:  &wrapperspb.StringValue{Value: orderBy},
+		IsDesc:   &wrapperspb.BoolValue{Value: isDesc},
 	})
 	if err != nil {
 		return nil, err

@@ -8,7 +8,7 @@ from domain.account.account import Account
 
 class AccountRepositoryAbc(ABC):
     @abstractmethod
-    async def get_all(self, page_n: int, page_size: int) -> List[Account]:
+    async def get_all(self, page_n: int, page_size: int, order_by: str = None, is_desc: bool = False) -> List[Account]:
         pass
 
     @abstractmethod
@@ -45,4 +45,12 @@ class AccountRepositoryAbc(ABC):
 
     @abstractmethod
     async def get_total_balance(self) -> decimal.Decimal:
+        pass
+
+    @abstractmethod
+    async def get_total_balance_by_type(self, type_id: int) -> decimal.Decimal:
+        pass
+    
+    @abstractmethod
+    async def get_avg_balance(self, type_id: int = None, status: bool = None) -> decimal.Decimal:
         pass

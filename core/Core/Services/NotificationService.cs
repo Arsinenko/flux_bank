@@ -10,9 +10,9 @@ namespace Core.Services;
 public class NotificationService(INotificationRepository notificationRepository, IMapper mapper)
     : Core.NotificationService.NotificationServiceBase
 {
-    public override async Task<GetAllNotificationsResponse>GetAll( GetAllRequest request, ServerCallContext context)
+    public override async Task<GetAllNotificationsResponse> GetAll(GetAllRequest request, ServerCallContext context)
     {
-        var notifications = await notificationRepository.GetAllAsync(request.PageN, request.PageSize);
+        var notifications = await notificationRepository.GetAllAsync(request.PageN, request.PageSize, request.OrderBy, request.IsDesc ?? false);
 
         return new GetAllNotificationsResponse
         {

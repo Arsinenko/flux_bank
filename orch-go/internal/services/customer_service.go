@@ -26,8 +26,8 @@ func (s *CustomerService) GetCustomersByDateRange(ctx context.Context, req custo
 	return s.repo.GetByDateRange(ctx, req)
 }
 
-func (s *CustomerService) GetAllCustomers(ctx context.Context, pageN, pageSize int32) ([]customer.Customer, error) {
-	return s.repo.GetAll(ctx, pageN, pageSize)
+func (s *CustomerService) GetAllCustomers(ctx context.Context, pageN, pageSize int32, orderBy string, isDesc bool) ([]customer.Customer, error) {
+	return s.repo.GetAll(ctx, pageN, pageSize, orderBy, isDesc)
 }
 
 func (s *CustomerService) CreateCustomer(ctx context.Context, customer *customer.Customer) (*customer.Customer, error) {

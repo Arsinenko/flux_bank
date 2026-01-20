@@ -22,10 +22,11 @@ _runtime_version.ValidateProtobufRuntimeVersion(
 _sym_db = _symbol_database.Default()
 
 
+from google.protobuf import wrappers_pb2 as google_dot_protobuf_dot_wrappers__pb2
 from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x12\x63ustom_types.proto\x12\x06protos\x1a\x1fgoogle/protobuf/timestamp.proto\"0\n\rGetAllRequest\x12\r\n\x05pageN\x18\x01 \x01(\x05\x12\x10\n\x08pageSize\x18\x02 \x01(\x05\"4\n\x08\x44\x61teOnly\x12\x0c\n\x04year\x18\x01 \x01(\x05\x12\r\n\x05month\x18\x02 \x01(\x05\x12\x0b\n\x03\x64\x61y\x18\x03 \x01(\x05\"\xb3\x01\n\x15GetByDateRangeRequest\x12,\n\x08\x66romDate\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12*\n\x06toDate\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x12\n\x05pageN\x18\x03 \x01(\x05H\x00\x88\x01\x01\x12\x15\n\x08pageSize\x18\x04 \x01(\x05H\x01\x88\x01\x01\x42\x08\n\x06_pageNB\x0b\n\t_pageSize\"\x1e\n\rCountResponse\x12\r\n\x05\x63ount\x18\x01 \x01(\x03\x42\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04\x43oreb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x12\x63ustom_types.proto\x12\x06protos\x1a\x1egoogle/protobuf/wrappers.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\x8d\x01\n\rGetAllRequest\x12\r\n\x05pageN\x18\x01 \x01(\x05\x12\x10\n\x08pageSize\x18\x02 \x01(\x05\x12.\n\x08order_by\x18\x03 \x01(\x0b\x32\x1c.google.protobuf.StringValue\x12+\n\x07is_desc\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.BoolValue\"4\n\x08\x44\x61teOnly\x12\x0c\n\x04year\x18\x01 \x01(\x05\x12\r\n\x05month\x18\x02 \x01(\x05\x12\x0b\n\x03\x64\x61y\x18\x03 \x01(\x05\"\xb3\x01\n\x15GetByDateRangeRequest\x12,\n\x08\x66romDate\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12*\n\x06toDate\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x12\n\x05pageN\x18\x03 \x01(\x05H\x00\x88\x01\x01\x12\x15\n\x08pageSize\x18\x04 \x01(\x05H\x01\x88\x01\x01\x42\x08\n\x06_pageNB\x0b\n\t_pageSize\"\x1e\n\rCountResponse\x12\r\n\x05\x63ount\x18\x01 \x01(\x03\x42\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04\x43oreb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -33,12 +34,12 @@ _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'custom_types_pb2', _globals
 if not _descriptor._USE_C_DESCRIPTORS:
   _globals['DESCRIPTOR']._loaded_options = None
   _globals['DESCRIPTOR']._serialized_options = b'Z\031orch-go/gen/protos;protos\252\002\004Core'
-  _globals['_GETALLREQUEST']._serialized_start=63
-  _globals['_GETALLREQUEST']._serialized_end=111
-  _globals['_DATEONLY']._serialized_start=113
-  _globals['_DATEONLY']._serialized_end=165
-  _globals['_GETBYDATERANGEREQUEST']._serialized_start=168
-  _globals['_GETBYDATERANGEREQUEST']._serialized_end=347
-  _globals['_COUNTRESPONSE']._serialized_start=349
-  _globals['_COUNTRESPONSE']._serialized_end=379
+  _globals['_GETALLREQUEST']._serialized_start=96
+  _globals['_GETALLREQUEST']._serialized_end=237
+  _globals['_DATEONLY']._serialized_start=239
+  _globals['_DATEONLY']._serialized_end=291
+  _globals['_GETBYDATERANGEREQUEST']._serialized_start=294
+  _globals['_GETBYDATERANGEREQUEST']._serialized_end=473
+  _globals['_COUNTRESPONSE']._serialized_start=475
+  _globals['_COUNTRESPONSE']._serialized_end=505
 # @@protoc_insertion_point(module_scope)

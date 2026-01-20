@@ -7,7 +7,7 @@ from domain.card.card import Card
 
 class CardRepositoryAbc(ABC):
     @abstractmethod
-    async def get_all(self, page_n: int, page_size: int) -> List[Card]:
+    async def get_all(self, page_n: int, page_size: int, order_by: str = None, is_desc: bool = False) -> List[Card]:
         pass
     @abstractmethod
     async def get_by_id(self, branch_id: int) ->Card | None:

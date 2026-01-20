@@ -7,6 +7,7 @@ import builtins
 import google.protobuf.descriptor
 import google.protobuf.message
 import google.protobuf.timestamp_pb2
+import google.protobuf.wrappers_pb2
 import sys
 import typing
 
@@ -23,15 +24,24 @@ class GetAllRequest(google.protobuf.message.Message):
 
     PAGEN_FIELD_NUMBER: builtins.int
     PAGESIZE_FIELD_NUMBER: builtins.int
+    ORDER_BY_FIELD_NUMBER: builtins.int
+    IS_DESC_FIELD_NUMBER: builtins.int
     pageN: builtins.int
     pageSize: builtins.int
+    @property
+    def order_by(self) -> google.protobuf.wrappers_pb2.StringValue: ...
+    @property
+    def is_desc(self) -> google.protobuf.wrappers_pb2.BoolValue: ...
     def __init__(
         self,
         *,
         pageN: builtins.int = ...,
         pageSize: builtins.int = ...,
+        order_by: google.protobuf.wrappers_pb2.StringValue | None = ...,
+        is_desc: google.protobuf.wrappers_pb2.BoolValue | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["pageN", b"pageN", "pageSize", b"pageSize"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["is_desc", b"is_desc", "order_by", b"order_by"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["is_desc", b"is_desc", "order_by", b"order_by", "pageN", b"pageN", "pageSize", b"pageSize"]) -> None: ...
 
 Global___GetAllRequest: typing_extensions.TypeAlias = GetAllRequest
 

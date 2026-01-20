@@ -22,8 +22,8 @@ func (s *UserCredentialService) GetUserCredentialByUsername(ctx context.Context,
 	return s.repo.GetByUsername(ctx, username)
 }
 
-func (s *UserCredentialService) GetAllUserCredentials(ctx context.Context, pageN, pageSize int32) ([]*user_credential.UserCredential, error) {
-	return s.repo.GetAll(ctx, pageN, pageSize)
+func (s *UserCredentialService) GetAllUserCredentials(ctx context.Context, pageN, pageSize int32, orderBy string, isDesc bool) ([]*user_credential.UserCredential, error) {
+	return s.repo.GetAll(ctx, pageN, pageSize, orderBy, isDesc)
 }
 
 func (s *UserCredentialService) CreateUserCredential(ctx context.Context, uc *user_credential.UserCredential) (*user_credential.UserCredential, error) {

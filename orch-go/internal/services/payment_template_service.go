@@ -18,8 +18,8 @@ func (s *PaymentTemplateService) GetPaymentTemplateById(ctx context.Context, id 
 	return s.repo.GetById(ctx, id)
 }
 
-func (s *PaymentTemplateService) GetAllPaymentTemplates(ctx context.Context, pageN, pageSize int32) ([]*payment_template.PaymentTemplate, error) {
-	return s.repo.GetAll(ctx, pageN, pageSize)
+func (s *PaymentTemplateService) GetAllPaymentTemplates(ctx context.Context, pageN, pageSize int32, orderBy string, isDesc bool) ([]*payment_template.PaymentTemplate, error) {
+	return s.repo.GetAll(ctx, pageN, pageSize, orderBy, isDesc)
 }
 
 func (s *PaymentTemplateService) CreatePaymentTemplate(ctx context.Context, pt *payment_template.PaymentTemplate) (*payment_template.PaymentTemplate, error) {

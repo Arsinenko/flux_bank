@@ -7,7 +7,10 @@
 package protos
 
 import (
+	context "context"
 	grpc "google.golang.org/grpc"
+	codes "google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -15,10 +18,17 @@ import (
 // Requires gRPC-Go v1.64.0 or later.
 const _ = grpc.SupportPackageIsVersion9
 
+const (
+	AccountAnalyticService_ProcessGetTotalBalanceByAccountType_FullMethodName = "/protos.AccountAnalyticService/ProcessGetTotalBalanceByAccountType"
+	AccountAnalyticService_ProcessGetAvgBalance_FullMethodName                = "/protos.AccountAnalyticService/ProcessGetAvgBalance"
+)
+
 // AccountAnalyticServiceClient is the client API for AccountAnalyticService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type AccountAnalyticServiceClient interface {
+	ProcessGetTotalBalanceByAccountType(ctx context.Context, in *GetTotalBalanceByAccountTypeRequest, opts ...grpc.CallOption) (*TotalBalanceResponse, error)
+	ProcessGetAvgBalance(ctx context.Context, in *GetAvgBalanceRequest, opts ...grpc.CallOption) (*TotalBalanceResponse, error)
 }
 
 type accountAnalyticServiceClient struct {
@@ -29,10 +39,32 @@ func NewAccountAnalyticServiceClient(cc grpc.ClientConnInterface) AccountAnalyti
 	return &accountAnalyticServiceClient{cc}
 }
 
+func (c *accountAnalyticServiceClient) ProcessGetTotalBalanceByAccountType(ctx context.Context, in *GetTotalBalanceByAccountTypeRequest, opts ...grpc.CallOption) (*TotalBalanceResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(TotalBalanceResponse)
+	err := c.cc.Invoke(ctx, AccountAnalyticService_ProcessGetTotalBalanceByAccountType_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *accountAnalyticServiceClient) ProcessGetAvgBalance(ctx context.Context, in *GetAvgBalanceRequest, opts ...grpc.CallOption) (*TotalBalanceResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(TotalBalanceResponse)
+	err := c.cc.Invoke(ctx, AccountAnalyticService_ProcessGetAvgBalance_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AccountAnalyticServiceServer is the server API for AccountAnalyticService service.
 // All implementations must embed UnimplementedAccountAnalyticServiceServer
 // for forward compatibility.
 type AccountAnalyticServiceServer interface {
+	ProcessGetTotalBalanceByAccountType(context.Context, *GetTotalBalanceByAccountTypeRequest) (*TotalBalanceResponse, error)
+	ProcessGetAvgBalance(context.Context, *GetAvgBalanceRequest) (*TotalBalanceResponse, error)
 	mustEmbedUnimplementedAccountAnalyticServiceServer()
 }
 
@@ -43,6 +75,12 @@ type AccountAnalyticServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedAccountAnalyticServiceServer struct{}
 
+func (UnimplementedAccountAnalyticServiceServer) ProcessGetTotalBalanceByAccountType(context.Context, *GetTotalBalanceByAccountTypeRequest) (*TotalBalanceResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ProcessGetTotalBalanceByAccountType not implemented")
+}
+func (UnimplementedAccountAnalyticServiceServer) ProcessGetAvgBalance(context.Context, *GetAvgBalanceRequest) (*TotalBalanceResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ProcessGetAvgBalance not implemented")
+}
 func (UnimplementedAccountAnalyticServiceServer) mustEmbedUnimplementedAccountAnalyticServiceServer() {
 }
 func (UnimplementedAccountAnalyticServiceServer) testEmbeddedByValue() {}
@@ -65,13 +103,58 @@ func RegisterAccountAnalyticServiceServer(s grpc.ServiceRegistrar, srv AccountAn
 	s.RegisterService(&AccountAnalyticService_ServiceDesc, srv)
 }
 
+func _AccountAnalyticService_ProcessGetTotalBalanceByAccountType_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetTotalBalanceByAccountTypeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountAnalyticServiceServer).ProcessGetTotalBalanceByAccountType(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AccountAnalyticService_ProcessGetTotalBalanceByAccountType_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountAnalyticServiceServer).ProcessGetTotalBalanceByAccountType(ctx, req.(*GetTotalBalanceByAccountTypeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AccountAnalyticService_ProcessGetAvgBalance_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAvgBalanceRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountAnalyticServiceServer).ProcessGetAvgBalance(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AccountAnalyticService_ProcessGetAvgBalance_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountAnalyticServiceServer).ProcessGetAvgBalance(ctx, req.(*GetAvgBalanceRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // AccountAnalyticService_ServiceDesc is the grpc.ServiceDesc for AccountAnalyticService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var AccountAnalyticService_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "protos.AccountAnalyticService",
 	HandlerType: (*AccountAnalyticServiceServer)(nil),
-	Methods:     []grpc.MethodDesc{},
-	Streams:     []grpc.StreamDesc{},
-	Metadata:    "account_analytic.proto",
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "ProcessGetTotalBalanceByAccountType",
+			Handler:    _AccountAnalyticService_ProcessGetTotalBalanceByAccountType_Handler,
+		},
+		{
+			MethodName: "ProcessGetAvgBalance",
+			Handler:    _AccountAnalyticService_ProcessGetAvgBalance_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "account_analytic.proto",
 }

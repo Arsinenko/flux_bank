@@ -30,8 +30,8 @@ func (s *TransactionService) GetTransactionRevenue(ctx context.Context, accountI
 	return s.txRepo.GetRevenue(ctx, accountId, req)
 }
 
-func (s *TransactionService) GetAllTransactions(ctx context.Context) ([]*transaction.Transaction, error) {
-	return s.txRepo.GetAll(ctx)
+func (s *TransactionService) GetAllTransactions(ctx context.Context, pageN, pageSize int32, orderBy string, isDesc bool) ([]*transaction.Transaction, error) {
+	return s.txRepo.GetAll(ctx, pageN, pageSize, orderBy, isDesc)
 }
 
 func (s *TransactionService) GetTransactionById(ctx context.Context, id int32) (*transaction.Transaction, error) {
@@ -64,8 +64,8 @@ func (s *TransactionService) DeleteTransactionBulk(ctx context.Context, ids []in
 
 // Transaction Category methods
 
-func (s *TransactionService) GetAllTransactionCategories(ctx context.Context) ([]*transaction.TransactionCategory, error) {
-	return s.categoryRepo.GetAll(ctx)
+func (s *TransactionService) GetAllTransactionCategories(ctx context.Context, pageN, pageSize int32, orderBy string, isDesc bool) ([]*transaction.TransactionCategory, error) {
+	return s.categoryRepo.GetAll(ctx, pageN, pageSize, orderBy, isDesc)
 }
 
 func (s *TransactionService) GetTransactionCategoryById(ctx context.Context, id int32) (*transaction.TransactionCategory, error) {
@@ -98,8 +98,8 @@ func (s *TransactionService) DeleteTransactionCategoryBulk(ctx context.Context, 
 
 // Transaction Fee methods
 
-func (s *TransactionService) GetAllTransactionFees(ctx context.Context) ([]*transaction.TransactionFee, error) {
-	return s.feeRepo.GetAll(ctx)
+func (s *TransactionService) GetAllTransactionFees(ctx context.Context, pageN, pageSize int32, orderBy string, isDesc bool) ([]*transaction.TransactionFee, error) {
+	return s.feeRepo.GetAll(ctx, pageN, pageSize, orderBy, isDesc)
 }
 
 func (s *TransactionService) GetTransactionFeeById(ctx context.Context, id int32) (*transaction.TransactionFee, error) {

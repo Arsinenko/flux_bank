@@ -619,6 +619,50 @@ func (x *DeleteCardBulkRequest) GetCards() []*DeleteCardRequest {
 	return nil
 }
 
+type GetCardCountByStatus struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Status        string                 `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetCardCountByStatus) Reset() {
+	*x = GetCardCountByStatus{}
+	mi := &file_card_proto_msgTypes[11]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetCardCountByStatus) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetCardCountByStatus) ProtoMessage() {}
+
+func (x *GetCardCountByStatus) ProtoReflect() protoreflect.Message {
+	mi := &file_card_proto_msgTypes[11]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetCardCountByStatus.ProtoReflect.Descriptor instead.
+func (*GetCardCountByStatus) Descriptor() ([]byte, []int) {
+	return file_card_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *GetCardCountByStatus) GetStatus() string {
+	if x != nil {
+		return x.Status
+	}
+	return ""
+}
+
 var File_card_proto protoreflect.FileDescriptor
 
 const file_card_proto_rawDesc = "" +
@@ -677,7 +721,9 @@ const file_card_proto_rawDesc = "" +
 	"\x15UpdateCardBulkRequest\x12/\n" +
 	"\x05cards\x18\x01 \x03(\v2\x19.protos.UpdateCardRequestR\x05cards\"H\n" +
 	"\x15DeleteCardBulkRequest\x12/\n" +
-	"\x05cards\x18\x01 \x03(\v2\x19.protos.DeleteCardRequestR\x05cards2\xca\x05\n" +
+	"\x05cards\x18\x01 \x03(\v2\x19.protos.DeleteCardRequestR\x05cards\".\n" +
+	"\x14GetCardCountByStatus\x12\x16\n" +
+	"\x06status\x18\x01 \x01(\tR\x06status2\x93\x06\n" +
 	"\vCardService\x12<\n" +
 	"\x06GetAll\x12\x15.protos.GetAllRequest\x1a\x1b.protos.GetAllCardsResponse\x128\n" +
 	"\aGetById\x12\x1a.protos.GetCardByIdRequest\x1a\x11.protos.CardModel\x12D\n" +
@@ -691,7 +737,8 @@ const file_card_proto_rawDesc = "" +
 	"UpdateBulk\x12\x1d.protos.UpdateCardBulkRequest\x1a\x16.google.protobuf.Empty\x12C\n" +
 	"\n" +
 	"DeleteBulk\x12\x1d.protos.DeleteCardBulkRequest\x1a\x16.google.protobuf.Empty\x129\n" +
-	"\bGetCount\x12\x16.google.protobuf.Empty\x1a\x15.protos.CountResponseB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
+	"\bGetCount\x12\x16.google.protobuf.Empty\x1a\x15.protos.CountResponse\x12G\n" +
+	"\x10GetCountByStatus\x12\x1c.protos.GetCardCountByStatus\x1a\x15.protos.CountResponseB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
 
 var (
 	file_card_proto_rawDescOnce sync.Once
@@ -705,7 +752,7 @@ func file_card_proto_rawDescGZIP() []byte {
 	return file_card_proto_rawDescData
 }
 
-var file_card_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
+var file_card_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
 var file_card_proto_goTypes = []any{
 	(*CardModel)(nil),                // 0: protos.CardModel
 	(*GetAllCardsResponse)(nil),      // 1: protos.GetAllCardsResponse
@@ -718,20 +765,21 @@ var file_card_proto_goTypes = []any{
 	(*AddCardBulkRequest)(nil),       // 8: protos.AddCardBulkRequest
 	(*UpdateCardBulkRequest)(nil),    // 9: protos.UpdateCardBulkRequest
 	(*DeleteCardBulkRequest)(nil),    // 10: protos.DeleteCardBulkRequest
-	(*timestamppb.Timestamp)(nil),    // 11: google.protobuf.Timestamp
-	(*GetAllRequest)(nil),            // 12: protos.GetAllRequest
-	(*emptypb.Empty)(nil),            // 13: google.protobuf.Empty
-	(*CountResponse)(nil),            // 14: protos.CountResponse
+	(*GetCardCountByStatus)(nil),     // 11: protos.GetCardCountByStatus
+	(*timestamppb.Timestamp)(nil),    // 12: google.protobuf.Timestamp
+	(*GetAllRequest)(nil),            // 13: protos.GetAllRequest
+	(*emptypb.Empty)(nil),            // 14: google.protobuf.Empty
+	(*CountResponse)(nil),            // 15: protos.CountResponse
 }
 var file_card_proto_depIdxs = []int32{
-	11, // 0: protos.CardModel.expiry_date:type_name -> google.protobuf.Timestamp
+	12, // 0: protos.CardModel.expiry_date:type_name -> google.protobuf.Timestamp
 	0,  // 1: protos.GetAllCardsResponse.cards:type_name -> protos.CardModel
-	11, // 2: protos.AddCardRequest.expiry_date:type_name -> google.protobuf.Timestamp
-	11, // 3: protos.UpdateCardRequest.expiry_date:type_name -> google.protobuf.Timestamp
+	12, // 2: protos.AddCardRequest.expiry_date:type_name -> google.protobuf.Timestamp
+	12, // 3: protos.UpdateCardRequest.expiry_date:type_name -> google.protobuf.Timestamp
 	5,  // 4: protos.AddCardBulkRequest.cards:type_name -> protos.AddCardRequest
 	6,  // 5: protos.UpdateCardBulkRequest.cards:type_name -> protos.UpdateCardRequest
 	7,  // 6: protos.DeleteCardBulkRequest.cards:type_name -> protos.DeleteCardRequest
-	12, // 7: protos.CardService.GetAll:input_type -> protos.GetAllRequest
+	13, // 7: protos.CardService.GetAll:input_type -> protos.GetAllRequest
 	2,  // 8: protos.CardService.GetById:input_type -> protos.GetCardByIdRequest
 	3,  // 9: protos.CardService.GetByIds:input_type -> protos.GetCardByIdsRequest
 	4,  // 10: protos.CardService.GetByAccount:input_type -> protos.GetCardsByAccountRequest
@@ -741,20 +789,22 @@ var file_card_proto_depIdxs = []int32{
 	8,  // 14: protos.CardService.AddBulk:input_type -> protos.AddCardBulkRequest
 	9,  // 15: protos.CardService.UpdateBulk:input_type -> protos.UpdateCardBulkRequest
 	10, // 16: protos.CardService.DeleteBulk:input_type -> protos.DeleteCardBulkRequest
-	13, // 17: protos.CardService.GetCount:input_type -> google.protobuf.Empty
-	1,  // 18: protos.CardService.GetAll:output_type -> protos.GetAllCardsResponse
-	0,  // 19: protos.CardService.GetById:output_type -> protos.CardModel
-	1,  // 20: protos.CardService.GetByIds:output_type -> protos.GetAllCardsResponse
-	1,  // 21: protos.CardService.GetByAccount:output_type -> protos.GetAllCardsResponse
-	0,  // 22: protos.CardService.Add:output_type -> protos.CardModel
-	13, // 23: protos.CardService.Update:output_type -> google.protobuf.Empty
-	13, // 24: protos.CardService.Delete:output_type -> google.protobuf.Empty
-	13, // 25: protos.CardService.AddBulk:output_type -> google.protobuf.Empty
-	13, // 26: protos.CardService.UpdateBulk:output_type -> google.protobuf.Empty
-	13, // 27: protos.CardService.DeleteBulk:output_type -> google.protobuf.Empty
-	14, // 28: protos.CardService.GetCount:output_type -> protos.CountResponse
-	18, // [18:29] is the sub-list for method output_type
-	7,  // [7:18] is the sub-list for method input_type
+	14, // 17: protos.CardService.GetCount:input_type -> google.protobuf.Empty
+	11, // 18: protos.CardService.GetCountByStatus:input_type -> protos.GetCardCountByStatus
+	1,  // 19: protos.CardService.GetAll:output_type -> protos.GetAllCardsResponse
+	0,  // 20: protos.CardService.GetById:output_type -> protos.CardModel
+	1,  // 21: protos.CardService.GetByIds:output_type -> protos.GetAllCardsResponse
+	1,  // 22: protos.CardService.GetByAccount:output_type -> protos.GetAllCardsResponse
+	0,  // 23: protos.CardService.Add:output_type -> protos.CardModel
+	14, // 24: protos.CardService.Update:output_type -> google.protobuf.Empty
+	14, // 25: protos.CardService.Delete:output_type -> google.protobuf.Empty
+	14, // 26: protos.CardService.AddBulk:output_type -> google.protobuf.Empty
+	14, // 27: protos.CardService.UpdateBulk:output_type -> google.protobuf.Empty
+	14, // 28: protos.CardService.DeleteBulk:output_type -> google.protobuf.Empty
+	15, // 29: protos.CardService.GetCount:output_type -> protos.CountResponse
+	15, // 30: protos.CardService.GetCountByStatus:output_type -> protos.CountResponse
+	19, // [19:31] is the sub-list for method output_type
+	7,  // [7:19] is the sub-list for method input_type
 	7,  // [7:7] is the sub-list for extension type_name
 	7,  // [7:7] is the sub-list for extension extendee
 	0,  // [0:7] is the sub-list for field type_name
@@ -776,7 +826,7 @@ func file_card_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_card_proto_rawDesc), len(file_card_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   11,
+			NumMessages:   12,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

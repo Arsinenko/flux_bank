@@ -5,6 +5,8 @@ import (
 	"fmt"
 	pb "orch-go/api/generated"
 	"orch-go/internal/domain/fee_type"
+
+	"google.golang.org/protobuf/types/known/wrapperspb"
 )
 
 type Repository struct {
@@ -17,8 +19,13 @@ func NewRepository(client pb.FeeTypeServiceClient) Repository {
 	}
 }
 
-func (r Repository) GetAll(ctx context.Context, pageN, pageSize int32) ([]*fee_type.FeeType, error) {
-	resp, err := r.client.GetAll(ctx, &pb.GetAllRequest{})
+func (r Repository) GetAll(ctx context.Context, pageN, pageSize int32, orderBy string, isDesc bool) ([]*fee_type.FeeType, error) {
+	resp, err := r.client.GetAll(ctx, &pb.GetAllRequest{
+		PageN:    pageN,
+		PageSize: pageSize,
+		OrderBy:  &wrapperspb.StringValue{Value: orderBy},
+		IsDesc:   &wrapperspb.BoolValue{Value: isDesc},
+	})
 	if err != nil {
 		return nil, fmt.Errorf("fee_type_repo.GetAll: %w", err)
 	}

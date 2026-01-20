@@ -6,7 +6,7 @@ from domain.branch.branch import Branch
 
 class BranchRepositoryAbc(ABC):
     @abstractmethod
-    async def get_all(self, page_n: int, page_size: int) -> List[Branch]:
+    async def get_all(self, page_n: int, page_size: int, order_by: str = None, is_desc: bool = False) -> List[Branch]:
         pass
 
     @abstractmethod

@@ -6,7 +6,7 @@ from domain.exchange_rate.exchange_rate import ExchangeRate
 
 class ExchangeRateRepositoryAbc(ABC):
     @abstractmethod
-    async def get_all(self, page_n: int, page_size: int) -> List[ExchangeRate]:
+    async def get_all(self, page_n: int, page_size: int, order_by: str = None, is_desc: bool = False) -> List[ExchangeRate]:
         pass
 
     @abstractmethod

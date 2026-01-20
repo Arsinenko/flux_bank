@@ -12,7 +12,7 @@ public class DepositService(IDepositRepository depositRepository, IMapper mapper
 {
     public override async Task<GetAllDepositsResponse> GetAll(GetAllRequest request, ServerCallContext context)
     {
-        var deposits = await depositRepository.GetAllAsync(request.PageN, request.PageSize);
+        var deposits = await depositRepository.GetAllAsync(request.PageN, request.PageSize, request.OrderBy, request.IsDesc ?? false);
 
         return new GetAllDepositsResponse
         {

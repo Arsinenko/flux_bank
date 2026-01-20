@@ -5,7 +5,7 @@ using Grpc.Core;
 namespace Core.Services;
 
 public abstract class GrpcCrudService<TEntity, TModel, TCreateRequest, TUpdateRequest, TKey>
-    where TEntity : class  
+    where TEntity : class
     where TModel : class
 {
     protected readonly IGenericRepository<TEntity, TKey> Repository;
@@ -33,9 +33,9 @@ public abstract class GrpcCrudService<TEntity, TModel, TCreateRequest, TUpdateRe
         return Mapper.Map<TModel>(entity);
     }
 
-    protected async Task<IEnumerable<TModel>> GetAllAsync()
+    protected async Task<IEnumerable<TModel>> GetAllAsync(string? orderBy = null, bool isDesc = false)
     {
-        var entities = await Repository.GetAllAsync(null, null);
+        var entities = await Repository.GetAllAsync(null, null, orderBy, isDesc);
         return Mapper.Map<IEnumerable<TModel>>(entities);
     }
 

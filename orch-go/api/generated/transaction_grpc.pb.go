@@ -36,6 +36,7 @@ const (
 	TransactionService_GetCountByDateRange_FullMethodName     = "/protos.TransactionService/GetCountByDateRange"
 	TransactionService_GetCountAccountRevenue_FullMethodName  = "/protos.TransactionService/GetCountAccountRevenue"
 	TransactionService_GetCountAccountExpenses_FullMethodName = "/protos.TransactionService/GetCountAccountExpenses"
+	TransactionService_GetTotalAmount_FullMethodName          = "/protos.TransactionService/GetTotalAmount"
 )
 
 // TransactionServiceClient is the client API for TransactionService service.
@@ -58,6 +59,7 @@ type TransactionServiceClient interface {
 	GetCountByDateRange(ctx context.Context, in *GetByDateRangeRequest, opts ...grpc.CallOption) (*CountResponse, error)
 	GetCountAccountRevenue(ctx context.Context, in *GetAccountRevenueRequest, opts ...grpc.CallOption) (*CountResponse, error)
 	GetCountAccountExpenses(ctx context.Context, in *GetAccountExpensesRequest, opts ...grpc.CallOption) (*CountResponse, error)
+	GetTotalAmount(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*TotalAmountResponse, error)
 }
 
 type transactionServiceClient struct {
@@ -228,6 +230,16 @@ func (c *transactionServiceClient) GetCountAccountExpenses(ctx context.Context, 
 	return out, nil
 }
 
+func (c *transactionServiceClient) GetTotalAmount(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*TotalAmountResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(TotalAmountResponse)
+	err := c.cc.Invoke(ctx, TransactionService_GetTotalAmount_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TransactionServiceServer is the server API for TransactionService service.
 // All implementations must embed UnimplementedTransactionServiceServer
 // for forward compatibility.
@@ -248,6 +260,7 @@ type TransactionServiceServer interface {
 	GetCountByDateRange(context.Context, *GetByDateRangeRequest) (*CountResponse, error)
 	GetCountAccountRevenue(context.Context, *GetAccountRevenueRequest) (*CountResponse, error)
 	GetCountAccountExpenses(context.Context, *GetAccountExpensesRequest) (*CountResponse, error)
+	GetTotalAmount(context.Context, *emptypb.Empty) (*TotalAmountResponse, error)
 	mustEmbedUnimplementedTransactionServiceServer()
 }
 
@@ -305,6 +318,9 @@ func (UnimplementedTransactionServiceServer) GetCountAccountRevenue(context.Cont
 }
 func (UnimplementedTransactionServiceServer) GetCountAccountExpenses(context.Context, *GetAccountExpensesRequest) (*CountResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetCountAccountExpenses not implemented")
+}
+func (UnimplementedTransactionServiceServer) GetTotalAmount(context.Context, *emptypb.Empty) (*TotalAmountResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetTotalAmount not implemented")
 }
 func (UnimplementedTransactionServiceServer) mustEmbedUnimplementedTransactionServiceServer() {}
 func (UnimplementedTransactionServiceServer) testEmbeddedByValue()                            {}
@@ -615,6 +631,24 @@ func _TransactionService_GetCountAccountExpenses_Handler(srv interface{}, ctx co
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TransactionService_GetTotalAmount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(emptypb.Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionServiceServer).GetTotalAmount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TransactionService_GetTotalAmount_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionServiceServer).GetTotalAmount(ctx, req.(*emptypb.Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // TransactionService_ServiceDesc is the grpc.ServiceDesc for TransactionService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -685,6 +719,10 @@ var TransactionService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetCountAccountExpenses",
 			Handler:    _TransactionService_GetCountAccountExpenses_Handler,
+		},
+		{
+			MethodName: "GetTotalAmount",
+			Handler:    _TransactionService_GetTotalAmount_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

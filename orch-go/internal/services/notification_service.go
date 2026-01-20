@@ -26,8 +26,8 @@ func (s *NotificationService) GetNotificationsByDateRange(ctx context.Context, r
 	return s.repo.GetByDateRange(ctx, req)
 }
 
-func (s *NotificationService) GetAllNotifications(ctx context.Context, pageN, pageSize int32) ([]*notification.Notification, error) {
-	return s.repo.GetAll(ctx, pageN, pageSize)
+func (s *NotificationService) GetAllNotifications(ctx context.Context, pageN, pageSize int32, orderBy string, isDesc bool) ([]*notification.Notification, error) {
+	return s.repo.GetAll(ctx, pageN, pageSize, orderBy, isDesc)
 }
 
 func (s *NotificationService) CreateNotification(ctx context.Context, notif *notification.Notification) (*notification.Notification, error) {

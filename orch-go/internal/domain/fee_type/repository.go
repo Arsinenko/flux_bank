@@ -3,7 +3,7 @@ package fee_type
 import "context"
 
 type Repository interface {
-	GetAll(ctx context.Context, pageN, pageSize int32) ([]*FeeType, error)
+	GetAll(ctx context.Context, pageN, pageSize int32, orderBy string, isDesc bool) ([]*FeeType, error)
 	GetById(ctx context.Context, id int32) (*FeeType, error)
 	Add(ctx context.Context, feeType *FeeType) (*FeeType, error)
 	Update(ctx context.Context, feeType *FeeType) error

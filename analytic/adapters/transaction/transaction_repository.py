@@ -6,6 +6,7 @@ import grpc
 from google.protobuf.empty_pb2 import Empty
 
 from adapters.base_grpc_repository import BaseGrpcRepository
+from google.protobuf.wrappers_pb2 import StringValue, BoolValue
 from api.generated.custom_types_pb2 import GetAllRequest, GetByDateRangeRequest
 from api.generated.transaction_pb2 import *
 from api.generated.transaction_pb2_grpc import TransactionServiceStub
@@ -21,8 +22,13 @@ class TransactionRepository(TransactionRepositoryAbc, BaseGrpcRepository):
         super().__init__(target)
         self.stub = TransactionServiceStub(channel=self.chanel)
 
-    async def get_all(self, page_n: int, page_size: int) -> List[Transaction]:
-        request = GetAllRequest(pageN=page_n, pageSize=page_size)
+    async def get_all(self, page_n: int, page_size: int, order_by: str = None, is_desc: bool = False) -> List[Transaction]:
+        request = GetAllRequest(
+            pageN=page_n,
+            pageSize=page_size,
+            order_by=StringValue(value=order_by) if order_by else None,
+            is_desc=BoolValue(value=is_desc)
+        )
         result = await self._execute(self.stub.GetAll(request))
         if result:
             return TransactionMapper.to_domain_list(result.transactions)

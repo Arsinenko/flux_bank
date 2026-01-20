@@ -1,29 +1,31 @@
 syntax = "proto3";
 
 package protos;
+import "google/protobuf/wrappers.proto";
 option go_package = "orch-go/gen/protos;protos";
 option csharp_namespace = "Core";
 import "google/protobuf/timestamp.proto";
 
-
 message GetAllRequest {
-    int32 pageN = 1;
-    int32 pageSize = 2;
+  int32                       pageN    = 1;
+  int32                       pageSize = 2;
+  google.protobuf.StringValue order_by = 3;
+  google.protobuf.BoolValue   is_desc  = 4;
 }
 
 message DateOnly {
-    int32 year = 1;
-    int32 month = 2;
-    int32 day = 3;
+  int32 year  = 1;
+  int32 month = 2;
+  int32 day   = 3;
 }
 
 message GetByDateRangeRequest{
-    google.protobuf.Timestamp fromDate = 1;
-    google.protobuf.Timestamp toDate = 2;
-    optional int32 pageN = 3;
-    optional int32 pageSize = 4;
+  google.protobuf.Timestamp fromDate = 1;
+  google.protobuf.Timestamp toDate   = 2;
+  optional int32            pageN    = 3;
+  optional int32            pageSize = 4;
 }
 
 message CountResponse {
-    int64 count = 1;
+  int64 count = 1;
 }

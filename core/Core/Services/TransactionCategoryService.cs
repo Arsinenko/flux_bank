@@ -10,9 +10,9 @@ namespace Core.Services;
 public class TransactionCategoryService(ITransactionCategoryRepository transactionCategoryRepository, IMapper mapper)
     : Core.TransactionCategoryService.TransactionCategoryServiceBase
 {
-    public override async Task<GetAllTransactionCategoriesResponse>GetAll( GetAllRequest request, ServerCallContext context)
+    public override async Task<GetAllTransactionCategoriesResponse> GetAll(GetAllRequest request, ServerCallContext context)
     {
-        var transactionCategories = await transactionCategoryRepository.GetAllAsync(request.PageN, request.PageSize);
+        var transactionCategories = await transactionCategoryRepository.GetAllAsync(request.PageN, request.PageSize, request.OrderBy, request.IsDesc ?? false);
 
         return new GetAllTransactionCategoriesResponse
         {
@@ -75,7 +75,7 @@ public class TransactionCategoryService(ITransactionCategoryRepository transacti
         await transactionCategoryRepository.DeleteRangeAsync(foundTransactionCategories!);
         return new Empty();
     }
-    
+
     public override async Task<Empty> UpdateBulk(UpdateTransactionCategoryBulkRequest request, ServerCallContext context)
     {
         var transactionCategories = request.TransactionCategories.Select(mapper.Map<TransactionCategory>).ToList();

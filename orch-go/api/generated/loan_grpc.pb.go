@@ -20,15 +20,16 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	LoanService_GetAll_FullMethodName        = "/protos.LoanService/GetAll"
-	LoanService_GetById_FullMethodName       = "/protos.LoanService/GetById"
-	LoanService_GetByIds_FullMethodName      = "/protos.LoanService/GetByIds"
-	LoanService_GetByCustomer_FullMethodName = "/protos.LoanService/GetByCustomer"
-	LoanService_Add_FullMethodName           = "/protos.LoanService/Add"
-	LoanService_Update_FullMethodName        = "/protos.LoanService/Update"
-	LoanService_Delete_FullMethodName        = "/protos.LoanService/Delete"
-	LoanService_DeleteBulk_FullMethodName    = "/protos.LoanService/DeleteBulk"
-	LoanService_GetCount_FullMethodName      = "/protos.LoanService/GetCount"
+	LoanService_GetAll_FullMethodName           = "/protos.LoanService/GetAll"
+	LoanService_GetById_FullMethodName          = "/protos.LoanService/GetById"
+	LoanService_GetByIds_FullMethodName         = "/protos.LoanService/GetByIds"
+	LoanService_GetByCustomer_FullMethodName    = "/protos.LoanService/GetByCustomer"
+	LoanService_Add_FullMethodName              = "/protos.LoanService/Add"
+	LoanService_Update_FullMethodName           = "/protos.LoanService/Update"
+	LoanService_Delete_FullMethodName           = "/protos.LoanService/Delete"
+	LoanService_DeleteBulk_FullMethodName       = "/protos.LoanService/DeleteBulk"
+	LoanService_GetCount_FullMethodName         = "/protos.LoanService/GetCount"
+	LoanService_GetCountByStatus_FullMethodName = "/protos.LoanService/GetCountByStatus"
 )
 
 // LoanServiceClient is the client API for LoanService service.
@@ -44,6 +45,7 @@ type LoanServiceClient interface {
 	Delete(ctx context.Context, in *DeleteLoanRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	DeleteBulk(ctx context.Context, in *DeleteLoanBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	GetCount(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*CountResponse, error)
+	GetCountByStatus(ctx context.Context, in *GetLoanCountByStatusRequest, opts ...grpc.CallOption) (*CountResponse, error)
 }
 
 type loanServiceClient struct {
@@ -144,6 +146,16 @@ func (c *loanServiceClient) GetCount(ctx context.Context, in *emptypb.Empty, opt
 	return out, nil
 }
 
+func (c *loanServiceClient) GetCountByStatus(ctx context.Context, in *GetLoanCountByStatusRequest, opts ...grpc.CallOption) (*CountResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CountResponse)
+	err := c.cc.Invoke(ctx, LoanService_GetCountByStatus_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // LoanServiceServer is the server API for LoanService service.
 // All implementations must embed UnimplementedLoanServiceServer
 // for forward compatibility.
@@ -157,6 +169,7 @@ type LoanServiceServer interface {
 	Delete(context.Context, *DeleteLoanRequest) (*emptypb.Empty, error)
 	DeleteBulk(context.Context, *DeleteLoanBulkRequest) (*emptypb.Empty, error)
 	GetCount(context.Context, *emptypb.Empty) (*CountResponse, error)
+	GetCountByStatus(context.Context, *GetLoanCountByStatusRequest) (*CountResponse, error)
 	mustEmbedUnimplementedLoanServiceServer()
 }
 
@@ -193,6 +206,9 @@ func (UnimplementedLoanServiceServer) DeleteBulk(context.Context, *DeleteLoanBul
 }
 func (UnimplementedLoanServiceServer) GetCount(context.Context, *emptypb.Empty) (*CountResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetCount not implemented")
+}
+func (UnimplementedLoanServiceServer) GetCountByStatus(context.Context, *GetLoanCountByStatusRequest) (*CountResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetCountByStatus not implemented")
 }
 func (UnimplementedLoanServiceServer) mustEmbedUnimplementedLoanServiceServer() {}
 func (UnimplementedLoanServiceServer) testEmbeddedByValue()                     {}
@@ -377,6 +393,24 @@ func _LoanService_GetCount_Handler(srv interface{}, ctx context.Context, dec fun
 	return interceptor(ctx, in, info, handler)
 }
 
+func _LoanService_GetCountByStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetLoanCountByStatusRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LoanServiceServer).GetCountByStatus(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: LoanService_GetCountByStatus_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LoanServiceServer).GetCountByStatus(ctx, req.(*GetLoanCountByStatusRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // LoanService_ServiceDesc is the grpc.ServiceDesc for LoanService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -419,6 +453,10 @@ var LoanService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetCount",
 			Handler:    _LoanService_GetCount_Handler,
+		},
+		{
+			MethodName: "GetCountByStatus",
+			Handler:    _LoanService_GetCountByStatus_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

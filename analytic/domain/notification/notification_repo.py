@@ -6,7 +6,7 @@ from domain.notification.notification import Notification
 
 class NotificationRepositoryAbc(ABC):
     @abstractmethod
-    async def get_all(self, page_n: int, page_size: int) -> List[Notification]:
+    async def get_all(self, page_n: int, page_size: int, order_by: str = None, is_desc: bool = False) -> List[Notification]:
         pass
     @abstractmethod
     async def get_by_id(self, notification_id: int) -> Notification | None:

@@ -4,6 +4,7 @@ import grpc.aio
 from google.protobuf.empty_pb2 import Empty
 
 from adapters.base_grpc_repository import BaseGrpcRepository
+from google.protobuf.wrappers_pb2 import StringValue, BoolValue
 from api.generated.atm_pb2 import *
 from api.generated.atm_pb2_grpc import AtmServiceStub
 from api.generated.custom_types_pb2 import GetAllRequest
@@ -27,8 +28,13 @@ class AtmRepository(AtmRepositoryAbc, BaseGrpcRepository):
         result = await self._execute(self.stub.GetCountByStatus(GetAtmsByStatusRequest(status=status)))
         return result.count
 
-    async def get_all(self, page_n: int, page_size: int) -> List[Atm]:
-        request = GetAllRequest(pageN=page_n, pageSize=page_size)
+    async def get_all(self, page_n: int, page_size: int, order_by: str = None, is_desc: bool = False) -> List[Atm]:
+        request = GetAllRequest(
+            pageN=page_n,
+            pageSize=page_size,
+            order_by=StringValue(value=order_by) if order_by else None,
+            is_desc=BoolValue(value=is_desc)
+        )
         result = await self._execute(self.stub.GetAll(request))
         if result:
             return AtmMapper.to_domain_list(result.atms)

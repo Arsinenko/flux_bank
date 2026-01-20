@@ -7,6 +7,7 @@ import (
 	"orch-go/internal/domain/customer"
 
 	"google.golang.org/protobuf/types/known/timestamppb"
+	"google.golang.org/protobuf/types/known/wrapperspb"
 )
 
 type Repository struct {
@@ -60,10 +61,12 @@ func (r Repository) GetByDateRange(ctx context.Context, request customer.GetByDa
 
 }
 
-func (r Repository) GetAll(ctx context.Context, pageN, pageSize int32) ([]customer.Customer, error) {
+func (r Repository) GetAll(ctx context.Context, pageN, pageSize int32, orderBy string, isDesc bool) ([]customer.Customer, error) {
 	req := &pb.GetAllRequest{
 		PageN:    pageN,
 		PageSize: pageSize,
+		OrderBy:  &wrapperspb.StringValue{Value: orderBy},
+		IsDesc:   &wrapperspb.BoolValue{Value: isDesc},
 	}
 	resp, err := r.client.GetAll(ctx, req)
 	if err != nil {

@@ -3,7 +3,7 @@ package payment_template
 import "context"
 
 type Repository interface {
-	GetAll(ctx context.Context, pageN, pageSize int32) ([]*PaymentTemplate, error)
+	GetAll(ctx context.Context, pageN, pageSize int32, orderBy string, isDesc bool) ([]*PaymentTemplate, error)
 	GetById(ctx context.Context, id int32) (*PaymentTemplate, error)
 	Add(ctx context.Context, paymentTemplate *PaymentTemplate) (*PaymentTemplate, error)
 	Update(ctx context.Context, paymentTemplate *PaymentTemplate) error

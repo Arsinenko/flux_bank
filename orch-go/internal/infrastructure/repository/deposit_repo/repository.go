@@ -5,16 +5,20 @@ import (
 	"fmt"
 	pb "orch-go/api/generated"
 	"orch-go/internal/domain/deposit"
+
+	"google.golang.org/protobuf/types/known/wrapperspb"
 )
 
 type Repository struct {
 	client pb.DepositServiceClient
 }
 
-func (r Repository) GetAll(ctx context.Context, pageN, pageSize int32) ([]*deposit.Deposit, error) {
+func (r Repository) GetAll(ctx context.Context, pageN, pageSize int32, orderBy string, isDesc bool) ([]*deposit.Deposit, error) {
 	req := pb.GetAllRequest{
 		PageN:    pageN,
 		PageSize: pageSize,
+		OrderBy:  &wrapperspb.StringValue{Value: orderBy},
+		IsDesc:   &wrapperspb.BoolValue{Value: isDesc},
 	}
 	resp, err := r.client.GetAll(ctx, &req)
 	if err != nil {

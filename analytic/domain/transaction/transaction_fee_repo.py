@@ -6,7 +6,7 @@ from domain.transaction.transaction_fee import TransactionFee
 
 class TransactionFeeRepositoryAbc(ABC):
     @abstractmethod
-    async def get_all(self, page_n: int, page_size: int) -> List[TransactionFee]:
+    async def get_all(self, page_n: int, page_size: int, order_by: str = None, is_desc: bool = False) -> List[TransactionFee]:
         pass
 
     @abstractmethod

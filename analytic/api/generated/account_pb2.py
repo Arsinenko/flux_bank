@@ -24,12 +24,13 @@ _sym_db = _symbol_database.Default()
 
 import custom_types_pb2 as custom__types__pb2
 from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
+from google.protobuf import wrappers_pb2 as google_dot_protobuf_dot_wrappers__pb2
 from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
 import customer_pb2 as customer__pb2
 import account_type_pb2 as account__type__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\raccount.proto\x12\x06protos\x1a\x12\x63ustom_types.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x0e\x63ustomer.proto\x1a\x12\x61\x63\x63ount_type.proto\"-\n\x14TotalBalanceResponse\x12\x15\n\rtotal_balance\x18\x01 \x01(\t\"\x88\x02\n\x0c\x41\x63\x63ountModel\x12\x12\n\naccount_id\x18\x01 \x01(\x05\x12\x18\n\x0b\x63ustomer_id\x18\x02 \x01(\x05H\x00\x88\x01\x01\x12\x14\n\x07type_id\x18\x03 \x01(\x05H\x01\x88\x01\x01\x12\x0c\n\x04iban\x18\x04 \x01(\t\x12\x14\n\x07\x62\x61lance\x18\x05 \x01(\tH\x02\x88\x01\x01\x12\x33\n\ncreated_at\x18\x06 \x01(\x0b\x32\x1a.google.protobuf.TimestampH\x03\x88\x01\x01\x12\x16\n\tis_active\x18\x07 \x01(\x08H\x04\x88\x01\x01\x42\x0e\n\x0c_customer_idB\n\n\x08_type_idB\n\n\x08_balanceB\r\n\x0b_created_atB\x0c\n\n_is_active\"4\n\x1dGetAccountByCustomerIdRequest\x12\x13\n\x0b\x63ustomer_id\x18\x01 \x01(\x05\"@\n\x16GetAllAccountsResponse\x12&\n\x08\x61\x63\x63ounts\x18\x01 \x03(\x0b\x32\x14.protos.AccountModel\"-\n\x16GetAccountByIdsRequest\x12\x13\n\x0b\x61\x63\x63ount_ids\x18\x01 \x03(\x05\"+\n\x15GetAccountByIdRequest\x12\x12\n\naccount_id\x18\x01 \x01(\x05\"\xb5\x01\n\x11\x41\x64\x64\x41\x63\x63ountRequest\x12\x18\n\x0b\x63ustomer_id\x18\x01 \x01(\x05H\x00\x88\x01\x01\x12\x14\n\x07type_id\x18\x02 \x01(\x05H\x01\x88\x01\x01\x12\x0c\n\x04iban\x18\x03 \x01(\t\x12\x14\n\x07\x62\x61lance\x18\x04 \x01(\tH\x02\x88\x01\x01\x12\x16\n\tis_active\x18\x05 \x01(\x08H\x03\x88\x01\x01\x42\x0e\n\x0c_customer_idB\n\n\x08_type_idB\n\n\x08_balanceB\x0c\n\n_is_active\"D\n\x15\x41\x64\x64\x41\x63\x63ountBulkRequest\x12+\n\x08\x61\x63\x63ounts\x18\x01 \x03(\x0b\x32\x19.protos.AddAccountRequest\"\xcc\x01\n\x14UpdateAccountRequest\x12\x12\n\naccount_id\x18\x01 \x01(\x05\x12\x18\n\x0b\x63ustomer_id\x18\x02 \x01(\x05H\x00\x88\x01\x01\x12\x14\n\x07type_id\x18\x03 \x01(\x05H\x01\x88\x01\x01\x12\x0c\n\x04iban\x18\x04 \x01(\t\x12\x14\n\x07\x62\x61lance\x18\x05 \x01(\tH\x02\x88\x01\x01\x12\x16\n\tis_active\x18\x06 \x01(\x08H\x03\x88\x01\x01\x42\x0e\n\x0c_customer_idB\n\n\x08_type_idB\n\n\x08_balanceB\x0c\n\n_is_active\"*\n\x14\x44\x65leteAccountRequest\x12\x12\n\naccount_id\x18\x01 \x01(\x05\"J\n\x18UpdateAccountBulkRequest\x12.\n\x08\x61\x63\x63ounts\x18\x01 \x03(\x0b\x32\x1c.protos.UpdateAccountRequest\"J\n\x18\x44\x65leteAccountBulkRequest\x12.\n\x08\x61\x63\x63ounts\x18\x01 \x03(\x0b\x32\x1c.protos.DeleteAccountRequest\",\n\x1aGetAccountsByStatusRequest\x12\x0e\n\x06status\x18\x01 \x01(\x08\x32\x88\t\n\x0e\x41\x63\x63ountService\x12?\n\x06GetAll\x12\x15.protos.GetAllRequest\x1a\x1e.protos.GetAllAccountsResponse\x12>\n\x07GetById\x12\x1d.protos.GetAccountByIdRequest\x1a\x14.protos.AccountModel\x12J\n\x08GetByIds\x12\x1e.protos.GetAccountByIdsRequest\x1a\x1e.protos.GetAllAccountsResponse\x12X\n\x0fGetByCustomerId\x12%.protos.GetAccountByCustomerIdRequest\x1a\x1e.protos.GetAllAccountsResponse\x12O\n\x0eGetByDateRange\x12\x1d.protos.GetByDateRangeRequest\x1a\x1e.protos.GetAllAccountsResponse\x12\x36\n\x03\x41\x64\x64\x12\x19.protos.AddAccountRequest\x1a\x14.protos.AccountModel\x12>\n\x06Update\x12\x1c.protos.UpdateAccountRequest\x1a\x16.google.protobuf.Empty\x12>\n\x06\x44\x65lete\x12\x1c.protos.DeleteAccountRequest\x1a\x16.google.protobuf.Empty\x12@\n\x07\x41\x64\x64\x42ulk\x12\x1d.protos.AddAccountBulkRequest\x1a\x16.google.protobuf.Empty\x12\x46\n\nUpdateBulk\x12 .protos.UpdateAccountBulkRequest\x1a\x16.google.protobuf.Empty\x12\x46\n\nDeleteBulk\x12 .protos.DeleteAccountBulkRequest\x1a\x16.google.protobuf.Empty\x12\x39\n\x08GetCount\x12\x16.google.protobuf.Empty\x1a\x15.protos.CountResponse\x12M\n\x10GetCountByStatus\x12\".protos.GetAccountsByStatusRequest\x1a\x15.protos.CountResponse\x12K\n\x13GetCountByDateRange\x12\x1d.protos.GetByDateRangeRequest\x1a\x15.protos.CountResponse\x12T\n\x14GetCountByCustomerId\x12%.protos.GetAccountByCustomerIdRequest\x1a\x15.protos.CountResponse\x12G\n\x0fGetTotalBalance\x12\x16.google.protobuf.Empty\x1a\x1c.protos.TotalBalanceResponseB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04\x43oreb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\raccount.proto\x12\x06protos\x1a\x12\x63ustom_types.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1egoogle/protobuf/wrappers.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x0e\x63ustomer.proto\x1a\x12\x61\x63\x63ount_type.proto\"{\n\x14GetAvgBalanceRequest\x12\x34\n\x0f\x61\x63\x63ount_type_id\x18\x01 \x01(\x0b\x32\x1b.google.protobuf.Int32Value\x12-\n\tis_active\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.BoolValue\">\n#GetTotalBalanceByAccountTypeRequest\x12\x17\n\x0f\x61\x63\x63ount_type_id\x18\x01 \x01(\x05\"-\n\x14TotalBalanceResponse\x12\x15\n\rtotal_balance\x18\x01 \x01(\t\"\x88\x02\n\x0c\x41\x63\x63ountModel\x12\x12\n\naccount_id\x18\x01 \x01(\x05\x12\x18\n\x0b\x63ustomer_id\x18\x02 \x01(\x05H\x00\x88\x01\x01\x12\x14\n\x07type_id\x18\x03 \x01(\x05H\x01\x88\x01\x01\x12\x0c\n\x04iban\x18\x04 \x01(\t\x12\x14\n\x07\x62\x61lance\x18\x05 \x01(\tH\x02\x88\x01\x01\x12\x33\n\ncreated_at\x18\x06 \x01(\x0b\x32\x1a.google.protobuf.TimestampH\x03\x88\x01\x01\x12\x16\n\tis_active\x18\x07 \x01(\x08H\x04\x88\x01\x01\x42\x0e\n\x0c_customer_idB\n\n\x08_type_idB\n\n\x08_balanceB\r\n\x0b_created_atB\x0c\n\n_is_active\"4\n\x1dGetAccountByCustomerIdRequest\x12\x13\n\x0b\x63ustomer_id\x18\x01 \x01(\x05\"@\n\x16GetAllAccountsResponse\x12&\n\x08\x61\x63\x63ounts\x18\x01 \x03(\x0b\x32\x14.protos.AccountModel\"-\n\x16GetAccountByIdsRequest\x12\x13\n\x0b\x61\x63\x63ount_ids\x18\x01 \x03(\x05\"+\n\x15GetAccountByIdRequest\x12\x12\n\naccount_id\x18\x01 \x01(\x05\"\xb5\x01\n\x11\x41\x64\x64\x41\x63\x63ountRequest\x12\x18\n\x0b\x63ustomer_id\x18\x01 \x01(\x05H\x00\x88\x01\x01\x12\x14\n\x07type_id\x18\x02 \x01(\x05H\x01\x88\x01\x01\x12\x0c\n\x04iban\x18\x03 \x01(\t\x12\x14\n\x07\x62\x61lance\x18\x04 \x01(\tH\x02\x88\x01\x01\x12\x16\n\tis_active\x18\x05 \x01(\x08H\x03\x88\x01\x01\x42\x0e\n\x0c_customer_idB\n\n\x08_type_idB\n\n\x08_balanceB\x0c\n\n_is_active\"D\n\x15\x41\x64\x64\x41\x63\x63ountBulkRequest\x12+\n\x08\x61\x63\x63ounts\x18\x01 \x03(\x0b\x32\x19.protos.AddAccountRequest\"\xcc\x01\n\x14UpdateAccountRequest\x12\x12\n\naccount_id\x18\x01 \x01(\x05\x12\x18\n\x0b\x63ustomer_id\x18\x02 \x01(\x05H\x00\x88\x01\x01\x12\x14\n\x07type_id\x18\x03 \x01(\x05H\x01\x88\x01\x01\x12\x0c\n\x04iban\x18\x04 \x01(\t\x12\x14\n\x07\x62\x61lance\x18\x05 \x01(\tH\x02\x88\x01\x01\x12\x16\n\tis_active\x18\x06 \x01(\x08H\x03\x88\x01\x01\x42\x0e\n\x0c_customer_idB\n\n\x08_type_idB\n\n\x08_balanceB\x0c\n\n_is_active\"*\n\x14\x44\x65leteAccountRequest\x12\x12\n\naccount_id\x18\x01 \x01(\x05\"J\n\x18UpdateAccountBulkRequest\x12.\n\x08\x61\x63\x63ounts\x18\x01 \x03(\x0b\x32\x1c.protos.UpdateAccountRequest\"J\n\x18\x44\x65leteAccountBulkRequest\x12.\n\x08\x61\x63\x63ounts\x18\x01 \x03(\x0b\x32\x1c.protos.DeleteAccountRequest\",\n\x1aGetAccountsByStatusRequest\x12\x0e\n\x06status\x18\x01 \x01(\x08\x32\xc0\n\n\x0e\x41\x63\x63ountService\x12?\n\x06GetAll\x12\x15.protos.GetAllRequest\x1a\x1e.protos.GetAllAccountsResponse\x12>\n\x07GetById\x12\x1d.protos.GetAccountByIdRequest\x1a\x14.protos.AccountModel\x12J\n\x08GetByIds\x12\x1e.protos.GetAccountByIdsRequest\x1a\x1e.protos.GetAllAccountsResponse\x12X\n\x0fGetByCustomerId\x12%.protos.GetAccountByCustomerIdRequest\x1a\x1e.protos.GetAllAccountsResponse\x12O\n\x0eGetByDateRange\x12\x1d.protos.GetByDateRangeRequest\x1a\x1e.protos.GetAllAccountsResponse\x12\x36\n\x03\x41\x64\x64\x12\x19.protos.AddAccountRequest\x1a\x14.protos.AccountModel\x12>\n\x06Update\x12\x1c.protos.UpdateAccountRequest\x1a\x16.google.protobuf.Empty\x12>\n\x06\x44\x65lete\x12\x1c.protos.DeleteAccountRequest\x1a\x16.google.protobuf.Empty\x12@\n\x07\x41\x64\x64\x42ulk\x12\x1d.protos.AddAccountBulkRequest\x1a\x16.google.protobuf.Empty\x12\x46\n\nUpdateBulk\x12 .protos.UpdateAccountBulkRequest\x1a\x16.google.protobuf.Empty\x12\x46\n\nDeleteBulk\x12 .protos.DeleteAccountBulkRequest\x1a\x16.google.protobuf.Empty\x12\x39\n\x08GetCount\x12\x16.google.protobuf.Empty\x1a\x15.protos.CountResponse\x12M\n\x10GetCountByStatus\x12\".protos.GetAccountsByStatusRequest\x1a\x15.protos.CountResponse\x12K\n\x13GetCountByDateRange\x12\x1d.protos.GetByDateRangeRequest\x1a\x15.protos.CountResponse\x12T\n\x14GetCountByCustomerId\x12%.protos.GetAccountByCustomerIdRequest\x1a\x15.protos.CountResponse\x12G\n\x0fGetTotalBalance\x12\x16.google.protobuf.Empty\x1a\x1c.protos.TotalBalanceResponse\x12i\n\x1cGetTotalBalanceByAccountType\x12+.protos.GetTotalBalanceByAccountTypeRequest\x1a\x1c.protos.TotalBalanceResponse\x12K\n\rGetAvgBalance\x12\x1c.protos.GetAvgBalanceRequest\x1a\x1c.protos.TotalBalanceResponseB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04\x43oreb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -37,32 +38,36 @@ _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'account_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   _globals['DESCRIPTOR']._loaded_options = None
   _globals['DESCRIPTOR']._serialized_options = b'Z\031orch-go/gen/protos;protos\252\002\004Core'
-  _globals['_TOTALBALANCERESPONSE']._serialized_start=143
-  _globals['_TOTALBALANCERESPONSE']._serialized_end=188
-  _globals['_ACCOUNTMODEL']._serialized_start=191
-  _globals['_ACCOUNTMODEL']._serialized_end=455
-  _globals['_GETACCOUNTBYCUSTOMERIDREQUEST']._serialized_start=457
-  _globals['_GETACCOUNTBYCUSTOMERIDREQUEST']._serialized_end=509
-  _globals['_GETALLACCOUNTSRESPONSE']._serialized_start=511
-  _globals['_GETALLACCOUNTSRESPONSE']._serialized_end=575
-  _globals['_GETACCOUNTBYIDSREQUEST']._serialized_start=577
-  _globals['_GETACCOUNTBYIDSREQUEST']._serialized_end=622
-  _globals['_GETACCOUNTBYIDREQUEST']._serialized_start=624
-  _globals['_GETACCOUNTBYIDREQUEST']._serialized_end=667
-  _globals['_ADDACCOUNTREQUEST']._serialized_start=670
-  _globals['_ADDACCOUNTREQUEST']._serialized_end=851
-  _globals['_ADDACCOUNTBULKREQUEST']._serialized_start=853
-  _globals['_ADDACCOUNTBULKREQUEST']._serialized_end=921
-  _globals['_UPDATEACCOUNTREQUEST']._serialized_start=924
-  _globals['_UPDATEACCOUNTREQUEST']._serialized_end=1128
-  _globals['_DELETEACCOUNTREQUEST']._serialized_start=1130
-  _globals['_DELETEACCOUNTREQUEST']._serialized_end=1172
-  _globals['_UPDATEACCOUNTBULKREQUEST']._serialized_start=1174
-  _globals['_UPDATEACCOUNTBULKREQUEST']._serialized_end=1248
-  _globals['_DELETEACCOUNTBULKREQUEST']._serialized_start=1250
-  _globals['_DELETEACCOUNTBULKREQUEST']._serialized_end=1324
-  _globals['_GETACCOUNTSBYSTATUSREQUEST']._serialized_start=1326
-  _globals['_GETACCOUNTSBYSTATUSREQUEST']._serialized_end=1370
-  _globals['_ACCOUNTSERVICE']._serialized_start=1373
-  _globals['_ACCOUNTSERVICE']._serialized_end=2533
+  _globals['_GETAVGBALANCEREQUEST']._serialized_start=175
+  _globals['_GETAVGBALANCEREQUEST']._serialized_end=298
+  _globals['_GETTOTALBALANCEBYACCOUNTTYPEREQUEST']._serialized_start=300
+  _globals['_GETTOTALBALANCEBYACCOUNTTYPEREQUEST']._serialized_end=362
+  _globals['_TOTALBALANCERESPONSE']._serialized_start=364
+  _globals['_TOTALBALANCERESPONSE']._serialized_end=409
+  _globals['_ACCOUNTMODEL']._serialized_start=412
+  _globals['_ACCOUNTMODEL']._serialized_end=676
+  _globals['_GETACCOUNTBYCUSTOMERIDREQUEST']._serialized_start=678
+  _globals['_GETACCOUNTBYCUSTOMERIDREQUEST']._serialized_end=730
+  _globals['_GETALLACCOUNTSRESPONSE']._serialized_start=732
+  _globals['_GETALLACCOUNTSRESPONSE']._serialized_end=796
+  _globals['_GETACCOUNTBYIDSREQUEST']._serialized_start=798
+  _globals['_GETACCOUNTBYIDSREQUEST']._serialized_end=843
+  _globals['_GETACCOUNTBYIDREQUEST']._serialized_start=845
+  _globals['_GETACCOUNTBYIDREQUEST']._serialized_end=888
+  _globals['_ADDACCOUNTREQUEST']._serialized_start=891
+  _globals['_ADDACCOUNTREQUEST']._serialized_end=1072
+  _globals['_ADDACCOUNTBULKREQUEST']._serialized_start=1074
+  _globals['_ADDACCOUNTBULKREQUEST']._serialized_end=1142
+  _globals['_UPDATEACCOUNTREQUEST']._serialized_start=1145
+  _globals['_UPDATEACCOUNTREQUEST']._serialized_end=1349
+  _globals['_DELETEACCOUNTREQUEST']._serialized_start=1351
+  _globals['_DELETEACCOUNTREQUEST']._serialized_end=1393
+  _globals['_UPDATEACCOUNTBULKREQUEST']._serialized_start=1395
+  _globals['_UPDATEACCOUNTBULKREQUEST']._serialized_end=1469
+  _globals['_DELETEACCOUNTBULKREQUEST']._serialized_start=1471
+  _globals['_DELETEACCOUNTBULKREQUEST']._serialized_end=1545
+  _globals['_GETACCOUNTSBYSTATUSREQUEST']._serialized_start=1547
+  _globals['_GETACCOUNTSBYSTATUSREQUEST']._serialized_end=1591
+  _globals['_ACCOUNTSERVICE']._serialized_start=1594
+  _globals['_ACCOUNTSERVICE']._serialized_end=2938
 # @@protoc_insertion_point(module_scope)

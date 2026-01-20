@@ -10,9 +10,9 @@ namespace Core.Services;
 public class LoginLogService(ILoginLogRepository loginLogRepository, IMapper mapper)
     : Core.LoginLogService.LoginLogServiceBase
 {
-    public override async Task<GetAllLoginLogsResponse>GetAll( GetAllRequest request, ServerCallContext context)
+    public override async Task<GetAllLoginLogsResponse> GetAll(GetAllRequest request, ServerCallContext context)
     {
-        var loginLogs = await loginLogRepository.GetAllAsync(request.PageN, request.PageSize);
+        var loginLogs = await loginLogRepository.GetAllAsync(request.PageN, request.PageSize, request.OrderBy, request.IsDesc ?? false);
 
         return new GetAllLoginLogsResponse
         {

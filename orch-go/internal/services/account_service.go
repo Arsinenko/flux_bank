@@ -38,8 +38,8 @@ func (s *AccountService) DeleteAccount(ctx context.Context, id int32) error {
 	return s.repo.Delete(ctx, id)
 }
 
-func (s *AccountService) GetAllAccounts(ctx context.Context, pageN, pageSize int32) ([]account.Account, error) {
-	return s.repo.GetAll(ctx, pageN, pageSize)
+func (s *AccountService) GetAllAccounts(ctx context.Context, pageN, pageSize int32, orderBy string, isDesc bool) ([]account.Account, error) {
+	return s.repo.GetAll(ctx, pageN, pageSize, orderBy, isDesc)
 }
 
 func (s *AccountService) DeleteAccountBulk(ctx context.Context, ids []int32) error {

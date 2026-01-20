@@ -10,9 +10,9 @@ namespace Core.Services;
 public class UserCredentialService(IUserCredentialRepository userCredentialRepository, IMapper mapper)
     : Core.UserCredentialService.UserCredentialServiceBase
 {
-    public override async Task<GetAllUserCredentialsResponse>GetAll( GetAllRequest request, ServerCallContext context)
+    public override async Task<GetAllUserCredentialsResponse> GetAll(GetAllRequest request, ServerCallContext context)
     {
-        var userCredentials = await userCredentialRepository.GetAllAsync(request.PageN, request.PageSize);
+        var userCredentials = await userCredentialRepository.GetAllAsync(request.PageN, request.PageSize, request.OrderBy, request.IsDesc ?? false);
 
         return new GetAllUserCredentialsResponse
         {

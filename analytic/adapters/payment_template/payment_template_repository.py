@@ -3,6 +3,7 @@ from typing import List
 import grpc
 
 from adapters.base_grpc_repository import BaseGrpcRepository
+from google.protobuf.wrappers_pb2 import StringValue, BoolValue
 from api.generated.custom_types_pb2 import GetAllRequest
 from api.generated.payment_template_pb2 import GetPaymentTemplateByIdRequest, PaymentTemplateModel, GetAllPaymentTemplatesResponse
 from api.generated.payment_template_pb2_grpc import PaymentTemplateServiceStub
@@ -18,8 +19,13 @@ class PaymentTemplateRepository(PaymentTemplateRepositoryAbc, BaseGrpcRepository
         super().__init__(target)
         self.stub = PaymentTemplateServiceStub(self.chanel)
 
-    async def get_all(self, page_n: int, page_size: int) -> List[PaymentTemplate]:
-        request = GetAllRequest(pageN=page_n, pageSize=page_size)
+    async def get_all(self, page_n: int, page_size: int, order_by: str = None, is_desc: bool = False) -> List[PaymentTemplate]:
+        request = GetAllRequest(
+            pageN=page_n,
+            pageSize=page_size,
+            order_by=StringValue(value=order_by) if order_by else None,
+            is_desc=BoolValue(value=is_desc)
+        )
         result = await self._execute(self.stub.GetAll(request))
         if result:
             return PaymentTemplateMapper.to_domain_list(result.payment_templates)
