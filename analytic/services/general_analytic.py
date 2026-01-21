@@ -29,7 +29,8 @@ class GeneralAnalyticService(GeneralAnalyticServiceServicer):
             self.loan_repo.get_count_by_status(status="active"),
             self.deposit_repo.get_count_by_status(status="active"),
             self.transaction_repo.get_count(),
-            self.transaction_repo.get_total_amount()
+            self.transaction_repo.get_total_amount(),
+            self.account_repo.get_total_balance()
         ]
         results = await asyncio.gather(*tasks)
 
@@ -39,7 +40,8 @@ class GeneralAnalyticService(GeneralAnalyticServiceServicer):
          total_active_loans,
          total_active_deposits,
          total_transactions_count,
-         total_transactions_amount) = results
+         total_transactions_amount,
+         total_accounts_balance) = results
 
         return GeneralCountsResponse(
             total_customers=total_customers,
@@ -48,7 +50,8 @@ class GeneralAnalyticService(GeneralAnalyticServiceServicer):
             total_active_loans=total_active_loans,
             total_active_deposits=total_active_deposits,
             total_transactions_count=total_transactions_count,
-            total_transactions_amount=str(total_transactions_amount)
+            total_transactions_amount=str(total_transactions_amount),
+            total_accounts_balance=int(total_accounts_balance)
         )
 
 

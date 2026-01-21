@@ -1,4 +1,4 @@
-﻿from api.generated.custom_types_pb2 import GetAllRequest
+﻿from api.generated.custom_types_pb2 import GetAllRequest, CountResponse
 from api.generated.transaction_fee_analytic_pb2_grpc import TransactionFeeAnalyticServiceServicer
 from api.generated.transaction_fee_pb2 import GetTotalFeeRequest, TotalFeeResponse, GetAllTransactionFeesResponse, \
     GetTransactionFeeByIdRequest
@@ -17,10 +17,13 @@ class TransactionFeeAnalyticService(TransactionFeeAnalyticServiceServicer):
 
     async def ProcessGetCount(self, request, context):
         c = await self.transaction_fee_repo.get_count()
-        return TotalFeeResponse(total_fee=str(c))
+        return CountResponse(count=c)
 
     async def ProcessGetAll(self, request: GetAllRequest, context):
-        result = await self.transaction_fee_repo.get_all(page_n=request.pageN, page_size=request.pageSize, order_by=request.order_by, is_desc=request.is_desc)
+        result = await self.transaction_fee_repo.get_all(page_n=request.pageN,
+                                                         page_size=request.pageSize,
+                                                         order_by=request.order_by,
+                                                         is_desc=request.is_desc)
         return GetAllTransactionFeesResponse(transaction_fees=TransactionFeeMapper.to_model_list(result))
 
     async def ProcessGetById(self, request: GetTransactionFeeByIdRequest, context):
