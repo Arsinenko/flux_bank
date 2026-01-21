@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package protos;
+option go_package = "orch-go/gen/protos;protos";
+option csharp_namespace = "Core";
+
+import "custom_types.proto";
+import "google/protobuf/empty.proto";
+import "atm.proto";
+
+service AtmAnalyticService {
+  rpc ProcessGetAll (GetAllRequest) returns (GetAllAtmsResponse);
+  rpc ProcessGetById (GetAtmByIdRequest) returns (AtmModel);
+  rpc ProcessGetByIds (GetAtmByIdsRequest) returns (GetAllAtmsResponse);
+  rpc ProcessGetByStatus (GetAtmsByStatusRequest) returns (GetAllAtmsResponse);
+  rpc ProcessGetByLocationSubStr (GetAtmsByLocationSubStrRequest) returns (GetAllAtmsResponse);
+  rpc ProcessGetByBranch (GetAtmsByBranchRequest) returns (GetAllAtmsResponse);
+  rpc ProcessGetCount (google.protobuf.Empty) returns (CountResponse);
+  rpc ProcessGetCountByStatus (GetAtmsByStatusRequest) returns (CountResponse);
+}

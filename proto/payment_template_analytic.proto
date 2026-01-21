@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package protos;
+option go_package = "orch-go/gen/protos;protos";
+option csharp_namespace = "Core";
+
+import "custom_types.proto";
+import "google/protobuf/empty.proto";
+import "payment_template.proto";
+
+service PaymentTemplateAnalyticService {
+  rpc ProcessGetAll (GetAllRequest) returns (GetAllPaymentTemplatesResponse);
+  rpc ProcessGetById (GetPaymentTemplateByIdRequest) returns (PaymentTemplateModel);
+  rpc ProcessGetByIds (GetPaymentTemplateByIdsRequest) returns (GetAllPaymentTemplatesResponse);
+  rpc ProcessGetCount (google.protobuf.Empty) returns (CountResponse);
+}

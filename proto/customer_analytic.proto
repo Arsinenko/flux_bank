@@ -16,6 +16,16 @@ import "deposit.proto";
 import "login_log.proto";
 
 service CustomerAnalyticService {
+  rpc ProcessGetAll (GetAllRequest) returns (GetAllCustomersResponse);
+  rpc ProcessGetById (GetCustomerByIdRequest) returns (CustomerModel);
+  rpc ProcessGetByIds (GetCustomerByIdsRequest) returns (GetAllCustomersResponse);
+  rpc ProcessGetBySubstring (GetBySubstringRequest) returns (GetAllCustomersResponse);
+  rpc ProcessGetByDateRange (GetByDateRangeRequest) returns (GetAllCustomersResponse);
+  rpc ProcessGetCount (google.protobuf.Empty) returns (CountResponse);
+  rpc ProcessGetCountBySubstring (GetBySubstringRequest) returns (CountResponse);
+  rpc ProcessGetCountByDateRange (GetByDateRangeRequest) returns (CountResponse);
+  rpc ProcessGetInactive (GetInactiveCustomersRequest) returns (GetAllCustomersResponse);
+
   rpc GetCustomersByTransactionQuantityRange (GetCustomersByTransactionQuantityRangeRequest) returns (GetAllCustomersResponse);
   rpc GetCustomerLifeTime (GetCustomerLifeTimeRequest) returns (GetCustomerLifeTimeResponse);
   rpc GetCustomersLifeTime (google.protobuf.Empty) returns (GetCustomersLifeTimeResponse);

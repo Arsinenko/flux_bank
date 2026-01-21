@@ -5,68 +5,81 @@ option go_package = "orch-go/gen/protos;protos";
 option csharp_namespace = "Core";
 
 import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
 import "transaction.proto";
 import "custom_types.proto";
 
 service TransactionAnalyticService {
-    rpc GetSumOfTransactionsByDateRange (GetSumOfTransactionsByDateRangeRequest) returns (GetSumOfTransactionsByDateRangeResponse);
-    rpc GetAverageOfTransactionsByDateRange (GetAverageOfTransactionsByDateRangeRequest) returns (GetAverageOfTransactionsByDateRangeResponse);
-    rpc GetCountOfTransactionsByDateRange (GetCountOfTransactionsByDateRangeRequest) returns (CountResponse);
-    rpc GetMostFrequentTransactionsByDateRange (GetMostFrequentTransactionsByDateRangeRequest) returns (GetMostFrequentTransactionsByDateRangeResponse);
-    rpc GetAnomalousTransactionsByDateRange (GetAnomalousTransactionsByDateRangeRequest) returns (GetAnomalousTransactionsByDateRangeResponse);
+  rpc ProcessGetAll (GetAllRequest) returns (GetAllTransactionsResponse);
+  rpc ProcessGetById (GetTransactionByIdRequest) returns (TransactionModel);
+  rpc ProcessGetByIds (GetTransactionByIdsRequest) returns (GetAllTransactionsResponse);
+  rpc ProcessGetByDateRange (GetByDateRangeRequest) returns (GetAllTransactionsResponse);
+  rpc ProcessGetAccountRevenue (GetAccountRevenueRequest) returns (GetAllTransactionsResponse);
+  rpc ProcessGetAccountExpenses (GetAccountExpensesRequest) returns (GetAllTransactionsResponse);
+  rpc ProcessGetCount (google.protobuf.Empty) returns (CountResponse);
+  rpc ProcessGetCountByDateRange (GetByDateRangeRequest) returns (CountResponse);
+  rpc ProcessGetCountAccountRevenue (GetAccountRevenueRequest) returns (CountResponse);
+  rpc ProcessGetCountAccountExpenses (GetAccountExpensesRequest) returns (CountResponse);
+  rpc ProcessGetTotalAmount (google.protobuf.Empty) returns (TotalAmountResponse);
+
+  rpc GetSumOfTransactionsByDateRange (GetSumOfTransactionsByDateRangeRequest) returns (GetSumOfTransactionsByDateRangeResponse);
+  rpc GetAverageOfTransactionsByDateRange (GetAverageOfTransactionsByDateRangeRequest) returns (GetAverageOfTransactionsByDateRangeResponse);
+  rpc GetCountOfTransactionsByDateRange (GetCountOfTransactionsByDateRangeRequest) returns (CountResponse);
+  rpc GetMostFrequentTransactionsByDateRange (GetMostFrequentTransactionsByDateRangeRequest) returns (GetMostFrequentTransactionsByDateRangeResponse);
+  rpc GetAnomalousTransactionsByDateRange (GetAnomalousTransactionsByDateRangeRequest) returns (GetAnomalousTransactionsByDateRangeResponse);
 }
 
 message GetSumOfTransactionsByDateRangeRequest {
-    optional google.protobuf.Timestamp start_date = 1;
-    optional google.protobuf.Timestamp end_date = 2;
+  optional google.protobuf.Timestamp start_date = 1;
+  optional google.protobuf.Timestamp end_date   = 2;
 }
 
 message GetSumOfTransactionsByDateRangeResponse {
-    string sum = 1;
+  string sum = 1;
 }
 
 message GetAverageOfTransactionsByDateRangeRequest {
-    optional google.protobuf.Timestamp start_date = 1;
-    optional google.protobuf.Timestamp end_date = 2;
+  optional google.protobuf.Timestamp start_date = 1;
+  optional google.protobuf.Timestamp end_date   = 2;
 }
 
 message GetAverageOfTransactionsByDateRangeResponse {
-    string average = 1;
+  string average = 1;
 }
 
 message GetCountOfTransactionsByDateRangeRequest {
-    optional google.protobuf.Timestamp start_date = 1;
-    optional google.protobuf.Timestamp end_date = 2;
+  optional google.protobuf.Timestamp start_date = 1;
+  optional google.protobuf.Timestamp end_date   = 2;
 }
 
 message GetCountOfTransactionsByDateRangeResponse {
-    int32 count = 1;
+  int32 count = 1;
 }
 
 message GetMostFrequentTransactionsByDateRangeRequest {
-    optional google.protobuf.Timestamp start_date = 1;
-    optional google.protobuf.Timestamp end_date = 2;
+  optional google.protobuf.Timestamp start_date = 1;
+  optional google.protobuf.Timestamp end_date   = 2;
 }
 
 message GetMostFrequentTransactionsByDateRangeResponse {
-    repeated TransactionModel transactions = 1;
+  repeated TransactionModel transactions = 1;
 }
 
 message GetAnomalousTransactionsByDateRangeRequest {
-    optional google.protobuf.Timestamp start_date = 1;
-    optional google.protobuf.Timestamp end_date = 2;
+  optional google.protobuf.Timestamp start_date = 1;
+  optional google.protobuf.Timestamp end_date   = 2;
 }
 
 message GetAnomalousTransactionsByDateRangeResponse {
-    repeated TransactionModel transactions = 1;
+  repeated TransactionModel transactions = 1;
 }
 
 message GetUserSumTransactionsByDateRangeRequest {
-    optional google.protobuf.Timestamp start_date = 1;
-    optional google.protobuf.Timestamp end_date = 2;
-    int32 user_id = 3;
+  optional google.protobuf.Timestamp start_date = 1;
+  optional google.protobuf.Timestamp end_date   = 2;
+  int32                              user_id    = 3;
 }
 
 message GetUserSumTransactionsByDateRangeResponse {
-    int32 sum = 1;
+  int32 sum = 1;
 }

@@ -5,6 +5,8 @@ import warnings
 
 import account_analytic_pb2 as account__analytic__pb2
 import account_pb2 as account__pb2
+import custom_types_pb2 as custom__types__pb2
+from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 
 GRPC_GENERATED_VERSION = '1.76.0'
 GRPC_VERSION = grpc.__version__
@@ -50,6 +52,51 @@ class AccountAnalyticServiceStub(object):
                 request_serializer=account__analytic__pb2.GetTopAccountByBalanceRequest.SerializeToString,
                 response_deserializer=account__pb2.GetAllAccountsResponse.FromString,
                 _registered_method=True)
+        self.ProcessGetAll = channel.unary_unary(
+                '/protos.AccountAnalyticService/ProcessGetAll',
+                request_serializer=custom__types__pb2.GetAllRequest.SerializeToString,
+                response_deserializer=account__pb2.GetAllAccountsResponse.FromString,
+                _registered_method=True)
+        self.ProcessGetById = channel.unary_unary(
+                '/protos.AccountAnalyticService/ProcessGetById',
+                request_serializer=account__pb2.GetAccountByIdRequest.SerializeToString,
+                response_deserializer=account__pb2.AccountModel.FromString,
+                _registered_method=True)
+        self.ProcessGetByIds = channel.unary_unary(
+                '/protos.AccountAnalyticService/ProcessGetByIds',
+                request_serializer=account__pb2.GetAccountByIdsRequest.SerializeToString,
+                response_deserializer=account__pb2.GetAllAccountsResponse.FromString,
+                _registered_method=True)
+        self.ProcessGetByCustomerId = channel.unary_unary(
+                '/protos.AccountAnalyticService/ProcessGetByCustomerId',
+                request_serializer=account__pb2.GetAccountByCustomerIdRequest.SerializeToString,
+                response_deserializer=account__pb2.GetAllAccountsResponse.FromString,
+                _registered_method=True)
+        self.ProcessGetByDateRange = channel.unary_unary(
+                '/protos.AccountAnalyticService/ProcessGetByDateRange',
+                request_serializer=custom__types__pb2.GetByDateRangeRequest.SerializeToString,
+                response_deserializer=account__pb2.GetAllAccountsResponse.FromString,
+                _registered_method=True)
+        self.ProcessGetCount = channel.unary_unary(
+                '/protos.AccountAnalyticService/ProcessGetCount',
+                request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+                response_deserializer=custom__types__pb2.CountResponse.FromString,
+                _registered_method=True)
+        self.ProcessGetCountByStatus = channel.unary_unary(
+                '/protos.AccountAnalyticService/ProcessGetCountByStatus',
+                request_serializer=account__pb2.GetAccountsByStatusRequest.SerializeToString,
+                response_deserializer=custom__types__pb2.CountResponse.FromString,
+                _registered_method=True)
+        self.ProcessGetCountByDateRange = channel.unary_unary(
+                '/protos.AccountAnalyticService/ProcessGetCountByDateRange',
+                request_serializer=custom__types__pb2.GetByDateRangeRequest.SerializeToString,
+                response_deserializer=custom__types__pb2.CountResponse.FromString,
+                _registered_method=True)
+        self.ProcessGetCountByCustomerId = channel.unary_unary(
+                '/protos.AccountAnalyticService/ProcessGetCountByCustomerId',
+                request_serializer=account__pb2.GetAccountByCustomerIdRequest.SerializeToString,
+                response_deserializer=custom__types__pb2.CountResponse.FromString,
+                _registered_method=True)
 
 
 class AccountAnalyticServiceServicer(object):
@@ -73,6 +120,60 @@ class AccountAnalyticServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def ProcessGetAll(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ProcessGetById(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ProcessGetByIds(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ProcessGetByCustomerId(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ProcessGetByDateRange(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ProcessGetCount(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ProcessGetCountByStatus(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ProcessGetCountByDateRange(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ProcessGetCountByCustomerId(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_AccountAnalyticServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -90,6 +191,51 @@ def add_AccountAnalyticServiceServicer_to_server(servicer, server):
                     servicer.GetTopAccountByBalance,
                     request_deserializer=account__analytic__pb2.GetTopAccountByBalanceRequest.FromString,
                     response_serializer=account__pb2.GetAllAccountsResponse.SerializeToString,
+            ),
+            'ProcessGetAll': grpc.unary_unary_rpc_method_handler(
+                    servicer.ProcessGetAll,
+                    request_deserializer=custom__types__pb2.GetAllRequest.FromString,
+                    response_serializer=account__pb2.GetAllAccountsResponse.SerializeToString,
+            ),
+            'ProcessGetById': grpc.unary_unary_rpc_method_handler(
+                    servicer.ProcessGetById,
+                    request_deserializer=account__pb2.GetAccountByIdRequest.FromString,
+                    response_serializer=account__pb2.AccountModel.SerializeToString,
+            ),
+            'ProcessGetByIds': grpc.unary_unary_rpc_method_handler(
+                    servicer.ProcessGetByIds,
+                    request_deserializer=account__pb2.GetAccountByIdsRequest.FromString,
+                    response_serializer=account__pb2.GetAllAccountsResponse.SerializeToString,
+            ),
+            'ProcessGetByCustomerId': grpc.unary_unary_rpc_method_handler(
+                    servicer.ProcessGetByCustomerId,
+                    request_deserializer=account__pb2.GetAccountByCustomerIdRequest.FromString,
+                    response_serializer=account__pb2.GetAllAccountsResponse.SerializeToString,
+            ),
+            'ProcessGetByDateRange': grpc.unary_unary_rpc_method_handler(
+                    servicer.ProcessGetByDateRange,
+                    request_deserializer=custom__types__pb2.GetByDateRangeRequest.FromString,
+                    response_serializer=account__pb2.GetAllAccountsResponse.SerializeToString,
+            ),
+            'ProcessGetCount': grpc.unary_unary_rpc_method_handler(
+                    servicer.ProcessGetCount,
+                    request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                    response_serializer=custom__types__pb2.CountResponse.SerializeToString,
+            ),
+            'ProcessGetCountByStatus': grpc.unary_unary_rpc_method_handler(
+                    servicer.ProcessGetCountByStatus,
+                    request_deserializer=account__pb2.GetAccountsByStatusRequest.FromString,
+                    response_serializer=custom__types__pb2.CountResponse.SerializeToString,
+            ),
+            'ProcessGetCountByDateRange': grpc.unary_unary_rpc_method_handler(
+                    servicer.ProcessGetCountByDateRange,
+                    request_deserializer=custom__types__pb2.GetByDateRangeRequest.FromString,
+                    response_serializer=custom__types__pb2.CountResponse.SerializeToString,
+            ),
+            'ProcessGetCountByCustomerId': grpc.unary_unary_rpc_method_handler(
+                    servicer.ProcessGetCountByCustomerId,
+                    request_deserializer=account__pb2.GetAccountByCustomerIdRequest.FromString,
+                    response_serializer=custom__types__pb2.CountResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -173,6 +319,249 @@ class AccountAnalyticService(object):
             '/protos.AccountAnalyticService/GetTopAccountByBalance',
             account__analytic__pb2.GetTopAccountByBalanceRequest.SerializeToString,
             account__pb2.GetAllAccountsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ProcessGetAll(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.AccountAnalyticService/ProcessGetAll',
+            custom__types__pb2.GetAllRequest.SerializeToString,
+            account__pb2.GetAllAccountsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ProcessGetById(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.AccountAnalyticService/ProcessGetById',
+            account__pb2.GetAccountByIdRequest.SerializeToString,
+            account__pb2.AccountModel.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ProcessGetByIds(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.AccountAnalyticService/ProcessGetByIds',
+            account__pb2.GetAccountByIdsRequest.SerializeToString,
+            account__pb2.GetAllAccountsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ProcessGetByCustomerId(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.AccountAnalyticService/ProcessGetByCustomerId',
+            account__pb2.GetAccountByCustomerIdRequest.SerializeToString,
+            account__pb2.GetAllAccountsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ProcessGetByDateRange(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.AccountAnalyticService/ProcessGetByDateRange',
+            custom__types__pb2.GetByDateRangeRequest.SerializeToString,
+            account__pb2.GetAllAccountsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ProcessGetCount(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.AccountAnalyticService/ProcessGetCount',
+            google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            custom__types__pb2.CountResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ProcessGetCountByStatus(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.AccountAnalyticService/ProcessGetCountByStatus',
+            account__pb2.GetAccountsByStatusRequest.SerializeToString,
+            custom__types__pb2.CountResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ProcessGetCountByDateRange(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.AccountAnalyticService/ProcessGetCountByDateRange',
+            custom__types__pb2.GetByDateRangeRequest.SerializeToString,
+            custom__types__pb2.CountResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ProcessGetCountByCustomerId(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.AccountAnalyticService/ProcessGetCountByCustomerId',
+            account__pb2.GetAccountByCustomerIdRequest.SerializeToString,
+            custom__types__pb2.CountResponse.FromString,
             options,
             channel_credentials,
             insecure,

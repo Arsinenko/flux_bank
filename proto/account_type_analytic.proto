@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package protos;
+option go_package = "orch-go/gen/protos;protos";
+option csharp_namespace = "Core";
+
+import "custom_types.proto";
+import "google/protobuf/empty.proto";
+import "account_type.proto";
+
+service AccountTypeAnalyticService {
+  rpc ProcessGetAll (GetAllRequest) returns (GetAllAccountTypesResponse);
+  rpc ProcessGetById (GetAccountTypeByIdRequest) returns (AccountTypeModel);
+  rpc ProcessGetByIds (GetAccountTypeByIdsRequest) returns (GetAllAccountTypesResponse);
+  rpc ProcessGetCount (google.protobuf.Empty) returns (CountResponse);
+}

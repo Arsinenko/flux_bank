@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package protos;
+option go_package = "orch-go/gen/protos;protos";
+option csharp_namespace = "Core";
+
+import "custom_types.proto";
+import "google/protobuf/empty.proto";
+import "transaction_category.proto";
+
+service TransactionCategoryAnalyticService {
+  rpc ProcessGetAll (GetAllRequest) returns (GetAllTransactionCategoriesResponse);
+  rpc ProcessGetById (GetTransactionCategoryByIdRequest) returns (TransactionCategoryModel);
+  rpc ProcessGetByIds (GetTransactionCategoryByIdsRequest) returns (GetAllTransactionCategoriesResponse);
+  rpc ProcessGetCount (google.protobuf.Empty) returns (CountResponse);
+}

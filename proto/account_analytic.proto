@@ -4,7 +4,6 @@ package protos;
 option go_package = "orch-go/gen/protos;protos";
 option csharp_namespace = "Core";
 
-
 import "custom_types.proto";
 import "google/protobuf/empty.proto";
 import "google/protobuf/wrappers.proto";
@@ -14,11 +13,20 @@ import "account_type.proto";
 import "account.proto";
 
 service AccountAnalyticService{
-    rpc ProcessGetTotalBalanceByAccountType (GetTotalBalanceByAccountTypeRequest) returns (TotalBalanceResponse);
-    rpc ProcessGetAvgBalance(GetAvgBalanceRequest) returns (TotalBalanceResponse);
-    rpc GetTopAccountByBalance(GetTopAccountByBalanceRequest) returns (GetAllAccountsResponse);
+  rpc ProcessGetTotalBalanceByAccountType (GetTotalBalanceByAccountTypeRequest) returns (TotalBalanceResponse);
+  rpc ProcessGetAvgBalance(GetAvgBalanceRequest) returns (TotalBalanceResponse);
+  rpc GetTopAccountByBalance(GetTopAccountByBalanceRequest) returns (GetAllAccountsResponse);
+  rpc ProcessGetAll (GetAllRequest) returns (GetAllAccountsResponse);
+  rpc ProcessGetById (GetAccountByIdRequest) returns (AccountModel);
+  rpc ProcessGetByIds(GetAccountByIdsRequest) returns (GetAllAccountsResponse);
+  rpc ProcessGetByCustomerId (GetAccountByCustomerIdRequest) returns (GetAllAccountsResponse);
+  rpc ProcessGetByDateRange (GetByDateRangeRequest) returns (GetAllAccountsResponse);
+  rpc ProcessGetCount (google.protobuf.Empty) returns (CountResponse);
+  rpc ProcessGetCountByStatus (GetAccountsByStatusRequest) returns (CountResponse);
+  rpc ProcessGetCountByDateRange (GetByDateRangeRequest) returns (CountResponse);
+  rpc ProcessGetCountByCustomerId (GetAccountByCustomerIdRequest) returns (CountResponse);
 }
 
 message GetTopAccountByBalanceRequest {
-    int32 top_n = 1;
+  int32 top_n = 1;
 }

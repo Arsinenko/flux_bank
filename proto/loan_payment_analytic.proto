@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package protos;
+option go_package = "orch-go/gen/protos;protos";
+option csharp_namespace = "Core";
+
+import "custom_types.proto";
+import "google/protobuf/empty.proto";
+import "loan_payment.proto";
+
+service LoanPaymentAnalyticService {
+  rpc ProcessGetAll (GetAllRequest) returns (GetAllLoanPaymentsResponse);
+  rpc ProcessGetById (GetLoanPaymentByIdRequest) returns (LoanPaymentModel);
+  rpc ProcessGetByIds (GetLoanPaymentByIdsRequest) returns (GetAllLoanPaymentsResponse);
+  rpc ProcessGetByLoan (GetLoanPaymentsByLoanRequest) returns (GetAllLoanPaymentsResponse);
+  rpc ProcessGetCount (google.protobuf.Empty) returns (CountResponse);
+}

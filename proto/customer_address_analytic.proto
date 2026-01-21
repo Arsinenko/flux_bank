@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package protos;
+option go_package = "orch-go/gen/protos;protos";
+option csharp_namespace = "Core";
+
+import "custom_types.proto";
+import "google/protobuf/empty.proto";
+import "customer_address.proto";
+
+service CustomerAddressAnalyticService {
+  rpc ProcessGetAll (GetAllRequest) returns (GetAllCustomerAddressesResponse);
+  rpc ProcessGetById (GetCustomerAddressByIdRequest) returns (CustomerAddressModel);
+  rpc ProcessGetByIds (GetCustomerAddressByIdsRequest) returns (GetAllCustomerAddressesResponse);
+  rpc ProcessGetCount (google.protobuf.Empty) returns (CountResponse);
+}

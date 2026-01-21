@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package protos;
+option go_package = "orch-go/gen/protos;protos";
+option csharp_namespace = "Core";
+
+import "custom_types.proto";
+import "google/protobuf/empty.proto";
+import "card.proto";
+
+service CardAnalyticService {
+  rpc ProcessGetAll (GetAllRequest) returns (GetAllCardsResponse);
+  rpc ProcessGetById (GetCardByIdRequest) returns (CardModel);
+  rpc ProcessGetByIds (GetCardByIdsRequest) returns (GetAllCardsResponse);
+  rpc ProcessGetByAccount (GetCardsByAccountRequest) returns (GetAllCardsResponse);
+  rpc ProcessGetCount (google.protobuf.Empty) returns (CountResponse);
+  rpc ProcessGetCountByStatus(GetCardCountByStatus) returns (CountResponse);
+}
