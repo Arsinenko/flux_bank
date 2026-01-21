@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Globalization;
+using AutoMapper;
 using Core.Exceptions;
 using Core.Interfaces;
 using Core.Models;
@@ -112,5 +113,14 @@ public class TransactionFeeService(ITransactionFeeRepository transactionFeeRepos
 
         await transactionFeeRepository.UpdateRangeAsync(transactionFees);
         return new Empty();
+    }
+
+    public override async Task<TotalFeeResponse> GetTotalFee(GetTotalFeeRequest request, ServerCallContext context)
+    {
+        var totalFee = await transactionFeeRepository.GetSumAsync(_ => true, nameof(TransactionFee.Amount));
+        return new TotalFeeResponse()
+        {
+            TotalFee = totalFee.ToString(CultureInfo.CurrentCulture)
+        };
     }
 }

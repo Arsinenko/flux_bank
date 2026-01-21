@@ -86,6 +86,11 @@ class TransactionFeeServiceStub(object):
                 request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
                 response_deserializer=custom__types__pb2.CountResponse.FromString,
                 _registered_method=True)
+        self.GetTotalFee = channel.unary_unary(
+                '/protos.TransactionFeeService/GetTotalFee',
+                request_serializer=transaction__fee__pb2.GetTotalFeeRequest.SerializeToString,
+                response_deserializer=transaction__fee__pb2.TotalFeeResponse.FromString,
+                _registered_method=True)
 
 
 class TransactionFeeServiceServicer(object):
@@ -151,6 +156,12 @@ class TransactionFeeServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetTotalFee(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_TransactionFeeServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -203,6 +214,11 @@ def add_TransactionFeeServiceServicer_to_server(servicer, server):
                     servicer.GetCount,
                     request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                     response_serializer=custom__types__pb2.CountResponse.SerializeToString,
+            ),
+            'GetTotalFee': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetTotalFee,
+                    request_deserializer=transaction__fee__pb2.GetTotalFeeRequest.FromString,
+                    response_serializer=transaction__fee__pb2.TotalFeeResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -475,6 +491,33 @@ class TransactionFeeService(object):
             '/protos.TransactionFeeService/GetCount',
             google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             custom__types__pb2.CountResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetTotalFee(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.TransactionFeeService/GetTotalFee',
+            transaction__fee__pb2.GetTotalFeeRequest.SerializeToString,
+            transaction__fee__pb2.TotalFeeResponse.FromString,
             options,
             channel_credentials,
             insecure,

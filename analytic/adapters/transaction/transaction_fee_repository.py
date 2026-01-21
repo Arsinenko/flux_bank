@@ -1,7 +1,9 @@
+import decimal
 from decimal import Decimal
 from typing import List
 
 import grpc
+from google.protobuf.empty_pb2 import Empty
 
 from adapters.base_grpc_repository import BaseGrpcRepository
 from google.protobuf.wrappers_pb2 import StringValue, BoolValue
@@ -10,6 +12,7 @@ from api.generated.transaction_fee_pb2 import *
 from api.generated.transaction_fee_pb2_grpc import TransactionFeeServiceStub
 from domain.transaction.transaction_fee import TransactionFee
 from domain.transaction.transaction_fee_repo import TransactionFeeRepositoryAbc
+from mappers.transaction_fee_mapper import TransactionFeeMapper
 
 
 class TransactionFeeRepository(TransactionFeeRepositoryAbc, BaseGrpcRepository):
@@ -17,27 +20,28 @@ class TransactionFeeRepository(TransactionFeeRepositoryAbc, BaseGrpcRepository):
         super().__init__(target)
         self.stub = TransactionFeeServiceStub(channel=self.chanel)
 
-    @staticmethod
-    def to_domain(model: TransactionFeeModel) -> TransactionFee:
-        return TransactionFee(
-            id=model.id,
-            transaction_id=model.transaction_id if model.HasField("transaction_id") else None,
-            fee_id=model.fee_id if model.HasField("fee_id") else None,
-            amount=Decimal(model.amount) if model.HasField("amount") else None
-        )
+    async def get_by_ids(self, ids: List[int]) -> List[TransactionFee]:
+        request = GetTransactionFeeByIdsRequest(ids=ids)
+        result = await self._execute(self.stub.GetByIds(request))
+        if result:
+            return TransactionFeeMapper.to_domain_list(result)
+        return []
 
-    @staticmethod
-    def to_model(domain: TransactionFee) -> TransactionFeeModel:
-        return TransactionFeeModel(
-            id=domain.id,
-            transaction_id=domain.transaction_id,
-            fee_id=domain.fee_id,
-            amount=str(domain.amount) if domain.amount is not None else None
-        )
 
-    @staticmethod
-    def response_to_list(response: GetAllTransactionFeesResponse) -> List[TransactionFee]:
-        return [TransactionFeeRepository.to_domain(model) for model in response.transaction_fees]
+
+    async def get_count(self) -> int:
+        result = await self._execute(self.stub.GetCount(Empty()))
+        if result:
+            return result.count
+        return 0
+    async def get_total_fee(self) -> decimal.Decimal:
+        result = await self._execute(self.stub.GetTotalFee(Empty()))
+        if result:
+            return Decimal(result.total_fee)
+        return Decimal(0)
+
+
+
 
     async def get_all(self, page_n: int, page_size: int, order_by: str = None, is_desc: bool = False) -> List[TransactionFee]:
         request = GetAllRequest(
@@ -48,12 +52,12 @@ class TransactionFeeRepository(TransactionFeeRepositoryAbc, BaseGrpcRepository):
         )
         result = await self._execute(self.stub.GetAll(request))
         if result:
-            return self.response_to_list(result)
+            return TransactionFeeMapper.to_domain_list(result)
         return []
 
     async def get_by_id(self, id: int) -> TransactionFee | None:
         request = GetTransactionFeeByIdRequest(id=id)
         result = await self._execute(self.stub.GetById(request))
         if result:
-            return self.to_domain(result)
+            return TransactionFeeMapper.to_domain(result)
         return None

@@ -3,6 +3,7 @@
 import grpc
 import warnings
 
+import account_analytic_pb2 as account__analytic__pb2
 import account_pb2 as account__pb2
 
 GRPC_GENERATED_VERSION = '1.76.0'
@@ -44,6 +45,11 @@ class AccountAnalyticServiceStub(object):
                 request_serializer=account__pb2.GetAvgBalanceRequest.SerializeToString,
                 response_deserializer=account__pb2.TotalBalanceResponse.FromString,
                 _registered_method=True)
+        self.GetTopAccountByBalance = channel.unary_unary(
+                '/protos.AccountAnalyticService/GetTopAccountByBalance',
+                request_serializer=account__analytic__pb2.GetTopAccountByBalanceRequest.SerializeToString,
+                response_deserializer=account__pb2.GetAllAccountsResponse.FromString,
+                _registered_method=True)
 
 
 class AccountAnalyticServiceServicer(object):
@@ -61,6 +67,12 @@ class AccountAnalyticServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetTopAccountByBalance(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_AccountAnalyticServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -73,6 +85,11 @@ def add_AccountAnalyticServiceServicer_to_server(servicer, server):
                     servicer.ProcessGetAvgBalance,
                     request_deserializer=account__pb2.GetAvgBalanceRequest.FromString,
                     response_serializer=account__pb2.TotalBalanceResponse.SerializeToString,
+            ),
+            'GetTopAccountByBalance': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetTopAccountByBalance,
+                    request_deserializer=account__analytic__pb2.GetTopAccountByBalanceRequest.FromString,
+                    response_serializer=account__pb2.GetAllAccountsResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -129,6 +146,33 @@ class AccountAnalyticService(object):
             '/protos.AccountAnalyticService/ProcessGetAvgBalance',
             account__pb2.GetAvgBalanceRequest.SerializeToString,
             account__pb2.TotalBalanceResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetTopAccountByBalance(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.AccountAnalyticService/GetTopAccountByBalance',
+            account__analytic__pb2.GetTopAccountByBalanceRequest.SerializeToString,
+            account__pb2.GetAllAccountsResponse.FromString,
             options,
             channel_credentials,
             insecure,

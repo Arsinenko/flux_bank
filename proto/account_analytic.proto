@@ -1,7 +1,6 @@
 syntax = "proto3";
 
 package protos;
-import "account.proto";
 option go_package = "orch-go/gen/protos;protos";
 option csharp_namespace = "Core";
 
@@ -12,8 +11,14 @@ import "google/protobuf/wrappers.proto";
 import "google/protobuf/timestamp.proto";
 import "customer.proto";
 import "account_type.proto";
+import "account.proto";
 
 service AccountAnalyticService{
     rpc ProcessGetTotalBalanceByAccountType (GetTotalBalanceByAccountTypeRequest) returns (TotalBalanceResponse);
     rpc ProcessGetAvgBalance(GetAvgBalanceRequest) returns (TotalBalanceResponse);
+    rpc GetTopAccountByBalance(GetTopAccountByBalanceRequest) returns (GetAllAccountsResponse);
+}
+
+message GetTopAccountByBalanceRequest {
+    int32 top_n = 1;
 }

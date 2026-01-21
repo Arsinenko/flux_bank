@@ -22,16 +22,16 @@ _runtime_version.ValidateProtobufRuntimeVersion(
 _sym_db = _symbol_database.Default()
 
 
-import account_pb2 as account__pb2
 import custom_types_pb2 as custom__types__pb2
 from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 from google.protobuf import wrappers_pb2 as google_dot_protobuf_dot_wrappers__pb2
 from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
 import customer_pb2 as customer__pb2
 import account_type_pb2 as account__type__pb2
+import account_pb2 as account__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x16\x61\x63\x63ount_analytic.proto\x12\x06protos\x1a\raccount.proto\x1a\x12\x63ustom_types.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1egoogle/protobuf/wrappers.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x0e\x63ustomer.proto\x1a\x12\x61\x63\x63ount_type.proto2\xde\x01\n\x16\x41\x63\x63ountAnalyticService\x12p\n#ProcessGetTotalBalanceByAccountType\x12+.protos.GetTotalBalanceByAccountTypeRequest\x1a\x1c.protos.TotalBalanceResponse\x12R\n\x14ProcessGetAvgBalance\x12\x1c.protos.GetAvgBalanceRequest\x1a\x1c.protos.TotalBalanceResponseB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04\x43oreb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x16\x61\x63\x63ount_analytic.proto\x12\x06protos\x1a\x12\x63ustom_types.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1egoogle/protobuf/wrappers.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x0e\x63ustomer.proto\x1a\x12\x61\x63\x63ount_type.proto\x1a\raccount.proto\".\n\x1dGetTopAccountByBalanceRequest\x12\r\n\x05top_n\x18\x01 \x01(\x05\x32\xbf\x02\n\x16\x41\x63\x63ountAnalyticService\x12p\n#ProcessGetTotalBalanceByAccountType\x12+.protos.GetTotalBalanceByAccountTypeRequest\x1a\x1c.protos.TotalBalanceResponse\x12R\n\x14ProcessGetAvgBalance\x12\x1c.protos.GetAvgBalanceRequest\x1a\x1c.protos.TotalBalanceResponse\x12_\n\x16GetTopAccountByBalance\x12%.protos.GetTopAccountByBalanceRequest\x1a\x1e.protos.GetAllAccountsResponseB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04\x43oreb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -39,6 +39,8 @@ _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'account_analytic_pb2', _glo
 if not _descriptor._USE_C_DESCRIPTORS:
   _globals['DESCRIPTOR']._loaded_options = None
   _globals['DESCRIPTOR']._serialized_options = b'Z\031orch-go/gen/protos;protos\252\002\004Core'
-  _globals['_ACCOUNTANALYTICSERVICE']._serialized_start=200
-  _globals['_ACCOUNTANALYTICSERVICE']._serialized_end=422
+  _globals['_GETTOPACCOUNTBYBALANCEREQUEST']._serialized_start=199
+  _globals['_GETTOPACCOUNTBYBALANCEREQUEST']._serialized_end=245
+  _globals['_ACCOUNTANALYTICSERVICE']._serialized_start=248
+  _globals['_ACCOUNTANALYTICSERVICE']._serialized_end=567
 # @@protoc_insertion_point(module_scope)

@@ -19,6 +19,36 @@ else:
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
 @typing.final
+class GetTotalFeeRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    TRANSACTION_ID_FIELD_NUMBER: builtins.int
+    transaction_id: builtins.int
+    def __init__(
+        self,
+        *,
+        transaction_id: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["transaction_id", b"transaction_id"]) -> None: ...
+
+Global___GetTotalFeeRequest: typing_extensions.TypeAlias = GetTotalFeeRequest
+
+@typing.final
+class TotalFeeResponse(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    TOTAL_FEE_FIELD_NUMBER: builtins.int
+    total_fee: builtins.str
+    def __init__(
+        self,
+        *,
+        total_fee: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["total_fee", b"total_fee"]) -> None: ...
+
+Global___TotalFeeResponse: typing_extensions.TypeAlias = TotalFeeResponse
+
+@typing.final
 class TransactionFeeModel(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 

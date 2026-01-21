@@ -3,6 +3,30 @@
 isort:skip_file
 """
 
+import builtins
 import google.protobuf.descriptor
+import google.protobuf.message
+import sys
+import typing
+
+if sys.version_info >= (3, 10):
+    import typing as typing_extensions
+else:
+    import typing_extensions
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
+
+@typing.final
+class GetTopAccountByBalanceRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    TOP_N_FIELD_NUMBER: builtins.int
+    top_n: builtins.int
+    def __init__(
+        self,
+        *,
+        top_n: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["top_n", b"top_n"]) -> None: ...
+
+Global___GetTopAccountByBalanceRequest: typing_extensions.TypeAlias = GetTopAccountByBalanceRequest

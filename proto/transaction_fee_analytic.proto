@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package protos;
+import "transaction_fee.proto";
+import "custom_types.proto";
+import "google/protobuf/empty.proto";
+option go_package = "orch-go/gen/protos;protos";
+option csharp_namespace = "Core";
+
+service TransactionFeeAnalyticService {
+  rpc ProcessGetTotalFee (GetTotalFeeRequest) returns (TotalFeeResponse);
+  rpc ProcessGetAll (GetAllRequest) returns (GetAllTransactionFeesResponse);
+  rpc ProcessGetById (GetTransactionFeeByIdRequest) returns (TransactionFeeModel);
+  rpc ProcessGetCount (google.protobuf.Empty) returns (CountResponse);
+}

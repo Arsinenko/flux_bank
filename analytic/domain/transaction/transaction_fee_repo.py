@@ -1,3 +1,4 @@
+import decimal
 from abc import ABC, abstractmethod
 from typing import List
 
@@ -11,4 +12,16 @@ class TransactionFeeRepositoryAbc(ABC):
 
     @abstractmethod
     async def get_by_id(self, id: int) -> TransactionFee | None:
+        pass
+
+    @abstractmethod
+    async def get_by_ids(self, ids: List[int]) -> List[TransactionFee]:
+        pass
+
+    @abstractmethod
+    async def get_total_fee(self) -> decimal.Decimal:
+        pass
+
+    @abstractmethod
+    async def get_count(self) -> int:
         pass
