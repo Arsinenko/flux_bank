@@ -12,3 +12,8 @@ class FeeTypeRepositoryAbc(ABC):
     @abstractmethod
     async def get_by_id(self, fee_id: int) -> FeeType | None:
         pass
+
+    @abstractmethod
+    async def get_count(self) -> int:
+        pass
+

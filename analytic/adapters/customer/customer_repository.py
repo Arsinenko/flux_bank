@@ -5,6 +5,8 @@ import grpc
 from google.protobuf.empty_pb2 import Empty
 
 from google.protobuf.wrappers_pb2 import StringValue, BoolValue
+
+from adapters.base_grpc_repository import BaseGrpcRepository
 from api.generated.customer_pb2 import *
 from api.generated.customer_pb2_grpc import CustomerServiceStub
 from api.generated.custom_types_pb2 import GetAllRequest, GetByDateRangeRequest

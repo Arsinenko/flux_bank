@@ -16,3 +16,9 @@ class LoanPaymentRepositoryAbc(ABC):
     @abstractmethod
     async def get_by_loan_id(self, loan_id: int) -> List[LoanPayment]:
         pass
+
+    @abstractmethod
+    async def get_count(self) -> int:
+        pass
+
+

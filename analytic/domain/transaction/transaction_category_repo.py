@@ -12,3 +12,7 @@ class TransactionCategoryRepositoryAbc(ABC):
     @abstractmethod
     async def get_by_id(self, category_id: int) -> TransactionCategory | None:
         pass
+
+    @abstractmethod
+    async def get_count(self) -> int:
+        pass

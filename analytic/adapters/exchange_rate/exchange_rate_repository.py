@@ -2,6 +2,7 @@ from decimal import Decimal
 from typing import List
 
 import grpc
+from google.protobuf.empty_pb2 import Empty
 
 from adapters.base_grpc_repository import BaseGrpcRepository
 from google.protobuf.wrappers_pb2 import StringValue, BoolValue
@@ -31,6 +32,10 @@ class ExchangeRateRepository(ExchangeRateRepositoryAbc, BaseGrpcRepository):
         if result:
             return ExchangeRateMapper.to_domain_list(result.exchange_rates)
         return []
+
+    async def get_count(self) -> int:
+        result = await self._execute(self.stub.GetCount(Empty()))
+        return result.count
 
     async def get_by_id(self, rate_id: int) -> ExchangeRate | None:
         request = GetExchangeRateByIdRequest(rate_id=rate_id)

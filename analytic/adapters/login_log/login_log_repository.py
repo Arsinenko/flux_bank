@@ -1,6 +1,7 @@
 from datetime import datetime
 
 import grpc.aio
+from google.protobuf.empty_pb2 import Empty
 
 from adapters.base_grpc_repository import BaseGrpcRepository
 from google.protobuf.wrappers_pb2 import StringValue, BoolValue
@@ -19,6 +20,11 @@ class LoginLogRepository(LoginLogRepositoryAbc, BaseGrpcRepository):
     def __init__(self, target: str):
         super().__init__(target)
         self.stub = LoginLogServiceStub(self.chanel)
+
+    async def get_count(self) -> int:
+        result = await self._execute(self.stub.GetCount(Empty()))
+        return result.count
+
 
     async def get_all(self, page_n: int, page_size: int, order_by: str = None, is_desc: bool = False) -> List[LoginLog]:
         request = GetAllRequest(

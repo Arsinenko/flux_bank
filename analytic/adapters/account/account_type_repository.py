@@ -7,6 +7,8 @@ from adapters.base_grpc_repository import BaseGrpcRepository
 from api.generated.account_type_pb2 import *
 from google.protobuf.wrappers_pb2 import StringValue, BoolValue
 from api.generated.account_type_pb2 import *
+from api.generated.account_type_pb2_grpc import AccountTypeServiceStub
+from api.generated.custom_types_pb2 import GetAllRequest
 from domain.account.account_type import AccountType
 from domain.account.account_type_repo import AccountTypeRepositoryAbc
 

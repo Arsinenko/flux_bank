@@ -17,18 +17,23 @@ class TransactionCategoryRepository(TransactionCategoryRepositoryAbc, BaseGrpcRe
         self.stub = TransactionCategoryServiceStub(channel=self.chanel)
 
     @staticmethod
+    def to_model(domain: TransactionCategory) -> TransactionCategoryModel:
+        return TransactionCategoryModel(
+            category_id=domain.category_id,
+            name=domain.name
+        )
+
+    @staticmethod
     def to_domain(model: TransactionCategoryModel) -> TransactionCategory:
         return TransactionCategory(
             category_id=model.category_id,
             name=model.name
         )
 
-    @staticmethod
-    def to_model(domain: TransactionCategory) -> TransactionCategoryModel:
-        return TransactionCategoryModel(
-            category_id=domain.category_id,
-            name=domain.name
-        )
+    async def get_count(self) -> int:
+        result = await self._execute(self.stub.GetCount(GetAllRequest()))
+        return result.count
+
 
     @staticmethod
     def response_to_list(response: GetAllTransactionCategoriesResponse) -> List[TransactionCategory]:

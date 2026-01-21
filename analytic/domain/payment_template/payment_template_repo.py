@@ -11,3 +11,7 @@ class PaymentTemplateRepositoryAbc(ABC):
     @abstractmethod
     async def get_by_id(self, template_id: int) -> PaymentTemplate | None:
         pass
+
+    @abstractmethod
+    async def get_count(self) -> int:
+        pass

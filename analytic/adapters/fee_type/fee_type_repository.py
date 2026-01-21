@@ -1,6 +1,7 @@
 from typing import List
 
 import grpc
+from google.protobuf.empty_pb2 import Empty
 
 from adapters.base_grpc_repository import BaseGrpcRepository
 from google.protobuf.wrappers_pb2 import StringValue, BoolValue
@@ -30,6 +31,11 @@ class FeeTypeRepository(FeeTypeRepositoryAbc, BaseGrpcRepository):
         if result:
             return FeeTypeMapper.to_domain_list(result.fee_types)
         return []
+
+    async def get_count(self) -> int:
+        result = await self._execute(self.stub.GetCount(Empty()))
+        return result.count
+
 
     async def get_by_id(self, fee_id: int) -> FeeType | None:
         request = GetFeeTypeByIdRequest(fee_id=fee_id)

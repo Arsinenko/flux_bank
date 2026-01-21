@@ -12,7 +12,7 @@ from api.generated.account_pb2 import *
 from api.generated.account_pb2_grpc import AccountServiceStub
 from google.protobuf.wrappers_pb2 import StringValue, BoolValue
 
-from api.generated.custom_types_pb2 import GetAllRequest
+from api.generated.custom_types_pb2 import GetAllRequest, GetByDateRangeRequest, CountResponse
 from domain.account.account import Account
 from domain.account.account_repo import AccountRepositoryAbc
 

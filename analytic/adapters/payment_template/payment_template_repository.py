@@ -19,6 +19,10 @@ class PaymentTemplateRepository(PaymentTemplateRepositoryAbc, BaseGrpcRepository
         super().__init__(target)
         self.stub = PaymentTemplateServiceStub(self.chanel)
 
+    async def get_count(self) -> int:
+        result = await self._execute(self.stub.GetCount(GetAllRequest()))
+        return result.count
+
     async def get_all(self, page_n: int, page_size: int, order_by: str = None, is_desc: bool = False) -> List[PaymentTemplate]:
         request = GetAllRequest(
             pageN=page_n,

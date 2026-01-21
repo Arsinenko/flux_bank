@@ -2,6 +2,7 @@ from decimal import Decimal
 from typing import List
 
 import grpc
+from google.protobuf.empty_pb2 import Empty
 
 from adapters.base_grpc_repository import BaseGrpcRepository
 from api.generated.custom_types_pb2 import GetAllRequest
@@ -18,16 +19,6 @@ class LoanPaymentRepository(LoanPaymentRepositoryAbc, BaseGrpcRepository):
         self.stub = LoanPaymentServiceStub(channel=self.chanel)
 
     @staticmethod
-    def to_domain(model: LoanPaymentModel) -> LoanPayment:
-        return LoanPayment(
-            payment_id=model.payment_id,
-            loan_id=model.loan_id if model.HasField("loan_id") else None,
-            amount=Decimal(model.amount) if model.HasField("amount") else None,
-            payment_date=model.payment_date.ToDatetime() if model.HasField("payment_date") else None,
-            is_paid=model.is_paid if model.HasField("is_paid") else None
-        )
-
-    @staticmethod
     def to_model(domain: LoanPayment) -> LoanPaymentModel:
         model = LoanPaymentModel(
             payment_id=domain.payment_id,
@@ -38,6 +29,21 @@ class LoanPaymentRepository(LoanPaymentRepositoryAbc, BaseGrpcRepository):
         if domain.payment_date:
             model.payment_date.FromDatetime(domain.payment_date)
         return model
+
+    @staticmethod
+    def to_domain(model: LoanPaymentModel) -> LoanPayment:
+        return LoanPayment(
+            payment_id=model.payment_id,
+            loan_id=model.loan_id if model.HasField("loan_id") else None,
+            amount=Decimal(model.amount) if model.HasField("amount") else None,
+            payment_date=model.payment_date.ToDatetime() if model.HasField("payment_date") else None,
+            is_paid=model.is_paid if model.HasField("is_paid") else None
+        )
+
+    async def get_count(self) -> int:
+        result = await self._execute(self.stub.GetCount(Empty()))
+        return result.count
+
 
     @staticmethod
     def response_to_list(response: GetAllLoanPaymentsResponse) -> List[LoanPayment]:

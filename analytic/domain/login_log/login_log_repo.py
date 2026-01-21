@@ -18,3 +18,7 @@ class LoginLogRepositoryAbc(ABC):
     @abstractmethod
     async def get_in_time_range(self, start_time: datetime, end_time: datetime) -> List[LoginLog]:
         pass
+
+    @abstractmethod
+    async def get_count(self) -> int:
+        pass

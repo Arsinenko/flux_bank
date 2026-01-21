@@ -16,3 +16,9 @@ class ExchangeRateRepositoryAbc(ABC):
     @abstractmethod
     async def get_by_base_currency(self, base_currency: str) -> List[ExchangeRate]:
         pass
+
+    @abstractmethod
+    async def get_count(self) -> int:
+        pass
+
+

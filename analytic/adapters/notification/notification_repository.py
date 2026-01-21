@@ -1,11 +1,13 @@
 from typing import List
 
 import grpc
+from google.protobuf.empty_pb2 import Empty
 
 from adapters.base_grpc_repository import BaseGrpcRepository
 from google.protobuf.wrappers_pb2 import StringValue, BoolValue
 from api.generated.custom_types_pb2 import GetAllRequest, GetByDateRangeRequest
-from api.generated.notification_pb2 import NotificationModel, GetNotificationByIdRequest, GetNotificationsByCustomerRequest, GetAllNotificationsResponse
+from api.generated.notification_pb2 import NotificationModel, GetNotificationByIdRequest, \
+    GetNotificationsByCustomerRequest, GetAllNotificationsResponse, GetNotificationByIdsRequest
 from api.generated.notification_pb2_grpc import NotificationServiceStub
 from domain.notification.notification import Notification
 from domain.notification.notification_repo import NotificationRepositoryAbc
@@ -30,6 +32,21 @@ class NotificationRepository(NotificationRepositoryAbc, BaseGrpcRepository):
         if result:
             return NotificationMapper.to_domain_list(result.notifications)
         return []
+
+    async def get_count(self) -> int:
+        result = await self._execute(self.stub.GetCount(Empty()))
+        if result:
+            return result.count
+        return 0
+    async def get_by_ids(self, ids: List[int]) -> List[Notification]:
+        request = GetNotificationByIdsRequest(
+            notification_ids=ids
+        )
+        result = await self._execute(self.stub.GetByIds(request))
+        if result:
+            return NotificationMapper.to_domain_list(result.notifications)
+        return []
+
 
     async def get_by_id(self, notification_id: int) -> Notification | None:
         request = GetNotificationByIdRequest(notification_id=notification_id)
