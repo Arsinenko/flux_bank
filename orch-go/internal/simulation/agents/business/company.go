@@ -11,11 +11,10 @@ import (
 // Company represents a business entity.
 type Company struct {
 	agents.BaseAgent
-	Name      string
-	Balance   float64
-	Employees []string // Store Employee IDs for now
-	// Logic parameters
-	TargetEmployees int
+	Name            string   `json:"name"`
+	Balance         float64  `json:"balance"`
+	Employees       []string `json:"employees"`
+	TargetEmployees int      `json:"target_employees"`
 }
 
 func NewCompany(name string, targetEmployees int) *Company {

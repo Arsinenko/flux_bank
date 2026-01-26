@@ -1,6 +1,7 @@
 package agents
 
 import (
+	"orch-go/internal/services"
 	"orch-go/internal/simulation/economy"
 	"orch-go/internal/simulation/types"
 
@@ -13,6 +14,7 @@ type AgentContext interface {
 	types.SimulationContext
 	Market() *economy.MarketRegistry
 	LaborMarket() *economy.LaborMarket
+	Services() *services.ServiceContainer
 }
 
 // Agent is the main interface that all simulation agents must implement.
@@ -30,8 +32,8 @@ type Agent interface {
 
 // BaseAgent provides common functionality for all agents.
 type BaseAgent struct {
-	id        uuid.UUID
-	agentType string
+	AgentID   uuid.UUID `json:"id"`
+	AgentType string    `json:"type"`
 }
 
 func NewBaseAgent(id uuid.UUID, agentType string) BaseAgent {
@@ -39,15 +41,15 @@ func NewBaseAgent(id uuid.UUID, agentType string) BaseAgent {
 		id = uuid.New()
 	}
 	return BaseAgent{
-		id:        id,
-		agentType: agentType,
+		AgentID:   id,
+		AgentType: agentType,
 	}
 }
 
 func (b *BaseAgent) ID() uuid.UUID {
-	return b.id
+	return b.AgentID
 }
 
 func (b *BaseAgent) Type() string {
-	return b.agentType
+	return b.AgentType
 }

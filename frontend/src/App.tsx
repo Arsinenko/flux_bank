@@ -5,9 +5,10 @@ import Card from './components/ui/Card';
 import ActivityTrendChart from './components/analytics/ActivityTrendChart';
 import CategoryDonutChart from './components/analytics/CategoryDonutChart';
 import TransactionHeatmap from './components/analytics/TransactionHeatmap';
+import CustomerTable from './components/analytics/CustomerTable';
 
 function App() {
-  const { general, loansAndDeposits, alerts, transactions } = MOCK_DATA;
+  const { general, loansAndDeposits, alerts, transactions, customers } = MOCK_DATA;
 
   return (
     <MainLayout>
@@ -71,11 +72,9 @@ function App() {
             </div>
           </Card>
 
-          <Card title="Latest Transactions" className="xl:col-span-3 h-[450px]">
-            <div className="h-full flex flex-col items-center justify-center text-center p-8 text-text-muted">
-              <div className="w-16 h-16 rounded-full border-2 border-dashed border-accent-neon/20 mb-4 animate-pulse"></div>
-              <p className="font-bold text-text-primary">Transactions Ledger</p>
-              <p className="text-sm">Real-time ledger stream will appear here in the next update.</p>
+          <Card title="Latest Customers" className="xl:col-span-3 h-[500px]">
+            <div className="mt-4 overflow-y-auto max-h-[420px] pr-2 scrollbar-hide">
+              <CustomerTable customers={customers} />
             </div>
           </Card>
         </div>

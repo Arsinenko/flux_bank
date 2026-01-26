@@ -36,9 +36,11 @@ export const MOCK_DATA = {
         { id: '4', title: 'New VIP Customer Registered', level: 'INFO', time: '2h ago' },
     ],
     customers: [
-        { id: '1', name: 'Alex Thompson', avatar: '', status: 'VERIFIED', type: 'PREMIUM', risk: 'LOW' },
-        { id: '2', name: 'Maria Garcia', avatar: '', status: 'PENDING', type: 'STANDARD', risk: 'MEDIUM' },
-        { id: '3', name: 'James Wilson', avatar: '', status: 'VERIFIED', type: 'VIP', risk: 'LOW' },
-        { id: '4', name: 'Sarah Parker', avatar: '', status: 'BLOCKED', type: 'STANDARD', risk: 'HIGH' },
+        { id: '1', name: 'Alex Thompson', email: 'a.thompson@example.com', avatar: '', status: 'VERIFIED', type: 'PREMIUM', risk: 'LOW', joinDate: '2024-01-12', balance: 125000 },
+        { id: '2', name: 'Maria Garcia', email: 'm.garcia@test.net', avatar: '', status: 'PENDING', type: 'STANDARD', risk: 'MEDIUM', joinDate: '2024-02-05', balance: 4500 },
+        { id: '3', name: 'James Wilson', email: 'j.wilson@domain.com', avatar: '', status: 'VERIFIED', type: 'VIP', risk: 'LOW', joinDate: '2023-11-20', balance: 890000 },
+        { id: '4', name: 'Sarah Parker', email: 's.parker@service.org', avatar: '', status: 'BLOCKED', type: 'STANDARD', risk: 'HIGH', joinDate: '2024-03-01', balance: 0 },
+        { id: '5', name: 'Robert Fox', email: 'r.fox@enterprise.com', avatar: '', status: 'VERIFIED', type: 'VIP', risk: 'LOW', joinDate: '2023-12-15', balance: 1200000 },
+        { id: '6', name: 'Jane Cooper', email: 'j.cooper@web.com', avatar: '', status: 'VERIFIED', type: 'PREMIUM', risk: 'LOW', joinDate: '2024-01-20', balance: 45000 },
     ]
 };

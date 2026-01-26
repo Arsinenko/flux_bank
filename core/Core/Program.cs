@@ -83,7 +83,7 @@ app.MapGrpcService<NotificationService>();
 app.MapGrpcService<TransactionCategoryService>();
 app.MapGrpcService<TransactionFeeService>();
 app.MapGrpcService<TransactionService>();
-app.MapGrpcService<UserCredentialService>();
+app.MapGrpcService<UserCredentialService>();    
 
 app.MapGrpcReflectionService();
 app.MapGet("/",
@@ -91,4 +91,4 @@ app.MapGet("/",
         "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
 
 
-app.Run();
+app.Run(url:"http://localhost:8080");

@@ -10,8 +10,8 @@ import (
 // Shop represents a retail business.
 type Shop struct {
 	agents.BaseAgent
-	Name    string
-	Balance float64
+	Name    string  `json:"name"`
+	Balance float64 `json:"balance"`
 	// Inventory map[uuid.UUID]int // Products bought from companies to resell?
 	// Or maybe Shops produce "Retail Service".
 	// Let's assume shops buy wholesale and sell retail.

@@ -3,6 +3,7 @@ package engine
 import (
 	"context"
 	"fmt"
+	"orch-go/internal/services"
 	"orch-go/internal/simulation/agents"
 	"orch-go/internal/simulation/economy"
 	"orch-go/internal/simulation/types"
@@ -11,10 +12,11 @@ import (
 )
 
 type SimulationEngine struct {
-	Clock       *Clock
-	Agents      []agents.Agent
-	Market      *economy.MarketRegistry
-	LaborMarket *economy.LaborMarket
+	Clock            *Clock
+	Agents           []agents.Agent
+	Market           *economy.MarketRegistry
+	LaborMarket      *economy.LaborMarket
+	ServiceContainer *services.ServiceContainer
 
 	// Synchronization
 	mu    sync.RWMutex
@@ -29,13 +31,14 @@ const (
 	StatePaused
 )
 
-func NewSimulationEngine(startTime time.Time, tickInterval time.Duration) *SimulationEngine {
+func NewSimulationEngine(startTime time.Time, tickInterval time.Duration, serviceContainer *services.ServiceContainer) *SimulationEngine {
 	return &SimulationEngine{
-		Clock:       NewClock(startTime, tickInterval),
-		Agents:      make([]agents.Agent, 0),
-		Market:      economy.NewMarketRegistry(),
-		LaborMarket: economy.NewLaborMarket(),
-		state:       StateStopped,
+		Clock:            NewClock(startTime, tickInterval),
+		Agents:           make([]agents.Agent, 0),
+		Market:           economy.NewMarketRegistry(),
+		LaborMarket:      economy.NewLaborMarket(),
+		ServiceContainer: serviceContainer,
+		state:            StateStopped,
 	}
 }
 
@@ -69,11 +72,12 @@ func (e *SimulationEngine) Run(ctx context.Context) error {
 
 			// Create context for this tick
 			simCtx := &SimpleSimulationContext{
-				Context:     ctx,
-				time:        tickInfo.CurrentTime,
-				tickNumber:  tickInfo.TickNumber,
-				market:      e.Market,
-				laborMarket: e.LaborMarket,
+				Context:          ctx,
+				time:             tickInfo.CurrentTime,
+				tickNumber:       tickInfo.TickNumber,
+				market:           e.Market,
+				laborMarket:      e.LaborMarket,
+				serviceContainer: e.ServiceContainer,
 			}
 
 			// Notify all agents
@@ -105,10 +109,11 @@ func (e *SimulationEngine) Run(ctx context.Context) error {
 // SimpleSimulationContext implements AgentContext
 type SimpleSimulationContext struct {
 	context.Context
-	time        types.SimulationTime
-	tickNumber  uint64
-	market      *economy.MarketRegistry
-	laborMarket *economy.LaborMarket
+	time             types.SimulationTime
+	tickNumber       uint64
+	market           *economy.MarketRegistry
+	laborMarket      *economy.LaborMarket
+	serviceContainer *services.ServiceContainer
 }
 
 func (s *SimpleSimulationContext) Time() types.SimulationTime {
@@ -125,4 +130,8 @@ func (s *SimpleSimulationContext) Market() *economy.MarketRegistry {
 
 func (s *SimpleSimulationContext) LaborMarket() *economy.LaborMarket {
 	return s.laborMarket
+}
+
+func (s *SimpleSimulationContext) Services() *services.ServiceContainer {
+	return s.serviceContainer
 }

@@ -3,6 +3,8 @@ package agents
 import (
 	"fmt"
 	"math/rand/v2"
+	"orch-go/internal/domain/account"
+	"orch-go/internal/domain/customer"
 	"orch-go/internal/simulation/economy"
 
 	"github.com/google/uuid"
@@ -10,10 +12,12 @@ import (
 
 type Individual struct {
 	BaseAgent
-	Name     string
-	Balance  float64
-	Contract *economy.EmploymentContract
-	Needs    map[string]float64 // Need name -> Level (0-100)
+	Name       string                      `json:"name"`
+	Balance    float64                     `json:"balance"`
+	Contract   *economy.EmploymentContract `json:"contract"`
+	Needs      map[string]float64          `json:"needs"`
+	CustomerID *int32                      `json:"customer_id"`
+	AccountID  *int32                      `json:"account_id"`
 }
 
 func NewIndividual(name string) *Individual {
@@ -26,7 +30,36 @@ func NewIndividual(name string) *Individual {
 }
 
 func (i *Individual) OnTick(ctx AgentContext) error {
-	// 1. Employment Logic
+	// 1. Bank Registration Logic
+	if i.CustomerID == nil {
+		svcs := ctx.Services()
+		// Simplified customer creation, assuming we need more details in a real scenario
+		//TODO fill Customer fields
+		customer, err := svcs.CustomerService.CreateCustomer(ctx, &customer.Customer{
+			FirstName: i.Name,
+			LastName:  "",
+			Email:     "",
+			Phone:     nil,
+			BirthDate: nil,
+			CreatedAt: nil,
+		})
+		if err != nil {
+			return fmt.Errorf("agent %s failed to create customer: %w", i.Name, err)
+		}
+		i.CustomerID = &customer.Id
+
+		// Assuming default account type, currency etc.
+		account, err := svcs.AccountService.CreateAccount(ctx, &account.Account{
+			//TODO fill
+		})
+		if err != nil {
+			return fmt.Errorf("agent %s failed to create account: %w", i.Name, err)
+		}
+		i.AccountID = &account.Id
+		fmt.Printf("Individual %s registered in bank. CustomerID: %d, AccountID: %d\n", i.Name, *i.CustomerID, *i.AccountID)
+	}
+
+	// 2. Employment Logic
 	if i.Contract == nil {
 		// Look for job
 		lm := ctx.LaborMarket()
@@ -41,13 +74,9 @@ func (i *Individual) OnTick(ctx AgentContext) error {
 				fmt.Printf("Individual %s hired by %s\n", i.Name, v.EmployerID)
 			}
 		}
-	} else {
-		// Work logic...
-		// In a complex sim, receive salary periodically.
-		// For now, assume simplified instant payment or generic income handling elsewhere.
 	}
 
-	// 2. Consumption logic
+	// 3. Consumption logic
 	i.consume(ctx)
 
 	return nil

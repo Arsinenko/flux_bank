@@ -1,20 +1,19 @@
-﻿package services
+package services
 
 type ServiceContainer struct {
-	Account         *AccountService
-	UserCredential  *UserCredentialService
-	Customer        *CustomerService
-	AccountType     *AccountTypeService
-	Atm             *AtmService
-	Branch          *BranchService
-	Card            *CardService
-	Deposit         *DepositService
-	Loan            *LoanService
-	LoanPayment     *LoanService
-	ExchangeRate    *ExchangeRateService
-	FeeType         *FeeTypeService
-	Transaction     *TransactionService
-	PaymentTemplate *PaymentTemplateService
-	Notification    *NotificationService
-	LoginLog        *LoginLogService
+	AccountService         *AccountService
+	UserCredentialService  *UserCredentialService
+	CustomerService        *CustomerService
+	AccountTypeService     *AccountTypeService
+	AtmService             *AtmService
+	BranchService          *BranchService
+	CardService            *CardService
+	DepositService         *DepositService
+	LoanService            *LoanService
+	ExchangeRateService    *ExchangeRateService
+	FeeTypeService         *FeeTypeService
+	TransactionService     *TransactionService
+	PaymentTemplateService *PaymentTemplateService
+	NotificationService    *NotificationService
+	LoginLogService        *LoginLogService
 }
