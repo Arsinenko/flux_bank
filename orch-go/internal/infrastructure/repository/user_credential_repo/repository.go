@@ -52,7 +52,7 @@ func (r Repository) GetById(ctx context.Context, id int32) (*user_credential.Use
 
 func (r Repository) Create(ctx context.Context, cred *user_credential.UserCredential) (*user_credential.UserCredential, error) {
 	req := &pb.AddUserCredentialRequest{
-		CustomerId:   cred.CustomerId,
+		CustomerId:   *cred.CustomerId,
 		Username:     cred.Username,
 		PasswordHash: cred.PasswordHash,
 	}
@@ -66,7 +66,7 @@ func (r Repository) Create(ctx context.Context, cred *user_credential.UserCreden
 
 func (r Repository) Update(ctx context.Context, cred user_credential.UserCredential) error {
 	req := &pb.UpdateUserCredentialRequest{
-		CustomerId:   cred.CustomerId,
+		CustomerId:   *cred.CustomerId,
 		Username:     cred.Username,
 		PasswordHash: cred.PasswordHash,
 	}

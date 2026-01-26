@@ -10,7 +10,7 @@ func ToDomain(p *pb.BranchModel) *branch.Branch {
 		return nil
 	}
 	return &branch.Branch{
-		BranchID: p.BranchId,
+		BranchID: &p.BranchId,
 		Name:     p.Name,
 		City:     p.City,
 		Address:  p.Address,
@@ -23,7 +23,7 @@ func FromDomain(b *branch.Branch) *pb.BranchModel {
 		return nil
 	}
 	return &pb.BranchModel{
-		BranchId: b.BranchID,
+		BranchId: *b.BranchID,
 		Name:     b.Name,
 		City:     b.City,
 		Address:  b.Address,

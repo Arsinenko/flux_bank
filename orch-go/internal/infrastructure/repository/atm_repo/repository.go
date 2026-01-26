@@ -72,7 +72,7 @@ func (r Repository) GetById(ctx context.Context, id int32) (*atm.Atm, error) {
 
 func (r Repository) Add(ctx context.Context, atm *atm.Atm) (*atm.Atm, error) {
 	req := &pb.AddAtmRequest{
-		BranchId: atm.BranchID,
+		BranchId: &atm.BranchID,
 		Location: atm.Location,
 		Status:   atm.Status,
 	}
@@ -85,8 +85,8 @@ func (r Repository) Add(ctx context.Context, atm *atm.Atm) (*atm.Atm, error) {
 
 func (r Repository) Update(ctx context.Context, atm *atm.Atm) error {
 	req := &pb.UpdateAtmRequest{
-		AtmId:    atm.AtmID,
-		BranchId: atm.BranchID,
+		AtmId:    *atm.AtmID,
+		BranchId: &atm.BranchID,
 		Location: atm.Location,
 		Status:   atm.Status,
 	}
@@ -109,7 +109,7 @@ func (r Repository) AddBulk(ctx context.Context, atms []*atm.Atm) error {
 	var models []*pb.AddAtmRequest
 	for _, a := range atms {
 		models = append(models, &pb.AddAtmRequest{
-			BranchId: a.BranchID,
+			BranchId: &a.BranchID,
 			Location: a.Location,
 			Status:   a.Status,
 		})
@@ -125,8 +125,8 @@ func (r Repository) UpdateBulk(ctx context.Context, atms []*atm.Atm) error {
 	var models []*pb.UpdateAtmRequest
 	for _, a := range atms {
 		models = append(models, &pb.UpdateAtmRequest{
-			AtmId:    a.AtmID,
-			BranchId: a.BranchID,
+			AtmId:    *a.AtmID,
+			BranchId: &a.BranchID,
 			Location: a.Location,
 			Status:   a.Status,
 		})

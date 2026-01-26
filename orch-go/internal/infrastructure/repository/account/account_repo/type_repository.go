@@ -63,7 +63,7 @@ func (a AccountTypeRepository) Create(ctx context.Context, accountType *account.
 
 func (a AccountTypeRepository) Update(ctx context.Context, accountType *account.AccountType) error {
 	req := pb.UpdateAccountTypeRequest{
-		TypeId:      accountType.Id,
+		TypeId:      *accountType.Id,
 		Name:        accountType.Name,
 		Description: accountType.Description,
 	}
@@ -103,7 +103,7 @@ func (a AccountTypeRepository) UpdateBulk(ctx context.Context, accountTypes []ac
 	var models []*pb.UpdateAccountTypeRequest
 	for _, at := range accountTypes {
 		models = append(models, &pb.UpdateAccountTypeRequest{
-			TypeId:      at.Id,
+			TypeId:      *at.Id,
 			Name:        at.Name,
 			Description: at.Description,
 		})

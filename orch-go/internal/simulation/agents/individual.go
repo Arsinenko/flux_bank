@@ -55,7 +55,7 @@ func (i *Individual) OnTick(ctx AgentContext) error {
 		if err != nil {
 			return fmt.Errorf("agent %s failed to create account: %w", i.Name, err)
 		}
-		i.AccountID = &account.Id
+		i.AccountID = account.Id
 		fmt.Printf("Individual %s registered in bank. CustomerID: %d, AccountID: %d\n", i.Name, *i.CustomerID, *i.AccountID)
 	}
 

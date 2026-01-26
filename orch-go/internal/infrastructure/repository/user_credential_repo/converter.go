@@ -17,7 +17,7 @@ func ToDomain(model *pb.UserCredentialModel) *user_credential.UserCredential {
 
 	}
 	return &user_credential.UserCredential{
-		CustomerId:   model.CustomerId,
+		CustomerId:   &model.CustomerId,
 		Username:     model.Username,
 		PasswordHash: model.PasswordHash,
 		UpdatedAt:    updatedAt,

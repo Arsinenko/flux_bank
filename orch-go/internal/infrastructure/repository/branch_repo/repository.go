@@ -60,7 +60,7 @@ func (r Repository) Add(ctx context.Context, branch *branch.Branch) (*branch.Bra
 
 func (r Repository) Update(ctx context.Context, branch *branch.Branch) error {
 	req := &pb.UpdateBranchRequest{
-		BranchId: branch.BranchID,
+		BranchId: *branch.BranchID,
 		Name:     branch.Name,
 		City:     branch.City,
 		Address:  branch.Address,
@@ -102,7 +102,7 @@ func (r Repository) UpdateBulk(ctx context.Context, branches []*branch.Branch) e
 	var models []*pb.UpdateBranchRequest
 	for _, b := range branches {
 		models = append(models, &pb.UpdateBranchRequest{
-			BranchId: b.BranchID,
+			BranchId: *b.BranchID,
 			Name:     b.Name,
 			City:     b.City,
 			Address:  b.Address,

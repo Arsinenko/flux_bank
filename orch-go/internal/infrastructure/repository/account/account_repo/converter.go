@@ -15,7 +15,7 @@ func AccountToDomain(p *pb.AccountModel) *account.Account {
 		createdAt = p.CreatedAt.AsTime()
 	}
 	return &account.Account{
-		Id:         p.AccountId,
+		Id:         &p.AccountId,
 		CustomerId: *p.CustomerId,
 		TypeId:     *p.TypeId,
 		Iban:       p.Iban,
@@ -30,7 +30,7 @@ func AccountTypeToDomain(p *pb.AccountTypeModel) *account.AccountType {
 		return nil
 	}
 	return &account.AccountType{
-		Id:          p.TypeId,
+		Id:          &p.TypeId,
 		Name:        p.Name,
 		Description: p.Description,
 	}

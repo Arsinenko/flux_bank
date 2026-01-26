@@ -10,8 +10,8 @@ func ToDomain(p *pb.AtmModel) *atm.Atm {
 		return nil
 	}
 	return &atm.Atm{
-		AtmID:    p.AtmId,
-		BranchID: p.BranchId,
+		AtmID:    &p.AtmId,
+		BranchID: *p.BranchId,
 		Location: p.Location,
 		Status:   p.Status,
 	}

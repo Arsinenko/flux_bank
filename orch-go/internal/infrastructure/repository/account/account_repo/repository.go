@@ -98,7 +98,7 @@ func (r Repository) Create(ctx context.Context, account *account.Account) (*acco
 
 func (r Repository) Update(ctx context.Context, account *account.Account) error {
 	req := pb.UpdateAccountRequest{
-		AccountId:  account.Id,
+		AccountId:  *account.Id,
 		CustomerId: &account.CustomerId,
 		TypeId:     &account.TypeId,
 		Iban:       account.Iban,
@@ -124,7 +124,7 @@ func (r Repository) UpdateBulk(ctx context.Context, accounts []account.Account) 
 	var models []*pb.UpdateAccountRequest
 	for _, a := range accounts {
 		models = append(models, &pb.UpdateAccountRequest{
-			AccountId:  a.Id,
+			AccountId:  *a.Id,
 			CustomerId: &a.CustomerId,
 			TypeId:     &a.TypeId,
 			Iban:       a.Iban,
