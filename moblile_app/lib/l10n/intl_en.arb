@@ -1,0 +1,30 @@
+
+{
+  "appTitle": "NeoBank Client",
+  "authLoginLabel": "Username",
+  "authPasswordLabel": "Password",
+  "authButton": "Sign In",
+  "homeGreeting": "Hello, {name}",
+  "@homeGreeting": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "totalBalanceTitle": "Total Balance",
+  "sectionAccounts": "My Accounts",
+  "sectionCards": "Cards",
+  "actionTopUp": "Top Up",
+  "actionTransfer": "Transfer",
+  "actionHistory": "History",
+  "actionSettings": "Settings",
+  "tabHome": "Home",
+  "tabPayments": "Payments",
+  "tabAtm": "ATMs",
+  "tabProfile": "Profile",
+  "statusActive": "Active",
+  "statusBlocked": "Blocked",
+  "settingsLanguage": "App Language",
+  "settingsTheme": "Dark Mode"
+}

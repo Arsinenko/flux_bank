@@ -1,0 +1,30 @@
+
+{
+  "appTitle": "Клиент НеоБанка",
+  "authLoginLabel": "Логин",
+  "authPasswordLabel": "Пароль",
+  "authButton": "Войти",
+  "homeGreeting": "Привет, {name}",
+  "@homeGreeting": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "totalBalanceTitle": "Общий баланс",
+  "sectionAccounts": "Мои счета",
+  "sectionCards": "Карты",
+  "actionTopUp": "Пополнить",
+  "actionTransfer": "Перевести",
+  "actionHistory": "История",
+  "actionSettings": "Настройки",
+  "tabHome": "Главная",
+  "tabPayments": "Платежи",
+  "tabAtm": "Банкоматы",
+  "tabProfile": "Профиль",
+  "statusActive": "Активен",
+  "statusBlocked": "Заблокирован",
+  "settingsLanguage": "Язык приложения",
+  "settingsTheme": "Темная тема"
+}
