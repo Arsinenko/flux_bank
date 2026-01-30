@@ -2,7 +2,7 @@ package customer_address_repo
 
 import (
 	pb "orch-go/api/generated"
-	customerAdress "orch-go/internal/domain/customerAddress"
+	customerAdress "orch-go/internal/domain/customer_address"
 )
 
 func ToDomain(p *pb.CustomerAddressModel) *customerAdress.CustomerAddress {

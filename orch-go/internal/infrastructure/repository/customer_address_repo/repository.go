@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 	pb "orch-go/api/generated"
-	customerAdress "orch-go/internal/domain/customerAddress"
+	customerAdress "orch-go/internal/domain/customer_address"
 
 	"google.golang.org/protobuf/types/known/wrapperspb"
 )

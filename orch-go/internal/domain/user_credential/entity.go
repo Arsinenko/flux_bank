@@ -25,12 +25,12 @@ func FakeUserCreds() UserCredential {
 	gofakeit.New(0)
 
 	password := gofakeit.Password(true, true, true, true, false, 10)
-	passwordhash, _ := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+	passwordHash, _ := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
 
 	return UserCredential{
 		CustomerId:   nil,
 		Username:     gofakeit.Username(),
-		PasswordHash: string(passwordhash),
+		PasswordHash: string(passwordHash),
 		UpdatedAt:    time.Time{},
 	}
 }

@@ -3,7 +3,6 @@ package simulation
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"orch-go/internal/simulation/agents"
 	"orch-go/internal/simulation/agents/business"
 	"os"
@@ -36,7 +35,7 @@ func SaveAgents(agentsToSave []agents.Agent) error {
 		return fmt.Errorf("failed to marshal agent wrappers: %w", err)
 	}
 
-	return ioutil.WriteFile(storageFile, fileData, 0644)
+	return os.WriteFile(storageFile, fileData, 0644)
 }
 
 // LoadAgents deserializes agents from a JSON file.
@@ -45,7 +44,7 @@ func LoadAgents() ([]agents.Agent, error) {
 		return nil, nil // File doesn't exist, no state to load
 	}
 
-	fileData, err := ioutil.ReadFile(storageFile)
+	fileData, err := os.ReadFile(storageFile)
 	if err != nil {
 		return nil, fmt.Errorf("failed to read state file: %w", err)
 	}

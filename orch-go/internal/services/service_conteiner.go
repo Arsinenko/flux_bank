@@ -4,6 +4,7 @@ type ServiceContainer struct {
 	AccountService         *AccountService
 	UserCredentialService  *UserCredentialService
 	CustomerService        *CustomerService
+	CustomerAddressService *CustomerAddressService
 	AccountTypeService     *AccountTypeService
 	AtmService             *AtmService
 	BranchService          *BranchService

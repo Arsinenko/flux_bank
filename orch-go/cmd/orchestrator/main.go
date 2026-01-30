@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"orch-go/config"
 	"orch-go/internal/app"
@@ -46,7 +47,7 @@ func main() {
 	// Wait for either the simulation to finish or a signal to be received
 	select {
 	case err := <-simDone:
-		if err != nil && err != context.Canceled {
+		if err != nil && !errors.Is(err, context.Canceled) {
 			fmt.Printf("Simulation finished with error: %v\n", err)
 		} else {
 			fmt.Println("Simulation finished normally.")

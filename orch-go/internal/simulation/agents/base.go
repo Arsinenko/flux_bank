@@ -1,21 +1,10 @@
 package agents
 
 import (
-	"orch-go/internal/services"
-	"orch-go/internal/simulation/economy"
-	"orch-go/internal/simulation/types"
+	simcontext "orch-go/internal/simulation/context"
 
 	"github.com/google/uuid"
 )
-
-// AgentContext provides access to external systems for the agent (Economy, other agents, etc.)
-// Detailed definition will be added as we implement the Economy package.
-type AgentContext interface {
-	types.SimulationContext
-	Market() *economy.MarketRegistry
-	LaborMarket() *economy.LaborMarket
-	Services() *services.ServiceContainer
-}
 
 // Agent is the main interface that all simulation agents must implement.
 type Agent interface {
@@ -27,7 +16,7 @@ type Agent interface {
 
 	// OnTick is called every simulation step.
 	// agents should decide their actions based on the current state and time.
-	OnTick(ctx AgentContext) error
+	OnTick(ctx simcontext.AgentContext) error
 }
 
 // BaseAgent provides common functionality for all agents.

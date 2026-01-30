@@ -1,4 +1,4 @@
-package customerAdress
+package customer_address
 
 import "github.com/brianvoe/gofakeit/v7"
 
@@ -12,10 +12,9 @@ type CustomerAddress struct {
 	IsPrimary  bool
 }
 
-func FakeCustomerAddress(id, customerId int32) *CustomerAddress {
+func FakeCustomerAddress(customerId int32) *CustomerAddress {
 	gofakeit.New(0)
 	return &CustomerAddress{
-		Id:         &id,
 		CustomerId: customerId,
 		Country:    gofakeit.Country(),
 		City:       gofakeit.City(),

@@ -2,6 +2,8 @@ package business
 
 import (
 	"orch-go/internal/simulation/agents"
+	"orch-go/internal/simulation/bank"
+	simcontext "orch-go/internal/simulation/context"
 	"orch-go/internal/simulation/economy"
 
 	"github.com/google/uuid"
@@ -10,8 +12,10 @@ import (
 // Shop represents a retail business.
 type Shop struct {
 	agents.BaseAgent
-	Name    string  `json:"name"`
-	Balance float64 `json:"balance"`
+	Name       string  `json:"name"`
+	Balance    float64 `json:"balance"`
+	CustomerID *int32  `json:"customer_id"`
+	AccountID  *int32  `json:"account_id"`
 	// Inventory map[uuid.UUID]int // Products bought from companies to resell?
 	// Or maybe Shops produce "Retail Service".
 	// Let's assume shops buy wholesale and sell retail.
@@ -25,7 +29,15 @@ func NewShop(name string) *Shop {
 	}
 }
 
-func (s *Shop) OnTick(ctx agents.AgentContext) error {
+func (s *Shop) OnTick(ctx simcontext.AgentContext) error {
+	if s.CustomerID == nil {
+		svcs := ctx.Services()
+		err := bank.RegisterAgent(ctx, svcs, s)
+		if err != nil {
+			return err
+		}
+	}
+
 	// Simplified logic: Shops just list goods they magically have for now,
 	// or we can make them buy from Companies if we link them.
 
@@ -41,4 +53,16 @@ func (s *Shop) OnTick(ctx agents.AgentContext) error {
 	m.AddListing(s.ID(), "Retail Goods", economy.ItemProduct, 15.0, 10)
 
 	return nil
+}
+
+func (s *Shop) SetCustomerID(id int32) {
+	s.CustomerID = &id
+}
+
+func (s *Shop) SetAccountID(id int32) {
+	s.AccountID = &id
+}
+
+func (s *Shop) GetName() string {
+	return s.Name
 }

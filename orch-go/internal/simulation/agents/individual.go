@@ -3,8 +3,8 @@ package agents
 import (
 	"fmt"
 	"math/rand/v2"
-	"orch-go/internal/domain/account"
-	"orch-go/internal/domain/customer"
+	"orch-go/internal/simulation/bank"
+	simcontext "orch-go/internal/simulation/context"
 	"orch-go/internal/simulation/economy"
 
 	"github.com/google/uuid"
@@ -29,34 +29,14 @@ func NewIndividual(name string) *Individual {
 	}
 }
 
-func (i *Individual) OnTick(ctx AgentContext) error {
+func (i *Individual) OnTick(ctx simcontext.AgentContext) error {
 	// 1. Bank Registration Logic
 	if i.CustomerID == nil {
 		svcs := ctx.Services()
-		// Simplified customer creation, assuming we need more details in a real scenario
-		//TODO fill Customer fields
-		customer, err := svcs.CustomerService.CreateCustomer(ctx, &customer.Customer{
-			FirstName: i.Name,
-			LastName:  "",
-			Email:     "",
-			Phone:     nil,
-			BirthDate: nil,
-			CreatedAt: nil,
-		})
+		err := bank.RegisterAgent(ctx, svcs, i)
 		if err != nil {
-			return fmt.Errorf("agent %s failed to create customer: %w", i.Name, err)
+			return err
 		}
-		i.CustomerID = &customer.Id
-
-		// Assuming default account type, currency etc.
-		account, err := svcs.AccountService.CreateAccount(ctx, &account.Account{
-			//TODO fill
-		})
-		if err != nil {
-			return fmt.Errorf("agent %s failed to create account: %w", i.Name, err)
-		}
-		i.AccountID = account.Id
-		fmt.Printf("Individual %s registered in bank. CustomerID: %d, AccountID: %d\n", i.Name, *i.CustomerID, *i.AccountID)
 	}
 
 	// 2. Employment Logic
@@ -82,7 +62,7 @@ func (i *Individual) OnTick(ctx AgentContext) error {
 	return nil
 }
 
-func (i *Individual) consume(ctx AgentContext) {
+func (i *Individual) consume(ctx simcontext.AgentContext) {
 	// Simple logic: buy something if we have money and random chance
 	if i.Balance > 10.0 && rand.Float64() < 0.2 {
 		m := ctx.Market()
@@ -100,4 +80,16 @@ func (i *Individual) consume(ctx AgentContext) {
 			}
 		}
 	}
+}
+
+func (i *Individual) SetCustomerID(id int32) {
+	i.CustomerID = &id
+}
+
+func (i *Individual) SetAccountID(id int32) {
+	i.AccountID = &id
+}
+
+func (i *Individual) GetName() string {
+	return i.Name
 }

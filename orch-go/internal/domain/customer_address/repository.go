@@ -1,4 +1,4 @@
-package customerAdress
+package customer_address
 
 import "context"
 
