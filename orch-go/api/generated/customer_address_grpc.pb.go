@@ -20,16 +20,17 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	CustomerAddressService_GetAll_FullMethodName     = "/protos.CustomerAddressService/GetAll"
-	CustomerAddressService_GetById_FullMethodName    = "/protos.CustomerAddressService/GetById"
-	CustomerAddressService_GetByIds_FullMethodName   = "/protos.CustomerAddressService/GetByIds"
-	CustomerAddressService_Add_FullMethodName        = "/protos.CustomerAddressService/Add"
-	CustomerAddressService_Update_FullMethodName     = "/protos.CustomerAddressService/Update"
-	CustomerAddressService_Delete_FullMethodName     = "/protos.CustomerAddressService/Delete"
-	CustomerAddressService_AddBulk_FullMethodName    = "/protos.CustomerAddressService/AddBulk"
-	CustomerAddressService_UpdateBulk_FullMethodName = "/protos.CustomerAddressService/UpdateBulk"
-	CustomerAddressService_DeleteBulk_FullMethodName = "/protos.CustomerAddressService/DeleteBulk"
-	CustomerAddressService_GetCount_FullMethodName   = "/protos.CustomerAddressService/GetCount"
+	CustomerAddressService_GetAll_FullMethodName          = "/protos.CustomerAddressService/GetAll"
+	CustomerAddressService_GetById_FullMethodName         = "/protos.CustomerAddressService/GetById"
+	CustomerAddressService_GetByCustomerId_FullMethodName = "/protos.CustomerAddressService/GetByCustomerId"
+	CustomerAddressService_GetByIds_FullMethodName        = "/protos.CustomerAddressService/GetByIds"
+	CustomerAddressService_Add_FullMethodName             = "/protos.CustomerAddressService/Add"
+	CustomerAddressService_Update_FullMethodName          = "/protos.CustomerAddressService/Update"
+	CustomerAddressService_Delete_FullMethodName          = "/protos.CustomerAddressService/Delete"
+	CustomerAddressService_AddBulk_FullMethodName         = "/protos.CustomerAddressService/AddBulk"
+	CustomerAddressService_UpdateBulk_FullMethodName      = "/protos.CustomerAddressService/UpdateBulk"
+	CustomerAddressService_DeleteBulk_FullMethodName      = "/protos.CustomerAddressService/DeleteBulk"
+	CustomerAddressService_GetCount_FullMethodName        = "/protos.CustomerAddressService/GetCount"
 )
 
 // CustomerAddressServiceClient is the client API for CustomerAddressService service.
@@ -38,6 +39,7 @@ const (
 type CustomerAddressServiceClient interface {
 	GetAll(ctx context.Context, in *GetAllRequest, opts ...grpc.CallOption) (*GetAllCustomerAddressesResponse, error)
 	GetById(ctx context.Context, in *GetCustomerAddressByIdRequest, opts ...grpc.CallOption) (*CustomerAddressModel, error)
+	GetByCustomerId(ctx context.Context, in *GetCustomerAddressByCustomerIdRequest, opts ...grpc.CallOption) (*GetAllCustomerAddressesResponse, error)
 	GetByIds(ctx context.Context, in *GetCustomerAddressByIdsRequest, opts ...grpc.CallOption) (*GetAllCustomerAddressesResponse, error)
 	Add(ctx context.Context, in *AddCustomerAddressRequest, opts ...grpc.CallOption) (*CustomerAddressModel, error)
 	Update(ctx context.Context, in *UpdateCustomerAddressRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
@@ -70,6 +72,16 @@ func (c *customerAddressServiceClient) GetById(ctx context.Context, in *GetCusto
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(CustomerAddressModel)
 	err := c.cc.Invoke(ctx, CustomerAddressService_GetById_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *customerAddressServiceClient) GetByCustomerId(ctx context.Context, in *GetCustomerAddressByCustomerIdRequest, opts ...grpc.CallOption) (*GetAllCustomerAddressesResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetAllCustomerAddressesResponse)
+	err := c.cc.Invoke(ctx, CustomerAddressService_GetByCustomerId_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -162,6 +174,7 @@ func (c *customerAddressServiceClient) GetCount(ctx context.Context, in *emptypb
 type CustomerAddressServiceServer interface {
 	GetAll(context.Context, *GetAllRequest) (*GetAllCustomerAddressesResponse, error)
 	GetById(context.Context, *GetCustomerAddressByIdRequest) (*CustomerAddressModel, error)
+	GetByCustomerId(context.Context, *GetCustomerAddressByCustomerIdRequest) (*GetAllCustomerAddressesResponse, error)
 	GetByIds(context.Context, *GetCustomerAddressByIdsRequest) (*GetAllCustomerAddressesResponse, error)
 	Add(context.Context, *AddCustomerAddressRequest) (*CustomerAddressModel, error)
 	Update(context.Context, *UpdateCustomerAddressRequest) (*emptypb.Empty, error)
@@ -185,6 +198,9 @@ func (UnimplementedCustomerAddressServiceServer) GetAll(context.Context, *GetAll
 }
 func (UnimplementedCustomerAddressServiceServer) GetById(context.Context, *GetCustomerAddressByIdRequest) (*CustomerAddressModel, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetById not implemented")
+}
+func (UnimplementedCustomerAddressServiceServer) GetByCustomerId(context.Context, *GetCustomerAddressByCustomerIdRequest) (*GetAllCustomerAddressesResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetByCustomerId not implemented")
 }
 func (UnimplementedCustomerAddressServiceServer) GetByIds(context.Context, *GetCustomerAddressByIdsRequest) (*GetAllCustomerAddressesResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetByIds not implemented")
@@ -264,6 +280,24 @@ func _CustomerAddressService_GetById_Handler(srv interface{}, ctx context.Contex
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CustomerAddressServiceServer).GetById(ctx, req.(*GetCustomerAddressByIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CustomerAddressService_GetByCustomerId_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetCustomerAddressByCustomerIdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CustomerAddressServiceServer).GetByCustomerId(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CustomerAddressService_GetByCustomerId_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CustomerAddressServiceServer).GetByCustomerId(ctx, req.(*GetCustomerAddressByCustomerIdRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -426,6 +460,10 @@ var CustomerAddressService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetById",
 			Handler:    _CustomerAddressService_GetById_Handler,
+		},
+		{
+			MethodName: "GetByCustomerId",
+			Handler:    _CustomerAddressService_GetByCustomerId_Handler,
 		},
 		{
 			MethodName: "GetByIds",

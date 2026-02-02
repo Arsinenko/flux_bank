@@ -3,13 +3,13 @@ package customer_address
 import "github.com/brianvoe/gofakeit/v7"
 
 type CustomerAddress struct {
-	Id         *int32
-	CustomerId int32
-	Country    string
-	City       string
-	Street     string
-	ZipCode    string
-	IsPrimary  bool
+	Id         *int32 `json:"id"`
+	CustomerId int32  `json:"customer_id"`
+	Country    string `json:"country"`
+	City       string `json:"city"`
+	Street     string `json:"street"`
+	ZipCode    string `json:"zip_code"`
+	IsPrimary  bool   `json:"is_primary"`
 }
 
 func FakeCustomerAddress(customerId int32) *CustomerAddress {

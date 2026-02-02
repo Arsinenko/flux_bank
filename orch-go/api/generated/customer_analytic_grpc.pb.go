@@ -20,6 +20,15 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
+	CustomerAnalyticService_ProcessGetAll_FullMethodName                          = "/protos.CustomerAnalyticService/ProcessGetAll"
+	CustomerAnalyticService_ProcessGetById_FullMethodName                         = "/protos.CustomerAnalyticService/ProcessGetById"
+	CustomerAnalyticService_ProcessGetByIds_FullMethodName                        = "/protos.CustomerAnalyticService/ProcessGetByIds"
+	CustomerAnalyticService_ProcessGetBySubstring_FullMethodName                  = "/protos.CustomerAnalyticService/ProcessGetBySubstring"
+	CustomerAnalyticService_ProcessGetByDateRange_FullMethodName                  = "/protos.CustomerAnalyticService/ProcessGetByDateRange"
+	CustomerAnalyticService_ProcessGetCount_FullMethodName                        = "/protos.CustomerAnalyticService/ProcessGetCount"
+	CustomerAnalyticService_ProcessGetCountBySubstring_FullMethodName             = "/protos.CustomerAnalyticService/ProcessGetCountBySubstring"
+	CustomerAnalyticService_ProcessGetCountByDateRange_FullMethodName             = "/protos.CustomerAnalyticService/ProcessGetCountByDateRange"
+	CustomerAnalyticService_ProcessGetInactive_FullMethodName                     = "/protos.CustomerAnalyticService/ProcessGetInactive"
 	CustomerAnalyticService_GetCustomersByTransactionQuantityRange_FullMethodName = "/protos.CustomerAnalyticService/GetCustomersByTransactionQuantityRange"
 	CustomerAnalyticService_GetCustomerLifeTime_FullMethodName                    = "/protos.CustomerAnalyticService/GetCustomerLifeTime"
 	CustomerAnalyticService_GetCustomersLifeTime_FullMethodName                   = "/protos.CustomerAnalyticService/GetCustomersLifeTime"
@@ -33,6 +42,15 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type CustomerAnalyticServiceClient interface {
+	ProcessGetAll(ctx context.Context, in *GetAllRequest, opts ...grpc.CallOption) (*GetAllCustomersResponse, error)
+	ProcessGetById(ctx context.Context, in *GetCustomerByIdRequest, opts ...grpc.CallOption) (*CustomerModel, error)
+	ProcessGetByIds(ctx context.Context, in *GetCustomerByIdsRequest, opts ...grpc.CallOption) (*GetAllCustomersResponse, error)
+	ProcessGetBySubstring(ctx context.Context, in *GetBySubstringRequest, opts ...grpc.CallOption) (*GetAllCustomersResponse, error)
+	ProcessGetByDateRange(ctx context.Context, in *GetByDateRangeRequest, opts ...grpc.CallOption) (*GetAllCustomersResponse, error)
+	ProcessGetCount(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*CountResponse, error)
+	ProcessGetCountBySubstring(ctx context.Context, in *GetBySubstringRequest, opts ...grpc.CallOption) (*CountResponse, error)
+	ProcessGetCountByDateRange(ctx context.Context, in *GetByDateRangeRequest, opts ...grpc.CallOption) (*CountResponse, error)
+	ProcessGetInactive(ctx context.Context, in *GetInactiveCustomersRequest, opts ...grpc.CallOption) (*GetAllCustomersResponse, error)
 	GetCustomersByTransactionQuantityRange(ctx context.Context, in *GetCustomersByTransactionQuantityRangeRequest, opts ...grpc.CallOption) (*GetAllCustomersResponse, error)
 	GetCustomerLifeTime(ctx context.Context, in *GetCustomerLifeTimeRequest, opts ...grpc.CallOption) (*GetCustomerLifeTimeResponse, error)
 	GetCustomersLifeTime(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*GetCustomersLifeTimeResponse, error)
@@ -48,6 +66,96 @@ type customerAnalyticServiceClient struct {
 
 func NewCustomerAnalyticServiceClient(cc grpc.ClientConnInterface) CustomerAnalyticServiceClient {
 	return &customerAnalyticServiceClient{cc}
+}
+
+func (c *customerAnalyticServiceClient) ProcessGetAll(ctx context.Context, in *GetAllRequest, opts ...grpc.CallOption) (*GetAllCustomersResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetAllCustomersResponse)
+	err := c.cc.Invoke(ctx, CustomerAnalyticService_ProcessGetAll_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *customerAnalyticServiceClient) ProcessGetById(ctx context.Context, in *GetCustomerByIdRequest, opts ...grpc.CallOption) (*CustomerModel, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CustomerModel)
+	err := c.cc.Invoke(ctx, CustomerAnalyticService_ProcessGetById_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *customerAnalyticServiceClient) ProcessGetByIds(ctx context.Context, in *GetCustomerByIdsRequest, opts ...grpc.CallOption) (*GetAllCustomersResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetAllCustomersResponse)
+	err := c.cc.Invoke(ctx, CustomerAnalyticService_ProcessGetByIds_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *customerAnalyticServiceClient) ProcessGetBySubstring(ctx context.Context, in *GetBySubstringRequest, opts ...grpc.CallOption) (*GetAllCustomersResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetAllCustomersResponse)
+	err := c.cc.Invoke(ctx, CustomerAnalyticService_ProcessGetBySubstring_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *customerAnalyticServiceClient) ProcessGetByDateRange(ctx context.Context, in *GetByDateRangeRequest, opts ...grpc.CallOption) (*GetAllCustomersResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetAllCustomersResponse)
+	err := c.cc.Invoke(ctx, CustomerAnalyticService_ProcessGetByDateRange_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *customerAnalyticServiceClient) ProcessGetCount(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*CountResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CountResponse)
+	err := c.cc.Invoke(ctx, CustomerAnalyticService_ProcessGetCount_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *customerAnalyticServiceClient) ProcessGetCountBySubstring(ctx context.Context, in *GetBySubstringRequest, opts ...grpc.CallOption) (*CountResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CountResponse)
+	err := c.cc.Invoke(ctx, CustomerAnalyticService_ProcessGetCountBySubstring_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *customerAnalyticServiceClient) ProcessGetCountByDateRange(ctx context.Context, in *GetByDateRangeRequest, opts ...grpc.CallOption) (*CountResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CountResponse)
+	err := c.cc.Invoke(ctx, CustomerAnalyticService_ProcessGetCountByDateRange_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *customerAnalyticServiceClient) ProcessGetInactive(ctx context.Context, in *GetInactiveCustomersRequest, opts ...grpc.CallOption) (*GetAllCustomersResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetAllCustomersResponse)
+	err := c.cc.Invoke(ctx, CustomerAnalyticService_ProcessGetInactive_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *customerAnalyticServiceClient) GetCustomersByTransactionQuantityRange(ctx context.Context, in *GetCustomersByTransactionQuantityRangeRequest, opts ...grpc.CallOption) (*GetAllCustomersResponse, error) {
@@ -124,6 +232,15 @@ func (c *customerAnalyticServiceClient) GetCustomerDetails(ctx context.Context, 
 // All implementations must embed UnimplementedCustomerAnalyticServiceServer
 // for forward compatibility.
 type CustomerAnalyticServiceServer interface {
+	ProcessGetAll(context.Context, *GetAllRequest) (*GetAllCustomersResponse, error)
+	ProcessGetById(context.Context, *GetCustomerByIdRequest) (*CustomerModel, error)
+	ProcessGetByIds(context.Context, *GetCustomerByIdsRequest) (*GetAllCustomersResponse, error)
+	ProcessGetBySubstring(context.Context, *GetBySubstringRequest) (*GetAllCustomersResponse, error)
+	ProcessGetByDateRange(context.Context, *GetByDateRangeRequest) (*GetAllCustomersResponse, error)
+	ProcessGetCount(context.Context, *emptypb.Empty) (*CountResponse, error)
+	ProcessGetCountBySubstring(context.Context, *GetBySubstringRequest) (*CountResponse, error)
+	ProcessGetCountByDateRange(context.Context, *GetByDateRangeRequest) (*CountResponse, error)
+	ProcessGetInactive(context.Context, *GetInactiveCustomersRequest) (*GetAllCustomersResponse, error)
 	GetCustomersByTransactionQuantityRange(context.Context, *GetCustomersByTransactionQuantityRangeRequest) (*GetAllCustomersResponse, error)
 	GetCustomerLifeTime(context.Context, *GetCustomerLifeTimeRequest) (*GetCustomerLifeTimeResponse, error)
 	GetCustomersLifeTime(context.Context, *emptypb.Empty) (*GetCustomersLifeTimeResponse, error)
@@ -141,6 +258,33 @@ type CustomerAnalyticServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedCustomerAnalyticServiceServer struct{}
 
+func (UnimplementedCustomerAnalyticServiceServer) ProcessGetAll(context.Context, *GetAllRequest) (*GetAllCustomersResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ProcessGetAll not implemented")
+}
+func (UnimplementedCustomerAnalyticServiceServer) ProcessGetById(context.Context, *GetCustomerByIdRequest) (*CustomerModel, error) {
+	return nil, status.Error(codes.Unimplemented, "method ProcessGetById not implemented")
+}
+func (UnimplementedCustomerAnalyticServiceServer) ProcessGetByIds(context.Context, *GetCustomerByIdsRequest) (*GetAllCustomersResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ProcessGetByIds not implemented")
+}
+func (UnimplementedCustomerAnalyticServiceServer) ProcessGetBySubstring(context.Context, *GetBySubstringRequest) (*GetAllCustomersResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ProcessGetBySubstring not implemented")
+}
+func (UnimplementedCustomerAnalyticServiceServer) ProcessGetByDateRange(context.Context, *GetByDateRangeRequest) (*GetAllCustomersResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ProcessGetByDateRange not implemented")
+}
+func (UnimplementedCustomerAnalyticServiceServer) ProcessGetCount(context.Context, *emptypb.Empty) (*CountResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ProcessGetCount not implemented")
+}
+func (UnimplementedCustomerAnalyticServiceServer) ProcessGetCountBySubstring(context.Context, *GetBySubstringRequest) (*CountResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ProcessGetCountBySubstring not implemented")
+}
+func (UnimplementedCustomerAnalyticServiceServer) ProcessGetCountByDateRange(context.Context, *GetByDateRangeRequest) (*CountResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ProcessGetCountByDateRange not implemented")
+}
+func (UnimplementedCustomerAnalyticServiceServer) ProcessGetInactive(context.Context, *GetInactiveCustomersRequest) (*GetAllCustomersResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ProcessGetInactive not implemented")
+}
 func (UnimplementedCustomerAnalyticServiceServer) GetCustomersByTransactionQuantityRange(context.Context, *GetCustomersByTransactionQuantityRangeRequest) (*GetAllCustomersResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetCustomersByTransactionQuantityRange not implemented")
 }
@@ -182,6 +326,168 @@ func RegisterCustomerAnalyticServiceServer(s grpc.ServiceRegistrar, srv Customer
 		t.testEmbeddedByValue()
 	}
 	s.RegisterService(&CustomerAnalyticService_ServiceDesc, srv)
+}
+
+func _CustomerAnalyticService_ProcessGetAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAllRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CustomerAnalyticServiceServer).ProcessGetAll(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CustomerAnalyticService_ProcessGetAll_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CustomerAnalyticServiceServer).ProcessGetAll(ctx, req.(*GetAllRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CustomerAnalyticService_ProcessGetById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetCustomerByIdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CustomerAnalyticServiceServer).ProcessGetById(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CustomerAnalyticService_ProcessGetById_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CustomerAnalyticServiceServer).ProcessGetById(ctx, req.(*GetCustomerByIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CustomerAnalyticService_ProcessGetByIds_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetCustomerByIdsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CustomerAnalyticServiceServer).ProcessGetByIds(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CustomerAnalyticService_ProcessGetByIds_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CustomerAnalyticServiceServer).ProcessGetByIds(ctx, req.(*GetCustomerByIdsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CustomerAnalyticService_ProcessGetBySubstring_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetBySubstringRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CustomerAnalyticServiceServer).ProcessGetBySubstring(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CustomerAnalyticService_ProcessGetBySubstring_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CustomerAnalyticServiceServer).ProcessGetBySubstring(ctx, req.(*GetBySubstringRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CustomerAnalyticService_ProcessGetByDateRange_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetByDateRangeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CustomerAnalyticServiceServer).ProcessGetByDateRange(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CustomerAnalyticService_ProcessGetByDateRange_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CustomerAnalyticServiceServer).ProcessGetByDateRange(ctx, req.(*GetByDateRangeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CustomerAnalyticService_ProcessGetCount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(emptypb.Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CustomerAnalyticServiceServer).ProcessGetCount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CustomerAnalyticService_ProcessGetCount_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CustomerAnalyticServiceServer).ProcessGetCount(ctx, req.(*emptypb.Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CustomerAnalyticService_ProcessGetCountBySubstring_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetBySubstringRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CustomerAnalyticServiceServer).ProcessGetCountBySubstring(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CustomerAnalyticService_ProcessGetCountBySubstring_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CustomerAnalyticServiceServer).ProcessGetCountBySubstring(ctx, req.(*GetBySubstringRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CustomerAnalyticService_ProcessGetCountByDateRange_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetByDateRangeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CustomerAnalyticServiceServer).ProcessGetCountByDateRange(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CustomerAnalyticService_ProcessGetCountByDateRange_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CustomerAnalyticServiceServer).ProcessGetCountByDateRange(ctx, req.(*GetByDateRangeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CustomerAnalyticService_ProcessGetInactive_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetInactiveCustomersRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CustomerAnalyticServiceServer).ProcessGetInactive(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CustomerAnalyticService_ProcessGetInactive_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CustomerAnalyticServiceServer).ProcessGetInactive(ctx, req.(*GetInactiveCustomersRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _CustomerAnalyticService_GetCustomersByTransactionQuantityRange_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -317,6 +623,42 @@ var CustomerAnalyticService_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "protos.CustomerAnalyticService",
 	HandlerType: (*CustomerAnalyticServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "ProcessGetAll",
+			Handler:    _CustomerAnalyticService_ProcessGetAll_Handler,
+		},
+		{
+			MethodName: "ProcessGetById",
+			Handler:    _CustomerAnalyticService_ProcessGetById_Handler,
+		},
+		{
+			MethodName: "ProcessGetByIds",
+			Handler:    _CustomerAnalyticService_ProcessGetByIds_Handler,
+		},
+		{
+			MethodName: "ProcessGetBySubstring",
+			Handler:    _CustomerAnalyticService_ProcessGetBySubstring_Handler,
+		},
+		{
+			MethodName: "ProcessGetByDateRange",
+			Handler:    _CustomerAnalyticService_ProcessGetByDateRange_Handler,
+		},
+		{
+			MethodName: "ProcessGetCount",
+			Handler:    _CustomerAnalyticService_ProcessGetCount_Handler,
+		},
+		{
+			MethodName: "ProcessGetCountBySubstring",
+			Handler:    _CustomerAnalyticService_ProcessGetCountBySubstring_Handler,
+		},
+		{
+			MethodName: "ProcessGetCountByDateRange",
+			Handler:    _CustomerAnalyticService_ProcessGetCountByDateRange_Handler,
+		},
+		{
+			MethodName: "ProcessGetInactive",
+			Handler:    _CustomerAnalyticService_ProcessGetInactive_Handler,
+		},
 		{
 			MethodName: "GetCustomersByTransactionQuantityRange",
 			Handler:    _CustomerAnalyticService_GetCustomersByTransactionQuantityRange_Handler,

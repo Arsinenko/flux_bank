@@ -9,10 +9,11 @@ package protos
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	_ "google.golang.org/protobuf/types/known/emptypb"
+	emptypb "google.golang.org/protobuf/types/known/emptypb"
 	_ "google.golang.org/protobuf/types/known/timestamppb"
 	_ "google.golang.org/protobuf/types/known/wrapperspb"
 	reflect "reflect"
+	sync "sync"
 	unsafe "unsafe"
 )
 
@@ -23,30 +24,130 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+type GetTopAccountByBalanceRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	TopN          int32                  `protobuf:"varint,1,opt,name=top_n,json=topN,proto3" json:"top_n,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetTopAccountByBalanceRequest) Reset() {
+	*x = GetTopAccountByBalanceRequest{}
+	mi := &file_account_analytic_proto_msgTypes[0]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetTopAccountByBalanceRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetTopAccountByBalanceRequest) ProtoMessage() {}
+
+func (x *GetTopAccountByBalanceRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_account_analytic_proto_msgTypes[0]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetTopAccountByBalanceRequest.ProtoReflect.Descriptor instead.
+func (*GetTopAccountByBalanceRequest) Descriptor() ([]byte, []int) {
+	return file_account_analytic_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *GetTopAccountByBalanceRequest) GetTopN() int32 {
+	if x != nil {
+		return x.TopN
+	}
+	return 0
+}
+
 var File_account_analytic_proto protoreflect.FileDescriptor
 
 const file_account_analytic_proto_rawDesc = "" +
 	"\n" +
-	"\x16account_analytic.proto\x12\x06protos\x1a\raccount.proto\x1a\x12custom_types.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1egoogle/protobuf/wrappers.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x0ecustomer.proto\x1a\x12account_type.proto2\xde\x01\n" +
+	"\x16account_analytic.proto\x12\x06protos\x1a\x12custom_types.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1egoogle/protobuf/wrappers.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x0ecustomer.proto\x1a\x12account_type.proto\x1a\raccount.proto\"4\n" +
+	"\x1dGetTopAccountByBalanceRequest\x12\x13\n" +
+	"\x05top_n\x18\x01 \x01(\x05R\x04topN2\xa3\b\n" +
 	"\x16AccountAnalyticService\x12p\n" +
 	"#ProcessGetTotalBalanceByAccountType\x12+.protos.GetTotalBalanceByAccountTypeRequest\x1a\x1c.protos.TotalBalanceResponse\x12R\n" +
-	"\x14ProcessGetAvgBalance\x12\x1c.protos.GetAvgBalanceRequest\x1a\x1c.protos.TotalBalanceResponseB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
+	"\x14ProcessGetAvgBalance\x12\x1c.protos.GetAvgBalanceRequest\x1a\x1c.protos.TotalBalanceResponse\x12_\n" +
+	"\x16GetTopAccountByBalance\x12%.protos.GetTopAccountByBalanceRequest\x1a\x1e.protos.GetAllAccountsResponse\x12F\n" +
+	"\rProcessGetAll\x12\x15.protos.GetAllRequest\x1a\x1e.protos.GetAllAccountsResponse\x12E\n" +
+	"\x0eProcessGetById\x12\x1d.protos.GetAccountByIdRequest\x1a\x14.protos.AccountModel\x12Q\n" +
+	"\x0fProcessGetByIds\x12\x1e.protos.GetAccountByIdsRequest\x1a\x1e.protos.GetAllAccountsResponse\x12_\n" +
+	"\x16ProcessGetByCustomerId\x12%.protos.GetAccountByCustomerIdRequest\x1a\x1e.protos.GetAllAccountsResponse\x12V\n" +
+	"\x15ProcessGetByDateRange\x12\x1d.protos.GetByDateRangeRequest\x1a\x1e.protos.GetAllAccountsResponse\x12@\n" +
+	"\x0fProcessGetCount\x12\x16.google.protobuf.Empty\x1a\x15.protos.CountResponse\x12T\n" +
+	"\x17ProcessGetCountByStatus\x12\".protos.GetAccountsByStatusRequest\x1a\x15.protos.CountResponse\x12R\n" +
+	"\x1aProcessGetCountByDateRange\x12\x1d.protos.GetByDateRangeRequest\x1a\x15.protos.CountResponse\x12[\n" +
+	"\x1bProcessGetCountByCustomerId\x12%.protos.GetAccountByCustomerIdRequest\x1a\x15.protos.CountResponseB\"Z\x19orch-go/gen/protos;protos\xaa\x02\x04Coreb\x06proto3"
 
+var (
+	file_account_analytic_proto_rawDescOnce sync.Once
+	file_account_analytic_proto_rawDescData []byte
+)
+
+func file_account_analytic_proto_rawDescGZIP() []byte {
+	file_account_analytic_proto_rawDescOnce.Do(func() {
+		file_account_analytic_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_account_analytic_proto_rawDesc), len(file_account_analytic_proto_rawDesc)))
+	})
+	return file_account_analytic_proto_rawDescData
+}
+
+var file_account_analytic_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_account_analytic_proto_goTypes = []any{
-	(*GetTotalBalanceByAccountTypeRequest)(nil), // 0: protos.GetTotalBalanceByAccountTypeRequest
-	(*GetAvgBalanceRequest)(nil),                // 1: protos.GetAvgBalanceRequest
-	(*TotalBalanceResponse)(nil),                // 2: protos.TotalBalanceResponse
+	(*GetTopAccountByBalanceRequest)(nil),       // 0: protos.GetTopAccountByBalanceRequest
+	(*GetTotalBalanceByAccountTypeRequest)(nil), // 1: protos.GetTotalBalanceByAccountTypeRequest
+	(*GetAvgBalanceRequest)(nil),                // 2: protos.GetAvgBalanceRequest
+	(*GetAllRequest)(nil),                       // 3: protos.GetAllRequest
+	(*GetAccountByIdRequest)(nil),               // 4: protos.GetAccountByIdRequest
+	(*GetAccountByIdsRequest)(nil),              // 5: protos.GetAccountByIdsRequest
+	(*GetAccountByCustomerIdRequest)(nil),       // 6: protos.GetAccountByCustomerIdRequest
+	(*GetByDateRangeRequest)(nil),               // 7: protos.GetByDateRangeRequest
+	(*emptypb.Empty)(nil),                       // 8: google.protobuf.Empty
+	(*GetAccountsByStatusRequest)(nil),          // 9: protos.GetAccountsByStatusRequest
+	(*TotalBalanceResponse)(nil),                // 10: protos.TotalBalanceResponse
+	(*GetAllAccountsResponse)(nil),              // 11: protos.GetAllAccountsResponse
+	(*AccountModel)(nil),                        // 12: protos.AccountModel
+	(*CountResponse)(nil),                       // 13: protos.CountResponse
 }
 var file_account_analytic_proto_depIdxs = []int32{
-	0, // 0: protos.AccountAnalyticService.ProcessGetTotalBalanceByAccountType:input_type -> protos.GetTotalBalanceByAccountTypeRequest
-	1, // 1: protos.AccountAnalyticService.ProcessGetAvgBalance:input_type -> protos.GetAvgBalanceRequest
-	2, // 2: protos.AccountAnalyticService.ProcessGetTotalBalanceByAccountType:output_type -> protos.TotalBalanceResponse
-	2, // 3: protos.AccountAnalyticService.ProcessGetAvgBalance:output_type -> protos.TotalBalanceResponse
-	2, // [2:4] is the sub-list for method output_type
-	0, // [0:2] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	1,  // 0: protos.AccountAnalyticService.ProcessGetTotalBalanceByAccountType:input_type -> protos.GetTotalBalanceByAccountTypeRequest
+	2,  // 1: protos.AccountAnalyticService.ProcessGetAvgBalance:input_type -> protos.GetAvgBalanceRequest
+	0,  // 2: protos.AccountAnalyticService.GetTopAccountByBalance:input_type -> protos.GetTopAccountByBalanceRequest
+	3,  // 3: protos.AccountAnalyticService.ProcessGetAll:input_type -> protos.GetAllRequest
+	4,  // 4: protos.AccountAnalyticService.ProcessGetById:input_type -> protos.GetAccountByIdRequest
+	5,  // 5: protos.AccountAnalyticService.ProcessGetByIds:input_type -> protos.GetAccountByIdsRequest
+	6,  // 6: protos.AccountAnalyticService.ProcessGetByCustomerId:input_type -> protos.GetAccountByCustomerIdRequest
+	7,  // 7: protos.AccountAnalyticService.ProcessGetByDateRange:input_type -> protos.GetByDateRangeRequest
+	8,  // 8: protos.AccountAnalyticService.ProcessGetCount:input_type -> google.protobuf.Empty
+	9,  // 9: protos.AccountAnalyticService.ProcessGetCountByStatus:input_type -> protos.GetAccountsByStatusRequest
+	7,  // 10: protos.AccountAnalyticService.ProcessGetCountByDateRange:input_type -> protos.GetByDateRangeRequest
+	6,  // 11: protos.AccountAnalyticService.ProcessGetCountByCustomerId:input_type -> protos.GetAccountByCustomerIdRequest
+	10, // 12: protos.AccountAnalyticService.ProcessGetTotalBalanceByAccountType:output_type -> protos.TotalBalanceResponse
+	10, // 13: protos.AccountAnalyticService.ProcessGetAvgBalance:output_type -> protos.TotalBalanceResponse
+	11, // 14: protos.AccountAnalyticService.GetTopAccountByBalance:output_type -> protos.GetAllAccountsResponse
+	11, // 15: protos.AccountAnalyticService.ProcessGetAll:output_type -> protos.GetAllAccountsResponse
+	12, // 16: protos.AccountAnalyticService.ProcessGetById:output_type -> protos.AccountModel
+	11, // 17: protos.AccountAnalyticService.ProcessGetByIds:output_type -> protos.GetAllAccountsResponse
+	11, // 18: protos.AccountAnalyticService.ProcessGetByCustomerId:output_type -> protos.GetAllAccountsResponse
+	11, // 19: protos.AccountAnalyticService.ProcessGetByDateRange:output_type -> protos.GetAllAccountsResponse
+	13, // 20: protos.AccountAnalyticService.ProcessGetCount:output_type -> protos.CountResponse
+	13, // 21: protos.AccountAnalyticService.ProcessGetCountByStatus:output_type -> protos.CountResponse
+	13, // 22: protos.AccountAnalyticService.ProcessGetCountByDateRange:output_type -> protos.CountResponse
+	13, // 23: protos.AccountAnalyticService.ProcessGetCountByCustomerId:output_type -> protos.CountResponse
+	12, // [12:24] is the sub-list for method output_type
+	0,  // [0:12] is the sub-list for method input_type
+	0,  // [0:0] is the sub-list for extension type_name
+	0,  // [0:0] is the sub-list for extension extendee
+	0,  // [0:0] is the sub-list for field type_name
 }
 
 func init() { file_account_analytic_proto_init() }
@@ -54,22 +155,23 @@ func file_account_analytic_proto_init() {
 	if File_account_analytic_proto != nil {
 		return
 	}
-	file_account_proto_init()
 	file_custom_types_proto_init()
 	file_customer_proto_init()
 	file_account_type_proto_init()
+	file_account_proto_init()
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_account_analytic_proto_rawDesc), len(file_account_analytic_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   0,
+			NumMessages:   1,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
 		GoTypes:           file_account_analytic_proto_goTypes,
 		DependencyIndexes: file_account_analytic_proto_depIdxs,
+		MessageInfos:      file_account_analytic_proto_msgTypes,
 	}.Build()
 	File_account_analytic_proto = out.File
 	file_account_analytic_proto_goTypes = nil

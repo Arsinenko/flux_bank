@@ -4,6 +4,8 @@ import (
 	"context"
 	"orch-go/internal/domain/user_credential"
 	"orch-go/internal/infrastructure/repository/user_credential_repo"
+
+	"golang.org/x/crypto/bcrypt"
 )
 
 type UserCredentialService struct {
@@ -26,12 +28,26 @@ func (s *UserCredentialService) GetAllUserCredentials(ctx context.Context, pageN
 	return s.repo.GetAll(ctx, pageN, pageSize, orderBy, isDesc)
 }
 
-func (s *UserCredentialService) CreateUserCredential(ctx context.Context, uc *user_credential.UserCredential) (*user_credential.UserCredential, error) {
+func (s *UserCredentialService) CreateUserCredential(ctx context.Context, id int32, login, password string) (*user_credential.UserCredential, error) {
+	passwordHash, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+	if err != nil {
+		return nil, err
+	}
+	uc := &user_credential.UserCredential{
+		CustomerId:   &id,
+		Username:     login,
+		PasswordHash: string(passwordHash),
+	}
+
 	return s.repo.Create(ctx, uc)
 }
 
 func (s *UserCredentialService) UpdateUserCredential(ctx context.Context, uc *user_credential.UserCredential) error {
-	// Repository Update takes value, not pointer
+	passwordHash, err := bcrypt.GenerateFromPassword([]byte(uc.PasswordHash), bcrypt.DefaultCost)
+	if err != nil {
+		return err
+	}
+	uc.PasswordHash = string(passwordHash)
 	return s.repo.Update(ctx, *uc)
 }
 

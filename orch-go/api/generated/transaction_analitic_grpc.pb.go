@@ -11,6 +11,7 @@ import (
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
+	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -19,6 +20,17 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
+	TransactionAnalyticService_ProcessGetAll_FullMethodName                          = "/protos.TransactionAnalyticService/ProcessGetAll"
+	TransactionAnalyticService_ProcessGetById_FullMethodName                         = "/protos.TransactionAnalyticService/ProcessGetById"
+	TransactionAnalyticService_ProcessGetByIds_FullMethodName                        = "/protos.TransactionAnalyticService/ProcessGetByIds"
+	TransactionAnalyticService_ProcessGetByDateRange_FullMethodName                  = "/protos.TransactionAnalyticService/ProcessGetByDateRange"
+	TransactionAnalyticService_ProcessGetAccountRevenue_FullMethodName               = "/protos.TransactionAnalyticService/ProcessGetAccountRevenue"
+	TransactionAnalyticService_ProcessGetAccountExpenses_FullMethodName              = "/protos.TransactionAnalyticService/ProcessGetAccountExpenses"
+	TransactionAnalyticService_ProcessGetCount_FullMethodName                        = "/protos.TransactionAnalyticService/ProcessGetCount"
+	TransactionAnalyticService_ProcessGetCountByDateRange_FullMethodName             = "/protos.TransactionAnalyticService/ProcessGetCountByDateRange"
+	TransactionAnalyticService_ProcessGetCountAccountRevenue_FullMethodName          = "/protos.TransactionAnalyticService/ProcessGetCountAccountRevenue"
+	TransactionAnalyticService_ProcessGetCountAccountExpenses_FullMethodName         = "/protos.TransactionAnalyticService/ProcessGetCountAccountExpenses"
+	TransactionAnalyticService_ProcessGetTotalAmount_FullMethodName                  = "/protos.TransactionAnalyticService/ProcessGetTotalAmount"
 	TransactionAnalyticService_GetSumOfTransactionsByDateRange_FullMethodName        = "/protos.TransactionAnalyticService/GetSumOfTransactionsByDateRange"
 	TransactionAnalyticService_GetAverageOfTransactionsByDateRange_FullMethodName    = "/protos.TransactionAnalyticService/GetAverageOfTransactionsByDateRange"
 	TransactionAnalyticService_GetCountOfTransactionsByDateRange_FullMethodName      = "/protos.TransactionAnalyticService/GetCountOfTransactionsByDateRange"
@@ -30,6 +42,17 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type TransactionAnalyticServiceClient interface {
+	ProcessGetAll(ctx context.Context, in *GetAllRequest, opts ...grpc.CallOption) (*GetAllTransactionsResponse, error)
+	ProcessGetById(ctx context.Context, in *GetTransactionByIdRequest, opts ...grpc.CallOption) (*TransactionModel, error)
+	ProcessGetByIds(ctx context.Context, in *GetTransactionByIdsRequest, opts ...grpc.CallOption) (*GetAllTransactionsResponse, error)
+	ProcessGetByDateRange(ctx context.Context, in *GetByDateRangeRequest, opts ...grpc.CallOption) (*GetAllTransactionsResponse, error)
+	ProcessGetAccountRevenue(ctx context.Context, in *GetAccountRevenueRequest, opts ...grpc.CallOption) (*GetAllTransactionsResponse, error)
+	ProcessGetAccountExpenses(ctx context.Context, in *GetAccountExpensesRequest, opts ...grpc.CallOption) (*GetAllTransactionsResponse, error)
+	ProcessGetCount(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*CountResponse, error)
+	ProcessGetCountByDateRange(ctx context.Context, in *GetByDateRangeRequest, opts ...grpc.CallOption) (*CountResponse, error)
+	ProcessGetCountAccountRevenue(ctx context.Context, in *GetAccountRevenueRequest, opts ...grpc.CallOption) (*CountResponse, error)
+	ProcessGetCountAccountExpenses(ctx context.Context, in *GetAccountExpensesRequest, opts ...grpc.CallOption) (*CountResponse, error)
+	ProcessGetTotalAmount(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*TotalAmountResponse, error)
 	GetSumOfTransactionsByDateRange(ctx context.Context, in *GetSumOfTransactionsByDateRangeRequest, opts ...grpc.CallOption) (*GetSumOfTransactionsByDateRangeResponse, error)
 	GetAverageOfTransactionsByDateRange(ctx context.Context, in *GetAverageOfTransactionsByDateRangeRequest, opts ...grpc.CallOption) (*GetAverageOfTransactionsByDateRangeResponse, error)
 	GetCountOfTransactionsByDateRange(ctx context.Context, in *GetCountOfTransactionsByDateRangeRequest, opts ...grpc.CallOption) (*CountResponse, error)
@@ -43,6 +66,116 @@ type transactionAnalyticServiceClient struct {
 
 func NewTransactionAnalyticServiceClient(cc grpc.ClientConnInterface) TransactionAnalyticServiceClient {
 	return &transactionAnalyticServiceClient{cc}
+}
+
+func (c *transactionAnalyticServiceClient) ProcessGetAll(ctx context.Context, in *GetAllRequest, opts ...grpc.CallOption) (*GetAllTransactionsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetAllTransactionsResponse)
+	err := c.cc.Invoke(ctx, TransactionAnalyticService_ProcessGetAll_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *transactionAnalyticServiceClient) ProcessGetById(ctx context.Context, in *GetTransactionByIdRequest, opts ...grpc.CallOption) (*TransactionModel, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(TransactionModel)
+	err := c.cc.Invoke(ctx, TransactionAnalyticService_ProcessGetById_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *transactionAnalyticServiceClient) ProcessGetByIds(ctx context.Context, in *GetTransactionByIdsRequest, opts ...grpc.CallOption) (*GetAllTransactionsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetAllTransactionsResponse)
+	err := c.cc.Invoke(ctx, TransactionAnalyticService_ProcessGetByIds_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *transactionAnalyticServiceClient) ProcessGetByDateRange(ctx context.Context, in *GetByDateRangeRequest, opts ...grpc.CallOption) (*GetAllTransactionsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetAllTransactionsResponse)
+	err := c.cc.Invoke(ctx, TransactionAnalyticService_ProcessGetByDateRange_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *transactionAnalyticServiceClient) ProcessGetAccountRevenue(ctx context.Context, in *GetAccountRevenueRequest, opts ...grpc.CallOption) (*GetAllTransactionsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetAllTransactionsResponse)
+	err := c.cc.Invoke(ctx, TransactionAnalyticService_ProcessGetAccountRevenue_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *transactionAnalyticServiceClient) ProcessGetAccountExpenses(ctx context.Context, in *GetAccountExpensesRequest, opts ...grpc.CallOption) (*GetAllTransactionsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetAllTransactionsResponse)
+	err := c.cc.Invoke(ctx, TransactionAnalyticService_ProcessGetAccountExpenses_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *transactionAnalyticServiceClient) ProcessGetCount(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*CountResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CountResponse)
+	err := c.cc.Invoke(ctx, TransactionAnalyticService_ProcessGetCount_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *transactionAnalyticServiceClient) ProcessGetCountByDateRange(ctx context.Context, in *GetByDateRangeRequest, opts ...grpc.CallOption) (*CountResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CountResponse)
+	err := c.cc.Invoke(ctx, TransactionAnalyticService_ProcessGetCountByDateRange_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *transactionAnalyticServiceClient) ProcessGetCountAccountRevenue(ctx context.Context, in *GetAccountRevenueRequest, opts ...grpc.CallOption) (*CountResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CountResponse)
+	err := c.cc.Invoke(ctx, TransactionAnalyticService_ProcessGetCountAccountRevenue_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *transactionAnalyticServiceClient) ProcessGetCountAccountExpenses(ctx context.Context, in *GetAccountExpensesRequest, opts ...grpc.CallOption) (*CountResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CountResponse)
+	err := c.cc.Invoke(ctx, TransactionAnalyticService_ProcessGetCountAccountExpenses_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *transactionAnalyticServiceClient) ProcessGetTotalAmount(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*TotalAmountResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(TotalAmountResponse)
+	err := c.cc.Invoke(ctx, TransactionAnalyticService_ProcessGetTotalAmount_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *transactionAnalyticServiceClient) GetSumOfTransactionsByDateRange(ctx context.Context, in *GetSumOfTransactionsByDateRangeRequest, opts ...grpc.CallOption) (*GetSumOfTransactionsByDateRangeResponse, error) {
@@ -99,6 +232,17 @@ func (c *transactionAnalyticServiceClient) GetAnomalousTransactionsByDateRange(c
 // All implementations must embed UnimplementedTransactionAnalyticServiceServer
 // for forward compatibility.
 type TransactionAnalyticServiceServer interface {
+	ProcessGetAll(context.Context, *GetAllRequest) (*GetAllTransactionsResponse, error)
+	ProcessGetById(context.Context, *GetTransactionByIdRequest) (*TransactionModel, error)
+	ProcessGetByIds(context.Context, *GetTransactionByIdsRequest) (*GetAllTransactionsResponse, error)
+	ProcessGetByDateRange(context.Context, *GetByDateRangeRequest) (*GetAllTransactionsResponse, error)
+	ProcessGetAccountRevenue(context.Context, *GetAccountRevenueRequest) (*GetAllTransactionsResponse, error)
+	ProcessGetAccountExpenses(context.Context, *GetAccountExpensesRequest) (*GetAllTransactionsResponse, error)
+	ProcessGetCount(context.Context, *emptypb.Empty) (*CountResponse, error)
+	ProcessGetCountByDateRange(context.Context, *GetByDateRangeRequest) (*CountResponse, error)
+	ProcessGetCountAccountRevenue(context.Context, *GetAccountRevenueRequest) (*CountResponse, error)
+	ProcessGetCountAccountExpenses(context.Context, *GetAccountExpensesRequest) (*CountResponse, error)
+	ProcessGetTotalAmount(context.Context, *emptypb.Empty) (*TotalAmountResponse, error)
 	GetSumOfTransactionsByDateRange(context.Context, *GetSumOfTransactionsByDateRangeRequest) (*GetSumOfTransactionsByDateRangeResponse, error)
 	GetAverageOfTransactionsByDateRange(context.Context, *GetAverageOfTransactionsByDateRangeRequest) (*GetAverageOfTransactionsByDateRangeResponse, error)
 	GetCountOfTransactionsByDateRange(context.Context, *GetCountOfTransactionsByDateRangeRequest) (*CountResponse, error)
@@ -114,6 +258,39 @@ type TransactionAnalyticServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedTransactionAnalyticServiceServer struct{}
 
+func (UnimplementedTransactionAnalyticServiceServer) ProcessGetAll(context.Context, *GetAllRequest) (*GetAllTransactionsResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ProcessGetAll not implemented")
+}
+func (UnimplementedTransactionAnalyticServiceServer) ProcessGetById(context.Context, *GetTransactionByIdRequest) (*TransactionModel, error) {
+	return nil, status.Error(codes.Unimplemented, "method ProcessGetById not implemented")
+}
+func (UnimplementedTransactionAnalyticServiceServer) ProcessGetByIds(context.Context, *GetTransactionByIdsRequest) (*GetAllTransactionsResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ProcessGetByIds not implemented")
+}
+func (UnimplementedTransactionAnalyticServiceServer) ProcessGetByDateRange(context.Context, *GetByDateRangeRequest) (*GetAllTransactionsResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ProcessGetByDateRange not implemented")
+}
+func (UnimplementedTransactionAnalyticServiceServer) ProcessGetAccountRevenue(context.Context, *GetAccountRevenueRequest) (*GetAllTransactionsResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ProcessGetAccountRevenue not implemented")
+}
+func (UnimplementedTransactionAnalyticServiceServer) ProcessGetAccountExpenses(context.Context, *GetAccountExpensesRequest) (*GetAllTransactionsResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ProcessGetAccountExpenses not implemented")
+}
+func (UnimplementedTransactionAnalyticServiceServer) ProcessGetCount(context.Context, *emptypb.Empty) (*CountResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ProcessGetCount not implemented")
+}
+func (UnimplementedTransactionAnalyticServiceServer) ProcessGetCountByDateRange(context.Context, *GetByDateRangeRequest) (*CountResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ProcessGetCountByDateRange not implemented")
+}
+func (UnimplementedTransactionAnalyticServiceServer) ProcessGetCountAccountRevenue(context.Context, *GetAccountRevenueRequest) (*CountResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ProcessGetCountAccountRevenue not implemented")
+}
+func (UnimplementedTransactionAnalyticServiceServer) ProcessGetCountAccountExpenses(context.Context, *GetAccountExpensesRequest) (*CountResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ProcessGetCountAccountExpenses not implemented")
+}
+func (UnimplementedTransactionAnalyticServiceServer) ProcessGetTotalAmount(context.Context, *emptypb.Empty) (*TotalAmountResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ProcessGetTotalAmount not implemented")
+}
 func (UnimplementedTransactionAnalyticServiceServer) GetSumOfTransactionsByDateRange(context.Context, *GetSumOfTransactionsByDateRangeRequest) (*GetSumOfTransactionsByDateRangeResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetSumOfTransactionsByDateRange not implemented")
 }
@@ -149,6 +326,204 @@ func RegisterTransactionAnalyticServiceServer(s grpc.ServiceRegistrar, srv Trans
 		t.testEmbeddedByValue()
 	}
 	s.RegisterService(&TransactionAnalyticService_ServiceDesc, srv)
+}
+
+func _TransactionAnalyticService_ProcessGetAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAllRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionAnalyticServiceServer).ProcessGetAll(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TransactionAnalyticService_ProcessGetAll_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionAnalyticServiceServer).ProcessGetAll(ctx, req.(*GetAllRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TransactionAnalyticService_ProcessGetById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetTransactionByIdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionAnalyticServiceServer).ProcessGetById(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TransactionAnalyticService_ProcessGetById_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionAnalyticServiceServer).ProcessGetById(ctx, req.(*GetTransactionByIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TransactionAnalyticService_ProcessGetByIds_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetTransactionByIdsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionAnalyticServiceServer).ProcessGetByIds(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TransactionAnalyticService_ProcessGetByIds_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionAnalyticServiceServer).ProcessGetByIds(ctx, req.(*GetTransactionByIdsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TransactionAnalyticService_ProcessGetByDateRange_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetByDateRangeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionAnalyticServiceServer).ProcessGetByDateRange(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TransactionAnalyticService_ProcessGetByDateRange_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionAnalyticServiceServer).ProcessGetByDateRange(ctx, req.(*GetByDateRangeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TransactionAnalyticService_ProcessGetAccountRevenue_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAccountRevenueRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionAnalyticServiceServer).ProcessGetAccountRevenue(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TransactionAnalyticService_ProcessGetAccountRevenue_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionAnalyticServiceServer).ProcessGetAccountRevenue(ctx, req.(*GetAccountRevenueRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TransactionAnalyticService_ProcessGetAccountExpenses_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAccountExpensesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionAnalyticServiceServer).ProcessGetAccountExpenses(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TransactionAnalyticService_ProcessGetAccountExpenses_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionAnalyticServiceServer).ProcessGetAccountExpenses(ctx, req.(*GetAccountExpensesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TransactionAnalyticService_ProcessGetCount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(emptypb.Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionAnalyticServiceServer).ProcessGetCount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TransactionAnalyticService_ProcessGetCount_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionAnalyticServiceServer).ProcessGetCount(ctx, req.(*emptypb.Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TransactionAnalyticService_ProcessGetCountByDateRange_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetByDateRangeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionAnalyticServiceServer).ProcessGetCountByDateRange(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TransactionAnalyticService_ProcessGetCountByDateRange_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionAnalyticServiceServer).ProcessGetCountByDateRange(ctx, req.(*GetByDateRangeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TransactionAnalyticService_ProcessGetCountAccountRevenue_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAccountRevenueRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionAnalyticServiceServer).ProcessGetCountAccountRevenue(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TransactionAnalyticService_ProcessGetCountAccountRevenue_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionAnalyticServiceServer).ProcessGetCountAccountRevenue(ctx, req.(*GetAccountRevenueRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TransactionAnalyticService_ProcessGetCountAccountExpenses_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAccountExpensesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionAnalyticServiceServer).ProcessGetCountAccountExpenses(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TransactionAnalyticService_ProcessGetCountAccountExpenses_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionAnalyticServiceServer).ProcessGetCountAccountExpenses(ctx, req.(*GetAccountExpensesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TransactionAnalyticService_ProcessGetTotalAmount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(emptypb.Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionAnalyticServiceServer).ProcessGetTotalAmount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TransactionAnalyticService_ProcessGetTotalAmount_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionAnalyticServiceServer).ProcessGetTotalAmount(ctx, req.(*emptypb.Empty))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _TransactionAnalyticService_GetSumOfTransactionsByDateRange_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -248,6 +623,50 @@ var TransactionAnalyticService_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "protos.TransactionAnalyticService",
 	HandlerType: (*TransactionAnalyticServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "ProcessGetAll",
+			Handler:    _TransactionAnalyticService_ProcessGetAll_Handler,
+		},
+		{
+			MethodName: "ProcessGetById",
+			Handler:    _TransactionAnalyticService_ProcessGetById_Handler,
+		},
+		{
+			MethodName: "ProcessGetByIds",
+			Handler:    _TransactionAnalyticService_ProcessGetByIds_Handler,
+		},
+		{
+			MethodName: "ProcessGetByDateRange",
+			Handler:    _TransactionAnalyticService_ProcessGetByDateRange_Handler,
+		},
+		{
+			MethodName: "ProcessGetAccountRevenue",
+			Handler:    _TransactionAnalyticService_ProcessGetAccountRevenue_Handler,
+		},
+		{
+			MethodName: "ProcessGetAccountExpenses",
+			Handler:    _TransactionAnalyticService_ProcessGetAccountExpenses_Handler,
+		},
+		{
+			MethodName: "ProcessGetCount",
+			Handler:    _TransactionAnalyticService_ProcessGetCount_Handler,
+		},
+		{
+			MethodName: "ProcessGetCountByDateRange",
+			Handler:    _TransactionAnalyticService_ProcessGetCountByDateRange_Handler,
+		},
+		{
+			MethodName: "ProcessGetCountAccountRevenue",
+			Handler:    _TransactionAnalyticService_ProcessGetCountAccountRevenue_Handler,
+		},
+		{
+			MethodName: "ProcessGetCountAccountExpenses",
+			Handler:    _TransactionAnalyticService_ProcessGetCountAccountExpenses_Handler,
+		},
+		{
+			MethodName: "ProcessGetTotalAmount",
+			Handler:    _TransactionAnalyticService_ProcessGetTotalAmount_Handler,
+		},
 		{
 			MethodName: "GetSumOfTransactionsByDateRange",
 			Handler:    _TransactionAnalyticService_GetSumOfTransactionsByDateRange_Handler,

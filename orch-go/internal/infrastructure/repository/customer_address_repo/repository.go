@@ -13,6 +13,23 @@ type Repository struct {
 	client pb.CustomerAddressServiceClient
 }
 
+func (r Repository) GetByCustomerId(ctx context.Context, customerId int32) ([]customerAdress.CustomerAddress, error) {
+	resp, err := r.client.GetByCustomerId(ctx, &pb.GetCustomerAddressByCustomerIdRequest{
+		CustomerId: customerId,
+	})
+	if err != nil {
+		return nil, err
+	}
+	result := make([]customerAdress.CustomerAddress, len(resp.CustomerAddresses))
+	for _, c := range resp.CustomerAddresses {
+		domainModel := ToDomain(c)
+		if domainModel != nil {
+			result = append(result, *domainModel)
+		}
+	}
+	return result, nil
+}
+
 func (r Repository) GetAll(ctx context.Context, pageN, pageSize int32, orderBy string, isDesc bool) ([]customerAdress.CustomerAddress, error) {
 	req := pb.GetAllRequest{
 		PageN:    pageN,

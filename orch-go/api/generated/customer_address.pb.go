@@ -598,6 +598,50 @@ func (x *DeleteCustomerAddressBulkRequest) GetCustomerAddresses() []*DeleteCusto
 	return nil
 }
 
+type GetCustomerAddressByCustomerIdRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	CustomerId    int32                  `protobuf:"varint,1,opt,name=customer_id,json=customerId,proto3" json:"customer_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetCustomerAddressByCustomerIdRequest) Reset() {
+	*x = GetCustomerAddressByCustomerIdRequest{}
+	mi := &file_customer_address_proto_msgTypes[10]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetCustomerAddressByCustomerIdRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetCustomerAddressByCustomerIdRequest) ProtoMessage() {}
+
+func (x *GetCustomerAddressByCustomerIdRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_customer_address_proto_msgTypes[10]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetCustomerAddressByCustomerIdRequest.ProtoReflect.Descriptor instead.
+func (*GetCustomerAddressByCustomerIdRequest) Descriptor() ([]byte, []int) {
+	return file_customer_address_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *GetCustomerAddressByCustomerIdRequest) GetCustomerId() int32 {
+	if x != nil {
+		return x.CustomerId
+	}
+	return 0
+}
+
 var File_customer_address_proto protoreflect.FileDescriptor
 
 const file_customer_address_proto_rawDesc = "" +
@@ -671,10 +715,14 @@ const file_customer_address_proto_rawDesc = "" +
 	"\n" +
 	"address_id\x18\x01 \x01(\x05R\taddressId\"w\n" +
 	" DeleteCustomerAddressBulkRequest\x12S\n" +
-	"\x12customer_addresses\x18\x01 \x03(\v2$.protos.DeleteCustomerAddressRequestR\x11customerAddresses2\x8c\x06\n" +
+	"\x12customer_addresses\x18\x01 \x03(\v2$.protos.DeleteCustomerAddressRequestR\x11customerAddresses\"H\n" +
+	"%GetCustomerAddressByCustomerIdRequest\x12\x1f\n" +
+	"\vcustomer_id\x18\x01 \x01(\x05R\n" +
+	"customerId2\xf7\x06\n" +
 	"\x16CustomerAddressService\x12H\n" +
 	"\x06GetAll\x12\x15.protos.GetAllRequest\x1a'.protos.GetAllCustomerAddressesResponse\x12N\n" +
-	"\aGetById\x12%.protos.GetCustomerAddressByIdRequest\x1a\x1c.protos.CustomerAddressModel\x12[\n" +
+	"\aGetById\x12%.protos.GetCustomerAddressByIdRequest\x1a\x1c.protos.CustomerAddressModel\x12i\n" +
+	"\x0fGetByCustomerId\x12-.protos.GetCustomerAddressByCustomerIdRequest\x1a'.protos.GetAllCustomerAddressesResponse\x12[\n" +
 	"\bGetByIds\x12&.protos.GetCustomerAddressByIdsRequest\x1a'.protos.GetAllCustomerAddressesResponse\x12F\n" +
 	"\x03Add\x12!.protos.AddCustomerAddressRequest\x1a\x1c.protos.CustomerAddressModel\x12F\n" +
 	"\x06Update\x12$.protos.UpdateCustomerAddressRequest\x1a\x16.google.protobuf.Empty\x12F\n" +
@@ -698,49 +746,52 @@ func file_customer_address_proto_rawDescGZIP() []byte {
 	return file_customer_address_proto_rawDescData
 }
 
-var file_customer_address_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
+var file_customer_address_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
 var file_customer_address_proto_goTypes = []any{
-	(*CustomerAddressModel)(nil),             // 0: protos.CustomerAddressModel
-	(*GetAllCustomerAddressesResponse)(nil),  // 1: protos.GetAllCustomerAddressesResponse
-	(*GetCustomerAddressByIdRequest)(nil),    // 2: protos.GetCustomerAddressByIdRequest
-	(*GetCustomerAddressByIdsRequest)(nil),   // 3: protos.GetCustomerAddressByIdsRequest
-	(*AddCustomerAddressRequest)(nil),        // 4: protos.AddCustomerAddressRequest
-	(*AddCustomerAddressBulkRequest)(nil),    // 5: protos.AddCustomerAddressBulkRequest
-	(*UpdateCustomerAddressRequest)(nil),     // 6: protos.UpdateCustomerAddressRequest
-	(*UpdateCustomerAddressBulkRequest)(nil), // 7: protos.UpdateCustomerAddressBulkRequest
-	(*DeleteCustomerAddressRequest)(nil),     // 8: protos.DeleteCustomerAddressRequest
-	(*DeleteCustomerAddressBulkRequest)(nil), // 9: protos.DeleteCustomerAddressBulkRequest
-	(*GetAllRequest)(nil),                    // 10: protos.GetAllRequest
-	(*emptypb.Empty)(nil),                    // 11: google.protobuf.Empty
-	(*CountResponse)(nil),                    // 12: protos.CountResponse
+	(*CustomerAddressModel)(nil),                  // 0: protos.CustomerAddressModel
+	(*GetAllCustomerAddressesResponse)(nil),       // 1: protos.GetAllCustomerAddressesResponse
+	(*GetCustomerAddressByIdRequest)(nil),         // 2: protos.GetCustomerAddressByIdRequest
+	(*GetCustomerAddressByIdsRequest)(nil),        // 3: protos.GetCustomerAddressByIdsRequest
+	(*AddCustomerAddressRequest)(nil),             // 4: protos.AddCustomerAddressRequest
+	(*AddCustomerAddressBulkRequest)(nil),         // 5: protos.AddCustomerAddressBulkRequest
+	(*UpdateCustomerAddressRequest)(nil),          // 6: protos.UpdateCustomerAddressRequest
+	(*UpdateCustomerAddressBulkRequest)(nil),      // 7: protos.UpdateCustomerAddressBulkRequest
+	(*DeleteCustomerAddressRequest)(nil),          // 8: protos.DeleteCustomerAddressRequest
+	(*DeleteCustomerAddressBulkRequest)(nil),      // 9: protos.DeleteCustomerAddressBulkRequest
+	(*GetCustomerAddressByCustomerIdRequest)(nil), // 10: protos.GetCustomerAddressByCustomerIdRequest
+	(*GetAllRequest)(nil),                         // 11: protos.GetAllRequest
+	(*emptypb.Empty)(nil),                         // 12: google.protobuf.Empty
+	(*CountResponse)(nil),                         // 13: protos.CountResponse
 }
 var file_customer_address_proto_depIdxs = []int32{
 	0,  // 0: protos.GetAllCustomerAddressesResponse.customer_addresses:type_name -> protos.CustomerAddressModel
 	4,  // 1: protos.AddCustomerAddressBulkRequest.customer_addresses:type_name -> protos.AddCustomerAddressRequest
 	6,  // 2: protos.UpdateCustomerAddressBulkRequest.customer_addresses:type_name -> protos.UpdateCustomerAddressRequest
 	8,  // 3: protos.DeleteCustomerAddressBulkRequest.customer_addresses:type_name -> protos.DeleteCustomerAddressRequest
-	10, // 4: protos.CustomerAddressService.GetAll:input_type -> protos.GetAllRequest
+	11, // 4: protos.CustomerAddressService.GetAll:input_type -> protos.GetAllRequest
 	2,  // 5: protos.CustomerAddressService.GetById:input_type -> protos.GetCustomerAddressByIdRequest
-	3,  // 6: protos.CustomerAddressService.GetByIds:input_type -> protos.GetCustomerAddressByIdsRequest
-	4,  // 7: protos.CustomerAddressService.Add:input_type -> protos.AddCustomerAddressRequest
-	6,  // 8: protos.CustomerAddressService.Update:input_type -> protos.UpdateCustomerAddressRequest
-	8,  // 9: protos.CustomerAddressService.Delete:input_type -> protos.DeleteCustomerAddressRequest
-	5,  // 10: protos.CustomerAddressService.AddBulk:input_type -> protos.AddCustomerAddressBulkRequest
-	7,  // 11: protos.CustomerAddressService.UpdateBulk:input_type -> protos.UpdateCustomerAddressBulkRequest
-	9,  // 12: protos.CustomerAddressService.DeleteBulk:input_type -> protos.DeleteCustomerAddressBulkRequest
-	11, // 13: protos.CustomerAddressService.GetCount:input_type -> google.protobuf.Empty
-	1,  // 14: protos.CustomerAddressService.GetAll:output_type -> protos.GetAllCustomerAddressesResponse
-	0,  // 15: protos.CustomerAddressService.GetById:output_type -> protos.CustomerAddressModel
-	1,  // 16: protos.CustomerAddressService.GetByIds:output_type -> protos.GetAllCustomerAddressesResponse
-	0,  // 17: protos.CustomerAddressService.Add:output_type -> protos.CustomerAddressModel
-	11, // 18: protos.CustomerAddressService.Update:output_type -> google.protobuf.Empty
-	11, // 19: protos.CustomerAddressService.Delete:output_type -> google.protobuf.Empty
-	11, // 20: protos.CustomerAddressService.AddBulk:output_type -> google.protobuf.Empty
-	11, // 21: protos.CustomerAddressService.UpdateBulk:output_type -> google.protobuf.Empty
-	11, // 22: protos.CustomerAddressService.DeleteBulk:output_type -> google.protobuf.Empty
-	12, // 23: protos.CustomerAddressService.GetCount:output_type -> protos.CountResponse
-	14, // [14:24] is the sub-list for method output_type
-	4,  // [4:14] is the sub-list for method input_type
+	10, // 6: protos.CustomerAddressService.GetByCustomerId:input_type -> protos.GetCustomerAddressByCustomerIdRequest
+	3,  // 7: protos.CustomerAddressService.GetByIds:input_type -> protos.GetCustomerAddressByIdsRequest
+	4,  // 8: protos.CustomerAddressService.Add:input_type -> protos.AddCustomerAddressRequest
+	6,  // 9: protos.CustomerAddressService.Update:input_type -> protos.UpdateCustomerAddressRequest
+	8,  // 10: protos.CustomerAddressService.Delete:input_type -> protos.DeleteCustomerAddressRequest
+	5,  // 11: protos.CustomerAddressService.AddBulk:input_type -> protos.AddCustomerAddressBulkRequest
+	7,  // 12: protos.CustomerAddressService.UpdateBulk:input_type -> protos.UpdateCustomerAddressBulkRequest
+	9,  // 13: protos.CustomerAddressService.DeleteBulk:input_type -> protos.DeleteCustomerAddressBulkRequest
+	12, // 14: protos.CustomerAddressService.GetCount:input_type -> google.protobuf.Empty
+	1,  // 15: protos.CustomerAddressService.GetAll:output_type -> protos.GetAllCustomerAddressesResponse
+	0,  // 16: protos.CustomerAddressService.GetById:output_type -> protos.CustomerAddressModel
+	1,  // 17: protos.CustomerAddressService.GetByCustomerId:output_type -> protos.GetAllCustomerAddressesResponse
+	1,  // 18: protos.CustomerAddressService.GetByIds:output_type -> protos.GetAllCustomerAddressesResponse
+	0,  // 19: protos.CustomerAddressService.Add:output_type -> protos.CustomerAddressModel
+	12, // 20: protos.CustomerAddressService.Update:output_type -> google.protobuf.Empty
+	12, // 21: protos.CustomerAddressService.Delete:output_type -> google.protobuf.Empty
+	12, // 22: protos.CustomerAddressService.AddBulk:output_type -> google.protobuf.Empty
+	12, // 23: protos.CustomerAddressService.UpdateBulk:output_type -> google.protobuf.Empty
+	12, // 24: protos.CustomerAddressService.DeleteBulk:output_type -> google.protobuf.Empty
+	13, // 25: protos.CustomerAddressService.GetCount:output_type -> protos.CountResponse
+	15, // [15:26] is the sub-list for method output_type
+	4,  // [4:15] is the sub-list for method input_type
 	4,  // [4:4] is the sub-list for extension type_name
 	4,  // [4:4] is the sub-list for extension extendee
 	0,  // [0:4] is the sub-list for field type_name
@@ -762,7 +813,7 @@ func file_customer_address_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_customer_address_proto_rawDesc), len(file_customer_address_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   10,
+			NumMessages:   11,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

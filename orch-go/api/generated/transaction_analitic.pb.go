@@ -9,6 +9,7 @@ package protos
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	emptypb "google.golang.org/protobuf/types/known/emptypb"
 	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
 	reflect "reflect"
 	sync "sync"
@@ -610,7 +611,7 @@ var File_transaction_analitic_proto protoreflect.FileDescriptor
 
 const file_transaction_analitic_proto_rawDesc = "" +
 	"\n" +
-	"\x1atransaction_analitic.proto\x12\x06protos\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x11transaction.proto\x1a\x12custom_types.proto\"\xc0\x01\n" +
+	"\x1atransaction_analitic.proto\x12\x06protos\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x11transaction.proto\x1a\x12custom_types.proto\"\xc0\x01\n" +
 	"&GetSumOfTransactionsByDateRangeRequest\x12>\n" +
 	"\n" +
 	"start_date\x18\x01 \x01(\v2\x1a.google.protobuf.TimestampH\x00R\tstartDate\x88\x01\x01\x12:\n" +
@@ -659,8 +660,19 @@ const file_transaction_analitic_proto_rawDesc = "" +
 	"\v_start_dateB\v\n" +
 	"\t_end_date\"=\n" +
 	")GetUserSumTransactionsByDateRangeResponse\x12\x10\n" +
-	"\x03sum\x18\x01 \x01(\x05R\x03sum2\xcb\x05\n" +
-	"\x1aTransactionAnalyticService\x12\x82\x01\n" +
+	"\x03sum\x18\x01 \x01(\x05R\x03sum2\xfd\f\n" +
+	"\x1aTransactionAnalyticService\x12J\n" +
+	"\rProcessGetAll\x12\x15.protos.GetAllRequest\x1a\".protos.GetAllTransactionsResponse\x12M\n" +
+	"\x0eProcessGetById\x12!.protos.GetTransactionByIdRequest\x1a\x18.protos.TransactionModel\x12Y\n" +
+	"\x0fProcessGetByIds\x12\".protos.GetTransactionByIdsRequest\x1a\".protos.GetAllTransactionsResponse\x12Z\n" +
+	"\x15ProcessGetByDateRange\x12\x1d.protos.GetByDateRangeRequest\x1a\".protos.GetAllTransactionsResponse\x12`\n" +
+	"\x18ProcessGetAccountRevenue\x12 .protos.GetAccountRevenueRequest\x1a\".protos.GetAllTransactionsResponse\x12b\n" +
+	"\x19ProcessGetAccountExpenses\x12!.protos.GetAccountExpensesRequest\x1a\".protos.GetAllTransactionsResponse\x12@\n" +
+	"\x0fProcessGetCount\x12\x16.google.protobuf.Empty\x1a\x15.protos.CountResponse\x12R\n" +
+	"\x1aProcessGetCountByDateRange\x12\x1d.protos.GetByDateRangeRequest\x1a\x15.protos.CountResponse\x12X\n" +
+	"\x1dProcessGetCountAccountRevenue\x12 .protos.GetAccountRevenueRequest\x1a\x15.protos.CountResponse\x12Z\n" +
+	"\x1eProcessGetCountAccountExpenses\x12!.protos.GetAccountExpensesRequest\x1a\x15.protos.CountResponse\x12L\n" +
+	"\x15ProcessGetTotalAmount\x12\x16.google.protobuf.Empty\x1a\x1b.protos.TotalAmountResponse\x12\x82\x01\n" +
 	"\x1fGetSumOfTransactionsByDateRange\x12..protos.GetSumOfTransactionsByDateRangeRequest\x1a/.protos.GetSumOfTransactionsByDateRangeResponse\x12\x8e\x01\n" +
 	"#GetAverageOfTransactionsByDateRange\x122.protos.GetAverageOfTransactionsByDateRangeRequest\x1a3.protos.GetAverageOfTransactionsByDateRangeResponse\x12l\n" +
 	"!GetCountOfTransactionsByDateRange\x120.protos.GetCountOfTransactionsByDateRangeRequest\x1a\x15.protos.CountResponse\x12\x97\x01\n" +
@@ -695,7 +707,16 @@ var file_transaction_analitic_proto_goTypes = []any{
 	(*GetUserSumTransactionsByDateRangeResponse)(nil),      // 11: protos.GetUserSumTransactionsByDateRangeResponse
 	(*timestamppb.Timestamp)(nil),                          // 12: google.protobuf.Timestamp
 	(*TransactionModel)(nil),                               // 13: protos.TransactionModel
-	(*CountResponse)(nil),                                  // 14: protos.CountResponse
+	(*GetAllRequest)(nil),                                  // 14: protos.GetAllRequest
+	(*GetTransactionByIdRequest)(nil),                      // 15: protos.GetTransactionByIdRequest
+	(*GetTransactionByIdsRequest)(nil),                     // 16: protos.GetTransactionByIdsRequest
+	(*GetByDateRangeRequest)(nil),                          // 17: protos.GetByDateRangeRequest
+	(*GetAccountRevenueRequest)(nil),                       // 18: protos.GetAccountRevenueRequest
+	(*GetAccountExpensesRequest)(nil),                      // 19: protos.GetAccountExpensesRequest
+	(*emptypb.Empty)(nil),                                  // 20: google.protobuf.Empty
+	(*GetAllTransactionsResponse)(nil),                     // 21: protos.GetAllTransactionsResponse
+	(*CountResponse)(nil),                                  // 22: protos.CountResponse
+	(*TotalAmountResponse)(nil),                            // 23: protos.TotalAmountResponse
 }
 var file_transaction_analitic_proto_depIdxs = []int32{
 	12, // 0: protos.GetSumOfTransactionsByDateRangeRequest.start_date:type_name -> google.protobuf.Timestamp
@@ -712,18 +733,40 @@ var file_transaction_analitic_proto_depIdxs = []int32{
 	13, // 11: protos.GetAnomalousTransactionsByDateRangeResponse.transactions:type_name -> protos.TransactionModel
 	12, // 12: protos.GetUserSumTransactionsByDateRangeRequest.start_date:type_name -> google.protobuf.Timestamp
 	12, // 13: protos.GetUserSumTransactionsByDateRangeRequest.end_date:type_name -> google.protobuf.Timestamp
-	0,  // 14: protos.TransactionAnalyticService.GetSumOfTransactionsByDateRange:input_type -> protos.GetSumOfTransactionsByDateRangeRequest
-	2,  // 15: protos.TransactionAnalyticService.GetAverageOfTransactionsByDateRange:input_type -> protos.GetAverageOfTransactionsByDateRangeRequest
-	4,  // 16: protos.TransactionAnalyticService.GetCountOfTransactionsByDateRange:input_type -> protos.GetCountOfTransactionsByDateRangeRequest
-	6,  // 17: protos.TransactionAnalyticService.GetMostFrequentTransactionsByDateRange:input_type -> protos.GetMostFrequentTransactionsByDateRangeRequest
-	8,  // 18: protos.TransactionAnalyticService.GetAnomalousTransactionsByDateRange:input_type -> protos.GetAnomalousTransactionsByDateRangeRequest
-	1,  // 19: protos.TransactionAnalyticService.GetSumOfTransactionsByDateRange:output_type -> protos.GetSumOfTransactionsByDateRangeResponse
-	3,  // 20: protos.TransactionAnalyticService.GetAverageOfTransactionsByDateRange:output_type -> protos.GetAverageOfTransactionsByDateRangeResponse
-	14, // 21: protos.TransactionAnalyticService.GetCountOfTransactionsByDateRange:output_type -> protos.CountResponse
-	7,  // 22: protos.TransactionAnalyticService.GetMostFrequentTransactionsByDateRange:output_type -> protos.GetMostFrequentTransactionsByDateRangeResponse
-	9,  // 23: protos.TransactionAnalyticService.GetAnomalousTransactionsByDateRange:output_type -> protos.GetAnomalousTransactionsByDateRangeResponse
-	19, // [19:24] is the sub-list for method output_type
-	14, // [14:19] is the sub-list for method input_type
+	14, // 14: protos.TransactionAnalyticService.ProcessGetAll:input_type -> protos.GetAllRequest
+	15, // 15: protos.TransactionAnalyticService.ProcessGetById:input_type -> protos.GetTransactionByIdRequest
+	16, // 16: protos.TransactionAnalyticService.ProcessGetByIds:input_type -> protos.GetTransactionByIdsRequest
+	17, // 17: protos.TransactionAnalyticService.ProcessGetByDateRange:input_type -> protos.GetByDateRangeRequest
+	18, // 18: protos.TransactionAnalyticService.ProcessGetAccountRevenue:input_type -> protos.GetAccountRevenueRequest
+	19, // 19: protos.TransactionAnalyticService.ProcessGetAccountExpenses:input_type -> protos.GetAccountExpensesRequest
+	20, // 20: protos.TransactionAnalyticService.ProcessGetCount:input_type -> google.protobuf.Empty
+	17, // 21: protos.TransactionAnalyticService.ProcessGetCountByDateRange:input_type -> protos.GetByDateRangeRequest
+	18, // 22: protos.TransactionAnalyticService.ProcessGetCountAccountRevenue:input_type -> protos.GetAccountRevenueRequest
+	19, // 23: protos.TransactionAnalyticService.ProcessGetCountAccountExpenses:input_type -> protos.GetAccountExpensesRequest
+	20, // 24: protos.TransactionAnalyticService.ProcessGetTotalAmount:input_type -> google.protobuf.Empty
+	0,  // 25: protos.TransactionAnalyticService.GetSumOfTransactionsByDateRange:input_type -> protos.GetSumOfTransactionsByDateRangeRequest
+	2,  // 26: protos.TransactionAnalyticService.GetAverageOfTransactionsByDateRange:input_type -> protos.GetAverageOfTransactionsByDateRangeRequest
+	4,  // 27: protos.TransactionAnalyticService.GetCountOfTransactionsByDateRange:input_type -> protos.GetCountOfTransactionsByDateRangeRequest
+	6,  // 28: protos.TransactionAnalyticService.GetMostFrequentTransactionsByDateRange:input_type -> protos.GetMostFrequentTransactionsByDateRangeRequest
+	8,  // 29: protos.TransactionAnalyticService.GetAnomalousTransactionsByDateRange:input_type -> protos.GetAnomalousTransactionsByDateRangeRequest
+	21, // 30: protos.TransactionAnalyticService.ProcessGetAll:output_type -> protos.GetAllTransactionsResponse
+	13, // 31: protos.TransactionAnalyticService.ProcessGetById:output_type -> protos.TransactionModel
+	21, // 32: protos.TransactionAnalyticService.ProcessGetByIds:output_type -> protos.GetAllTransactionsResponse
+	21, // 33: protos.TransactionAnalyticService.ProcessGetByDateRange:output_type -> protos.GetAllTransactionsResponse
+	21, // 34: protos.TransactionAnalyticService.ProcessGetAccountRevenue:output_type -> protos.GetAllTransactionsResponse
+	21, // 35: protos.TransactionAnalyticService.ProcessGetAccountExpenses:output_type -> protos.GetAllTransactionsResponse
+	22, // 36: protos.TransactionAnalyticService.ProcessGetCount:output_type -> protos.CountResponse
+	22, // 37: protos.TransactionAnalyticService.ProcessGetCountByDateRange:output_type -> protos.CountResponse
+	22, // 38: protos.TransactionAnalyticService.ProcessGetCountAccountRevenue:output_type -> protos.CountResponse
+	22, // 39: protos.TransactionAnalyticService.ProcessGetCountAccountExpenses:output_type -> protos.CountResponse
+	23, // 40: protos.TransactionAnalyticService.ProcessGetTotalAmount:output_type -> protos.TotalAmountResponse
+	1,  // 41: protos.TransactionAnalyticService.GetSumOfTransactionsByDateRange:output_type -> protos.GetSumOfTransactionsByDateRangeResponse
+	3,  // 42: protos.TransactionAnalyticService.GetAverageOfTransactionsByDateRange:output_type -> protos.GetAverageOfTransactionsByDateRangeResponse
+	22, // 43: protos.TransactionAnalyticService.GetCountOfTransactionsByDateRange:output_type -> protos.CountResponse
+	7,  // 44: protos.TransactionAnalyticService.GetMostFrequentTransactionsByDateRange:output_type -> protos.GetMostFrequentTransactionsByDateRangeResponse
+	9,  // 45: protos.TransactionAnalyticService.GetAnomalousTransactionsByDateRange:output_type -> protos.GetAnomalousTransactionsByDateRangeResponse
+	30, // [30:46] is the sub-list for method output_type
+	14, // [14:30] is the sub-list for method input_type
 	14, // [14:14] is the sub-list for extension type_name
 	14, // [14:14] is the sub-list for extension extendee
 	0,  // [0:14] is the sub-list for field type_name
