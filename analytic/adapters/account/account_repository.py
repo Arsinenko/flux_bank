@@ -23,7 +23,7 @@ from mappers.account_mapper import AccountMapper
 class AccountRepository(AccountRepositoryAbc, BaseGrpcRepository):
     def __init__(self, target: str):
         super().__init__(target)
-        self.stub = AccountServiceStub(self.chanel)
+        self.stub = AccountServiceStub(self.channel)
 
     async def get_avg_balance(self, type_id: int = None, status: bool = None) -> decimal.Decimal:
         request = GetAvgBalanceRequest(

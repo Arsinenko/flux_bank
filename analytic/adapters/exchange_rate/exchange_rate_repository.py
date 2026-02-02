@@ -19,7 +19,7 @@ from mappers.exchange_rate_mapper import ExchangeRateMapper
 class ExchangeRateRepository(ExchangeRateRepositoryAbc, BaseGrpcRepository):
     def __init__(self, target: str):
         super().__init__(target)
-        self.stub = ExchangeRateServiceStub(channel=self.chanel)
+        self.stub = ExchangeRateServiceStub(channel=self.channel)
 
     async def get_all(self, page_n: int, page_size: int, order_by: str = None, is_desc: bool = False) -> List[ExchangeRate]:
         request = GetAllRequest(

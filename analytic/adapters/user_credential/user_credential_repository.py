@@ -19,7 +19,7 @@ from mappers.user_credential_mapper import UserCredentialMapper
 class UserCredentialRepository(UserCredentialRepositoryAbc, BaseGrpcRepository):
     def __init__(self, target: str):
         super().__init__(target)
-        self.stub = UserCredentialServiceStub(channel=self.chanel)
+        self.stub = UserCredentialServiceStub(channel=self.channel)
 
     async def get_all(self, page_n: int, page_size: int, order_by: str = None, is_desc: bool = False) -> List[UserCredential]:
         request = GetAllRequest(

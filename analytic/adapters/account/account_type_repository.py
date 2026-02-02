@@ -25,7 +25,7 @@ class AccountTypeRepository(AccountTypeRepositoryAbc, BaseGrpcRepository):
 
     def __init__(self, target: str):
         super().__init__(target)
-        self.stub = AccountTypeServiceStub(channel=self.chanel)
+        self.stub = AccountTypeServiceStub(channel=self.channel)
 
     @staticmethod
     def to_domain(model: AccountTypeModel) -> AccountType:

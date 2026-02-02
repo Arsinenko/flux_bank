@@ -18,7 +18,7 @@ from mappers.card_mapper import CardMapper
 class CardRepository(CardRepositoryAbc, BaseGrpcRepository):
     def __init__(self, target: str):
         super().__init__(target)
-        self.stub = CardServiceStub(channel=self.chanel)
+        self.stub = CardServiceStub(channel=self.channel)
 
     async def get_count(self) -> int:
         result = await self._execute(self.stub.GetCount(Empty()))

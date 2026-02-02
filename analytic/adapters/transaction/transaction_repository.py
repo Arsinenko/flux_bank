@@ -20,7 +20,7 @@ from mappers.transaction_mapper import TransactionMapper
 class TransactionRepository(TransactionRepositoryAbc, BaseGrpcRepository):
     def __init__(self, target: str):
         super().__init__(target)
-        self.stub = TransactionServiceStub(channel=self.chanel)
+        self.stub = TransactionServiceStub(channel=self.channel)
 
     async def get_all(self, page_n: int, page_size: int, order_by: str = None, is_desc: bool = False) -> List[Transaction]:
         request = GetAllRequest(

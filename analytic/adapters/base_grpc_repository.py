@@ -3,10 +3,10 @@
 
 class BaseGrpcRepository:
     def __init__(self, target: str):
-        self.chanel = grpc.aio.insecure_channel(target)
+        self.channel = grpc.aio.insecure_channel(target)
 
     async def close(self):
-        await self.chanel.close()
+        await self.channel.close()
 
     @staticmethod
     async def _execute(coro):

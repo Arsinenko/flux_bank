@@ -18,7 +18,7 @@ from mappers.atm_mapper import AtmMapper
 class AtmRepository(AtmRepositoryAbc, BaseGrpcRepository):
     def __init__(self, target: str):
         super().__init__(target)
-        self.stub = AtmServiceStub(channel=self.chanel)
+        self.stub = AtmServiceStub(channel=self.channel)
 
     async def get_count(self) -> int:
         result = await self._execute(self.stub.GetCount(Empty()))

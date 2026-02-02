@@ -18,7 +18,7 @@ from mappers.fee_type_mapper import FeeTypeMapper
 class FeeTypeRepository(FeeTypeRepositoryAbc, BaseGrpcRepository):
     def __init__(self, target: str):
         super().__init__(target)
-        self.stub = FeeTypeServiceStub(channel=self.chanel)
+        self.stub = FeeTypeServiceStub(channel=self.channel)
 
     async def get_all(self, page_n: int, page_size: int, order_by: str = None, is_desc: bool = False) -> List[FeeType]:
         request = GetAllRequest(

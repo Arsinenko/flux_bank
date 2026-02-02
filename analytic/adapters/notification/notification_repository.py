@@ -19,7 +19,7 @@ from mappers.notification_mapper import NotificationMapper
 class NotificationRepository(NotificationRepositoryAbc, BaseGrpcRepository):
     def __init__(self, target: str):
         super().__init__(target)
-        self.stub = NotificationServiceStub(self.chanel)
+        self.stub = NotificationServiceStub(self.channel)
 
     async def get_all(self, page_n: int, page_size: int, order_by: str = None, is_desc: bool = False) -> List[Notification]:
         request = GetAllRequest(

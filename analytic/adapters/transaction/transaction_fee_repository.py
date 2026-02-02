@@ -18,7 +18,7 @@ from mappers.transaction_fee_mapper import TransactionFeeMapper
 class TransactionFeeRepository(TransactionFeeRepositoryAbc, BaseGrpcRepository):
     def __init__(self, target: str):
         super().__init__(target)
-        self.stub = TransactionFeeServiceStub(channel=self.chanel)
+        self.stub = TransactionFeeServiceStub(channel=self.channel)
 
     async def get_by_ids(self, ids: List[int]) -> List[TransactionFee]:
         request = GetTransactionFeeByIdsRequest(ids=ids)

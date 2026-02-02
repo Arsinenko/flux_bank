@@ -20,7 +20,7 @@ from mappers.customer_mapper import CustomerMapper
 class CustomerRepository(CustomerRepositoryAbc, BaseGrpcRepository):
     def __init__(self, target: str):
         super().__init__(target)
-        self.stub = CustomerServiceStub(channel=self.chanel)
+        self.stub = CustomerServiceStub(channel=self.channel)
 
     async def get_by_ids(self, ids: List[int]) -> List[Customer]:
         request = GetCustomerByIdsRequest(customer_ids=ids)
