@@ -13,6 +13,7 @@ import "customer.proto";
 service CustomerAddressService {
   rpc GetAll (GetAllRequest) returns (GetAllCustomerAddressesResponse);
   rpc GetById (GetCustomerAddressByIdRequest) returns (CustomerAddressModel);
+  rpc GetByCustomerId (GetCustomerAddressByCustomerIdRequest) returns (GetAllCustomerAddressesResponse);
   rpc GetByIds (GetCustomerAddressByIdsRequest) returns (GetAllCustomerAddressesResponse);
   rpc Add (AddCustomerAddressRequest) returns (CustomerAddressModel);
   rpc Update (UpdateCustomerAddressRequest) returns (google.protobuf.Empty);
@@ -78,4 +79,9 @@ message DeleteCustomerAddressRequest {
 
 message DeleteCustomerAddressBulkRequest {
   repeated DeleteCustomerAddressRequest customer_addresses = 1;
+}
+
+
+message GetCustomerAddressByCustomerIdRequest {
+  int32 customer_id = 1;
 }

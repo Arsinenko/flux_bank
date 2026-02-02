@@ -11,6 +11,7 @@ import (
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
+	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -21,6 +22,16 @@ const _ = grpc.SupportPackageIsVersion9
 const (
 	AccountAnalyticService_ProcessGetTotalBalanceByAccountType_FullMethodName = "/protos.AccountAnalyticService/ProcessGetTotalBalanceByAccountType"
 	AccountAnalyticService_ProcessGetAvgBalance_FullMethodName                = "/protos.AccountAnalyticService/ProcessGetAvgBalance"
+	AccountAnalyticService_GetTopAccountByBalance_FullMethodName              = "/protos.AccountAnalyticService/GetTopAccountByBalance"
+	AccountAnalyticService_ProcessGetAll_FullMethodName                       = "/protos.AccountAnalyticService/ProcessGetAll"
+	AccountAnalyticService_ProcessGetById_FullMethodName                      = "/protos.AccountAnalyticService/ProcessGetById"
+	AccountAnalyticService_ProcessGetByIds_FullMethodName                     = "/protos.AccountAnalyticService/ProcessGetByIds"
+	AccountAnalyticService_ProcessGetByCustomerId_FullMethodName              = "/protos.AccountAnalyticService/ProcessGetByCustomerId"
+	AccountAnalyticService_ProcessGetByDateRange_FullMethodName               = "/protos.AccountAnalyticService/ProcessGetByDateRange"
+	AccountAnalyticService_ProcessGetCount_FullMethodName                     = "/protos.AccountAnalyticService/ProcessGetCount"
+	AccountAnalyticService_ProcessGetCountByStatus_FullMethodName             = "/protos.AccountAnalyticService/ProcessGetCountByStatus"
+	AccountAnalyticService_ProcessGetCountByDateRange_FullMethodName          = "/protos.AccountAnalyticService/ProcessGetCountByDateRange"
+	AccountAnalyticService_ProcessGetCountByCustomerId_FullMethodName         = "/protos.AccountAnalyticService/ProcessGetCountByCustomerId"
 )
 
 // AccountAnalyticServiceClient is the client API for AccountAnalyticService service.
@@ -29,6 +40,16 @@ const (
 type AccountAnalyticServiceClient interface {
 	ProcessGetTotalBalanceByAccountType(ctx context.Context, in *GetTotalBalanceByAccountTypeRequest, opts ...grpc.CallOption) (*TotalBalanceResponse, error)
 	ProcessGetAvgBalance(ctx context.Context, in *GetAvgBalanceRequest, opts ...grpc.CallOption) (*TotalBalanceResponse, error)
+	GetTopAccountByBalance(ctx context.Context, in *GetTopAccountByBalanceRequest, opts ...grpc.CallOption) (*GetAllAccountsResponse, error)
+	ProcessGetAll(ctx context.Context, in *GetAllRequest, opts ...grpc.CallOption) (*GetAllAccountsResponse, error)
+	ProcessGetById(ctx context.Context, in *GetAccountByIdRequest, opts ...grpc.CallOption) (*AccountModel, error)
+	ProcessGetByIds(ctx context.Context, in *GetAccountByIdsRequest, opts ...grpc.CallOption) (*GetAllAccountsResponse, error)
+	ProcessGetByCustomerId(ctx context.Context, in *GetAccountByCustomerIdRequest, opts ...grpc.CallOption) (*GetAllAccountsResponse, error)
+	ProcessGetByDateRange(ctx context.Context, in *GetByDateRangeRequest, opts ...grpc.CallOption) (*GetAllAccountsResponse, error)
+	ProcessGetCount(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*CountResponse, error)
+	ProcessGetCountByStatus(ctx context.Context, in *GetAccountsByStatusRequest, opts ...grpc.CallOption) (*CountResponse, error)
+	ProcessGetCountByDateRange(ctx context.Context, in *GetByDateRangeRequest, opts ...grpc.CallOption) (*CountResponse, error)
+	ProcessGetCountByCustomerId(ctx context.Context, in *GetAccountByCustomerIdRequest, opts ...grpc.CallOption) (*CountResponse, error)
 }
 
 type accountAnalyticServiceClient struct {
@@ -59,12 +80,122 @@ func (c *accountAnalyticServiceClient) ProcessGetAvgBalance(ctx context.Context,
 	return out, nil
 }
 
+func (c *accountAnalyticServiceClient) GetTopAccountByBalance(ctx context.Context, in *GetTopAccountByBalanceRequest, opts ...grpc.CallOption) (*GetAllAccountsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetAllAccountsResponse)
+	err := c.cc.Invoke(ctx, AccountAnalyticService_GetTopAccountByBalance_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *accountAnalyticServiceClient) ProcessGetAll(ctx context.Context, in *GetAllRequest, opts ...grpc.CallOption) (*GetAllAccountsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetAllAccountsResponse)
+	err := c.cc.Invoke(ctx, AccountAnalyticService_ProcessGetAll_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *accountAnalyticServiceClient) ProcessGetById(ctx context.Context, in *GetAccountByIdRequest, opts ...grpc.CallOption) (*AccountModel, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(AccountModel)
+	err := c.cc.Invoke(ctx, AccountAnalyticService_ProcessGetById_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *accountAnalyticServiceClient) ProcessGetByIds(ctx context.Context, in *GetAccountByIdsRequest, opts ...grpc.CallOption) (*GetAllAccountsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetAllAccountsResponse)
+	err := c.cc.Invoke(ctx, AccountAnalyticService_ProcessGetByIds_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *accountAnalyticServiceClient) ProcessGetByCustomerId(ctx context.Context, in *GetAccountByCustomerIdRequest, opts ...grpc.CallOption) (*GetAllAccountsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetAllAccountsResponse)
+	err := c.cc.Invoke(ctx, AccountAnalyticService_ProcessGetByCustomerId_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *accountAnalyticServiceClient) ProcessGetByDateRange(ctx context.Context, in *GetByDateRangeRequest, opts ...grpc.CallOption) (*GetAllAccountsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetAllAccountsResponse)
+	err := c.cc.Invoke(ctx, AccountAnalyticService_ProcessGetByDateRange_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *accountAnalyticServiceClient) ProcessGetCount(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*CountResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CountResponse)
+	err := c.cc.Invoke(ctx, AccountAnalyticService_ProcessGetCount_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *accountAnalyticServiceClient) ProcessGetCountByStatus(ctx context.Context, in *GetAccountsByStatusRequest, opts ...grpc.CallOption) (*CountResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CountResponse)
+	err := c.cc.Invoke(ctx, AccountAnalyticService_ProcessGetCountByStatus_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *accountAnalyticServiceClient) ProcessGetCountByDateRange(ctx context.Context, in *GetByDateRangeRequest, opts ...grpc.CallOption) (*CountResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CountResponse)
+	err := c.cc.Invoke(ctx, AccountAnalyticService_ProcessGetCountByDateRange_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *accountAnalyticServiceClient) ProcessGetCountByCustomerId(ctx context.Context, in *GetAccountByCustomerIdRequest, opts ...grpc.CallOption) (*CountResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CountResponse)
+	err := c.cc.Invoke(ctx, AccountAnalyticService_ProcessGetCountByCustomerId_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AccountAnalyticServiceServer is the server API for AccountAnalyticService service.
 // All implementations must embed UnimplementedAccountAnalyticServiceServer
 // for forward compatibility.
 type AccountAnalyticServiceServer interface {
 	ProcessGetTotalBalanceByAccountType(context.Context, *GetTotalBalanceByAccountTypeRequest) (*TotalBalanceResponse, error)
 	ProcessGetAvgBalance(context.Context, *GetAvgBalanceRequest) (*TotalBalanceResponse, error)
+	GetTopAccountByBalance(context.Context, *GetTopAccountByBalanceRequest) (*GetAllAccountsResponse, error)
+	ProcessGetAll(context.Context, *GetAllRequest) (*GetAllAccountsResponse, error)
+	ProcessGetById(context.Context, *GetAccountByIdRequest) (*AccountModel, error)
+	ProcessGetByIds(context.Context, *GetAccountByIdsRequest) (*GetAllAccountsResponse, error)
+	ProcessGetByCustomerId(context.Context, *GetAccountByCustomerIdRequest) (*GetAllAccountsResponse, error)
+	ProcessGetByDateRange(context.Context, *GetByDateRangeRequest) (*GetAllAccountsResponse, error)
+	ProcessGetCount(context.Context, *emptypb.Empty) (*CountResponse, error)
+	ProcessGetCountByStatus(context.Context, *GetAccountsByStatusRequest) (*CountResponse, error)
+	ProcessGetCountByDateRange(context.Context, *GetByDateRangeRequest) (*CountResponse, error)
+	ProcessGetCountByCustomerId(context.Context, *GetAccountByCustomerIdRequest) (*CountResponse, error)
 	mustEmbedUnimplementedAccountAnalyticServiceServer()
 }
 
@@ -80,6 +211,36 @@ func (UnimplementedAccountAnalyticServiceServer) ProcessGetTotalBalanceByAccount
 }
 func (UnimplementedAccountAnalyticServiceServer) ProcessGetAvgBalance(context.Context, *GetAvgBalanceRequest) (*TotalBalanceResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method ProcessGetAvgBalance not implemented")
+}
+func (UnimplementedAccountAnalyticServiceServer) GetTopAccountByBalance(context.Context, *GetTopAccountByBalanceRequest) (*GetAllAccountsResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetTopAccountByBalance not implemented")
+}
+func (UnimplementedAccountAnalyticServiceServer) ProcessGetAll(context.Context, *GetAllRequest) (*GetAllAccountsResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ProcessGetAll not implemented")
+}
+func (UnimplementedAccountAnalyticServiceServer) ProcessGetById(context.Context, *GetAccountByIdRequest) (*AccountModel, error) {
+	return nil, status.Error(codes.Unimplemented, "method ProcessGetById not implemented")
+}
+func (UnimplementedAccountAnalyticServiceServer) ProcessGetByIds(context.Context, *GetAccountByIdsRequest) (*GetAllAccountsResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ProcessGetByIds not implemented")
+}
+func (UnimplementedAccountAnalyticServiceServer) ProcessGetByCustomerId(context.Context, *GetAccountByCustomerIdRequest) (*GetAllAccountsResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ProcessGetByCustomerId not implemented")
+}
+func (UnimplementedAccountAnalyticServiceServer) ProcessGetByDateRange(context.Context, *GetByDateRangeRequest) (*GetAllAccountsResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ProcessGetByDateRange not implemented")
+}
+func (UnimplementedAccountAnalyticServiceServer) ProcessGetCount(context.Context, *emptypb.Empty) (*CountResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ProcessGetCount not implemented")
+}
+func (UnimplementedAccountAnalyticServiceServer) ProcessGetCountByStatus(context.Context, *GetAccountsByStatusRequest) (*CountResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ProcessGetCountByStatus not implemented")
+}
+func (UnimplementedAccountAnalyticServiceServer) ProcessGetCountByDateRange(context.Context, *GetByDateRangeRequest) (*CountResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ProcessGetCountByDateRange not implemented")
+}
+func (UnimplementedAccountAnalyticServiceServer) ProcessGetCountByCustomerId(context.Context, *GetAccountByCustomerIdRequest) (*CountResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ProcessGetCountByCustomerId not implemented")
 }
 func (UnimplementedAccountAnalyticServiceServer) mustEmbedUnimplementedAccountAnalyticServiceServer() {
 }
@@ -139,6 +300,186 @@ func _AccountAnalyticService_ProcessGetAvgBalance_Handler(srv interface{}, ctx c
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AccountAnalyticService_GetTopAccountByBalance_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetTopAccountByBalanceRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountAnalyticServiceServer).GetTopAccountByBalance(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AccountAnalyticService_GetTopAccountByBalance_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountAnalyticServiceServer).GetTopAccountByBalance(ctx, req.(*GetTopAccountByBalanceRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AccountAnalyticService_ProcessGetAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAllRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountAnalyticServiceServer).ProcessGetAll(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AccountAnalyticService_ProcessGetAll_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountAnalyticServiceServer).ProcessGetAll(ctx, req.(*GetAllRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AccountAnalyticService_ProcessGetById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAccountByIdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountAnalyticServiceServer).ProcessGetById(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AccountAnalyticService_ProcessGetById_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountAnalyticServiceServer).ProcessGetById(ctx, req.(*GetAccountByIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AccountAnalyticService_ProcessGetByIds_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAccountByIdsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountAnalyticServiceServer).ProcessGetByIds(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AccountAnalyticService_ProcessGetByIds_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountAnalyticServiceServer).ProcessGetByIds(ctx, req.(*GetAccountByIdsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AccountAnalyticService_ProcessGetByCustomerId_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAccountByCustomerIdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountAnalyticServiceServer).ProcessGetByCustomerId(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AccountAnalyticService_ProcessGetByCustomerId_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountAnalyticServiceServer).ProcessGetByCustomerId(ctx, req.(*GetAccountByCustomerIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AccountAnalyticService_ProcessGetByDateRange_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetByDateRangeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountAnalyticServiceServer).ProcessGetByDateRange(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AccountAnalyticService_ProcessGetByDateRange_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountAnalyticServiceServer).ProcessGetByDateRange(ctx, req.(*GetByDateRangeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AccountAnalyticService_ProcessGetCount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(emptypb.Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountAnalyticServiceServer).ProcessGetCount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AccountAnalyticService_ProcessGetCount_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountAnalyticServiceServer).ProcessGetCount(ctx, req.(*emptypb.Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AccountAnalyticService_ProcessGetCountByStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAccountsByStatusRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountAnalyticServiceServer).ProcessGetCountByStatus(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AccountAnalyticService_ProcessGetCountByStatus_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountAnalyticServiceServer).ProcessGetCountByStatus(ctx, req.(*GetAccountsByStatusRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AccountAnalyticService_ProcessGetCountByDateRange_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetByDateRangeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountAnalyticServiceServer).ProcessGetCountByDateRange(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AccountAnalyticService_ProcessGetCountByDateRange_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountAnalyticServiceServer).ProcessGetCountByDateRange(ctx, req.(*GetByDateRangeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AccountAnalyticService_ProcessGetCountByCustomerId_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAccountByCustomerIdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountAnalyticServiceServer).ProcessGetCountByCustomerId(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AccountAnalyticService_ProcessGetCountByCustomerId_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountAnalyticServiceServer).ProcessGetCountByCustomerId(ctx, req.(*GetAccountByCustomerIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // AccountAnalyticService_ServiceDesc is the grpc.ServiceDesc for AccountAnalyticService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -153,6 +494,46 @@ var AccountAnalyticService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ProcessGetAvgBalance",
 			Handler:    _AccountAnalyticService_ProcessGetAvgBalance_Handler,
+		},
+		{
+			MethodName: "GetTopAccountByBalance",
+			Handler:    _AccountAnalyticService_GetTopAccountByBalance_Handler,
+		},
+		{
+			MethodName: "ProcessGetAll",
+			Handler:    _AccountAnalyticService_ProcessGetAll_Handler,
+		},
+		{
+			MethodName: "ProcessGetById",
+			Handler:    _AccountAnalyticService_ProcessGetById_Handler,
+		},
+		{
+			MethodName: "ProcessGetByIds",
+			Handler:    _AccountAnalyticService_ProcessGetByIds_Handler,
+		},
+		{
+			MethodName: "ProcessGetByCustomerId",
+			Handler:    _AccountAnalyticService_ProcessGetByCustomerId_Handler,
+		},
+		{
+			MethodName: "ProcessGetByDateRange",
+			Handler:    _AccountAnalyticService_ProcessGetByDateRange_Handler,
+		},
+		{
+			MethodName: "ProcessGetCount",
+			Handler:    _AccountAnalyticService_ProcessGetCount_Handler,
+		},
+		{
+			MethodName: "ProcessGetCountByStatus",
+			Handler:    _AccountAnalyticService_ProcessGetCountByStatus_Handler,
+		},
+		{
+			MethodName: "ProcessGetCountByDateRange",
+			Handler:    _AccountAnalyticService_ProcessGetCountByDateRange_Handler,
+		},
+		{
+			MethodName: "ProcessGetCountByCustomerId",
+			Handler:    _AccountAnalyticService_ProcessGetCountByCustomerId_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

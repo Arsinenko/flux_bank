@@ -20,16 +20,17 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	TransactionFeeService_GetAll_FullMethodName     = "/protos.TransactionFeeService/GetAll"
-	TransactionFeeService_GetById_FullMethodName    = "/protos.TransactionFeeService/GetById"
-	TransactionFeeService_GetByIds_FullMethodName   = "/protos.TransactionFeeService/GetByIds"
-	TransactionFeeService_Add_FullMethodName        = "/protos.TransactionFeeService/Add"
-	TransactionFeeService_Update_FullMethodName     = "/protos.TransactionFeeService/Update"
-	TransactionFeeService_Delete_FullMethodName     = "/protos.TransactionFeeService/Delete"
-	TransactionFeeService_AddBulk_FullMethodName    = "/protos.TransactionFeeService/AddBulk"
-	TransactionFeeService_UpdateBulk_FullMethodName = "/protos.TransactionFeeService/UpdateBulk"
-	TransactionFeeService_DeleteBulk_FullMethodName = "/protos.TransactionFeeService/DeleteBulk"
-	TransactionFeeService_GetCount_FullMethodName   = "/protos.TransactionFeeService/GetCount"
+	TransactionFeeService_GetAll_FullMethodName      = "/protos.TransactionFeeService/GetAll"
+	TransactionFeeService_GetById_FullMethodName     = "/protos.TransactionFeeService/GetById"
+	TransactionFeeService_GetByIds_FullMethodName    = "/protos.TransactionFeeService/GetByIds"
+	TransactionFeeService_Add_FullMethodName         = "/protos.TransactionFeeService/Add"
+	TransactionFeeService_Update_FullMethodName      = "/protos.TransactionFeeService/Update"
+	TransactionFeeService_Delete_FullMethodName      = "/protos.TransactionFeeService/Delete"
+	TransactionFeeService_AddBulk_FullMethodName     = "/protos.TransactionFeeService/AddBulk"
+	TransactionFeeService_UpdateBulk_FullMethodName  = "/protos.TransactionFeeService/UpdateBulk"
+	TransactionFeeService_DeleteBulk_FullMethodName  = "/protos.TransactionFeeService/DeleteBulk"
+	TransactionFeeService_GetCount_FullMethodName    = "/protos.TransactionFeeService/GetCount"
+	TransactionFeeService_GetTotalFee_FullMethodName = "/protos.TransactionFeeService/GetTotalFee"
 )
 
 // TransactionFeeServiceClient is the client API for TransactionFeeService service.
@@ -46,6 +47,7 @@ type TransactionFeeServiceClient interface {
 	UpdateBulk(ctx context.Context, in *UpdateTransactionFeeBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	DeleteBulk(ctx context.Context, in *DeleteTransactionFeeBulkRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	GetCount(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*CountResponse, error)
+	GetTotalFee(ctx context.Context, in *GetTotalFeeRequest, opts ...grpc.CallOption) (*TotalFeeResponse, error)
 }
 
 type transactionFeeServiceClient struct {
@@ -156,6 +158,16 @@ func (c *transactionFeeServiceClient) GetCount(ctx context.Context, in *emptypb.
 	return out, nil
 }
 
+func (c *transactionFeeServiceClient) GetTotalFee(ctx context.Context, in *GetTotalFeeRequest, opts ...grpc.CallOption) (*TotalFeeResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(TotalFeeResponse)
+	err := c.cc.Invoke(ctx, TransactionFeeService_GetTotalFee_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TransactionFeeServiceServer is the server API for TransactionFeeService service.
 // All implementations must embed UnimplementedTransactionFeeServiceServer
 // for forward compatibility.
@@ -170,6 +182,7 @@ type TransactionFeeServiceServer interface {
 	UpdateBulk(context.Context, *UpdateTransactionFeeBulkRequest) (*emptypb.Empty, error)
 	DeleteBulk(context.Context, *DeleteTransactionFeeBulkRequest) (*emptypb.Empty, error)
 	GetCount(context.Context, *emptypb.Empty) (*CountResponse, error)
+	GetTotalFee(context.Context, *GetTotalFeeRequest) (*TotalFeeResponse, error)
 	mustEmbedUnimplementedTransactionFeeServiceServer()
 }
 
@@ -209,6 +222,9 @@ func (UnimplementedTransactionFeeServiceServer) DeleteBulk(context.Context, *Del
 }
 func (UnimplementedTransactionFeeServiceServer) GetCount(context.Context, *emptypb.Empty) (*CountResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetCount not implemented")
+}
+func (UnimplementedTransactionFeeServiceServer) GetTotalFee(context.Context, *GetTotalFeeRequest) (*TotalFeeResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetTotalFee not implemented")
 }
 func (UnimplementedTransactionFeeServiceServer) mustEmbedUnimplementedTransactionFeeServiceServer() {}
 func (UnimplementedTransactionFeeServiceServer) testEmbeddedByValue()                               {}
@@ -411,6 +427,24 @@ func _TransactionFeeService_GetCount_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TransactionFeeService_GetTotalFee_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetTotalFeeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionFeeServiceServer).GetTotalFee(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TransactionFeeService_GetTotalFee_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionFeeServiceServer).GetTotalFee(ctx, req.(*GetTotalFeeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // TransactionFeeService_ServiceDesc is the grpc.ServiceDesc for TransactionFeeService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -457,6 +491,10 @@ var TransactionFeeService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetCount",
 			Handler:    _TransactionFeeService_GetCount_Handler,
+		},
+		{
+			MethodName: "GetTotalFee",
+			Handler:    _TransactionFeeService_GetTotalFee_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

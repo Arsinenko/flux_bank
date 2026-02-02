@@ -100,4 +100,13 @@ public class CustomerAddressService(ICustomerAddressRepository repository, IMapp
             Count = count
         };
     }
+
+    public override async Task<GetAllCustomerAddressesResponse> GetByCustomerId(GetCustomerAddressByCustomerIdRequest request, ServerCallContext context)
+    {
+        var addresses = await repository.FindAsync(a => a.CustomerId == request.CustomerId);
+        return new GetAllCustomerAddressesResponse()
+        {
+            CustomerAddresses = { mapper.Map<IEnumerable<CustomerAddressModel>>(addresses) }
+        };
+    }
 }

@@ -1,4 +1,4 @@
-﻿package services
+package services
 
 import (
 	"context"
@@ -32,4 +32,8 @@ func (s *CustomerAddressService) GetCustomerAddressById(ctx context.Context, id 
 
 func (s *CustomerAddressService) GetAllCustomerAddresses(ctx context.Context, pageN, pageSize int32, orderBy string, isDesc bool) ([]customer_address.CustomerAddress, error) {
 	return s.repo.GetAll(ctx, pageN, pageSize, orderBy, isDesc)
+}
+
+func (s *CustomerAddressService) GetCustomerAddressesByCustomerId(ctx context.Context, customerId int32) ([]customer_address.CustomerAddress, error) {
+	return s.repo.GetByCustomerId(ctx, customerId)
 }
