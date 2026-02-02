@@ -1,4 +1,4 @@
-﻿package bank
+package bank
 
 import (
 	"fmt"
@@ -35,7 +35,7 @@ func RegisterAgent(ctx simcontext.AgentContext, svcs *services.ServiceContainer,
 	go func() {
 		defer wg.Done()
 		fakeUserCreds := user_credential.FakeUserCreds()
-		_, err = svcs.UserCredentialService.CreateUserCredential(ctx, &fakeUserCreds)
+		_, err = svcs.UserCredentialService.CreateUserCredential(ctx, *fakeUserCreds.CustomerId, fakeUserCreds.Username, fakeUserCreds.PasswordHash)
 		if err != nil {
 			errChan <- fmt.Errorf("agent %s failed to create user credential: %w", agent.GetName(), err)
 		}

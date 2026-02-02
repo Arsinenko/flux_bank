@@ -93,7 +93,7 @@ func GetBySubstringHandler(s services.CustomerService) gin.HandlerFunc {
 
 func GetSelfHandler(s services.CustomerService) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		id, done := getIdFromRequest(c)
+		id, done := GetIdFromRequest(c)
 		if done {
 			return
 		}
@@ -124,7 +124,7 @@ func GetSelfHandler(s services.CustomerService) gin.HandlerFunc {
 	}
 }
 
-func getIdFromRequest(c *gin.Context) (int32, bool) {
+func GetIdFromRequest(c *gin.Context) (int32, bool) {
 	claims, ok := c.Get("claims")
 	if !ok {
 		c.JSON(401, gin.H{"error": "Unauthorized"})
@@ -226,7 +226,7 @@ func UpdateUserCredHandler(customerService services.CustomerService, credService
 		if model.Login == "" || model.Password == "" {
 			c.JSON(400, gin.H{"error": "login or password cannot be empty"})
 		}
-		id, done := getIdFromRequest(c)
+		id, done := GetIdFromRequest(c)
 		if done {
 			return
 		}
@@ -290,7 +290,7 @@ func AddCustomerAddressHandler(s services.CustomerAddressService) gin.HandlerFun
 			c.JSON(400, gin.H{"error": err.Error()})
 			return
 		}
-		id, done := getIdFromRequest(c)
+		id, done := GetIdFromRequest(c)
 		if done {
 			return
 		}
@@ -327,7 +327,7 @@ func UpdateCustomerAddressHandler(s services.CustomerAddressService) gin.Handler
 			c.JSON(400, gin.H{"error": err.Error()})
 			return
 		}
-		id, done := getIdFromRequest(c)
+		id, done := GetIdFromRequest(c)
 		if done {
 			return
 		}
@@ -355,7 +355,7 @@ func UpdateCustomerAddressHandler(s services.CustomerAddressService) gin.Handler
 
 func DeleteCustomerAddressHandler(s services.CustomerAddressService) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		customerId, done := getIdFromRequest(c)
+		customerId, done := GetIdFromRequest(c)
 		if done {
 			return
 		}
@@ -385,7 +385,7 @@ func DeleteCustomerAddressHandler(s services.CustomerAddressService) gin.Handler
 
 func GetAddressesByCustomerHandler(s services.CustomerAddressService) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		id, done := getIdFromRequest(c)
+		id, done := GetIdFromRequest(c)
 		if done {
 			return
 		}

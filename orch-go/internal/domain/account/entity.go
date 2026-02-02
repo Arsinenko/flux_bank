@@ -7,19 +7,19 @@ import (
 )
 
 type Account struct {
-	Id         *int32
-	CustomerId int32
-	TypeId     int32
-	Iban       string
-	Balance    string
-	CreatedAt  time.Time
-	IsActive   bool
+	Id         *int32    `json:"id"`
+	CustomerId int32     `json:"customer_id"`
+	TypeId     int32     `json:"type_id"`
+	Iban       string    `json:"iban"`
+	Balance    string    `json:"balance"`
+	CreatedAt  time.Time `json:"created_at"`
+	IsActive   bool      `json:"is_active"`
 }
 
 type AccountType struct {
-	Id          *int32
-	Name        string
-	Description *string
+	Id          *int32  `json:"id"`
+	Name        string  `json:"name"`
+	Description *string `json:"description"`
 }
 
 type GetByDateRange struct {
