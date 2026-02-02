@@ -262,3 +262,18 @@ class DeleteCustomerAddressBulkRequest(google.protobuf.message.Message):
     def ClearField(self, field_name: typing.Literal["customer_addresses", b"customer_addresses"]) -> None: ...
 
 Global___DeleteCustomerAddressBulkRequest: typing_extensions.TypeAlias = DeleteCustomerAddressBulkRequest
+
+@typing.final
+class GetCustomerAddressByCustomerIdRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CUSTOMER_ID_FIELD_NUMBER: builtins.int
+    customer_id: builtins.int
+    def __init__(
+        self,
+        *,
+        customer_id: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["customer_id", b"customer_id"]) -> None: ...
+
+Global___GetCustomerAddressByCustomerIdRequest: typing_extensions.TypeAlias = GetCustomerAddressByCustomerIdRequest

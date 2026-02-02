@@ -46,6 +46,11 @@ class CustomerAddressServiceStub(object):
                 request_serializer=customer__address__pb2.GetCustomerAddressByIdRequest.SerializeToString,
                 response_deserializer=customer__address__pb2.CustomerAddressModel.FromString,
                 _registered_method=True)
+        self.GetByCustomerId = channel.unary_unary(
+                '/protos.CustomerAddressService/GetByCustomerId',
+                request_serializer=customer__address__pb2.GetCustomerAddressByCustomerIdRequest.SerializeToString,
+                response_deserializer=customer__address__pb2.GetAllCustomerAddressesResponse.FromString,
+                _registered_method=True)
         self.GetByIds = channel.unary_unary(
                 '/protos.CustomerAddressService/GetByIds',
                 request_serializer=customer__address__pb2.GetCustomerAddressByIdsRequest.SerializeToString,
@@ -98,6 +103,12 @@ class CustomerAddressServiceServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def GetById(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetByCustomerId(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -163,6 +174,11 @@ def add_CustomerAddressServiceServicer_to_server(servicer, server):
                     servicer.GetById,
                     request_deserializer=customer__address__pb2.GetCustomerAddressByIdRequest.FromString,
                     response_serializer=customer__address__pb2.CustomerAddressModel.SerializeToString,
+            ),
+            'GetByCustomerId': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetByCustomerId,
+                    request_deserializer=customer__address__pb2.GetCustomerAddressByCustomerIdRequest.FromString,
+                    response_serializer=customer__address__pb2.GetAllCustomerAddressesResponse.SerializeToString,
             ),
             'GetByIds': grpc.unary_unary_rpc_method_handler(
                     servicer.GetByIds,
@@ -259,6 +275,33 @@ class CustomerAddressService(object):
             '/protos.CustomerAddressService/GetById',
             customer__address__pb2.GetCustomerAddressByIdRequest.SerializeToString,
             customer__address__pb2.CustomerAddressModel.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetByCustomerId(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/protos.CustomerAddressService/GetByCustomerId',
+            customer__address__pb2.GetCustomerAddressByCustomerIdRequest.SerializeToString,
+            customer__address__pb2.GetAllCustomerAddressesResponse.FromString,
             options,
             channel_credentials,
             insecure,
