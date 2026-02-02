@@ -1,4 +1,6 @@
 import os
+
+import grpc
 import punq
 
 from adapters.account.account_repository import AccountRepository
