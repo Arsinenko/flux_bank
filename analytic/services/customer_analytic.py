@@ -110,8 +110,8 @@ class CustomerAnalyticService(CustomerAnalyticServiceServicer):
         result = await self.customer_repo.get_all(
             page_n=request.pageN,
             page_size=request.pageSize,
-            order_by=request.order_by,
-            is_desc=request.is_desc
+            order_by=request.order_by.value,
+            is_desc=request.is_desc.value
         )
         return GetAllCustomersResponse(customers=CustomerMapper.to_model_list(result))
 

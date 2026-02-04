@@ -17,8 +17,8 @@ from mappers.login_log_mapper import LoginLogMapper
 
 
 class LoginLogRepository(LoginLogRepositoryAbc, BaseGrpcRepository):
-    def __init__(self, target: str):
-        super().__init__(target)
+    def __init__(self, channel):
+        super().__init__(channel)
         self.stub = LoginLogServiceStub(self.channel)
 
     async def get_count(self) -> int:

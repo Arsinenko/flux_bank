@@ -23,8 +23,8 @@ class AccountTypeRepository(AccountTypeRepositoryAbc, BaseGrpcRepository):
         return result.count
 
 
-    def __init__(self, target: str):
-        super().__init__(target)
+    def __init__(self, channel):
+        super().__init__(channel)
         self.stub = AccountTypeServiceStub(channel=self.channel)
 
     @staticmethod

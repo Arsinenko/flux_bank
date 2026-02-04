@@ -18,8 +18,8 @@ from mappers.customer_mapper import CustomerMapper
 
 
 class CustomerRepository(CustomerRepositoryAbc, BaseGrpcRepository):
-    def __init__(self, target: str):
-        super().__init__(target)
+    def __init__(self, channel):
+        super().__init__(channel)
         self.stub = CustomerServiceStub(channel=self.channel)
 
     async def get_by_ids(self, ids: List[int]) -> List[Customer]:
@@ -56,13 +56,23 @@ class CustomerRepository(CustomerRepositoryAbc, BaseGrpcRepository):
         result = await self._execute(self.stub.GetCountByDateRange(request))
         return result.count
 
-    async def get_all(self, page_n: int, page_size: int, order_by: str = None, is_desc: bool = False) -> List[Customer]:
+    async def get_all(self, page_n: int, page_size: int,
+                      order_by: str | None = None, is_desc: bool = False):
+
         request = GetAllRequest(
             pageN=page_n,
             pageSize=page_size,
-            order_by=StringValue(value=order_by) if order_by else None,
-            is_desc=BoolValue(value=is_desc)
         )
+        # request.pageN = page_n
+        # request.pageSize = page_size
+
+        # BoolValue
+        request.is_desc.value = is_desc
+
+        # StringValue (только если передали)
+        if order_by is not None:
+            request.order_by.value = order_by
+
         result = await self._execute(self.stub.GetAll(request))
         if result:
             return CustomerMapper.to_domain_list(result.customers)

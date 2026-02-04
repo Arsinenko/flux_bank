@@ -18,8 +18,8 @@ from mappers.transaction_mapper import TransactionMapper
 
 
 class TransactionRepository(TransactionRepositoryAbc, BaseGrpcRepository):
-    def __init__(self, target: str):
-        super().__init__(target)
+    def __init__(self, channel):
+        super().__init__(channel)
         self.stub = TransactionServiceStub(channel=self.channel)
 
     async def get_all(self, page_n: int, page_size: int, order_by: str = None, is_desc: bool = False) -> List[Transaction]:

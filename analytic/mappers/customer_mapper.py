@@ -1,4 +1,7 @@
+from datetime import datetime
 from typing import List
+
+from api.generated.custom_types_pb2 import DateOnly
 from api.generated.customer_pb2 import CustomerModel
 from domain.customer.customer import Customer
 from google.protobuf.timestamp_pb2 import Timestamp
@@ -6,13 +9,14 @@ from google.protobuf.timestamp_pb2 import Timestamp
 class CustomerMapper:
     @staticmethod
     def to_domain(model: CustomerModel) -> Customer:
+
         return Customer(
             customer_id=model.customer_id,
             first_name=model.first_name,
             last_name=model.last_name,
             email=model.email,
             phone=model.phone if model.HasField("phone") else None,
-            birth_date=model.birth_date.ToDatetime() if model.HasField("birth_date") else None,
+            birth_date= CustomerMapper.date_only_to_date(model.birth_date) if model.HasField("birth_date") else None,
             created_at=model.created_at.ToDatetime() if model.HasField("created_at") else None
         )
 
@@ -26,7 +30,9 @@ class CustomerMapper:
             phone=domain.phone
         )
         if domain.birth_date:
-            model.birth_date.FromDatetime(domain.birth_date)
+            model.birth_date.year = domain.birth_date.year
+            model.birth_date.month = domain.birth_date.month
+            model.birth_date.day = domain.birth_date.day
         if domain.created_at:
             model.created_at.FromDatetime(domain.created_at)
         return model
@@ -44,3 +50,9 @@ class CustomerMapper:
         ts = Timestamp()
         ts.FromDatetime(dt)
         return ts
+
+    @staticmethod
+    def date_only_to_date(date_only: DateOnly):
+        if date_only:
+            return datetime(date_only.year, date_only.month, date_only.day)
+        return None

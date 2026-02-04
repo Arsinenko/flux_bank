@@ -15,8 +15,8 @@ from mappers.branch_mapper import BranchMapper
 
 
 class BranchRepository(BranchRepositoryAbc, BaseGrpcRepository):
-    def __init__(self, target: str):
-        super().__init__(target)
+    def __init__(self, channel):
+        super().__init__(channel)
         self.stub = BranchServiceStub(channel=self.channel)
 
     async def get_by_ids(self, ids: List[int]) -> List[Branch]:

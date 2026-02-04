@@ -15,8 +15,8 @@ from mappers.payment_template_mapper import PaymentTemplateMapper
 
 
 class PaymentTemplateRepository(PaymentTemplateRepositoryAbc, BaseGrpcRepository):
-    def __init__(self, target: str):
-        super().__init__(target)
+    def __init__(self, channel):
+        super().__init__(channel)
         self.stub = PaymentTemplateServiceStub(self.channel)
 
     async def get_count(self) -> int:

@@ -33,7 +33,7 @@ func FakeAccount(customerId int32, typeId int32) *Account {
 		Id:         nil,
 		CustomerId: customerId,
 		TypeId:     typeId,
-		Iban:       "Account Iban",
+		Iban:       gofakeit.AchAccount(),
 		Balance:    string(rune(gofakeit.Number(1000, 10000))),
 		CreatedAt:  time.Now(),
 		IsActive:   true,

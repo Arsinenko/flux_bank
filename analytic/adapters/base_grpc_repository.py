@@ -2,8 +2,8 @@
 
 
 class BaseGrpcRepository:
-    def __init__(self, target: str):
-        self.channel = grpc.aio.insecure_channel(target)
+    def __init__(self, channel: grpc.aio.Channel):
+        self.channel = channel
 
     async def close(self):
         await self.channel.close()

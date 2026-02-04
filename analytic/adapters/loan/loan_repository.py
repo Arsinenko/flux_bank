@@ -17,8 +17,8 @@ from mappers.loan_mapper import LoanMapper
 
 
 class LoanRepository(LoanRepositoryAbc, BaseGrpcRepository):
-    def __init__(self, target: str):
-        super().__init__(target)
+    def __init__(self, channel):
+        super().__init__(channel)
         self.stub = LoanServiceStub(channel=self.channel)
 
     async def get_by_ids(self, ids: List[int]) -> List[Loan]:

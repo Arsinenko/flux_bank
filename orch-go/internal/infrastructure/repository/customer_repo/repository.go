@@ -19,6 +19,7 @@ func NewRepository(client pb.CustomerServiceClient) *Repository {
 		client: client,
 	}
 }
+
 func (r Repository) GetBySubstring(ctx context.Context, request customer.GetBySubStrRequest) ([]customer.Customer, error) {
 	resp, err := r.client.GetBySubstring(ctx, &pb.GetBySubstringRequest{
 		SubStr:   request.SubStr,
@@ -39,7 +40,6 @@ func (r Repository) GetBySubstring(ctx context.Context, request customer.GetBySu
 	}
 	return result, nil
 }
-
 func (r Repository) GetByDateRange(ctx context.Context, request customer.GetByDateRangeRequest) ([]customer.Customer, error) {
 	resp, err := r.client.GetByDateRange(ctx, &pb.GetByDateRangeRequest{
 		FromDate: timestamppb.New(request.From),
@@ -72,7 +72,7 @@ func (r Repository) GetAll(ctx context.Context, pageN, pageSize int32, orderBy s
 	if err != nil {
 		return nil, fmt.Errorf("customer_repo.GetAll: %w", err)
 	}
-	result := make([]customer.Customer, len(resp.Customers))
+	result := make([]customer.Customer, 0, len(resp.Customers))
 	for _, c := range resp.Customers {
 		domainModel := ToDomain(c)
 		if domainModel != nil {
@@ -136,6 +136,24 @@ func (r Repository) Delete(ctx context.Context, id int32) error {
 	_, err := r.client.Delete(ctx, &pb.DeleteCustomerRequest{CustomerId: id})
 	if err != nil {
 		return fmt.Errorf("customer_repo.Delete: %w", err)
+	}
+	return nil
+}
+
+func (r Repository) CreateBulk(ctx context.Context, customers []*customer.Customer) error {
+	var adds []*pb.AddCustomerRequest
+	for _, c := range customers {
+		adds = append(adds, &pb.AddCustomerRequest{
+			FirstName: c.FirstName,
+			LastName:  c.LastName,
+			Email:     c.Email,
+			Phone:     c.Phone,
+			BirthDate: ToDateOnly(c.BirthDate),
+		})
+	}
+	_, err := r.client.AddBulk(ctx, &pb.AddCustomerBulkRequest{Customers: adds})
+	if err != nil {
+		return fmt.Errorf("customer_repo.CreateBulk: %w", err)
 	}
 	return nil
 }

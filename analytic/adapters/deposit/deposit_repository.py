@@ -17,8 +17,8 @@ from mappers.deposit_mapper import DepositMapper
 
 
 class DepositRepository(DepositRepositoryAbc, BaseGrpcRepository):
-    def __init__(self, target: str):
-        super().__init__(target)
+    def __init__(self, channel):
+        super().__init__(channel)
         self.stub = DepositServiceStub(channel=self.channel)
 
     async def get_by_ids(self, ids: List[int]):

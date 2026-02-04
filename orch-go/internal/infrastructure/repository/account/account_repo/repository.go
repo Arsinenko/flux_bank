@@ -120,6 +120,25 @@ func (r Repository) Delete(ctx context.Context, id int32) error {
 	return nil
 }
 
+func (r Repository) CreateBulk(ctx context.Context, accounts []*account.Account) error {
+	var models []*pb.AddAccountRequest
+	for _, a := range accounts {
+		models = append(models, &pb.AddAccountRequest{
+			CustomerId: &a.CustomerId,
+			TypeId:     &a.TypeId,
+			Iban:       a.Iban,
+			Balance:    &a.Balance,
+			IsActive:   &a.IsActive,
+		})
+	}
+	_, err := r.client.AddBulk(ctx, &pb.AddAccountBulkRequest{Accounts: models})
+	if err != nil {
+		return fmt.Errorf("account_repo.CreateBulk: %w", err)
+	} else {
+		return nil
+	}
+}
+
 func (r Repository) UpdateBulk(ctx context.Context, accounts []account.Account) error {
 	var models []*pb.UpdateAccountRequest
 	for _, a := range accounts {

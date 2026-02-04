@@ -12,8 +12,8 @@ from domain.customer.customer_address_repo import CustomerAddressRepositoryAbc
 
 
 class CustomerAddressRepository(CustomerAddressRepositoryAbc, BaseGrpcRepository):
-    def __init__(self, target: str):
-        super().__init__(target)
+    def __init__(self, channel):
+        super().__init__(channel)
         self.stub = CustomerAddressServiceStub(channel=self.channel)
 
     @staticmethod

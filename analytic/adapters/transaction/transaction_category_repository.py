@@ -12,8 +12,8 @@ from domain.transaction.transaction_category_repo import TransactionCategoryRepo
 
 
 class TransactionCategoryRepository(TransactionCategoryRepositoryAbc, BaseGrpcRepository):
-    def __init__(self, target: str):
-        super().__init__(target)
+    def __init__(self, channel):
+        super().__init__(channel)
         self.stub = TransactionCategoryServiceStub(channel=self.channel)
 
     @staticmethod

@@ -42,6 +42,10 @@ func (s *CustomerService) DeleteCustomer(ctx context.Context, id int32) error {
 	return s.repo.Delete(ctx, id)
 }
 
+func (s *CustomerService) CreateCustomerBulk(ctx context.Context, customers []*customer.Customer) error {
+	return s.repo.CreateBulk(ctx, customers)
+}
+
 func (s *CustomerService) UpdateCustomerBulk(ctx context.Context, customers []*customer.Customer) error {
 	return s.repo.UpdateBulk(ctx, customers)
 }

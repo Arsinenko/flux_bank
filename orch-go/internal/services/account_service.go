@@ -46,6 +46,10 @@ func (s *AccountService) DeleteAccountBulk(ctx context.Context, ids []int32) err
 	return s.repo.DeleteBulk(ctx, ids)
 }
 
+func (s *AccountService) CreateAccountBulk(ctx context.Context, accs []*account.Account) error {
+	return s.repo.CreateBulk(ctx, accs)
+}
+
 func (s *AccountService) UpdateAccountBulk(ctx context.Context, accs []account.Account) error {
 	return s.repo.UpdateBulk(ctx, accs)
 }

@@ -12,6 +12,7 @@ type Repository interface {
 	Create(ctx context.Context, customer *Customer) (*Customer, error)
 	Update(ctx context.Context, customer *Customer) error
 	Delete(ctx context.Context, id int32) error
+	CreateBulk(ctx context.Context, customers []*Customer) error
 	UpdateBulk(ctx context.Context, customers []*Customer) error
 	DeleteBulk(ctx context.Context, ids []int32) error
 }

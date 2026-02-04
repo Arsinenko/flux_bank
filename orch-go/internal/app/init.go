@@ -3,8 +3,13 @@ package app
 import (
 	"context"
 	"fmt"
+	"math/rand"
 	pb "orch-go/api/generated"
 	"orch-go/internal/domain/account"
+	"orch-go/internal/domain/atm"
+	"orch-go/internal/domain/branch"
+	"orch-go/internal/domain/card"
+	"orch-go/internal/domain/customer"
 	"orch-go/internal/domain/fee_type"
 	"orch-go/internal/domain/transaction"
 	"orch-go/internal/infrastructure/repository/account/account_repo"
@@ -23,6 +28,7 @@ import (
 	"orch-go/internal/infrastructure/repository/transaction_repo"
 	"orch-go/internal/infrastructure/repository/user_credential_repo"
 	"orch-go/internal/services"
+	"time"
 
 	"golang.org/x/sync/errgroup"
 	"google.golang.org/grpc"
@@ -230,6 +236,121 @@ func InitAll(
 	g.Go(func() error {
 		return InitTransactionCategories(ctx, transactionCategoryNames, s.TransactionService)
 	})
+	//CreateTestCustomers(ctx, *s.CustomerService)
+	CreateTestAccounts(ctx, s)
+	CreateTestCards(ctx, s)
+	CreateTestBranches(ctx, s)
+	CreateTestAtms(ctx, s)
 
 	return g.Wait()
+}
+
+func CreateTestCustomers(ctx context.Context, service services.CustomerService) {
+	var customers []*customer.Customer
+	for i := 0; i < 100; i++ {
+		customers = append(customers, customer.FakeCustomer(time.Now()))
+	}
+	err := service.CreateCustomerBulk(ctx, customers)
+	if err != nil {
+		fmt.Printf("create customers: %w", err.Error())
+		return
+	}
+}
+
+func CreateTestAccounts(ctx context.Context, container *services.ServiceContainer) {
+	customers, err := container.CustomerService.GetAllCustomers(ctx, 0, 0, "", false)
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
+
+	accTypes, err := container.AccountTypeService.GetAllAccountTypes(ctx, 0, 0, "", false)
+	if err != nil {
+		fmt.Println("get account types: ", err.Error())
+		return
+	}
+
+	var accTypeIds []int32
+	for i := 0; i < len(accTypes); i++ {
+		accTypeIds = append(accTypeIds, *accTypes[i].Id)
+	}
+
+	var accounts []*account.Account
+	for _, c := range customers {
+		a := account.FakeAccount(c.Id, accTypeIds[rand.Intn(len(accTypes))])
+		accounts = append(accounts, a)
+	}
+	err = container.AccountService.CreateAccountBulk(ctx, accounts)
+	if err != nil {
+		fmt.Println("create accounts: %w", err.Error())
+		return
+	}
+
+}
+
+func CreateTestCards(ctx context.Context, container *services.ServiceContainer) {
+	accounts, err := container.AccountService.GetAllAccounts(ctx, 0, 0, "", false)
+	if err != nil {
+		fmt.Printf("get accounts: %w", err.Error())
+		return
+	}
+
+	var accIds []int32
+	for i := 0; i < len(accounts); i++ {
+		accIds = append(accIds, *accounts[i].Id)
+	}
+
+	var cards []*card.Card
+	for _, a := range accIds {
+		cards = append(cards, card.FakeCard(0, a, time.Now(), "active"))
+	}
+	err = container.CardService.CreateCardBulk(ctx, cards)
+	if err != nil {
+		fmt.Printf("create cards: %w", err.Error())
+		return
+	}
+
+}
+
+func CreateTestBranches(ctx context.Context, container *services.ServiceContainer) {
+	var branches []*branch.Branch
+	for i := 0; i < 20; i++ {
+		b := branch.FakeBranch()
+		branches = append(branches, &b)
+	}
+	err := container.BranchService.CreateBranchBulk(ctx, branches)
+	if err != nil {
+		fmt.Printf("create branches: %w", err.Error())
+		return
+	}
+
+}
+
+func CreateTestAtms(ctx context.Context, container *services.ServiceContainer) {
+	branches, err := container.BranchService.GetAllBranches(ctx, 0, 0, "", false)
+	if err != nil {
+		fmt.Printf("get branches: %w", err.Error())
+		return
+	}
+
+	var branchIds []int32
+	for _, b := range branches {
+		branchIds = append(branchIds, *b.BranchID)
+
+	}
+
+	var atms []*atm.Atm
+	for _, id := range branchIds {
+		for i := 0; i < 3; i++ {
+			a := atm.FakeAtm(id)
+			atms = append(atms, &a)
+		}
+	}
+
+	err = container.AtmService.CreateAtmBulk(ctx, atms)
+	if err != nil {
+		fmt.Printf("create atms: %w", err.Error())
+		return
+	}
+
 }

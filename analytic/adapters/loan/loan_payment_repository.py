@@ -14,8 +14,8 @@ from domain.loan.loan_payment_repo import LoanPaymentRepositoryAbc
 
 
 class LoanPaymentRepository(LoanPaymentRepositoryAbc, BaseGrpcRepository):
-    def __init__(self, target: str):
-        super().__init__(target)
+    def __init__(self, channel):
+        super().__init__(channel)
         self.stub = LoanPaymentServiceStub(channel=self.channel)
 
     @staticmethod
