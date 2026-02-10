@@ -12,23 +12,19 @@ import (
 // Entrepreneur represents a small business owner (IP).
 type Entrepreneur struct {
 	agents.BaseAgent
-	Name       string
-	Balance    float64
-	CustomerID *int32
-	AccountID  *int32
+	Balance float64
 	// Can verify small number of employees
 }
 
 func NewEntrepreneur(name string) *Entrepreneur {
 	return &Entrepreneur{
-		BaseAgent: agents.NewBaseAgent(uuid.Nil, "Entrepreneur"),
-		Name:      name,
+		BaseAgent: agents.NewBaseAgent(uuid.Nil, "Entrepreneur", name),
 		Balance:   2000.0,
 	}
 }
 
 func (e *Entrepreneur) OnTick(ctx simcontext.AgentContext) error {
-	if e.CustomerID == nil {
+	if e.CustomerId == nil {
 		svcs := ctx.Services()
 		err := bank.RegisterAgent(ctx, svcs, e)
 		if err != nil {
@@ -44,18 +40,6 @@ func (e *Entrepreneur) OnTick(ctx simcontext.AgentContext) error {
 	return nil
 }
 
-func (e *Entrepreneur) SetCustomerID(id int32) {
-	e.CustomerID = &id
-}
-
-func (e *Entrepreneur) SetAccountID(id int32) {
-	e.AccountID = &id
-}
-
-func (e *Entrepreneur) GetName() string {
-	return e.Name
-}
-
 // SelfEmployed represents an individual working for themselves.
 type SelfEmployed struct {
 	agents.BaseAgent
@@ -67,8 +51,7 @@ type SelfEmployed struct {
 
 func NewSelfEmployed(name string) *SelfEmployed {
 	return &SelfEmployed{
-		BaseAgent: agents.NewBaseAgent(uuid.Nil, "SelfEmployed"),
-		Name:      name,
+		BaseAgent: agents.NewBaseAgent(uuid.Nil, "SelfEmployed", name),
 		Balance:   500.0,
 	}
 }
@@ -87,16 +70,4 @@ func (s *SelfEmployed) OnTick(ctx simcontext.AgentContext) error {
 	m := ctx.Market()
 	m.AddListing(s.ID(), "Freelance Work", economy.ItemService, 25.0, -1)
 	return nil
-}
-
-func (s *SelfEmployed) SetCustomerID(id int32) {
-	s.CustomerID = &id
-}
-
-func (s *SelfEmployed) SetAccountID(id int32) {
-	s.AccountID = &id
-}
-
-func (s *SelfEmployed) GetName() string {
-	return s.Name
 }

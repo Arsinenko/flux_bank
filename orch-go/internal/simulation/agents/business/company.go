@@ -13,18 +13,14 @@ import (
 // Company represents a business entity.
 type Company struct {
 	agents.BaseAgent
-	Name            string   `json:"name"`
 	Balance         float64  `json:"balance"`
 	Employees       []string `json:"employees"`
 	TargetEmployees int      `json:"target_employees"`
-	CustomerID      *int32   `json:"customer_id"`
-	AccountID       *int32   `json:"account_id"`
 }
 
 func NewCompany(name string, targetEmployees int) *Company {
 	c := &Company{
-		BaseAgent:       agents.NewBaseAgent(uuid.Nil, "Company"),
-		Name:            name,
+		BaseAgent:       agents.NewBaseAgent(uuid.Nil, "Company", name),
 		Balance:         10000.0, // Initial Capital
 		TargetEmployees: targetEmployees,
 	}
@@ -33,7 +29,7 @@ func NewCompany(name string, targetEmployees int) *Company {
 
 // OnTick implements the Agent interface
 func (c *Company) OnTick(ctx simcontext.AgentContext) error {
-	if c.CustomerID == nil {
+	if c.CustomerId == nil {
 		svcs := ctx.Services()
 		err := bank.RegisterAgent(ctx, svcs, c)
 		if err != nil {
@@ -64,14 +60,10 @@ func (c *Company) OnTick(ctx simcontext.AgentContext) error {
 	return nil
 }
 
-func (c *Company) SetCustomerID(id int32) {
-	c.CustomerID = &id
+func (c *Company) SendSalary() {
+	//TODO
 }
 
-func (c *Company) SetAccountID(id int32) {
-	c.AccountID = &id
-}
+func (c *Company) GetEmployees() {
 
-func (c *Company) GetName() string {
-	return c.Name
 }

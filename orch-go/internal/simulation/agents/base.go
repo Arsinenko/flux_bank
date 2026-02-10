@@ -21,19 +21,25 @@ type Agent interface {
 
 // BaseAgent provides common functionality for all agents.
 type BaseAgent struct {
-	AgentID   uuid.UUID `json:"id"`
-	AgentType string    `json:"type"`
+	AgentID    uuid.UUID `json:"id"`
+	AgentType  string    `json:"type"`
+	Name       string    `json:"name"`
+	AccountId  *int32    `json:"account_id"`
+	CustomerId *int32    `json:"customer_id"`
 }
 
-func NewBaseAgent(id uuid.UUID, agentType string) BaseAgent {
+func NewBaseAgent(id uuid.UUID, agentType string, name string) BaseAgent {
 	if id == uuid.Nil {
 		id = uuid.New()
 	}
 	return BaseAgent{
 		AgentID:   id,
 		AgentType: agentType,
+		Name:      name,
 	}
 }
+
+func (b *BaseAgent) GetName() string { return b.Name }
 
 func (b *BaseAgent) ID() uuid.UUID {
 	return b.AgentID
@@ -41,4 +47,12 @@ func (b *BaseAgent) ID() uuid.UUID {
 
 func (b *BaseAgent) Type() string {
 	return b.AgentType
+}
+
+func (b *BaseAgent) SetCustomerID(id int32) {
+	b.CustomerId = &id
+}
+
+func (b *BaseAgent) SetAccountID(id int32) {
+	b.AccountId = &id
 }

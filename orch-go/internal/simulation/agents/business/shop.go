@@ -12,10 +12,7 @@ import (
 // Shop represents a retail business.
 type Shop struct {
 	agents.BaseAgent
-	Name       string  `json:"name"`
-	Balance    float64 `json:"balance"`
-	CustomerID *int32  `json:"customer_id"`
-	AccountID  *int32  `json:"account_id"`
+	Balance float64 `json:"balance"`
 	// Inventory map[uuid.UUID]int // Products bought from companies to resell?
 	// Or maybe Shops produce "Retail Service".
 	// Let's assume shops buy wholesale and sell retail.
@@ -23,14 +20,13 @@ type Shop struct {
 
 func NewShop(name string) *Shop {
 	return &Shop{
-		BaseAgent: agents.NewBaseAgent(uuid.Nil, "Shop"),
-		Name:      name,
+		BaseAgent: agents.NewBaseAgent(uuid.Nil, "Shop", name),
 		Balance:   5000.0,
 	}
 }
 
 func (s *Shop) OnTick(ctx simcontext.AgentContext) error {
-	if s.CustomerID == nil {
+	if s.CustomerId == nil {
 		svcs := ctx.Services()
 		err := bank.RegisterAgent(ctx, svcs, s)
 		if err != nil {
@@ -53,16 +49,4 @@ func (s *Shop) OnTick(ctx simcontext.AgentContext) error {
 	m.AddListing(s.ID(), "Retail Goods", economy.ItemProduct, 15.0, 10)
 
 	return nil
-}
-
-func (s *Shop) SetCustomerID(id int32) {
-	s.CustomerID = &id
-}
-
-func (s *Shop) SetAccountID(id int32) {
-	s.AccountID = &id
-}
-
-func (s *Shop) GetName() string {
-	return s.Name
 }

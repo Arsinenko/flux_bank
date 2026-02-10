@@ -12,18 +12,14 @@ import (
 
 type Individual struct {
 	BaseAgent
-	Name       string                      `json:"name"`
-	Balance    float64                     `json:"balance"`
-	Contract   *economy.EmploymentContract `json:"contract"`
-	Needs      map[string]float64          `json:"needs"`
-	CustomerID *int32                      `json:"customer_id"`
-	AccountID  *int32                      `json:"account_id"`
+	Balance  float64                     `json:"balance"`
+	Contract *economy.EmploymentContract `json:"contract"`
+	Needs    map[string]float64          `json:"needs"`
 }
 
 func NewIndividual(name string) *Individual {
 	return &Individual{
-		BaseAgent: NewBaseAgent(uuid.Nil, "Individual"),
-		Name:      name,
+		BaseAgent: NewBaseAgent(uuid.Nil, "Individual", name),
 		Balance:   100.0, // Starting money
 		Needs:     make(map[string]float64),
 	}
@@ -31,7 +27,7 @@ func NewIndividual(name string) *Individual {
 
 func (i *Individual) OnTick(ctx simcontext.AgentContext) error {
 	// 1. Bank Registration Logic
-	if i.CustomerID == nil {
+	if i.CustomerId == nil {
 		svcs := ctx.Services()
 		err := bank.RegisterAgent(ctx, svcs, i)
 		if err != nil {
@@ -80,16 +76,4 @@ func (i *Individual) consume(ctx simcontext.AgentContext) {
 			}
 		}
 	}
-}
-
-func (i *Individual) SetCustomerID(id int32) {
-	i.CustomerID = &id
-}
-
-func (i *Individual) SetAccountID(id int32) {
-	i.AccountID = &id
-}
-
-func (i *Individual) GetName() string {
-	return i.Name
 }
