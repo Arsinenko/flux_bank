@@ -82,11 +82,12 @@ func (r Repository) GetById(ctx context.Context, id int32) (*account.Account, er
 }
 
 func (r Repository) Create(ctx context.Context, account *account.Account) (*account.Account, error) {
+	balance := account.Balance.String()
 	req := pb.AddAccountRequest{
 		CustomerId: &account.CustomerId,
 		TypeId:     &account.TypeId,
 		Iban:       account.Iban,
-		Balance:    &account.Balance,
+		Balance:    &balance,
 		IsActive:   &account.IsActive,
 	}
 	resp, err := r.client.Add(ctx, &req)
@@ -97,12 +98,13 @@ func (r Repository) Create(ctx context.Context, account *account.Account) (*acco
 }
 
 func (r Repository) Update(ctx context.Context, account *account.Account) error {
+	balance := account.Balance.String()
 	req := pb.UpdateAccountRequest{
 		AccountId:  *account.Id,
 		CustomerId: &account.CustomerId,
 		TypeId:     &account.TypeId,
 		Iban:       account.Iban,
-		Balance:    &account.Balance,
+		Balance:    &balance,
 		IsActive:   &account.IsActive,
 	}
 	_, err := r.client.Update(ctx, &req)
@@ -123,11 +125,12 @@ func (r Repository) Delete(ctx context.Context, id int32) error {
 func (r Repository) CreateBulk(ctx context.Context, accounts []*account.Account) error {
 	var models []*pb.AddAccountRequest
 	for _, a := range accounts {
+		balance := a.Balance.String()
 		models = append(models, &pb.AddAccountRequest{
 			CustomerId: &a.CustomerId,
 			TypeId:     &a.TypeId,
 			Iban:       a.Iban,
-			Balance:    &a.Balance,
+			Balance:    &balance,
 			IsActive:   &a.IsActive,
 		})
 	}
@@ -142,12 +145,13 @@ func (r Repository) CreateBulk(ctx context.Context, accounts []*account.Account)
 func (r Repository) UpdateBulk(ctx context.Context, accounts []account.Account) error {
 	var models []*pb.UpdateAccountRequest
 	for _, a := range accounts {
+		balance := a.Balance.String()
 		models = append(models, &pb.UpdateAccountRequest{
 			AccountId:  *a.Id,
 			CustomerId: &a.CustomerId,
 			TypeId:     &a.TypeId,
 			Iban:       a.Iban,
-			Balance:    &a.Balance,
+			Balance:    &balance,
 			IsActive:   &a.IsActive,
 		})
 	}

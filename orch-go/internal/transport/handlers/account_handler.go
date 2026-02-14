@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"github.com/shopspring/decimal"
 	account2 "orch-go/internal/domain/account"
 	"orch-go/internal/services"
 	"orch-go/internal/transport/midleware"
@@ -22,7 +23,7 @@ func CreateAccountHandler(s services.AccountService) gin.HandlerFunc {
 			CustomerId: customerId,
 			TypeId:     1,
 			Iban:       "Account",
-			Balance:    "100",
+			Balance:    decimal.NewFromInt(100),
 			CreatedAt:  time.Now(),
 			IsActive:   true,
 		})

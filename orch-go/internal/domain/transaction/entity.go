@@ -1,12 +1,15 @@
 package transaction
 
-import "time"
+import (
+	"github.com/shopspring/decimal"
+	"time"
+)
 
 type Transaction struct {
 	TransactionID int32
 	SourceAccount *int32
 	TargetAccount *int32
-	Amount        string
+	Amount        decimal.Decimal
 	Currency      string
 	CreatedAt     *time.Time
 	Status        *string
@@ -21,7 +24,7 @@ type TransactionFee struct {
 	ID            int32
 	TransactionID *int32
 	FeeID         *int32
-	Amount        *string
+	Amount        *decimal.Decimal
 }
 
 type GetByDateRange struct {

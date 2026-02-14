@@ -1,6 +1,7 @@
 package account_repo
 
 import (
+	"github.com/shopspring/decimal"
 	pb "orch-go/api/generated"
 	"orch-go/internal/domain/account"
 	"time"
@@ -14,12 +15,13 @@ func AccountToDomain(p *pb.AccountModel) *account.Account {
 	if p.CreatedAt != nil {
 		createdAt = p.CreatedAt.AsTime()
 	}
+	balance, _ := decimal.NewFromString(*p.Balance)
 	return &account.Account{
 		Id:         &p.AccountId,
 		CustomerId: *p.CustomerId,
 		TypeId:     *p.TypeId,
 		Iban:       p.Iban,
-		Balance:    *p.Balance,
+		Balance:    balance,
 		CreatedAt:  createdAt,
 		IsActive:   *p.IsActive,
 	}

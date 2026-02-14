@@ -1,19 +1,20 @@
 package account
 
 import (
+	"github.com/shopspring/decimal"
 	"time"
 
 	"github.com/brianvoe/gofakeit/v7"
 )
 
 type Account struct {
-	Id         *int32    `json:"id"`
-	CustomerId int32     `json:"customer_id"`
-	TypeId     int32     `json:"type_id"`
-	Iban       string    `json:"iban"`
-	Balance    string    `json:"balance"`
-	CreatedAt  time.Time `json:"created_at"`
-	IsActive   bool      `json:"is_active"`
+	Id         *int32          `json:"id"`
+	CustomerId int32           `json:"customer_id"`
+	TypeId     int32           `json:"type_id"`
+	Iban       string          `json:"iban"`
+	Balance    decimal.Decimal `json:"balance"`
+	CreatedAt  time.Time       `json:"created_at"`
+	IsActive   bool            `json:"is_active"`
 }
 
 type AccountType struct {
@@ -34,7 +35,7 @@ func FakeAccount(customerId int32, typeId int32) *Account {
 		CustomerId: customerId,
 		TypeId:     typeId,
 		Iban:       gofakeit.AchAccount(),
-		Balance:    string(rune(gofakeit.Number(1000, 10000))),
+		Balance:    decimal.NewFromInt(int64(gofakeit.Number(1000, 10000))),
 		CreatedAt:  time.Now(),
 		IsActive:   true,
 	}

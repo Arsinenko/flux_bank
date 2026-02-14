@@ -69,7 +69,7 @@ func (r TransactionRepository) Add(ctx context.Context, transaction *transaction
 	req := &pb.AddTransactionRequest{
 		SourceAccount: transaction.SourceAccount,
 		TargetAccount: transaction.TargetAccount,
-		Amount:        transaction.Amount,
+		Amount:        transaction.Amount.String(),
 		Currency:      transaction.Currency,
 		Status:        transaction.Status,
 	}
@@ -85,7 +85,7 @@ func (r TransactionRepository) Update(ctx context.Context, transaction *transact
 		TransactionId: transaction.TransactionID,
 		SourceAccount: transaction.SourceAccount,
 		TargetAccount: transaction.TargetAccount,
-		Amount:        transaction.Amount,
+		Amount:        transaction.Amount.String(),
 		Currency:      transaction.Currency,
 		Status:        transaction.Status,
 	}
@@ -110,7 +110,7 @@ func (r TransactionRepository) AddBulk(ctx context.Context, transactions []*tran
 		models = append(models, &pb.AddTransactionRequest{
 			SourceAccount: t.SourceAccount,
 			TargetAccount: t.TargetAccount,
-			Amount:        t.Amount,
+			Amount:        t.Amount.String(),
 			Currency:      t.Currency,
 			Status:        t.Status,
 		})
@@ -129,7 +129,7 @@ func (r TransactionRepository) UpdateBulk(ctx context.Context, transactions []*t
 			TransactionId: t.TransactionID,
 			SourceAccount: t.SourceAccount,
 			TargetAccount: t.TargetAccount,
-			Amount:        t.Amount,
+			Amount:        t.Amount.String(),
 			Currency:      t.Currency,
 			Status:        t.Status,
 		})

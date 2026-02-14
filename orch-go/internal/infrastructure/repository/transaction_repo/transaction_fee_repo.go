@@ -45,10 +45,11 @@ func (r TransactionFeeRepository) GetById(ctx context.Context, id int32) (*trans
 }
 
 func (r TransactionFeeRepository) Add(ctx context.Context, transactionFee *transaction.TransactionFee) (*transaction.TransactionFee, error) {
+	amount := transactionFee.Amount.String()
 	req := &pb.AddTransactionFeeRequest{
 		TransactionId: transactionFee.TransactionID,
 		FeeId:         transactionFee.FeeID,
-		Amount:        transactionFee.Amount,
+		Amount:        &amount,
 	}
 	resp, err := r.client.Add(ctx, req)
 	if err != nil {
@@ -58,11 +59,12 @@ func (r TransactionFeeRepository) Add(ctx context.Context, transactionFee *trans
 }
 
 func (r TransactionFeeRepository) Update(ctx context.Context, transactionFee *transaction.TransactionFee) error {
+	amount := transactionFee.Amount.String()
 	req := &pb.UpdateTransactionFeeRequest{
 		Id:            transactionFee.ID,
 		TransactionId: transactionFee.TransactionID,
 		FeeId:         transactionFee.FeeID,
-		Amount:        transactionFee.Amount,
+		Amount:        &amount,
 	}
 	_, err := r.client.Update(ctx, req)
 	if err != nil {
@@ -82,10 +84,11 @@ func (r TransactionFeeRepository) Delete(ctx context.Context, id int32) error {
 func (r TransactionFeeRepository) AddBulk(ctx context.Context, transactionFees []*transaction.TransactionFee) error {
 	var models []*pb.AddTransactionFeeRequest
 	for _, tf := range transactionFees {
+		amount := tf.Amount.String()
 		models = append(models, &pb.AddTransactionFeeRequest{
 			TransactionId: tf.TransactionID,
 			FeeId:         tf.FeeID,
-			Amount:        tf.Amount,
+			Amount:        &amount,
 		})
 	}
 	_, err := r.client.AddBulk(ctx, &pb.AddTransactionFeeBulkRequest{TransactionFees: models})
@@ -98,11 +101,12 @@ func (r TransactionFeeRepository) AddBulk(ctx context.Context, transactionFees [
 func (r TransactionFeeRepository) UpdateBulk(ctx context.Context, transactionFees []*transaction.TransactionFee) error {
 	var models []*pb.UpdateTransactionFeeRequest
 	for _, tf := range transactionFees {
+		amount := tf.Amount.String()
 		models = append(models, &pb.UpdateTransactionFeeRequest{
 			Id:            tf.ID,
 			TransactionId: tf.TransactionID,
 			FeeId:         tf.FeeID,
-			Amount:        tf.Amount,
+			Amount:        &amount,
 		})
 	}
 	_, err := r.client.UpdateBulk(ctx, &pb.UpdateTransactionFeeBulkRequest{TransactionFees: models})

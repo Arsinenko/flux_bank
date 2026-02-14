@@ -26,6 +26,31 @@ public class TransactionRepository : GenericRepository<Transaction, int>, ITrans
         return await query.ToListAsync();
     }
 
+    public async Task<bool> MakeTransactionAsync(Transaction transaction)
+    {
+        
+        try
+        {
+            var sourceAcc = await Context.Accounts.FirstAsync(a => a.AccountId == transaction.SourceAccount);
+            var targetAcc = await Context.Accounts.FirstAsync(a => a.AccountId == transaction.TargetAccount);
+
+            if (sourceAcc.Balance < transaction.Amount) return false; 
+
+            sourceAcc.Balance -= transaction.Amount;
+            targetAcc.Balance += transaction.Amount;
+
+            Context.Transactions.Add(transaction);
+
+            await Context.SaveChangesAsync();
+            return true;
+        }
+        catch (Exception ex)
+        {
+            throw new DbUpdateException("Ошибка при проведении транзакции", ex);
+        }
+    }
+
+
 
     private IQueryable<Transaction> TransactionsPaged(DateTime? from, DateTime? to, int? pageN, int? pageSize, IQueryable<Transaction> query)
     {

@@ -93,7 +93,7 @@ func InitServices(conn *grpc.ClientConn) *services.ServiceContainer {
 		LoginLogService:        services.NewLoginLogService(loginLogRepo),
 		NotificationService:    services.NewNotificationService(notificationRepo),
 		PaymentTemplateService: services.NewPaymentTemplateService(paymentTemplateRepo),
-		TransactionService:     services.NewTransactionService(transactionRepo, transactionCategoryRepo, transactionFeeRepo),
+		TransactionService:     services.NewTransactionService(transactionRepo, transactionCategoryRepo, transactionFeeRepo, accountRepo),
 		UserCredentialService:  services.NewUserCredentialService(userCredentialRepo),
 	}
 }

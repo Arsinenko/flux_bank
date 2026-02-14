@@ -211,4 +211,17 @@ public class AccountService(IAccountRepository accountRepository, IMapper mapper
             TotalBalance = average.ToString(CultureInfo.InvariantCulture)
         };
     }
+
+    public override async Task<AccountModel> ChangeBalance(ChangeBalanceRequest request, ServerCallContext context)
+    {
+        var account = await accountRepository.GetByIdAsync(request.AccountId);
+        if (account == null)
+        {
+            throw new NotFoundException($"account with with id {request.AccountId} not found!");
+        }
+        account.Balance = request.Increment
+            ? account.Balance += decimal.Parse(request.Amount)
+            : account.Balance -= decimal.Parse(request.Amount);
+        return mapper.Map<AccountModel>(account);
+    }
 }

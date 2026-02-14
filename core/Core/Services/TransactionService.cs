@@ -1,9 +1,9 @@
-﻿using AutoMapper;
+﻿using System.Globalization;
+using AutoMapper;
 using Core.Interfaces;
 using Core.Models;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
-using System.Linq;
 using Core.Exceptions;
 
 namespace Core.Services;
@@ -25,8 +25,10 @@ public class TransactionService(ITransactionRepository transactionRepository, IM
     {
         var transaction = mapper.Map<Transaction>(request);
 
-        await transactionRepository.AddAsync(transaction);
+        await transactionRepository.MakeTransactionAsync(transaction);
+        
         cacheService.Remove("BankStats");
+        
 
         return mapper.Map<TransactionModel>(transaction);
     }
@@ -177,7 +179,7 @@ public class TransactionService(ITransactionRepository transactionRepository, IM
         var stats = await statsService.GetStatsAsync();
         return new TotalAmountResponse()
         {
-            TotalAmount = stats.TotalTransactionSum.ToString()
+            TotalAmount = stats.TotalTransactionSum.ToString(CultureInfo.CurrentCulture)
         };
     }
 }
