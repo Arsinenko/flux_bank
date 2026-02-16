@@ -8,11 +8,12 @@ import (
 	"orch-go/internal/simulation/economy"
 
 	"github.com/google/uuid"
+	"github.com/shopspring/decimal"
 )
 
 type Individual struct {
 	BaseAgent
-	Balance  float64                     `json:"balance"`
+	Balance  decimal.Decimal             `json:"balance"`
 	Contract *economy.EmploymentContract `json:"contract"`
 	Needs    map[string]float64          `json:"needs"`
 }
@@ -20,7 +21,7 @@ type Individual struct {
 func NewIndividual(name string) *Individual {
 	return &Individual{
 		BaseAgent: NewBaseAgent(uuid.Nil, "Individual", name),
-		Balance:   100.0, // Starting money
+		Balance:   decimal.NewFromInt(100), // Starting money
 		Needs:     make(map[string]float64),
 	}
 }
@@ -60,7 +61,7 @@ func (i *Individual) OnTick(ctx simcontext.AgentContext) error {
 
 func (i *Individual) consume(ctx simcontext.AgentContext) {
 	// Simple logic: buy something if we have money and random chance
-	if i.Balance > 10.0 && rand.Float64() < 0.2 {
+	if i.Balance.LessThan(decimal.NewFromInt(10)) && rand.Float64() < 0.2 {
 		m := ctx.Market()
 		listings := m.GetAllListings()
 		if len(listings) > 0 {
@@ -71,7 +72,7 @@ func (i *Individual) consume(ctx simcontext.AgentContext) {
 			// Attempt purchase 1 unit
 			res, err := m.BuyItem(l.ID, 1)
 			if err == nil && res.Success {
-				i.Balance -= res.Cost
+				i.Balance = i.Balance.Sub(res.Cost)
 				// fmt.Printf("Individual %s bought %s for %.2f\n", i.Name, l.Name, res.Cost)
 			}
 		}

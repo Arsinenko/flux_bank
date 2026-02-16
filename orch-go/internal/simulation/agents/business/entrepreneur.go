@@ -7,19 +7,20 @@ import (
 	"orch-go/internal/simulation/economy"
 
 	"github.com/google/uuid"
+	"github.com/shopspring/decimal"
 )
 
 // Entrepreneur represents a small business owner (IP).
 type Entrepreneur struct {
 	agents.BaseAgent
-	Balance float64
+	Balance decimal.Decimal
 	// Can verify small number of employees
 }
 
 func NewEntrepreneur(name string) *Entrepreneur {
 	return &Entrepreneur{
 		BaseAgent: agents.NewBaseAgent(uuid.Nil, "Entrepreneur", name),
-		Balance:   2000.0,
+		Balance:   decimal.NewFromInt(100),
 	}
 }
 
@@ -36,7 +37,7 @@ func (e *Entrepreneur) OnTick(ctx simcontext.AgentContext) error {
 	// Maybe produce service
 	m := ctx.Market()
 	// Check listings...
-	m.AddListing(e.ID(), "Small Service", economy.ItemService, 50.0, -1)
+	m.AddListing(e.ID(), "Small Service", economy.ItemService, decimal.NewFromFloat32(10.0), -1)
 	return nil
 }
 
@@ -68,6 +69,6 @@ func (s *SelfEmployed) OnTick(ctx simcontext.AgentContext) error {
 	// Freelancer logic
 	// Provide service on demand
 	m := ctx.Market()
-	m.AddListing(s.ID(), "Freelance Work", economy.ItemService, 25.0, -1)
+	m.AddListing(s.ID(), "Freelance Work", economy.ItemService, decimal.NewFromFloat32(10.0), -1)
 	return nil
 }

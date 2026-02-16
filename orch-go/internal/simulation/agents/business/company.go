@@ -8,20 +8,20 @@ import (
 	"orch-go/internal/simulation/economy"
 
 	"github.com/google/uuid"
+	"github.com/shopspring/decimal"
 )
 
 // Company represents a business entity.
 type Company struct {
 	agents.BaseAgent
-	Balance         float64  `json:"balance"`
-	Employees       []string `json:"employees"`
-	TargetEmployees int      `json:"target_employees"`
+	Balance         decimal.Decimal `json:"balance"`
+	TargetEmployees int             `json:"target_employees"`
 }
 
 func NewCompany(name string, targetEmployees int) *Company {
 	c := &Company{
 		BaseAgent:       agents.NewBaseAgent(uuid.Nil, "Company", name),
-		Balance:         10000.0, // Initial Capital
+		Balance:         decimal.NewFromInt(100), // Initial Capital
 		TargetEmployees: targetEmployees,
 	}
 	return c
@@ -51,7 +51,7 @@ func (c *Company) OnTick(ctx simcontext.AgentContext) error {
 	// 2. Produce and sell (simplified)
 	// Add products to market
 	m := ctx.Market()
-	m.AddListing(c.ID(), "Basic Product", economy.ItemProduct, 10.0, 5)
+	m.AddListing(c.ID(), "Basic Product", economy.ItemProduct, decimal.NewFromFloat32(10.0), 5)
 
 	// 3. Pay salaries
 	// This would require iterating employees and transferring funds via Bank/Transaction service.
@@ -61,9 +61,15 @@ func (c *Company) OnTick(ctx simcontext.AgentContext) error {
 }
 
 func (c *Company) SendSalary() {
-	//TODO
+
 }
 
-func (c *Company) GetEmployees() {
-
+func (c *Company) GetEmployees(ctx simcontext.AgentContext) []agents.Agent {
+	lm := ctx.LaborMarket()
+	var employees []agents.Agent
+	for _, contract := range lm.Contracts {
+		if contract.EmployerID == c.ID() {
+			employees = append(employees, contract.EmployeeID)
+		}
+	}
 }

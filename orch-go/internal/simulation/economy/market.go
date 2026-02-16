@@ -5,6 +5,7 @@ import (
 	"sync"
 
 	"github.com/google/uuid"
+	"github.com/shopspring/decimal"
 )
 
 type ItemType string
@@ -20,7 +21,7 @@ type Listing struct {
 	SellerID    uuid.UUID
 	Name        string
 	Type        ItemType
-	Price       float64
+	Price       decimal.Decimal
 	Quantity    int // -1 for unlimited (services)
 	Description string
 }
@@ -37,7 +38,7 @@ func NewMarketRegistry() *MarketRegistry {
 	}
 }
 
-func (m *MarketRegistry) AddListing(sellerID uuid.UUID, name string, itemType ItemType, price float64, quantity int) uuid.UUID {
+func (m *MarketRegistry) AddListing(sellerID uuid.UUID, name string, itemType ItemType, price decimal.Decimal, quantity int) uuid.UUID {
 	m.mu.Lock()
 	defer m.mu.Unlock()
 
@@ -78,7 +79,7 @@ func (m *MarketRegistry) GetAllListings() []*Listing {
 // PurchaseResult indicates the outcome of a purchase attempt
 type PurchaseResult struct {
 	Success bool
-	Cost    float64
+	Cost    decimal.Decimal
 	Message string
 }
 
@@ -97,7 +98,7 @@ func (m *MarketRegistry) BuyItem(listingID uuid.UUID, quantity int) (*PurchaseRe
 		return &PurchaseResult{Success: false, Message: "Not enough quantity"}, nil
 	}
 
-	totalCost := listing.Price * float64(quantity)
+	totalCost := listing.Price.Mul(decimal.NewFromInt(int64(quantity)))
 
 	if listing.Quantity != -1 {
 		listing.Quantity -= quantity

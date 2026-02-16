@@ -7,12 +7,13 @@ import (
 	"orch-go/internal/simulation/economy"
 
 	"github.com/google/uuid"
+	"github.com/shopspring/decimal"
 )
 
 // Shop represents a retail business.
 type Shop struct {
 	agents.BaseAgent
-	Balance float64 `json:"balance"`
+	Balance decimal.Decimal `json:"balance"`
 	// Inventory map[uuid.UUID]int // Products bought from companies to resell?
 	// Or maybe Shops produce "Retail Service".
 	// Let's assume shops buy wholesale and sell retail.
@@ -21,7 +22,7 @@ type Shop struct {
 func NewShop(name string) *Shop {
 	return &Shop{
 		BaseAgent: agents.NewBaseAgent(uuid.Nil, "Shop", name),
-		Balance:   5000.0,
+		Balance:   decimal.NewFromInt(100),
 	}
 }
 
@@ -46,7 +47,7 @@ func (s *Shop) OnTick(ctx simcontext.AgentContext) error {
 	// Since we don't query our own listings easily yet without searching registry,
 	// we'll just add one blindly for now or improve registry.
 
-	m.AddListing(s.ID(), "Retail Goods", economy.ItemProduct, 15.0, 10)
+	m.AddListing(s.ID(), "Retail Goods", economy.ItemProduct, decimal.NewFromFloat32(10.0), 10)
 
 	return nil
 }
