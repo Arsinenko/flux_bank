@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"orch-go/internal/services"
 	"orch-go/internal/simulation/agents"
+	simcontext "orch-go/internal/simulation/context"
 	"orch-go/internal/simulation/economy"
-	"orch-go/internal/simulation/types"
 	"sync"
 	"time"
 )
@@ -68,25 +68,30 @@ func (e *SimulationEngine) Run(ctx context.Context) error {
 			return ctx.Err()
 		default:
 			// Execute one tick
-			tickInfo := e.Clock.Tick()
+			e.Clock.Tick()
 
-			// Create context for this tick
-			simCtx := &SimpleSimulationContext{
-				Context:          ctx,
-				time:             tickInfo.CurrentTime,
-				tickNumber:       tickInfo.TickNumber,
-				market:           e.Market,
-				laborMarket:      e.LaborMarket,
-				serviceContainer: e.ServiceContainer,
-			}
-
-			// Notify all agents
-			// TODO: Parallelize this if needed
 			e.mu.RLock()
 			currentAgents := make([]agents.Agent, len(e.Agents))
 			copy(currentAgents, e.Agents)
 			e.mu.RUnlock()
 
+			// Convert []agents.Agent to []interface{}
+			agentInterfaces := make([]interface{}, len(currentAgents))
+			for i, a := range currentAgents {
+				agentInterfaces[i] = a
+			}
+
+			// Create context for this tick
+			simCtx := simcontext.NewSimpleSimulationContext(
+				ctx,
+				e.ServiceContainer,
+				e.Market,
+				e.LaborMarket,
+				agentInterfaces,
+			)
+
+			// Notify all agents
+			// TODO: Parallelize this if needed
 			var wg sync.WaitGroup
 			for _, a := range currentAgents {
 				wg.Add(1)
@@ -104,34 +109,4 @@ func (e *SimulationEngine) Run(ctx context.Context) error {
 			time.Sleep(10 * time.Millisecond) // throttling to prevent CPU spin
 		}
 	}
-}
-
-// SimpleSimulationContext implements AgentContext
-type SimpleSimulationContext struct {
-	context.Context
-	time             types.SimulationTime
-	tickNumber       uint64
-	market           *economy.MarketRegistry
-	laborMarket      *economy.LaborMarket
-	serviceContainer *services.ServiceContainer
-}
-
-func (s *SimpleSimulationContext) Time() types.SimulationTime {
-	return s.time
-}
-
-func (s *SimpleSimulationContext) Tick() uint64 {
-	return s.tickNumber
-}
-
-func (s *SimpleSimulationContext) Market() *economy.MarketRegistry {
-	return s.market
-}
-
-func (s *SimpleSimulationContext) LaborMarket() *economy.LaborMarket {
-	return s.laborMarket
-}
-
-func (s *SimpleSimulationContext) Services() *services.ServiceContainer {
-	return s.serviceContainer
 }
