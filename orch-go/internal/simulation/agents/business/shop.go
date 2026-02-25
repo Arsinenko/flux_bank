@@ -51,3 +51,11 @@ func (s *Shop) OnTick(ctx simcontext.AgentContext) error {
 
 	return nil
 }
+
+func (s *Shop) UpdateBalanceInfo(ctx simcontext.AgentContext) {
+	acc, err := ctx.Services().AccountService.GetAccountById(ctx, *s.GetAccountID())
+	if err != nil {
+		return
+	}
+	s.Balance = acc.Balance
+}

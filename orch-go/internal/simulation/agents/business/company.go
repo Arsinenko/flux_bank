@@ -6,7 +6,6 @@ import (
 	"orch-go/internal/simulation/agents"
 	"orch-go/internal/simulation/bank"
 	simcontext "orch-go/internal/simulation/context"
-	"orch-go/internal/simulation/economy"
 
 	"github.com/google/uuid"
 	"github.com/shopspring/decimal"
@@ -44,18 +43,18 @@ func (c *Company) OnTick(ctx simcontext.AgentContext) error {
 		// Real logic would check existing vacancies.
 
 		// For now simple stochastic posting
-		// Using the LabotMarket from context
+		// Using the LaborMarket from context
 		lm := ctx.LaborMarket()
 		lm.PostVacancy(c.ID(), fmt.Sprintf("Worker at %s", c.Name), 500.0) // Fixed salary 500
 	}
 
-	// 2. Produce and sell (simplified)
-	// Add products to market
-	m := ctx.Market()
-	m.AddListing(c.ID(), "Basic Product", economy.ItemProduct, decimal.NewFromFloat32(10.0), 5)
-
-	// 3. Pay salaries
-	c.SendSalary(ctx)
+	//// 2. Produce and sell (simplified)
+	//// Add products to market
+	//m := ctx.Market()
+	//m.AddListing(c.ID(), "Basic Product", economy.ItemProduct, decimal.NewFromFloat32(10.0), 5)
+	//
+	////// 3. Pay salaries
+	////c.SendSalary(ctx)
 
 	return nil
 }
@@ -128,4 +127,16 @@ func (c *Company) GetEmployees(ctx simcontext.AgentContext) []agents.Agent {
 		}
 	}
 	return employees
+}
+
+func (c *Company) UpdateBalanceInfo(ctx simcontext.AgentContext) {
+	acc, err := ctx.Services().AccountService.GetAccountById(ctx, *c.GetAccountID())
+	if err != nil {
+		return
+	}
+	c.Balance = acc.Balance
+}
+
+func (c *Company) UpdateTargetEmployeesInfo(target int) {
+	c.TargetEmployees = target
 }

@@ -78,3 +78,11 @@ func (i *Individual) consume(ctx simcontext.AgentContext) {
 		}
 	}
 }
+
+func (i *Individual) UpdateBalanceInfo(ctx simcontext.AgentContext) {
+	acc, err := ctx.Services().AccountService.GetAccountById(ctx, *i.GetAccountID())
+	if err != nil {
+		return
+	}
+	i.Balance = acc.Balance
+}

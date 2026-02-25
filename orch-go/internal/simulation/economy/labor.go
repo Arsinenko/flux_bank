@@ -90,3 +90,42 @@ func (l *LaborMarket) ApplyAndHire(vacancyID uuid.UUID, employeeID uuid.UUID) (*
 
 	return contract, nil
 }
+
+func (l *LaborMarket) FireEmployee(contractID uuid.UUID) {
+	l.mu.Lock()
+	defer l.mu.Unlock()
+
+	delete(l.Contracts, contractID)
+}
+
+func (l *LaborMarket) GetContracts() []*EmploymentContract {
+	l.mu.RLock()
+	defer l.mu.RUnlock()
+
+	result := make([]*EmploymentContract, 0, len(l.Contracts))
+	for _, c := range l.Contracts {
+		result = append(result, c)
+	}
+	return result
+}
+
+func (l *LaborMarket) GetContract(contractID uuid.UUID) *EmploymentContract {
+	l.mu.RLock()
+	defer l.mu.RUnlock()
+
+	return l.Contracts[contractID]
+}
+
+func (l *LaborMarket) GetContractsByEmployerIdD(employerID uuid.UUID) []*EmploymentContract {
+	l.mu.RLock()
+	defer l.mu.RUnlock()
+
+	result := make([]*EmploymentContract, 0)
+	for _, c := range l.Contracts {
+		if c.EmployerID == employerID {
+			result = append(result, c)
+		}
+	}
+
+	return result
+}

@@ -45,7 +45,7 @@ func (e *Entrepreneur) OnTick(ctx simcontext.AgentContext) error {
 type SelfEmployed struct {
 	agents.BaseAgent
 	Name       string
-	Balance    float64
+	Balance    decimal.Decimal
 	CustomerID *int32
 	AccountID  *int32
 }
@@ -53,7 +53,7 @@ type SelfEmployed struct {
 func NewSelfEmployed(name string) *SelfEmployed {
 	return &SelfEmployed{
 		BaseAgent: agents.NewBaseAgent(uuid.Nil, "SelfEmployed", name),
-		Balance:   500.0,
+		Balance:   decimal.NewFromInt(500),
 	}
 }
 
@@ -71,4 +71,12 @@ func (s *SelfEmployed) OnTick(ctx simcontext.AgentContext) error {
 	m := ctx.Market()
 	m.AddListing(s.ID(), "Freelance Work", economy.ItemService, decimal.NewFromFloat32(10.0), -1)
 	return nil
+}
+
+func (s *SelfEmployed) UpdateBalanceInfo(ctx simcontext.AgentContext) {
+	acc, err := ctx.Services().AccountService.GetAccountById(ctx, *s.GetAccountID())
+	if err != nil {
+		return
+	}
+	s.Balance = acc.Balance
 }
