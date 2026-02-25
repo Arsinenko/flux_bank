@@ -17,6 +17,9 @@ type Agent interface {
 	// OnTick is called every simulation step.
 	// agents should decide their actions based on the current state and time.
 	OnTick(ctx simcontext.AgentContext) error
+
+	GetAccountID() *int32
+	GetCustomerID() *int32
 }
 
 // BaseAgent provides common functionality for all agents.
@@ -55,4 +58,12 @@ func (b *BaseAgent) SetCustomerID(id int32) {
 
 func (b *BaseAgent) SetAccountID(id int32) {
 	b.AccountId = &id
+}
+
+func (b *BaseAgent) GetAccountID() *int32 {
+	return b.AccountId
+}
+
+func (b *BaseAgent) GetCustomerID() *int32 {
+	return b.CustomerId
 }

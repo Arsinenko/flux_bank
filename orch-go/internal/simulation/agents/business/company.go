@@ -2,6 +2,7 @@ package business
 
 import (
 	"fmt"
+	"orch-go/internal/domain/transaction"
 	"orch-go/internal/simulation/agents"
 	"orch-go/internal/simulation/bank"
 	simcontext "orch-go/internal/simulation/context"
@@ -38,7 +39,7 @@ func (c *Company) OnTick(ctx simcontext.AgentContext) error {
 	}
 
 	// 1. Check if we need to hire
-	if len(c.Employees) < c.TargetEmployees {
+	if len(c.GetEmployees(ctx)) < c.TargetEmployees {
 		// Post vacancy if not already posted (simplified logic: just post every tick if understaffed and have budget)
 		// Real logic would check existing vacancies.
 
@@ -54,14 +55,62 @@ func (c *Company) OnTick(ctx simcontext.AgentContext) error {
 	m.AddListing(c.ID(), "Basic Product", economy.ItemProduct, decimal.NewFromFloat32(10.0), 5)
 
 	// 3. Pay salaries
-	// This would require iterating employees and transferring funds via Bank/Transaction service.
-	// Placeholder
+	c.SendSalary(ctx)
 
 	return nil
 }
 
-func (c *Company) SendSalary() {
+func (c *Company) SendSalary(ctx simcontext.AgentContext) {
+	employees := c.GetEmployees(ctx)
+	if len(employees) == 0 {
+		return
+	}
 
+	lm := ctx.LaborMarket()
+	companyAccountId := c.GetAccountID()
+	if companyAccountId == nil {
+		// Company has no bank account yet
+		return
+	}
+
+	var transactions []*transaction.Transaction
+
+	for _, employee := range employees {
+		employeeAccountId := employee.GetAccountID()
+		if employeeAccountId == nil {
+			// Employee has no bank account yet
+			continue
+		}
+
+		// Find the contract to get the salary
+		var salary decimal.Decimal
+		for _, contract := range lm.Contracts {
+			if contract.EmployeeID == employee.ID() && contract.EmployerID == c.ID() {
+				salary = decimal.NewFromFloat(contract.Salary)
+				break
+			}
+		}
+
+		if salary.IsZero() {
+			// No contract found or salary is zero
+			continue
+		}
+
+		transactions = append(transactions, &transaction.Transaction{
+			SourceAccount: companyAccountId,
+			TargetAccount: employeeAccountId,
+			Amount:        salary,
+			Currency:      "RUB",
+		})
+
+		err := ctx.Services().TransactionService.CreateTransactionBulk(ctx, transactions)
+		if err != nil {
+			return
+		}
+	}
+
+	// Now you have a slice of transactions to be processed.
+	// The next step would be to send these to the bank/transaction service.
 }
 
 func (c *Company) GetEmployees(ctx simcontext.AgentContext) []agents.Agent {
@@ -69,7 +118,14 @@ func (c *Company) GetEmployees(ctx simcontext.AgentContext) []agents.Agent {
 	var employees []agents.Agent
 	for _, contract := range lm.Contracts {
 		if contract.EmployerID == c.ID() {
-			employees = append(employees, contract.EmployeeID)
+			// Find the actual agent object for the employee
+			for _, agentInterface := range ctx.Agents() {
+				if agent, ok := agentInterface.(agents.Agent); ok && agent.ID() == contract.EmployeeID {
+					employees = append(employees, agent)
+					break
+				}
+			}
 		}
 	}
+	return employees
 }

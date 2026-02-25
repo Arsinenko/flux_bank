@@ -2,8 +2,6 @@ package services
 
 import (
 	"context"
-	"fmt"
-	"golang.org/x/sync/errgroup"
 	"orch-go/internal/domain/transaction"
 	"orch-go/internal/infrastructure/repository/account/account_repo"
 	"orch-go/internal/infrastructure/repository/transaction_repo"
@@ -45,33 +43,6 @@ func (s *TransactionService) GetTransactionById(ctx context.Context, id int32) (
 }
 
 func (s *TransactionService) CreateTransaction(ctx context.Context, t *transaction.Transaction) (*transaction.Transaction, error) {
-	sourceAcc, err := s.accRepo.GetById(ctx, *t.SourceAccount)
-	if err != nil {
-		return nil, err
-	}
-	if sourceAcc.Balance.LessThan(t.Amount) {
-		return nil, fmt.Errorf("insufficient balance")
-	}
-	targetAcc, err := s.accRepo.GetById(ctx, *t.TargetAccount)
-	if err != nil {
-		return nil, err
-	}
-	sourceAcc.Balance = sourceAcc.Balance.Sub(t.Amount)
-	targetAcc.Balance = targetAcc.Balance.Add(t.Amount)
-
-	g, gCtx := errgroup.WithContext(ctx)
-
-	g.Go(func() error {
-		return s.accRepo.Update(gCtx, sourceAcc)
-	})
-
-	g.Go(func() error {
-		return s.accRepo.Update(gCtx, targetAcc)
-	})
-
-	if err := g.Wait(); err != nil {
-		return nil, err
-	}
 	return s.txRepo.Add(ctx, t)
 
 }
