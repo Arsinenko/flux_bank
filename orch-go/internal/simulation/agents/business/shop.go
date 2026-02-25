@@ -13,7 +13,6 @@ import (
 // Shop represents a retail business.
 type Shop struct {
 	agents.BaseAgent
-	Balance decimal.Decimal `json:"balance"`
 	// Inventory map[uuid.UUID]int // Products bought from companies to resell?
 	// Or maybe Shops produce "Retail Service".
 	// Let's assume shops buy wholesale and sell retail.
@@ -21,8 +20,7 @@ type Shop struct {
 
 func NewShop(name string) *Shop {
 	return &Shop{
-		BaseAgent: agents.NewBaseAgent(uuid.Nil, "Shop", name),
-		Balance:   decimal.NewFromInt(100),
+		BaseAgent: agents.NewBaseAgent(uuid.Nil, "Shop", name, decimal.NewFromInt(100)),
 	}
 }
 
@@ -50,12 +48,4 @@ func (s *Shop) OnTick(ctx simcontext.AgentContext) error {
 	m.AddListing(s.ID(), "Retail Goods", economy.ItemProduct, decimal.NewFromFloat32(10.0), 10)
 
 	return nil
-}
-
-func (s *Shop) UpdateBalanceInfo(ctx simcontext.AgentContext) {
-	acc, err := ctx.Services().AccountService.GetAccountById(ctx, *s.GetAccountID())
-	if err != nil {
-		return
-	}
-	s.Balance = acc.Balance
 }

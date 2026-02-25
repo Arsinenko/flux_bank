@@ -13,15 +13,13 @@ import (
 
 type Individual struct {
 	BaseAgent
-	Balance  decimal.Decimal             `json:"balance"`
 	Contract *economy.EmploymentContract `json:"contract"`
 	Needs    map[string]float64          `json:"needs"`
 }
 
 func NewIndividual(name string) *Individual {
 	return &Individual{
-		BaseAgent: NewBaseAgent(uuid.Nil, "Individual", name),
-		Balance:   decimal.NewFromInt(100), // Starting money
+		BaseAgent: NewBaseAgent(uuid.Nil, "Individual", name, decimal.NewFromInt(100)),
 		Needs:     make(map[string]float64),
 	}
 }
@@ -61,7 +59,7 @@ func (i *Individual) OnTick(ctx simcontext.AgentContext) error {
 
 func (i *Individual) consume(ctx simcontext.AgentContext) {
 	// Simple logic: buy something if we have money and random chance
-	if i.Balance.LessThan(decimal.NewFromInt(10)) && rand.Float64() < 0.2 {
+	if i.Balance.GreaterThan(decimal.NewFromInt(10)) && rand.Float64() < 0.2 {
 		m := ctx.Market()
 		listings := m.GetAllListings()
 		if len(listings) > 0 {
@@ -77,12 +75,4 @@ func (i *Individual) consume(ctx simcontext.AgentContext) {
 			}
 		}
 	}
-}
-
-func (i *Individual) UpdateBalanceInfo(ctx simcontext.AgentContext) {
-	acc, err := ctx.Services().AccountService.GetAccountById(ctx, *i.GetAccountID())
-	if err != nil {
-		return
-	}
-	i.Balance = acc.Balance
 }

@@ -14,14 +14,12 @@ import (
 // Company represents a business entity.
 type Company struct {
 	agents.BaseAgent
-	Balance         decimal.Decimal `json:"balance"`
-	TargetEmployees int             `json:"target_employees"`
+	TargetEmployees int `json:"target_employees"`
 }
 
 func NewCompany(name string, targetEmployees int) *Company {
 	c := &Company{
-		BaseAgent:       agents.NewBaseAgent(uuid.Nil, "Company", name),
-		Balance:         decimal.NewFromInt(100), // Initial Capital
+		BaseAgent:       agents.NewBaseAgent(uuid.Nil, "Company", name, decimal.NewFromInt(100)), // Initial Capital
 		TargetEmployees: targetEmployees,
 	}
 	return c
@@ -127,14 +125,6 @@ func (c *Company) GetEmployees(ctx simcontext.AgentContext) []agents.Agent {
 		}
 	}
 	return employees
-}
-
-func (c *Company) UpdateBalanceInfo(ctx simcontext.AgentContext) {
-	acc, err := ctx.Services().AccountService.GetAccountById(ctx, *c.GetAccountID())
-	if err != nil {
-		return
-	}
-	c.Balance = acc.Balance
 }
 
 func (c *Company) UpdateTargetEmployeesInfo(target int) {

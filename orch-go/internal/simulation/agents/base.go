@@ -4,6 +4,7 @@ import (
 	simcontext "orch-go/internal/simulation/context"
 
 	"github.com/google/uuid"
+	"github.com/shopspring/decimal"
 )
 
 // Agent is the main interface that all simulation agents must implement.
@@ -24,14 +25,15 @@ type Agent interface {
 
 // BaseAgent provides common functionality for all agents.
 type BaseAgent struct {
-	AgentID    uuid.UUID `json:"id"`
-	AgentType  string    `json:"type"`
-	Name       string    `json:"name"`
-	AccountId  *int32    `json:"account_id"`
-	CustomerId *int32    `json:"customer_id"`
+	AgentID    uuid.UUID       `json:"id"`
+	AgentType  string          `json:"type"`
+	Name       string          `json:"name"`
+	AccountId  *int32          `json:"account_id"`
+	CustomerId *int32          `json:"customer_id"`
+	Balance    decimal.Decimal `json:"balance"`
 }
 
-func NewBaseAgent(id uuid.UUID, agentType string, name string) BaseAgent {
+func NewBaseAgent(id uuid.UUID, agentType string, name string, balance decimal.Decimal) BaseAgent {
 	if id == uuid.Nil {
 		id = uuid.New()
 	}
@@ -39,6 +41,7 @@ func NewBaseAgent(id uuid.UUID, agentType string, name string) BaseAgent {
 		AgentID:   id,
 		AgentType: agentType,
 		Name:      name,
+		Balance:   balance,
 	}
 }
 
@@ -66,4 +69,12 @@ func (b *BaseAgent) GetAccountID() *int32 {
 
 func (b *BaseAgent) GetCustomerID() *int32 {
 	return b.CustomerId
+}
+
+func (b *BaseAgent) UpdateBalanceInfo(ctx simcontext.AgentContext) {
+	acc, err := ctx.Services().AccountService.GetAccountById(ctx, *b.GetAccountID())
+	if err != nil {
+		return
+	}
+	b.Balance = acc.Balance
 }

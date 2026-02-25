@@ -13,14 +13,12 @@ import (
 // Entrepreneur represents a small business owner (IP).
 type Entrepreneur struct {
 	agents.BaseAgent
-	Balance decimal.Decimal
 	// Can verify small number of employees
 }
 
 func NewEntrepreneur(name string) *Entrepreneur {
 	return &Entrepreneur{
-		BaseAgent: agents.NewBaseAgent(uuid.Nil, "Entrepreneur", name),
-		Balance:   decimal.NewFromInt(100),
+		BaseAgent: agents.NewBaseAgent(uuid.Nil, "Entrepreneur", name, decimal.NewFromInt(100)),
 	}
 }
 
@@ -52,7 +50,7 @@ type SelfEmployed struct {
 
 func NewSelfEmployed(name string) *SelfEmployed {
 	return &SelfEmployed{
-		BaseAgent: agents.NewBaseAgent(uuid.Nil, "SelfEmployed", name),
+		BaseAgent: agents.NewBaseAgent(uuid.Nil, "SelfEmployed", name, decimal.NewFromInt(500)),
 		Balance:   decimal.NewFromInt(500),
 	}
 }
@@ -71,12 +69,4 @@ func (s *SelfEmployed) OnTick(ctx simcontext.AgentContext) error {
 	m := ctx.Market()
 	m.AddListing(s.ID(), "Freelance Work", economy.ItemService, decimal.NewFromFloat32(10.0), -1)
 	return nil
-}
-
-func (s *SelfEmployed) UpdateBalanceInfo(ctx simcontext.AgentContext) {
-	acc, err := ctx.Services().AccountService.GetAccountById(ctx, *s.GetAccountID())
-	if err != nil {
-		return
-	}
-	s.Balance = acc.Balance
 }
