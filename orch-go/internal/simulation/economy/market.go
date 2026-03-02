@@ -2,6 +2,7 @@ package economy
 
 import (
 	"errors"
+	"strings"
 	"sync"
 
 	"github.com/google/uuid"
@@ -25,6 +26,8 @@ type Listing struct {
 	Quantity    int // -1 for unlimited (services)
 	Description string
 }
+
+type ListingPredicate func(listing *Listing) bool
 
 // MarketRegistry manages all active listings.
 type MarketRegistry struct {
@@ -76,40 +79,52 @@ func (m *MarketRegistry) GetAllListings() []*Listing {
 	return result
 }
 
-// PurchaseResult indicates the outcome of a purchase attempt
-type PurchaseResult struct {
-	Success bool
-	Cost    decimal.Decimal
-	Message string
-}
-
-// BuyItem attempts to purchase an item.
-// Note: Actual money transfer should handle by TransactionService, this just updates quantity.
-func (m *MarketRegistry) BuyItem(listingID uuid.UUID, quantity int) (*PurchaseResult, error) {
+func (m *MarketRegistry) UpdateListing(id uuid.UUID, price decimal.Decimal, quantity int) {
 	m.mu.Lock()
 	defer m.mu.Unlock()
 
-	listing, ok := m.Listings[listingID]
+	listing, ok := m.Listings[id]
 	if !ok {
-		return nil, errors.New("listing not found")
+		return
 	}
+	listing.Price = price
+	listing.Quantity = quantity
+}
 
-	if listing.Quantity != -1 && listing.Quantity < quantity {
-		return &PurchaseResult{Success: false, Message: "Not enough quantity"}, nil
-	}
+func (m *MarketRegistry) FindBy(predicates ...ListingPredicate) []*Listing {
+	m.mu.RLock()
+	defer m.mu.RUnlock()
 
-	totalCost := listing.Price.Mul(decimal.NewFromInt(int64(quantity)))
-
-	if listing.Quantity != -1 {
-		listing.Quantity -= quantity
-		if listing.Quantity == 0 {
-			delete(m.Listings, listingID)
+	results := make([]*Listing, 0)
+	for _, item := range m.Listings {
+		match := true
+		for _, predicate := range predicates {
+			if !predicate(item) {
+				match = false
+				break
+			}
+		}
+		if match {
+			results = append(results, item)
 		}
 	}
+	return results
+}
 
-	return &PurchaseResult{
-		Success: true,
-		Cost:    totalCost,
-		Message: "Purchase successful",
-	}, nil
+func WithMinPrice(price decimal.Decimal) ListingPredicate {
+	return func(l *Listing) bool { return l.Price.GreaterThanOrEqual(price) }
+}
+
+func WithMaxPrice(price decimal.Decimal) ListingPredicate {
+	return func(l *Listing) bool { return l.Price.LessThanOrEqual(price) }
+}
+
+func WithType(itemType ItemType) ListingPredicate {
+	return func(l *Listing) bool { return l.Type == itemType }
+}
+
+func WithNameContains(name string) ListingPredicate {
+	return func(l *Listing) bool {
+		return strings.Contains(strings.ToLower(l.Name), strings.ToLower(name))
+	}
 }

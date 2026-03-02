@@ -59,20 +59,35 @@ func (i *Individual) OnTick(ctx simcontext.AgentContext) error {
 
 func (i *Individual) consume(ctx simcontext.AgentContext) {
 	// Simple logic: buy something if we have money and random chance
-	if i.Balance.GreaterThan(decimal.NewFromInt(10)) && rand.Float64() < 0.2 {
-		m := ctx.Market()
-		listings := m.GetAllListings()
-		if len(listings) > 0 {
-			// Buy random thing
-			idx := rand.IntN(len(listings))
-			l := listings[idx]
+	//if i.Balance.GreaterThan(decimal.NewFromInt(10)) && rand.Float64() < 0.2 {
+	//	m := ctx.Market()
+	//	listings := m.GetAllListings()
+	//	if len(listings) > 0 {
+	//		//check needs
+	//		for _, l := range listings {
+	//			if _, ok := i.Needs[l.Name]; ok {
+	//				if l.Price.LessThan(i.Balance) {
+	//					res, err := m.BuyItem(l.ID, 1)
+	//					if err == nil && res.Success {
+	//						i.Balance = i.Balance.Sub(res.Cost)
+	//					} //TODO
+	//				}
+	//			}
+	//		}
+	//		// Buy random thing
+	//		idx := rand.IntN(len(listings))
+	//		l := listings[idx]
+	//
+	//		// Attempt purchase 1 unit
+	//		res, err := m.BuyItem(l.ID, 1)
+	//		if err == nil && res.Success {
+	//			i.Balance = i.Balance.Sub(res.Cost)
+	//			// fmt.Printf("Individual %s bought %s for %.2f\n", i.Name, l.Name, res.Cost)
+	//		}
+	//	}
+	//}
+}
 
-			// Attempt purchase 1 unit
-			res, err := m.BuyItem(l.ID, 1)
-			if err == nil && res.Success {
-				i.Balance = i.Balance.Sub(res.Cost)
-				// fmt.Printf("Individual %s bought %s for %.2f\n", i.Name, l.Name, res.Cost)
-			}
-		}
-	}
+func (i *Individual) SetNeeds(needs map[string]float64) {
+	i.Needs = needs
 }
