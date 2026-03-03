@@ -59,9 +59,10 @@ func (r LoanPaymentRepository) GetById(ctx context.Context, id int32) (*loan.Loa
 }
 
 func (r LoanPaymentRepository) Add(ctx context.Context, loanPayment *loan.LoanPayment) (*loan.LoanPayment, error) {
+	amount := loanPayment.Amount.String()
 	req := &pb.AddLoanPaymentRequest{
 		LoanId:      loanPayment.LoanID,
-		Amount:      loanPayment.Amount,
+		Amount:      &amount,
 		PaymentDate: ToDateOnly(loanPayment.PaymentDate),
 		IsPaid:      loanPayment.IsPaid,
 	}
@@ -73,10 +74,11 @@ func (r LoanPaymentRepository) Add(ctx context.Context, loanPayment *loan.LoanPa
 }
 
 func (r LoanPaymentRepository) Update(ctx context.Context, loanPayment *loan.LoanPayment) error {
+	amount := loanPayment.Amount.String()
 	req := &pb.UpdateLoanPaymentRequest{
 		PaymentId:   loanPayment.PaymentID,
 		LoanId:      loanPayment.LoanID,
-		Amount:      loanPayment.Amount,
+		Amount:      &amount,
 		PaymentDate: ToDateOnly(loanPayment.PaymentDate),
 		IsPaid:      loanPayment.IsPaid,
 	}

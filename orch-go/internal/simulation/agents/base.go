@@ -2,9 +2,11 @@ package agents
 
 import (
 	simcontext "orch-go/internal/simulation/context"
+	"sync"
 
 	"github.com/google/uuid"
 	"github.com/shopspring/decimal"
+	"golang.org/x/sync/errgroup"
 )
 
 // Agent is the main interface that all simulation agents must implement.
@@ -78,3 +80,57 @@ func (b *BaseAgent) UpdateBalanceInfo(ctx simcontext.AgentContext) {
 	}
 	b.Balance = acc.Balance
 }
+
+func (b *BaseAgent) GetAmountOfDebt(ctx simcontext.AgentContext) (decimal.Decimal, error) {
+	loans, err := ctx.Services().LoanService.GetLoansByCustomer(ctx, *b.GetCustomerID())
+	if err != nil {
+		return decimal.Zero, err
+	}
+	var totalDebt decimal.Decimal
+	var mu sync.Mutex
+
+	g, gCtx := errgroup.WithContext(ctx)
+	g.SetLimit(10)
+
+	for _, loan := range loans {
+		g.Go(func() error {
+			payments, err := ctx.Services().LoanService.GetLoanPaymentsByLoan(gCtx, loan.LoanID)
+			if err != nil {
+				return err
+			}
+			var loanDebt decimal.Decimal
+			for _, payment := range payments {
+				if *payment.IsPaid == false {
+					loanDebt = loanDebt.Add(payment.Amount)
+				}
+			}
+
+			mu.Lock()
+			totalDebt = totalDebt.Add(loanDebt)
+			mu.Unlock()
+
+			return nil
+		})
+	}
+	if err := g.Wait(); err != nil {
+		return decimal.Zero, err
+	}
+	return totalDebt, nil
+}
+
+//func (b *BaseAgent) GetMonthlyDebt(ctx simcontext.AgentContext) (decimal.Decimal, error) {
+//	loans, err := ctx.Services().LoanService.GetLoansByCustomer(ctx, *b.GetCustomerID())
+//	if err != nil {
+//		return decimal.Zero, err
+//	}
+//	var monthlyDebt decimal.Decimal
+//	var mu sync.Mutex
+//
+//	g, gCtx := errgroup.WithContext(ctx)
+//	g.SetLimit(10)
+//	ctx.
+//
+//	for _, loan := range loans {
+//
+//
+//}

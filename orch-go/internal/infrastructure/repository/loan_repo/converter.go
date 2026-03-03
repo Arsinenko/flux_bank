@@ -4,6 +4,8 @@ import (
 	pb "orch-go/api/generated"
 	"orch-go/internal/domain/loan"
 	"time"
+
+	"github.com/shopspring/decimal"
 )
 
 func ToLoanDomain(p *pb.LoanModel) *loan.Loan {
@@ -50,10 +52,11 @@ func ToLoanPaymentDomain(p *pb.LoanPaymentModel) *loan.LoanPayment {
 	if p.PaymentDate != nil {
 		paymentDate = time.Date(int(p.PaymentDate.Year), time.Month(p.PaymentDate.Month), int(p.PaymentDate.Day), 0, 0, 0, 0, time.UTC)
 	}
+	amount, _ := decimal.NewFromString(*p.Amount)
 	return &loan.LoanPayment{
 		PaymentID:   p.PaymentId,
 		LoanID:      p.LoanId,
-		Amount:      p.Amount,
+		Amount:      amount,
 		PaymentDate: &paymentDate,
 		IsPaid:      p.IsPaid,
 	}
@@ -63,10 +66,11 @@ func FromLoanPaymentDomain(lp *loan.LoanPayment) *pb.LoanPaymentModel {
 	if lp == nil {
 		return nil
 	}
+	amount := lp.Amount.String()
 	return &pb.LoanPaymentModel{
 		PaymentId: lp.PaymentID,
 		LoanId:    lp.LoanID,
-		Amount:    lp.Amount,
+		Amount:    &amount,
 		IsPaid:    lp.IsPaid,
 	}
 }

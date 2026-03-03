@@ -56,3 +56,24 @@ func (b *BuyFoodAction) Score(a *agents.Individual, ctx simcontext.AgentContext)
 
 	return ResponseCurve(hunger, 2.0) * canAfford
 }
+
+//type TakeLoanAction struct{}
+//
+//func (t TakeLoanAction) Score(a *agents.Individual, ctx simcontext.AgentContext) float64 {
+//	despair := Linear(a.Balance.InexactFloat64(), 50, -100)
+//
+//	// 2. Инвертируем: чем меньше баланс, тем выше Score
+//	score := ResponseCurve(despair, 1.5)
+//
+//	// Если у агента уже огромные долги, Score можно снизить (страх невозврата)
+//	if i.DebtTotal.GreaterThan(decimal.NewFromInt(5000)) {
+//		score *= 0.5
+//	}
+//
+//	return score
+//}
+//
+//func (t TakeLoanAction) Execute(a *agents.Individual, ctx simcontext.AgentContext) error {
+//	//TODO implement me
+//	panic("implement me")
+//}

@@ -1,6 +1,10 @@
 package loan
 
-import "time"
+import (
+	"time"
+
+	"github.com/shopspring/decimal"
+)
 
 type Loan struct {
 	LoanID       int32
@@ -15,7 +19,7 @@ type Loan struct {
 type LoanPayment struct {
 	PaymentID   int32
 	LoanID      *int32
-	Amount      *string
+	Amount      decimal.Decimal
 	PaymentDate *time.Time
 	IsPaid      *bool
 }
