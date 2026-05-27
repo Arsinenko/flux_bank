@@ -14,6 +14,20 @@ import (
 // TODO: В TransactionService не хватает методов для получения транзакции
 // с проверкой принадлежности клиенту. Пришлось делать дополнительные запросы в AccountService.
 
+// CreateTransactionHandler godoc
+// @Summary      Create transaction
+// @Description  Creates a new transaction from the authenticated customer's account to a target account
+// @Tags         transactions
+// @Accept       json
+// @Produce      json
+// @Security     BearerAuth
+// @Param        request  body      transaction.Transaction  true  "Transaction details"
+// @Success      201      {object}  transaction.Transaction
+// @Failure      400      {object}  map[string]string "Bad Request"
+// @Failure      403      {object}  map[string]string "Forbidden"
+// @Failure      404      {object}  map[string]string "Not Found"
+// @Failure      500      {object}  map[string]string "Internal Server Error"
+// @Router       /transaction/ [post]
 func CreateTransactionHandler(transactionService services.TransactionService, accountService services.AccountService) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		customerId, done := GetIdFromRequest(c)
@@ -52,6 +66,21 @@ func CreateTransactionHandler(transactionService services.TransactionService, ac
 	}
 }
 
+// GetTransactionsByAccountIdHandler godoc
+// @Summary      Get transactions by account ID in date range
+// @Description  Retrieves transactions for a given account within a specific date range. The account must belong to the authenticated customer.
+// @Tags         transactions
+// @Accept       json
+// @Produce      json
+// @Security     BearerAuth
+// @Param        accountId  path      int  true  "Account ID"
+// @Param        request    body      transaction.GetByDateRange  true  "Date range filters"
+// @Success      200        {array}   transaction.Transaction
+// @Failure      400        {object}  map[string]string "Bad Request"
+// @Failure      403        {object}  map[string]string "Forbidden"
+// @Failure      404        {object}  map[string]string "Not Found"
+// @Failure      500        {object}  map[string]string "Internal Server Error"
+// @Router       /transaction/account/{accountId} [post]
 func GetTransactionsByAccountIdHandler(transactionService services.TransactionService, accountService services.AccountService) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		customerId, done := GetIdFromRequest(c)
@@ -92,6 +121,19 @@ func GetTransactionsByAccountIdHandler(transactionService services.TransactionSe
 	}
 }
 
+// GetTransactionByIdHandler godoc
+// @Summary      Get transaction by ID
+// @Description  Retrieves details of a specific transaction by ID, provided the authenticated customer owns either the source or target account
+// @Tags         transactions
+// @Accept       json
+// @Produce      json
+// @Security     BearerAuth
+// @Param        id   path      int  true  "Transaction ID"
+// @Success      200  {object}  transaction.Transaction
+// @Failure      400  {object}  map[string]string "Bad Request"
+// @Failure      403  {object}  map[string]string "Forbidden"
+// @Failure      404  {object}  map[string]string "Not Found"
+// @Router       /transaction/{id} [get]
 func GetTransactionByIdHandler(transactionService services.TransactionService, accountService services.AccountService) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		customerId, done := GetIdFromRequest(c)
@@ -130,6 +172,19 @@ func GetTransactionByIdHandler(transactionService services.TransactionService, a
 	}
 }
 
+// GetAllTransactionCategoriesHandler godoc
+// @Summary      Get all transaction categories
+// @Description  Retrieves a paginated list of all transaction categories
+// @Tags         transactions
+// @Accept       json
+// @Produce      json
+// @Param        pageN     query     int   false  "Page number (default: 1)"
+// @Param        pageSize  query     int   false  "Page size (default: 10)"
+// @Param        orderBy   query     string  false  "Order by field (default: id)"
+// @Param        isDesc    query     bool  false  "Descending order (default: false)"
+// @Success      200       {array}   transaction.TransactionCategory
+// @Failure      500       {object}  map[string]string "Internal Server Error"
+// @Router       /transaction/categories [get]
 func GetAllTransactionCategoriesHandler(s services.TransactionService) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		pageN, _ := strconv.Atoi(c.DefaultQuery("pageN", "1"))

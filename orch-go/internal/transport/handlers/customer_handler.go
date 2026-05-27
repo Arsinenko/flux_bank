@@ -33,17 +33,50 @@ type customerAddressRest struct {
 	IsPrimary  bool   `json:"is_primary"`
 }
 
-func toRest(customer *customer.Customer) customerRest {
+type RegisterCustomerModel struct {
+	customerRest
+	Login     string              `json:"login"`
+	Password  string              `json:"password"`
+	BirthDate time.Time           `json:"birth_date"`
+	Address   customerAddressRest `json:"address"`
+}
+
+type UpdateCredsModel struct {
+	Login    string `json:"login"`
+	Password string `json:"password"`
+}
+
+type LoginModel struct {
+	Login    string `json:"login"`
+	Password string `json:"password"`
+}
+
+type UpdateAddressModel struct {
+	Id int32 `json:"id"`
+	customerAddressRest
+}
+
+func toRest(cust *customer.Customer) customerRest {
 	restModel := customerRest{
-		Id:        customer.Id,
-		FirstName: customer.FirstName,
-		LastName:  customer.LastName,
-		Email:     customer.Email,
-		Phone:     customer.Phone,
+		Id:        cust.Id,
+		FirstName: cust.FirstName,
+		LastName:  cust.LastName,
+		Email:     cust.Email,
+		Phone:     cust.Phone,
 	}
 	return restModel
 }
 
+// GetCustomerByIdHandler godoc
+// @Summary      Get customer by ID
+// @Description  Retrieves details of a specific customer by ID
+// @Tags         customers
+// @Accept       json
+// @Produce      json
+// @Param        id   path      int  true  "Customer ID"
+// @Success      200  {object}  customerRest
+// @Failure      400  {object}  map[string]string "Bad Request"
+// @Router       /customer/{id} [get]
 func GetCustomerByIdHandler(s services.CustomerService) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		id, err := strconv.Atoi(c.Param("id"))
@@ -64,6 +97,16 @@ func GetCustomerByIdHandler(s services.CustomerService) gin.HandlerFunc {
 	}
 }
 
+// GetBySubstringHandler godoc
+// @Summary      Search customers by substring
+// @Description  Search customers whose details match the given substring
+// @Tags         customers
+// @Accept       json
+// @Produce      json
+// @Param        substr  path      string  true  "Search substring"
+// @Success      200     {array}   customer.Customer
+// @Failure      400     {object}  map[string]string "Bad Request"
+// @Router       /customer/search/{substr} [get]
 func GetBySubstringHandler(s services.CustomerService) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		substring := c.Param("substr")
@@ -91,6 +134,17 @@ func GetBySubstringHandler(s services.CustomerService) gin.HandlerFunc {
 	}
 }
 
+// GetSelfHandler godoc
+// @Summary      Get current customer (self)
+// @Description  Retrieves profile information of the currently authenticated customer
+// @Tags         customers
+// @Accept       json
+// @Produce      json
+// @Security     BearerAuth
+// @Success      200  {object}  object{id=int32,first_name=string,last_name=string,email=string,phone=string,birth_date=time.Time,created_at=time.Time}
+// @Failure      400  {object}  map[string]string "Bad Request"
+// @Failure      401  {object}  map[string]string "Unauthorized"
+// @Router       /customer/self [get]
 func GetSelfHandler(s services.CustomerService) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		id, done := GetIdFromRequest(c)
@@ -140,18 +194,21 @@ func GetIdFromRequest(c *gin.Context) (int32, bool) {
 	return id, false
 }
 
+// RegisterCustomerHandler godoc
+// @Summary      Register customer
+// @Description  Registers a new customer along with their address and login credentials
+// @Tags         customers
+// @Accept       json
+// @Produce      json
+// @Param        request  body      RegisterCustomerModel  true  "Registration data"
+// @Success      200      {object}  map[string]string "Returns JWT token"
+// @Failure      400      {object}  map[string]string "Bad Request"
+// @Failure      500      {object}  map[string]string "Internal Server Error"
+// @Router       /customer/register [post]
 func RegisterCustomerHandler(customerService services.CustomerService,
 	credService services.UserCredentialService,
 	addressService services.CustomerAddressService) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		type RegisterCustomerModel struct {
-			customerRest
-			Login     string              `json:"login"`
-			Password  string              `json:"password"`
-			BirthDate time.Time           `json:"birth_date"`
-			Address   customerAddressRest `json:"address"`
-		}
-
 		var model RegisterCustomerModel
 		if err := c.ShouldBindJSON(&model); err != nil {
 			c.JSON(400, gin.H{"error": err.Error()})
@@ -211,12 +268,20 @@ func RegisterCustomerHandler(customerService services.CustomerService,
 	}
 }
 
+// UpdateUserCredHandler godoc
+// @Summary      Update user credentials
+// @Description  Updates the password and/or username for the authenticated customer
+// @Tags         customers
+// @Accept       json
+// @Produce      json
+// @Security     BearerAuth
+// @Param        request  body      UpdateCredsModel  true  "New credentials"
+// @Success      200      {object}  map[string]string "credentials updated"
+// @Failure      400      {object}  map[string]string "Bad Request"
+// @Failure      401      {object}  map[string]string "Unauthorized"
+// @Router       /customer/credentials [put]
 func UpdateUserCredHandler(customerService services.CustomerService, credService services.UserCredentialService) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		type UpdateCredsModel struct {
-			Login    string `json:"login"`
-			Password string `json:"password"`
-		}
 		var model UpdateCredsModel
 
 		if err := c.ShouldBindJSON(&model); err != nil {
@@ -248,13 +313,18 @@ func UpdateUserCredHandler(customerService services.CustomerService, credService
 	}
 }
 
+// LoginHandler godoc
+// @Summary      Login customer
+// @Description  Authenticates a customer and returns a JWT token
+// @Tags         customers
+// @Accept       json
+// @Produce      json
+// @Param        request  body      LoginModel  true  "Login credentials"
+// @Success      200      {string}  string "Returns JWT token"
+// @Failure      400      {object}  map[string]string "Bad Request"
+// @Router       /customer/login [post]
 func LoginHandler(credService services.UserCredentialService) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		type LoginModel struct {
-			Login    string `json:"login"`
-			Password string `json:"password"`
-		}
-
 		var model LoginModel
 		if err := c.ShouldBindJSON(&model); err != nil {
 			c.JSON(400, gin.H{"error": err.Error()})
@@ -283,6 +353,19 @@ func LoginHandler(credService services.UserCredentialService) gin.HandlerFunc {
 		return
 	}
 }
+
+// AddCustomerAddressHandler godoc
+// @Summary      Add customer address
+// @Description  Adds a new address for the authenticated customer
+// @Tags         customers
+// @Accept       json
+// @Produce      json
+// @Security     BearerAuth
+// @Param        request  body      customerAddressRest  true  "Address details"
+// @Success      200      {object}  customer_address.CustomerAddress
+// @Failure      400      {object}  map[string]string "Bad Request"
+// @Failure      401      {object}  map[string]string "Unauthorized"
+// @Router       /customer/address [post]
 func AddCustomerAddressHandler(s services.CustomerAddressService) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var model customerAddressRest
@@ -317,12 +400,21 @@ func AddCustomerAddressHandler(s services.CustomerAddressService) gin.HandlerFun
 
 }
 
+// UpdateCustomerAddressHandler godoc
+// @Summary      Update customer address
+// @Description  Updates an existing address for the authenticated customer
+// @Tags         customers
+// @Accept       json
+// @Produce      json
+// @Security     BearerAuth
+// @Param        request  body      UpdateAddressModel  true  "Updated address details"
+// @Success      200      {object}  map[string]string "address updated"
+// @Failure      400      {object}  map[string]string "Bad Request"
+// @Failure      401      {object}  map[string]string "Unauthorized"
+// @Router       /customer/address [put]
 func UpdateCustomerAddressHandler(s services.CustomerAddressService) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		var model struct {
-			Id int32 `json:"id"`
-			customerAddressRest
-		}
+		var model UpdateAddressModel
 		if err := c.ShouldBindJSON(&model); err != nil {
 			c.JSON(400, gin.H{"error": err.Error()})
 			return
@@ -353,6 +445,19 @@ func UpdateCustomerAddressHandler(s services.CustomerAddressService) gin.Handler
 	}
 }
 
+// DeleteCustomerAddressHandler godoc
+// @Summary      Delete customer address
+// @Description  Deletes an address by ID for the authenticated customer
+// @Tags         customers
+// @Accept       json
+// @Produce      json
+// @Security     BearerAuth
+// @Param        id   path      int  true  "Address ID"
+// @Success      200  {object}  map[string]string "address deleted"
+// @Failure      400  {object}  map[string]string "Bad Request"
+// @Failure      401  {object}  map[string]string "Unauthorized"
+// @Failure      500  {object}  map[string]string "Internal Server Error"
+// @Router       /customer/address/{id} [delete]
 func DeleteCustomerAddressHandler(s services.CustomerAddressService) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		customerId, done := GetIdFromRequest(c)
@@ -383,6 +488,17 @@ func DeleteCustomerAddressHandler(s services.CustomerAddressService) gin.Handler
 	}
 }
 
+// GetAddressesByCustomerHandler godoc
+// @Summary      Get customer addresses
+// @Description  Retrieves all addresses for the authenticated customer
+// @Tags         customers
+// @Accept       json
+// @Produce      json
+// @Security     BearerAuth
+// @Success      200  {array}   customer_address.CustomerAddress
+// @Failure      400  {object}  map[string]string "Bad Request"
+// @Failure      401  {object}  map[string]string "Unauthorized"
+// @Router       /customer/addresses [get]
 func GetAddressesByCustomerHandler(s services.CustomerAddressService) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		id, done := GetIdFromRequest(c)

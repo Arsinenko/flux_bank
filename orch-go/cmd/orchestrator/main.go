@@ -31,34 +31,12 @@ func main() {
 
 	//FillDb(ctx, serviceContainer)
 	app.CreateTestAccounts(ctx, serviceContainer)
-	// Set up a channel to listen for OS signals
-	//sigs := make(chan os.Signal, 1)
-	//signal.Notify(sigs, syscall.SIGINT, syscall.SIGTERM)
-	//
-	//// Start the simulation in a goroutine
-	//simDone := make(chan error, 1)
-	//go func() {
-	//	fmt.Println("Starting simulation...")
-	//	simDone <- simulation.RunSimulation(ctx, serviceContainer)
-	//}()
-	//FillDb(ctx, serviceContainer)
-	//
-	//// Wait for either the simulation to finish or a signal to be received
-	//select {
-	//case err := <-simDone:
-	//	if err != nil && !errors.Is(err, context.Canceled) {
-	//		fmt.Printf("Simulation finished with error: %v\n", err)
-	//	} else {
-	//		fmt.Println("Simulation finished normally.")
-	//	}
-	//case sig := <-sigs:
-	//	fmt.Printf("Received signal: %s. Shutting down...\n", sig)
-	//	// Cancel the context to signal the simulation to stop
-	//	cancel()
-	//	// Wait for the simulation to acknowledge shutdown and save
-	//	<-simDone
-	//	fmt.Println("Shutdown complete.")
-	//}
+
+	r := app.InitRouter(serviceContainer)
+	fmt.Printf("Starting HTTP server on %s...\n", cfg.Host.Address)
+	if err := r.Run(cfg.Host.Address); err != nil {
+		panic(fmt.Sprintf("Failed to run HTTP server: %v", err))
+	}
 }
 
 func FillDb(ctx context.Context, container *services.ServiceContainer) {

@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	_ "orch-go/internal/domain/card"
 	"orch-go/internal/services"
 	"orch-go/internal/transport/midleware"
 	"os"
@@ -9,6 +10,20 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// GetCardsByAccountIdHandler godoc
+// @Summary      Get cards by account ID
+// @Description  Retrieves all cards associated with a specific account. The account must belong to the authenticated customer.
+// @Tags         cards
+// @Accept       json
+// @Produce      json
+// @Security     BearerAuth
+// @Param        accountId  path      int  true  "Account ID"
+// @Success      200        {array}   card.Card
+// @Failure      400        {object}  map[string]string "Bad Request"
+// @Failure      403        {object}  map[string]string "Forbidden"
+// @Failure      404        {object}  map[string]string "Not Found"
+// @Failure      500        {object}  map[string]string "Internal Server Error"
+// @Router       /card/account/{accountId} [get]
 func GetCardsByAccountIdHandler(cardService services.CardService, accountService services.AccountService) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		customerId, done := GetIdFromRequest(c)
@@ -22,13 +37,13 @@ func GetCardsByAccountIdHandler(cardService services.CardService, accountService
 			return
 		}
 
-		account, err := accountService.GetAccountById(c.Request.Context(), int32(accountId))
+		acc, err := accountService.GetAccountById(c.Request.Context(), int32(accountId))
 		if err != nil {
 			c.JSON(404, gin.H{"error": "account not found"})
 			return
 		}
 
-		if account.CustomerId != customerId {
+		if acc.CustomerId != customerId {
 			c.JSON(403, gin.H{"error": "you are not authorized to view these cards"})
 			return
 		}
@@ -43,6 +58,19 @@ func GetCardsByAccountIdHandler(cardService services.CardService, accountService
 	}
 }
 
+// GetCardByIdHandler godoc
+// @Summary      Get card by ID
+// @Description  Retrieves details of a specific card by its ID, provided the card's account belongs to the authenticated customer.
+// @Tags         cards
+// @Accept       json
+// @Produce      json
+// @Security     BearerAuth
+// @Param        id   path      int  true  "Card ID"
+// @Success      200  {object}  card.Card
+// @Failure      400  {object}  map[string]string "Bad Request"
+// @Failure      403  {object}  map[string]string "Forbidden"
+// @Failure      404  {object}  map[string]string "Not Found"
+// @Router       /card/{id} [get]
 func GetCardByIdHandler(cardService services.CardService, accountService services.AccountService) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		customerId, done := GetIdFromRequest(c)
@@ -56,24 +84,24 @@ func GetCardByIdHandler(cardService services.CardService, accountService service
 			return
 		}
 
-		card, err := cardService.GetCardById(c.Request.Context(), int32(cardId))
+		cardVal, err := cardService.GetCardById(c.Request.Context(), int32(cardId))
 		if err != nil {
 			c.JSON(404, gin.H{"error": "card not found"})
 			return
 		}
 
-		account, err := accountService.GetAccountById(c.Request.Context(), *card.AccountID)
+		acc, err := accountService.GetAccountById(c.Request.Context(), *cardVal.AccountID)
 		if err != nil {
 			c.JSON(404, gin.H{"error": "account not found"})
 			return
 		}
 
-		if account.CustomerId != customerId {
+		if acc.CustomerId != customerId {
 			c.JSON(403, gin.H{"error": "you are not authorized to view this card"})
 			return
 		}
 
-		c.JSON(200, card)
+		c.JSON(200, cardVal)
 	}
 }
 

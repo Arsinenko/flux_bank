@@ -1,12 +1,24 @@
 package handlers
 
 import (
+	_ "orch-go/internal/domain/exchange_rate"
 	"orch-go/internal/services"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
 
+// GetExchangeRatesByBaseCurrencyHandler godoc
+// @Summary      Get exchange rates by base currency
+// @Description  Retrieves all exchange rates matching the specified base currency
+// @Tags         exchange-rates
+// @Accept       json
+// @Produce      json
+// @Param        baseCurrency  path      string  true  "Base Currency Code (e.g. USD)"
+// @Success      200           {array}   exchange_rate.ExchangeRate
+// @Failure      400           {object}  map[string]string "Bad Request"
+// @Failure      500           {object}  map[string]string "Internal Server Error"
+// @Router       /exchange-rate/{baseCurrency} [get]
 func GetExchangeRatesByBaseCurrencyHandler(s services.ExchangeRateService) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		baseCurrency := c.Param("baseCurrency")
@@ -25,6 +37,19 @@ func GetExchangeRatesByBaseCurrencyHandler(s services.ExchangeRateService) gin.H
 	}
 }
 
+// GetAllExchangeRatesHandler godoc
+// @Summary      Get all exchange rates
+// @Description  Retrieves a paginated list of all exchange rates
+// @Tags         exchange-rates
+// @Accept       json
+// @Produce      json
+// @Param        pageN     query     int   false  "Page number (default: 1)"
+// @Param        pageSize  query     int   false  "Page size (default: 10)"
+// @Param        orderBy   query     string  false  "Order by field (default: id)"
+// @Param        isDesc    query     bool  false  "Descending order (default: false)"
+// @Success      200       {array}   exchange_rate.ExchangeRate
+// @Failure      500       {object}  map[string]string "Internal Server Error"
+// @Router       /exchange-rate/ [get]
 func GetAllExchangeRatesHandler(s services.ExchangeRateService) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		pageN, _ := strconv.Atoi(c.DefaultQuery("pageN", "1"))

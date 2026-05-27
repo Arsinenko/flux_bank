@@ -2,7 +2,7 @@ package handlers
 
 import (
 	"github.com/shopspring/decimal"
-	account2 "orch-go/internal/domain/account"
+	"orch-go/internal/domain/account"
 	"orch-go/internal/services"
 	"orch-go/internal/transport/midleware"
 	"os"
@@ -12,13 +12,24 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// CreateAccountHandler godoc
+// @Summary      Create account
+// @Description  Creates a new account with default parameters (type_id=1, balance=100) for the authenticated customer
+// @Tags         accounts
+// @Accept       json
+// @Produce      json
+// @Security     BearerAuth
+// @Success      200  {object}  account.Account
+// @Failure      400  {object}  map[string]string "Bad Request"
+// @Failure      401  {object}  map[string]string "Unauthorized"
+// @Router       /account [post]
 func CreateAccountHandler(s services.AccountService) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		customerId, done := GetIdFromRequest(c)
 		if done {
 			return
 		}
-		account, err := s.CreateAccount(c.Request.Context(), &account2.Account{
+		acc, err := s.CreateAccount(c.Request.Context(), &account.Account{
 			Id:         nil,
 			CustomerId: customerId,
 			TypeId:     1,
@@ -31,11 +42,22 @@ func CreateAccountHandler(s services.AccountService) gin.HandlerFunc {
 			c.JSON(400, gin.H{"error": err.Error()})
 			return
 		}
-		c.JSON(200, account)
+		c.JSON(200, acc)
 		return
 	}
 }
 
+// GetUserAccountsHandler godoc
+// @Summary      Get user accounts
+// @Description  Retrieves all accounts belonging to the authenticated customer
+// @Tags         accounts
+// @Accept       json
+// @Produce      json
+// @Security     BearerAuth
+// @Success      200  {array}   account.Account
+// @Failure      400  {object}  map[string]string "Bad Request"
+// @Failure      401  {object}  map[string]string "Unauthorized"
+// @Router       /account [get]
 func GetUserAccountsHandler(s services.AccountService) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		customerId, done := GetIdFromRequest(c)
@@ -53,6 +75,16 @@ func GetUserAccountsHandler(s services.AccountService) gin.HandlerFunc {
 	}
 }
 
+// GetAccountsIdsByCustomer godoc
+// @Summary      Get account IDs by customer ID
+// @Description  Retrieves a list of account IDs associated with a specific customer ID
+// @Tags         accounts
+// @Accept       json
+// @Produce      json
+// @Param        id   path      int  true  "Customer ID"
+// @Success      200  {array}   int32
+// @Failure      400  {object}  map[string]string "Bad Request"
+// @Router       /account/customer/{id}/ids [get]
 func GetAccountsIdsByCustomer(s services.AccountService) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		customerId, err := strconv.Atoi(c.Param("id"))
@@ -74,9 +106,20 @@ func GetAccountsIdsByCustomer(s services.AccountService) gin.HandlerFunc {
 	}
 }
 
+// UpdateAccountHandler godoc
+// @Summary      Update account
+// @Description  Updates an existing account. The customer ID of the request must match the customer ID of the database account.
+// @Tags         accounts
+// @Accept       json
+// @Produce      json
+// @Security     BearerAuth
+// @Param        account  body      account.Account  true  "Account data to update"
+// @Success      200      {object}  map[string]string "account updated"
+// @Failure      400      {object}  map[string]string "Bad Request"
+// @Router       /account [put]
 func UpdateAccountHandler(s services.AccountService) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		var model account2.Account
+		var model account.Account
 		if err := c.ShouldBindJSON(&model); err != nil {
 			c.JSON(400, gin.H{"error": err.Error()})
 			return
@@ -103,6 +146,18 @@ func UpdateAccountHandler(s services.AccountService) gin.HandlerFunc {
 	}
 }
 
+// GetAccountByIdHandler godoc
+// @Summary      Get account by ID
+// @Description  Retrieves an account by its ID, but only if it belongs to the authenticated customer
+// @Tags         accounts
+// @Accept       json
+// @Produce      json
+// @Security     BearerAuth
+// @Param        id   path      int  true  "Account ID"
+// @Success      200  {object}  account.Account
+// @Failure      400  {object}  map[string]string "Bad Request"
+// @Failure      401  {object}  map[string]string "Unauthorized"
+// @Router       /account/{id} [get]
 func GetAccountByIdHandler(s services.AccountService) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		customerId, done := GetIdFromRequest(c)
@@ -114,16 +169,16 @@ func GetAccountByIdHandler(s services.AccountService) gin.HandlerFunc {
 			c.JSON(400, gin.H{"error": err.Error()})
 			return
 		}
-		account, err := s.GetAccountById(c.Request.Context(), int32(id))
+		acc, err := s.GetAccountById(c.Request.Context(), int32(id))
 		if err != nil {
 			c.JSON(400, gin.H{"error": err.Error()})
 			return
 		}
-		if account.CustomerId != customerId {
+		if acc.CustomerId != customerId {
 			c.JSON(400, "not your account")
 			return
 		}
-		c.JSON(200, account)
+		c.JSON(200, acc)
 		return
 	}
 }

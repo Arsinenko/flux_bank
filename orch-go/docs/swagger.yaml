@@ -1,0 +1,1569 @@
+definitions:
+  internal_transport_handlers.LoginModel:
+    properties:
+      login:
+        type: string
+      password:
+        type: string
+    type: object
+  internal_transport_handlers.RegisterCustomerModel:
+    properties:
+      address:
+        $ref: '#/definitions/internal_transport_handlers.customerAddressRest'
+      birth_date:
+        type: string
+      email:
+        type: string
+      firstName:
+        type: string
+      id:
+        type: integer
+      last_name:
+        type: string
+      login:
+        type: string
+      password:
+        type: string
+      phone:
+        type: string
+    type: object
+  internal_transport_handlers.UpdateAddressModel:
+    properties:
+      city:
+        type: string
+      country:
+        type: string
+      customer_id:
+        type: integer
+      id:
+        type: integer
+      is_primary:
+        type: boolean
+      street:
+        type: string
+      zip_code:
+        type: string
+    type: object
+  internal_transport_handlers.UpdateCredsModel:
+    properties:
+      login:
+        type: string
+      password:
+        type: string
+    type: object
+  internal_transport_handlers.customerAddressRest:
+    properties:
+      city:
+        type: string
+      country:
+        type: string
+      customer_id:
+        type: integer
+      is_primary:
+        type: boolean
+      street:
+        type: string
+      zip_code:
+        type: string
+    type: object
+  internal_transport_handlers.customerRest:
+    properties:
+      email:
+        type: string
+      firstName:
+        type: string
+      id:
+        type: integer
+      last_name:
+        type: string
+      phone:
+        type: string
+    type: object
+  orch-go_internal_domain_account.Account:
+    properties:
+      balance:
+        type: number
+      created_at:
+        type: string
+      customer_id:
+        type: integer
+      iban:
+        type: string
+      id:
+        type: integer
+      is_active:
+        type: boolean
+      type_id:
+        type: integer
+    type: object
+  orch-go_internal_domain_atm.Atm:
+    properties:
+      atmID:
+        format: int32
+        type: integer
+      branchID:
+        format: int32
+        type: integer
+      location:
+        type: string
+      status:
+        type: string
+    type: object
+  orch-go_internal_domain_branch.Branch:
+    properties:
+      address:
+        type: string
+      branchID:
+        format: int32
+        type: integer
+      city:
+        type: string
+      name:
+        type: string
+      phone:
+        type: string
+    type: object
+  orch-go_internal_domain_card.Card:
+    properties:
+      accountID:
+        format: int32
+        type: integer
+      cardID:
+        format: int32
+        type: integer
+      cardNumber:
+        type: string
+      cvv:
+        type: string
+      expiryDate:
+        type: string
+      status:
+        type: string
+    type: object
+  orch-go_internal_domain_customer.Customer:
+    properties:
+      birthDate:
+        type: string
+      createdAt:
+        type: string
+      email:
+        type: string
+      firstName:
+        type: string
+      id:
+        format: int32
+        type: integer
+      lastName:
+        type: string
+      phone:
+        type: string
+    type: object
+  orch-go_internal_domain_customer_address.CustomerAddress:
+    properties:
+      city:
+        type: string
+      country:
+        type: string
+      customer_id:
+        type: integer
+      id:
+        type: integer
+      is_primary:
+        type: boolean
+      street:
+        type: string
+      zip_code:
+        type: string
+    type: object
+  orch-go_internal_domain_deposit.Deposit:
+    properties:
+      amount:
+        type: string
+      customerID:
+        format: int32
+        type: integer
+      depositID:
+        format: int32
+        type: integer
+      endDate:
+        type: string
+      interestRate:
+        type: string
+      startDate:
+        type: string
+      status:
+        type: string
+    type: object
+  orch-go_internal_domain_exchange_rate.ExchangeRate:
+    properties:
+      baseCurrency:
+        type: string
+      rate:
+        type: string
+      rateID:
+        format: int32
+        type: integer
+      targetCurrency:
+        type: string
+      updatedAt:
+        type: string
+    type: object
+  orch-go_internal_domain_loan.Loan:
+    properties:
+      customerID:
+        format: int32
+        type: integer
+      endDate:
+        type: string
+      interestRate:
+        type: string
+      loanID:
+        format: int32
+        type: integer
+      principal:
+        type: string
+      startDate:
+        type: string
+      status:
+        type: string
+    type: object
+  orch-go_internal_domain_loan.LoanPayment:
+    properties:
+      amount:
+        type: number
+      isPaid:
+        type: boolean
+      loanID:
+        format: int32
+        type: integer
+      paymentDate:
+        type: string
+      paymentID:
+        format: int32
+        type: integer
+    type: object
+  orch-go_internal_domain_transaction.GetByDateRange:
+    properties:
+      from:
+        type: string
+      pageN:
+        format: int32
+        type: integer
+      pageSize:
+        format: int32
+        type: integer
+      to:
+        type: string
+    type: object
+  orch-go_internal_domain_transaction.Transaction:
+    properties:
+      amount:
+        type: number
+      createdAt:
+        type: string
+      currency:
+        type: string
+      sourceAccount:
+        format: int32
+        type: integer
+      status:
+        type: string
+      targetAccount:
+        format: int32
+        type: integer
+      transactionID:
+        format: int32
+        type: integer
+    type: object
+  orch-go_internal_domain_transaction.TransactionCategory:
+    properties:
+      categoryID:
+        format: int32
+        type: integer
+      name:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /account:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves all accounts belonging to the authenticated customer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/orch-go_internal_domain_account.Account'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get user accounts
+      tags:
+      - accounts
+    post:
+      consumes:
+      - application/json
+      description: Creates a new account with default parameters (type_id=1, balance=100)
+        for the authenticated customer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/orch-go_internal_domain_account.Account'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Create account
+      tags:
+      - accounts
+    put:
+      consumes:
+      - application/json
+      description: Updates an existing account. The customer ID of the request must
+        match the customer ID of the database account.
+      parameters:
+      - description: Account data to update
+        in: body
+        name: account
+        required: true
+        schema:
+          $ref: '#/definitions/orch-go_internal_domain_account.Account'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: account updated
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Update account
+      tags:
+      - accounts
+  /account/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves an account by its ID, but only if it belongs to the authenticated
+        customer
+      parameters:
+      - description: Account ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/orch-go_internal_domain_account.Account'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get account by ID
+      tags:
+      - accounts
+  /account/customer/{id}/ids:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves a list of account IDs associated with a specific customer
+        ID
+      parameters:
+      - description: Customer ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              format: int32
+              type: integer
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get account IDs by customer ID
+      tags:
+      - accounts
+  /atm/:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves a paginated list of all ATMs
+      parameters:
+      - description: 'Page number (default: 1)'
+        in: query
+        name: pageN
+        type: integer
+      - description: 'Page size (default: 10)'
+        in: query
+        name: pageSize
+        type: integer
+      - description: 'Order by field (default: id)'
+        in: query
+        name: orderBy
+        type: string
+      - description: 'Descending order (default: false)'
+        in: query
+        name: isDesc
+        type: boolean
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/orch-go_internal_domain_atm.Atm'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get all ATMs
+      tags:
+      - atms
+  /atm/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves details of a specific ATM by its ID
+      parameters:
+      - description: ATM ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/orch-go_internal_domain_atm.Atm'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get ATM by ID
+      tags:
+      - atms
+  /atm/branch/{branchId}:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves all ATMs located at a specific branch
+      parameters:
+      - description: Branch ID
+        in: path
+        name: branchId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/orch-go_internal_domain_atm.Atm'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get ATMs by branch ID
+      tags:
+      - atms
+  /atm/location:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves a list of ATMs where the location matches a substring
+        query
+      parameters:
+      - description: Location query string
+        in: query
+        name: q
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/orch-go_internal_domain_atm.Atm'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get ATMs by location substring
+      tags:
+      - atms
+  /atm/status/{status}:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves a list of ATMs filtered by status
+      parameters:
+      - description: ATM Status
+        in: path
+        name: status
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/orch-go_internal_domain_atm.Atm'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get ATMs by status
+      tags:
+      - atms
+  /branch/:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves a paginated list of all branches
+      parameters:
+      - description: 'Page number (default: 0)'
+        in: query
+        name: page_n
+        type: integer
+      - description: 'Page size (default: 0)'
+        in: query
+        name: page_size
+        type: integer
+      - description: 'Order by field (default: id)'
+        in: query
+        name: orderBy
+        type: string
+      - description: 'Descending order (default: false)'
+        in: query
+        name: is_desc
+        type: boolean
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/orch-go_internal_domain_branch.Branch'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get all branches
+      tags:
+      - branches
+  /branch/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves details of a specific branch by its ID
+      parameters:
+      - description: Branch ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/orch-go_internal_domain_branch.Branch'
+        "404":
+          description: Branch Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get branch by ID
+      tags:
+      - branches
+  /card/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves details of a specific card by its ID, provided the card's
+        account belongs to the authenticated customer.
+      parameters:
+      - description: Card ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/orch-go_internal_domain_card.Card'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "403":
+          description: Forbidden
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get card by ID
+      tags:
+      - cards
+  /card/account/{accountId}:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves all cards associated with a specific account. The account
+        must belong to the authenticated customer.
+      parameters:
+      - description: Account ID
+        in: path
+        name: accountId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/orch-go_internal_domain_card.Card'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "403":
+          description: Forbidden
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get cards by account ID
+      tags:
+      - cards
+  /customer/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves details of a specific customer by ID
+      parameters:
+      - description: Customer ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_transport_handlers.customerRest'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get customer by ID
+      tags:
+      - customers
+  /customer/address:
+    post:
+      consumes:
+      - application/json
+      description: Adds a new address for the authenticated customer
+      parameters:
+      - description: Address details
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/internal_transport_handlers.customerAddressRest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/orch-go_internal_domain_customer_address.CustomerAddress'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Add customer address
+      tags:
+      - customers
+    put:
+      consumes:
+      - application/json
+      description: Updates an existing address for the authenticated customer
+      parameters:
+      - description: Updated address details
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/internal_transport_handlers.UpdateAddressModel'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: address updated
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Update customer address
+      tags:
+      - customers
+  /customer/address/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Deletes an address by ID for the authenticated customer
+      parameters:
+      - description: Address ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: address deleted
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Delete customer address
+      tags:
+      - customers
+  /customer/addresses:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves all addresses for the authenticated customer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/orch-go_internal_domain_customer_address.CustomerAddress'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get customer addresses
+      tags:
+      - customers
+  /customer/credentials:
+    put:
+      consumes:
+      - application/json
+      description: Updates the password and/or username for the authenticated customer
+      parameters:
+      - description: New credentials
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/internal_transport_handlers.UpdateCredsModel'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: credentials updated
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Update user credentials
+      tags:
+      - customers
+  /customer/login:
+    post:
+      consumes:
+      - application/json
+      description: Authenticates a customer and returns a JWT token
+      parameters:
+      - description: Login credentials
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/internal_transport_handlers.LoginModel'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Returns JWT token
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Login customer
+      tags:
+      - customers
+  /customer/register:
+    post:
+      consumes:
+      - application/json
+      description: Registers a new customer along with their address and login credentials
+      parameters:
+      - description: Registration data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/internal_transport_handlers.RegisterCustomerModel'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Returns JWT token
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Register customer
+      tags:
+      - customers
+  /customer/search/{substr}:
+    get:
+      consumes:
+      - application/json
+      description: Search customers whose details match the given substring
+      parameters:
+      - description: Search substring
+        in: path
+        name: substr
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/orch-go_internal_domain_customer.Customer'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Search customers by substring
+      tags:
+      - customers
+  /customer/self:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves profile information of the currently authenticated customer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            properties:
+              birth_date:
+                type: string
+              created_at:
+                type: string
+              email:
+                type: string
+              first_name:
+                type: string
+              id:
+                format: int32
+                type: integer
+              last_name:
+                type: string
+              phone:
+                type: string
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get current customer (self)
+      tags:
+      - customers
+  /deposit/:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves all deposits associated with the authenticated customer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/orch-go_internal_domain_deposit.Deposit'
+            type: array
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get customer deposits
+      tags:
+      - deposits
+  /deposit/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves details of a specific deposit by its ID, provided it
+        belongs to the authenticated customer
+      parameters:
+      - description: Deposit ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/orch-go_internal_domain_deposit.Deposit'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "403":
+          description: Forbidden
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get deposit by ID
+      tags:
+      - deposits
+  /exchange-rate/:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves a paginated list of all exchange rates
+      parameters:
+      - description: 'Page number (default: 1)'
+        in: query
+        name: pageN
+        type: integer
+      - description: 'Page size (default: 10)'
+        in: query
+        name: pageSize
+        type: integer
+      - description: 'Order by field (default: id)'
+        in: query
+        name: orderBy
+        type: string
+      - description: 'Descending order (default: false)'
+        in: query
+        name: isDesc
+        type: boolean
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/orch-go_internal_domain_exchange_rate.ExchangeRate'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get all exchange rates
+      tags:
+      - exchange-rates
+  /exchange-rate/{baseCurrency}:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves all exchange rates matching the specified base currency
+      parameters:
+      - description: Base Currency Code (e.g. USD)
+        in: path
+        name: baseCurrency
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/orch-go_internal_domain_exchange_rate.ExchangeRate'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get exchange rates by base currency
+      tags:
+      - exchange-rates
+  /loan/:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves all loans belonging to the authenticated customer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/orch-go_internal_domain_loan.Loan'
+            type: array
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get customer loans
+      tags:
+      - loans
+  /loan/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves details of a specific loan by its ID, provided it belongs
+        to the authenticated customer
+      parameters:
+      - description: Loan ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/orch-go_internal_domain_loan.Loan'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "403":
+          description: Forbidden
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get loan by ID
+      tags:
+      - loans
+  /loan/{loanId}/payments:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves a list of payments made or due for a specific loan. The
+        loan must belong to the authenticated customer.
+      parameters:
+      - description: Loan ID
+        in: path
+        name: loanId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/orch-go_internal_domain_loan.LoanPayment'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "403":
+          description: Forbidden
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get loan payments by loan ID
+      tags:
+      - loans
+  /transaction/:
+    post:
+      consumes:
+      - application/json
+      description: Creates a new transaction from the authenticated customer's account
+        to a target account
+      parameters:
+      - description: Transaction details
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/orch-go_internal_domain_transaction.Transaction'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/orch-go_internal_domain_transaction.Transaction'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "403":
+          description: Forbidden
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Create transaction
+      tags:
+      - transactions
+  /transaction/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves details of a specific transaction by ID, provided the
+        authenticated customer owns either the source or target account
+      parameters:
+      - description: Transaction ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/orch-go_internal_domain_transaction.Transaction'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "403":
+          description: Forbidden
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get transaction by ID
+      tags:
+      - transactions
+  /transaction/account/{accountId}:
+    post:
+      consumes:
+      - application/json
+      description: Retrieves transactions for a given account within a specific date
+        range. The account must belong to the authenticated customer.
+      parameters:
+      - description: Account ID
+        in: path
+        name: accountId
+        required: true
+        type: integer
+      - description: Date range filters
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/orch-go_internal_domain_transaction.GetByDateRange'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/orch-go_internal_domain_transaction.Transaction'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "403":
+          description: Forbidden
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get transactions by account ID in date range
+      tags:
+      - transactions
+  /transaction/categories:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves a paginated list of all transaction categories
+      parameters:
+      - description: 'Page number (default: 1)'
+        in: query
+        name: pageN
+        type: integer
+      - description: 'Page size (default: 10)'
+        in: query
+        name: pageSize
+        type: integer
+      - description: 'Order by field (default: id)'
+        in: query
+        name: orderBy
+        type: string
+      - description: 'Descending order (default: false)'
+        in: query
+        name: isDesc
+        type: boolean
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/orch-go_internal_domain_transaction.TransactionCategory'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get all transaction categories
+      tags:
+      - transactions
+swagger: "2.0"
