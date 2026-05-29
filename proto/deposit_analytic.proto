@@ -8,11 +8,18 @@ import "custom_types.proto";
 import "google/protobuf/empty.proto";
 import "deposit.proto";
 
+// Service performing analytical processing on customer deposits.
 service DepositAnalyticService {
+  // Analytical wrapper to retrieve all deposits.
   rpc ProcessGetAll (GetAllRequest) returns (GetAllDepositsResponse);
+  // Analytical wrapper to retrieve a deposit by its ID.
   rpc ProcessGetById (GetDepositByIdRequest) returns (DepositModel);
+  // Analytical wrapper to retrieve multiple deposits by their unique IDs.
   rpc ProcessGetByIds (GetDepositByIdsRequest) returns (GetAllDepositsResponse);
+  // Analytical wrapper to retrieve deposits belonging to a customer.
   rpc ProcessGetByCustomer (GetDepositsByCustomerRequest) returns (GetAllDepositsResponse);
+  // Analytical wrapper to retrieve the total count of deposits.
   rpc ProcessGetCount (google.protobuf.Empty) returns (CountResponse);
+  // Analytical wrapper to count deposits by status.
   rpc ProcessGetCountByStatus (GetDepositCountByStatusRequest) returns (CountResponse);
 }

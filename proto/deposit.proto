@@ -4,89 +4,140 @@ package protos;
 option go_package = "orch-go/gen/protos;protos";
 option csharp_namespace = "Core";
 
-
-
 import "customer.proto";
 import "custom_types.proto";
 import "google/protobuf/empty.proto";
 
+// Service managing customer deposits (fixed deposits, term deposits).
 service DepositService {
+  // Retrieves a paginated list of all deposits.
   rpc GetAll (GetAllRequest) returns (GetAllDepositsResponse);
+  // Retrieves a specific deposit by its unique ID.
   rpc GetById (GetDepositByIdRequest) returns (DepositModel);
+  // Retrieves multiple deposits by their unique IDs.
   rpc GetByIds (GetDepositByIdsRequest) returns (GetAllDepositsResponse);
+  // Retrieves deposits belonging to a specific customer.
   rpc GetByCustomer (GetDepositsByCustomerRequest) returns (GetAllDepositsResponse);
+  // Creates a new deposit record.
   rpc Add (AddDepositRequest) returns (DepositModel);
+  // Updates an existing deposit's details.
   rpc Update (UpdateDepositRequest) returns (google.protobuf.Empty);
+  // Deletes a deposit record by its unique ID.
   rpc Delete (DeleteDepositRequest) returns (google.protobuf.Empty);
+  // Bulk creates multiple deposit records.
   rpc AddBulk (AddDepositBulkRequest) returns (google.protobuf.Empty);
+  // Bulk updates multiple deposit records.
   rpc UpdateBulk (UpdateDepositBulkRequest) returns (google.protobuf.Empty);
+  // Bulk deletes multiple deposit records.
   rpc DeleteBulk (DeleteDepositBulkRequest) returns (google.protobuf.Empty);
+  // Gets the total count of all deposit records.
   rpc GetCount (google.protobuf.Empty) returns (CountResponse);
+  // Gets the count of deposits filtered by their operational status (e.g. Active, Matured).
   rpc GetCountByStatus (GetDepositCountByStatusRequest) returns (CountResponse);
 }
 
+// Request to count deposits filtered by status.
 message GetDepositCountByStatusRequest {
+  // Status to filter by.
   string status = 1;
 }
 
-
+// Data model representing a customer deposit account.
 message DepositModel {
+  // Unique identifier for the deposit.
   int32 deposit_id = 1;
+  // Optional customer ID associated with the deposit.
   optional int32 customer_id = 2;
+  // Optional deposit principal amount represented as a string.
   optional string amount = 3;
+  // Optional annual interest rate.
   optional string interest_rate = 4;
+  // Optional date when the deposit period started.
   optional DateOnly start_date = 5;
+  // Optional date when the deposit matures.
   optional DateOnly end_date = 6;
+  // Optional status of the deposit (e.g., "active", "matured").
   optional string status = 7;
 }
 
+// Response containing a list of deposits.
 message GetAllDepositsResponse {
+  // List of deposits.
   repeated DepositModel deposits = 1;
 }
 
+// Request to retrieve a deposit by its unique ID.
 message GetDepositByIdRequest {
+  // The unique ID of the deposit.
   int32 deposit_id = 1;
 }
 
+// Request to retrieve multiple deposits by their unique IDs.
 message GetDepositByIdsRequest {
+  // List of deposit IDs.
   repeated int32 deposit_ids = 1;
 }
 
+// Request to retrieve deposits for a specific customer.
 message GetDepositsByCustomerRequest {
+  // Unique identifier of the customer.
   int32 customer_id = 1;
 }
 
+// Request to create a new deposit.
 message AddDepositRequest {
+  // Optional customer ID to associate.
   optional int32 customer_id = 1;
+  // Optional principal amount represented as a string.
   optional string amount = 2;
+  // Optional annual interest rate.
   optional string interest_rate = 3;
+  // Optional start date.
   optional DateOnly start_date = 4;
+  // Optional end (maturity) date.
   optional DateOnly end_date = 5;
+  // Optional status.
   optional string status = 6;
 }
 
+// Request to update an existing deposit.
 message UpdateDepositRequest {
+  // The unique ID of the deposit to update.
   int32 deposit_id = 1;
+  // Optional customer ID to associate.
   optional int32 customer_id = 2;
+  // Optional principal amount represented as a string.
   optional string amount = 3;
+  // Optional annual interest rate.
   optional string interest_rate = 4;
+  // Optional start date.
   optional DateOnly start_date = 5;
+  // Optional end (maturity) date.
   optional DateOnly end_date = 6;
+  // Optional status.
   optional string status = 7;
 }
 
+// Request to delete a deposit.
 message DeleteDepositRequest {
+  // The unique ID of the deposit to delete.
   int32 deposit_id = 1;
 }
 
+// Request to bulk add multiple new deposits.
 message AddDepositBulkRequest {
+  // List of deposits to add.
   repeated AddDepositRequest deposits = 1;
 }
 
+// Request to bulk update multiple deposits.
 message UpdateDepositBulkRequest {
+  // List of deposit update payloads.
   repeated UpdateDepositRequest deposits = 1;
 }
 
+// Request to bulk delete multiple deposits.
 message DeleteDepositBulkRequest {
+  // List of deposit deletion payloads.
   repeated DeleteDepositRequest deposits = 1;
 }

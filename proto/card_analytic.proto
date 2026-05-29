@@ -8,11 +8,18 @@ import "custom_types.proto";
 import "google/protobuf/empty.proto";
 import "card.proto";
 
+// Service performing analytical processing on customer payment cards.
 service CardAnalyticService {
+  // Analytical wrapper to retrieve all cards.
   rpc ProcessGetAll (GetAllRequest) returns (GetAllCardsResponse);
+  // Analytical wrapper to retrieve a card by its ID.
   rpc ProcessGetById (GetCardByIdRequest) returns (CardModel);
+  // Analytical wrapper to retrieve multiple cards by their unique IDs.
   rpc ProcessGetByIds (GetCardByIdsRequest) returns (GetAllCardsResponse);
+  // Analytical wrapper to retrieve cards linked to an account.
   rpc ProcessGetByAccount (GetCardsByAccountRequest) returns (GetAllCardsResponse);
+  // Analytical wrapper to retrieve the total count of payment cards.
   rpc ProcessGetCount (google.protobuf.Empty) returns (CountResponse);
+  // Analytical wrapper to count cards by status.
   rpc ProcessGetCountByStatus(GetCardCountByStatus) returns (CountResponse);
 }

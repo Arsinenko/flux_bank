@@ -4,78 +4,121 @@ package protos;
 option go_package = "orch-go/gen/protos;protos";
 option csharp_namespace = "Core";
 
-
-
 import "custom_types.proto";
 import "google/protobuf/empty.proto";
 import "google/protobuf/timestamp.proto";
 import "customer.proto";
 
+// Service managing system and transaction notifications for customers.
 service NotificationService {
+  // Retrieves a paginated list of all notifications.
   rpc GetAll (GetAllRequest) returns (GetAllNotificationsResponse);
+  // Retrieves a specific notification by its unique ID.
   rpc GetById (GetNotificationByIdRequest) returns (NotificationModel);
+  // Retrieves multiple notifications by their unique IDs.
   rpc GetByIds (GetNotificationByIdsRequest) returns (GetAllNotificationsResponse);
+  // Retrieves notifications created within a specific date range.
   rpc GetByDateRange (GetByDateRangeRequest) returns (GetAllNotificationsResponse);
+  // Retrieves notifications sent to a specific customer, with an optional read/unread filter.
   rpc GetByCustomer (GetNotificationsByCustomerRequest) returns (GetAllNotificationsResponse);
+  // Creates a new notification.
   rpc Add (AddNotificationRequest) returns (NotificationModel);
+  // Updates an existing notification (e.g. marking it as read).
   rpc Update (UpdateNotificationRequest) returns (google.protobuf.Empty);
+  // Deletes a notification by its unique ID.
   rpc Delete (DeleteNotificationRequest) returns (google.protobuf.Empty);
+  // Bulk creates multiple notifications.
   rpc AddBulk (AddNotificationBulkRequest) returns (google.protobuf.Empty);
+  // Bulk updates multiple notifications.
   rpc UpdateBulk (UpdateNotificationBulkRequest) returns (google.protobuf.Empty);
+  // Bulk deletes multiple notifications.
   rpc DeleteBulk (DeleteNotificationBulkRequest) returns (google.protobuf.Empty);
+  // Gets the total count of notifications.
   rpc GetCount (google.protobuf.Empty) returns (CountResponse);
 }
 
+// Data model representing a customer notification.
 message NotificationModel {
+  // Unique identifier for the notification.
   int32 notification_id = 1;
+  // Optional customer ID who is the recipient of the notification.
   optional int32 customer_id = 2;
+  // Optional message body/content of the notification.
   optional string message = 3;
+  // Optional timestamp of when the notification was created.
   optional google.protobuf.Timestamp created_at = 4;
+  // Optional status indicating whether the notification has been read.
   optional bool is_read = 5;
 }
 
+// Response containing a list of notifications.
 message GetAllNotificationsResponse {
+  // List of notifications.
   repeated NotificationModel notifications = 1;
 }
 
+// Request to retrieve a notification by its unique ID.
 message GetNotificationByIdRequest {
+  // The unique ID of the notification.
   int32 notification_id = 1;
 }
 
+// Request to retrieve multiple notifications by their unique IDs.
 message GetNotificationByIdsRequest {
+  // List of notification IDs.
   repeated int32 notification_ids = 1;
 }
 
+// Request to retrieve notifications for a specific customer.
 message GetNotificationsByCustomerRequest {
+  // Unique customer ID.
   int32 customer_id = 1;
+  // Optional filter to retrieve read or unread notifications only.
   optional bool is_read = 2;
 }
 
+// Request to create a new notification.
 message AddNotificationRequest {
+  // Optional recipient customer ID.
   optional int32 customer_id = 1;
+  // Optional body message content.
   optional string message = 2;
+  // Optional initial read/unread status.
   optional bool is_read = 3;
 }
 
+// Request to update an existing notification.
 message UpdateNotificationRequest {
+  // The unique ID of the notification to update.
   int32 notification_id = 1;
+  // Optional updated customer ID.
   optional int32 customer_id = 2;
+  // Optional updated message content.
   optional string message = 3;
+  // Optional updated read/unread status.
   optional bool is_read = 4;
 }
 
+// Request to delete a notification.
 message DeleteNotificationRequest {
+  // The unique ID of the notification to delete.
   int32 notification_id = 1;
 }
 
+// Request to bulk add multiple new notifications.
 message AddNotificationBulkRequest {
+  // List of notifications to add.
   repeated AddNotificationRequest notifications = 1;
 }
 
+// Request to bulk update multiple notifications.
 message UpdateNotificationBulkRequest {
+  // List of notification update payloads.
   repeated UpdateNotificationRequest notifications = 1;
 }
 
+// Request to bulk delete multiple notifications.
 message DeleteNotificationBulkRequest {
+  // List of notification deletion payloads.
   repeated DeleteNotificationRequest notifications = 1;
 }

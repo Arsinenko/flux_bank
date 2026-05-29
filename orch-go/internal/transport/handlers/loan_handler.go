@@ -89,13 +89,13 @@ func GetLoanByIdHandler(loanService services.LoanService) gin.HandlerFunc {
 // @Accept       json
 // @Produce      json
 // @Security     BearerAuth
-// @Param        loanId  path      int  true  "Loan ID"
+// @Param        id      path      int  true  "Loan ID"
 // @Success      200     {array}   loan.LoanPayment
 // @Failure      400     {object}  map[string]string "Bad Request"
 // @Failure      403     {object}  map[string]string "Forbidden"
 // @Failure      404     {object}  map[string]string "Not Found"
 // @Failure      500     {object}  map[string]string "Internal Server Error"
-// @Router       /loan/{loanId}/payments [get]
+// @Router       /loan/{id}/payments [get]
 func GetLoanPaymentsByLoanIdHandler(loanService services.LoanService) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		customerId, done := GetIdFromRequest(c)
@@ -103,7 +103,7 @@ func GetLoanPaymentsByLoanIdHandler(loanService services.LoanService) gin.Handle
 			return
 		}
 
-		loanId, err := strconv.Atoi(c.Param("loanId"))
+		loanId, err := strconv.Atoi(c.Param("id"))
 		if err != nil {
 			c.JSON(400, gin.H{"error": "invalid loan id"})
 			return
@@ -138,7 +138,7 @@ func InitLoanRouter(r *gin.Engine, loanService services.LoanService) {
 		{
 			loanGroup.GET("/", GetLoansByCustomerIdHandler(loanService))
 			loanGroup.GET("/:id", GetLoanByIdHandler(loanService))
-			loanGroup.GET("/:loanId/payments", GetLoanPaymentsByLoanIdHandler(loanService))
+			loanGroup.GET("/:id/payments", GetLoanPaymentsByLoanIdHandler(loanService))
 		}
 	}
 }

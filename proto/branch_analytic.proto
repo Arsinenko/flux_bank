@@ -8,9 +8,14 @@ import "custom_types.proto";
 import "google/protobuf/empty.proto";
 import "branch.proto";
 
+// Service performing analytical processing on physical branches.
 service BranchAnalyticService {
+  // Analytical wrapper to retrieve all branches.
   rpc ProcessGetAll (GetAllRequest) returns (GetAllBranchesResponse);
+  // Analytical wrapper to retrieve a branch by its unique ID.
   rpc ProcessGetById (GetBranchByIdRequest) returns (BranchModel);
+  // Analytical wrapper to retrieve multiple branches by their unique IDs.
   rpc ProcessGetByIds (GetBranchByIdsRequest) returns (GetAllBranchesResponse);
+  // Analytical wrapper to retrieve the total count of bank branches.
   rpc ProcessGetCount (google.protobuf.Empty) returns (CountResponse);
 }

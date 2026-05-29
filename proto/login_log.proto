@@ -4,84 +4,131 @@ package protos;
 option go_package = "orch-go/gen/protos;protos";
 option csharp_namespace = "Core";
 
-
-
 import "google/protobuf/empty.proto";
 import "google/protobuf/timestamp.proto";
 import "customer.proto";
 import "custom_types.proto";
 
+// Service managing customer login logs.
 service LoginLogService {
+  // Retrieves a paginated list of all login logs.
   rpc GetAll (GetAllRequest) returns (GetAllLoginLogsResponse);
+  // Retrieves a specific login log by its unique ID.
   rpc GetById (GetLoginLogByIdRequest) returns (LoginLogModel);
+  // Retrieves multiple login logs by their unique IDs.
   rpc GetByIds (GetLoginLogByIdsRequest) returns (GetAllLoginLogsResponse);
+  // Retrieves all login logs for a specific customer.
   rpc GetByCustomer (GetLoginLogsByCustomerRequest) returns (GetAllLoginLogsResponse);
+  // Retrieves login logs recorded within a specific time range.
   rpc GetInTimeRange (GetLoginLogsInTimeRangeRequest) returns (GetAllLoginLogsResponse);
+  // Creates a new login log entry.
   rpc Add (AddLoginLogRequest) returns (LoginLogModel);
+  // Updates an existing login log entry.
   rpc Update (UpdateLoginLogRequest) returns (google.protobuf.Empty);
+  // Deletes a login log entry by its ID.
   rpc Delete (DeleteLoginLogRequest) returns (google.protobuf.Empty);
+  // Bulk creates multiple login log entries.
   rpc AddBulk (AddLoginLogBulkRequest) returns (google.protobuf.Empty);
+  // Bulk updates multiple login log entries.
   rpc UpdateBulk (UpdateLoginLogBulkRequest) returns (google.protobuf.Empty);
+  // Bulk deletes multiple login log entries.
   rpc DeleteBulk (DeleteLoginLogBulkRequest) returns (google.protobuf.Empty);
+  // Gets the total count of all login logs.
   rpc GetCount (google.protobuf.Empty) returns (CountResponse);
 }
 
+// Data model representing a customer login event.
 message LoginLogModel {
+  // Unique identifier for the login log.
   int32 log_id = 1;
+  // Optional customer ID associated with the login event.
   optional int32 customer_id = 2;
+  // Optional timestamp of when the login occurred.
   optional google.protobuf.Timestamp login_time = 3;
+  // Optional IP address from which the login originated.
   optional string ip_address = 4;
+  // Optional user agent or device information string.
   optional string device_info = 5;
 }
 
+// Response containing a list of login logs.
 message GetAllLoginLogsResponse {
+  // List of login log records.
   repeated LoginLogModel login_logs = 1;
 }
 
+// Request to retrieve a login log by its unique ID.
 message GetLoginLogByIdRequest {
+  // The unique ID of the login log.
   int32 log_id = 1;
 }
 
+// Request to retrieve multiple login logs by their unique IDs.
 message GetLoginLogByIdsRequest {
+  // List of login log IDs.
   repeated int32 log_ids = 1;
 }
 
+// Request to retrieve login logs for a specific customer.
 message GetLoginLogsByCustomerRequest {
+  // The unique ID of the customer.
   int32 customer_id = 1;
 }
 
+// Request to retrieve login logs within a specific time range.
 message GetLoginLogsInTimeRangeRequest {
+  // The start timestamp of the range (inclusive).
   google.protobuf.Timestamp start_time = 1;
+  // The end timestamp of the range (inclusive).
   google.protobuf.Timestamp end_time = 2;
 }
 
+// Request to add a new login log entry.
 message AddLoginLogRequest {
+  // Optional customer ID associated with the login.
   optional int32 customer_id = 1;
+  // Optional login timestamp.
   optional google.protobuf.Timestamp login_time = 2;
+  // Optional IP address.
   optional string ip_address = 3;
+  // Optional device/browser details.
   optional string device_info = 4;
 }
 
+// Request to bulk add multiple new login log entries.
 message AddLoginLogBulkRequest {
+  // List of login log requests.
   repeated AddLoginLogRequest login_logs = 1;
 }
 
+// Request to update an existing login log entry.
 message UpdateLoginLogRequest {
+  // The unique ID of the login log to update.
   int32 log_id = 1;
+  // Optional customer ID to associate.
   optional int32 customer_id = 2;
+  // Optional login timestamp.
   optional google.protobuf.Timestamp login_time = 3;
+  // Optional IP address.
   optional string ip_address = 4;
+  // Optional device/browser details.
   optional string device_info = 5;
 }
 
+// Request to bulk update multiple login log entries.
 message UpdateLoginLogBulkRequest {
+  // List of login log update payloads.
   repeated UpdateLoginLogRequest login_logs = 1;
 }
 
+// Request to delete a login log entry.
 message DeleteLoginLogRequest {
+  // The unique ID of the login log to delete.
   int32 log_id = 1;
 }
 
+// Request to bulk delete multiple login log entries.
 message DeleteLoginLogBulkRequest {
+  // List of login log deletion requests.
   repeated DeleteLoginLogRequest login_logs = 1;
 }

@@ -21,10 +21,11 @@ public class AtmService(IAtmRepository atmRepository, IMapper mapper, ICacheServ
     public override async Task<GetAllAtmsResponse> GetAll(GetAllRequest request, ServerCallContext context)
     {
         var atms = await atmRepository.GetAllAsync(request.PageN, request.PageSize, request.OrderBy, request.IsDesc ?? false);
-        return new GetAllAtmsResponse
+        var result = new GetAllAtmsResponse
         {
             Atms = { mapper.Map<IEnumerable<AtmModel>>(atms) }
         };
+        return result;
     }
 
     public override async Task<Empty> Update(UpdateAtmRequest request, ServerCallContext context)

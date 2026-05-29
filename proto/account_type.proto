@@ -4,65 +4,99 @@ package protos;
 option go_package = "orch-go/gen/protos;protos";
 option csharp_namespace = "Core";
 
-
-
 import "custom_types.proto";
 import "google/protobuf/empty.proto";
 
+// Service managing types of bank accounts (e.g. Savings, Checking).
 service AccountTypeService {
+  // Retrieves a paginated list of all account types.
   rpc GetAll (GetAllRequest) returns (GetAllAccountTypesResponse);
+  // Retrieves a specific account type by its unique ID.
   rpc GetById (GetAccountTypeByIdRequest) returns (AccountTypeModel);
+  // Retrieves multiple account types by their IDs.
   rpc GetByIds (GetAccountTypeByIdsRequest) returns (GetAllAccountTypesResponse);
+  // Creates a new account type.
   rpc Add (AddAccountTypeRequest) returns (AccountTypeModel);
+  // Updates an existing account type's information.
   rpc Update (UpdateAccountTypeRequest) returns (google.protobuf.Empty);
+  // Deletes an account type by its ID.
   rpc Delete (DeleteAccountTypeRequest) returns (google.protobuf.Empty);
+  // Bulk creates multiple new account types.
   rpc AddBulk (AddAccountTypeBulkRequest) returns (google.protobuf.Empty);
+  // Bulk updates multiple existing account types.
   rpc UpdateBulk (UpdateAccountTypeBulkRequest) returns (google.protobuf.Empty);
+  // Bulk deletes multiple account types.
   rpc DeleteBulk (DeleteAccountTypeBulkRequest) returns (google.protobuf.Empty);
+  // Gets the total count of account types.
   rpc GetCount (google.protobuf.Empty) returns (CountResponse);
 }
 
+// Data model representing a bank account type.
 message AccountTypeModel {
+  // Unique identifier for the account type.
   int32 type_id = 1;
+  // Name of the account type (e.g., "Savings").
   string name = 2;
+  // Optional description detailing the account type terms/features.
   optional string description = 3;
 }
 
+// Response containing a list of account types.
 message GetAllAccountTypesResponse {
+  // List of account types.
   repeated AccountTypeModel account_types = 1;
 }
 
+// Request to retrieve an account type by its unique ID.
 message GetAccountTypeByIdRequest {
+  // The unique ID of the account type.
   int32 type_id = 1;
 }
 
+// Request to retrieve multiple account types by their unique IDs.
 message GetAccountTypeByIdsRequest {
+  // List of account type IDs.
   repeated int32 type_ids = 1;
 }
 
+// Request to add a new account type.
 message AddAccountTypeRequest {
+  // Name of the new account type.
   string name = 1;
+  // Optional description of the new account type.
   optional string description = 2;
 }
 
+// Request to update an existing account type.
 message UpdateAccountTypeRequest {
+  // The unique ID of the account type to update.
   int32 type_id = 1;
+  // New name for the account type.
   string name = 2;
+  // Optional new description.
   optional string description = 3;
 }
 
+// Request to delete an account type.
 message DeleteAccountTypeRequest {
+  // The unique ID of the account type to delete.
   int32 type_id = 1;
 }
 
+// Request to bulk add multiple new account types.
 message AddAccountTypeBulkRequest {
+  // List of account types to add.
   repeated AddAccountTypeRequest account_types = 1;
 }
 
+// Request to bulk update multiple existing account types.
 message UpdateAccountTypeBulkRequest {
+  // List of account types to update.
   repeated UpdateAccountTypeRequest account_types = 1;
 }
 
+// Request to bulk delete multiple existing account types.
 message DeleteAccountTypeBulkRequest {
+  // List of account types to delete.
   repeated DeleteAccountTypeRequest account_types = 1;
 }

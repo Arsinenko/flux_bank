@@ -4,77 +4,120 @@ package protos;
 option go_package = "orch-go/gen/protos;protos";
 option csharp_namespace = "Core";
 
-
-
 import "loan.proto";
 import "custom_types.proto";
 import "google/protobuf/empty.proto";
 
+// Service managing payment transactions for customer loans.
 service LoanPaymentService {
+  // Retrieves a paginated list of all loan payments.
   rpc GetAll (GetAllRequest) returns (GetAllLoanPaymentsResponse);
+  // Retrieves a specific loan payment by its unique ID.
   rpc GetById (GetLoanPaymentByIdRequest) returns (LoanPaymentModel);
+  // Retrieves multiple loan payments by their unique IDs.
   rpc GetByIds (GetLoanPaymentByIdsRequest) returns (GetAllLoanPaymentsResponse);
+  // Retrieves all payments associated with a specific loan.
   rpc GetByLoan (GetLoanPaymentsByLoanRequest) returns (GetAllLoanPaymentsResponse);
+  // Creates a new loan payment record.
   rpc Add (AddLoanPaymentRequest) returns (LoanPaymentModel);
+  // Updates an existing loan payment record.
   rpc Update (UpdateLoanPaymentRequest) returns (google.protobuf.Empty);
+  // Deletes a loan payment record by its unique ID.
   rpc Delete (DeleteLoanPaymentRequest) returns (google.protobuf.Empty);
+  // Bulk creates multiple loan payment records.
   rpc AddBulk (AddLoanPaymentBulkRequest) returns (google.protobuf.Empty);
+  // Bulk updates multiple loan payment records.
   rpc UpdateBulk (UpdateLoanPaymentBulkRequest) returns (google.protobuf.Empty);
+  // Bulk deletes multiple loan payment records.
   rpc DeleteBulk (DeleteLoanPaymentBulkRequest) returns (google.protobuf.Empty);
+  // Gets the total count of loan payments.
   rpc GetCount (google.protobuf.Empty) returns (CountResponse);
 }
 
+// Data model representing a payment transaction against a loan.
 message LoanPaymentModel {
+  // Unique identifier for the loan payment.
   int32 payment_id = 1;
+  // Optional loan ID this payment applies to.
   optional int32 loan_id = 2;
+  // Optional amount of the payment represented as a string.
   optional string amount = 3;
+  // Optional date when the payment was made (or is scheduled to be made).
   optional DateOnly payment_date = 4;
+  // Optional flag indicating if the payment has been completed.
   optional bool is_paid = 5;
 }
 
+// Response containing a list of loan payments.
 message GetAllLoanPaymentsResponse {
+  // List of loan payments.
   repeated LoanPaymentModel loan_payments = 1;
 }
 
+// Request to retrieve a loan payment by its unique ID.
 message GetLoanPaymentByIdRequest {
+  // The unique ID of the loan payment.
   int32 payment_id = 1;
 }
 
+// Request to retrieve multiple loan payments by their unique IDs.
 message GetLoanPaymentByIdsRequest {
+  // List of loan payment IDs.
   repeated int32 payment_ids = 1;
 }
 
+// Request to retrieve loan payments associated with a specific loan.
 message GetLoanPaymentsByLoanRequest {
+  // Unique identifier of the loan.
   int32 loan_id = 1;
 }
 
+// Request to add a new loan payment.
 message AddLoanPaymentRequest {
+  // Optional loan ID the payment is for.
   optional int32 loan_id = 1;
+  // Optional payment amount represented as a string.
   optional string amount = 2;
+  // Optional payment date.
   optional DateOnly payment_date = 3;
+  // Optional flag indicating payment status.
   optional bool is_paid = 4;
 }
 
+// Request to bulk add multiple new loan payments.
 message AddLoanPaymentBulkRequest {
+  // List of payments to add.
   repeated AddLoanPaymentRequest payments = 1;
 }
 
+// Request to update an existing loan payment.
 message UpdateLoanPaymentRequest {
+  // The unique ID of the payment to update.
   int32 payment_id = 1;
+  // Optional loan ID to associate.
   optional int32 loan_id = 2;
+  // Optional payment amount represented as a string.
   optional string amount = 3;
+  // Optional payment date.
   optional DateOnly payment_date = 4;
+  // Optional paid status flag.
   optional bool is_paid = 5;
 }
 
+// Request to bulk update multiple loan payments.
 message UpdateLoanPaymentBulkRequest {
+  // List of loan payment update payloads.
   repeated UpdateLoanPaymentRequest payments = 1;
 }
 
+// Request to delete a loan payment.
 message DeleteLoanPaymentRequest {
+  // The unique ID of the payment to delete.
   int32 payment_id = 1;
 }
 
+// Request to bulk delete multiple loan payments.
 message DeleteLoanPaymentBulkRequest {
+  // List of payment deletion requests.
   repeated DeleteLoanPaymentRequest payments = 1;
 }

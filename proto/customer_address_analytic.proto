@@ -8,9 +8,14 @@ import "custom_types.proto";
 import "google/protobuf/empty.proto";
 import "customer_address.proto";
 
+// Service performing analytical processing on customer addresses.
 service CustomerAddressAnalyticService {
+  // Analytical wrapper to retrieve all customer addresses.
   rpc ProcessGetAll (GetAllRequest) returns (GetAllCustomerAddressesResponse);
+  // Analytical wrapper to retrieve a customer address by its unique ID.
   rpc ProcessGetById (GetCustomerAddressByIdRequest) returns (CustomerAddressModel);
+  // Analytical wrapper to retrieve multiple customer addresses by their IDs.
   rpc ProcessGetByIds (GetCustomerAddressByIdsRequest) returns (GetAllCustomerAddressesResponse);
+  // Analytical wrapper to retrieve the total count of customer addresses.
   rpc ProcessGetCount (google.protobuf.Empty) returns (CountResponse);
 }

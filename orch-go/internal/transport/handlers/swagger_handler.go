@@ -10,5 +10,5 @@ import (
 
 // InitSwaggerRouter registers the Swagger UI handler under /swagger/*any.
 func InitSwaggerRouter(r *gin.Engine) {
-	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	r.GET("/swagger/swag", ginSwagger.WrapHandler(swaggerFiles.Handler))
 }

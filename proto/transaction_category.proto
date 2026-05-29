@@ -4,62 +4,93 @@ package protos;
 option go_package = "orch-go/gen/protos;protos";
 option csharp_namespace = "Core";
 
-
-
 import "custom_types.proto";
 import "google/protobuf/empty.proto";
 
+// Service managing categories for transactions (e.g. Food, Utilities, Transfer).
 service TransactionCategoryService {
+  // Retrieves a paginated list of all transaction categories.
   rpc GetAll (GetAllRequest) returns (GetAllTransactionCategoriesResponse);
+  // Retrieves a specific transaction category by its unique ID.
   rpc GetById (GetTransactionCategoryByIdRequest) returns (TransactionCategoryModel);
+  // Retrieves multiple transaction categories by their unique IDs.
   rpc GetByIds (GetTransactionCategoryByIdsRequest) returns (GetAllTransactionCategoriesResponse);
+  // Creates a new transaction category.
   rpc Add (AddTransactionCategoryRequest) returns (TransactionCategoryModel);
+  // Updates an existing transaction category.
   rpc Update (UpdateTransactionCategoryRequest) returns (google.protobuf.Empty);
+  // Deletes a transaction category by its unique ID.
   rpc Delete (DeleteTransactionCategoryRequest) returns (google.protobuf.Empty);
+  // Bulk creates multiple new transaction categories.
   rpc AddBulk (AddTransactionCategoryBulkRequest) returns (google.protobuf.Empty);
+  // Bulk updates multiple existing transaction categories.
   rpc UpdateBulk (UpdateTransactionCategoryBulkRequest) returns (google.protobuf.Empty);
+  // Bulk deletes multiple transaction categories.
   rpc DeleteBulk (DeleteTransactionCategoryBulkRequest) returns (google.protobuf.Empty);
+  // Gets the total count of transaction categories.
   rpc GetCount (google.protobuf.Empty) returns (CountResponse);
 }
 
+// Data model representing a transaction category.
 message TransactionCategoryModel {
+  // Unique identifier for the category.
   int32 category_id = 1;
+  // Name of the category (e.g., "Utilities").
   string name = 2;
 }
 
+// Response containing a list of transaction categories.
 message GetAllTransactionCategoriesResponse {
+  // List of transaction categories.
   repeated TransactionCategoryModel transaction_categories = 1;
 }
 
+// Request to retrieve a transaction category by its unique ID.
 message GetTransactionCategoryByIdRequest {
+  // The unique ID of the category.
   int32 category_id = 1;
 }
 
+// Request to retrieve multiple transaction categories by their unique IDs.
 message GetTransactionCategoryByIdsRequest {
+  // List of category IDs.
   repeated int32 category_ids = 1;
 }
 
+// Request to add a new transaction category.
 message AddTransactionCategoryRequest {
+  // Name of the new transaction category.
   string name = 1;
 }
 
+// Request to update an existing transaction category.
 message UpdateTransactionCategoryRequest {
+  // The unique ID of the category to update.
   int32 category_id = 1;
+  // Updated name of the category.
   string name = 2;
 }
 
+// Request to delete a transaction category.
 message DeleteTransactionCategoryRequest {
+  // The unique ID of the category to delete.
   int32 category_id = 1;
 }
 
+// Request to bulk add multiple new transaction categories.
 message AddTransactionCategoryBulkRequest {
+  // List of categories to add.
   repeated AddTransactionCategoryRequest transaction_categories = 1;
 }
 
+// Request to bulk update multiple existing transaction categories.
 message UpdateTransactionCategoryBulkRequest {
+  // List of category update payloads.
   repeated UpdateTransactionCategoryRequest transaction_categories = 1;
 }
 
+// Request to bulk delete multiple transaction categories.
 message DeleteTransactionCategoryBulkRequest {
+  // List of category deletion requests.
   repeated DeleteTransactionCategoryRequest transaction_categories = 1;
 }

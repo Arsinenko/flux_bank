@@ -4,79 +4,121 @@ package protos;
 option go_package = "orch-go/gen/protos;protos";
 option csharp_namespace = "Core";
 
-
-
 import "google/protobuf/empty.proto";
 import "transaction.proto";
 import "fee_type.proto";
 import "custom_types.proto";
 
+// Service managing fees applied to specific transactions.
 service TransactionFeeService {
+  // Retrieves a paginated list of all transaction fees.
   rpc GetAll (GetAllRequest) returns (GetAllTransactionFeesResponse);
+  // Retrieves a specific transaction fee by its unique ID.
   rpc GetById (GetTransactionFeeByIdRequest) returns (TransactionFeeModel);
+  // Retrieves multiple transaction fees by their unique IDs.
   rpc GetByIds (GetTransactionFeeByIdsRequest) returns (GetAllTransactionFeesResponse);
+  // Creates a new transaction fee record.
   rpc Add (AddTransactionFeeRequest) returns (TransactionFeeModel);
+  // Updates details of an existing transaction fee.
   rpc Update (UpdateTransactionFeeRequest) returns (google.protobuf.Empty);
+  // Deletes a transaction fee by its unique ID.
   rpc Delete (DeleteTransactionFeeRequest) returns (google.protobuf.Empty);
+  // Bulk creates multiple transaction fee records.
   rpc AddBulk (AddTransactionFeeBulkRequest) returns (google.protobuf.Empty);
+  // Bulk updates multiple existing transaction fee records.
   rpc UpdateBulk (UpdateTransactionFeeBulkRequest) returns (google.protobuf.Empty);
+  // Bulk deletes multiple transaction fee records.
   rpc DeleteBulk (DeleteTransactionFeeBulkRequest) returns (google.protobuf.Empty);
+  // Gets the total count of transaction fee records.
   rpc GetCount (google.protobuf.Empty) returns (CountResponse);
+  // Gets the total sum of fees applied to a specific transaction.
   rpc GetTotalFee (GetTotalFeeRequest) returns (TotalFeeResponse);
 }
 
+// Request to retrieve the total fee amount for a transaction.
 message GetTotalFeeRequest {
+    // The unique ID of the transaction.
     int32 transaction_id = 1;
 }
 
+// Response containing the aggregated fee amount.
 message TotalFeeResponse {
+    // The total fee amount formatted as a string.
     string total_fee = 1;
 }
 
+// Data model representing a fee charge applied to a transaction.
 message TransactionFeeModel {
+  // Unique identifier for the transaction fee record.
   int32 id = 1;
+  // Optional ID of the transaction the fee is charged on.
   optional int32 transaction_id = 2;
+  // Optional ID of the fee type applied.
   optional int32 fee_id = 3;
+  // Optional fee amount represented as a string.
   optional string amount = 4;
 }
 
+// Response containing a list of transaction fees.
 message GetAllTransactionFeesResponse {
+  // List of transaction fees.
   repeated TransactionFeeModel transaction_fees = 1;
 }
 
+// Request to retrieve a transaction fee by its unique ID.
 message GetTransactionFeeByIdRequest {
+  // Unique identifier of the transaction fee record.
   int32 id = 1;
 }
 
+// Request to retrieve multiple transaction fees by their unique IDs.
 message GetTransactionFeeByIdsRequest {
+  // List of transaction fee IDs.
   repeated int32 ids = 1;
 }
 
+// Request to apply a fee to a transaction.
 message AddTransactionFeeRequest {
+  // Optional transaction ID to charge.
   optional int32 transaction_id = 1;
+  // Optional fee type ID to apply.
   optional int32 fee_id = 2;
+  // Optional fee amount represented as a string.
   optional string amount = 3;
 }
 
+// Request to update an existing transaction fee record.
 message UpdateTransactionFeeRequest {
+  // The unique ID of the transaction fee record to update.
   int32 id = 1;
+  // Optional transaction ID.
   optional int32 transaction_id = 2;
+  // Optional fee type ID.
   optional int32 fee_id = 3;
+  // Optional fee amount represented as a string.
   optional string amount = 4;
 }
 
+// Request to delete a transaction fee record.
 message DeleteTransactionFeeRequest {
+  // The unique ID of the transaction fee record to delete.
   int32 id = 1;
 }
 
+// Request to bulk add multiple new transaction fees.
 message AddTransactionFeeBulkRequest {
+  // List of transaction fees to apply.
   repeated AddTransactionFeeRequest transaction_fees = 1;
 }
 
+// Request to bulk update multiple transaction fee records.
 message UpdateTransactionFeeBulkRequest {
+  // List of transaction fee updates.
   repeated UpdateTransactionFeeRequest transaction_fees = 1;
 }
 
+// Request to bulk delete multiple transaction fee records.
 message DeleteTransactionFeeBulkRequest {
+  // List of transaction fee deletion requests.
   repeated DeleteTransactionFeeRequest transaction_fees = 1;
 }

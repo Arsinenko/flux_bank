@@ -4,66 +4,99 @@ package protos;
 option go_package = "orch-go/gen/protos;protos";
 option csharp_namespace = "Core";
 
-
-
 import "custom_types.proto";
 import "google/protobuf/empty.proto";
 
+// Service managing various fee types (e.g. maintenance fees, transaction charges).
 service FeeTypeService {
+  // Retrieves a paginated list of all fee types.
   rpc GetAll (GetAllRequest) returns (GetAllFeeTypesResponse);
+  // Retrieves a specific fee type by its unique ID.
   rpc GetById (GetFeeTypeByIdRequest) returns (FeeTypeModel);
+  // Retrieves multiple fee types by their unique IDs.
   rpc GetByIds (GetFeeTypeByIdsRequest) returns (GetAllFeeTypesResponse);
+  // Creates a new fee type.
   rpc Add (AddFeeTypeRequest) returns (FeeTypeModel);
+  // Updates an existing fee type.
   rpc Update (UpdateFeeTypeRequest) returns (google.protobuf.Empty);
+  // Deletes a fee type by its unique ID.
   rpc Delete (DeleteFeeTypeRequest) returns (google.protobuf.Empty);
-
+  // Bulk creates multiple new fee types.
   rpc AddBulk (AddFeeTypeBulkRequest) returns (google.protobuf.Empty);
+  // Bulk updates multiple existing fee types.
   rpc UpdateBulk (UpdateFeeTypeBulkRequest) returns (google.protobuf.Empty);
+  // Bulk deletes multiple fee types.
   rpc DeleteBulk (DeleteFeeTypeBulkRequest) returns (google.protobuf.Empty);
+  // Gets the total count of fee types.
   rpc GetCount (google.protobuf.Empty) returns (CountResponse);
 }
 
+// Data model representing a specific fee type.
 message FeeTypeModel {
+  // Unique identifier for the fee type.
   int32 fee_id = 1;
+  // Optional name of the fee (e.g. "Monthly Maintenance Fee").
   optional string name = 2;
+  // Optional description detailing how the fee is calculated or applied.
   optional string description = 3;
 }
 
+// Response containing a list of fee types.
 message GetAllFeeTypesResponse {
+  // List of fee types.
   repeated FeeTypeModel fee_types = 1;
 }
 
+// Request to retrieve a fee type by its unique ID.
 message GetFeeTypeByIdRequest {
+  // The unique ID of the fee type.
   int32 fee_id = 1;
 }
 
+// Request to retrieve multiple fee types by their unique IDs.
 message GetFeeTypeByIdsRequest {
+  // List of fee type IDs.
   repeated int32 fee_ids = 1;
 }
 
+// Request to add a new fee type.
 message AddFeeTypeRequest {
+  // Optional name for the new fee type.
   optional string name = 1;
+  // Optional description for the new fee type.
   optional string description = 2;
 }
 
+// Request to update an existing fee type.
 message UpdateFeeTypeRequest {
+  // The unique ID of the fee type to update.
   int32 fee_id = 1;
+  // Optional new name.
   optional string name = 2;
+  // Optional new description.
   optional string description = 3;
 }
 
+// Request to delete a fee type.
 message DeleteFeeTypeRequest {
+  // The unique ID of the fee type to delete.
   int32 fee_id = 1;
 }
 
+// Request to bulk add multiple new fee types.
 message AddFeeTypeBulkRequest {
+  // List of fee types to add.
   repeated AddFeeTypeRequest fee_types = 1;
 }
 
+// Request to bulk update multiple existing fee types.
 message UpdateFeeTypeBulkRequest {
+  // List of fee types to update.
   repeated UpdateFeeTypeRequest fee_types = 1;
 }
 
+// Request to bulk delete multiple existing fee types.
 message DeleteFeeTypeBulkRequest {
+  // List of fee types to delete.
   repeated DeleteFeeTypeRequest fee_types = 1;
 }

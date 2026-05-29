@@ -18,7 +18,7 @@ func (a MakeTransfer) Execute(ctx *simulation_context.SimpleSimulationContext, a
 	if err != nil {
 		return err
 	}
-	if ac.Balance.LessThan(agent.Salary.Mul(decimal.NewFromFloat(0.3))) {
+	if ac.Balance.LessThan(agent.Salary.Mul(decimal.NewFromFloat(0.1))) {
 		return nil
 	}
 	agents := ctx.Agents()

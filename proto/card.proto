@@ -4,86 +4,135 @@ package protos;
 option go_package = "orch-go/gen/protos;protos";
 option csharp_namespace = "Core";
 
-
-
 import "custom_types.proto";
 import "account.proto";
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/empty.proto";
 
+// Service managing payment cards (debit, credit, etc.) linked to bank accounts.
 service CardService {
+  // Retrieves a paginated list of all cards.
   rpc GetAll (GetAllRequest) returns (GetAllCardsResponse);
+  // Retrieves a specific card by its unique ID.
   rpc GetById (GetCardByIdRequest) returns (CardModel);
+  // Retrieves multiple cards by their unique IDs.
   rpc GetByIds (GetCardByIdsRequest) returns (GetAllCardsResponse);
+  // Retrieves all cards linked to a specific bank account.
   rpc GetByAccount (GetCardsByAccountRequest) returns (GetAllCardsResponse);
+  // Creates a new card record.
   rpc Add (AddCardRequest) returns (CardModel);
+  // Updates details of an existing card (e.g., status, expiration date).
   rpc Update (UpdateCardRequest) returns (google.protobuf.Empty);
+  // Deletes a card record by its unique ID.
   rpc Delete (DeleteCardRequest) returns (google.protobuf.Empty);
+  // Bulk creates multiple new card records.
   rpc AddBulk (AddCardBulkRequest) returns (google.protobuf.Empty);
+  // Bulk updates multiple existing card records.
   rpc UpdateBulk (UpdateCardBulkRequest) returns (google.protobuf.Empty); 
+  // Bulk deletes multiple card records.
   rpc DeleteBulk (DeleteCardBulkRequest) returns (google.protobuf.Empty);
+  // Gets the total count of all card records.
   rpc GetCount (google.protobuf.Empty) returns (CountResponse);
+  // Gets the count of cards filtered by their operational status (e.g. Active, Blocked).
   rpc GetCountByStatus(GetCardCountByStatus) returns (CountResponse);
 }
 
+// Data model representing a bank payment card.
 message CardModel {
+  // Unique identifier for the card.
   int32 card_id = 1;
+  // Optional account ID this card is linked to.
   optional int32 account_id = 2;
+  // Unique payment card number (PAN).
   string card_number = 3;
+  // Card Verification Value (CVV/CVC code).
   string cvv = 4;
+  // Optional expiry date of the card.
   optional google.protobuf.Timestamp expiry_date = 5;
+  // Optional operational status (e.g., "active", "blocked").
   optional string status = 6;
 }
 
+// Response containing a list of cards.
 message GetAllCardsResponse {
+  // List of cards.
   repeated CardModel cards = 1;
 }
 
+// Request to retrieve a card by its unique ID.
 message GetCardByIdRequest {
+  // The unique ID of the card.
   int32 card_id = 1;
 }
 
+// Request to retrieve multiple cards by their unique IDs.
 message GetCardByIdsRequest {
+  // List of card IDs.
   repeated int32 card_ids = 1;
 }
 
+// Request to retrieve cards linked to a specific bank account.
 message GetCardsByAccountRequest {
+  // Unique identifier of the bank account.
   int32 account_id = 1;
 }
 
+// Request to create a new card.
 message AddCardRequest {
+  // Optional account ID to link the card to.
   optional int32 account_id = 1;
+  // Card number (PAN).
   string card_number = 2;
+  // CVV/CVC code.
   string cvv = 3;
+  // Expiry date.
   google.protobuf.Timestamp expiry_date = 4;
+  // Optional operational status.
   optional string status = 5;
 }
 
+// Request to update an existing card.
 message UpdateCardRequest {
+  // The unique ID of the card to update.
   int32 card_id = 1;
+  // Optional updated account ID.
   optional int32 account_id = 2;
+  // Card number (PAN).
   string card_number = 3;
+  // CVV/CVC code.
   string cvv = 4;
+  // Expiry date.
   google.protobuf.Timestamp expiry_date = 5;
+  // Optional updated operational status.
   optional string status = 6;
 }
 
+// Request to delete a card.
 message DeleteCardRequest {
+  // The unique ID of the card to delete.
   int32 card_id = 1;
 }
 
+// Request to bulk add multiple new cards.
 message AddCardBulkRequest {
+  // List of cards to add.
   repeated AddCardRequest cards = 1;
 }
 
+// Request to bulk update multiple cards.
 message UpdateCardBulkRequest {
+  // List of card update payloads.
   repeated UpdateCardRequest cards = 1;
 }
 
+// Request to bulk delete multiple cards.
 message DeleteCardBulkRequest {
+  // List of card deletion payloads.
   repeated DeleteCardRequest cards = 1;
 }
 
+// Request to count cards with a specific status.
 message GetCardCountByStatus {
+  // Status to filter by.
   string status = 1;
 }

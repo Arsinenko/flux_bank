@@ -8,9 +8,14 @@ import "custom_types.proto";
 import "google/protobuf/empty.proto";
 import "account_type.proto";
 
+// Service performing analytical processing on account types.
 service AccountTypeAnalyticService {
+  // Analytical wrapper to retrieve all account types.
   rpc ProcessGetAll (GetAllRequest) returns (GetAllAccountTypesResponse);
+  // Analytical wrapper to retrieve an account type by ID.
   rpc ProcessGetById (GetAccountTypeByIdRequest) returns (AccountTypeModel);
+  // Analytical wrapper to retrieve multiple account types by their unique IDs.
   rpc ProcessGetByIds (GetAccountTypeByIdsRequest) returns (GetAllAccountTypesResponse);
+  // Analytical wrapper to retrieve the count of all account types.
   rpc ProcessGetCount (google.protobuf.Empty) returns (CountResponse);
 }

@@ -12,21 +12,36 @@ import "customer.proto";
 import "account_type.proto";
 import "account.proto";
 
+// Service performing analytical processing and aggregation on customer accounts.
 service AccountAnalyticService{
+  // Computes the total balance for a specific account type.
   rpc ProcessGetTotalBalanceByAccountType (GetTotalBalanceByAccountTypeRequest) returns (TotalBalanceResponse);
+  // Computes the average balance across accounts, with optional filtering.
   rpc ProcessGetAvgBalance(GetAvgBalanceRequest) returns (TotalBalanceResponse);
+  // Retrieves the top N accounts sorted by balance in descending order.
   rpc GetTopAccountByBalance(GetTopAccountByBalanceRequest) returns (GetAllAccountsResponse);
+  // Analytical wrapper to retrieve all accounts.
   rpc ProcessGetAll (GetAllRequest) returns (GetAllAccountsResponse);
+  // Analytical wrapper to retrieve an account by ID.
   rpc ProcessGetById (GetAccountByIdRequest) returns (AccountModel);
+  // Analytical wrapper to retrieve multiple accounts by their IDs.
   rpc ProcessGetByIds(GetAccountByIdsRequest) returns (GetAllAccountsResponse);
+  // Analytical wrapper to retrieve accounts by customer ID.
   rpc ProcessGetByCustomerId (GetAccountByCustomerIdRequest) returns (GetAllAccountsResponse);
+  // Analytical wrapper to retrieve accounts by date range.
   rpc ProcessGetByDateRange (GetByDateRangeRequest) returns (GetAllAccountsResponse);
+  // Analytical wrapper to retrieve total account count.
   rpc ProcessGetCount (google.protobuf.Empty) returns (CountResponse);
+  // Analytical wrapper to count accounts by status.
   rpc ProcessGetCountByStatus (GetAccountsByStatusRequest) returns (CountResponse);
+  // Analytical wrapper to count accounts within a date range.
   rpc ProcessGetCountByDateRange (GetByDateRangeRequest) returns (CountResponse);
+  // Analytical wrapper to count accounts for a specific customer.
   rpc ProcessGetCountByCustomerId (GetAccountByCustomerIdRequest) returns (CountResponse);
 }
 
+// Request to retrieve top N accounts by their balance.
 message GetTopAccountByBalanceRequest {
+  // The number of top accounts to return.
   int32 top_n = 1;
 }

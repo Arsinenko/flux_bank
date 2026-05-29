@@ -63,8 +63,8 @@ builder.Services.AddScoped<ITransactionCategoryRepository, TransactionCategoryRe
 builder.Services.AddScoped<ITransactionFeeRepository, TransactionFeeRepository>();
 builder.Services.AddScoped<IUserCredentialRepository, UserCredentialRepository>();
 builder.Services.AddGrpcReflection();
-
 var app = builder.Build();
+
 
 app.MapGrpcService<AccountService>();
 app.MapGrpcService<AccountTypeService>();

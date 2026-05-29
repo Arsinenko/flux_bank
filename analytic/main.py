@@ -25,6 +25,7 @@ from adapters.transaction.transaction_fee_repository import TransactionFeeReposi
 from adapters.transaction.transaction_repository import TransactionRepository
 from adapters.user_credential.user_credential_repository import UserCredentialRepository
 
+from api.generated.custom_types_pb2 import GetAllRequest
 from domain.account.account_repo import AccountRepositoryAbc
 from domain.account.account_type_repo import AccountTypeRepositoryAbc
 from domain.atm.atm_repo import AtmRepositoryAbc
@@ -231,10 +232,10 @@ async def serve():
 
 async def main():
     # container = get_container()
-    # customer_analytic_service: CustomerAnalyticService = container.resolve(CustomerAnalyticService)
-    #
-    # result = await customer_analytic_service.customer_repo.get_all(0, 0, "", False)
-    # print(result)
+    # atm_anaylytic_service: AtmAnalyticService = container.resolve(AtmAnalyticService)
+    
+    # result = await atm_anaylytic_service.ProcessGetAll(request=GetAllRequest(pageN=0, pageSize=10, order_by="location", is_desc=True), context=None)
+    # print(result[0].location)
     await serve()
 
 

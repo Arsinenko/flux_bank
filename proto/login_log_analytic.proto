@@ -8,11 +8,18 @@ import "custom_types.proto";
 import "google/protobuf/empty.proto";
 import "login_log.proto";
 
+// Service performing analytical processing on user login logs.
 service LoginLogAnalyticService {
+  // Analytical wrapper to retrieve all login logs.
   rpc ProcessGetAll (GetAllRequest) returns (GetAllLoginLogsResponse);
+  // Analytical wrapper to retrieve a login log by its unique ID.
   rpc ProcessGetById (GetLoginLogByIdRequest) returns (LoginLogModel);
+  // Analytical wrapper to retrieve multiple login logs by their unique IDs.
   rpc ProcessGetByIds (GetLoginLogByIdsRequest) returns (GetAllLoginLogsResponse);
+  // Analytical wrapper to retrieve login logs for a specific customer.
   rpc ProcessGetByCustomer (GetLoginLogsByCustomerRequest) returns (GetAllLoginLogsResponse);
+  // Analytical wrapper to retrieve login logs within a specific time range.
   rpc ProcessGetInTimeRange (GetLoginLogsInTimeRangeRequest) returns (GetAllLoginLogsResponse);
+  // Analytical wrapper to retrieve the total count of all login logs.
   rpc ProcessGetCount (google.protobuf.Empty) returns (CountResponse);
 }

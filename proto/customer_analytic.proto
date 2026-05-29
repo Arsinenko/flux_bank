@@ -15,53 +15,89 @@ import "loan.proto";
 import "deposit.proto";
 import "login_log.proto";
 
+// Service performing analytical processing and compiling detailed profiles for customers.
 service CustomerAnalyticService {
+  // Analytical wrapper to retrieve all customers.
   rpc ProcessGetAll (GetAllRequest) returns (GetAllCustomersResponse);
+  // Analytical wrapper to retrieve a customer by ID.
   rpc ProcessGetById (GetCustomerByIdRequest) returns (CustomerModel);
+  // Analytical wrapper to retrieve multiple customers by their unique IDs.
   rpc ProcessGetByIds (GetCustomerByIdsRequest) returns (GetAllCustomersResponse);
+  // Analytical wrapper to search customers by substring.
   rpc ProcessGetBySubstring (GetBySubstringRequest) returns (GetAllCustomersResponse);
+  // Analytical wrapper to retrieve customers by date range.
   rpc ProcessGetByDateRange (GetByDateRangeRequest) returns (GetAllCustomersResponse);
+  // Analytical wrapper to retrieve total customer count.
   rpc ProcessGetCount (google.protobuf.Empty) returns (CountResponse);
+  // Analytical wrapper to count customers matching a substring.
   rpc ProcessGetCountBySubstring (GetBySubstringRequest) returns (CountResponse);
+  // Analytical wrapper to count customers by date range.
   rpc ProcessGetCountByDateRange (GetByDateRangeRequest) returns (CountResponse);
+  // Analytical wrapper to retrieve inactive customers.
   rpc ProcessGetInactive (GetInactiveCustomersRequest) returns (GetAllCustomersResponse);
 
+  // Retrieves customers whose transaction count falls within a specific range.
   rpc GetCustomersByTransactionQuantityRange (GetCustomersByTransactionQuantityRangeRequest) returns (GetAllCustomersResponse);
+  // Computes the account lifetime duration for a specific customer.
   rpc GetCustomerLifeTime (GetCustomerLifeTimeRequest) returns (GetCustomerLifeTimeResponse);
+  // Computes account lifetime durations for all customers.
   rpc GetCustomersLifeTime (google.protobuf.Empty) returns (GetCustomersLifeTimeResponse);
+  // Retrieves inactive customers.
   rpc GetInactiveCustomers (GetAllRequest) returns (GetAllCustomersResponse);
+  // Gets the count of customers who fall within a transaction quantity range.
   rpc GetCountByTransactionQuantityRange (GetCustomersByTransactionQuantityRangeRequest) returns (CountResponse);
+  // Gets the total count of inactive customers.
   rpc GetCountInactiveCustomers (google.protobuf.Empty) returns (CountResponse);
+  // Retrieves a unified dashboard view of a customer's accounts, cards, loans, deposits, and logins.
   rpc GetCustomerDetails (GetCustomerDetailsRequest) returns (CustomerDetailsResponse);
 }
 
-message GetCustomersByTransactionQuantityRangeRequest{
+// Request to filter customers by their transaction quantity range.
+message GetCustomersByTransactionQuantityRangeRequest {
+  // Minimum number of transactions.
   int32 min_quantity = 1;
+  // Maximum number of transactions.
   int32 max_quantity = 2;
 }
 
+// Request to get the lifetime of a specific customer.
 message GetCustomerLifeTimeRequest {
+  // Unique customer identifier.
   int32 customer_id = 1;
 }
 
+// Response detailing a customer's lifetime duration.
 message GetCustomerLifeTimeResponse {
+  // Unique customer identifier.
   int32                     customer_id = 1;
+  // The duration or timestamp representing the customer's lifespan in the system.
   google.protobuf.Timestamp life_time   = 2;
 }
 
+// Response detailing lifetimes of multiple customers.
 message GetCustomersLifeTimeResponse {
+  // List of customer lifetimes.
   repeated GetCustomerLifeTimeResponse customer_life_time = 1;
 }
 
+// Request to retrieve full customer details.
 message GetCustomerDetailsRequest {
+  // Unique customer identifier.
   int32 customer_id = 1;
 }
 
+// Comprehensive response containing all records associated with a customer.
 message CustomerDetailsResponse {
+  // Customer profile details.
   CustomerModel          customer = 1;
+  // List of accounts owned by the customer.
   repeated AccountModel  accounts = 2;
+  // List of payment cards owned by the customer.
   repeated CardModel     cards    = 3;
+  // List of loans active for the customer.
   repeated LoanModel     loans    = 4;
+  // List of deposits owned by the customer.
   repeated DepositModel  deposits = 5;
+  // List of user activity logs (logins, etc.).
   repeated LoginLogModel activity = 6;
 }

@@ -30,7 +30,7 @@ func main() {
 	defer cancel()
 
 	//FillDb(ctx, serviceContainer)
-	app.CreateTestAccounts(ctx, serviceContainer)
+	FillDb(ctx, serviceContainer)
 
 	r := app.InitRouter(serviceContainer)
 	fmt.Printf("Starting HTTP server on %s...\n", cfg.Host.Address)

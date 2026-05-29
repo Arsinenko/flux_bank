@@ -9,77 +9,125 @@ import "google/protobuf/empty.proto";
 import "transaction.proto";
 import "custom_types.proto";
 
+// Service performing analytical processing and anomaly detection on financial transactions.
 service TransactionAnalyticService {
+  // Analytical wrapper to retrieve all transactions.
   rpc ProcessGetAll (GetAllRequest) returns (GetAllTransactionsResponse);
+  // Analytical wrapper to retrieve a specific transaction by its unique ID.
   rpc ProcessGetById (GetTransactionByIdRequest) returns (TransactionModel);
+  // Analytical wrapper to retrieve multiple transactions by their unique IDs.
   rpc ProcessGetByIds (GetTransactionByIdsRequest) returns (GetAllTransactionsResponse);
+  // Analytical wrapper to retrieve transactions executed within a specific date range.
   rpc ProcessGetByDateRange (GetByDateRangeRequest) returns (GetAllTransactionsResponse);
+  // Analytical wrapper to retrieve incoming transactions (revenue) for an account.
   rpc ProcessGetAccountRevenue (GetAccountRevenueRequest) returns (GetAllTransactionsResponse);
+  // Analytical wrapper to retrieve outgoing transactions (expenses) for an account.
   rpc ProcessGetAccountExpenses (GetAccountExpensesRequest) returns (GetAllTransactionsResponse);
+  // Analytical wrapper to retrieve the total count of all transactions.
   rpc ProcessGetCount (google.protobuf.Empty) returns (CountResponse);
+  // Analytical wrapper to count transactions within a date range.
   rpc ProcessGetCountByDateRange (GetByDateRangeRequest) returns (CountResponse);
+  // Analytical wrapper to count incoming transactions for an account.
   rpc ProcessGetCountAccountRevenue (GetAccountRevenueRequest) returns (CountResponse);
+  // Analytical wrapper to count outgoing transactions for an account.
   rpc ProcessGetCountAccountExpenses (GetAccountExpensesRequest) returns (CountResponse);
+  // Analytical wrapper to compute the total aggregated transaction amount.
   rpc ProcessGetTotalAmount (google.protobuf.Empty) returns (TotalAmountResponse);
 
+  // Computes the total sum of transactions executed within a specific date range.
   rpc GetSumOfTransactionsByDateRange (GetSumOfTransactionsByDateRangeRequest) returns (GetSumOfTransactionsByDateRangeResponse);
+  // Computes the average value of transactions executed within a specific date range.
   rpc GetAverageOfTransactionsByDateRange (GetAverageOfTransactionsByDateRangeRequest) returns (GetAverageOfTransactionsByDateRangeResponse);
+  // Computes the count of transactions executed within a specific date range.
   rpc GetCountOfTransactionsByDateRange (GetCountOfTransactionsByDateRangeRequest) returns (CountResponse);
+  // Retrieves the most frequent transactions executed within a specific date range.
   rpc GetMostFrequentTransactionsByDateRange (GetMostFrequentTransactionsByDateRangeRequest) returns (GetMostFrequentTransactionsByDateRangeResponse);
+  // Detects and retrieves anomalous transactions executed within a specific date range.
   rpc GetAnomalousTransactionsByDateRange (GetAnomalousTransactionsByDateRangeRequest) returns (GetAnomalousTransactionsByDateRangeResponse);
 }
 
+// Request to compute the sum of transactions within a date range.
 message GetSumOfTransactionsByDateRangeRequest {
+  // Optional start date/time.
   optional google.protobuf.Timestamp start_date = 1;
+  // Optional end date/time.
   optional google.protobuf.Timestamp end_date   = 2;
 }
 
+// Response containing the computed sum of transactions.
 message GetSumOfTransactionsByDateRangeResponse {
+  // The sum represented as a string.
   string sum = 1;
 }
 
+// Request to compute the average of transactions within a date range.
 message GetAverageOfTransactionsByDateRangeRequest {
+  // Optional start date/time.
   optional google.protobuf.Timestamp start_date = 1;
+  // Optional end date/time.
   optional google.protobuf.Timestamp end_date   = 2;
 }
 
+// Response containing the computed average of transactions.
 message GetAverageOfTransactionsByDateRangeResponse {
+  // The average represented as a string.
   string average = 1;
 }
 
+// Request to count transactions within a date range.
 message GetCountOfTransactionsByDateRangeRequest {
+  // Optional start date/time.
   optional google.protobuf.Timestamp start_date = 1;
+  // Optional end date/time.
   optional google.protobuf.Timestamp end_date   = 2;
 }
 
+// Response containing the count of transactions.
 message GetCountOfTransactionsByDateRangeResponse {
+  // The count.
   int32 count = 1;
 }
 
+// Request to retrieve the most frequent transactions within a date range.
 message GetMostFrequentTransactionsByDateRangeRequest {
+  // Optional start date/time.
   optional google.protobuf.Timestamp start_date = 1;
+  // Optional end date/time.
   optional google.protobuf.Timestamp end_date   = 2;
 }
 
+// Response containing the list of most frequent transactions.
 message GetMostFrequentTransactionsByDateRangeResponse {
+  // List of transactions.
   repeated TransactionModel transactions = 1;
 }
 
+// Request to retrieve anomalous transactions within a date range.
 message GetAnomalousTransactionsByDateRangeRequest {
+  // Optional start date/time.
   optional google.protobuf.Timestamp start_date = 1;
+  // Optional end date/time.
   optional google.protobuf.Timestamp end_date   = 2;
 }
 
+// Response containing the list of anomalous transactions.
 message GetAnomalousTransactionsByDateRangeResponse {
+  // List of anomalous transactions.
   repeated TransactionModel transactions = 1;
 }
 
+// Request to retrieve the sum of transactions for a user within a date range.
 message GetUserSumTransactionsByDateRangeRequest {
+  // Optional start date/time.
   optional google.protobuf.Timestamp start_date = 1;
+  // Optional end date/time.
   optional google.protobuf.Timestamp end_date   = 2;
+  // Unique user ID.
   int32                              user_id    = 3;
 }
 
+// Response containing the sum of a user's transactions.
 message GetUserSumTransactionsByDateRangeResponse {
+  // Sum value.
   int32 sum = 1;
 }

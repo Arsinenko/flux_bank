@@ -4,95 +4,154 @@ package protos;
 option go_package = "orch-go/gen/protos;protos";
 option csharp_namespace = "Core";
 
-
-
 import "google/protobuf/timestamp.proto";
 import "custom_types.proto";
 import "google/protobuf/empty.proto";
 
+// Service managing customer profiles and demographic data.
 service CustomerService {
+  // Retrieves a paginated list of all customers.
   rpc GetAll (GetAllRequest) returns (GetAllCustomersResponse);
+  // Retrieves a specific customer by their unique ID.
   rpc GetById (GetCustomerByIdRequest) returns (CustomerModel);
+  // Retrieves multiple customers by their unique IDs.
   rpc GetByIds (GetCustomerByIdsRequest) returns (GetAllCustomersResponse);
+  // Retrieves customers whose names or emails match a substring.
   rpc GetBySubstring (GetBySubstringRequest) returns (GetAllCustomersResponse);
+  // Retrieves customers who registered within a specific date range.
   rpc GetByDateRange (GetByDateRangeRequest) returns (GetAllCustomersResponse);
+  // Creates a new customer profile.
   rpc Add (AddCustomerRequest) returns (CustomerModel);
+  // Updates an existing customer profile.
   rpc Update (UpdateCustomerRequest) returns (google.protobuf.Empty);
+  // Deletes a customer profile by ID.
   rpc Delete (DeleteCustomerRequest) returns (google.protobuf.Empty);
+  // Bulk creates multiple customer profiles.
   rpc AddBulk (AddCustomerBulkRequest) returns (google.protobuf.Empty);
+  // Bulk updates multiple customer profiles.
   rpc UpdateBulk (UpdateCustomerBulkRequest) returns (google.protobuf.Empty);
+  // Bulk deletes multiple customer profiles.
   rpc DeleteBulk (DeleteCustomerBulkRequest) returns (google.protobuf.Empty);
+  // Gets the total count of customers.
   rpc GetCount (google.protobuf.Empty) returns (CountResponse);
+  // Gets the count of customers matching a specific substring.
   rpc GetCountBySubstring (GetBySubstringRequest) returns (CountResponse);
+  // Gets the count of customers registered within a specific date range.
   rpc GetCountByDateRange (GetByDateRangeRequest) returns (CountResponse);
+  // Retrieves customer profiles that are inactive based on a threshold.
   rpc GetInactive (GetInactiveCustomersRequest) returns (GetAllCustomersResponse);
 }
 
+// Data model representing a customer's profile.
 message CustomerModel {
+  // Unique identifier for the customer.
   int32 customer_id = 1;
+  // Customer's first name.
   string first_name = 2;
+  // Customer's last name.
   string last_name = 3;
+  // Customer's primary email address.
   string email = 4;
+  // Optional contact phone number.
   optional string phone = 5;
+  // Optional date of birth.
   optional DateOnly birth_date = 6;
+  // Timestamp when the customer profile was created.
   optional google.protobuf.Timestamp created_at = 7;
 }
 
-message GetBySubstringRequest{
+// Request to search customers by a substring in their name or email.
+message GetBySubstringRequest {
+  // Substring to search for.
   string sub_str = 1;
+  // Optional page number to retrieve (1-based index).
   optional int32 page_n = 2;
+  // Optional page size for pagination.
   optional int32 page_size = 3;
+  // Sorting order string (e.g., field name).
   string order = 4;
+  // Whether to sort in descending order.
   optional bool desc = 5;
 }
 
+// Response containing a list of customers.
 message GetAllCustomersResponse {
+  // List of customer profiles.
   repeated CustomerModel customers = 1;
 }
 
+// Request to retrieve a customer by their unique ID.
 message GetCustomerByIdRequest {
+  // The unique ID of the customer.
   int32 customer_id = 1;
 }
 
+// Request to retrieve multiple customers by their unique IDs.
 message GetCustomerByIdsRequest {
+  // List of customer IDs.
   repeated int32 customer_ids = 1;
 }
 
+// Request to create a new customer profile.
 message AddCustomerRequest {
+  // First name of the customer.
   string first_name = 1;
+  // Last name of the customer.
   string last_name = 2;
+  // Primary email address.
   string email = 3;
+  // Optional phone number.
   optional string phone = 4;
+  // Optional date of birth.
   optional DateOnly birth_date = 5;
 }
 
+// Request to bulk add multiple new customer profiles.
 message AddCustomerBulkRequest {
+  // List of new customer requests.
   repeated AddCustomerRequest customers = 1;
 }
 
+// Request to update an existing customer profile.
 message UpdateCustomerRequest {
+  // The unique ID of the customer to update.
   int32 customer_id = 1;
+  // Updated first name.
   string first_name = 2;
+  // Updated last name.
   string last_name = 3;
+  // Updated email address.
   string email = 4;
+  // Optional updated phone number.
   optional string phone = 5;
+  // Optional updated date of birth.
   optional DateOnly birth_date = 6;
 }
 
+// Request to delete a customer.
 message DeleteCustomerRequest {
+  // The unique ID of the customer to delete.
   int32 customer_id = 1;
 }
 
+// Request to bulk update multiple customer profiles.
 message UpdateCustomerBulkRequest {
+  // List of customer update payloads.
   repeated UpdateCustomerRequest customers = 1;
 }
 
+// Request to bulk delete multiple customers.
 message DeleteCustomerBulkRequest {
+  // List of customer deletion requests.
   repeated DeleteCustomerRequest customers = 1;
 }
 
+// Request to retrieve inactive customers.
 message GetInactiveCustomersRequest {
+  // Threshold timestamp, customers created/active before this are considered inactive.
   google.protobuf.Timestamp threshold_time = 1;
+  // Optional page number to retrieve.
   optional int32 page_n = 2;
+  // Optional page size.
   optional int32 page_size = 3;
 }

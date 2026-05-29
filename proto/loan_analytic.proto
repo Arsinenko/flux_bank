@@ -8,11 +8,18 @@ import "custom_types.proto";
 import "google/protobuf/empty.proto";
 import "loan.proto";
 
+// Service performing analytical processing on customer loans.
 service LoanAnalyticService {
+  // Analytical wrapper to retrieve all loans.
   rpc ProcessGetAll (GetAllRequest) returns (GetAllLoansResponse);
+  // Analytical wrapper to retrieve a loan by its unique ID.
   rpc ProcessGetById (GetLoanByIdRequest) returns (LoanModel);
+  // Analytical wrapper to retrieve multiple loans by their unique IDs.
   rpc ProcessGetByIds (GetLoanByIdsRequest) returns (GetAllLoansResponse);
+  // Analytical wrapper to retrieve loans belonging to a customer.
   rpc ProcessGetByCustomer (GetLoansByCustomerRequest) returns (GetAllLoansResponse);
+  // Analytical wrapper to retrieve the total count of loans.
   rpc ProcessGetCount (google.protobuf.Empty) returns (CountResponse);
+  // Analytical wrapper to count loans by status.
   rpc ProcessGetCountByStatus (GetLoanCountByStatusRequest) returns (CountResponse);
 }

@@ -6,26 +6,42 @@ option go_package = "orch-go/gen/protos;protos";
 option csharp_namespace = "Core";
 import "google/protobuf/timestamp.proto";
 
+// Represents a request to retrieve a paginated, ordered list of items.
 message GetAllRequest {
+  // The page number to retrieve (1-based index).
   int32                       pageN    = 1;
+  // The number of items to return per page.
   int32                       pageSize = 2;
+  // The field name by which to sort the results.
   google.protobuf.StringValue order_by = 3;
+  // Whether to sort the results in descending order.
   google.protobuf.BoolValue   is_desc  = 4;
 }
 
+// Represents a simple date structure containing year, month, and day.
 message DateOnly {
+  // The calendar year.
   int32 year  = 1;
+  // The month of the year (1-12).
   int32 month = 2;
+  // The day of the month (1-31).
   int32 day   = 3;
 }
 
+// Represents a request to retrieve items within a specific date range with optional pagination.
 message GetByDateRangeRequest{
+  // The start date/time of the range (inclusive).
   google.protobuf.Timestamp fromDate = 1;
+  // The end date/time of the range (inclusive).
   google.protobuf.Timestamp toDate   = 2;
+  // The page number to retrieve (1-based index).
   optional int32            pageN    = 3;
+  // The number of items to return per page.
   optional int32            pageSize = 4;
 }
 
+// Represents a response containing a simple count of items.
 message CountResponse {
+  // The total number of items counted.
   int64 count = 1;
 }

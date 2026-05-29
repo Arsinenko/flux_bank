@@ -16,7 +16,7 @@ func (a TakeLoanAction) Execute(ctx *simulation_context.SimpleSimulationContext,
 	if err != nil {
 		return err
 	}
-	if account.Balance.LessThan(agent.Salary.Mul(decimal.NewFromFloat(0.1))) {
+	if account.Balance.GreaterThanOrEqual(agent.Salary.Mul(decimal.NewFromFloat(0.1))) {
 		return nil
 	}
 	loanAmount := agent.Salary.String()

@@ -28,6 +28,7 @@ import (
 	"orch-go/internal/infrastructure/repository/transaction_repo"
 	"orch-go/internal/infrastructure/repository/user_credential_repo"
 	"orch-go/internal/services"
+	"strings"
 	"time"
 
 	"golang.org/x/sync/errgroup"
@@ -236,8 +237,6 @@ func InitAll(
 	g.Go(func() error {
 		return InitTransactionCategories(ctx, transactionCategoryNames, s.TransactionService)
 	})
-	//CreateTestCustomers(ctx, *s.CustomerService)
-	CreateTestAccounts(ctx, s)
 	CreateTestCards(ctx, s)
 	CreateTestBranches(ctx, s)
 	CreateTestAtms(ctx, s)
@@ -245,14 +244,35 @@ func InitAll(
 	return g.Wait()
 }
 
-func CreateTestCustomers(ctx context.Context, service services.CustomerService) {
+func CreateTestUserCredentials(ctx context.Context, s *services.ServiceContainer) {
+	customers, err := s.CustomerService.GetAllCustomers(ctx, 0, 0, "", false)
+	if err != nil {
+		fmt.Printf("create customers: %v\n", err)
+		return
+	}
+
+	for _, c := range customers {
+		_, err := s.UserCredentialService.GetUserCredentialById(ctx, c.Id)
+		if err != nil {
+			if strings.Contains(err.Error(), "UserCredential not found") {
+				_, err := s.UserCredentialService.CreateUserCredential(ctx, c.Id, c.FirstName, c.FirstName)
+				if err != nil {
+					fmt.Printf("create user credentials: %v\n", err)
+					return
+				}
+			}
+		}
+	}
+}
+
+func CreateTestCustomers(ctx context.Context, service *services.CustomerService) {
 	var customers []*customer.Customer
 	for i := 0; i < 100; i++ {
 		customers = append(customers, customer.FakeCustomer(time.Now()))
 	}
 	err := service.CreateCustomerBulk(ctx, customers)
 	if err != nil {
-		fmt.Printf("create customers: %w", err.Error())
+		fmt.Printf("create customers: %v\n", err)
 		return
 	}
 }
@@ -282,7 +302,7 @@ func CreateTestAccounts(ctx context.Context, container *services.ServiceContaine
 	}
 	err = container.AccountService.CreateAccountBulk(ctx, accounts)
 	if err != nil {
-		fmt.Println("create accounts: %w", err.Error())
+		fmt.Printf("create accounts: %v\n", err)
 		return
 	}
 
@@ -291,7 +311,7 @@ func CreateTestAccounts(ctx context.Context, container *services.ServiceContaine
 func CreateTestCards(ctx context.Context, container *services.ServiceContainer) {
 	accounts, err := container.AccountService.GetAllAccounts(ctx, 0, 0, "", false)
 	if err != nil {
-		fmt.Printf("get accounts: %w", err.Error())
+		fmt.Printf("get accounts: %v\n", err)
 		return
 	}
 
@@ -306,7 +326,7 @@ func CreateTestCards(ctx context.Context, container *services.ServiceContainer) 
 	}
 	err = container.CardService.CreateCardBulk(ctx, cards)
 	if err != nil {
-		fmt.Printf("create cards: %w", err.Error())
+		fmt.Printf("create cards: %v\n", err)
 		return
 	}
 
@@ -320,7 +340,7 @@ func CreateTestBranches(ctx context.Context, container *services.ServiceContaine
 	}
 	err := container.BranchService.CreateBranchBulk(ctx, branches)
 	if err != nil {
-		fmt.Printf("create branches: %w", err.Error())
+		fmt.Printf("create branches: %v\n", err)
 		return
 	}
 
@@ -329,7 +349,7 @@ func CreateTestBranches(ctx context.Context, container *services.ServiceContaine
 func CreateTestAtms(ctx context.Context, container *services.ServiceContainer) {
 	branches, err := container.BranchService.GetAllBranches(ctx, 0, 0, "", false)
 	if err != nil {
-		fmt.Printf("get branches: %w", err.Error())
+		fmt.Printf("get branches: %v\n", err)
 		return
 	}
 
@@ -349,7 +369,7 @@ func CreateTestAtms(ctx context.Context, container *services.ServiceContainer) {
 
 	err = container.AtmService.CreateAtmBulk(ctx, atms)
 	if err != nil {
-		fmt.Printf("create atms: %w", err.Error())
+		fmt.Printf("create atms: %v\n", err)
 		return
 	}
 

@@ -4,85 +4,132 @@ package protos;
 option go_package = "orch-go/gen/protos;protos";
 option csharp_namespace = "Core";
 
-
-
 import "custom_types.proto";
 import "google/protobuf/empty.proto";
 import "branch.proto";
 
+// Service managing Automated Teller Machines (ATMs).
 service AtmService {
+  // Retrieves a paginated list of all ATMs.
   rpc GetAll (GetAllRequest) returns (GetAllAtmsResponse);
+  // Retrieves a specific ATM by its unique ID.
   rpc GetById (GetAtmByIdRequest) returns (AtmModel);
+  // Retrieves multiple ATMs by their unique IDs.
   rpc GetByIds (GetAtmByIdsRequest) returns (GetAllAtmsResponse);
+  // Retrieves ATMs filtered by their operational status (e.g. Active, Maintenance).
   rpc GetByStatus (GetAtmsByStatusRequest) returns (GetAllAtmsResponse);
+  // Retrieves ATMs located near or containing a specific location substring.
   rpc GetByLocationSubStr (GetAtmsByLocationSubStrRequest) returns (GetAllAtmsResponse);
+  // Retrieves ATMs belonging to a specific bank branch.
   rpc GetByBranch (GetAtmsByBranchRequest) returns (GetAllAtmsResponse);
+  // Creates a new ATM record.
   rpc Add (AddAtmRequest) returns (AtmModel);
+  // Updates an existing ATM's details.
   rpc Update (UpdateAtmRequest) returns (google.protobuf.Empty);
+  // Deletes an ATM by its ID.
   rpc Delete (DeleteAtmRequest) returns (google.protobuf.Empty);
+  // Bulk creates multiple ATMs.
   rpc AddBulk (AddAtmBulkRequest) returns (google.protobuf.Empty);
+  // Bulk updates multiple ATMs.
   rpc UpdateBulk (UpdateAtmBulkRequest) returns (google.protobuf.Empty);
+  // Bulk deletes multiple ATMs.
   rpc DeleteBulk (DeleteAtmBulkRequest) returns (google.protobuf.Empty);
+  // Gets the total count of all ATMs.
   rpc GetCount (google.protobuf.Empty) returns (CountResponse);
+  // Gets the count of ATMs with a specific status.
   rpc GetCountByStatus (GetAtmsByStatusRequest) returns (CountResponse);
 }
 
+// Data model representing an Automated Teller Machine (ATM).
 message AtmModel {
+  // Unique identifier for the ATM.
   int32 atm_id = 1;
+  // Optional branch ID the ATM is associated with.
   optional int32 branch_id = 2;
+  // Optional physical address/location description.
   optional string location = 3;
+  // Optional status indicator (e.g. "active", "out_of_order").
   optional string status = 4;
 }
 
+// Request to retrieve ATMs by their status.
 message GetAtmsByStatusRequest {
+  // The status string to filter by.
   string status = 1;
 }
 
+// Request to search ATMs by a location substring.
 message GetAtmsByLocationSubStrRequest {
+  // Substring to find in ATM locations.
   string sub_str = 1;
 }
 
+// Request to retrieve ATMs associated with a branch.
 message GetAtmsByBranchRequest {
+  // Unique identifier of the branch.
   int32 branch_id = 1;
 }
 
+// Response containing a list of ATMs.
 message GetAllAtmsResponse {
+  // List of ATMs.
   repeated AtmModel atms = 1;
 }
 
+// Request to retrieve an ATM by its unique ID.
 message GetAtmByIdRequest {
+  // The unique ID of the ATM.
   int32 atm_id = 1;
 }
 
+// Request to retrieve multiple ATMs by their unique IDs.
 message GetAtmByIdsRequest {
+  // List of ATM IDs.
   repeated int32 atm_ids = 1;
 }
 
+// Request to add a new ATM.
 message AddAtmRequest {
+  // Optional branch ID to link the ATM to.
   optional int32 branch_id = 1;
+  // Optional location description.
   optional string location = 2;
+  // Optional operational status.
   optional string status = 3;
 }
 
+// Request to update an existing ATM.
 message UpdateAtmRequest {
+  // The unique ID of the ATM to update.
   int32 atm_id = 1;
+  // Optional updated branch ID.
   optional int32 branch_id = 2;
+  // Optional updated location description.
   optional string location = 3;
+  // Optional updated operational status.
   optional string status = 4;
 }
 
+// Request to delete an ATM.
 message DeleteAtmRequest {
+  // The unique ID of the ATM to delete.
   int32 atm_id = 1;
 }
 
+// Request to bulk add multiple new ATMs.
 message AddAtmBulkRequest {
+  // List of ATMs to add.
   repeated AddAtmRequest atms = 1;
 }
 
+// Request to bulk update multiple ATMs.
 message UpdateAtmBulkRequest {
+  // List of ATM update payloads.
   repeated UpdateAtmRequest atms = 1;
 }
 
+// Request to bulk delete multiple ATMs.
 message DeleteAtmBulkRequest {
+  // List of ATM deletion payloads.
   repeated DeleteAtmRequest atms = 1;
 }

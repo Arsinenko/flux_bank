@@ -8,9 +8,14 @@ import "custom_types.proto";
 import "google/protobuf/empty.proto";
 import "fee_type.proto";
 
+// Service performing analytical processing on fee types.
 service FeeTypeAnalyticService {
+  // Analytical wrapper to retrieve all fee types.
   rpc ProcessGetAll (GetAllRequest) returns (GetAllFeeTypesResponse);
+  // Analytical wrapper to retrieve a fee type by its unique ID.
   rpc ProcessGetById (GetFeeTypeByIdRequest) returns (FeeTypeModel);
+  // Analytical wrapper to retrieve multiple fee types by their unique IDs.
   rpc ProcessGetByIds (GetFeeTypeByIdsRequest) returns (GetAllFeeTypesResponse);
+  // Analytical wrapper to retrieve the total count of fee types.
   rpc ProcessGetCount (google.protobuf.Empty) returns (CountResponse);
 }

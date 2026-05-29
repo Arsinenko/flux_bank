@@ -8,9 +8,14 @@ import "custom_types.proto";
 import "google/protobuf/empty.proto";
 import "transaction_category.proto";
 
+// Service performing analytical processing on transaction categories.
 service TransactionCategoryAnalyticService {
+  // Analytical wrapper to retrieve all transaction categories.
   rpc ProcessGetAll (GetAllRequest) returns (GetAllTransactionCategoriesResponse);
+  // Analytical wrapper to retrieve a transaction category by its unique ID.
   rpc ProcessGetById (GetTransactionCategoryByIdRequest) returns (TransactionCategoryModel);
+  // Analytical wrapper to retrieve multiple transaction categories by their unique IDs.
   rpc ProcessGetByIds (GetTransactionCategoryByIdsRequest) returns (GetAllTransactionCategoriesResponse);
+  // Analytical wrapper to retrieve the total count of transaction categories.
   rpc ProcessGetCount (google.protobuf.Empty) returns (CountResponse);
 }

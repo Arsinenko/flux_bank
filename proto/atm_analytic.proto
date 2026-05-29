@@ -8,13 +8,22 @@ import "custom_types.proto";
 import "google/protobuf/empty.proto";
 import "atm.proto";
 
+// Service performing analytical processing on ATMs.
 service AtmAnalyticService {
+  // Analytical wrapper to retrieve all ATMs.
   rpc ProcessGetAll (GetAllRequest) returns (GetAllAtmsResponse);
+  // Analytical wrapper to retrieve a specific ATM by its ID.
   rpc ProcessGetById (GetAtmByIdRequest) returns (AtmModel);
+  // Analytical wrapper to retrieve multiple ATMs by their unique IDs.
   rpc ProcessGetByIds (GetAtmByIdsRequest) returns (GetAllAtmsResponse);
+  // Analytical wrapper to retrieve ATMs by their operational status.
   rpc ProcessGetByStatus (GetAtmsByStatusRequest) returns (GetAllAtmsResponse);
+  // Analytical wrapper to search ATMs by a location substring.
   rpc ProcessGetByLocationSubStr (GetAtmsByLocationSubStrRequest) returns (GetAllAtmsResponse);
+  // Analytical wrapper to retrieve ATMs belonging to a specific branch.
   rpc ProcessGetByBranch (GetAtmsByBranchRequest) returns (GetAllAtmsResponse);
+  // Analytical wrapper to retrieve the total count of ATMs.
   rpc ProcessGetCount (google.protobuf.Empty) returns (CountResponse);
+  // Analytical wrapper to count ATMs with a specific status.
   rpc ProcessGetCountByStatus (GetAtmsByStatusRequest) returns (CountResponse);
 }

@@ -4,75 +4,116 @@ package protos;
 option go_package = "orch-go/gen/protos;protos";
 option csharp_namespace = "Core";
 
-
-
 import "custom_types.proto";
 import "google/protobuf/empty.proto";
 import "google/protobuf/timestamp.proto";
 
+// Service managing currency exchange rates.
 service ExchangeRateService {
+  // Retrieves a paginated list of all currency exchange rates.
   rpc GetAll (GetAllRequest) returns (GetAllExchangeRatesResponse);
+  // Retrieves a specific exchange rate by its unique ID.
   rpc GetById (GetExchangeRateByIdRequest) returns (ExchangeRateModel);
+  // Retrieves multiple exchange rates by their unique IDs.
   rpc GetByIds (GetExchangeRateByIdsRequest) returns (GetAllExchangeRatesResponse);
+  // Retrieves all exchange rates that share a specific base currency (e.g. USD).
   rpc GetByBaseCurrency (GetExchangeRateByBaseCurrencyRequest) returns (GetAllExchangeRatesResponse);
+  // Creates a new exchange rate.
   rpc Add (AddExchangeRateRequest) returns (ExchangeRateModel);
+  // Updates details of an existing exchange rate.
   rpc Update (UpdateExchangeRateRequest) returns (google.protobuf.Empty);
+  // Deletes an exchange rate by its ID.
   rpc Delete (DeleteExchangeRateRequest) returns (google.protobuf.Empty);
+  // Bulk creates multiple exchange rates.
   rpc AddBulk (AddExchangeRateBulkRequest) returns (google.protobuf.Empty);
+  // Bulk updates multiple exchange rates.
   rpc UpdateBulk (UpdateExchangeRateBulkRequest) returns (google.protobuf.Empty);
+  // Bulk deletes multiple exchange rates.
   rpc DeleteBulk (DeleteExchangeRateBulkRequest) returns (google.protobuf.Empty);
+  // Gets the total count of exchange rates.
   rpc GetCount (google.protobuf.Empty) returns (CountResponse);
 }
 
+// Data model representing a currency exchange rate.
 message ExchangeRateModel {
+  // Unique identifier for the exchange rate.
   int32 rate_id = 1;
+  // Optional base currency code (e.g. "USD").
   optional string base_currency = 2;
+  // Optional target currency code (e.g. "EUR").
   optional string target_currency = 3;
+  // Optional conversion rate value represented as a string.
   optional string rate = 4;
+  // Optional timestamp of when the rate was last updated.
   optional google.protobuf.Timestamp updated_at = 5;
 }
 
+// Response containing a list of exchange rates.
 message GetAllExchangeRatesResponse {
+  // List of exchange rates.
   repeated ExchangeRateModel exchange_rates = 1;
 }
 
+// Request to retrieve an exchange rate by its unique ID.
 message GetExchangeRateByIdRequest {
+  // The unique ID of the exchange rate.
   int32 rate_id = 1;
 }
 
+// Request to retrieve multiple exchange rates by their unique IDs.
 message GetExchangeRateByIdsRequest {
+  // List of exchange rate IDs.
   repeated int32 rate_ids = 1;
 }
 
+// Request to retrieve exchange rates sharing a base currency.
 message GetExchangeRateByBaseCurrencyRequest {
+  // The base currency code (e.g. "USD").
   string base_currency = 1;
 }
 
+// Request to add a new exchange rate.
 message AddExchangeRateRequest {
+  // Optional base currency code.
   optional string base_currency = 1;
+  // Optional target currency code.
   optional string target_currency = 2;
+  // Optional conversion rate value represented as a string.
   optional string rate = 3;
 }
 
+// Request to update an existing exchange rate.
 message UpdateExchangeRateRequest {
+  // The unique ID of the exchange rate to update.
   int32 rate_id = 1;
+  // Optional updated base currency code.
   optional string base_currency = 2;
+  // Optional updated target currency code.
   optional string target_currency = 3;
+  // Optional updated conversion rate value represented as a string.
   optional string rate = 4;
 }
 
+// Request to delete an exchange rate.
 message DeleteExchangeRateRequest {
+  // The unique ID of the exchange rate to delete.
   int32 rate_id = 1;
 }
 
+// Request to bulk add multiple new exchange rates.
 message AddExchangeRateBulkRequest {
+  // List of exchange rates to add.
   repeated AddExchangeRateRequest exchange_rates = 1;
 } 
 
+// Request to bulk update multiple existing exchange rates.
 message UpdateExchangeRateBulkRequest {
+  // List of exchange rate update payloads.
   repeated UpdateExchangeRateRequest exchange_rates = 1;
 }
 
+// Request to bulk delete multiple exchange rates.
 message DeleteExchangeRateBulkRequest {
+  // List of exchange rate deletion payloads.
   repeated DeleteExchangeRateRequest exchange_rates = 1;
 }

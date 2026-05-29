@@ -4,99 +4,157 @@ package protos;
 option go_package = "orch-go/gen/protos;protos";
 option csharp_namespace = "Core";
 
-
-
 import "google/protobuf/empty.proto";
 import "google/protobuf/timestamp.proto";
 import "account.proto";
 import "custom_types.proto";
 
+// Service managing financial transactions between accounts.
 service TransactionService {
+  // Retrieves a paginated list of all transactions.
   rpc GetAll (GetAllRequest) returns (GetAllTransactionsResponse);
+  // Retrieves a specific transaction by its unique ID.
   rpc GetById (GetTransactionByIdRequest) returns (TransactionModel);
+  // Retrieves multiple transactions by their unique IDs.
   rpc GetByIds (GetTransactionByIdsRequest) returns (GetAllTransactionsResponse);
+  // Retrieves transactions executed within a specific date range.
   rpc GetByDateRange (GetByDateRangeRequest) returns (GetAllTransactionsResponse);
+  // Retrieves transactions where the specified account is the recipient (revenue/incoming).
   rpc GetAccountRevenue (GetAccountRevenueRequest) returns (GetAllTransactionsResponse);
+  // Retrieves transactions where the specified account is the sender (expenses/outgoing).
   rpc GetAccountExpenses (GetAccountExpensesRequest) returns (GetAllTransactionsResponse);
+  // Creates and executes a new transaction.
   rpc Add (AddTransactionRequest) returns (TransactionModel);
+  // Updates an existing transaction's details.
   rpc Update (UpdateTransactionRequest) returns (google.protobuf.Empty);
+  // Deletes a transaction by its unique ID.
   rpc Delete (DeleteTransactionRequest) returns (google.protobuf.Empty);
+  // Bulk creates multiple transactions.
   rpc AddBulk (AddTransactionBulkRequest) returns (google.protobuf.Empty);
+  // Bulk updates multiple transactions.
   rpc UpdateBulk (UpdateTransactionBulkRequest) returns (google.protobuf.Empty);
+  // Bulk deletes multiple transactions.
   rpc DeleteBulk (DeleteTransactionBulkRequest) returns (google.protobuf.Empty);
+  // Gets the total count of all transactions.
   rpc GetCount (google.protobuf.Empty) returns (CountResponse);
+  // Gets the count of transactions within a specific date range.
   rpc GetCountByDateRange (GetByDateRangeRequest) returns (CountResponse);
+  // Gets the count of incoming transactions (revenue) for an account.
   rpc GetCountAccountRevenue (GetAccountRevenueRequest) returns (CountResponse);
+  // Gets the count of outgoing transactions (expenses) for an account.
   rpc GetCountAccountExpenses (GetAccountExpensesRequest) returns (CountResponse);
+  // Gets the total aggregated transaction amount.
   rpc GetTotalAmount (google.protobuf.Empty) returns (TotalAmountResponse);
 }
 
+// Response containing the aggregated total amount of transactions.
 message TotalAmountResponse {
+  // The total amount represented as a string.
   string total_amount = 1;
 }
 
-
+// Data model representing a financial transaction.
 message TransactionModel {
+  // Unique identifier for the transaction.
   int32 transaction_id = 1;
+  // Optional source account ID (sender).
   optional int32 source_account = 2;
+  // Optional target account ID (recipient).
   optional int32 target_account = 3;
+  // The transaction amount represented as a string.
   string amount = 4;
+  // Three-letter currency code (e.g., "USD", "EUR").
   string currency = 5;
+  // Optional timestamp of when the transaction occurred.
   optional google.protobuf.Timestamp created_at = 6;
+  // Optional transaction status (e.g., "pending", "completed", "failed").
   optional string status = 7;
 }
 
+// Response containing a list of transactions.
 message GetAllTransactionsResponse {
+  // List of transactions.
   repeated TransactionModel transactions = 1;
 }
 
+// Request to retrieve a transaction by its unique ID.
 message GetTransactionByIdRequest {
+  // The unique ID of the transaction.
   int32 transaction_id = 1;
 }
 
+// Request to retrieve multiple transactions by their unique IDs.
 message GetTransactionByIdsRequest {
+  // List of transaction IDs.
   repeated int32 transaction_ids = 1;
 }
 
-message GetAccountRevenueRequest{
+// Request to retrieve incoming transactions (revenue) for an account.
+message GetAccountRevenueRequest {
+  // The recipient (target) account ID.
   int32 target_account = 1;
+  // Optional date range filter.
   optional GetByDateRangeRequest date_range = 2;
 }
 
-message GetAccountExpensesRequest{
+// Request to retrieve outgoing transactions (expenses) from an account.
+message GetAccountExpensesRequest {
+  // The sender (source) account ID.
   int32 source_account = 1;
+  // Optional date range filter.
   optional GetByDateRangeRequest date_range = 2;
 }
 
+// Request to create a new transaction.
 message AddTransactionRequest {
+  // Optional source account ID.
   optional int32 source_account = 1;
+  // Optional target account ID.
   optional int32 target_account = 2;
+  // The transaction amount represented as a string.
   string amount = 3;
+  // The transaction currency code (e.g. "USD").
   string currency = 4;
+  // Optional operational status.
   optional string status = 5;
 }
 
+// Request to update an existing transaction.
 message UpdateTransactionRequest {
+  // The unique ID of the transaction to update.
   int32 transaction_id = 1;
+  // Optional updated source account ID.
   optional int32 source_account = 2;
+  // Optional updated target account ID.
   optional int32 target_account = 3;
+  // The transaction amount represented as a string.
   string amount = 4;
+  // Currency code.
   string currency = 5;
+  // Optional updated status.
   optional string status = 6;
 }
 
+// Request to delete a transaction.
 message DeleteTransactionRequest {
+  // The unique ID of the transaction to delete.
   int32 transaction_id = 1;
 }
 
+// Request to bulk add multiple new transactions.
 message AddTransactionBulkRequest {
+  // List of transactions to add.
   repeated AddTransactionRequest transactions = 1;
 }
 
+// Request to bulk update multiple transactions.
 message UpdateTransactionBulkRequest {
+  // List of transaction update payloads.
   repeated UpdateTransactionRequest transactions = 1;
 }
 
+// Request to bulk delete multiple transactions.
 message DeleteTransactionBulkRequest {
+  // List of transaction deletion requests.
   repeated DeleteTransactionRequest transactions = 1;
 }

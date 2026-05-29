@@ -1,11 +1,13 @@
-﻿using System;
+using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace Core.Models
+namespace Core.Migrations
 {
+    using DateOnly = System.DateOnly;
+
     /// <inheritdoc />
     public partial class Initial : Migration
     {
@@ -317,7 +319,7 @@ namespace Core.Models
                     card_id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     account_id = table.Column<int>(type: "integer", nullable: false),
-                    card_number = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
+                    card_number = table.Column<string>(type: "character varying(16)", maxLength: 16, nullable: false),
                     cvv = table.Column<string>(type: "character varying(4)", maxLength: 4, nullable: false),
                     expiry_date = table.Column<DateOnly>(type: "date", nullable: true),
                     status = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false, defaultValueSql: "'active'::character varying")

@@ -8,10 +8,16 @@ import "custom_types.proto";
 import "google/protobuf/empty.proto";
 import "exchange_rate.proto";
 
+// Service performing analytical processing on currency exchange rates.
 service ExchangeRateAnalyticService {
+  // Analytical wrapper to retrieve all currency exchange rates.
   rpc ProcessGetAll (GetAllRequest) returns (GetAllExchangeRatesResponse);
+  // Analytical wrapper to retrieve an exchange rate by its unique ID.
   rpc ProcessGetById (GetExchangeRateByIdRequest) returns (ExchangeRateModel);
+  // Analytical wrapper to retrieve multiple exchange rates by their unique IDs.
   rpc ProcessGetByIds (GetExchangeRateByIdsRequest) returns (GetAllExchangeRatesResponse);
+  // Analytical wrapper to retrieve exchange rates sharing a base currency.
   rpc ProcessGetByBaseCurrency (GetExchangeRateByBaseCurrencyRequest) returns (GetAllExchangeRatesResponse);
+  // Analytical wrapper to retrieve the total count of exchange rates.
   rpc ProcessGetCount (google.protobuf.Empty) returns (CountResponse);
 }

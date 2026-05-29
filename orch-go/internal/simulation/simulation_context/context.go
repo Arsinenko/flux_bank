@@ -16,10 +16,10 @@ type SimpleSimulationContext struct {
 	context.Context
 	services *services.ServiceContainer
 	agents   []*agents.Agent
-	mu sync.RWMutex
+	mu       sync.RWMutex
 }
 
-func NewSimpleSimulationContext(ctx context.Context, services *services.ServiceContainer, agents []*agents.Agent) SimulationContext {
+func NewSimpleSimulationContext(ctx context.Context, services *services.ServiceContainer) SimulationContext {
 	return &SimpleSimulationContext{
 		Context:  ctx,
 		services: services,

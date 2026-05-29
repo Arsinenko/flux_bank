@@ -4,84 +4,132 @@ package protos;
 option go_package = "orch-go/gen/protos;protos";
 option csharp_namespace = "Core";
 
-
-
 import "custom_types.proto";
 import "google/protobuf/empty.proto";
 import "customer.proto";
 
+// Service managing customer addresses (both residential and billing).
 service CustomerAddressService {
+  // Retrieves a paginated list of all customer addresses.
   rpc GetAll (GetAllRequest) returns (GetAllCustomerAddressesResponse);
+  // Retrieves a specific customer address by its unique ID.
   rpc GetById (GetCustomerAddressByIdRequest) returns (CustomerAddressModel);
+  // Retrieves all addresses associated with a specific customer ID.
   rpc GetByCustomerId (GetCustomerAddressByCustomerIdRequest) returns (GetAllCustomerAddressesResponse);
+  // Retrieves multiple addresses by their unique IDs.
   rpc GetByIds (GetCustomerAddressByIdsRequest) returns (GetAllCustomerAddressesResponse);
+  // Creates a new customer address.
   rpc Add (AddCustomerAddressRequest) returns (CustomerAddressModel);
+  // Updates an existing customer address.
   rpc Update (UpdateCustomerAddressRequest) returns (google.protobuf.Empty);
+  // Deletes an address by its ID.
   rpc Delete (DeleteCustomerAddressRequest) returns (google.protobuf.Empty);
+  // Bulk creates multiple customer addresses.
   rpc AddBulk (AddCustomerAddressBulkRequest) returns (google.protobuf.Empty);
+  // Bulk updates multiple customer addresses.
   rpc UpdateBulk (UpdateCustomerAddressBulkRequest) returns (google.protobuf.Empty);
+  // Bulk deletes multiple customer addresses.
   rpc DeleteBulk (DeleteCustomerAddressBulkRequest) returns (google.protobuf.Empty);
+  // Gets the total count of customer addresses.
   rpc GetCount (google.protobuf.Empty) returns (CountResponse);
 }
 
+// Data model representing a customer's address details.
 message CustomerAddressModel {
+  // Unique identifier for the address.
   int32 address_id = 1;
+  // Optional customer ID associated with the address.
   optional int32 customer_id = 2;
+  // Optional country name.
   optional string country = 3;
+  // Optional city name.
   optional string city = 4;
+  // Optional street name/number.
   optional string street = 5;
+  // Optional postal/ZIP code.
   optional string zip_code = 6;
+  // Optional flag indicating if this is the customer's primary address.
   optional bool is_primary = 7;
 }
 
+// Response containing a list of customer addresses.
 message GetAllCustomerAddressesResponse {
+  // List of customer addresses.
   repeated CustomerAddressModel customer_addresses = 1;
 }
 
+// Request to retrieve a customer address by its unique ID.
 message GetCustomerAddressByIdRequest {
+  // The unique ID of the address.
   int32 address_id = 1;
 }
 
+// Request to retrieve multiple customer addresses by their IDs.
 message GetCustomerAddressByIdsRequest {
+  // List of address IDs.
   repeated int32 address_ids = 1;
 }
 
+// Request to add a new customer address.
 message AddCustomerAddressRequest {
+  // Optional customer ID to associate.
   optional int32 customer_id = 1;
+  // Optional country name.
   optional string country = 2;
+  // Optional city name.
   optional string city = 3;
+  // Optional street name.
   optional string street = 4;
+  // Optional zip code.
   optional string zip_code = 5;
+  // Optional flag to set as primary address.
   optional bool is_primary = 6;
 }
 
+// Request to bulk add multiple new customer addresses.
 message AddCustomerAddressBulkRequest {
+  // List of addresses to add.
   repeated AddCustomerAddressRequest customer_addresses = 1;
 }
 
+// Request to update an existing customer address.
 message UpdateCustomerAddressRequest {
+  // The unique ID of the address to update.
   int32 address_id = 1;
+  // Optional customer ID to associate.
   optional int32 customer_id = 2;
+  // Optional updated country name.
   optional string country = 3;
+  // Optional updated city name.
   optional string city = 4;
+  // Optional updated street name.
   optional string street = 5;
+  // Optional updated zip code.
   optional string zip_code = 6;
+  // Optional updated primary status.
   optional bool is_primary = 7;
 }
 
+// Request to bulk update multiple customer addresses.
 message UpdateCustomerAddressBulkRequest {
+  // List of customer address update payloads.
   repeated UpdateCustomerAddressRequest customer_addresses = 1;
 }
 
+// Request to delete a customer address.
 message DeleteCustomerAddressRequest {
+  // The unique ID of the address to delete.
   int32 address_id = 1;
 }
 
+// Request to bulk delete multiple customer addresses.
 message DeleteCustomerAddressBulkRequest {
+  // List of address deletion requests.
   repeated DeleteCustomerAddressRequest customer_addresses = 1;
 }
 
-
+// Request to retrieve addresses for a specific customer.
 message GetCustomerAddressByCustomerIdRequest {
+  // The unique ID of the customer.
   int32 customer_id = 1;
 }

@@ -25,5 +25,8 @@ func InitRouter(container *services.ServiceContainer) *gin.Engine {
 	// Initialize Swagger documentation router
 	handlers.InitSwaggerRouter(r)
 
+	// Initialize Simulation API router
+	handlers.InitSimulationRouter(r, container)
+
 	return r
 }

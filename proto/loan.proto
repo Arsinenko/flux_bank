@@ -4,78 +4,124 @@ package protos;
 option go_package = "orch-go/gen/protos;protos";
 option csharp_namespace = "Core";
 
-
-
 import "customer.proto";
 import "custom_types.proto";
 import "google/protobuf/empty.proto";
 
+// Service managing customer loans (mortgages, personal loans, etc.).
 service LoanService {
+  // Retrieves a paginated list of all loans.
   rpc GetAll (GetAllRequest) returns (GetAllLoansResponse);
+  // Retrieves a specific loan by its unique ID.
   rpc GetById (GetLoanByIdRequest) returns (LoanModel);
+  // Retrieves multiple loans by their unique IDs.
   rpc GetByIds (GetLoanByIdsRequest) returns (GetAllLoansResponse);
+  // Retrieves loans belonging to a specific customer.
   rpc GetByCustomer (GetLoansByCustomerRequest) returns (GetAllLoansResponse);
+  // Creates a new loan record.
   rpc Add (AddLoanRequest) returns (LoanModel);
+  // Updates details of an existing loan record.
   rpc Update (UpdateLoanRequest) returns (google.protobuf.Empty);
+  // Deletes a loan record by its unique ID.
   rpc Delete (DeleteLoanRequest) returns (google.protobuf.Empty);
+  // Bulk deletes multiple loan records.
   rpc DeleteBulk (DeleteLoanBulkRequest) returns (google.protobuf.Empty);
+  // Gets the total count of all loan records.
   rpc GetCount (google.protobuf.Empty) returns (CountResponse);
+  // Gets the count of loans filtered by status (e.g., Paid, Active, Defaulted).
   rpc GetCountByStatus (GetLoanCountByStatusRequest) returns (CountResponse);
 }
 
+// Request to count loans filtered by status.
 message GetLoanCountByStatusRequest {
+  // Status to filter by.
   string status = 1;
 }
 
+// Data model representing a customer loan account.
 message LoanModel {
+  // Unique identifier for the loan.
   int32 loan_id = 1;
+  // Optional customer ID who holds the loan.
   optional int32 customer_id = 2;
+  // Optional principal amount of the loan represented as a string.
   optional string principal = 3;
+  // Optional annual interest rate.
   optional string interest_rate = 4;
+  // Optional date when the loan was disbursed.
   optional DateOnly start_date = 5;
+  // Optional date when the loan is scheduled to be fully repaid.
   optional DateOnly end_date = 6;
+  // Optional status of the loan (e.g. "active", "closed", "defaulted").
   optional string status = 7;
 }
 
+// Response containing a list of loans.
 message GetAllLoansResponse {
+  // List of loans.
   repeated LoanModel loans = 1;
 }
 
+// Request to retrieve a loan by its unique ID.
 message GetLoanByIdRequest {
+  // The unique ID of the loan.
   int32 loan_id = 1;
 }
 
+// Request to retrieve multiple loans by their unique IDs.
 message GetLoanByIdsRequest {
+  // List of loan IDs.
   repeated int32 loan_ids = 1;
 }
 
+// Request to retrieve loans belonging to a specific customer.
 message GetLoansByCustomerRequest {
+  // Unique identifier of the customer.
   int32 customer_id = 1;
 }
 
+// Request to add a new loan.
 message AddLoanRequest {
+  // Optional customer ID to associate.
   optional int32 customer_id = 1;
+  // Optional principal amount represented as a string.
   optional string principal = 2;
+  // Optional annual interest rate.
   optional string interest_rate = 3;
+  // Optional start date.
   optional DateOnly start_date = 4;
+  // Optional end date.
   optional DateOnly end_date = 5;
+  // Optional operational status.
   optional string status = 6;
 }
 
+// Request to update an existing loan.
 message UpdateLoanRequest {
+  // The unique ID of the loan to update.
   int32 loan_id = 1;
+  // Optional customer ID to associate.
   optional int32 customer_id = 2;
+  // Optional principal amount represented as a string.
   optional string principal = 3;
+  // Optional annual interest rate.
   optional string interest_rate = 4;
+  // Optional start date.
   optional DateOnly start_date = 5;
+  // Optional end date.
   optional DateOnly end_date = 6;
+  // Optional operational status.
   optional string status = 7;
 }
 
+// Request to delete a loan.
 message DeleteLoanRequest {
+  // The unique ID of the loan to delete.
   int32 loan_id = 1;
 }
 
+// Request to bulk delete multiple loans.
 message DeleteLoanBulkRequest {
+  // List of loan deletion payloads.
   repeated DeleteLoanRequest loans = 1;
 }
