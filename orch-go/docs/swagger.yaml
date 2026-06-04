@@ -1329,7 +1329,7 @@ paths:
       summary: Get loan by ID
       tags:
       - loans
-  /loan/{loanId}/payments:
+  /loan/{id}/payments:
     get:
       consumes:
       - application/json
@@ -1338,7 +1338,7 @@ paths:
       parameters:
       - description: Loan ID
         in: path
-        name: loanId
+        name: id
         required: true
         type: integer
       produces:
@@ -1379,6 +1379,108 @@ paths:
       summary: Get loan payments by loan ID
       tags:
       - loans
+  /simulation/count:
+    post:
+      consumes:
+      - application/json
+      description: Sets the number of active agents. If running, restarts the simulation
+        with the new count.
+      parameters:
+      - description: Agent Count
+        in: query
+        name: count
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Set agent count
+      tags:
+      - simulation
+  /simulation/pause:
+    post:
+      consumes:
+      - application/json
+      description: Pauses the active simulation and saves agent state to agents.json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Pause simulation
+      tags:
+      - simulation
+  /simulation/start:
+    post:
+      consumes:
+      - application/json
+      description: Starts or resumes the simulation loop with a specified or default
+        agent count
+      parameters:
+      - description: Agent Count
+        in: query
+        name: count
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Start simulation
+      tags:
+      - simulation
+  /simulation/status:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves the running state and current agent count of the simulation
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Get simulation status
+      tags:
+      - simulation
   /transaction/:
     post:
       consumes:

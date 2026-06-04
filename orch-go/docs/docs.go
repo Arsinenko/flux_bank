@@ -1616,7 +1616,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/loan/{loanId}/payments": {
+        "/loan/{id}/payments": {
             "get": {
                 "security": [
                     {
@@ -1638,7 +1638,7 @@ const docTemplate = `{
                     {
                         "type": "integer",
                         "description": "Loan ID",
-                        "name": "loanId",
+                        "name": "id",
                         "in": "path",
                         "required": true
                     }
@@ -1687,6 +1687,157 @@ const docTemplate = `{
                             "additionalProperties": {
                                 "type": "string"
                             }
+                        }
+                    }
+                }
+            }
+        },
+        "/simulation/count": {
+            "post": {
+                "description": "Sets the number of active agents. If running, restarts the simulation with the new count.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "simulation"
+                ],
+                "summary": "Set agent count",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Agent Count",
+                        "name": "count",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/simulation/pause": {
+            "post": {
+                "description": "Pauses the active simulation and saves agent state to agents.json",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "simulation"
+                ],
+                "summary": "Pause simulation",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/simulation/start": {
+            "post": {
+                "description": "Starts or resumes the simulation loop with a specified or default agent count",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "simulation"
+                ],
+                "summary": "Start simulation",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Agent Count",
+                        "name": "count",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/simulation/status": {
+            "get": {
+                "description": "Retrieves the running state and current agent count of the simulation",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "simulation"
+                ],
+                "summary": "Get simulation status",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
                         }
                     }
                 }

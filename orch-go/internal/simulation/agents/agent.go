@@ -5,6 +5,7 @@ import (
 )
 
 type Agent struct {
+	Name       string          `json:"name"`
 	CustomerId int32           `json:"customer_id"`
 	AccountId  int32           `json:"account_id"`
 	Salary     decimal.Decimal `json:"salary"`

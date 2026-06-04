@@ -45,6 +45,7 @@ func RegisterAgent(ctx *simulation_context.SimpleSimulationContext) (agents.Agen
 	}
 	salary := decimal.NewFromInt(int64(50000 + rand.Intn(100000-50000-1)))
 	return agents.Agent{
+		Name:       c.FirstName,
 		CustomerId: createCustomer.Id,
 		AccountId:  *createAccount.Id,
 		Salary:     salary,

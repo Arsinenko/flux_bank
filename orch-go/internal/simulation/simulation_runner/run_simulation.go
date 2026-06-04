@@ -1,6 +1,7 @@
 package simulationrunner
 
 import (
+	"log"
 	"math/rand/v2"
 	"orch-go/internal/simulation/actions"
 	"orch-go/internal/simulation/simulation_context"
@@ -21,6 +22,7 @@ func RunSimulation(ctx *simulation_context.SimpleSimulationContext) {
 		for _, agent := range agents {
 			if tick%10 == 0 {
 				_ = actions.GetMoneyAction{}.Execute(ctx, agent)
+				log.Printf("пришла зарплата у агента c accountId %d", agent.AccountId)
 				continue
 			}
 
